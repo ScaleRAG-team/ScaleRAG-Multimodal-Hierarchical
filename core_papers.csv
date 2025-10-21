@@ -1,0 +1,24 @@
+arxiv_id,title,authors,year
+2001.08361,Scaling Laws for Neural Language Models,Kaplan et al.,2020
+2203.15556,Training Compute-Optimal Large Language Models (Chinchilla),Hoffmann et al.,2022
+2005.03141,Megatron-LM: Training Multi-Billion Parameter Language Models,Shoeybi et al.,2021
+2306.10209,ZeRO / ZeRO++ (DeepSpeed Optimizations),Rajbhandari et al.,2021
+2307.08691,FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning,Dao et al.,2023
+2312.00752,Mamba: Linear-Time Sequence Modeling,Gu & Dao et al.,2024
+2309.0618,vLLM: Efficient Memory Management with PagedAttention,Kwon et al.,2023
+2406.03243,Llumnix: Scaling LLM Training Systems,Anonymous (OSDI’24),2024
+2211.17192,Speculative Decoding for Fast Autoregressive Inference,Leviathan et al.,2023
+2401.10774,Medusa: Multi-Head Decoding,Chen et al.,2024
+2211.10438,SmoothQuant: Accurate Quantization,Xiao et al.,2023
+2306.00978,AWQ: Activation-Aware Weight Quantization,Lin et al.,2023
+2306.14048,H2O: Efficient LLM Inference,Pursarla et al.,2023
+2310.01801,Adaptive KV Cache Compression,Anonymous (ICLR’24),2024
+2101.03961,Switch Transformers,Fedus et al.,2021
+2106.06967,GLaM: Mixture-of-Experts Language Models,Du et al.,2022
+2408.03314,Scaling Test-Time Compute Optimally,ICLR 2025 authors,2025
+2408.00724,Inference Scaling Laws,Anonymous (ICLR’25),2025
+2303.11312,ReAct: Synergizing Reasoning and Acting in Language Models,Yao et al.,2023
+2303.11313,Reflexion: Self-Reflective Reasoning,Shinn et al.,2023
+2401.18059,RAPTOR: Reasoning with Retrieved Thoughts,Anonymous (ICLR’24),2024
+2502.04524,Analog AI Accelerators: Compute Beyond GPUs,Tsai et al.,2025
+2312.11514,LLM in a Flash,Anonymous (ACL’24),2024
