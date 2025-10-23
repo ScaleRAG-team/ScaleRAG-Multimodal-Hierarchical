@@ -1,0 +1,109 @@
+"Table 7. Comparison with state-of-the-art image captioning methods on NoCaps and COCO Caption. All methods optimize the cross-
+entropy loss during ﬁnetuning. C: CIDEr, S: SPICE, B@4: BLEU@4. BLIPCapFilt-L is pre-trained on a dataset bootstrapped by captioner
+and ﬁlter with ViT-L. VinVL† and LEMON† require an object detector pre-trained on 2.5M images with human-annotated bounding
+boxes and high resolution (800×1333) input images. SimVLMhuge uses 13× more training data and a larger vision backbone than ViT-L.
+(a) VQA
+Image 
+Encoder
+Image
+(b) NLVR!
+N×
+Image 
+Encoder
+Image #1","","Question 
+Encoder
+“[Encode] + Q ”
+true/false
+…
+Merge Layer","","","answer
+Pre-train
+Method
+#Images
+Answer 
+LXMERT
+180K
+Decoder
+UNITER
+4M
+VL-T5/BART
+180K
+“[Decode]”  
+OSCAR
+4M
+SOHO
+219K
+VILLA
+4M
+UNIMO
+5.6M
+ALBEF
+14M
+1.8B
+SimVLMbase†","Image 
+BLIP
+14M
+Encoder
+BLIP
+129M","VQA
+NLVR2
+test-dev
+test-std
+dev
+test-P
+72.42
+72.54
+74.90
+74.50
+72.70
+72.91
+77.18
+77.85
+-
+71.3
+-
+73.6
+73.16
+73.44
+78.07
+78.36
+73.25
+73.47
+76.37
+77.32
+73.59
+73.67
+78.39
+79.30
+75.06
+75.27
+-
+-
+75.84
+76.04
+82.55
+83.14
+77.87
+78.14
+81.72
+81.77
+82.67
+77.54
+77.62
+82.30
+83.08
+78.24
+78.17
+82.48
+78.25
+78.32
+82.15
+82.24"
+"","","","","","","",""
+"","","","","","","",""
+"","","Cross 
+Attention","","Cross 
+Attention","","",""
+"","","…","","","129M
+BLIPCapFilt-L
+Image #2","",""
+"","","","","","","",""

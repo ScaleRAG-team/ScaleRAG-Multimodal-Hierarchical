@@ -1,0 +1,112 @@
+"NS
+Llama-2 
+OPT 
+OPT 
+Llama-2 
+Llama-2 
+Llama-2 
+StarCoder 
+StableCode 
+Mistral 
+LLaMA 
+Falcon"
+"(7B)
+(6.7B)
+(1.3B)
+(7B)
+(13B)
+(70B)
+(15.5B)
+(3B)
+(7B)
+(30B)
+(7B)"
+"(a) Latency comparison on Jetson Orin (64G) mobile GPU
+(b) Latency on Raspberry Pi 4"
+"Figure 10. TinyChat offers 1.2-3.0× speedup over existing systems when running 4-bit quantized Llama models on NVIDIA Jetson Orin."
+"It also supports a diverse range of general-purpose and coding-specific LLMs with at least 2.6× speedup over AutoGPTQ, which also"
+"supports all these workloads. Moreover, TinyChat seamlessly operates on Raspberry Pi and enables the deployment of LLMs with up to 7"
+"billion parameters on extremely resource-constrained IoT devices."
+"We perform batch size = 1 inference for all LLMs using a
+6
+CONCLUSION"
+"fixed prompt length of 4 tokens. We generate 200 tokens for"
+"In this work, we propose Activation-aware Weight Quan-
+each inference run and calculate the median latency as the"
+"tization (AWQ), a simple yet effective method for low-bit
+final result."
+"weight-only LLM compression. Based on the observation"
+"that weights are not equally important in LLMs, AWQ per-"
+"Results.
+As
+in Figure 9(a), TinyChat brings 2.7-3.9×"
+"forms per-channel scaling to reduce the quantization loss"
+"speedup to three families of LLMs (Llama-2, MPT and"
+"of salient weights. AWQ does not over-fit
+the calibration"
+"Falcon) on 4090 compared with the Huggingface FP16 im-"
+"set and preserves the generalist abilities of LLMs in various"
+"plementation. For Llama-2-7B, we improve the inference"
+"domains and modalities.
+It outperforms existing work on"
+"speed from 52 tokens/s to 62 tokens/s through FP16 kernel"
+"language modeling and is applicable to instruction-tuned"
+"fusion. On top of the stronger FP16 baseline, we further"
+"LMs and multi-modal LMs. Our TinyChat system further"
+"harvest 3.1× additional speedup from the fast quantized lin-"
+"translates the theoretical memory savings achieved by AWQ"
+"ear kernels. For Falcon-7B, the official implementation did"
+"into 3.2-3.3× measured speedups over the FP16 implemen-"
+"not support KV cache correctly during the inference time,"
+"tations from Huggingface on desktop and mobile GPUs,"
+"and thus it is significantly slower than other models. In this"
+"democratizing LLM deployment on the edge."
+"case, our FP16 optimizations bring about a larger speedup"
+"of 1.6×. On the laptop 4070 GPU with only 8GB memory,"
+"ACKNOWLEDGEMENTS"
+"we are still able to run Llama-2-13B models at 33 tokens/s,"
+"while the FP16 implementation cannot fit 7B models. We"
+"We thank MIT AI Hardware Program, National Science"
+"also demonstrate visual-language model (Lin et al., 2024)"
+"Foundation, MIT-IBM Watson AI Lab, Amazon and MIT"
+"acceleration results in Table 10. TinyChat brings about 3×"
+"Science Hub, Microsoft Turing Academic Program, and"
+"speedup to both VILA-7B and VILA-13B on NVIDIA Jet-"
+"Samsung for supporting this research."
+"son Orin. Notably, we implement the forward pass for all"
+"AWQ models using native PyTorch APIs, and this code is"
+"REFERENCES"
+"reused across various GPU architectures. Hence, TinyChat"
+"offers exceptional extensibility.
+Alayrac, J.-B., Donahue, J., Luc, P., Miech, A., Barr,
+I.,"
+"Hasson, Y., Lenc, K., Mensch, A., Millican, K., Reynolds,"
+"M., et al. Flamingo: a visual language model for few-shot"
+"Comparisons against other systems.
+We compare Tiny-"
+"Advances in Neural
+Information Processing
+learning."
+"Chat against existing edge LLM inference systems Auto-"
+"Systems, 35:23716–23736, 2022."
+"GPTQ,
+llama.cpp and exllama in Figure 10. Our system"
+"achieves up to 1.7× speedup over llama.cpp on Orin. Fur-"
+"Austin, J., Odena, A., Nye, M., Bosma, M., Michalewski,"
+"thermore, llama.cpp and exllama exhibit limited adaptability,"
+"H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., and"
+"primarily tailored for LLaMA and Llama-2 models. In con-"
+"Sutton, C. Program synthesis with large language models,"
+"trast, our TinyChat supports a wide range of applications,"
+"2021."
+"including StarCoder (Li et al., 2023c), StableCode (GPT-"
+"NeoX) (Black et al., 2022), Mistral (Jiang et al., 2023), and
+Awadalla, A., Gao, I., Gardner, J., Hessel, J., Hanafy, Y.,"
+"Falcon (Penedo et al., 2023) while consistently delivering
+Zhu, W., Marathe, K., Bitton, Y., Gadre, S., Jitsev, J.,"
+"significant speedup over AutoGPTQ. TinyChat even democ-
+Kornblith, S., Koh, P. W., Ilharco, G., Wortsman, M., and"
+"ratizes LLM deployment on extremely resource-constrained
+Schmidt, L. Openflamingo, March 2023. URL https:"
+"//doi.org/10.5281/zenodo.7733589.
+Raspberry Pi 4B, achieving 0.7 tokens/s for 7B models."

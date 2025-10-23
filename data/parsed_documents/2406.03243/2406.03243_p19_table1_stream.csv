@@ -1,0 +1,25 @@
+"","• The artifact
+is directly based on the vLLM code base,"
+"A
+Artifact Appendix",""
+"","whereas the official release is a standalone Python library,"
+"","making it more extensible and non-intrusive to backend"
+"Abstract",""
+"","inference engines."
+"This artifact includes the source code and scripts to run the",""
+"","• The artifact is not fault-tolerant, whereas the official release"
+"experiments and reproduce the evaluation results of this paper.",""
+"","provides fault tolerance for each component."
+"","• The official release is still being actively developed, and"
+"Scope","has supported or will support a series of new features, such"
+"","as scalable API servicing via distributed request frontends,"
+"The artifact can be used to reproduce the results of the follow-",""
+"","support
+for newer versions of vLLM and more models,"
+"ing experiments.",""
+"","further improvements of the scheduling policies, etc."
+"• Migration efficiency: Figure 10.","The artifact
+is sufficient
+to reproduce the experiment re-"
+"","sults in this paper. However, if you want to use Llumnix in"
+"• Serving performance: Figure 11.",""

@@ -1,0 +1,6 @@
+"maximum learning rate of 1.5 × 10−4 that decays by 10×. From Kaplan et al. (2020), we ﬁnd that"
+"the optimal model size should be 4.68 billion parameters. From our approach 1, we estimate a 2.86"
+"billion parameter model should be optimal. We train a 4.74 billion parameter and a 2.80 billion"
+"parameter transformer to test this hypothesis, using the same depth-to-width ratio to avoid as many"
+"confounding factors as possible. We ﬁnd that our predicted model outperforms the model predicted"
+"by Kaplan et al. (2020) as shown in Figure A4."

@@ -1,0 +1,117 @@
+"Zifan Wang* 1 Yilin Yang* 1 Ankit Shrivastava* 1 Varun Rawal* 1 Zihao Ding* 1",""
+"Abstract","distribution of data with which the model
+is trained (e.g."
+"","Koh & Liang (2017), Yeh et al. (2018), Leino et al. (2018));"
+"Current explanation techniques towards a trans-",""
+"","Among all behaviors of deep models, the robustness draws"
+"parent Convolutional Neural Network
+(CNN)",""
+"","increasing attentions due to the security and fairness con-"
+"mainly focuses on building connections between",""
+"","cerns. Current discussion of models’ robustness focuses on"
+"the
+human-understandable
+input
+features with",""
+"","the capacity of defending adversarial attacks which aims to"
+"models’ prediction,
+overlooking an alternative",""
+"","fool
+the deep models with similar input but
+the change is"
+"representation of the input, the frequency compo-",""
+"","in-perceptional to humans(Szegedy et al., 2013). Different"
+"nents decomposition. In this work, we present an",""
+"","adversarial attacks,
+though varying in the adversarial
+loss"
+"analysis of the connection between the distribu-",""
+"","and updating rules, have been proved to successfully fool"
+"tion of frequency components in the input dataset",""
+"","the most of deep models.
+(Szegedy et al. (2013), Goodfel-"
+"and the reasoning process the model learns from",""
+"","low et al. (2014), Kurakin et al. (2016), Carlini & Wagner"
+"the data. We further provide quantiﬁcation anal-",""
+"","(2017), Papernot et al. (2016))."
+"ysis about the contribution of different frequency",""
+"components toward the model’s prediction. We","Besides the work that aims to generate more robust model"
+"show that
+the vulnerability of the model against","against existing attacks (Madry et al. (2017), Shafahi et al."
+"tiny distortions is a result of
+the model
+is rely-","(2019))
+or
+a
+certiﬁable
+robust mechanism(Cohen
+et
+al."
+"ing on the high-frequency features, the target fea-","(2019)),
+the
+community starts
+to explain why the deep"
+"tures of the adversarial (black and white-box) at-","model
+tends to be more vulnerable and tries to understand"
+"tackers, to make the prediction. We further show","what
+is behind the adversarial attacks.(Madry et al., 2017)"
+"that
+if
+the model develops
+stronger association","concludes that a robust model
+tends to be more complex"
+"between the low-frequency component with true","than the
+standard trained model
+and Ilyas
+et
+al.
+(2019)"
+"labels, the model is more robust, which is the ex-","shows that adversarial examples can be treated as an in-"
+"planation of why adversarially trained models are","put full of non-robust features, which are poorly correlated"
+"more robust against tiny distortions.","to the labels. Models can still have good performance and"
+"","generalizations by only learning the non-robust features but"
+"","will become vulnerable against various attacks."
+"1. Introduction",""
+"","However, the community may overlook another facet of in-"
+"","put data – the distribution of frequency components. Treat-"
+"The gap between human’s understanding and the logic be-",""
+"","ing inputs as signals in Rn space, we can decompose them"
+"hind Deep Neural Networks (DNNs) are receiving more at-",""
+"","into basis
+signals of diverse frequencies. While humans"
+"tention as DNNs show competitive inference power in areas",""
+"","may only respond to a speciﬁc range of frequencies, DNNs"
+"where humans used to be indispensable, e.g. medical diag-",""
+"","are capable of using information from all frequencies.
+In"
+"nosis, auto-piloting, and credit systems. Entrusting users",""
+"","this paper, we build the bridge between the model’s robust-"
+"by explaining models’ behavior becomes as necessary as",""
+"","ness with the distribution of frequency components in the"
+"promoting the performance. Explanations of deep neural",""
+"","input set. Our major contributions are:"
+"networks
+tend to provide human-understandable descrip-",""
+"tions about models’ behaviors.
+Recent work of explana-",""
+"tions focuses on associating importance of
+input
+features","• We
+prove
+that when
+the
+distortion
+is measured"
+"either
+to the model’s output
+(e.g. Karpathy et al.
+(2015),","with (cid:96)1 distance, perturbing high-frequency compo-"
+"Sundararajan et al. (2017), Selvaraju et al. (2019)) or to the","nents causes smaller change compared with the low-"
+"","frequency components."
+"*Equal contribution
+1Carnegie Mellon University, Pittsburgh,",""
+"PA 15213, USA.",""
+"","• We show that,
+for many existing adversarial attacks,"
+"Work In Progress","there are more distortions in the high-frequency com-"
+"{zifanw, yiliny2, ashriva2, vrawal, zihaod}@andrew.cmu.edu","ponents."

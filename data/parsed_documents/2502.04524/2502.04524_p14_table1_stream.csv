@@ -1,0 +1,64 @@
+"weight changes. Analog CMO/HfOx ReRAM arrays not only allow for bidirectional"
+"conductance updates, but additionally enable parallel weight updating by following"
+"a stochastic open-loop pulse scheme [20, 21]. Remarkably, the parallel and open-loop"
+"update scheme significantly accelerates
+training compared to serial and closed-loop"
+"methods, providing efficiency gains of several orders of magnitude and advantages in"
+"system design complexity [39].
+In this
+section,
+the bidirectional open-loop response"
+"of
+required during Tiki-Taka training,
+is character-
+the CMO/HfOx ReRAM array,"
+"ized. Specifically, the analog conductance potentiation, depression and symmetry point"
+"are measured. Subsequently,
+the devices’
+responses
+are
+statistically reproduced in"
+"the open-source
+’aihwkit’
+simulation platform developed by IBM [38]. Finally,
+this"
+"hardware-aware device model, which includes device variabilities,
+is used to simulate"
+"the training of
+representative neural networks using the AGAD learning algorithm."
+"This novel analog training algorithm relaxes the symmetry requirements of previous"
+"Tiki-Taka versions by incorporating additional digital computations on-the-fly [23]."
+"2.3.1 Open-loop ReRAM array characterization"
+"Fig. 5a shows the experimental conductance change of a representative CMO/HfOx"
+"ReRAM device within the array upon applying identical-voltage pulse
+trains with"
+"alternating polarity in batches of 400. Subsequently, a sequence of 500 pulses with"
+"alternating polarity, consisting of 1-pulse-up followed by 1-pulse-down,
+is applied to"
+"experimentally determine
+the
+symmetry point. The
+same
+open-loop programming"
+"scheme, with Vset = 1.35 V (VG = 1.4 V) and Vreset = −1.3 V (VG = 3.3 V), each last-"
+"ing 2.5 µs, is applied to all devices in the 8x4 array. The set/reset pulse width is limited"
+"by the
+experimental
+setup, although previous work has demonstrated CMO/HfOx"
+"ReRAM switching with pulses as
+short as 60 ns
+[25]. Due
+to inter-device
+(device-"
+"to-device) and intra-device (cycle-to-cycle) variabilities, the experimental response of"
+"each device to a given number of
+identical pulses exhibits
+some level of variability"
+"(see Fig. S7 in the Supplementary Information). Therefore, for each pulse, a Gaussian"
+"distribution of the measured conductance states among the devices is extracted. For"
+"statistical relevance, Fig. 5b shows the experimental standard deviation of the array"
+"response to the open-loop scheme as a function of the pulse number, represented in"
+"grey. To realistically assess the accuracy of analog training with CMO/HfOx ReRAM"
+"devices, the key figures of merit of the device training characterization—such as the"
+"number of states, the symmetry point skew, and the noise-to-signal ratio (NSR)—are"
+"first extracted from experimental data, as defined below."

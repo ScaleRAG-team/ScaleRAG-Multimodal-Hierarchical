@@ -1,0 +1,67 @@
+"[18] HuggingFace. Hugging face accelerate. https://huggingface.co/docs/accelerate/"
+"index."
+"[19] Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan Li, Max Ryabinin, Daniel Y Fu,"
+"Zhiqiang Xie, Beidi Chen, Clark Barrett, Joseph E Gonzalez, et al. High-throughput generative"
+"inference of large language models with a single gpu. arXiv preprint arXiv:2303.06865, 2023."
+"[20] Elias Frantar and Dan Alistarh. Massive language models can be accurately pruned in one-shot."
+"arXiv preprint arXiv:2301.00774, 2023."
+"[21] Mingjie Sun, Zhuang Liu, Anna Bair, and J Zico Kolter. A simple and effective pruning"
+"approach for large language models. arXiv preprint arXiv:2306.11695, 2023."
+"[22] Lu Yin, You Wu, Zhenyu Zhang, Cheng-Yu Hsieh, Yaqing Wang, Yiling Jia, Mykola Pech-"
+"enizkiy, Yi Liang, Zhangyang Wang, and Shiwei Liu. Outlier weighed layerwise sparsity (owl):"
+"A missing secret sauce for pruning llms to high sparsity. arXiv preprint arXiv:2310.05175,"
+"2023."
+"[23] Elias Frantar, Saleh Ashkboos, Torsten Hoefler, and Dan Alistarh. Gptq: Accurate post-training"
+"quantization for generative pre-trained transformers. arXiv preprint arXiv:2210.17323, 2022."
+"[24] Guangxuan Xiao, Ji Lin, Mickael Seznec, Julien Demouth, and Song Han. Smoothquant:"
+"Accurate and efficient post-training quantization for large language models. arXiv preprint"
+"arXiv:2211.10438, 2022."
+"[25] Zhewei Yao, Reza Yazdani Aminabadi, Minjia Zhang, Xiaoxia Wu, Conglong Li, and Yuxiong"
+"He. Zeroquant: Efficient and affordable post-training quantization for large-scale transformers."
+"arXiv preprint arXiv:2206.01861, 2022."
+"[26] Tim Dettmers, Mike Lewis, Younes Belkada, and Luke Zettlemoyer. Gpt3.
+int8 (): 8-bit"
+"matrix multiplication for transformers at scale.
+In Advances in Neural Information Processing"
+"Systems, 2022."
+"[27] Tim Dettmers, Mike Lewis, Younes Belkada, and Luke Zettlemoyer. Llm. int8 (): 8-bit matrix"
+"multiplication for transformers at scale. arXiv preprint arXiv:2208.07339, 2022."
+"[28]
+Ji Lin,
+Jiaming Tang, Haotian Tang, Shang Yang, Xingyu Dang, and Song Han.
+Awq:"
+"Activation-aware weight quantization for llm compression and acceleration. arXiv preprint"
+"arXiv:2306.00978, 2023."
+"[29]
+Joshua Ainslie, Tao Lei, Michiel de Jong, Santiago Ontañón, Siddhartha Brahma, Yury"
+"Zemlyanskiy, David Uthus, Mandy Guo, James Lee-Thorp, Yi Tay, et al.
+Colt5: Faster"
+"long-range transformers with conditional computation.
+arXiv preprint arXiv:2303.09752,"
+"2023."
+"[30] Sotiris Anagnostidis, Dario Pavllo, Luca Biggio, Lorenzo Noci, Aurelien Lucchi, and Thomas"
+"Hoffmann. Dynamic context pruning for efficient and interpretable autoregressive transformers."
+"arXiv preprint arXiv:2305.15805, 2023."
+"[31] Yi Tay, Mostafa Dehghani, Dara Bahri, and Donald Metzler. Efficient transformers: A survey."
+"arXiv preprint arXiv:2009.06732, 2020."
+"[32] Hanrui Wang, Zhekai Zhang, and Song Han. Spatten: Efficient sparse attention architecture"
+"with cascade token and head pruning.
+In 2021 IEEE International Symposium on High-"
+"Performance Computer Architecture (HPCA), pages 97–110. IEEE, 2021."
+"[33] Elizabeth J O’neil, Patrick E O’neil, and Gerhard Weikum.
+The lru-k page replacement"
+"algorithm for database disk buffering. Acm Sigmod Record, 22(2):297–306, 1993."
+"[34] Donghee Lee, Jongmoo Choi, Jong-Hun Kim, Sam H Noh, Sang Lyul Min, Yookun Cho, and"
+"Chong Sang Kim. Lrfu: A spectrum of policies that subsumes the least recently used and least"
+"frequently used policies.
+IEEE transactions on Computers, 50(12):1352–1361, 2001."
+"[35] Valerii Likhosherstov, Krzysztof Choromanski, and Adrian Weller. On the expressive power"
+"of self-attention matrices. arXiv preprint arXiv:2106.03764, 2021."
+"[36] Benjamin L Edelman, Surbhi Goel, Sham Kakade, and Cyril Zhang.
+Inductive biases and"
+"variable creation in self-attention mechanisms.
+In International Conference on Machine"
+"Learning, pages 5793–5831. PMLR, 2022."
+"IBM
+[37] Laszlo A. Belady. A study of replacement algorithms for a virtual-storage computer."
+"Systems journal, 5(2):78–101, 1966."

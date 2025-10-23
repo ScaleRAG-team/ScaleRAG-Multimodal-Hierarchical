@@ -1,0 +1,28 @@
+"D
+ADDITIONAL EXPERIMENTAL RESULTS"
+"D.1
+MAJORITY VOTING EXPERIMENT RESULTS"
+"In this section, we additionally include experimental results on the majority voting method, along"
+"with its comparison with weighted majority voting (Fig. 9, 10 ,11, 12). The experiments show that"
+"although the gap between majority voting and weighted majority voting on sampling is huge. This"
+"gap becomes much smaller if we apply REBASE. This phenomenon can be caused by the selection"
+"ability of
+tree search like REBASE. Once REBASE already samples solutions with high rewards,"
+"conducing weighted majority voting gains less since the sampled solutions may all have relatively"
+"high and stable rewards compared with those of sampling."
+"D.2
+ADDITIONAL EXPERIMENTS ON LLAMA3 MODELS"
+"We conduct additional experiments with Llama3-8B-Instruct (Dubey et al., 2024) model on MATH"
+"and GSM8K datasets, as shown in Fig. 13. Results for code generation task MBPP are presented"
+"(Austin et al., 2021) in Tab. 3. These experiments demonstrate that our conclusions generalize to"
+"the Llama3 architecture and coding tasks, confirming that
+increased computational effort
+improves"
+"performance until saturation is reached, and REBASE reaches the optimal performance-compute"
+"trade-off."
+"In mathematical reasoning tasks, REBASE consistently outperforms the sampling approach across"
+"different answer selection strategies, including best-of-n, majority voting, and weighted voting. The"
+"highest performance on each dataset is achieved using REBASE. Specifically, on GSM8K, REBASE"
+"combined with weighted majority voting using 128 samples achieves an accuracy of 90.2%, sur-"
+"passing the best accuracy of 89.7% obtained by the sampling method with 256 samples using the"
+"best-of-n strategy. Similarly, on MATH, REBASE with weighted majority voting using 128 samples"

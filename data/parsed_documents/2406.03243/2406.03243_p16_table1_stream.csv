@@ -1,0 +1,107 @@
+"[21] Tri Dao.
+Flashattention-2:
+Faster
+attention with","[30] Daya Guo, Qihao Zhu, Dejian Yang, Zhenda Xie, Kai"
+"better
+parallelism and work
+partitioning.
+CoRR,","Dong, Wentao Zhang, Guanting Chen, Xiao Bi, Y. Wu,"
+"abs/2307.08691, 2023.","Y
+.K. Li, Fuli Luo, Yingfei Xiong, and Wenfeng Liang."
+"","Deepseek-coder: When the large language model meets"
+"[22] Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra,",""
+"","programming – the rise of code intelligence, 2024."
+"and Christopher Ré. Flashattention: Fast and memory-",""
+"efficient exact attention with io-awareness, 2022.","[31] Ori Hadary, Luke Marshall, Ishai Menache, Abhisek Pan,"
+"","Esaias E Greeff, David Dion, Star Dorminey, Shailesh"
+"[23] Christina Delimitrou and Christos Kozyrakis. Paragon:",""
+"","Joshi, Yang Chen, Mark Russinovich, et al.
+Protean:"
+"QoS-aware scheduling for heterogeneous datacenters. In",""
+"","VM allocation service at scale.
+In 14th USENIX Sympo-"
+"Proceedings of the Eighteenth International Conference",""
+"","sium on Operating Systems Design and Implementation"
+"on Architectural Support for Programming Languages",""
+"","(OSDI 20), pages 845–861, 2020."
+"and Operating Systems, ASPLOS ’13, page 77–88, New",""
+"York, NY, USA, 2013. Association for Computing Ma-","Jaeung Han, Seungheun Jeon, Young-ri Choi, and Jae-
+[32]"
+"chinery.","hyuk Huh.
+Interference management
+for distributed"
+"","parallel applications in consolidated clusters.
+In Pro-"
+"[24] Christina Delimitrou and Christos Kozyrakis. Quasar:",""
+"","ceedings of the Twenty-First International Conference"
+"resource-efficient and qos-aware cluster management.",""
+"","on Architectural Support for Programming Languages"
+"the 19th International Conference
+In Proceedings of",""
+"","and Operating Systems, ASPLOS ’16, page 443–456,"
+"on Architectural Support for Programming Languages",""
+"","New York, NY, USA, 2016. Association for Computing"
+"and Operating Systems, ASPLOS ’14, page 127–144,",""
+"","Machinery."
+"New York, NY, USA, 2014. Association for Computing",""
+"Machinery.",""
+"","[33] Mingcong Han, Hanze Zhang, Rong Chen, and Haibo"
+"","Chen. Microsecond-scale preemption for concurrent"
+"[25]
+Jiarui Fang, Yang Yu, Chengduo Zhao, and Jie Zhou.",""
+"","GPU-accelerated DNN inferences.
+In 16th USENIX"
+"Turbotransformers: An efficient gpu serving system for",""
+"","Symposium on Operating Systems Design and Imple-"
+"transformer models.
+In Proceedings of the 26th ACM",""
+"","mentation (OSDI 22), pages 539–558, Carlsbad, CA,"
+"SIGPLAN Symposium on Principles and Practice of",""
+"","July 2022. USENIX Association."
+"Parallel Programming, PPoPP ’21, page 389–402, New",""
+"York, NY, USA, 2021. Association for Computing Ma-",""
+"","[34] Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying"
+"chinery.",""
+"","Sheng, Lianmin Zheng, Cody Hao Yu, Joseph Gonzalez,"
+"","Hao Zhang, and Ion Stoica.
+Efficient memory man-"
+"[26] Elias Frantar, Saleh Ashkboos, Torsten Hoefler, and Dan",""
+"","agement for large language model serving with page-"
+"Alistarh. OPTQ: Accurate quantization for generative",""
+"","dattention.
+In Proceedings of the 29th Symposium on"
+"pre-trained transformers.
+In The Eleventh International",""
+"","Operating Systems Principles, SOSP ’23, page 611–626,"
+"Conference on Learning Representations, 2023.",""
+"","New York, NY, USA, 2023. Association for Computing"
+"[27] Panagiotis Garefalakis, Konstantinos Karanasos, Peter","Machinery."
+"Pietzuch, Arun Suresh, and Sriram Rao. Medea: schedul-",""
+"","[35] Zhuohan Li, Lianmin Zheng, Yinmin Zhong, Vincent"
+"ing of long running applications in shared production",""
+"","Liu, Ying Sheng, Xin Jin, Yanping Huang, Zhifeng Chen,"
+"clusters.
+In Proceedings of the thirteenth EuroSys con-",""
+"","Hao Zhang, Joseph E. Gonzalez, and Ion Stoica. Al-"
+"ference, pages 1–13, 2018.",""
+"","paServe: Statistical multiplexing with model parallelism"
+"[28] Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao,","for deep learning serving.
+In 17th USENIX Sympo-"
+"Antoine Kaufmann, Ymir Vigfusson, and
+Jonathan","sium on Operating Systems Design and Implementa-"
+"Mace. Serving {DNNs} like clockwork: Performance","tion (OSDI 23), pages 663–679, Boston, MA, July 2023."
+"predictability from the bottom up.
+In 14th USENIX","USENIX Association."
+"Symposium on Operating Systems Design and Imple-",""
+"","[36] Percy Liang, Rishi Bommasani, Tony Lee, Dimitris"
+"mentation (OSDI 20), pages 443–462, 2020.",""
+"","Tsipras, Dilara Soylu, Michihiro Yasunaga, Yian Zhang,"
+"[29] Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao,","Deepak Narayanan, Yuhuai Wu, Ananya Kumar, Ben-"
+"Antoine Kaufmann, Ymir Vigfusson, and
+Jonathan","jamin Newman, Binhang Yuan, Bobby Yan, Ce Zhang,"
+"Mace. Serving dnns like clockwork: Performance pre-","Christian Cosgrove, Christopher D. Manning, Christo-"
+"dictability from the bottom up.
+In 14th USENIX Sym-","pher Ré, Diana Acosta-Navas, Drew A. Hudson, Eric"
+"posium on Operating Systems Design and Implementa-","Zelikman, Esin Durmus, Faisal Ladhak, Frieda Rong,"
+"tion (OSDI 20), pages 443–462. USENIX Association,","Hongyu Ren, Huaxiu Yao, Jue Wang, Keshav San-"
+"November 2020.","thanam, Laurel J. Orr, Lucia Zheng, Mert Yüksekgönül,"

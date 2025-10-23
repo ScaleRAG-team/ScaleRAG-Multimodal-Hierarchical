@@ -1,0 +1,38 @@
+"2.5"
+"105
+107
+104
+106
+108
+109
+5.0
+4.5
+4.0
+3.5
+3.0
+2.5"
+"Test Loss on Training Distribution
+Parameters (non-embedding)"
+"Figure 8
+Left: Generalization performance to other data distributions improves smoothly with model size,"
+"with only a small and very slowly growing offset from the WebText2 training distribution. Right: Gener-"
+"alization performance depends only on training distribution performance, and not on the phase of training."
+"We compare generalization of converged models (points) to that of a single large model (dashed curves) as it"
+"trains."
+"C"
+"with the best performance on step S =
+in these results the batch size B remains ﬁxed for"
+"6BS . Note that"
+"all models, which means that
+these empirical results are not
+truly optimal. We will account for this in later"
+"sections using an adjusted Cmin to produce cleaner trends."
+"The result appears as the heavy black line on the left-hand plot in Figure 1. It can be ﬁt with"
+""
+"(cid:18) Cc"
+"L(C) ≈
+(3.3)"
+"C"
+"The ﬁgure also includes images of individual learning curves to clarify when individual models are optimal."
+"We will study the optimal allocation of compute more closely later on. The data strongly suggests that sample"
+"efﬁciency improves with model size, and we also illustrate this directly in Figure 19 in the appendix."

@@ -1,0 +1,12 @@
+"Figure 2: Illustration of the tree traversal and collapsed tree retrieval mechanisms. Tree traver-",""
+"sal starts at
+the root
+level of the tree and retrieves the top-k (here,","top-1) node(s) based on cosine"
+"similarity to the query vector. At each level,","it retrieves the top-k node(s) from the child nodes of"
+"the previous layer’s top-k. Collapsed tree collapses the tree into a single layer and retrieves nodes",""
+"until a threshold number of tokens is reached, based on cosine similarity to the query vector. The",""
+"nodes on which cosine similarity search is performed are highlighted in both illustrations.",""
+"","3. Proceed to the child nodes of the elements in set S1. Compute the cosine similarity between"
+"the query vector and the vector embeddings of these child nodes.",""
+"","4. Select the top k child nodes with the highest cosine similarity scores to the query, forming"
+"the set S2.",""

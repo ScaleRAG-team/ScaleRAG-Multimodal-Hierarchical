@@ -1,0 +1,7 @@
+"","Our framework does not"
+"","capture early training dynamics"
+"Figure 12","Left: Given a ﬁxed compute budget, a particular model size is optimal, though somewhat larger"
+"or smaller models can be trained with minimal additional compute. Right: Models larger than the compute-",""
+"efﬁcient size require fewer steps to train, allowing for potentially faster training if sufﬁcient additional paral-",""
+"lelism is possible. Note that this equation should not be trusted for very large models, as it is only valid in the",""
+"power-law region of the learning curve, after initial transient effects.",""

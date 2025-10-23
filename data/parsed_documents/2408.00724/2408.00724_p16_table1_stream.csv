@@ -1,0 +1,93 @@
+"Published as a conference paper at ICLR 2025"
+"A
+OMITTED PROOFS"
+"A.1
+PROOF OF THEOREM 1"
+"Proof. Recall that we assume the answer must be shorter than L tokens. Let A = {v |
+|v| ≤ L} be"
+"the set of all possible answers. Let ˜π(y | x) be the probability of the language model π outputting"
+"the answer y to the question x after marginalizing over the “reasoning paths”, i.e.,"
+"(cid:88)"
+"π(y | x) =
+π(rey|x)."
+"r∈V ∗"
+"π(y|x), y′ = arg max
+π(y|x), and denote
+Given an input x, Assume that y∗ = arg max"
+"y∈A
+y∈A\{y∗}"
+"δ = ˜π(y∗|x) − ˜π(y′|x)."
+"For any y, denote by fn(y) the number of times that the model answers y in the first n samples. Let"
+"En be the event
+that majority voting with n samples does not output y∗. We note that En happens"
+"only if there exists y′′ such that fn(y′′) ≥ fn(y∗). Therefore, by union bound,"
+"P(En) ≤P(∃ y′′ ∈ A\{y∗}, fn(y′′) ≥ fn(y∗))"
+"(cid:88)"
+"≤
+P(fn(y′′) ≥ fn(y∗))"
+"y′′∈A\{y∗}"
+"≤|A|P(fn(y′) ≥ fn(y∗))"
+"random variables, which take value
+Note that fn(y∗) − fn(y′) can be viewed as a sum of n i.i.d."
+"1 with probability ˜π(y∗|x), −1 with probability ˜π(y′|x), and 0 otherwise. Thus,
+their expectations"
+"are all δ = ˜π(y∗|x) − ˜π(y′|x). By Hoeffding’s inequality, we have"
+"(cid:18)
+(cid:19)"
+"nδ2"
+"−
+.
+P(fn(y′) ≥ fn(y∗)) ≤ exp"
+"2"
+"Thus,"
+"+∞"
+"(cid:18)
+(cid:19)"
+"nδ2"
+"(cid:88) n
+−
+⇒
+P(En) ≤ |A| exp
+P(En) < +∞."
+"2"
+"=1"
+"By Borel–Cantelli lemma, we have"
+"(cid:18)
+(cid:19)"
+"P
+lim sup"
+"= 0,
+En"
+"n→+∞"
+"which implies the following is true almost surely:"
+"∃ N ∈ N∗,
+such that for any n ≥ N, y∗ = arg max
+fn(y)"
+"y∈A"
+"Hence"
+"lim
+accMV
+({(x, y)}; π) = I [y = y∗]
+(almost surely).
+n"
+"n→+∞"
+"Recall the definition of y∗,
+the above shows the theorem is true for a dataset with a single example"
+"{(x, y)}.
+For general datasets D with m examples, one can apply the above argument
+to each"
+"examples and combine the results to conclude the proof of the almost-sure convergence."
+"Next, we prove the asymptotic result on E (cid:2)accMV
+({D}; π)(cid:3). We slightly abuse notation for sim-
+n"
+"arg max
+plicity as follows: We let y∗(xi) = arg max
+π(y|xi), y′ =
+π(y|xi), and let"
+"y∈A
+y∈A\{y∗(xi)}"
+"min
+δmin =
+π(y∗(xi)|xi) − ˜π(y′(xi)|xi)."
+"(xi,yi)∈D"
+"16"

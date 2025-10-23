@@ -1,0 +1,119 @@
+"5"
+"The general solution takes the following form:"
+"(cid:15) + i ∞"
+"(cid:90)"
+"dγ"
+"=
+(21)
+N (r, y, y0)
+eχ(γ) y + γ ξ nin (γ, y0)"
+"2 π i"
+"(cid:15) − i ∞"
+"where ξ = ln (cid:0) 1
+(cid:1) and χ(γ) is the BFKL kernel:"
+"r2"
+"1γ
+for γ → 0 ← double log approximation(DLA);"
+" 
+χ (γ) = 2ψ (1) − ψ (γ) − ψ (1 − γ) =
+(22)"
+""
+"4 ln 2
++ 14ζ (3)
+for γ → 1
+(cid:0)γ − 1"
+"2
+2 ← diﬀusion approximation(DA);"
+"(cid:124) (cid:123)(cid:122) (cid:125)"
+"(cid:124)
+(cid:123)(cid:122)
+(cid:125)"
+"ω0"
+"D"
+"where ψ(z) is the Euler ψ-function (see Ref.[36]
+formula 8.36)."
+"It gives
+nin (γ) has to be found from the initial condition N (r, b, y = 0, y0 = 0) = 1 (see Eq. (4) and Eq. (7a))."
+"1 γ
+(23)
+nin (γ) ="
+"Introducing multiplicity in the momentum representation:"
+"(cid:90)"
+"d2r e−ikT · r N (r, y)
+,
+(24)
+N (kT , y) ="
+"r2"
+"we can re-write Eq. (20) in the form:"
+"(cid:90)"
+"d2kT
+∂ N (kT , y, y0)
+(cid:1)"
+"(cid:1) N (cid:0)k(cid:48)"
+"(25)
+=
+T , y, y0
+T
+∂ y
+(2π)2 K (cid:0)kT , k(cid:48)"
+"(cid:1) is the BFKL kernel
+in momentum representation:
+where K (cid:0)kT , k(cid:48)
+T"
+"1
+k2"
+""
+"T
+(cid:1) =
+(26)
+(cid:1) N (cid:0)k(cid:48)
+(cid:1) −
+K (cid:0)kT , k(cid:48)
+T , y, y0
+(cid:1)2 N (cid:0)k(cid:48)"
+""
+"T
+T , y, y0
+(cid:17) N (kT , y, y0)"
+"(cid:1)2
+(cid:0)kT − k(cid:48)
++ k(cid:48)2
+(cid:1)2 (cid:16)(cid:0)kT − k(cid:48)
+(cid:0)kT − k(cid:48)
+T
+T
+T"
+"T"
+"Solution to this equation has the same form of Eq. (21) but with the replacement of ξ → ξ(cid:48) = ln k2"
+"T and"
+"χ (γ) /γ
+(27)
+nin (γ) ="
+"(cid:1)."
+"Eq. (27) reproduces the value of N (kT , y = 0, y0 = 0), since Eq. (24) at y = 0 leads to N (kT , y) = ln k2
+T + O (cid:0)1/k2"
+"It is worth mentioning that (1) in the double log approximation nin (γ) = 1/γ2
+, which leads to N (kT , y) = ln k2
+T"
+"and (2) in semi-classical approximation, which we will use below, we can neglect all corrections of the order of 1/k2"
+"T ."
+"V.
+EQUATIONS FOR MOMENTS OF THE MULTIPLICITY DISTRIBUTION"
+"A.
+The second moment"
+"1.
+Equation"
+"We start a derivation of
+the evolution equation for the moments of
+the multiplicity distributions considering the"
+"second moment, which has the following form:"
+"∂2 wλ (r,
+y, y0)"
+"∞(cid:88) n
+(cid:12)(cid:12)(cid:12)
+(28)
+M2 (r, y, y0) = (cid:104)|n(n − 1)|(cid:105) =
+n (n − 1) wn (r, y, y0) ="
+"λ = 1
+∂ λ2"
+"=1"

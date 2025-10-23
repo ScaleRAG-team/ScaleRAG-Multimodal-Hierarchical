@@ -1,0 +1,22 @@
+"Additionally, a 2-layer LSTM network with 64 memory states each (see Fig. 6c),
+is"
+"trained with the
+experimentally obtained configuration. The performance
+is mea-"
+"sured using the exponential of the cross-entropy loss,
+i.e. the test perplexity metric,"
+"which quantifies the certainty of the token prediction. Results in Fig. 6d demonstrate"
+"the
+capabilities of
+complex network
+the CMO/HfOx ReRAM technology on more"
+"architectures,
+such
+as LSTMs,
+and
+computationally
+demanding
+tasks,
+exhibiting"
+"performance comparable to the FP-equivalent, with an approximate 0.7% difference"
+"in test perplexity."

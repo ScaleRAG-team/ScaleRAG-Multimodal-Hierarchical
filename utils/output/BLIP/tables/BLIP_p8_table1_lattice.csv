@@ -1,0 +1,41 @@
+"MIL-NCE (Miech et al., 2020)
+9.9
+24.0
+32.4
+29.5
+Table 9. Comparison with state-of-the-art methods on VisDial v1.0
+VideoCLIP (Xu et al., 2021)
+10.4
+22.2
+30.0
+-
+validation set. VD-ViLBERT† (Murahari et al., 2020) pre-trains
+18.7
+39.5
+51.6
+10
+FiT (Bain et al., 2021)
+ViLBERT (Lu et al., 2019) with additional VQA data.
+43.3
+65.6
+74.7
+2
+BLIP
+ﬁnetuning
+soning over two images, we make a simple modiﬁcation to
+ClipBERT (Lei et al., 2021)
+our pre-trained model which leads to a more computational-
+VideoCLIP (Xu et al., 2021)
+efﬁcient architecture than previous approaches (Li et al.,
+2021a; Wang et al., 2021). As shown in Figure 5(b), for
+Table 10. Comparisons with state-of-the-art methods for text-to-","22.0
+46.8
+59.9
+6
+30.9
+55.4
+66.8
+-"
+"",""
+"",""
+"",""

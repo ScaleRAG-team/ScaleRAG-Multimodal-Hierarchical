@@ -1,0 +1,27 @@
+"","Inference scaling (Weighted Majority)","","","Inference scaling (Best-of-N)"
+"","Sampling (7B)","","","Sampling (7B)"
+"32","","32","",""
+"","Sampling (34B)","","","Sampling (34B)"
+"28","","28","",""
+"","REBASE (7B)","","","REBASE (7B)"
+"24","","24","",""
+"","REBASE (34B)","","","REBASE (34B)"
+"Test error on GSM8K
+20","","Test error on GSM8K
+20","",""
+"16","","16","",""
+"12","","12","",""
+"","2
+4
+8
+16
+32
+64
+128
+256","","2","4
+8
+16
+32
+64
+128
+256"

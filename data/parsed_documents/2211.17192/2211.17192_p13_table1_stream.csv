@@ -1,0 +1,7 @@
+"Fast Inference from Transformers via Speculative Decoding"
+"Note that when using temperature = 0 (i.e. argmax sampling), we can no longer use lenience as above. Instead, we could"
+"allow some lenience before standardizing the distributions. For example, we could accept the token x sampled from Mq in"
+"case p(x) ≤ l · max(p). In this case, we measure similar empirical increases in α values to those with temperature = 1. For"
+"example, when using lenience values of 1, 0.5, 0.3, and 0.1 for Mp T5-XXL Mq T5-small for English-German translation,"
+"we get α values of 0.75, 0.75, 0.8, 0.87. Taking for example c = 0.015 and γ = 8 we get speed improvement factors of"
+"3.3X, 3.3X, 3.9X, and 4.9X respectively7."

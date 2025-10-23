@@ -1,0 +1,81 @@
+"REFERENCES"
+"Charu C Aggarwal, Alexander Hinneburg, and Daniel A Keim. On the Surprising Behavior of Dis-"
+"tance Metrics in High Dimensional Space.
+In Database Theory—ICDT 2001: 8th International"
+"Conference London, UK, January 4–6, 2001 Proceedings 8, pp. 420–434. Springer, 2001. URL"
+"https://link.springer.com/chapter/10.1007/3-540-44503-x_27."
+"Joshua Ainslie, Tao Lei, Michiel de Jong, Santiago Onta˜n´on, Siddhartha Brahma, Yury Zemlyan-"
+"skiy, David Uthus, Mandy Guo,
+James Lee-Thorp, Yi Tay, et al.
+CoLT5:
+Faster
+long-range"
+"transformers with conditional
+computation.
+arXiv preprint arXiv:2303.09752,
+2023.
+URL"
+"https://arxiv.org/abs/2303.09752."
+"Ekin Akyurek, Tolga Bolukbasi, Frederick Liu, Binbin Xiong,
+Ian Tenney,
+Jacob Andreas, and"
+"Kelvin Guu.
+Towards
+tracing knowledge in language models back to the training data.
+In"
+"Findings of
+the Association for Computational Linguistics:
+EMNLP 2022,
+pp. 2429–2446,"
+"Abu Dhabi, United Arab Emirates, December 2022. Association for Computational Linguistics."
+"doi:
+10.18653/v1/2022.findings-emnlp.180. URL https://aclanthology.org/2022."
+"findings-emnlp.180."
+"Stefanos Angelidis and Mirella Lapata. Summarizing opinions: Aspect extraction meets sentiment"
+"prediction and they are both weakly supervised.
+arXiv preprint arXiv:1808.08858, 2018. URL"
+"https://arxiv.org/abs/1808.08858."
+"Manoj Ghuhan Arivazhagan, Lan Liu, Peng Qi, Xinchi Chen, William Yang Wang, and Zhiheng"
+"Huang.
+Hybrid hierarchical
+retrieval
+for open-domain question answering.
+In Anna Rogers,"
+"the Association for Computational
+Jordan Boyd-Graber, and Naoaki Okazaki (eds.), Findings of"
+"Linguistics: ACL 2023, pp. 10680–10689, Toronto, Canada, July 2023. Association for Computa-"
+"tional Linguistics. doi: 10.18653/v1/2023.findings-acl.679. URL https://aclanthology."
+"org/2023.findings-acl.679."
+"Iz Beltagy, Matthew E. Peters, and Arman Cohan. Longformer: The Long-document Transformer,"
+"2020. URL https://arxiv.org/abs/2004.05150. arXiv preprint arXiv:2004.05150."
+"Sebastian Borgeaud, Arthur Mensch, Jordan Hoffmann, Trevor Cai, Eliza Rutherford, Katie Milli-"
+"can, George Bm Van Den Driessche, Jean-Baptiste Lespiau, Bogdan Damoc, Aidan Clark, et al."
+"Improving language models by retrieving from trillions of tokens.
+In International conference on"
+"machine learning, pp. 2206–2240. PMLR, 2022. URL https://arxiv.org/abs/2112."
+"04426."
+"Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah,
+Jared D Kaplan, Prafulla Dhari-"
+"wal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal,"
+"Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel"
+"Ziegler,
+Jeffrey Wu, Clemens Winter, Chris Hesse, Mark Chen, Eric Sigler, Mateusz Litwin,"
+"Scott Gray, Benjamin Chess,
+Jack Clark, Christopher Berner, Sam McCandlish, Alec Rad-"
+"ford,
+Ilya Sutskever,
+and Dario Amodei.
+Language Models
+are Few-Shot Learners.
+In"
+"in Neu-
+H. Larochelle, M. Ranzato, R. Hadsell, M.F. Balcan,
+and H. Lin (eds.), Advances"
+"ral
+Information Processing
+Systems,
+volume
+33,
+pp.
+1877–1901. Curran Associates,
+Inc.,"

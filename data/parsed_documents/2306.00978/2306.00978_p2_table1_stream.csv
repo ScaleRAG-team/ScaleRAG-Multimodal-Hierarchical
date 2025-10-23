@@ -1,0 +1,90 @@
+"AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration",""
+"Low-bit weight quantization for LLMs can significantly re-","sured speedup. On desktop, laptop and mobile GPUs, we"
+"duce the memory footprint of on-device LLM inference but","consistently observe a 3.2-3.3× average speedup compared"
+"is hard. Quantization-aware training (QAT) is not efficient","to the FP16 implementation by Huggingface across a di-"
+"due to the high training cost, while post-training quantiza-","verse spectrum of LLMs. Furthermore, it facilitates effort-"
+"tion (PTQ) suffers from large accuracy degradation under","less deployment of
+the Llama-2-70B model on a single"
+"a low-bit setting. The closest work is GPTQ (Frantar et al.,","NVIDIA Jetson Orin with 64GB of memory. It also democ-"
+"2022), which uses second-order information to perform er-","ratizes 13 billion parameter LLM at an interactive pace of"
+"ror compensation. However, it may overfit the calibration","30 tokens/second on a laptop RTX 4070 GPU with only"
+"set during reconstruction, distorting the learned features on","8GB of memory. AWQ has been widely adopted by indus-"
+"out-of-distribution domains (Figure 8), which is problematic","try and open-source community: HuggingFace Transform-"
+"since LLMs are generalist models.","ers, NVIDIA TensorRT-LLM, Microsfot DirectML, Google"
+"","Vertex AI, Intel Neural Compressor, Amazon Sagemaker,"
+"In this paper, we propose Activation-aware Weight Quan-",""
+"","AMD, FastChat, vLLM, LMDeploy, and enables Falcon-"
+"tization (AWQ), a hardware-friendly low-bit weight-only",""
+"","180B deployable on a single H200 GPU."
+"quantization method for LLMs. Our method is based on",""
+"the observation that weights are not equally important for",""
+"","2
+RELATED WORK"
+"LLMs’ performance. There is a small fraction (0.1%-1%)",""
+"of salient weights; skipping the quantization of these salient","Model quantization methods.
+Quantization reduces the"
+"weights will significantly reduce the quantization loss (Ta-","bit-precision of deep learning models (Han et al., 2016;"
+"ble 1). To find the salient weight channels,
+the insight
+is","Jacob et al., 2018; Nagel et al., 2019; Wang et al., 2019;"
+"that we should refer to the activation distribution instead","Nagel et al., 2020; Lin et al., 2020), which helps to reduce"
+"of
+the weight distribution, despite we are doing weight-","the model size and accelerate inference. Quantization tech-"
+"only quantization: weight channels corresponding to larger","niques generally fall into two categories: quantization-aware"
+"activation magnitudes are more salient since they process","training (QAT, which relies on backpropagation to update"
+"more important features. To avoid the hardware-inefficient","the quantized weights) (Bengio et al., 2013; Gholami et al.,"
+"mixed-precision implementation, we analyze the error from","2021; Nagel et al., 2021; Choi et al., 2018) and post-training"
+"weight quantization and derive that scaling up the salient","quantization (Jacob et al., 2018; Nagel et al., 2019; 2020)"
+"channels can reduce their relative quantization error (Equa-","(PTQ, usually training-free). The QAT methods cannot eas-"
+"tion 2). Following the intuition, we designed a per-channel","ily scale up to large models like LLMs. Therefore, people"
+"scaling method to automatically search for the optimal scal-","usually use PTQ methods to quantize LLMs."
+"ing that minimizes the quantization error under full-weight",""
+"","Quantization of LLMs.
+People study two settings for"
+"quantization. AWQ does not rely on any backpropagation",""
+"","LLM quantization:
+(1) W8A8 quantization, where both"
+"or reconstruction, so it can well preserve LLMs’ general-",""
+"","activation and weights are quantized to INT8 (Dettmers"
+"ization ability on various domains and modalities without",""
+"","et al., 2022; Xiao et al., 2022; Yao et al., 2022; Wei et al.,"
+"overfitting to the calibration set.",""
+"","2022a; 2023); (2) Low-bit weight-only quantization (e.g.,"
+"To implement AWQ, we designed TinyChat, an efficient","W4A16), where only weights are quantized into low-bit"
+"inference framework to convert theoretical memory savings","integers (Frantar et al., 2022; Dettmers & Zettlemoyer, 2022;"
+"from 4-bit LLM to measured speedup. Our framework sig-","Sheng et al., 2023; Park et al., 2022). We focus on the"
+"nificantly speeds up linear layers through on-the-fly dequan-","second setting in this work since it not only reduces the"
+"tization. We also take advantage of efficient 4-bit weight","hardware barrier (requiring a smaller memory size) but also"
+"packing and kernel fusion to minimize the inference over-","speeds up the token generation (remedies memory-bound"
+"head (e.g.,
+intermediate DRAM access and kernel
+launch","workload). Apart from the vanilla round-to-nearest baseline"
+"overhead), such that we can better realize the speed up from","(RTN), GPTQ (Frantar et al., 2022) is the closest to our work."
+"quantizing the weights to 4-bit, despite the computer
+is","However, the reconstruction process of GPTQ leads to an"
+"byte-aligned.","over-fitting issue to the calibration set and may not preserve"
+"","the generalist abilities of LLMs for other modalities and"
+"Experiments show that AWQ outperforms existing work",""
+"","domains. It also requires a reordering trick to work for some"
+"on
+various
+tasks
+for
+different model
+families
+(e.g.,",""
+"","models (e.g., LLaMA-7B (Touvron et al., 2023a) and OPT-"
+"LLaMA (Touvron et al., 2023a), OPT (Zhang et al., 2022))",""
+"","66B (Zhang et al., 2022)). Apart from quantiztion methods"
+"and model sizes. Thanks to better generalization,
+it also",""
+"","designed for general-purporse hardware, SpAtten (Wang"
+"instruction-
+achieves good quantization performance for",""
+"","et al., 2020) designs a progressive approach to gradually"
+"tuned LMs (e.g., Vicuna) and, for the first time, multi-modal",""
+"","increase the number of bits used in softmax calculation."
+"LMs (OpenFlamingo (Awadalla et al., 2023)). TinyChat",""
+"further translates the ∼4× lower memory footprint to mea-","System support for low-bit quantized LLMs.
+Low-bit"
+"","quantized LLMs have been a popular setting to reduce in-"

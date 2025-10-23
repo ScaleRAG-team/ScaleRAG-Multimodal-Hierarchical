@@ -1,0 +1,210 @@
+"With the Occluded Frequency methods, we show an ex-","","Input Image
+DCT transformation
+Frequency Attribution"
+"","","0
+0"
+"ample of computing the frequency attribution on an input","","5
+5
+1.0"
+"","",""
+"image in Cifar-10 which is correctly predicted in Fig 4.","","10
+10"
+"","","0.5"
+"","",""
+"We ablate each frequency components from the lowest
+to","","15
+15"
+"","","20
+20"
+"the highest
+to create the bars of contributions on the Fre-","","0.0"
+"","","25
+25"
+"","",""
+"quency Attribution subplot. From the attribution scores, we","","0.5
+30
+30"
+"","",""
+"know that even we assume that
+the low-frequency compo-","","0
+10
+20
+30
+0
+10
+20
+30
+0
+10
+20
+30"
+"","","k=1
+k=2
+k=3"
+"","","0
+0
+0"
+"nent has the strongest correlation with the label since high-","",""
+"","","5
+5
+5"
+"frequency components are in-perceptional to humans, it ac-","","10
+10
+10"
+"tually takes the less use of the low-frequency components","","15
+15
+15"
+"","",""
+"due to low attribution scores in the low-frequency range.","","20
+20
+20"
+"","",""
+"We visualize the modiﬁed image by OF at a particular fre-","","25
+25
+25"
+"","","30
+30
+30"
+"quency. The second row shows image with the lowest,
+the","","0
+10
+20
+30
+0
+10
+20
+30
+0
+10
+20
+30"
+"","","k=12 (top1)
+k=23 (top2)
+k=15 (top3)"
+"","",""
+"second lowest and the third lowest frequency components","","0
+0
+0"
+"","",""
+"ablated and the the third row shows the modiﬁed images","","5
+5
+5"
+"","","10
+10
+10"
+"when the frequency components with the highest attribu-","",""
+"","","15
+15
+15"
+"tion scores are ablated (top1,
+top2 and top3 respectively).","","20
+20
+20"
+"It is very hard for human to capture the difference when the","","25
+25
+25"
+"","",""
+"frequency components with highest attribution scores are","","30
+30
+30"
+"","","0
+10
+20
+30
+0
+10
+20
+30
+0
+10
+20
+30"
+"ablated. A consequence of using features corresponding","",""
+"to the middle and high-frequency range is that by manip-","",""
+"","","Figure 4. (First Row) Left:
+the input image. Middle: an example"
+"ulating the middle and high-frequency features, we should","",""
+"","","of computing the attribution score for a speciﬁc frequency com-"
+"expect the change happens to the model’s prediction while","",""
+"","","ponent by ablating the frequency of interest with zeros. Right:
+the"
+"the human is still not aware of the change made on the in-","",""
+"","","attribution scores for all frequency components in the input on the"
+"put.
+Images like this are usually considered as adversarial","",""
+"","","left. Higher scores denotes higher contribution to the prediction."
+"examples.","",""
+"","","(Second and Third Row) The input image with the k − th lowest"
+"","","frequency components are ablated. The values of k at
+the third"
+"Experiment IV: Attribution Shift","","column are the components with the top1,
+top2 and top3 attribu-"
+"","","tion scores."
+"We further extent Experiment III to the entire dataset and","",""
+"we compare the attribution scores of different
+frequency","",""
+"components on a naturally trained ResNet model and ad-","",""
+"versarial
+trained models.
+There are three robust models","",""
+"","","and its prediction is more tight with low-frequency compo-"
+"trained with the maximum allowed perturbation of 0.25","",""
+"","","nents, leaving the high-frequency components less relevant"
+"and 0.5 in the (cid:96)2
+space and 8/255 in the (cid:96)∞ space. The","",""
+"","","for the prediction;
+therefore,
+the attacker who aims on the"
+"result
+is
+shown in Fig 1. We plot
+the
+average
+attribu-","",""
+"","","high-frequency features will fail."
+"tion scores on each frequency component for all images in","",""
+"the same classes since we assume images within the same","",""
+"classes should have fewer nuances and more commonalities","","5. Conclusion"
+"compared to images of different classes. Despite the low-","",""
+"","","In this paper, We ﬁrst show a lower bound of the perturba-"
+"est frequency component being the most important overall","",""
+"","","tion applied to the image is related to the lowest frequency"
+"models, Fig 1 shows that attribution scores on the middle","",""
+"","","components,
+the most perceptional frequency components"
+"and high-frequency components tend to be zeros or very","",""
+"","","to human. We then verify that white-box and black-box at-"
+"low and the main share of the attribution scores are in the","",""
+"","","tackers mainly focus on the high-frequency components in"
+"low-frequency range.
+It can be seen as the robust model","",""
+"","","the clean images. We further propose Occluded Frequency"
+"shifts the main share of attribution scores towards the low-","",""
+"","","as an attribution method to quantify the contribution of dif-"
+"frequency range,
+leaving middle and high-frequency com-","",""
+"","","ferent frequency components in the input. Based on the em-"
+"ponents as insigniﬁcant as possible.","",""
+"","","pirical results on the entire dataset, we provide a frequency-"
+"Summary Finally, we summarize the ﬁndings from all ex-","",""
+"","","based explanation to answer why standard models are not"
+"periments. Middle and high-frequency components are the","",""
+"","","robust:
+low-frequency features are more robust
+than the"
+"target features for adversarial attackers since models may","",""
+"","","high-frequency features
+in the input
+space;
+therefore ro-"
+"or may not rely only on the low-frequency features to make","",""
+"","","bust models are developed to be strongly related to the low-"
+"the prediction.
+Adversarial
+training can be viewed as a","",""
+"","","frequency features while standard models rely more on the"
+"frequency selector
+that
+the association between the input","",""
+"","","high-frequency components to make the prediction."
+"","6",""

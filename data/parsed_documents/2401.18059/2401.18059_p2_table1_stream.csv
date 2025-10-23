@@ -1,0 +1,24 @@
+"3
+1
+2
+Leaf layer","","",""
+"","","1. Clustering","3 ."
+"","","1
+2","1 4 .
+1 5
+3
+4
+5"
+"","","","Text chunks"
+"","Figure 1: Tree construction process: RAPTOR recursively clusters chunks of text based on their","",""
+"vector embeddings and generates","text","summaries of","those clusters, constructing a tree from the"
+"bottom up. Nodes clustered together are siblings; a parent node contains the text summary of that","","",""
+"cluster.","","",""
+"Our main contribution is the idea of using text summarization to allow retrieval augmentation of","","",""
+"context at different scales, and to show its effectiveness in experiments on collections of long doc-","","",""
+"uments. Controlled experiments with three language models (UnifiedQA (Khashabi et al., 2020),","","",""
+"GPT-3 (Brown et al., 2020) and GPT-4 (OpenAI, 2023)) show that RAPTOR outperforms current","","",""
+"retrieval augmentation. Moreover, RAPTOR coupled with GPT-4, and sometimes even with Uni-","","",""
+"fiedQA, gives new state-of-the-art results on three QA tasks:","","","free text response questions on books"
+"and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021),","","",""
+"and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022).1","","",""

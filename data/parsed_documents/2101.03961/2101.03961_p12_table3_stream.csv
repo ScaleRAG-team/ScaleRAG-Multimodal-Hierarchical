@@ -1,0 +1,12 @@
+"Sparse Model Parameters
+Training Step","1e5"
+"Figure 4: Scaling properties of the Switch Transformer. Left Plot: We measure the quality",""
+"improvement, as measured by perplexity, as the parameters","increase by scaling"
+"","the number of experts. The top-left point corresponds to the T5-Base model with"
+"","223M parameters. Moving from top-left to bottom-right, we double the number of"
+"","experts from 2, 4, 8 and so on until the bottom-right point of a 256 expert model"
+"","with 14.7B parameters. Despite all models using an equal computational budget,"
+"","we observe consistent improvements scaling the number of experts. Right Plot:"
+"","Negative log perplexity per step sweeping over the number of experts. The dense"
+"","baseline is shown with the purple line and we note improved sample eﬃciency of"
+"our Switch-Base models.",""

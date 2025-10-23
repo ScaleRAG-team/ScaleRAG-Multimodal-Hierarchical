@@ -1,0 +1,7 @@
+"","Fedus, Zoph and Shazeer",""
+"Model","Quality","Speed"
+"(precision)","(Neg. Log Perp.)
+(↑)","(Examples/sec) (↑)"
+"Switch-Base (ﬂoat32)","-1.718","1160"
+"Switch-Base (bﬂoat16)","-3.780 [diverged ]","1390"
+"Switch-Base (Selective precision)","-1.716","1390"

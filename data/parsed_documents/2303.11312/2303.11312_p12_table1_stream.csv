@@ -1,0 +1,90 @@
+"12
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"estimate as arguments, and return a tibble with .metric, .estimator, and .estimate for"
+"columns:"
+"R>
+waywiser::ww_global_moran_i(worldclim_testing,"
+"+
+truth
+=
+response,"
+"+
+estimate
+=
+predictions)"
+"#
+A
+tibble: 1
+x 3"
+".metric
+.estimator
+.estimate"
+"<chr>
+<chr>
+<dbl>"
+"1
+global_moran_i standard
+0.809"
+"As discussed above, by default waywiser will automatically create the spatial weights matrix"
+"this behavior,
+functions
+for
+for calculations using ww_build_weights(). To let users alter"
+"estimating spatial autocorrelation also accept an argument, wt, containing either the spatial"
+"weights matrix to use in calculations or a function to create the matrix from data:"
+"R>
+waywiser::ww_global_geary_c(worldclim_testing,"
+"+
+truth
+=
+response,"
+"+
+estimate
+=
+predictions,"
+"+
+wt
+=
+waywiser::ww_build_weights)"
+"#
+A
+tibble: 1
+x 3"
+".metric
+.estimator
+.estimate"
+"<chr>
+<chr>
+<dbl>"
+"1
+global_geary_c standard
+0.159"
+"As the _vec variants of these functions do not take an argument for data, waywiser cannot"
+"automatically create a spatial weights matrix, and one must be provided to the wt argument:"
+"R>
+waywiser::ww_global_geary_c_vec("
+"+
+truth = worldclim_testing$response,"
+"+
+estimate = worldclim_testing$predictions,"
+"+
+wt
+= waywiser::ww_build_weights(worldclim_testing))"
+"[1]
+0.1593391"
+"As previously mentioned, functions from waywiser are both type- and size-stable, guaranteeing"
+"that the outputs from a function will always be of a known data type and of known dimensions."
+"For model agreement metrics and global autocorrelation statistics, this means that the output"
+"from waywiser will always be a tibble with one row (or,
+for grouped data frames, one row"
+"per group). This behavior changes
+for
+local autocorrelation metrics, however:
+rather
+than"
+"returning a single row,
+local autocorrelation functions return a tibble with as many rows as"
+"there are observations in data (or values in truth and estimate, for the _vec variants). These"
+"estimates are ordered in the same order as the input data frame, meaning that the outputs"
+"from these functions can be used with cbind() to associate an autocorrelation estimate with"
+"its corresponding observation."

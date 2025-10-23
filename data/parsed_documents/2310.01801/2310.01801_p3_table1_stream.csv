@@ -1,0 +1,8 @@
+"Published as a conference paper at ICLR 2024",""
+"plug-and-play manner. This is a big advantage of FastGen, because the training cost on extra-large",""
+"models (Brown et al., 2020), can hardly be afforded by many research labs or practitioners.",""
+"We evaluate FastGen on Llama 1 (Touvron et al., 2023b) with a suite of major benchmarks cover-",""
+"ing generative tasks in math, code, knowledge, and common sense reasoning. FastGen effectively",""
+"performs KV cache compression with negligible generation quality loss (i.e., recover over 95% of",""
+"attention scores with 35% cache compressed). Notably, as to the 30b model","in Figure 2, FastGen"
+"(50% cache compressed) surpasses all fixed KV compression methods (15% cache compressed).",""

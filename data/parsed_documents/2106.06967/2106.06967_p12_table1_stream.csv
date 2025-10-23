@@ -1,0 +1,153 @@
+"12"
+"Finally we can re-write Eq. (66) in the coordinate representation in the form:"
+"(cid:40)"
+"(cid:90)"
+"∂"
+"=
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r)
+Mk (r, y, y0)
+Mk (r(cid:48), y, y0) + Mk (r − r(cid:48), y, y0) − Mk (r, y, y0)"
+"∂ y"
+"k−1
+(cid:41)"
+"k!"
+"(cid:88) i
++
+(69)
+Mk−i (r(cid:48), y, y0) Mi (r(cid:48), y, y0)"
+"(k − i)! i!"
+"=1"
+"."
+"Assuming that for all i ≤ k − 1"
+"(70)
+Mi (r, y, y0) = i! N (r, y, y0) (N (r, y, y0) − 1)i−1 ,"
+"which follows from Eq. (1), we will prove that for i = k we have the same expression."
+"Plugging Eq. (70) in Eq. (69) we get the inhomogeneous term in the form k! (k − 1) N 2 (N − 1)k−2.
+In the following"
+"we will use that the Mellin image of N i (r, y, y0) ( (cid:101)ni) is equal to"
+"(cid:15) + i ∞"
+"(cid:90)"
+"dω
+1"
+"i γ) y 1"
+"1 γ
+1 γ
+=
+eω y
+;
+;
+(71)
+ni = ei χ( 1
+double Mellin image (cid:101)(cid:101)ni ="
+""
+"γ
+2 π i
+i γ(cid:1)
+i γ(cid:1)"
+"(cid:15) − i ∞"
+"which can be derived using the method of steepest descent in the estimates of the integrals over γ’s (see Eq. (42) for"
+"example)."
+"In the double Mellin transform Eq. (69) takes the form:"
+"k−2"
+"(−1)l(k − 2)!
+1"
+"1 γ
+(72)
+(ω − χ (γ)) (cid:103)(cid:103)Mk = k! (k − 1)χ (γ)"
+"(cid:88) l"
+"(cid:16) 1
+(k − 2 − l)! l!"
+"ω − (k − l) χ"
+"=0
+k−l γ"
+"Hence from Eq. (72) we have:"
+"k−2"
+"(−1)l(k − 2)!"
+"(cid:88) l
+k! (k − 1)
+(73)
+Mk (r, y, y0) ="
+"(k − 2 − l)! l!"
+"=0"
+"(cid:15) + i ∞
+(cid:15) + i ∞"
+"(cid:40)
+(cid:41)"
+"(cid:90)
+(cid:90)"
+"dω
+χ (γ)
+1
+1
+dγ"
+"×
+eω y + γ ξ(cid:48)"
+"1 γ
+(cid:17) −"
+"(cid:16) 1
+(cid:16) 1
+2 π i
+2 π i
+ω − χ (γ)"
+""
+"k−l γ
+k−l γ
+(cid:15) − i ∞
+(cid:15) − i ∞"
+"(cid:15) + i ∞"
+"n−2
+(cid:40)
+(cid:41)"
+"(cid:90)"
+"(−1)l(k − 2)!
+dγ
+χ (γ)"
+"1 γ
+= k! (k − 1)
+e γ ξ(cid:48)
+e(k−l)χ(
+k−1 γ) y − eχ(γ) y"
+"(cid:88) l"
+"(cid:16) 1
+(k − 2 − l)! l!
+2 π i"
+"(k − l)χ
+− χ (γ)"
+"=0
+k−l γ
+(cid:15) − i ∞"
+"In Eq. (73) we calculate the integrals over ω closing the contour of
+integration on poles. Taking the integral over γ"
+"using the method of
+steepest descent
+in the diﬀusion approximation and neglecting the corrections of
+the order of"
+"ξ(cid:48)/Dy (see discussions above) we reduce Eq. (73) to the following expression:"
+"k−2"
+"(−1)l(k − 1)!"
+"(cid:88) l
+=
+k!
+Mk (r, y, y0)
+(cid:0)N k−l (r, y, y0) − N (r, b, y, y0)(cid:1)"
+"(k − 1 − l)! l!"
+"=0"
+"k−1"
+"(−1)l(k − 1)!"
+"(cid:88) l
+= k!
+(74)
+N k−l (r, y, y0) = k! N (r, y, y0) (N (r, y, y0) − 1)k−1"
+"(k − 1 − l)! l!"
+"=0"
+"Since we have obtained Eq. (70) for i = 2 and i = 3 , we prove this equation for any value of i."
+"VI.
+FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS"
+"Eq.
+(70) generates
+the multiplicity distribution of Eq.
+(1).
+However,
+several questions arise, when we wish to"
+"compare this distribution with the experimental data,
+let say with DIS. The average multiplicity of the color-singlet"

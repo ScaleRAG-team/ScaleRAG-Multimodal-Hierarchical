@@ -1,0 +1,117 @@
+"0
+4
+3
+2
+1
+0
+1
+2"
+""
+"0
+Low Rank 
+−
+−
+−
+−"
+"Output Magnitude (before ReLU)"
+"Predictor"
+"(a) predictor vs relu
+(b) low rank predictor"
+"Figure 3:
+(a) Preactivations of tokens in one sequence in OPT 6.7B. The blue graph shows the preactivation of"
+"elements that the predictor detected as positive while the green graph is for up projection. As it can be seen most"
+"of the False Positives are close to 0 and False Negatives constitute a small portion of the elements.
+(b) A small"
+"low-rank predictor finds out which intermediate neurons are going to be activated."
+"Table 1: The low-rank predictor has a marginal impact"
+"of this technique is the incremental loading of neu-"
+"on zero-shot metrics as the predictor of each layer accu-"
+"ron data that differs between the current input token"
+"rately identifies sparsity."
+"and its immediate predecessors. This strategy al-"
+"lows for efficient memory utilization, as it frees up"
+"Zero-Shot Task
+OPT 6.7B
+with Predictor"
+"memory resources previously allocated to cached"
+"Arc Easy
+66.1
+66.2"
+"weights required by tokens that are no longer within"
+"Arc Challenge
+30.6
+30.6"
+"the sliding window (as depicted in Figure
+4b)."
+"HellaSwag
+50.3
+49.8"
+"From a mathematical
+standpoint,
+let
+sagg(k)"
+"denote the cumulative use of neuron data across"
+"low-rank predictor to identify the elements zeroed
+a sequence of k input tokens. Our memory archi-"
+"by ReLU (see Figure
+3b). We used a balanced"
+"tecture is designed to store an average of sagg(k)"
+"loss over negative and positive samples of each
+in DRAM. As we process each new token,
+the"
+"layer. In contrast to their work, our predictor needs
+incremental neuron data, which is mathematically"
+"only the output of the current layer’s attention mod-"
+"is
+loaded
+represented as sagg(k + 1)
+sagg(k),"
+"−"
+"ule and not the previous layer’s FFN module. We
+from flash memory into DRAM. This practice"
+"have observed that postponing the prediction to
+is grounded in the observed trend of decreasing"
+"the current layer is sufficient for hardware-aware
+aggregated neuron usage over time. Consequently,"
+"weight-loading algorithm design but leads to more
+larger values of k result in a lesser volume of data"
+"accurate outcomes due to deferred inputs. We used
+being loaded for each new token (refer to Figure"
+"10000 samples from the C4 training dataset to do
+4a), while smaller values of k can help conserve"
+"the training for 2 epochs.
+It
+took 4 hours on an
+DRAM that is used to store the cached weights. In"
+"A100 GPU to train each predictor.
+determining the size of the sliding window, the aim"
+"We thereby only load elements indicated by the
+is to maximize it within the constraints imposed"
+"predictor, as shown in Figure
+3a. Furthermore, as
+by the available memory capacity."
+"demonstrated in Table
+1, using predictors does not"
+"3.2
+Increasing Transfer Throughput"
+"adversely affect the model’s performance in 0-shot"
+"tasks. For more details please refer to Appendix B.
+To increase data throughput from flash memory, it"
+"is crucial to read data in larger chunks, preferably
+The Sliding Window Technique. In our study,"
+"sized as the multiples of the block size of the un-
+we define an active neuron as one that yields a"
+"derlying storage pool. In this section, we detail the
+positive output
+in our
+low-rank predictor model."
+"strategy we have employed to augment the chunk
+Our approach focuses on managing neuron data by"
+"sizes for more efficient flash memory reads.
+employing a Sliding Window Technique. This tech-"
+"nique entails maintaining a DRAM cache of only
+Bundling Columns and Rows. Note that in the"
+"the weight rows that were predicted to be required
+FFN layer, the usage of the ith column from the up"
+"by the recent subset of input tokens. The key aspect
+projection and the ith row from the down projection"

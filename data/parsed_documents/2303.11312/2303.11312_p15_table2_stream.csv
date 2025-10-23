@@ -1,0 +1,14 @@
+"metrics for each group independently, resulting in an output with one row per combination","","",""
+"of unique grouping, metric, and aggregation:","","",""
+"R>","waywiser::ww_multi_scale(","",""
+"+","dplyr::group_by(worldclim_testing,","","group),"
+"+","truth = response,","",""
+"+","estimate = predictions,","",""
+"+","metrics =","list(waywiser::ww_willmott_d1),",""
+"+","n
+= 2)","",""
+"#
+A","tibble: 2
+x 7","",""
+"group",".metric
+.estimator",".estimate",".grid_args"

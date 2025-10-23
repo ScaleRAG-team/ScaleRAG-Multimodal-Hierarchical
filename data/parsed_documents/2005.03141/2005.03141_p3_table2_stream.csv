@@ -1,0 +1,94 @@
+"","","d−1
+d−1"
+"Proof : We ﬁrst write down the DFT X = F(x) of an given","","1 d
+(cid:88) k
+(cid:88) i
+=
+|
+d ki|
+ej 2π
+(Xk − X (cid:48)
+k)"
+"input x and the inverse DFT x = F −1(X).","","=0
+=0"
+"","","(Use Lemma 1)
+= |X0 − X (cid:48)
+0|"
+"","","(5)"
+"","d−1",""
+"","","Observation of Prop.
+1 Perturbation applied to the in-"
+"","",""
+"","(cid:88) i
+d ki
+Xk = F(x)k =
+xie−j 2π",""
+"","","put
+can be viewed either
+to a
+subset of
+features
+in the"
+"","=0",""
+"","(2)","time domain or
+in the frequency domain by transforming"
+"","d−1",""
+"","","the perturbation with DFT or DCT. For
+the same amount"
+"","",""
+"","1 d
+(cid:88) k
+d ki
+xi = F −1(X)i =
+Xkej 2π",""
+"","","of perturbation measured by spectral
+energy in the
+fre-"
+"","=0",""
+"","","quency domain, Prop.
+1 shows that only the perturbation"
+"","","towards
+the low-frequency components will
+increase the"
+"","√","lower bound of
+the same perturbation applied in the time"
+"where j =","−1 and d is the dimension of x. And we also",""
+"","","domain.
+Therefore, attacking the low-frequency compo-"
+"introduce Lemma 1.","",""
+"","","nents of
+the input
+tends to cause higher distortion in the"
+"","","time domain due to the increase of lower bound, while the"
+"","","high-frequency distortion does not change the lower bound."
+"Lemma 1 The ﬁnite sum of complex-valued exponential","",""
+"","","As long as we require the distortion as small as possible in"
+"series can be written as","",""
+"","","the time domain, an attacker should aim for mess up the"
+"","","high-frequency components instead of
+the low-frequency"
+"d−1","","part, which matches our intuitions that adversarial pertur-"
+"","1 − ejdx
+−eidx/2(e−jdx/2−ejdx/2)",""
+"","","bations tends to be not perceptional to human."
+"ejix =","",""
+"(cid:88) i","1 − ejx =
+−ejx/2(e−jx/2 − ejx/2)",""
+"","",""
+"=0","(3)","As the perturbation in the input space tends to happen to"
+"","sin(dx/2)",""
+"","","the high-frequency components,
+if we minimize the corre-"
+"","=
+ejx(d−1)/2",""
+"","sin(x/2)","lation between the model’s decision and the use of high-"
+"","","frequency features, we should be able to force the attacker"
+"","","to make greater distortions than before.
+In the other word,"
+"","","the model will be more robust. To validate the proposition"
+"Let x = 2π","",""
+"","N k then we have the Fourier basis, so",""
+"","","from empirical results, we propose a new way to measure"
+"","","the contribution of each frequency components towards the"
+"","","prediction."
+"","d−1",""

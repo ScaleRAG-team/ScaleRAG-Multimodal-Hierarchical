@@ -1,0 +1,106 @@
+"REFERENCES"
+"Reza Yazdani Aminabadi, Samyam Rajbhandari, Minjia Zhang, Ammar Ahmad Awan, Cheng Li,"
+"Du Li, Elton Zheng, Jeff Rasley, Shaden Smith, Olatunji Ruwase, and Yuxiong He. Deepspeed-"
+"SC22:
+inference: Enabling efficient
+inference of
+transformer models at unprecedented scale."
+"International Conference for High Performance Computing, Networking, Storage and Analysis,"
+"pp. 1–15, 2022."
+"Sebastian Bach, Alexander Binder, Gr´egoire Montavon, Frederick Klauschen, Klaus-Robert M¨uller,"
+"and Wojciech Samek. On pixel-wise explanations for non-linear classifier decisions by layer-wise"
+"relevance propagation.
+PLoS ONE, 10, 2015. URL https://api.semanticscholar."
+"org/CorpusID:9327892."
+"Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah,
+Jared Kaplan, Prafulla Dhari-"
+"wal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal,"
+"Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M."
+"Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin,"
+"Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford,"
+"Ilya Sutskever, and Dario Amodei. Language models are few-shot learners.
+In Hugo Larochelle,"
+"Marc’Aurelio Ranzato, Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien Lin (eds.), Advances"
+"in Neural Information Processing Systems 33: Annual Conference on Neural Information Pro-"
+"cessing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual, 2020."
+"V´ıctor Campos, Brendan Jou, Xavier Gir´o i Nieto,
+Jordi Torres, and Shih-Fu Chang.
+Skip rnn:"
+"Learning to skip state updates in recurrent neural networks. ArXiv, abs/1708.06834, 2017. URL"
+"https://api.semanticscholar.org/CorpusID:1859294."
+"Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared"
+"Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, et al.
+Evaluating large"
+"language models trained on code. arXiv preprint arXiv:2107.03374, 2021."
+"Rewon Child, Scott Gray, Alec Radford, and Ilya Sutskever. Generating long sequences with sparse"
+"transformers. CoRR, abs/1904.10509, 2019. URL http://arxiv.org/abs/1904.10509."
+"Kevin Clark, Urvashi Khandelwal, Omer Levy, and Christopher D. Manning. What does BERT"
+"the 2019 ACL Workshop Black-
+look at?
+an analysis of BERT’s attention.
+In Proceedings of"
+"boxNLP: Analyzing and Interpreting Neural Networks for NLP, pp. 276–286, Florence,
+Italy,"
+"August 2019. Association for Computational Linguistics.
+doi:
+10.18653/v1/W19-4828. URL"
+"https://aclanthology.org/W19-4828."
+"Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser,"
+"Matthias Plappert,
+Jerry Tworek,
+Jacob Hilton, Reiichiro Nakano, et al.
+Training verifiers to"
+"solve math word problems. arXiv preprint arXiv:2110.14168, 2021."
+"Zihang
+Dai,
+Guokun
+Lai,
+Yiming
+Yang,
+and
+Quoc
+Le.
+Funnel-transformer:
+Filter-"
+"ing
+out
+sequential
+redundancy
+for
+efficient
+language
+processing.
+In Hugo
+Larochelle,"
+"Marc’Aurelio Ranzato,
+Raia Hadsell, Maria-Florina Balcan,
+and Hsuan-Tien
+Lin
+(eds.),"
+"Advances
+in
+Neural
+Information
+Processing
+Systems
+33:
+Annual
+Conference
+on
+Neu-"
+"ral
+Information
+Processing
+Systems
+2020,
+NeurIPS
+2020,
+December
+6-12,
+2020,
+vir-"
+"https://proceedings.neurips.cc/paper/2020/hash/
+tual,
+2020.
+URL"
+"2cd2915e69546904e4e5d4a2ac9e1652-Abstract.html."

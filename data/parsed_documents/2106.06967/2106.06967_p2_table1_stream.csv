@@ -1,0 +1,70 @@
+"2"
+"in Refs.[6, 10, 11, 16, 19]
+that
+these ideas are in qualitative and, partly,
+in quantitative agreement with the avail-"
+"able experimental data. Actually,
+it is shown in Ref.[5] that the simple cascade of color-singlet dipoles leads to the"
+"multiplicity distribution:"
+""
+"(cid:18) N − 1
+σn"
+"1 N
+(1)
+="
+"N
+σin"
+"where N is the average number of dipoles."
+"The goal of this paper is to study the multiplicity distribution and the entanglement entropy in the eﬀective theory"
+"for QCD at high energies (see Ref.[24]
+for a general review). We have approached this problem in Refs.[5, 18] and"
+"have demonstrated that Eq.
+(1) arises in QCD cascades.
+In this paper we analyze the multiplicity distribution for"
+"Balitsky-Kovchegov (BK) cascade[25]
+in which one dipole at low energy generates a large number color-singlet dipoles"
+"at high energy. The equation for such a cascade are known (see Refs.[24, 27–29] ) and the ﬁrst try to solve them have"
+"been undertaken in Ref.[18]. However,
+in this paper we return to this problem and study the multiplicity distribution"
+"using the new equation (Le, Mueller and Munier (LMM) equation) for the probability generating function that has"
+"been derived in Ref.[30]."
+"In the next
+section we derive LMM equation from the equation for
+the BK parton cascade.
+In the rest of
+the"
+"paper we discuss the equations for the factorial moments that follow from the LMM equation. We show that every"
+"factorial moment
+satisﬁes
+the
+linear but
+inhomogeneous
+equation with the Balitsky, Fadin, Kuraev and Lipatov"
+"(BFKL) kernel[31, 32]. We attempt to solve these equations and demonstrate that in the diﬀusion approximation to"
+"the BFKL kernel
+factorial moments are equal to:"
+"(cid:16)
+(cid:17)k−1"
+"N − 1
+(2)
+Mk = k! N"
+"We show that Eq. (2) leads to Eq. (1)."
+"In section VI we suggest an approach to go beyond diﬀusion approximation, which cannot give a reliable description"
+"of
+the
+experimental data even in the
+leading order of perturbative QCD.
+In this approach we propose
+to solve"
+"exactly the
+equations
+for
+the
+factorial moments and using the diﬀerence between the
+exact
+solution and Eq.
+(2)"
+"the multiplicity distributions beyond
+(∆Mk = Mk (exact) − Mk (Eq. (2))) we develop the way how to estimate"
+"diﬀusion approximation.
+In conclusion section we summarize our results."

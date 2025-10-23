@@ -1,0 +1,153 @@
+"","SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",""
+"FP16","LLM.int8()
+SmoothQuant",""
+"","660","Table 8: SmoothQuant ’s performance in the decoding stage."
+"371
+400","655
+700",""
+"296","",""
+"300","525
+458",""
+"237","",""
+"223","388
+343","Latency (ms)
+Memory (GB)"
+"Latency (ms)
+190
+200
+153","350
+276","BS
+SeqLen"
+"","228",""
+"112","",""
+"84","190
+136","FP16 Ours
+Speedup (↑)
+FP16 Ours
+Saving (↑)"
+"100
+63","175",""
+"0","0","OPT-30B (1 GPU)"
+"","",""
+"128
+256
+512
+25.9
+24.9","128
+256
+512
+59.0
+57.3","1
+512
+422
+314
+1.35×
+57
+30
+1.91×"
+"24.4","56.6",""
+"26","60",""
+"","","1
+1024
+559
+440
+1.27×
+58
+31
+1.87×"
+"20","45",""
+"14.3","",""
+"13.6
+13.3
+12.9
+12.8
+12.6","31.6
+30.4
+30.0
+29.3
+29.1
+28.9","16
+512
+2488
+1753
+1.42×
+69
+44
+1.59×"
+"Memory (GB)
+13","30",""
+"","","16
+1024
+OOM 3947
+-
+OOM
+61
+-"
+"","15",""
+"","0",""
+"","","OPT-175B (8 GPUs)"
+"128
+256
+512","128
+256
+512",""
+"OPT-13B","OPT-30B","1
+512
+426
+359
+1.19×
+44
+23
+1.87×"
+"","","1
+1024
+571
+475
+1.20×
+44
+24
+1.85×"
+"","","16
+512
+2212
+1628
+1.36×
+50
+30
+1.67×"
+"Figure 8: The PyTorch implementation of SmoothQuant-O3","",""
+"","","16
+1024
+4133
+3231
+1.28×
+56
+37
+1.52×"
+"achieves up to 1.51× speedup and 1.96× memory saving for","",""
+"OPT models on a single NVIDIA A100-80GB GPU, while","",""
+"","","Table 9:
+SmoothQuant can quantize MT-NLG 530B to"
+"LLM.int8() slows down the inference in most cases.","",""
+"","","W8A8 with negligible accuracy loss."
+"is almost always slower than the FP16 baseline, which is","","LAMBADA HellaSwag
+PIQA WinoGrande Average"
+"due to the large overhead of","the mixed-precision activa-",""
+"","","FP16
+76.6%
+62.1%
+81.0%
+72.9%
+73.1%"
+"tion representation. In terms of memory, SmoothQuant and","","INT8
+77.2%
+60.4%
+80.7%
+74.1%
+73.1%"
+"LLM.int8() can all nearly halve the memory usage of","",""
+"the FP16 model, while SmoothQuant saves slightly more","",""
+"","","of
+the GPUs (16 to 8) at a similar
+latency, enabling the"
+"memory because it uses fully INT8 GEMMs.","",""

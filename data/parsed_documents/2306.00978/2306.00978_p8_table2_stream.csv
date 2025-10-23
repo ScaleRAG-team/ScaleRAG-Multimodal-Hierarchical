@@ -1,0 +1,8 @@
+"Activation-aware Weight Quantization outperforms existing methods under zero-shot and various few-shot settings, demonstrating the","","","","","","","","","","",""
+"","generability to different modalities and in-context learning workloads. Activation-aware Weight Quantization reduces the quantization","","","","","","","","","",""
+"","degradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4× model size reduction with negligible performance loss.","","","","","","","","","",""
+"Model (Accuracy↑)","VQAv2","GQA","VizWiz","SQA-I","VQA-T","POPE","MME","MMB","SEED","llava-bench","MM-Vet"
+"VILA-7B","80.3","63.1","59.6","68.0","62.6","86.3","1489.4","69.8","61.7","75.2","35.1"
+"VILA-7B-AWQ","80.1","63.0","57.8","68.0","61.9","85.3","1486.3","68.8","61.3","75.8","35.9"
+"VILA-13B","80.5","63.6","63.1","70.5","64.0","86.3","1553.6","73.8","62.8","78.3","42.6"
+"VILA-13B-AWQ","80.4","63.6","63.0","71.2","63.5","87.0","1552.9","73.6","62.2","77.6","42.0"

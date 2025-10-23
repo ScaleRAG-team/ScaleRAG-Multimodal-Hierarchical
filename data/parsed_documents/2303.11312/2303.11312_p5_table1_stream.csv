@@ -1,0 +1,33 @@
+"Michael J Mahoney
+5"
+"under a null model) the fractional term simpliﬁes to 1 and thus AC is 0.
+In practice however,"
+"the null model
+is not the true lower bound for how poorly two data sets can agree with one"
+"another;
+it
+to
+is entirely possible for poor models with large diﬀerences between yi and ˆyi"
+"produce negative AC estimates, with true bounds of (−∞, 1]. Worse agreement between yi"
+"and y produces smaller values."
+"In addition to these dimensionless agreement metrics,
+these authors also suggest a host of"
+"metrics for model assessment in units of y, which may then be decomposed into systematic and"
+"unsystematic components. For instance, Willmott (1981) walks through the decomposition"
+"of the familiar mean squared error (MSE):"
+"1 n
+nX i
+MSE =
+(5)
+(ˆyi − yi)2"
+"=1"
+"Into its
+systematic and unsystematic components, with the systematic component of MSE"
+"given by:"
+""
+"1 n
+nX i
+(6)
+MSEs =
+(cid:0)ˆyi − y0"
+"=1"

@@ -1,0 +1,51 @@
+"Recall that in Figure 2, we observe that even when trained densely, the attention matrices of LLMs"
+"are over 95% sparse at inference time. Only 5% of the KV cache is sufficient for decoding the same"
+"output token at each generation step. Here, we provide some formal formulations for sparsity."
+"Definition D.33. Suppose the following conditions"
+""
+"• Let S0 ⊂"
+".
+• Let k ="
+"|
+S0|"
+"• Let τ
+(0, 1) denote a threshold for truncating the value."
+"∈"
+"• Let α
+(0, 1) denote a fraction of mass (larger than τ ) outside S0."
+"∈"
+""
+"• Let mapping
+: Rd"
+"0."
+"≥
+D
+→"
+"Rd,
+• For each x
+(x)
+Rm is a vector that has length m."
+"∈
+D
+∈"
+"We say the distribution
+is (α, τ, k)-good if the following conditions hold"
+"D"
+""
+"• For all x
+(x))
+suppτ (
+∈
+Rd, S0 ⊂
+D"
+"Rd,
+• For all x"
+""
+"∈
+|
+D
+\
+S0| ≤
+·"
+"Claim D.34. Suppose we sample n points
+x1, x2,"

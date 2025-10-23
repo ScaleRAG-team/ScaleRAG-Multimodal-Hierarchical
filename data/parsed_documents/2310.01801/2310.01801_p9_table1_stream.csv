@@ -1,0 +1,27 @@
+"To analyze the end-to-end speedup of FastGen, we present the end-to-end latency improvement over"
+"full-cache setting and a strong model acceleration baseline in Table 2. In the experiment, we record"
+"the total duration in seconds, measured from the start of prompt encoding, until the end of generation"
+"as the end-to-end latency.
+For
+the full-cache baseline, we adopt
+the widely used Hugging Face"
+"Accelerate (HF) (Gugger et al., 2022), denoted as HF in Table 2. For FastGen, we implemented a"
+"customized kernel to handle the KV cache pruning operation. Specifically, we adapt the kernel from"
+"Deepspeed (DS) (Aminabadi et al., 2022) by adding the KV cache sparsity operation. We include"
+"the Deepspeed performance for fair comparison, denoted as DS in Table 2. All methods are tested"
+"on the same Nvidia V100 GPUs."
+"As shown in Table 2, we can observe that FastGen achieves significant end-to-end speed-up across"
+"all the generation settings. For the least significant case, FastGen can have a decent 16.04% latency"
+"improvement over the HF baseline on a short generation length of 512.
+In the best cases, we can"
+"achieve up to 55.0% latency reduction over HF with FastGen at a generation length of 16k. We can"
+"also observe that
+the relative speedup is greater with longer generation length. For example, given"
+"batch size = 1, FastGen’s relative speed-up rises from 16.04% to 55.0%, as the generation length"
+"grows from 512 to 16k. When comparing FastGen to DeepSpeed, we can still observe significant"
+"speed-up that gets bigger with batch size and generation length. Considering DeepSpeed is a full-"
+"stack optimized inference system, where not only attention computation is optimized,
+there is still"
+"much room to further
+improve FastGen by polishing the sparsity kernel. We leave this unique"
+"research and engineering challenge to future works."

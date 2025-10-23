@@ -1,0 +1,11 @@
+"2.3"
+"101
+102"
+"Depth"
+"Figure 24
+We show evaluations on a series of datasets for models with approximately 1.5 Billion param-"
+"eters. We observe no effect of depth on generalization; generalization performance depends primarily on"
+"training distribution performance. The 12-layer model overﬁt
+the Internet Books dataset and we show the"
+"early-stopped performance; we have not seen this surprising result in other experiments."
+"List of Figures"

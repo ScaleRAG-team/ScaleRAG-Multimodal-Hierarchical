@@ -1,0 +1,23 @@
+"□
+as desired."
+"D
+Hardware-aware Algorithm For Selective SSMs"
+"Without input-dependent selectivity, SSMs can be efficiently implemented as a convolution (Dao, Fu, Saab, et al. 2023; Gu,"
+"Goel, and Ré 2022), which leverages the fast Fourier transform (FFT) as primitive. With selectivity, SSMs are no-longer"
+"equivalent
+to convolution, but we leverage the parallel associative scan. While SSM scans are theoretically efficient"
+"(𝑂 (𝐵𝐿𝐷𝑁 ) FLOPs, scaling linear in 𝐿), training foundation models with selective SSMs requires them to be efficient on"
+"modern hardware (GPUs) as well. We describe how we use kernel fusion and recomputation to make SSM scan fast and"
+"memory-efficient. We evaluate the speed of our scan implementation compared to convolution and attention in Section 4.5,"
+"showing that it is up to 7× times faster than attention at sequence length 32K, and is as memory-efficient as the best"
+"attention implementation (FlashAttention)."
+"On modern hardware accelerators (GPUs) most operations (except matrix multiply) are bounded by memory-"
+"Speed."
+"bandwidth (Dao, Fu, Ermon, et al. 2022; Ivanov et al. 2021; Williams, Waterman, and Patterson 2009). This the case with our"
+"scan operation, and we use kernel fusion to reduce the amount of memory IOs, leading to significant speedup compared to"
+"a standard implementation."
+"The standard way to implement the scan algorithm in Section 3.2 is to prepare the scan input 𝑨, 𝑩 of size (𝐵, 𝐿, 𝐷, 𝑁 ) in GPU"
+"HBM (high-bandwidth memory, commonly referred to as GPU memory), call a parallel associative scan implementation to"
+"write the scan output of size (𝐵, 𝐿, 𝐷, 𝑁 ) to GPU HBM, then multiply that scan output with 𝑪 to produce an output of size"
+"(𝐵, 𝐿, 𝐷). However, this requires the number of memory reads/writes on the order of 𝑂 (𝐵𝐿𝐷𝑁 ). We can instead fuse the"
+"discretization step, the scan, and the multiplication with 𝑪 into one kernel:"

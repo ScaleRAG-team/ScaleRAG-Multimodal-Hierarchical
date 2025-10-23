@@ -1,0 +1,30 @@
+"4
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"This
+formulation means
+that d is bounded [0, 1], with higher values of d indicating greater"
+"agreement between y and ˆy. As a dimensionless metric, d is a useful tool for comparing models;"
+"however,
+the use of
+summed diﬀerences
+in the numerator means
+that d is oversensitive to"
+"(1985)
+outliers in ˆyi −yi (Legates and McCabe 1999). To address this concern, Willmott et al."
+"introduced a revised metric named d1, using the sum of the absolute values of diﬀerences in"
+"the place of the sum of squared diﬀerences and no longer squaring the denominator:"
+"Pn"
+"i=1 |ˆyi − yi|"
+"(2)
+d1 = 1 −"
+"Pn"
+"i=1 (|ˆyi − ¯y| + |yi − ¯y|)"
+"is bounded [0, 1] with higher values indicating improved agreement; Willmott
+As with d, d1"
+"(2011) notes that d1 approaches 1 more slowly than d, allowing for ﬁner-grained comparisons"
+"between well-performing models."
+"Willmott et al. revisited these indices twenty-ﬁve years later (2011), noting that interpretation"
+"of d and d1 was made diﬃcult both by the limited range of the metric and by the inclusion"
+"of ˆy in the denominator, which made the scaling factor of the agreement metric dependent"
+"upon the model
+itself. To address this, they introduce a new metric dr, such that:"

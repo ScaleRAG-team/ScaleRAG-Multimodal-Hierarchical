@@ -1,0 +1,66 @@
+"","","74
+80"
+"","","Scratch
+CG3D
+Scratch
+CG3D"
+"There is a sofa in","",""
+"the scene.","",""
+"“Bed”","","PointTransformer
+PointMLP"
+"Learnable Prompts","",""
+"Figure 1: Overview of our proposed framework CLIP goes 3D (CG3D). We introduce a 3D Encoder in the CLIP framework","",""
+"and pre-train it using natural language supervision while also leveraging CLIP’s pre-trained visual encoder. CG3D solves var-","",""
+"ious practical tasks like zero-shot 3D recognition, 3D point cloud retrieval, scene querying with natural language, Moreover,","",""
+"it can serve as a strong initial weight for standard ﬁne-tuning tasks.","",""
+"Abstract","getting and a notable decrease in performance.","To solve"
+"","this, we employ prompt","tuning and introduce trainable pa-"
+"","","rameters in the input space to shift CLIP towards the 3D"
+"Vision-Language models
+like CLIP have been widely","",""
+"","","pre-training dataset utilized in CG3D. We extensively test"
+"adopted for various tasks due to their impressive zero-shot","",""
+"","","our pre-trained CG3D framework and demonstrate its im-"
+"capabilities.
+However, CLIP is not
+suitable for extract-","",""
+"","","pressive capabilities in zero-shot, open scene understand-"
+"ing 3D geometric features as
+it was
+trained on only im-","",""
+"","ing, and retrieval
+tasks.","Further,
+it also serves as strong"
+"ages and text by natural
+language supervision. We work","",""
+"","","starting weights for ﬁne-tuning in downstream 3D recog-"
+"on addressing this
+limitation and propose a new frame-","",""
+"","","nition tasks. Codes and pre-trained models can be found"
+"work termed CG3D (CLIP Goes 3D) where a 3D encoder is","",""
+"","here: https://github.com/deeptibhegde/CLIP-goes-3D.",""
+"learned to exhibit zero-shot capabilities. CG3D is trained","",""
+"using triplets of pointclouds, corresponding rendered 2D","",""
+"images, and texts using natural
+language supervision.
+To","",""
+"align the features
+in a multimodal embedding space, we","",""
+"","1. Introduction",""
+"utilize contrastive loss on 3D features obtained from the","",""
+"3D encoder, as well as visual and text
+features extracted","",""
+"","","For many tasks in 2D vision, the most efﬁcient and accu-"
+"from CLIP. We note that
+the natural
+images used to train","",""
+"","","rate results are now obtained by adapting foundation mod-"
+"CLIP and the rendered 2D images
+in CG3D have a dis-","",""
+"","","els [47, 48, 2, 70] which are pre-trained on large-scale data."
+"tribution shift. Attempting to train the visual and text en-","",""
+"","","There is currently a signiﬁcant amount of research focused"
+"coder to account
+for this shift results in catastrophic for-","",""
+"","","on efﬁciently adapting foundation models for speciﬁc 2D"
+"","","vision tasks [71, 52, 64, 18], rather than developing new su-"

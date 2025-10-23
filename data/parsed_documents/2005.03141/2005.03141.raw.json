@@ -1,0 +1,2964 @@
+{
+  "title": "Towards Frequency-Based Explanation for Robust CNN",
+  "authors": [
+    "Zifan Wang*",
+    "Yilin Yang*",
+    "Ankit Shrivastava*",
+    "Varun Rawal*",
+    "Zihao Ding*"
+  ],
+  "source_path": "../data/pdf/2005.03141.pdf",
+  "page_count": 7,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "counts": {
+    "texts": 267,
+    "pictures": 10,
+    "tables": 10
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 14,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 2,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 3,
+      "text_blocks": 75,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 4,
+      "text_blocks": 40,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 16,
+      "layout_blocks": 2,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 78,
+      "layout_blocks": 8,
+      "xobjects_found": 7,
+      "xobjects_exported": 7,
+      "reused_exported": 0,
+      "rasterized": 8,
+      "tables_found": 2
+    },
+    {
+      "page": 7,
+      "text_blocks": 31,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        126.0719985961914,
+        89.9119873046875,
+        470.8113098144531,
+        104.25818634033203
+      ],
+      "text": "Towards Frequency-Based Explanation for Robust CNN"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        120.75299835205078,
+        139.3885498046875,
+        474.4669189453125,
+        152.9661407470703
+      ],
+      "text": "Zifan Wang* 1 Yilin Yang* 1 Ankit Shrivastava* 1 Varun Rawal* 1 Zihao Ding* 1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        150.197998046875,
+        176.0601806640625,
+        194.68328857421875,
+        188.015380859375
+      ],
+      "text": "Abstract"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        75.36599731445312,
+        196.5805206298828,
+        269.5171813964844,
+        469.5570068359375
+      ],
+      "text": "Current explanation techniques towards a trans-\nparent Convolutional Neural Network (CNN)\nmainly focuses on building connections between\nthe human-understandable input features with\nmodels’ prediction, overlooking an alternative\nrepresentation of the input, the frequency compo-\nnents decomposition. In this work, we present an\nanalysis of the connection between the distribu-\ntion of frequency components in the input dataset\nand the reasoning process the model learns from\nthe data. We further provide quantiﬁcation anal-\nysis about the contribution of different frequency\ncomponents toward the model’s prediction. We\nshow that the vulnerability of the model against\ntiny distortions is a result of the model is rely-\ning on the high-frequency features, the target fea-\ntures of the adversarial (black and white-box) at-\ntackers, to make the prediction. We further show\nthat if the model develops stronger association\nbetween the low-frequency component with true\nlabels, the model is more robust, which is the ex-\nplanation of why adversarially trained models are\nmore robust against tiny distortions."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.43999481201172,
+        496.1460876464844,
+        132.2760772705078,
+        508.1012878417969
+      ],
+      "text": "1. Introduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.43999481201172,
+        517.139404296875,
+        289.44158935546875,
+        658.6079711914062
+      ],
+      "text": "The gap between human’s understanding and the logic be-\nhind Deep Neural Networks (DNNs) are receiving more at-\ntention as DNNs show competitive inference power in areas\nwhere humans used to be indispensable, e.g. medical diag-\nnosis, auto-piloting, and credit systems. Entrusting users\nby explaining models’ behavior becomes as necessary as\npromoting the performance. Explanations of deep neural\nnetworks tend to provide human-understandable descrip-\ntions about models’ behaviors. Recent work of explana-\ntions focuses on associating importance of input features\neither to the model’s output (e.g. Karpathy et al. (2015),\nSundararajan et al. (2017), Selvaraju et al. (2019)) or to the"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.44001007080078,
+        666.86767578125,
+        289.4372863769531,
+        687.33935546875
+      ],
+      "text": "*Equal contribution\n1Carnegie Mellon University, Pittsburgh,\nPA 15213, USA."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.44001007080078,
+        698.2979736328125,
+        276.3060302734375,
+        717.2273559570312
+      ],
+      "text": "Work In Progress\n{zifanw, yiliny2, ashriva2, vrawal, zihaod}@andrew.cmu.edu"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        177.68043518066406,
+        541.441650390625,
+        331.1060485839844
+      ],
+      "text": "distribution of data with which the model is trained (e.g.\nKoh & Liang (2017), Yeh et al. (2018), Leino et al. (2018));\nAmong all behaviors of deep models, the robustness draws\nincreasing attentions due to the security and fairness con-\ncerns. Current discussion of models’ robustness focuses on\nthe capacity of defending adversarial attacks which aims to\nfool the deep models with similar input but the change is\nin-perceptional to humans(Szegedy et al., 2013). Different\nadversarial attacks, though varying in the adversarial loss\nand updating rules, have been proved to successfully fool\nthe most of deep models. (Szegedy et al. (2013), Goodfel-\nlow et al. (2014), Kurakin et al. (2016), Carlini & Wagner\n(2017), Papernot et al. (2016))."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        339.075439453125,
+        541.441650390625,
+        492.4999084472656
+      ],
+      "text": "Besides the work that aims to generate more robust model\nagainst existing attacks (Madry et al. (2017), Shafahi et al.\n(2019)) or a certiﬁable robust mechanism(Cohen et al.\n(2019)), the community starts to explain why the deep\nmodel tends to be more vulnerable and tries to understand\nwhat is behind the adversarial attacks.(Madry et al., 2017)\nconcludes that a robust model tends to be more complex\nthan the standard trained model and Ilyas et al. (2019)\nshows that adversarial examples can be treated as an in-\nput full of non-robust features, which are poorly correlated\nto the labels. Models can still have good performance and\ngeneralizations by only learning the non-robust features but\nwill become vulnerable against various attacks."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        500.4703063964844,
+        541.4415283203125,
+        606.0738525390625
+      ],
+      "text": "However, the community may overlook another facet of in-\nput data – the distribution of frequency components. Treat-\ning inputs as signals in Rn space, we can decompose them\ninto basis signals of diverse frequencies. While humans\nmay only respond to a speciﬁc range of frequencies, DNNs\nare capable of using information from all frequencies. In\nthis paper, we build the bridge between the model’s robust-\nness with the distribution of frequency components in the\ninput set. Our major contributions are:"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.40301513671875,
+        623.5845947265625,
+        541.4423217773438,
+        669.7728881835938
+      ],
+      "text": "• We prove that when the distortion is measured\nwith ℓ1 distance, perturbing high-frequency compo-\nnents causes smaller change compared with the low-\nfrequency components."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.40301513671875,
+        683.234619140625,
+        541.4423828125,
+        717.4678955078125
+      ],
+      "text": "• We show that, for many existing adversarial attacks,\nthere are more distortions in the high-frequency com-\nponents."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        210.5999755859375,
+        37.619998931884766,
+        555.0
+      ],
+      "text": "arXiv:2005.03141v1  [cs.LG]  6 May 2020"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        65.40299987792969,
+        69.1078109741211,
+        289.4423522949219,
+        139.20614624023438
+      ],
+      "text": "• We propose, Occluded Frequency, our measurement\nof the contribution of each frequency component to-\nwards the prediction and we further show that robust\nmodels are usually less relied on the high-frequency\ncomponents in the input; therefore, they are more ro-\nbust."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.43999481201172,
+        156.188232421875,
+        226.69825744628906,
+        168.1434326171875
+      ],
+      "text": "2. Background and Related Work"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.43999481201172,
+        177.18153381347656,
+        289.441650390625,
+        533.8439331054688
+      ],
+      "text": "Besides in the original feature space, several works pro-\nvide new insights into the CNN behaviors from the aspect\nin the frequency domain. Wang et al. (2019) shows that\nunlike human beings, high-frequency components play sig-\nniﬁcant roles in promoting CNN’s accuracy. Adopting in-\nformation from high-frequency components may cause the\nmodel to form very different concepts in learning as hu-\nmans do. By observing adversarial defended models, Wang\net al. (2019) concludes that smoothing the CNN kernels\nhelps to enforce the model to use features of low frequen-\ncies. While the conclusion remains questionable due to\nthe lack of theoretical proof is discussed, the paper pro-\nposes a novel view of attributing the frequencies compo-\nnents to the model’s predictions. An alternative view of un-\nderstanding the importance of frequency components is to\nobserve a model’s behavior when speciﬁc frequency com-\nponents are modiﬁed. This area is studied known as the\nfrequency components analysis on adversarial examples.\nGuo et al. (2018) proposes an adversarial attack only tar-\ngeting the low-frequency components in an image, which\nshows that the model does utilize the features in the low-\nfrequency domains for predictions instead of only learn-\ning from high-frequency components. Sharma et al. (2019)\ndemonstrated that state-of-the-art defenses are nearly as\nvulnerable as undefended models under low-frequency per-\nturbations, which implies current defense techniques are\nonly valid against adversarial attack in the high-frequency\ndomain. On the other side, (Rahaman et al., 2018) shows\nthat ReLU networks tend to learn low-frequency featuers\nﬁrst and then pick up the high-frequency components later."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.43999481201172,
+        548.9234008789062,
+        182.2838134765625,
+        558.885986328125
+      ],
+      "text": "2.1. Notation and Preliminary"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.43999481201172,
+        567.6673583984375,
+        289.44146728515625,
+        589.5848999023438
+      ],
+      "text": "We ﬁrst introduce the notation we are going to use in the\nrest of the paper."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439971923828125,
+        597.3248291015625,
+        289.4418029785156,
+        667.2939453125
+      ],
+      "text": "Notation A deep neural network y = arg maxc fc(x) that\ntakes an input x ∈Rd and outputs a prediction class y. For\nsimplicity, we omit the bold font and denote the input as\nx. We denote the ℓp norm as || · ||p. The Discrete Fourier\nTransform of x is denoted as X = F(x) (discussion to\nfollow)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.43998718261719,
+        675.1724243164062,
+        289.4420471191406,
+        709.136962890625
+      ],
+      "text": "Discrete Fourier Transform (DFT) By convolution with a\nseries of complex-valued exponential functions, DFT trans-\nforms a ﬁnite signal into the a complex-valued function of"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        69.46839904785156,
+        541.4415283203125,
+        175.07211303710938
+      ],
+      "text": "frequency. DFT is widely used in signal processing to an-\nalyze the frequency components for signals and human are\nmore perceptional to the low frequency components in the\nsignal, e.g. the content of image, while less perceptional\nto the high-frequency patterns, e.g. noise and small per-\nturbations. Computing DFT requires dealing with complex\nfunction and we avoid this by introducing Discrete Cosine\nTransform in the real implementation but the analysis is\nstill under DFT (Bracewell & Newbold, 1986)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        182.9515380859375,
+        541.4415283203125,
+        312.55615234375
+      ],
+      "text": "Discrete Cosine Transform (DCT) DCT is similar to the\ndiscrete Fourier transform: it transforms a signal or image\nfrom the spatial domain to the frequency domain, but only\nmaintaining the real part. The difference is the basis func-\ntion: DFT uses complex exponential functions while the\nDCT uses real-valued cosine functions (Narasimha & Pe-\nterson, 1978). In the analysis part, we use DFT to demon-\nstrate the motivations and methods while for the experi-\nments we will replace DFT with DCT due to the imaginary\ncomponents of DCT will bring extra computational com-\nplexity."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        327.6365966796875,
+        410.2739562988281,
+        337.59918212890625
+      ],
+      "text": "2.2. Adversarial Attacks"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        346.3795471191406,
+        541.4443969726562,
+        631.3109741210938
+      ],
+      "text": "An adversarial attack tries to ﬁnd a neighbor of an input\nx whose prediction is different from x but the change is\nin-perceptional to humans, causing failure in the reason-\ning. We introduce a few representative adversarial attack\nalgorithms and methods. We discuss the three white-box\nattacks to be evaluated in this paper.\nGoodfellow et al.\n(2014) proposes FGSM attack, a heuristic searching for\nthe adversarial examples following the sign of adversarial\ndirections with a baby step at each time. It is usually done\nin the ℓ∞space by clipping the value outside the user-\ndeﬁned pixel range. Unlike FGSM, PGD (Madry et al.,\n2017) projects the adversarial samples learned from each\niteration into the ℓp ball of the original input, therefore, the\nadversarial perturbation size is than the maximum allowed\nperturbation. CW attack Carlini & Wagner (2017) refor-\nmalizes the adversarial loss to ensure that the solution to the\noptimization is close to the global optimal. They also solve\nthe perturbation in the tanh space to yield the smoothness\nof the gradient signal. Besides the white-box attacks, we\nare also interested in the black-box attack and we include\nSimBA (Guo et al., 2019) in this paper. Under untargeted\nattack mode, SimBA tries to add a random perturbation on\nthe input image at each step, and accept the perturbation if\nit decreases prediction certainty on the correct label."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.4400634765625,
+        648.2930908203125,
+        524.9530029296875,
+        674.1962890625
+      ],
+      "text": "3. Adversarial attack analysis in frequency\ndomain"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        295.9500732421875,
+        683.234375,
+        541.4417114257812,
+        724.262939453125
+      ],
+      "text": "The discussion of robustness is caused by the introduction\nof adversarial attacks and then the vulnerability comes into\nthe attention. In the time domain, e.g. the image, adversar-\n2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        69.46748352050781,
+        289.4415588378906,
+        139.20614624023438
+      ],
+      "text": "ial perturbations are usually hard to discovered by humans\nsince they are designed to have very small ℓp norms. It is\nnatural to believe the adversarial perturbations do not dis-\ntort the low-frequency components in the image but more\nlike a change in the high-frequency pattern. We verify this\nhypothesis by introducing the following proposition."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.44000244140625,
+        159.86761474609375,
+        289.4429016113281,
+        205.60975646972656
+      ],
+      "text": "Proposition 1 (Lower Bound of Input Perturbation)\nGiven an input x and a perturbed input x′, the distor-\ntion measured in the ℓ1 space is lower bounded by the\ncorresponding lowest frequency components. Formally,"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        123.27100372314453,
+        233.23654174804688,
+        289.44036865234375,
+        246.87774658203125
+      ],
+      "text": "||x −x′||1 ≥|X0 −X′\n0|\n(1)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.43998718261719,
+        280.4649963378906,
+        289.4397277832031,
+        302.74224853515625
+      ],
+      "text": "Proof: We ﬁrst write down the DFT X = F(x) of an given\ninput x and the inverse DFT x = F−1(X)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        101.58395385742188,
+        341.7559814453125,
+        165.0358428955078,
+        353.3416748046875
+      ],
+      "text": "Xk = F(x)k ="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        167.8009490966797,
+        331.67755126953125,
+        182.1968994140625,
+        349.5461120605469
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        168.54295349121094,
+        338.98712158203125,
+        216.15341186523438,
+        362.94873046875
+      ],
+      "text": "i=0\nxie−j 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        210.63600158691406,
+        340.10675048828125,
+        224.74588012695312,
+        349.4815673828125
+      ],
+      "text": "d ki"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        105.72899627685547,
+        370.1729431152344,
+        186.53228759765625,
+        388.3705139160156
+      ],
+      "text": "xi = F−1(X)i = 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        181.44900512695312,
+        383.7469177246094,
+        186.6395263671875,
+        393.7095031738281
+      ],
+      "text": "d"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        189.541015625,
+        366.70538330078125,
+        203.9369659423828,
+        384.574951171875
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        189.4910125732422,
+        374.01495361328125,
+        235.86146545410156,
+        398.20556640625
+      ],
+      "text": "k=0\nXkej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        230.343994140625,
+        359.4634704589844,
+        289.44036865234375,
+        384.5095520019531
+      ],
+      "text": "d ki\n(2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.43998718261719,
+        419.1128234863281,
+        289.4418640136719,
+        449.216064453125
+      ],
+      "text": "where j = √−1 and d is the dimension of x. And we also\nintroduce Lemma 1."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.43998336791992,
+        469.7919921875,
+        289.44183349609375,
+        491.7095642089844
+      ],
+      "text": "Lemma 1 The ﬁnite sum of complex-valued exponential\nseries can be written as"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        69.28398132324219,
+        518.5093383789062,
+        83.67993927001953,
+        536.3789672851562
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        70.0269775390625,
+        520.6976928710938,
+        150.15550231933594,
+        549.7815551757812
+      ],
+      "text": "i=0\nejix = 1 −ejdx"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        118.06099700927734,
+        519.1843872070312,
+        262.2052917480469,
+        545.5135498046875
+      ],
+      "text": "1 −ejx = −eidx/2(e−jdx/2−ejdx/2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        166.3209991455078,
+        532.7227783203125,
+        264.4464416503906,
+        545.6925048828125
+      ],
+      "text": "−ejx/2(e−jx/2 −ejx/2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        104.27598571777344,
+        552.9249267578125,
+        156.81072998046875,
+        569.6275024414062
+      ],
+      "text": "= sin(dx/2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        118.58000183105469,
+        542.428466796875,
+        289.4403991699219,
+        576.4615478515625
+      ],
+      "text": "sin(x/2) ejx(d−1)/2\n(3)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.440032958984375,
+        604.3717651367188,
+        99.46553039550781,
+        615.9755859375
+      ],
+      "text": "Let x = 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        91.74700164794922,
+        605.9589233398438,
+        244.83270263671875,
+        619.3575439453125
+      ],
+      "text": "N k then we have the Fourier basis, so"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        111.43199920654297,
+        646.0313720703125,
+        125.82795715332031,
+        663.9009399414062
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        111.12100219726562,
+        653.3419189453125,
+        144.8574676513672,
+        677.1835327148438
+      ],
+      "text": "n=0\nej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        139.33999633789062,
+        649.4999389648438,
+        200.58145141601562,
+        666.2025146484375
+      ],
+      "text": "d ki = sin(πk)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        168.4320068359375,
+        661.4867553710938,
+        190.39149475097656,
+        673.0364990234375
+      ],
+      "text": "sin( π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        186.11399841308594,
+        652.8724365234375,
+        233.728271484375,
+        676.4714965820312
+      ],
+      "text": "d k)ejkπ d−1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        225.6479949951172,
+        656.1294555664062,
+        289.44036865234375,
+        666.092041015625
+      ],
+      "text": "d\n(4)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.44000244140625,
+        704.5113525390625,
+        153.86846923828125,
+        724.4009399414062
+      ],
+      "text": "Observe that Pd−1\nn=0 ej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        148.3509979248047,
+        703.658935546875,
+        284.2017822265625,
+        717.2915649414062
+      ],
+      "text": "d ki = d if k = 0 and 0 otherwise."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.4400329589844,
+        69.46742248535156,
+        434.73211669921875,
+        79.43002319335938
+      ],
+      "text": "Eventually, we prove the Prop 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        316.0960388183594,
+        102.38436126708984,
+        368.5119934082031,
+        115.70947265625
+      ],
+      "text": "||x −x′||1 ="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        371.2781066894531,
+        94.0443344116211,
+        385.674072265625,
+        111.91390991210938
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.0201110839844,
+        102.38436126708984,
+        423.063720703125,
+        125.31652069091797
+      ],
+      "text": "i=0\n|xi −x′\ni|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.7621154785156,
+        139.28086853027344,
+        368.5130310058594,
+        149.24346923828125
+      ],
+      "text": "="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        371.27813720703125,
+        129.07235717773438,
+        385.6741027832031,
+        146.94192504882812
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.0201416015625,
+        137.41232299804688,
+        485.731689453125,
+        160.34454345703125
+      ],
+      "text": "i=0\n|F−1(X)i −F−1(X′)i|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.7620849609375,
+        174.3088836669922,
+        368.51300048828125,
+        184.271484375
+      ],
+      "text": "="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        371.2781066894531,
+        164.10134887695312,
+        385.674072265625,
+        181.96987915039062
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.0201110839844,
+        167.56883239746094,
+        396.3753967285156,
+        195.37347412109375
+      ],
+      "text": "i=0\n|1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        391.2909851074219,
+        181.14292907714844,
+        396.48150634765625,
+        191.10552978515625
+      ],
+      "text": "d"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        399.3830261230469,
+        164.10140991210938,
+        413.77899169921875,
+        181.96994018554688
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        399.3330383300781,
+        171.41104125976562,
+        445.7034912109375,
+        195.6015625
+      ],
+      "text": "k=0\nXkej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        440.1860046386719,
+        167.5688934326172,
+        473.2543029785156,
+        184.14236450195312
+      ],
+      "text": "d ki −1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        468.1709899902344,
+        181.14292907714844,
+        473.36151123046875,
+        191.10552978515625
+      ],
+      "text": "d"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        476.2619934082031,
+        164.10140991210938,
+        490.657958984375,
+        181.96994018554688
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        476.2120056152344,
+        171.41104125976562,
+        522.58251953125,
+        195.6015625
+      ],
+      "text": "k=0\nX′\nkej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        517.0650024414062,
+        172.53175354003906,
+        534.4476318359375,
+        184.14236450195312
+      ],
+      "text": "d ki|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.76104736328125,
+        202.82591247558594,
+        377.55633544921875,
+        219.52850341796875
+      ],
+      "text": "= 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.4729919433594,
+        216.39988708496094,
+        377.66351318359375,
+        226.36248779296875
+      ],
+      "text": "d"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        380.51397705078125,
+        199.35733032226562,
+        394.9099426269531,
+        217.22689819335938
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        381.2569885253906,
+        209.4367218017578,
+        399.3345642089844,
+        230.6295166015625
+      ],
+      "text": "i=0\n|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        401.04296875,
+        199.35733032226562,
+        415.4389343261719,
+        217.22689819335938
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        400.99298095703125,
+        206.66793823242188,
+        478.783447265625,
+        230.8585205078125
+      ],
+      "text": "k=0\n(Xk −X′\nk)ej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        473.2669982910156,
+        207.78773498535156,
+        490.6485900878906,
+        219.39938354492188
+      ],
+      "text": "d ki|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.760986328125,
+        238.0829315185547,
+        377.5562744140625,
+        254.65640258789062
+      ],
+      "text": "≥1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.4729919433594,
+        244.6938018798828,
+        381.62359619140625,
+        261.6185302734375
+      ],
+      "text": "d|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        383.28204345703125,
+        234.61441040039062,
+        397.6780090332031,
+        252.48397827148438
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        384.0240478515625,
+        258.91278076171875,
+        396.93414306640625,
+        265.8865966796875
+      ],
+      "text": "i=0"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        399.3830261230469,
+        234.61441040039062,
+        413.77899169921875,
+        252.48397827148438
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        399.3330383300781,
+        241.92507934570312,
+        477.1235046386719,
+        266.1146240234375
+      ],
+      "text": "k=0\n(Xk −X′\nk)ej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        471.6059875488281,
+        243.0447540283203,
+        488.98858642578125,
+        254.65640258789062
+      ],
+      "text": "d ki|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.760986328125,
+        273.3389587402344,
+        377.5562744140625,
+        290.0415344238281
+      ],
+      "text": "= 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        372.4729919433594,
+        279.9497985839844,
+        381.62359619140625,
+        296.8755187988281
+      ],
+      "text": "d|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        383.3320007324219,
+        269.8713684082031,
+        397.72796630859375,
+        287.7409362792969
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        383.2820129394531,
+        278.21136474609375,
+        444.0104675292969,
+        301.3715515136719
+      ],
+      "text": "k=0\n(Xk −X′\nk)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        445.66900634765625,
+        269.8713684082031,
+        460.0649719238281,
+        287.7409362792969
+      ],
+      "text": "d−1\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        446.4120178222656,
+        277.18194580078125,
+        478.7834777832031,
+        301.1435546875
+      ],
+      "text": "i=0\nej 2π"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        473.2669982910156,
+        278.3017578125,
+        490.6485900878906,
+        289.91241455078125
+      ],
+      "text": "d ki|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.760986328125,
+        303.5444030761719,
+        541.4404907226562,
+        326.9820861816406
+      ],
+      "text": "= |X0 −X′\n0|\n(Use Lemma 1)\n(5)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        334.8615417480469,
+        541.4415893554688,
+        536.1978759765625
+      ],
+      "text": "Observation of Prop. 1 Perturbation applied to the in-\nput can be viewed either to a subset of features in the\ntime domain or in the frequency domain by transforming\nthe perturbation with DFT or DCT. For the same amount\nof perturbation measured by spectral energy in the fre-\nquency domain, Prop. 1 shows that only the perturbation\ntowards the low-frequency components will increase the\nlower bound of the same perturbation applied in the time\ndomain. Therefore, attacking the low-frequency compo-\nnents of the input tends to cause higher distortion in the\ntime domain due to the increase of lower bound, while the\nhigh-frequency distortion does not change the lower bound.\nAs long as we require the distortion as small as possible in\nthe time domain, an attacker should aim for mess up the\nhigh-frequency components instead of the low-frequency\npart, which matches our intuitions that adversarial pertur-\nbations tends to be not perceptional to human."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        544.1682739257812,
+        541.4415283203125,
+        649.7719116210938
+      ],
+      "text": "As the perturbation in the input space tends to happen to\nthe high-frequency components, if we minimize the corre-\nlation between the model’s decision and the use of high-\nfrequency features, we should be able to force the attacker\nto make greater distortions than before. In the other word,\nthe model will be more robust. To validate the proposition\nfrom empirical results, we propose a new way to measure\nthe contribution of each frequency components towards the\nprediction."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        664.851318359375,
+        495.2450866699219,
+        674.8139038085938
+      ],
+      "text": "3.1. Contribution of Frequency Components"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        295.95001220703125,
+        683.5942993164062,
+        541.4414672851562,
+        724.2619018554688
+      ],
+      "text": "Towards the interpretation of feature importance, one of the\nmethods is attribution functions. Attribution functions aim\nto assign a score for each feature in the input and higher\n3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        145.4508819580078,
+        71.68225860595703,
+        151.69827270507812
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        129.50680541992188,
+        71.68225860595703,
+        135.7541961669922
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        113.5627212524414,
+        71.68225860595703,
+        119.81010437011719
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        97.6186294555664,
+        71.68225860595703,
+        103.86601257324219
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        81.6745376586914,
+        71.68225860595703,
+        87.92192077636719
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        109.87451171875,
+        67.27438354492188,
+        503.15863037109375,
+        76.02072143554688
+      ],
+      "text": "Class 0\nClass 1\nClass 2\nClass 3\nClass 4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        77.16749572753906,
+        242.1029052734375,
+        159.61497497558594,
+        248.3502960205078
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n30"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        233.2178497314453,
+        71.68225860595703,
+        239.46524047851562
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        217.2737579345703,
+        71.68225860595703,
+        223.52114868164062
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        201.3296661376953,
+        71.68225860595703,
+        207.57705688476562
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        185.3855743408203,
+        71.68225860595703,
+        191.63296508789062
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        69.33948516845703,
+        169.4414825439453,
+        71.68225860595703,
+        175.68887329101562
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        109.87451171875,
+        155.0413360595703,
+        128.3625030517578,
+        163.7876739501953
+      ],
+      "text": "Class 5"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        170.86654663085938,
+        242.1029052734375,
+        253.31402587890625,
+        248.3502960205078
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n30"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        203.5735626220703,
+        155.0413360595703,
+        222.06155395507812,
+        163.7876739501953
+      ],
+      "text": "Class 6"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        264.5655822753906,
+        242.1029052734375,
+        347.0130920410156,
+        248.3502960205078
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n30"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        297.2725830078125,
+        155.0413360595703,
+        315.7606201171875,
+        163.7876739501953
+      ],
+      "text": "Class 7"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        358.2646484375,
+        242.1029052734375,
+        440.7121276855469,
+        248.3502960205078
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n30"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        390.9716491699219,
+        155.0413360595703,
+        409.4596862792969,
+        163.7876739501953
+      ],
+      "text": "Class 8"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        451.96368408203125,
+        242.1029052734375,
+        534.4111938476562,
+        248.3502960205078
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n30"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        484.6706848144531,
+        155.0413360595703,
+        503.15863037109375,
+        163.7876739501953
+      ],
+      "text": "Class 9"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        514.8605346679688,
+        165.81240844726562,
+        534.1325073242188,
+        197.2646942138672
+      ],
+      "text": "nat\nL2 0.25\nL2 0.5\nLinf 8"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        283.1511535644531,
+        253.88059997558594,
+        325.4286193847656,
+        262.6269226074219
+      ],
+      "text": "Frequency Basis"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.653141021728516,
+        118.39630126953125,
+        64.39948272705078,
+        197.83535766601562
+      ],
+      "text": "Average Frequency Attribution"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43994140625,
+        278.083984375,
+        541.4456787109375,
+        319.9273681640625
+      ],
+      "text": "Figure 1. Average Attribution scores for each frequency components on each subset of CIFAR-10. We compute the attribution scores on\nthree ResNet models: natural training (blue), Madry’s training with ϵ = 0.25 in ℓ2 space (orange) and Madry’s training with ϵ = 0.5\nin ℓ2 space (green). Robust models tend to shift the high attribution scores from the high frequency range to the low frequency range,\ncompared to the naturally trained models. Better viewed in color."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43994140625,
+        342.0344543457031,
+        289.4415283203125,
+        495.45892333984375
+      ],
+      "text": "scores reﬂect higher relevance of the particular features to-\nwards the quantity of interest, e.g. the prediciton result of\nthe model. One of the attribution methods is Occlusion\n(Zeiler & Fergus, 2013) that ablates a subset of features in\nthe input and assigns the importance score with the change\nof output compared to the original input. Ablation is usu-\nally performed by replacing the features with random noise\nor a baseline feature, e.g. zeros. We adapt the concept\nof Occlusion into the frequency domain so that the attri-\nbution score of each frequency component is computed by\nthe change of the output of the model. Formally, we pro-\npose Occluded Frequency as an attribution method for the\nspectrum of input."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43994140625,
+        508.891845703125,
+        289.4403381347656,
+        544.2584228515625
+      ],
+      "text": "Deﬁnition 1 (Occluded Frequency (OF)) Given a model\ny = f(x), a class of interest c, deﬁne H(i) as a matrix with\nthe same shape of F(x) whose each entry hk is"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        89.37095642089844,
+        553.3662719726562,
+        289.4403076171875,
+        566.9993286132812
+      ],
+      "text": "hk = I[k = i]σ(F(x)k) + I[k ̸= i]F(x)k\n(6)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43992614746094,
+        578.2086181640625,
+        289.4439392089844,
+        625.7144165039062
+      ],
+      "text": "where σ(·) is a function that transforms an frequency com-\nponent F(x)k to a baseline version, e.g. zeros or random\nsignal. Therefore, the occlusion score O(F(x)i) for fre-\nquency component F(x)i towards class c is deﬁned as"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        95.4059066772461,
+        635.129150390625,
+        289.4402160644531,
+        647.8013916015625
+      ],
+      "text": "O(F(x)i) = f c(x) −f c(F−1(H(i)))\n(7)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439849853515625,
+        658.5125732421875,
+        212.66140747070312,
+        669.8094482421875
+      ],
+      "text": "where f c(·) is the logit score of class c."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439842224121094,
+        683.5043334960938,
+        289.4413757324219,
+        717.4678955078125
+      ],
+      "text": "Ablation with DCT To perform OF attribution on images\nwith DCT, the masking is performed from the top left cor-\nner to the right bottom following the direction of increasing"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.4398498535156,
+        342.0342712402344,
+        541.4412841796875,
+        363.9518737792969
+      ],
+      "text": "frequencies. All components with the same frequencies are\nablated at the same time."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.4398498535156,
+        371.8313293457031,
+        541.44140625,
+        477.5257873535156
+      ],
+      "text": "Why Not Use Gradient Another intuitive choise is to use\nthe gradient-based attribution methods (Simonyan et al.,\n2013; Sundararajan et al., 2017; Shrikumar et al., 2017)\nto ﬁnd the feature importance. However, gradient-based\nmethods are shown to be non-robust and can cause con-\ntradictory results for tiny perturbations (Ghorbani et al.,\n2017). We ﬁnd the ablation-based attributions are more\nconsistent empirically, therefore, the result is more trust-\nworth."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.4398498535156,
+        494.50787353515625,
+        379.8285827636719,
+        506.46307373046875
+      ],
+      "text": "4. Experiment"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.4398498535156,
+        515.5011596679688,
+        541.4414672851562,
+        561.3297119140625
+      ],
+      "text": "In this section, we will use the retrained ResNet-50 (He\net al., 2015) to perform classiﬁcation on CIFAR-10. For\nthe robust model, we use pretrained model with adversarial\nexamples1 (Engstrom et al., 2019)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.43988037109375,
+        576.1404418945312,
+        464.51947021484375,
+        586.3717651367188
+      ],
+      "text": "Experiment I: natural →adversarial"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.43988037109375,
+        595.152099609375,
+        541.4450073242188,
+        688.8007202148438
+      ],
+      "text": "We ﬁrst show the frequency domain of the adversarial ex-\namples generated by all methods mentioned in Sec 2.1. For\nPGD and FGSM, we clip the distortion in the ℓ∞ball with\nthe maximum allowed perturbation 0.15. In CW attack,\nwe project the distortion in the ℓ2 ball. For SimBA, we\nused step size of 0.2 and we clip the distortion in the l∞\nball with the maximum allowed perturbation 0.2. All the\nattacks are untargetted. The effect of adversarial attacks"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        320.0929870605469,
+        697.0606689453125,
+        503.6878662109375,
+        707.5693969726562
+      ],
+      "text": "1Weights: https://github.com/MadryLab/robustness"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        295.9499816894531,
+        714.2994384765625,
+        300.9312744140625,
+        724.2620239257812
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        69.46748352050781,
+        289.4415588378906,
+        103.34109497070312
+      ],
+      "text": "in the frequency domain for input is analyzed by calculat-\ning average Relative Change in discrete cosine Transforms\n(RCT) of an input x and its perturbed image x′."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        96.427001953125,
+        117.60392761230469,
+        136.37030029296875,
+        134.53707885742188
+      ],
+      "text": "RCT = 1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        130.28399658203125,
+        131.40846252441406,
+        137.47698974609375,
+        141.37106323242188
+      ],
+      "text": "N"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        140.33200073242188,
+        114.38814544677734,
+        154.7279510498047,
+        132.00491333007812
+      ],
+      "text": "N\nX"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        141.51499938964844,
+        116.2343978881836,
+        289.44036865234375,
+        145.71095275878906
+      ],
+      "text": "i=1\n|DCT(x′\ni) −DCT(xi)\nDCT(xi)\n|\n(8)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.44000244140625,
+        155.6399383544922,
+        289.4416198730469,
+        201.69815063476562
+      ],
+      "text": "where DCT(x) is discrete cosine transform of input x and\nN is the number of samples in the dataset. We evaluate 200\nimages from CIFAR-10 dataset on a pre-trained VGG-19\nmodel and the result is show in Figure 2."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.44001770019531,
+        209.6685333251953,
+        289.44158935546875,
+        279.4071960449219
+      ],
+      "text": "Fig 2 show that all adversarial attacks, regardless of the\nwhite-box and the black-box, perturb images mostly at\nmiddle and high frequencies and low frequency perturba-\ntions are very small. This explains why perturbations are\nnot detected by human eye whereas most of the deep net-\nwork models give wrong predictions."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        581.0159301757812,
+        289.4450988769531,
+        655.7353515625
+      ],
+      "text": "Figure 2. RCT maps for different adversarial attacks on 200 im-\nages from CIFAR-10. The upper left corner and the lower right\ncorner represent the lowest and highest frequency components in\nthe DCT space, respectively. The deeper color indicates a greater\nchange for a speciﬁc frequency component between the origi-\nnal images and the adversarial examples. RCT maps show that\ngreater changes happen to the high frequency ranges."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        676.5377807617188,
+        195.64352416992188,
+        686.7691040039062
+      ],
+      "text": "Experiment II: natural →robust"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.43999481201172,
+        695.5504150390625,
+        289.4415588378906,
+        717.468017578125
+      ],
+      "text": "In this experiment, instead of ﬁnding the difference be-\ntween a natural image with its adversarial counterpart, we"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        191.79397583007812,
+        541.4450073242188,
+        222.6783447265625
+      ],
+      "text": "Figure 3. Frequency domain of the different between robust/non-\nrobust images and the starting images. The left one (a) is the\nrobust images and the right one (b) is the non-robust images"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        243.0794219970703,
+        541.4436645507812,
+        325.38348388671875
+      ],
+      "text": "explore the difference between with its robust counterpart.\nWe use the deﬁnition of robust dataset introduced by (Ilyas\net al., 2019), which attempts to ﬁnd a neighbor xr of the\noriginal input x where the features in xr remains correlated\nto the output within a certain maximum allowed perturba-\ntion. We solve the following objective to ﬁnd the robust\ncounterpart xr."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        361.1660461425781,
+        334.2347412109375,
+        541.4404907226562,
+        351.17132568359375
+      ],
+      "text": "xr = arg min\nxr ||g(xr) −g(x)||2\n(9)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        364.4807434082031,
+        541.4440307617188,
+        613.9058227539062
+      ],
+      "text": "where x is the original image and g(·) is the mapping to\na representation layer. When g(·) is extraced from a ad-\nversarially trained network, the generated dataset is ro-\nbust. When the representation mapping g(·) is extracted\nfrom the standard network, the generated dataset is non-\nrobust. The initial value for xr is an randomly selected\nimage from the dataset. We conducted this generation pro-\ncess on the CIFAR-10 test dataset. We then show the differ-\nence in the Fourier domain between the robust counterpart\nand the non-robust counterpart with each natural image,\nrespectively and the result is shown in Fig.3. The result\ndemonstrates that the robust counterpart is mostly different\nfrom the original input in the low-frequency components\nwhile the non-robust counterpart is different on the middle-\nfrequency components. Since the robust counterparts are\ngenerated from a robust model, we can also draw conclu-\nsions that a robust model only associates the low-frequency\nfeatures with the labels while a regular model does not\nhave a strong connection between the low-frequency fea-\ntures and the label. Instead, it captures a lot more features\nin the middle-frequency range."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        628.986328125,
+        502.2586364746094,
+        638.9489135742188
+      ],
+      "text": "Experiment III: Visualization of Contribution"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        295.9490051269531,
+        647.729248046875,
+        541.4415893554688,
+        724.2618408203125
+      ],
+      "text": "We have shown comparison analysis in Experiment I &\nII on the different behaviors in the frequency domain for\nhigh-frequency features and low-frequency features. In this\nexperiment, we show numerical analysis to further differ-\nentiate the behavior of high-frequency features and low-\nfrequency features.\n5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        69.46748352050781,
+        289.44158935546875,
+        378.3101806640625
+      ],
+      "text": "With the Occluded Frequency methods, we show an ex-\nample of computing the frequency attribution on an input\nimage in Cifar-10 which is correctly predicted in Fig 4.\nWe ablate each frequency components from the lowest to\nthe highest to create the bars of contributions on the Fre-\nquency Attribution subplot. From the attribution scores, we\nknow that even we assume that the low-frequency compo-\nnent has the strongest correlation with the label since high-\nfrequency components are in-perceptional to humans, it ac-\ntually takes the less use of the low-frequency components\ndue to low attribution scores in the low-frequency range.\nWe visualize the modiﬁed image by OF at a particular fre-\nquency. The second row shows image with the lowest, the\nsecond lowest and the third lowest frequency components\nablated and the the third row shows the modiﬁed images\nwhen the frequency components with the highest attribu-\ntion scores are ablated (top1, top2 and top3 respectively).\nIt is very hard for human to capture the difference when the\nfrequency components with highest attribution scores are\nablated. A consequence of using features corresponding\nto the middle and high-frequency range is that by manip-\nulating the middle and high-frequency features, we should\nexpect the change happens to the model’s prediction while\nthe human is still not aware of the change made on the in-\nput. Images like this are usually considered as adversarial\nexamples."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        393.3896179199219,
+        195.7333221435547,
+        403.3522033691406
+      ],
+      "text": "Experiment IV: Attribution Shift"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        412.132568359375,
+        289.4416198730469,
+        637.2880249023438
+      ],
+      "text": "We further extent Experiment III to the entire dataset and\nwe compare the attribution scores of different frequency\ncomponents on a naturally trained ResNet model and ad-\nversarial trained models. There are three robust models\ntrained with the maximum allowed perturbation of 0.25\nand 0.5 in the ℓ2 space and 8/255 in the ℓ∞space. The\nresult is shown in Fig 1.\nWe plot the average attribu-\ntion scores on each frequency component for all images in\nthe same classes since we assume images within the same\nclasses should have fewer nuances and more commonalities\ncompared to images of different classes. Despite the low-\nest frequency component being the most important overall\nmodels, Fig 1 shows that attribution scores on the middle\nand high-frequency components tend to be zeros or very\nlow and the main share of the attribution scores are in the\nlow-frequency range. It can be seen as the robust model\nshifts the main share of attribution scores towards the low-\nfrequency range, leaving middle and high-frequency com-\nponents as insigniﬁcant as possible."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.44001770019531,
+        645.1675415039062,
+        289.4429931640625,
+        714.9970703125
+      ],
+      "text": "Summary Finally, we summarize the ﬁndings from all ex-\nperiments. Middle and high-frequency components are the\ntarget features for adversarial attackers since models may\nor may not rely only on the low-frequency features to make\nthe prediction.\nAdversarial training can be viewed as a\nfrequency selector that the association between the input"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.54522705078125,
+        140.2703399658203,
+        383.712646484375,
+        146.9305419921875
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        67.76179504394531,
+        369.8049621582031,
+        80.88581085205078
+      ],
+      "text": "Input Image\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        84.0359115600586,
+        317.0382080078125,
+        90.69609832763672
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        93.84619903564453,
+        317.0384521484375,
+        100.50638580322266
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        103.65648651123047,
+        317.0384521484375,
+        110.3166732788086
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        113.4667739868164,
+        317.0384521484375,
+        120.12696075439453
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        123.27704620361328,
+        317.0384521484375,
+        129.93724060058594
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        133.0873260498047,
+        317.0384521484375,
+        139.74752807617188
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        396.884033203125,
+        140.2703399658203,
+        461.05145263671875,
+        146.9305419921875
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        67.76179504394531,
+        458.3557434082031,
+        80.88581085205078
+      ],
+      "text": "DCT transformation\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        84.0359115600586,
+        394.37701416015625,
+        90.69609832763672
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        93.84619903564453,
+        394.37725830078125,
+        100.50638580322266
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        103.65648651123047,
+        394.37725830078125,
+        110.3166732788086
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        113.4667739868164,
+        394.37725830078125,
+        120.12696075439453
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        123.27704620361328,
+        394.37725830078125,
+        129.93724060058594
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        133.0873260498047,
+        394.37725830078125,
+        139.74752807617188
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        476.8822937011719,
+        140.2703399658203,
+        535.90234375,
+        146.9305419921875
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        474.5243835449219,
+        67.76179504394531,
+        538.8545532226562,
+        77.75208282470703
+      ],
+      "text": "Frequency Attribution"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        465.4707336425781,
+        129.8914031982422,
+        471.7146301269531,
+        136.55160522460938
+      ],
+      "text": "0.5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        465.46917724609375,
+        115.18177032470703,
+        471.7131042480469,
+        121.84195709228516
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        465.46917724609375,
+        100.47212982177734,
+        471.7131042480469,
+        107.13231658935547
+      ],
+      "text": "0.5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        465.46917724609375,
+        85.76245880126953,
+        471.7131042480469,
+        92.42264556884766
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.54522705078125,
+        215.61329650878906,
+        383.712646484375,
+        222.27349853515625
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        143.104736328125,
+        358.0576171875,
+        156.22879028320312
+      ],
+      "text": "k=1\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        159.37887573242188,
+        317.0382080078125,
+        166.03907775878906
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        169.18914794921875,
+        317.0384521484375,
+        175.84934997558594
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        178.9994354248047,
+        317.0384521484375,
+        185.65963745117188
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        188.80970764160156,
+        317.0384521484375,
+        195.46990966796875
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        198.6199951171875,
+        317.0384521484375,
+        205.2801971435547
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        208.43028259277344,
+        317.0384521484375,
+        215.09048461914062
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        396.884033203125,
+        215.61329650878906,
+        461.05145263671875,
+        222.27349853515625
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        143.104736328125,
+        435.3963928222656,
+        156.22879028320312
+      ],
+      "text": "k=2\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        159.37887573242188,
+        394.37701416015625,
+        166.03907775878906
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        169.18914794921875,
+        394.37725830078125,
+        175.84934997558594
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        178.9994354248047,
+        394.37725830078125,
+        185.65963745117188
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        188.80970764160156,
+        394.37725830078125,
+        195.46990966796875
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        198.6199951171875,
+        394.37725830078125,
+        205.2801971435547
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        208.43028259277344,
+        394.37725830078125,
+        215.09048461914062
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        474.22283935546875,
+        215.61329650878906,
+        538.3902587890625,
+        222.27349853515625
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        469.21826171875,
+        143.104736328125,
+        512.7351684570312,
+        156.22879028320312
+      ],
+      "text": "k=3\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        469.21826171875,
+        159.37887573242188,
+        471.7158203125,
+        166.03907775878906
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        169.18914794921875,
+        471.716064453125,
+        175.84934997558594
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        178.9994354248047,
+        471.716064453125,
+        185.65963745117188
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        188.80970764160156,
+        471.716064453125,
+        195.46990966796875
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        198.6199951171875,
+        471.716064453125,
+        205.2801971435547
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        208.43028259277344,
+        471.716064453125,
+        215.09048461914062
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.54522705078125,
+        290.9562683105469,
+        383.712646484375,
+        297.616455078125
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        218.44769287109375,
+        369.864013671875,
+        231.57174682617188
+      ],
+      "text": "k=12 (top1)\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.5406494140625,
+        234.72183227539062,
+        317.0382080078125,
+        241.3820343017578
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        244.5321044921875,
+        317.0384521484375,
+        251.1923065185547
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        254.34239196777344,
+        317.0384521484375,
+        261.0025939941406
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        264.1526794433594,
+        317.0384521484375,
+        270.8128662109375
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        273.96295166015625,
+        317.0384521484375,
+        280.6231384277344
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        312.0433349609375,
+        283.77325439453125,
+        317.0384521484375,
+        290.4334411621094
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        396.884033203125,
+        290.9562683105469,
+        461.05145263671875,
+        297.616455078125
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        218.44769287109375,
+        447.20281982421875,
+        231.57174682617188
+      ],
+      "text": "k=23 (top2)\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        391.87945556640625,
+        234.72183227539062,
+        394.37701416015625,
+        241.3820343017578
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        244.5321044921875,
+        394.37725830078125,
+        251.1923065185547
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        254.34239196777344,
+        394.37725830078125,
+        261.0025939941406
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        264.1526794433594,
+        394.37725830078125,
+        270.8128662109375
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        273.96295166015625,
+        394.37725830078125,
+        280.6231384277344
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        389.3821105957031,
+        283.77325439453125,
+        394.37725830078125,
+        290.4334411621094
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        474.22283935546875,
+        290.9562683105469,
+        538.3902587890625,
+        297.616455078125
+      ],
+      "text": "0\n10\n20\n30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        469.21826171875,
+        218.44769287109375,
+        524.5415649414062,
+        231.57174682617188
+      ],
+      "text": "k=15 (top3)\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        469.21826171875,
+        234.72183227539062,
+        471.7158203125,
+        241.3820343017578
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        244.5321044921875,
+        471.716064453125,
+        251.1923065185547
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        254.34239196777344,
+        471.716064453125,
+        261.0025939941406
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        264.1526794433594,
+        471.716064453125,
+        270.8128662109375
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        273.96295166015625,
+        471.716064453125,
+        280.6231384277344
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.7209167480469,
+        283.77325439453125,
+        471.716064453125,
+        290.4334411621094
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        317.8359680175781,
+        541.4452514648438,
+        414.4732666015625
+      ],
+      "text": "Figure 4. (First Row) Left: the input image. Middle: an example\nof computing the attribution score for a speciﬁc frequency com-\nponent by ablating the frequency of interest with zeros. Right: the\nattribution scores for all frequency components in the input on the\nleft. Higher scores denotes higher contribution to the prediction.\n(Second and Third Row) The input image with the k −th lowest\nfrequency components are ablated. The values of k at the third\ncolumn are the components with the top1, top2 and top3 attribu-\ntion scores."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        456.329345703125,
+        541.4414672851562,
+        502.15692138671875
+      ],
+      "text": "and its prediction is more tight with low-frequency compo-\nnents, leaving the high-frequency components less relevant\nfor the prediction; therefore, the attacker who aims on the\nhigh-frequency features will fail."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        519.1389770507812,
+        376.52911376953125,
+        531.0941772460938
+      ],
+      "text": "5. Conclusion"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        295.95001220703125,
+        540.13232421875,
+        541.4415893554688,
+        724.2619018554688
+      ],
+      "text": "In this paper, We ﬁrst show a lower bound of the perturba-\ntion applied to the image is related to the lowest frequency\ncomponents, the most perceptional frequency components\nto human. We then verify that white-box and black-box at-\ntackers mainly focus on the high-frequency components in\nthe clean images. We further propose Occluded Frequency\nas an attribution method to quantify the contribution of dif-\nferent frequency components in the input. Based on the em-\npirical results on the entire dataset, we provide a frequency-\nbased explanation to answer why standard models are not\nrobust: low-frequency features are more robust than the\nhigh-frequency features in the input space; therefore ro-\nbust models are developed to be strongly related to the low-\nfrequency features while standard models rely more on the\nhigh-frequency components to make the prediction.\n6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        67.84716033935547,
+        149.62306213378906,
+        79.80236053466797
+      ],
+      "text": "Acknowledgement"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        88.84046936035156,
+        289.44146728515625,
+        110.75906372070312
+      ],
+      "text": "We thank Mr. Haohan Wang for providing valuable feed-\nback during the discussion."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        127.74016571044922,
+        110.98384094238281,
+        139.69537353515625
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        147.11700439453125,
+        289.4444885253906,
+        181.16708374023438
+      ],
+      "text": "Bracewell and Newbold, R. The Fourier transform and its\napplications, volume 31999. McGraw-Hill New York,\n1986."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        190.72450256347656,
+        289.44146728515625,
+        224.59713745117188
+      ],
+      "text": "Carlini, N. and Wagner, D. Towards evaluating the robust-\nness of neural networks. In 2017 IEEE Symposium on\nSecurity and Privacy (SP), pp. 39–57, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.44000244140625,
+        234.15553283691406,
+        289.4419250488281,
+        256.0731506347656
+      ],
+      "text": "Cohen, J. M., Rosenfeld, E., and Kolter, J. Z. Certiﬁed\nadversarial robustness via randomized smoothing, 2019."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        265.63153076171875,
+        289.4415283203125,
+        299.5041198730469
+      ],
+      "text": "Engstrom, L., Ilyas, A., Santurkar, S., and Tsipras, D.\nRobustness (python library), 2019.\nURL https://\ngithub.com/MadryLab/robustness."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.44000244140625,
+        309.0625,
+        289.44146728515625,
+        330.9801025390625
+      ],
+      "text": "Ghorbani, A., Abid, A., and Zou, J. Interpretation of neural\nnetworks is fragile, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        340.5374755859375,
+        289.4414367675781,
+        362.455078125
+      ],
+      "text": "Goodfellow, I. J., Shlens, J., and Szegedy, C. Explaining\nand harnessing adversarial examples, 2014."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        372.0134582519531,
+        289.44146728515625,
+        393.9310607910156
+      ],
+      "text": "Guo, C., Frank, J. S., and Weinberger, K. Q. Low frequency\nadversarial perturbation, 2018."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        403.48944091796875,
+        289.44195556640625,
+        449.3170166015625
+      ],
+      "text": "Guo, C., Gardner, J. R., You, Y., Wilson, A. G., and Wein-\nberger, K. Q.\nSimple black-box adversarial attacks.\nCoRR, abs/1905.07121, 2019. URL http://arxiv.\norg/abs/1905.07121."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.44000244140625,
+        458.8753967285156,
+        289.4414978027344,
+        480.7929992675781
+      ],
+      "text": "He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-\ning for image recognition, 2015."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        490.3503723144531,
+        289.44195556640625,
+        524.2239379882812
+      ],
+      "text": "Ilyas, A., Santurkar, S., Tsipras, D., Engstrom, L., Tran, B.,\nand Madry, A. Adversarial examples are not bugs, they\nare features, 2019."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        533.7813720703125,
+        289.4414367675781,
+        567.6549682617188
+      ],
+      "text": "Karpathy, A., Johnson, J., and Fei-Fei, L.\nVisualizing\nand understanding recurrent networks.\narXiv preprint\narXiv:1506.02078, 2015."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.43999481201172,
+        577.2123413085938,
+        289.44146728515625,
+        599.1299438476562
+      ],
+      "text": "Koh, P. W. and Liang, P. Understanding black-box predic-\ntions via inﬂuence functions, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.43999099731445,
+        608.6883544921875,
+        289.4414367675781,
+        630.60595703125
+      ],
+      "text": "Kurakin, A., Goodfellow, I., and Bengio, S. Adversarial\nexamples in the physical world, 2016."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.43999099731445,
+        640.1643676757812,
+        289.4418640136719,
+        674.0369262695312
+      ],
+      "text": "Leino, K., Sen, S., Datta, A., Fredrikson, M., and Li, L.\nInﬂuence-directed explanations for deep convolutional\nnetworks, 2018."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.43999099731445,
+        683.5953369140625,
+        289.44195556640625,
+        717.4679565429688
+      ],
+      "text": "Madry, A., Makelov, A., Schmidt, L., Tsipras, D., and\nVladu, A.\nTowards deep learning models resistant to\nadversarial attacks, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        69.46839904785156,
+        541.4415893554688,
+        103.34103393554688
+      ],
+      "text": "Narasimha, M. and Peterson, A. On the computation of the\ndiscrete cosine transform. IEEE Transactions on Com-\nmunications, 26(6):934–936, 1978."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        113.30342102050781,
+        541.4419555664062,
+        159.13204956054688
+      ],
+      "text": "Papernot, N., McDaniel, P., Jha, S., Fredrikson, M., Celik,\nZ. B., and Swami, A. The limitations of deep learning in\nadversarial settings. In 2016 IEEE European Symposium\non Security and Privacy (EuroS P), pp. 372–387, 2016."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400329589844,
+        169.0944366455078,
+        541.4420166015625,
+        202.96707153320312
+      ],
+      "text": "Rahaman, N., Baratin, A., Arpit, D., Draxler, F., Lin, M.,\nHamprecht, F. A., Bengio, Y., and Courville, A. On the\nspectral bias of neural networks, 2018."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400329589844,
+        212.9304962158203,
+        541.4449462890625,
+        294.6241455078125
+      ],
+      "text": "Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,\nParikh, D., and Batra, D. Grad-cam: Visual explana-\ntions from deep networks via gradient-based localiza-\ntion. International Journal of Computer Vision, 128(2):\n336359, Oct 2019.\nISSN 1573-1405.\ndoi: 10.1007/\ns11263-019-01228-7. URL http://dx.doi.org/\n10.1007/s11263-019-01228-7."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        304.5865173339844,
+        541.4420166015625,
+        338.4591064453125
+      ],
+      "text": "Shafahi, A., Najibi, M., Ghiasi, A., Xu, Z., Dickerson, J.,\nStuder, C., Davis, L. S., Taylor, G., and Goldstein, T.\nAdversarial training for free!, 2019."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        348.4224853515625,
+        541.4415893554688,
+        394.25006103515625
+      ],
+      "text": "Sharma, Y., Ding, G. W., and Brubaker, M. A.\nOn the\neffectiveness of low frequency perturbations.\nCoRR,\nabs/1903.00073, 2019. URL http://arxiv.org/\nabs/1903.00073."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400634765625,
+        404.2124328613281,
+        541.44189453125,
+        438.0860290527344
+      ],
+      "text": "Shrikumar, A., Greenside, P., and Kundaje, A. Learning\nimportant features through propagating activation differ-\nences, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400634765625,
+        448.04840087890625,
+        541.4419555664062,
+        481.9209899902344
+      ],
+      "text": "Simonyan, K., Vedaldi, A., and Zisserman, A. Deep inside\nconvolutional networks: Visualising image classiﬁcation\nmodels and saliency maps, 2013."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400634765625,
+        491.8843688964844,
+        541.4419555664062,
+        537.7119140625
+      ],
+      "text": "Sundararajan, M., Taly, A., and Yan, Q. Axiomatic attri-\nbution for deep networks. In Proceedings of the 34th\nInternational Conference on Machine Learning-Volume\n70, pp. 3319–3328. JMLR. org, 2017."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400939941406,
+        547.67431640625,
+        541.4419555664062,
+        581.5479125976562
+      ],
+      "text": "Szegedy, C., Zaremba, W., Sutskever, I., Bruna, J., Erhan,\nD., Goodfellow, I., and Fergus, R. Intriguing properties\nof neural networks, 2013."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400939941406,
+        591.5103149414062,
+        541.4419555664062,
+        637.3389282226562
+      ],
+      "text": "Wang, H., Wu, X., Yin, P., and Xing, E. P. High frequency\ncomponent helps explain the generalization of convolu-\ntional neural networks. CoRR, abs/1905.13545, 2019.\nURL http://arxiv.org/abs/1905.13545."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.4400634765625,
+        647.3013305664062,
+        541.4419555664062,
+        681.1738891601562
+      ],
+      "text": "Yeh, C.-K., Kim, J. S., Yen, I. E. H., and Ravikumar, P.\nRepresenter point selection for explaining deep neural\nnetworks, 2018."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        295.9500732421875,
+        691.1373291015625,
+        541.4417114257812,
+        724.1229248046875
+      ],
+      "text": "Zeiler, M. D. and Fergus, R. Visualizing and understanding\nconvolutional networks, 2013.\n7"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        291.1033935546875,
+        298.43841552734375,
+        566.8939819335938
+      ],
+      "xref": 7,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p5_blk1_crop.png"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        67.0608139038086,
+        550.44287109375,
+        177.6729736328125
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p5_blk2_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.786865234375,
+        76.5179443359375,
+        384.25250244140625,
+        139.38136291503906
+      ],
+      "xref": 4,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk1_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        397.12567138671875,
+        76.5179443359375,
+        461.59130859375,
+        139.38136291503906
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk2_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.786865234375,
+        151.86090087890625,
+        384.25250244140625,
+        214.7243194580078
+      ],
+      "xref": 28,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk3_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        397.12567138671875,
+        151.86090087890625,
+        461.59130859375,
+        214.7243194580078
+      ],
+      "xref": 37,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk4_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        474.4644775390625,
+        151.86090087890625,
+        538.9301147460938,
+        214.7243194580078
+      ],
+      "xref": 46,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk5_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        319.786865234375,
+        227.20387268066406,
+        384.25250244140625,
+        290.0672912597656
+      ],
+      "xref": 55,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk6_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        397.12567138671875,
+        227.20387268066406,
+        461.59130859375,
+        290.0672912597656
+      ],
+      "xref": 64,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk7_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        474.4644775390625,
+        227.20387268066406,
+        538.9301147460938,
+        290.0672912597656
+      ],
+      "xref": 73,
+      "image_path": "../data/parsed_documents/2005.03141/images/2005.03141_p6_blk8_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 67,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 73,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 76,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p2_table2_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 52,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p3_table2_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 57,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 50,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 20,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 101,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p6_table2_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 76,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2005.03141/2005.03141_p7_table1_stream.csv"
+    }
+  ]
+}

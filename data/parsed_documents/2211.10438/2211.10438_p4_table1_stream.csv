@@ -1,0 +1,71 @@
+"","Figure 4: Magnitude of the input activations and weights of a linear layer in OPT-13B before and after SmoothQuant."
+"Observations: (1) there are a few channels in the original activation map whose magnitudes are very large (greater than 70);",""
+"(2) the variance in one activation channel is small; (3) the original weight distribution is flat and uniform. SmoothQuant",""
+"migrates the outlier channels from activation to weight. In the end, the outliers in the activation are greatly smoothed while",""
+"the weight is still pretty smooth and flat.",""
+"scale the weights accordingly in the reversed direction:",""
+"Y = (Xdiag(s)−1) · (diag(s)W) = ˆX ˆW
+(3)",""
+"Considering input X is usually produced from previous",""
+"linear operations (e.g., linear layers, layer norms, etc.), we",""
+"can easily fuse the smoothing factor into previous layers’",""
+"parameters offline, which doe not incur kernel call overhead",""
+"","Figure 5: Main idea of SmoothQuant when α is 0.5. The"
+"from an extra scaling. For some other cases, when the input",""
+"","smoothing factor s is obtained on calibration samples and"
+"is from a residual add, we can add an extra scaling to the",""
+"","the entire transformation is performed offline. At runtime,"
+"residual branch similar to Wei et al. (2022).",""
+"","the activations are smooth without scaling."
+"Migrate the quantization difficulty from activations to",""
+"weights.
+We aim to choose a per-channel smoothing factor","Here we introduce a hyper-parameter, migration strength"
+"s such that ˆX = Xdiag(s)−1 is easy to quantize. To reduce","α, to control how much difficulty we want to migrate from"
+"the quantization error, we should increase the effective quan-","activation to weights, using the following equation:"
+"tization bits for all the channels. The total effective quanti-",""
+"","(4)
+sj = max(|Xj|)α/ max(|Wj|)1−α"
+"zation bits would be largest when all the channels have the",""
+"same maximum magnitude. Therefore, a straight-forward",""
+"","We find that for most of the models, e.g., all OPT (Zhang"
+"choice is sj = max(|Xj|), j = 1, 2, ..., Ci, where j corre-",""
+"","et
+al., 2022)
+and BLOOM (Scao et
+al., 2022) models,"
+"sponds to j-th input channel. This choice ensures that after",""
+"","α = 0.5 is a well-balanced point to evenly split the quan-"
+"the division, all the activation channels will have the same",""
+"","tization difficulty, especially when we are using the same"
+"maximum value, which is easy to quantize. Note that the",""
+"","quantizer for weights and activations (e.g., per-tensor, static"
+"range of activations is dynamic; it varies for different input",""
+"","quantization). The formula ensures that
+the weights and"
+"samples. Here, we estimate the scale of activations channels",""
+"","activations at
+the corresponding channel share a similar"
+"using calibration samples from the pre-training dataset (Ja-",""
+"","maximum value,
+thus sharing the same quantization dif-"
+"cob et al., 2018). However,
+this formula pushes all
+the",""
+"","ficulty. Figure 5 illustrates the smoothing transformation"
+"quantization difficulties to the weights. We find that, in this",""
+"","when we take α = 0.5. For some other models where acti-"
+"case, the quantization errors would be large for the weights",""
+"","vation outliers are more significant (e.g., GLM-130B (Zeng"
+"(outlier channels are migrated to weights now), leading to",""
+"","et al., 2022) has ∼30% outliers, which are more difficult"
+"a large accuracy degradation (see Figure 10). On the other",""
+"","for activation quantization), we can choose a larger α to"
+"hand, we can also push all the quantization difficulty from",""
+"","migrate more quantization difficulty to weights (like 0.75)."
+"weights to activations by choosing sj = 1/ max(|Wj|).",""
+"Similarly, the model performance is bad due to the activa-","Applying SmoothQuant to Transformer blocks.
+Lin-"
+"tion quantization errors. Therefore, we need to split
+the","ear layers take up most of the parameters and computation"
+"quantization difficulty between weights and activations so","of LLM models. By default, we perform scale smoothing"
+"that they are both easy to quantize.","for the input activations of self-attention and feed-forward"

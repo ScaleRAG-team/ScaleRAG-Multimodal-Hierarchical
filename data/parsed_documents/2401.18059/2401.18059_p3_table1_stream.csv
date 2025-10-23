@@ -1,0 +1,23 @@
+"Published as a conference paper at ICLR 2024"
+"Despite a diversity in methods,
+the retrieving components of models predominantly rely on stan-"
+"dard approaches,
+i.e., chunking corpora and encoding with BERT-based retrievers. Although this"
+"approach is widely adopted, Nair et al. (2023) highlights a potential shortcoming: contiguous seg-"
+"mentation might not capture the complete semantic depth of the text. Reading extracted snippets"
+"from technical or scientific documents may lack important context making them difficult to read or"
+"even misleading. (Cohan & Goharian, 2017; Newman et al., 2023; Zhang et al., 2023)."
+"Recursive summarization as Context
+Summarization techniques provide a condensed view of"
+"documents, enabling more focused engagement with the content (Angelidis & Lapata, 2018). The"
+"summarization/snippet model by Gao et al. (2023) uses summarizations and snippets of passages,"
+"which improves correctness on most datasets but can sometimes be a lossy means of compression."
+"The recursive-abstractive summarization model by Wu et al.
+(2021) employs task decomposition"
+"to summarize smaller text chunks, which are later integrated to form summaries of larger sections."
+"While this method is effective for capturing broader themes, it can miss granular details. LlamaIndex"
+"(Liu, 2022) mitigates this issue by similarly summarizing adjacent
+text chunks but also retaining"
+"intermediate nodes thus storing varying levels of detail, keeping granular details. However, both"
+"methods, due to their reliance on adjacency for grouping or summarizing adjacent nodes, may still"
+"overlook distant interdependencies within the text, which we can find and group with RAPTOR."

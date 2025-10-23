@@ -1,0 +1,24 @@
+"+","metrics =","","list(yardstick::rmse,","","waywiser::ww_willmott_d1),","","","","",""
+"+","n","= c(2, 5, 10)))","","","","","","","",""
+"#","A
+tibble: 6","x 6","","","","","","","",""
+"",".metric",".estimator",".estimate",".grid_args","","","",".grid","",".notes"
+"","<chr>","<chr>","<dbl>","<list>","","","","<list>","","<list>"
+"1","rmse","standard","0.0299","<tibble","[1","x","1]>","<sf","[4
+x
+5]>","<tibble>"
+"2","willmott_d1","standard","0.586","<tibble","[1","x","1]>","<sf","[4
+x
+5]>","<tibble>"
+"3","rmse","standard","0.0650","<tibble","[1","x","1]>","<sf","[25
+x
+5]>","<tibble>"
+"4","willmott_d1","standard","0.759","<tibble","[1","x","1]>","<sf","[25
+x
+5]>","<tibble>"
+"5","rmse","standard","0.0761","<tibble","[1","x","1]>","<sf","[100
+x
+5]>","<tibble>"
+"6","willmott_d1","standard","0.810","<tibble","[1","x","1]>","<sf","[100
+x
+5]>","<tibble>"

@@ -1,0 +1,169 @@
+"well as a 10-class subset
+(ModelNet10)
+for ZS classiﬁca-",""
+"","Zero-shot performance"
+"","Method"
+"tion. ModelNet40 consists of 12,311 synthetic meshes of","MN10
+MN40
+ScanObjectNN"
+"common objects from 40 categories. Each mesh is down-","PointCLIP [72]
+30.2
+20.2
+15.4"
+"","67.3
+50.6
+25.6
+PointTransformer [74]+ CG3D"
+"sampled and normalized to ﬁt a unit sphere. ScanObjectNN",""
+"","PointMLP [34] + CG3D
+64.1
+50.4
+25.0"
+"is a real-world point cloud dataset of objects
+from laser-",""
+"scanned indoor scenes.",""
+"","Table
+1:
+Comparison
+of
+zero-shot
+classiﬁcation
+perfor-"
+"4.2. Implementation Details","mance of CG3D against
+that of PointCLIP for the Model-"
+"","Net10, ModelNet40, and ScanObjectNN datasets."
+"There exist several vision-language models that can be",""
+"considered variants of CLIP that give superior zero-shot",""
+"","Overall accuracy"
+"performance on images [24, 40, 28]. We leverage the pre-","Method"
+"","ModelNet40
+ScanObjectNN"
+"trained visual and text encoder weights from SLIP [40] to",""
+"","Pointnet [44]
+89.2
+68.0"
+"train CG3D, due to its performance and ﬂexibility. We","Pointnet++ [45]
+90.5
+77.9"
+"speciﬁcally choose ViT-Base [11] as the image backbone.","PointCNN [27]
+92.2
+78.5"
+"","DGCNN [59]
+92.9
+78.1"
+"Pre-training:
+During pre-training,
+the visual prompt pa-",""
+"","Point-BERT [69]
+93.2
+83.07"
+"rameters and the parameters of
+the 3D encoder are tuned",""
+"","Point-MAE [42]
+93.8
+85.18"
+"under different optimizers
+in alternate iterations.
+This
+is",""
+"","PointTransformer [74]
+91.62 ± 0.29
+75.56 ± 0.24"
+"due to the fact that they are each supervised by disjoint loss",""
+"","PointTransformer [74] + CG3D
+92.93 ± 0.06
+80.95 ± 0.54"
+"functions and require different learning rates. We append 5","PointMLP [34]
+92.61 ± 0.13
+84.08 ± 0.55"
+"learnable prompt tokens at the input of every encoder layer","PointMLP [34] + CG3D
+93.35 ± 0.18
+85.78 ± 0.75"
+"in ViT, and initialize them randomly. The visual prompts",""
+"are
+tuned using the SGD [49] optimizer under
+a
+cosine",""
+"","Table 2: Comparison of ﬁne-tuning performance of CG3D"
+"annealing [30] scheduler, with learning rate of 2 × 10−3,",""
+"","with initial weights on ModelNet40 and ScanObjectNN"
+"weight decay 10−4 and an minimum learning rate of 10−6.",""
+"","(hardest variation: PB-T50-RS) against previous methods."
+"We follow the training convention of each 3D backbone for",""
+"training the individual backbone.
+In case of PointTrans-",""
+"","gives a signiﬁcant improvement over PointCLIP with an in-"
+"former
+[74]
+the network is
+tuned using the AdmaW [31]",""
+"","crease of 37.1% on ModelNet10, 30.4% on ModelNet40,"
+"optimizer under a cosine annealing [30] scheduler with a",""
+"","and 10.2% on ScanObjectNN."
+"learning rate of 5 × 10−5 and a weight decay of 0.05, with a",""
+"","4.4. Fine-tuning Experiments"
+"minimum learning rate of 10−6. The PointMLP backbone is",""
+"tuned under the same otimizer-scheduler scheme with learn-",""
+"","We present
+the results of our ﬁne-tuning experiments in"
+"ing rate 10−4 and weight decay 0.01. The entire framework",""
+"","Table 2 on both synthetic (ModelNet40) and real (ScanOb-"
+"is pre-trained for 100 epochs with a batch size of 32.",""
+"","jectNN) datasets.
+For ScanObjectNN, we pick the hard-"
+"Fine-tuning:
+PointMLP is ﬁnetuned using the SGD opti-",""
+"","est
+variant PB-T50-RS for
+our
+experiments.
+We
+com-"
+"mizer and cosine scheduler with a learning rate of 0.02, a",""
+"","pare
+against
+leading
+backbones
+as well
+as
+pre-training"
+"weight decay of 2 × 10−4, and a minimum learning rate of",""
+"","methods like Point-BERT and Point-MAE. We show ﬁne-"
+"5×10−3. PointTransformer is ﬁne-tuned using the AdamW",""
+"","tuning performance on two backbones PointTransformer"
+"optimizer and cosine scheduler, with learning rate 2×10−4,",""
+"","and PointMLP. It should be noted that our framework was"
+"a weight decay of 0.05 and a minimum learning rate of",""
+"","not primarily developed to be a pre-training strategy, but"
+"10−6.
+Each network is ﬁne-tuned for 300 epochs with a",""
+"","rather
+to enable zero-shot capabilities
+for a 3D encoder."
+"batch size of 32 for PointMLP and 64 for PointTransformer.",""
+"","Even then, our framework demonstrates competitive perfor-"
+"Our method is prototyped in PyTorch and all our experi-",""
+"","mance as a pre-training strategy as observed in Table 2.
+In"
+"ments are performed in a 8 GPU NVIDIA A100 cluster.",""
+"","particular, we obtain a boost of 5.39% , 1.31% while us-"
+"","ing CG3D starting weights than random weights for Point-"
+"4.3. Zero-shot Experiments",""
+"","Transformer on ScanObjectNN and ModelNet40 respec-"
+"We present
+the
+results of
+zero-shot
+experiments
+con-","tively. Also, we obtain a boost of 1.7% , 0.74% while using"
+"ducted on test distributions of ModelNet10, ModelNet40,","CG3D starting weights than random weights for PointMLP"
+"and ScanObjectNN in Table 1. We experiment with two","on ScanObjectNN and ModelNet40 respectively.
+These"
+"backbones:
+PointTransformer
+and PointMLP pre-trained","observations
+show the versatility of our proposed frame-"
+"with CG3D. Note that the previous method PointCLIP uses","work. We re-run the from-scratch expriments for the Point-"
+"a 2D depth map and CLIP’s visual encoder to get the predic-","Transformer and PointMLP networks. To account for vari-"
+"tion. We directly use the 3D encoder and extract relevant 3D","ability, we conducted the ﬁnetuning experiments for Point-"
+"shape features to perform the zero-shot classiﬁcation. This","Transformer and PointMLP three times each, starting from"

@@ -1,0 +1,7 @@
+"","Figure 4: Comparsion results between the baseline model with full cache, our H2O, and the ""Local"" strategy",""
+"that utilizes the most recent KV embeddings.","",""
+"5","Empirical Evaluation",""
+"","In this section, our goal is to demonstrate that H2O, a remarkably simple KV cache eviction policy is",""
+"","capable of enhancing end-to-end throughput and reducing latency in wall-clock while maintaining",""
+"","generation quality across a broad spectrum of domains and tasks.",""
+"•","In Section 5.1, we show that H2O can reduce the memory footprint of KV cache by up to 5","without"

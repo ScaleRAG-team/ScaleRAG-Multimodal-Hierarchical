@@ -1,0 +1,18 @@
+"Remark D.21. We remark that u = arg maxv","","","","","","i
+v)
+fSi,i(Si) is the same as"
+"","","","","","","i
+Si
+∈
+∪{
+}
+fSi,i(Si ∪ {
+}\
+−"
+"u = arg maxv","","","","","","i
+v). For the convenience of discussion and analysis, we will"
+"","∈","Si","∪{","i
+}","fSi,i(Si ∪ {","}\"
+"switch to using both cases in different places.","","","","","",""
+"Here, we explain how to add items into sets via approximate values.","","","","","",""
+"Definition D.22 (Expanding items based on approximate value).","","","","","","If the following conditions hold"

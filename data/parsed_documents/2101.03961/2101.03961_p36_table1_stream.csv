@@ -1,0 +1,59 @@
+"References"
+"Mart´ın Abadi, Paul Barham,
+Jianmin Chen, Zhifeng Chen, Andy Davis,
+Jeﬀrey Dean,"
+"Matthieu Devin, Sanjay Ghemawat, Geoﬀrey Irving, Michael
+Isard, et al. Tensorﬂow:"
+"A system for large-scale machine learning.
+In 12th {USENIX} symposium on operating"
+"systems design and implementation ({OSDI} 16), pages 265–283, 2016."
+"Iz Beltagy, Matthew E Peters, and Arman Cohan. Longformer: The long-document trans-"
+"former. arXiv preprint arXiv:2004.05150, 2020."
+"Jonathan Berant, Andrew Chou, Roy Frostig, and Percy Liang. Semantic parsing on free-"
+"base
+from question-answer pairs.
+In Proceedings of
+the 2013 conference on empirical"
+"methods in natural
+language processing, pages 1533–1544, 2013."
+"Tom B Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla"
+"Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell,
+et al."
+"Language models are few-shot learners. arXiv preprint arXiv:2005.14165, 2020."
+"Rewon Child, Scott Gray, Alec Radford, and Ilya Sutskever. Generating long sequences"
+"with sparse transformers. arXiv preprint arXiv:1904.10509, 2019."
+"Kyunghyun Cho and Yoshua Bengio. Exponentially increasing the capacity-to-computation"
+"ratio for conditional computation in deep learning. arXiv preprint arXiv:1406.7362, 2014."
+"Peter Clark,
+Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish
+Sabharwal, Carissa"
+"Schoenick, and Oyvind Tafjord.
+Think you have solved question answering?
+try arc,"
+"the ai2 reasoning challenge. arXiv preprint arXiv:1803.05457, 2018."
+"Gon¸calo M Correia, Vlad Niculae, and Andr´e FT Martins. Adaptively sparse transformers."
+"arXiv preprint arXiv:1909.00015, 2019."
+"Jacob Devlin, Ming-Wei Chang, Kenton Lee,
+and Kristina Toutanova.
+Bert:
+Pre-"
+"training of deep bidirectional
+transformers
+for
+language understanding.
+arXiv preprint"
+"arXiv:1810.04805, 2018."
+"David Eigen, Marc’Aurelio Ranzato, and Ilya Sutskever. Learning factored representations"
+"in a deep mixture of experts. arXiv preprint arXiv:1312.4314, 2013."
+"Angela Fan, Shruti Bhosale, Holger Schwenk, Zhiyi Ma, Ahmed El-Kishky, Siddharth Goyal,"
+"Mandeep Baines, Onur Celebi, Guillaume Wenzek, Vishrav Chaudhary, et al. Beyond"
+"english-centric multilingual machine translation. Journal of Machine Learning Research,"
+"22(107):1–48, 2021."
+"William Fedus, Ian Goodfellow, and Andrew M Dai. Maskgan: Better text generation via"
+"ﬁlling in the . arXiv preprint arXiv:1801.07736, 2018."
+"Trevor Gale, Matei Zaharia, Cliﬀ Young, and Erich Elsen.
+Sparse gpu kernels
+for deep"
+"learning. arXiv preprint arXiv:2006.10901, 2020."
+"Scott Gray, Alec Radford, and Diederik P Kingma. Gpu kernels for block-sparse weights."
+"https://openai.com/blog/block-sparse-gpu-kernels/, 2017."

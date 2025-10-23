@@ -1,0 +1,18 @@
+"20","","","","","","","","memory at each moment as the portion of cluster free memory"
+"","","","","","INFaaS++","","Llumnix",""
+"15","","","","","","","","that could satisfy the demands of the head-of-line blocking"
+"","","","","","","","","requests across all instances, if no fragmentation. For exam-"
+"Fragmentation Proportion (%)
+10","","","","","","","",""
+"","","","","","","","","ple, if the total free memory is 8 GB, with three head-of-line"
+"","","","","","","","",""
+"5","","","","","","","","blocking requests each requiring 3 GB, then the fragmented"
+"0","","","","","","","","memory is counted as 6 GB, i.e., this 6 GB memory could"
+"","","","","","","","",""
+"","600","650","700","750","800
+850
+Time (s)","900","950
+1000","satisfy two queuing requests if no fragmentation. This metric"
+"","","","","","","","","suggests the memory space wasted due to fragmentation. We"
+"","Figure 12: Memory fragmentation over time.","","","","","","","report
+the proportion of fragmented memory in the cluster"

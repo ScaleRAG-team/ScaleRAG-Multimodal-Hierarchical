@@ -1,0 +1,30 @@
+"Abstract"
+"Assessing predictive models can be challenging. Modelers must navigate a wide array"
+"of
+evaluation methodologies
+implemented with incompatible
+interfaces across multiple"
+"packages which may give diﬀerent or even contradictory results, while ensuring that their"
+"chosen approach properly estimates
+the performance of
+their model when generalizing"
+"to new observations. Assessing models ﬁt
+to spatial data can be particularly diﬃcult,"
+"given that model errors may exhibit spatial autocorrelation, model predictions are often"
+"aggregated to multiple
+spatial
+scales by end users,
+and models are often tasked with"
+"generalizing into spatial regions outside the boundaries of their initial training data."
+"The waywiser package for the R language attempts to make assessing spatial models"
+"easier by providing an ergonomic toolkit
+for model evaluation tasks, with functions
+for"
+"multiple assessment methodologies sharing a uniﬁed interface. Functions from waywiser"
+"share standardized argument names and default values, making the user-facing interface"
+"simple and easy to learn. These functions are additionally designed to be easy to inte-"
+"grate into a wide variety of modeling workﬂows, accepting standard classes as inputs and"
+"returning size- and type-stable outputs, ensuring that their results are of consistent and"
+"predictable data types and dimensions. Additional
+features make it particularly easy to"
+"use waywiser along packages and workﬂows in the tidymodels ecosystem."

@@ -1,0 +1,9 @@
+"Table 5: Generation throughput and latency on an A100 GPU. In the sequence length row, we use “7000 + 1024”","","","","",""
+"","to denote a prompt length of 7000 and a generation length of 1024. “OOM” means out-of-memory.","","","",""
+"Seq.
+length","Model size","Batch size","Metric","FlexGen","H2O (20%)"
+"7000+1024","30B","1","latency (s)","57.0","50.4"
+"5000+5000","13B","4","latency (s)","214.2","155.4"
+"2048+2048","6.7B","24","latency (s)","99.5","53.5"
+"2048+2048","6.7B","24","throughput (token/s)","494.1","918.9"
+"2048+2048","6.7B","64","throughput (token/s)","OOM","1161.0"

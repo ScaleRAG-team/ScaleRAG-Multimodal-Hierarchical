@@ -1,0 +1,9 @@
+"Caveats",""
+"In this section we list some potential caveats to our analysis.",""
+"","• At present we do not have a solid theoretical understanding for any of our proposed scaling laws."
+"The scaling relations with model size and compute are especially mysterious.","It may be possible to"
+"","understand scaling at very large D holding model size ﬁxed [AS17], and also the shape of learning"
+"","curves late in training, by modeling the loss with a noisy quadratic. But the scaling with D at very"
+"large model size still","remains mysterious. Without a theory or a systematic understanding of
+the"
+"","corrections to our scaling laws, it’s difﬁcult to determine in what circumstances they can be trusted."

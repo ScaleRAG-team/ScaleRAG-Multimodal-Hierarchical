@@ -1,0 +1,85 @@
+"15","35
+70","","200"
+"0","0
+0","","0"
+"128","256
+512
+1024
+128
+256
+512
+1024","128
+256
+512
+1024","128
+256
+512
+1024"
+"","OPT-13B
+OPT-30B","OPT-66B","OPT-175B"
+"Figure 9:","Inference latency (top) and memory usage (bottom) of","the FasterTransformer","implementation on NVIDIA"
+"A100-80GB GPUs. For smaller models, the latency can be significantly reduced with SmoothQuant-O3 by up to 1.56x","","",""
+"","compared to FP16. For the bigger models (OPT-66B and 175B), we can achieve similar or even faster inference using only","",""
+"","half number of GPUs. Memory footprint is almost halved compared to FP16.","",""
+"Table 10: When serving MT-NLG 530B, SmoothQuant can","","Table 11: GPU Latency (ms) of different quantization",""
+"reduce the memory by half at a similar latency using half","","schemes. The coarser the quantization scheme (from per-",""
+"number of GPUs, which allows serving the 530B model","","token to per-tensor, dynamic to static, O1 to O3, defined",""
+"within a single node.","","in Table 2), the lower the latency. SmoothQuant achieves",""
+"","","lower latency compared to FP16 under all settings, while",""
+"SeqLen","Prec.
+#GPUs
+Latency
+Memory","LLM.int8() is mostly slower. The batch size is 4.",""
+"128","FP16
+16
+232ms
+1040GB","",""
+"","INT8
+8
+253ms
+527GB","Model","OPT-13B
+OPT-30B"
+"256","FP16
+16
+451ms
+1054GB","Sequence Length
+256","512
+256
+512"
+"","INT8
+8
+434ms
+533GB","",""
+"","","FP16
+152.6","296.3
+343.0
+659.9"
+"512","FP16
+16
+838ms
+1068GB","LLM.int8()
+237.1","371.5
+387.9
+654.9"
+"","INT8
+8
+839ms
+545GB","",""
+"","","SmoothQuant-O1
+124.5","243.3
+246.7
+490.7"
+"1024","FP16
+16
+1707ms
+1095GB","SmoothQuant-O2
+120.5","235.1
+240.2
+478.3"
+"","INT8
+8
+1689ms
+570GB","SmoothQuant-O3
+112.1","223.1
+227.6
+458.4"

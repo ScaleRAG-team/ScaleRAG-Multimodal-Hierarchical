@@ -1,0 +1,6 @@
+"Figure 7: Histogram showing the percentage of nodes retrieved from different layers of the RAPTOR"
+"tree across three datasets (NarrativeQA, Quality, and Qasper) using three retrievers (SBERT, BM25,"
+"and DPR). The data indicate that a substantial portion of the nodes contributing to the final retrieval"
+"comes from non-leaf layers, with a notable percentage from the first and second layers, highlighting"
+"the importance of RAPTOR’s hierarchical summarization in the retrieval process."
+"Table 15: Performance of RAPTOR when querying different layers of the tree for Story 3."

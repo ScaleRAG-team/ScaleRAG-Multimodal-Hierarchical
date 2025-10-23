@@ -1,0 +1,25 @@
+"using the entire data set.",""
+"6.
+Interoperability",""
+"As previous sections have demonstrated, waywiser is designed to be useful","for most spatial"
+"modeling workﬂows, no matter what models or frameworks are used. Functions in waywiser",""
+"are size- and type-stable, returning outputs of the same data type and predictable dimensions",""
+"regardless of the input arguments used. Functions rely upon well-established data types for",""
+"inputs and outputs, using standard data frames and vectors where appropriate and relying on",""
+"the popular sf package for spatial data classes. By relying upon standard classes and returning",""
+"predictable outputs, waywiser aims to integrate easily with as many modeling workﬂows as",""
+"possible.",""
+"However, waywiser is particularly well suited for workﬂows leveraging the tidymodels ecosys-",""
+"tem of modeling packages
+(Kuhn and Silge 2022).","These packages provide a consistent,"
+"user-friendly interface for common modeling tasks, with the aim of making it easy for users to",""
+"","follow statistical best practices simply by using package functions in the most straightforward"
+"way.
+Functions","in waywiser are designed to be automatically compatible with tidymodels"
+"packages.
+To demonstrate
+this, we will ﬁrst
+split our data into folds
+for","cross-validation,"
+"using a 10-fold spatial clustering cross-validation approach, as implemented in spatialsample",""
+"(Mahoney and Silge 2023):",""

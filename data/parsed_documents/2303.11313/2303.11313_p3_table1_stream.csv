@@ -1,0 +1,115 @@
+"• We propose CG3D, a contrastive pre-training framework","obtain strong initial weights
+to boost ﬁne-tuning perfor-"
+"for training 3D networks using natural language supervi-","mance.
+PointContrast
+[63] performs contrastive training"
+"sion while also leveraging the knowledge of CLIP.","[6] by pushing together heavily augmented views of
+the"
+"• We utilize prompt tuning to shift the input space of a pre-","same sample and minimizing the similarity between views"
+"trained visual encoder from rendered images of CAD ob-","of other
+samples on point cloud scenes
+that have under-"
+"jects to natural images, allowing for more effective use of","gone
+rigid transformations.
+CrossPoint
+[1] boosts point"
+"CLIP for 3D shapes.","cloud classiﬁcation performance by maximising the agree-"
+"• We conduct extensive experiments to demonstrate the ver-","ment between images and point cloud objects. PointBERT"
+"satile capabilities of CG3D. It exhibits strong zero-shot,","[69] and PointMAE [42] leverage masked modelling meth-"
+"3D retrieval and 3D scene understanding capabilities with","ods to perform pre-training. Unlike these backbone or pre-"
+"language. CG3D also acts as strong starting weights for","training works, we focus on enabling zero-shot capabilities"
+"multiple 3D recognition tasks.","to given 3D encoder in our proposed CG3D framework."
+"2. Related Works",""
+"","3. Method"
+"Vision Language Models:
+The use of
+large-scale
+text-",""
+"","Our main objective is to train a 3D shape encoder to ac-"
+"pre-training on attention-based models [10, 73] has led to",""
+"","quire shape characteristics that can effectively capture the"
+"the increasing popularity of vision-language models (VLM)",""
+"","geometric properties of point clouds while also aligning"
+"due to their
+impressive performance in visual understand-",""
+"","with CLIP’s feature representation for each object category."
+"ing tasks [26, 32, 46]. Recent advancements in contrastive",""
+"","In essence, we aspire to acquire features
+that are unique"
+"learning have enabled CLIP [46]
+to perform multimodal",""
+"","to each category yet unaffected by the mode of representa-"
+"learning with 400M noisy data crawled from the web. CLIP",""
+"","tion. To this end, we use point cloud-image-caption triplets"
+"has been extended for high efﬁciency model
+training and",""
+"","to train the framework.
+Each element within a triplet of"
+"cycle consistency through various methods,
+such as AL-",""
+"","point cloud-image-caption is
+indicative of an object pos-"
+"BEF [24] and Cyclip [15]. BLIP [23] includes text-to-image",""
+"","sessing speciﬁc semantic traits that are shared among the"
+"generation as an auxiliary task, which results in better per-",""
+"","other objects in the collection.
+In this section, we ﬁrst give"
+"formance by utilizing synthetic data as a bonus. Adopting",""
+"","an overview of the proposed CG3D framework, followed by"
+"VLM for 3D point cloud processing is still
+in its infancy.",""
+"","details to effectively train the network. We then give details"
+"PointCLIP [72] was the ﬁrst method to adopt CLIP for 3D",""
+"","on the potential use-cases of CG3D."
+"tasks. It directly uses the depth maps of 3D point clouds and",""
+"uses it on the visual encoder of CLIP to perform zero-shot",""
+"","3.1. CG3D Framework"
+"classiﬁcation. Unlike this, we focus on using a 3D encoder",""
+"in the CLIP so that it can directly take in a 3D point cloud.","The CG3D framework as illustrated in Fig 2 consists of"
+"3D Point cloud processing methods:","3 networks - 3D shape encoder, visual encoder and text en-"
+"In general, point",""
+"","coder from CLIP."
+"cloud processing methods either process the original point",""
+"cloud sets directly [44, 45] or transform the original point","3D Encoder takes
+in a 3D point cloud as
+the input.
+To"
+"clouds
+into
+intermediate
+representations
+such
+as
+voxels","capture the essential shape characteristics of an object, we"
+"[36, 50] or images [67, 25]. PointNet [44] was a signiﬁcant","employ a 3D encoder that is speciﬁcally designed to analyze"
+"contribution to the ﬁeld of point cloud processing, as it en-","point clouds and generate a feature vector representing the"
+"abled the direct use of unordered point sets as input through","object. Our
+framework is agnostic with the choice of 3D"
+"shared MLPs.
+PointNet++ [45] was later proposed as an","encoder, and an added projection layer ensures the output"
+"extension of PointNet,
+incorporating a hierarchical feature","feature dimension remains consistent."
+"learning approach that recursively captures local geometric","2D Visual Encoder takes
+in the corresponding rendered"
+"structures. This feature representation method has proven","image of
+the 3D pointcloud as the input. Although shape"
+"to be effective due to its ability to capture multi-scale infor-","features are essential
+in representing point clouds,
+image"
+"mation, and it has been widely used in various point cloud","backbones
+from vision-language models
+trained on large"
+"applications
+[59, 13, 66].
+Recently, methods
+like Point-","amounts of data offer powerful
+feature representations of"
+"Transformer [74] and PCT [17] have proposed transformer-","images that are semantically correlated with text. We em-"
+"based methods showing a signiﬁcant
+improvements in per-","ploy CLIP’s visual encoder as it is robust and is pre-trained"
+"formance. The current state of the art method is PointMLP","on a massive amount of data. By utilizing the visual en-"
+"[34] which effectively uses a deep residual MLP network","coder, we can acquire highly effective and implied represen-"
+"for point cloud analysis.","tations of categories present
+in point cloud datasets, which"
+"There have also been pre-training methods which show","are then use to align with the 3D features. Note that CLIP"
+"3D backbones can be pre-trained with unlabelled data to","provides both ResNet and ViT weights for visual encoder."

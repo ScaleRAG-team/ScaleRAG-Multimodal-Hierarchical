@@ -1,0 +1,122 @@
+"3 Discussion"
+"An all-in-one technology platform based on analog filamentary CMO/HfOx ReRAM"
+"devices is presented. This platform addresses critical challenges in modern digital AI"
+"accelerators by overcoming the physical
+separation between memory and compute"
+"units.
+It enables
+the execution of
+forward and backward MVMs, along with weight"
+"updates and gradient computations, directly on a unified analog in-memory platform"
+"with O(1) time complexity. This all-in-one approach fundamentally differs from DNN"
+"inference-only
+[9]
+and training-only
+[24,
+41]
+analog
+accelerators.
+In inference-only"
+"accelerators, DNN weights are
+trained in software
+(i.e., off-chip) using traditional"
+"digital CPUs
+or GPUs
+and then programmed once
+onto
+the
+analog AI hardware"
+"accelerator.
+In training-only accelerators,
+the
+long-term retention capabilities
+and"
+"overall MVM accuracy for
+large array tiles are not assessed.
+In this work, a novel"
+"all-in-one analog computing platform, capable of both on-chip training and inference"
+"acceleration,
+is unveiled."
+"The CMO/HfOx ReRAM devices are integrated in the BEOL of a NMOS transistor"
+"platform in a
+scalable
+1T1R array
+architecture. The highly
+reproducible
+forming"
+"step demonstrates
+compatibility with NMOS rated for
+3.3 V operation, while
+the"
+"uniform quasi-static
+8W-cycling
+characteristics,
+achieved with
+voltage
+amplitudes"
+"of
+less
+than ± 1.5 V, exhibit a significant conductance window and a low off-state."
+"The multi-bit
+capability of more
+than 32
+states
+(5 bits), distinguishable
+after
+10"
+"minutes with less
+than 10% overlap error,
+is experimentally demonstrated using an"
+"identical-pulse closed-loop scheme. The characterization of the weight transfer reveals"
+"record-low programming noise ranging from 10 nS to 100 nS, more than one order of"
+"magnitude
+lower
+than that of other memristive
+technologies
+targeting similar
+con-"
+"ductance ranges [34–36]. Each conductance distribution exhibits a state-independent"
+"relaxation process over time, characterized by a slight shift of the mean toward lower"
+"conductance and an increase
+in the
+standard deviation. This
+independence of
+the"
+"relaxation process
+from the
+target
+conductance
+is
+advantageous
+for
+implementing"
+"effective compensation schemes in the future."
+"Realistic MVM simulations on a 64x64 array tile, considering CMO/HfOx ReRAM"
+"device non-idealities such as finite weight transfer resolution, conductance relaxation,"
+"limited input/output quantization, and IR-drop across array wires,
+show an RMSE"
+"as low as 0.2 compared to the ideal FP-case, even 10 years after programming. This"
+"demonstrates
+that
+improve analog MVM accuracy
+the CMO/HfOx ReRAM devices"
+"by a factor of 20 and 3 compared to the state of the art [9], 1 second and 10 years after"
+"programming, respectively. Although this study was performed at room temperature,"
+"previous characterization of a similar CMO/HfOx ReRAM stack demonstrated the"
+"thermal
+stability of
+the analog states at high temperature (less
+than 4% drift after"
+"72 hours at 85 °C)[24]. Future studies will
+focus on incorporating the experimental"
+"characterized between 0.2% and 2% of
+read noise of CMO/HfOx ReRAM devices,"
+"similar
+conductance
+range
+as used in this work [25],
+into MVM
+G target within a"
+"accuracy simulations. Although read noise is not
+included in the MVM simulations"
+"of this study, no significant additional drop in MVM accuracy is anticipated. In fact,"

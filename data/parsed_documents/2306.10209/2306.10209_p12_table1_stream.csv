@@ -1,0 +1,168 @@
+"","1
+2"
+"ABC, 2023, USA","Guanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan
+, Lei Yang
+, Yuxiong He"
+"",""
+"REFERENCES","03/penguin-computing-tesla-v100-ds.pdf."
+"","[25] NVLink 2017. NVIDIA NVLINK. http://www.nvidia.com/object/nvlink.html."
+"[1] Dan Alistarh, Demjan Grubic, Jerry Li, Ryota Tomioka, and Milan Vojnovic. 2017.",""
+"","[26] NVSwitch 2018. NVIDIA NVSWITCH. http://images.nvidia.com/content/pdf/"
+"QSGD: Communication-efficient SGD via gradient quantization and encoding.",""
+"","nvswitch-technical-overview.pdf."
+"Advances in neural information processing systems 30 (2017).",""
+"","[27] Quantization - PyTorch documentation 2023. Quantization - PyTorch documen-"
+"[2] Tal Ben-Nun and Torsten Hoefler. 2019. Demystifying parallel and distributed",""
+"","tation. https://pytorch.org/docs/stable/quantization.html."
+"deep learning: An in-depth concurrency analysis.
+ACM Computing Surveys",""
+"","[28] Alec Radford,
+Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya"
+"(CSUR) 52, 4 (2019), 1–43.",""
+"","Sutskever. 2019. Language Models are Unsupervised Multitask Learners.
+(2019)."
+"[3]
+Stella Biderman, Kieran Bicheno, and Leo Gao. 2022. Datasheet
+for the Pile.",""
+"","[29]
+Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and Yuxiong He. 2020. Zero:"
+"arXiv:2201.07311 [cs.CL]",""
+"[4]
+Sid Black, Stella Biderman, Eric Hallahan, Quentin Anthony, Leo Gao, Laurence","Memory optimizations toward training trillion parameter models. In SC20: Inter-"
+"Golding, Horace He, Connor Leahy, Kyle McDonell, Jason Phang, Michael Pieler,","national Conference for High Performance Computing, Networking, Storage and"
+"USVSN Sai Prashanth, Shivanshu Purohit, Laria Reynolds, Jonathan Tow, Ben","Analysis. IEEE, 1–16."
+"","Samyam Rajbhandari, Olatunji Ruwase, Jeff Rasley, Shaden Smith, and Yuxiong
+[30]"
+"Wang, and Samuel Weinbach. 2022. GPT-NeoX-20B: An Open-Source Autore-",""
+"","He. 2021. ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep"
+"gressive Language Model.
+(2022).",""
+"","Learning.
+In Proceedings of the International Conference for High Performance"
+"[5]
+Ernie Chan, Marcel Heimlich, Avi Purkayastha, and Robert Van De Geijn. 2007.",""
+"","Computing, Networking, Storage and Analysis (SC ’21)."
+"Collective communication: theory, practice, and experience. Concurrency and",""
+"","[31]
+Frank Seide, Hao Fu, Jasha Droppo, Gang Li, and Dong Yu. 2014. 1-bit stochastic"
+"Computation: Practice and Experience 19, 13 (2007), 1749–1783.",""
+"","gradient descent and its application to data-parallel distributed training of speech"
+"[6]
+Jeffrey Dean, Greg Corrado, Rajat Monga, Kai Chen, Matthieu Devin, Mark",""
+"Mao, Marc’aurelio Ranzato, Andrew Senior, Paul Tucker, Ke Yang, et al. 2012.","dnns. In Fifteenth annual conference of the international speech communication"
+"","association."
+"Large scale distributed deep networks. Advances in neural information processing",""
+"","[32] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper,"
+"systems 25 (2012).",""
+"","and Bryan Catanzaro. 2019. Megatron-lm: Training multi-billion parameter"
+"[7] Tim Dettmers. 2015. 8-bit approximations for parallelism in deep learning. arXiv",""
+"","language models using model parallelism. arXiv preprint arXiv:1909.08053 (2019)."
+"preprint arXiv:1511.04561 (2015).",""
+"","[33]
+Shaden Smith, Mostofa Patwary, Brandon Norick, Patrick LeGresley, Samyam"
+"[8] Tim Dettmers, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022.
+8-bit",""
+"","Rajbhandari, Jared Casper, Zhun Liu, Shrimai Prabhumoye, George Zerveas, Vijay"
+"Optimizers via Block-wise Quantization. In The Tenth International Conference",""
+"","Korthikanti, et al. 2022. Using DeepSpeed and Megatron to Train Megatron-"
+"on Learning Representations, ICLR 2022, Virtual Event, April 25-29, 2022. OpenRe-",""
+"","Turing NLG 530B, A Large-Scale Generative Language Model.
+arXiv preprint"
+"view.net.
+https://openreview.net/forum?id=shpkpVXzo3h",""
+"[9]
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. Bert:","arXiv:2201.11990 (2022)."
+"","[34] Nikko Ström. 2015. Scalable distributed DNN training using commodity GPU"
+"Pre-training of deep bidirectional transformers for language understanding. arXiv",""
+"","cloud computing.
+(2015)."
+"preprint arXiv:1810.04805 (2018).",""
+"","[35] Hanlin Tang, Shaoduo Gan, Ammar Ahmad Awan, Samyam Rajbhandari, Con-"
+"[10]
+dgx1 2017. NVIDIA DGX-1. https://www.nvidia.com/en-us/data-center/dgx-1/.",""
+"","glong Li, Xiangru Lian, Ji Liu, Ce Zhang, and Yuxiong He. 2021.
+1-bit Adam:"
+"[11]
+dgx2 2018. NVIDIA DGX-2. https://www.nvidia.com/en-us/data-center/dgx-2/.",""
+"","Communication Efficient Large-Scale Training with Adam’s Convergence Speed."
+"[12] Nikoli Dryden, Tim Moon, Sam Ade Jacobs, and Brian Van Essen. 2016. Commu-",""
+"nication Quantization for Data-Parallel Training of Deep Neural Networks. In","CoRR abs/2102.02888 (2021). arXiv:2102.02888 https://arxiv.org/abs/2102.02888"
+"","DeepSpeed: Extreme-scale
+[36] DeepSpeed Team and Rangan Majumder. 2020."
+"Proceedings of the Workshop on Machine Learning in High Performance Computing",""
+"","model training for everyone. https://www.microsoft.com/en-us/research/blog/"
+"Environments (Salt Lake City, Utah) (MLHPC ’16). IEEE Press, 1–8.",""
+"","deepspeed-extreme-scale-model-training-for-everyone/."
+"[13] Aaron Harlap, Deepak Narayanan, Amar Phanishayee, Vivek Seshadri, Nikhil",""
+"","[37] Rajeev Thakur, Rolf Rabenseifner, and William Gropp. 2005. Optimization of"
+"Devanur, Greg Ganger, and Phil Gibbons. 2018. Pipedream: Fast and efficient",""
+"","collective communication operations in MPICH. The International Journal of"
+"pipeline parallel dnn training. arXiv preprint arXiv:1806.03377 (2018).",""
+"[14] Yanping Huang, Youlong Cheng, Ankur Bapna, Orhan Firat, Dehao Chen, Mia","High Performance Computing Applications 19, 1 (2005), 49–66."
+"","[38] Guanhua Wang, Shivaram Venkataraman, Amar Phanishayee, Jorgen Thelin,"
+"Chen, HyoukJoong Lee, Jiquan Ngiam, Quoc V Le, Yonghui Wu, et al. 2019. Gpipe:",""
+"","Nikhil R. Devanur, and Ion Stoica. 2020. Blink: Fast and Generic Collectives for"
+"Efficient training of giant neural networks using pipeline parallelism. Advances",""
+"","Distributed ML. In Proceedings of Machine Learning and Systems 2020, MLSys 2020,"
+"in neural information processing systems 32 (2019).",""
+"[15]
+Yanping Huang, Yonglong Cheng, Dehao Chen, HyoukJoong Lee, Jiquan Ngiam,","Austin, TX, USA, March 2-4, 2020, Inderjit S. Dhillon, Dimitris S. Papailiopoulos,"
+"","and Vivienne Sze (Eds.). mlsys.org.
+https://proceedings.mlsys.org/book/299.pdf"
+"Quoc V. Le, and Zhifeng Chen. 2018. GPipe: Efficient Training of Giant Neural",""
+"","[39] Yang You, Jing Li, Jonathan Hseu, Xiaodan Song, James Demmel, and Cho-Jui"
+"Networks using Pipeline Parallelism. ArXiv abs/1811.06965 (2018).",""
+"[16]
+Infiniband Sharp white paper 2021.
+NVIDIA InfiniBand Adaptive Routing","Hsieh. 2019. Reducing BERT Pre-Training Time from 3 Days to 76 Minutes. CoRR"
+"","abs/1904.00962 (2019). arXiv:1904.00962 http://arxiv.org/abs/1904.00962"
+"Technology. https://nvdam.widen.net/s/whmszwfrbt/infiniband-white-paper-",""
+"","[40] Zhen Zhang, Shuai Zheng, Yida Wang, Justin Chiu, George Karypis, Trishul"
+"adaptive-routing-1846350.",""
+"","Chilimbi, Mu Li, and Xin Jin. 2022. MiCS: Near-linear Scaling for Training"
+"[17] Nitish Shirish Keskar, Dheevatsa Mudigere, Jorge Nocedal, Mikhail Smelyan-",""
+"","Gigantic Model on Public Cloud.
+arXiv:2205.00119 [cs.DC]"
+"skiy, and Ping Tak Peter Tang. 2016. On large-batch training for deep learning:",""
+"","[41] Ritchie Zhao, Yuwei Hu, Jordan Dotzel, Christopher De Sa, and Zhiru Zhang."
+"Generalization gap and sharp minima. arXiv preprint arXiv:1609.04836 (2016).",""
+"","2019.
+Improving Neural Network Quantization without Retraining using Outlier"
+"[18] Conglong Li, Ammar Ahmad Awan, Hanlin Tang, Samyam Rajbhandari, and",""
+"Yuxiong He. 2021.
+1-bit LAMB: Communication Efficient Large-Scale Large-","Channel Splitting. In Proceedings of the 36th International Conference on Machine"
+"","Learning, ICML 2019, 9-15 June 2019, Long Beach, California, USA (Proceedings of"
+"Batch Training with LAMB’s Convergence Speed. CoRR abs/2104.06069 (2021).",""
+"arXiv:2104.06069 https://arxiv.org/abs/2104.06069","Machine Learning Research, Vol. 97), Kamalika Chaudhuri and Ruslan Salakhutdi-"
+"","nov (Eds.). PMLR, 7543–7552.
+http://proceedings.mlr.press/v97/zhao19c.html"
+"[19] Microsoft. 2020.
+Turing-NLG: A 17-billion-parameter
+language model by",""
+"Microsoft.
+https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-",""
+"billion-parameter-language-model-by-microsoft/.",""
+"[20] Deepak Narayanan, Aaron Harlap, Amar Phanishayee, Vivek Seshadri, Nikhil",""
+"Devanur, Greg Granger, Phil Gibbons, and Matei Zaharia. 2019. PipeDream: Gen-",""
+"eralized Pipeline Parallelism for DNN Training. In ACM Symposium on Operating",""
+"Systems Principles (SOSP 2019).",""
+"[21] Deepak Narayanan, Amar Phanishayee, Kaiyu Shi, Xie Chen, and Matei Zaharia.",""
+"2021. Memory-efficient pipeline-parallel dnn training. In International Conference",""
+"on Machine Learning. PMLR, 7937–7947.",""
+"[22] Deepak Narayanan, Mohammad Shoeybi,
+Jared Casper, Patrick LeGresley,",""
+"Mostofa Patwary, Vijay Korthikanti, Dmitri Vainbrand, Prethvi Kashinkunti,",""
+"Julie Bernauer, Bryan Catanzaro, Amar Phanishayee, and Matei Zaharia. 2021.",""
+"Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-",""
+"LM. In Proceedings of the International Conference for High Performance Com-",""
+"(St. Louis, Missouri)
+puting, Networking, Storage and Analysis
+(SC ’21). Asso-",""
+"ciation for Computing Machinery, New York, NY, USA, Article 58, 15 pages.",""
+"https://doi.org/10.1145/3458817.3476209",""
+"[23] N NVIDIA. 2017. NVIDIA Collective Communications Library (NCCL).",""
+"[24] Nvidia V100
+datasheet
+2017.
+NVIDIA TESLA V100 GPU ACCELERA-",""
+"TOR. https://www.penguinsolutions.com/computing/wp-content/uploads/2019/",""

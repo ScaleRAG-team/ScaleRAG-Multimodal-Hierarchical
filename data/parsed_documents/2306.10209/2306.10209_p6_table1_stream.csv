@@ -1,0 +1,111 @@
+"1 1 1 1
+2 2 2 2
+3 3 3 3
+4 4 4 4",""
+"D
+1 2 3 4 Q","M/Z => M/(Z*N)
+N*M/Z => M/Z"
+"D",""
+"1
+2
+4
+3",""
+"","Step 1: Intra-node all-to-all
+Step 2: Inter-node all-to-all"
+"NCCL Ring-based reduce-scatter (ZeRO-3)
+1-hop all-to-all (qgZ in ZeRO++)",""
+"# of sequential Q+D == # of GPUs
+# of sequential Q+D == 1",""
+"","Figure 7: qgZ apply hierarchy all-to-all to reduce cross node"
+"","traffic."
+"Figure 5: Comparison between ZeRO-3 ring-based reduce-",""
+"scatter and qgZ 1-hop all-to-all.",""
+"","3.3.2
+Reducing inter-node communication volume. Although replac-"
+"GPUs per node = N
+Model size = M          Quantization compression ratio = Z",""
+"","ing reduce-scatter with all-to-all achieves single-shot quantization"
+"Machine 0
+Machine 0",""
+"","and dequantization, it introduces a new problem; the inter-node"
+"G_N
+G_N
+G1
+G1","communication volume increases instead of decreasing despite the"
+"...
+...",""
+"","quantization of data. We elaborate on this in Figure 6."
+"M/Z
+M/Z
+M/Z
+M",""
+"","Here we assume model size of 𝑀, GPU per node is 𝑁 , gradient"
+"Machine 1
+Machine 1",""
+"","compression ratio as 𝑍 . Reduce-scatter, reduces the data during"
+"G_N
+G_N
+G1
+G1",""
+"...
+...","transmission over the ring, thus the total amount of data for cross-"
+"Reduce-scatter M
+1-hop all-to-all N*M/Z","node communication is M. However, when using our 1-hop all-to-all"
+"Cross-node gradient comm. volume 
+Cross-node gradient comm. volume","approach, even though the data are compressed before communica-"
+"",""
+"(qgZ in ZeRO++)
+(ZeRO-3)","tion (i.e., 𝑀/𝑍 ), each GPU needs to send out 𝑀/𝑍 amount of data"
+"","to GPUs on the other nodes. Therefore, each machine will generate"
+"Figure 6:
+Communication volume comparison between",""
+"","𝑁 ∗𝑀/𝑍 amount of cross-node communication data, which is much"
+"ZeRO-3 reduce-scatter and qgZ 1-hop all-to-all.","bigger than reduce-scatter communication volume."
+"","To address this, we do a hierarchical 2-hop all-to-all instead of"
+"","1-hop: a) first intra-node all-to-all and b) followed by inter-node all-"
+"receives gradients from its predecessor, we dequantize it to recover",""
+"","to-all, which is shown as Figure 7. First, with high-bandwidth links"
+"full precision and conduct a local reduction. Next we can quantize",""
+"","among GPUs inside a machine, we conduct intra-node all-to-all on"
+"local reduction output and pass quantized data to its successor. To",""
+"","quantized data, then dequantize data and reduce on dequantized"
+"finish the whole reduce-scatter, the number of sequential quanti-",""
+"","data. After intra-node quantization, all-to-all, dequantization, and"
+"zation and dequantization kernels is equal to the number of GPUs",""
+"","reduction, we reduce the data size per GPU from 𝑀/𝑍 to 𝑀/(𝑍 ∗𝑁 )."
+"(i.e., n) in use.",""
+"","After intra-node all-to-all is completed, we conduct the inter-node"
+"Thus, applying quantization and dequantization on existing ring",""
+"","all-to-all communication, which is similar to 1-hop all-to-all we"
+"based reduce-scatter collective will
+lead to high communication",""
+"","described above. Given that now each GPU only needs to send"
+"latency and low value precision due to multiple sequential quantiza-",""
+"","out 𝑀/(𝑍 ∗ 𝑁 ) data, the communication volume per machine is"
+"tion and dequantization steps. Although recent tree-based collective",""
+"","now 𝑀/(𝑍 ∗ 𝑁 ) ∗ 𝑁 = 𝑀/𝑍 . By adopting this hierarchical all-to-all"
+"like Blink[38] could reduce the number of sequential kernels from n",""
+"","communication as 2-hop approach, we resolve the communication"
+"to log(n), the long latency and low precision issue is not completely",""
+"","volume blow-up issue in our 1-hop scheme perfectly. Note that"
+"resolved.",""
+"","even though the total communication volume is doubled (one intra-"
+"To overcome this, we completely abandon existing ring-based",""
+"","node, the other inter-node), intra-node communication introduces"
+"reduce-scatter approach and incorporate 1-hop all-to-all collec-",""
+"","negligible overhead given NVLink/NVswitch high bandwidth, and"
+"tive for our gradient communication. As shown on the right of",""
+"","cross-node traffic has been significantly reduced, which is the major"
+"Figure 5, we first apply quantization on a given tensor, then we",""
+"","bottleneck in gradient communication."
+"conduct all-to-all communication among all the GPUs. After all-to-",""
+"",""
+"","3.3.3
+Tensor slice reordering for correct data placement. With the 2-"
+"and then reduce on high-precision values to get the final gradi-","hop all-to-all, the inter-node communication volume is as expected,"
+"ent reduction output. By replacing ring-based solution with our","however, this introduces a gradient misplacement issue. We describe"
+"all-to-all collective, we reduce the number of sequential quantiza-","this issue using a 2x2 example, where we have 2 machines and each"
+"tion+dequantization kernel from the number of GPUs to 1. Thus,","machine has 2 GPUs. As shown in Figure 8, the correct final gradient"
+"we solve the long latency and low precision issues when applying","placement is shown as green boxes in the figure, where GPU 0 holds"
+"quantization in reduce-scatter for supercomputing scenarios like","final gradient partition 1, GPU 1 holds gradient partition 2, so on"
+"DGX boxes connected in fat-tree topology.","and so forth."

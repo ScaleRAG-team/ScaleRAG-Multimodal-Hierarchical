@@ -1,0 +1,28 @@
+"that exploits the properties of LLMs and uses simple, low-cost eviction policies that retrain the quality"
+"of LLMs throughout the generation process. Specifically,"
+"•
+In Section 3, we explore the emergence of H2 in attention, revealing their fundamental and critical"
+"roles: (i) H2 exhibit a strong correlation of frequently co-occurring words in textual data; and (ii)"
+"removing H2 completely damages the model’s functionality. We demonstrate that H2 can largely"
+"lower the cache miss rate of the existing policies mentioned above. Theoretically, assuming the"
+"attention scheme is submodular, H2 corresponds to a greedy algorithm and is therefore near-optimal."
+"•
+In Section 4, we present a greedy but
+low-cost variant of H2 which is dynamically determined"
+"by the accumulated attention score at each decoding step. We formulate the eviction policy with"
+"greedy H2 as a variant of dynamic submodular maximization. The analysis shows that it results in"
+"a similar generative process as the one using the H2 eviction policy."
+"We perform extensive experiments on OPT, LLaMA, and GPT-NeoX on a single NVIDIA A100"
+"(80GB) GPU to evaluate H2O across a range of tasks from lm-eval-harness [15] and HELM [16]."
+"We implement H2O on top of FlexGen that can easily adapt different cache eviction techniques to"
+"produce a system with high-throughput inference. Performance experiments show our framework"
+"higher throughputs compared to three leading inference systems, DeepSpeed
+achieves 29
+, 29
+, 3"
+"×
+×
+×"
+"Zero-Inference [17], Hugging Face Accelerate [18], and FlexGen [19] respectively. With the same"
+"lower latency compare to FlexGen.
+batch size, H2O achieves up to 1.9"

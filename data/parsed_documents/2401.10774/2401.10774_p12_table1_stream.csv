@@ -1,0 +1,61 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"Shazeer, N. Fast transformer decoding: One write-head is","Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z.,"
+"all you need. arXiv preprint arXiv:1911.02150, 2019.","Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang,"
+"","H., Gonzalez, J. E., and Stoica, I. Judging llm-as-a-judge"
+"Spector, B.
+and Re, C.
+Accelerating
+llm inference",""
+"","with mt-bench and chatbot arena, 2023."
+"arXiv
+preprint
+with
+staged
+speculative
+decoding.",""
+"arXiv:2308.04623, 2023.",""
+"Stern, M., Shazeer, N. M., and Uszkoreit, J. Blockwise",""
+"parallel decoding for deep autoregressive models. Neural",""
+"Information Processing Systems, 2018.",""
+"Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi,",""
+"A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P.,",""
+"Bhosale, S., et al. Llama 2: Open foundation and fine-",""
+"tuned chat models.
+arXiv preprint arXiv:2307.09288,",""
+"2023.",""
+"Tunstall, L., Beeching, E., Lambert, N., Rajani, N., Rasul,",""
+"K., Belkada, Y., Huang, S., von Werra, L., Fourrier, C.,",""
+"Habib, N., Sarrazin, N., Sanseviero, O., Rush, A. M.,",""
+"and Wolf, T. Zephyr: Direct distillation of lm alignment,",""
+"2023.",""
+"Xia, H., Ge, T., Chen, S.-Q., Wei, F., and Sui, Z. Speculative",""
+"decoding: Lossless speedup of autoregressive translation,",""
+"2023. URL https://openreview.net/forum?",""
+"id=H-VlwsYvVi.",""
+"Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., and Han,",""
+"S.
+Smoothquant: Accurate and efficient post-training",""
+"quantization for large language models.
+In International",""
+"Conference on Machine Learning, pp. 38087–38099.",""
+"PMLR, 2023a.",""
+"Xiao, Y., Wu, L., Guo, J., Li, J., Zhang, M., Qin, T., and Liu,",""
+"T.-y. A survey on non-autoregressive generation for neu-",""
+"IEEE Transactions
+ral machine translation and beyond.",""
+"on Pattern Analysis and Machine Intelligence, 2023b.",""
+"Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y.,",""
+"and Liu, T.-Y. Do transformers really perform badly for",""
+"graph representation? Advances in Neural Information",""
+"Processing Systems, 34:28877–28888, 2021.",""
+"Zhang, P., Zeng, G., Wang, T., and Lu, W. Tinyllama: An",""
+"open-source small language model, 2024.",""
+"Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M.,",""
+"Chen, S., Dewan, C., Diab, M., Li, X., Lin, X. V.,",""
+"et al. Opt: Open pre-trained transformer language models.",""
+"arXiv preprint arXiv:2205.01068, 2022.",""
+"Zhang, Z., Sheng, Y., Zhou, T., Chen, T., Zheng, L., Cai,",""
+"R., Song, Z., Tian, Y., R´e, C., Barrett, C., et al. H 2 o:",""
+"Heavy-hitter oracle for efficient generative inference of",""
+"large language models. arXiv preprint arXiv:2306.14048,",""
+"2023.",""

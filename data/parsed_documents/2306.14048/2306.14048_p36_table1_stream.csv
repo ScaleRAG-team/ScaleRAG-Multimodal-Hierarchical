@@ -1,0 +1,59 @@
+"scalar
+d
+i
+1
+d"
+"×
+×"
+"•
+)⊤)
+scalar Di
+:= (exp(Qi,
+1i
+(KSi,
+1[i]
+Si)"
+"∗
+∗
+\
+−
+·"
+"(cid:124)(cid:123)(cid:122)(cid:125)"
+"(cid:124)
+(cid:123)(cid:122)
+(cid:125)"
+"i
+1"
+"1
+i"
+"×"
+"×"
+"In a certain sense, the above definition is related to finding heavy hitters in compressive sensing (for"
+"more background on compressive sensing, we refer readers to [124, 125, 126])."
+"D.6
+Eviction Policy"
+"The goal of this section is to our eviction policy under space limitation. We start by giving a process"
+"Rn"
+"d and the key
+without having space limitations. We denote the attention query matrix as Q
+×"
+"∈
+Rn"
+"matrix as K
+represents the i-th row of Q and K
+represents the first i rows of K.
+×
+d. Qi,
+i,"
+"∗
+≤
+∗
+∈"
+"denotes a sub-matrix of K which selects Si rows from K.
+For simplicity, KSi,"
+"∗"
+"Definition D.11 (The generative process with Full knowledge). For each i
+[n], for the i-th token,"
+"∈"
+"we have"
+"1"

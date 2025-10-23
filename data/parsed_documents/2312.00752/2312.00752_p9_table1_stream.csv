@@ -1,0 +1,63 @@
+"In settings where multiple independent sequences are stitched together, Transformers can keep"
+"Boundary Resetting."
+"them separate by instantiating a particular attention mask, while LTI models will bleed information between the sequences."
+"Selective SSMs can also reset their state at boundaries (e.g. Δ𝑡 → ∞, or Theorem 1 when 𝑔𝑡 → 1). These settings may"
+"occur artificially (e.g. packing documents together to improve hardware utilization) or naturally (e.g. episode boundaries in"
+"reinforcement learning (Lu et al. 2023))."
+"Additionally, we elaborate on effects of each selective parameter."
+"In general, Δ controls the balance between how much to focus or ignore the current input 𝑥𝑡 . It
+Interpretation of Δ."
+"in Theorem 1): mechanically, a large Δ resets the state ℎ and focuses on the current input 𝑥,
+generalizes RNN gates (e.g. 𝑔𝑡"
+"while a small Δ persists the state and ignores the current input. SSMs (1)-(2) can be interpreted as a continuous system"
+"discretized by a timestep Δ, and in this context the intuition is that large Δ → ∞ represents the system focusing on the"
+"current input for longer (thus “selecting” it and forgetting its current state) while a small Δ → 0 represents a transient"
+"input that is ignored."
+""
+"Interpretation of 𝑨.
+We remark that while the 𝑨 parameter could also be selective,"
+"only through its interaction with Δ via 𝑨 = exp(Δ𝑨) (the discretization (4)). Thus selectivity in Δ is enough to ensure"
+"selectivity in (𝑨, 𝑩), and is the main source of improvement. We hypothesize that making 𝑨 selective in addition to (or"
+"instead of) Δ would have similar performance, and leave it out for simplicity."
+"As discussed in Section 3.1,
+the most important property of selectivity is filtering out"
+"Interpretation of 𝑩 and 𝑪."
+"irrelevant information so that a sequence model’s context can be compressed into an efficient state.
+In an SSM, modifying"
+"into the state ℎ𝑡 , or the state into the
+𝑩 and 𝑪 to be selective allows finer-grained control over whether to let an input 𝑥𝑡"
+"output 𝑦𝑡 . These can be interpreted as allowing the model to modulate the recurrent dynamics based on content (input)"
+"and context (hidden states) respectively."
+"3.6
+Additional Model Details"
+"Most prior SSMs use complex numbers in their state ℎ, which is necessary for strong performance"
+"Real vs. Complex."
+"on many tasks in perceptual modalities (Gu, Goel, and Ré 2022). However, it has been empirically observed that completely"
+"real-valued SSMs seem to work fine, and possibly even better,
+in some settings (Ma et al. 2023). We use real values as"
+"the default, which work well for all but one of our tasks; we hypothesize that the complex-real tradeoff is related to the"
+"continuous-discrete spectrum in data modalities, where complex numbers are helpful for continuous modalities (e.g. audio,"
+"video) but not discrete (e.g. text, DNA)."
+"Most prior SSMs also suggest special initializations, particularly in the complex-valued case, which can"
+"Initialization."
+"help in several settings such as low-data regimes. Our default initialization for the complex case is S4D-Lin and for the real"
+"case is S4D-Real (Gu, Gupta, et al. 2022), which is based on the HIPPO theory (Gu, Dao, et al. 2020). These define the 𝑛-th"
+"element of 𝑨 as −1/2 + 𝑛𝑖 and −(𝑛 + 1) respectively. However, we expect many initializations to work fine, particularly in"
+"the large-data and real-valued SSM regimes; some ablations are considered in Section 4.6."
+""
+"We defined the selective adjustment
+Parameterization of Δ.
+to Δ as 𝑠Δ (𝑥) = Broadcast𝐷 (Linear1(𝑥)), which was"
+"motivated by the mechanics of Δ (Section 3.5). We observe that
+it can be generalized from dimension 1 to a larger"
+"dimension R. We set this to be a small fraction of D, which uses a negligible number of parameters compared to the main"
+"Linear projections in the block. We additionally note that the broadcasting operation can instead be viewed as another"
+"Linear projection, initialized to a specific pattern of 1’s and 0’s; if this projection is trainable, this leads to the alternative"
+"𝑠Δ (𝑥) = Linear𝐷 (Linear𝑅 (𝑥)), which can be viewed as a low-rank projection."
+"In our experiments, the Δ parameter (which can be viewed as a bias term) is initialized to 𝜏 −1"
+"(Uniform([0.001, 0.1])),
+Δ"
+"following prior work on SSMs (Gu, Johnson, Timalsina, et al. 2023)."
+"Remark 3.1.
+For brevity in our experimental results, we sometimes abbreviate selective SSMs as S6 models, because they are"
+"S4 models with a selection mechanism and computed with a scan."

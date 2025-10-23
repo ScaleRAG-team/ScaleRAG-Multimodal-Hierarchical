@@ -1,0 +1,22 @@
+"R>","print(metrics(data","= worldclim_testing,","",""
+"+","truth
+= response,","estimate
+=","predictions),","n"
+"#
+A","tibble: 14 x 3","","",""
+"",".metric",".estimator",".estimate",""
+"","<chr>","<chr>","<dbl>",""
+"1","willmott_d","standard","0.919",""
+"2","willmott_d1","standard","0.729",""
+"3","willmott_dr","standard","0.759",""
+"4","systematic_mse","standard","0.0119",""
+"5","unsystematic_mse","standard","0.0000258",""
+"6","systematic_rmse","standard","0.109",""
+"7","unsystematic_rmse","standard","0.00508",""
+"8","agreement_coefficient","standard","0.658",""
+"9","systematic_agreement_coefficient","standard","0.980",""
+"10","unsystematic_agreement_coefficient","standard","0.677",""
+"11","systematic_mpd","standard","0.000688",""
+"12","unsystematic_mpd","standard","0.0112",""
+"13","systematic_rmpd","standard","0.0262",""
+"14","unsystematic_rmpd","standard","0.106",""

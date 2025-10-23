@@ -1,0 +1,72 @@
+"BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation",""
+"Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J.,","Wang, Z., Yu, J., Yu, A. W., Dai, Z., Tsvetkov, Y., and Cao,"
+"Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga,","Y
+. Simvlm: Simple visual
+language model pretraining"
+"L., et al. Pytorch: An imperative style, high-performance","with weak supervision. arXiv preprint arXiv:2108.10904,"
+"deep learning library. NeurIPS, 32:8026–8037, 2019.","2021."
+"Patrick, M., Huang, P.-Y., Asano, Y., Metze, F., Hauptmann,","Xie, Q., Luong, M., Hovy, E. H., and Le, Q. V. Self-training"
+"A. G., Henriques,
+J. F., and Vedaldi, A.
+Support-set","with noisy student improves imagenet classiﬁcation.
+In"
+"bottlenecks for video-text
+representation learning.
+In","CVPR, pp. 10684–10695, 2020."
+"ICLR, 2021.","Xu, H., Ghosh, G., Huang, P.-Y., Okhonko, D., Aghajanyan,"
+"Plummer, B. A., Wang, L., Cervantes, C. M., Caicedo, J. C.,","A., Metze, F., Zettlemoyer, L., and Feichtenhofer, C."
+"Hockenmaier, J., and Lazebnik, S.
+Flickr30k entities:","Videoclip: Contrastive pre-training for zero-shot video-"
+"Collecting region-to-phrase correspondences for richer","text understanding.
+In EMNLP, pp. 6787–6800, 2021."
+"image-to-sentence models.
+In ICCV, pp. 2641–2649,","Yang, A., Miech, A., Sivic, J., Laptev, I., and Schmid, C."
+"2015.","Just ask: Learning to answer questions from millions of"
+"Puri, R., Spring, R., Shoeybi, M., Patwary, M., and Catan-","narrated videos.
+In ICCV, pp. 1686–1697, 2021."
+"zaro, B. Training question answering models from syn-","Yang, Y., Malaviya, C., Fernandez, J., Swayamdipta, S.,"
+"thetic data.
+In Webber, B., Cohn, T., He, Y., and Liu, Y.","Bras, R. L., Wang, J., Bhagavatula, C., Choi, Y., and"
+"(eds.), EMNLP, pp. 5811–5826, 2020.","Downey, D. G-daug: Generative data augmentation for"
+"","commonsense reasoning.
+In Cohn, T., He, Y., and Liu, Y."
+"Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G.,","(eds.), EMNLP Findings, pp. 1008–1025, 2020."
+"Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J.,",""
+"et al. Learning transferable visual models from natural","Zhang, P., Li, X., Hu, X., Yang, J., Zhang, L., Wang, L.,"
+"language supervision. arXiv preprint arXiv:2103.00020,","Choi, Y., and Gao, J. Vinvl: Making visual representa-"
+"2021.","tions matter in vision-language models. arXiv preprint"
+"","arXiv:2101.00529, 2021."
+"Schuhmann, C., Vencu, R., Beaumont, R., Kaczmarczyk,",""
+"R., Mullis, C., Katta, A., Coombes, T., Jitsev, J., and","Zhou, L., Palangi, H., Zhang, L., Hu, H., Corso, J. J., and"
+"Komatsuzaki, A.
+Laion-400m: Open dataset of clip-","Gao, J. Uniﬁed vision-language pre-training for image"
+"arXiv preprint
+ﬁltered 400 million image-text pairs.","captioning and VQA.
+In AAAI, pp. 13041–13049, 2020."
+"arXiv:2111.02114, 2021.","Zhu, L. and Yang, Y. Actbert: Learning global-local video-"
+"Sharma, P., Ding, N., Goodman, S., and Soricut, R. Con-","text representations.
+In CVPR, pp. 8746–8755, 2020."
+"ceptual captions: A cleaned, hypernymed, image alt-text",""
+"dataset for automatic image captioning.
+In Gurevych, I.",""
+"and Miyao, Y. (eds.), ACL, pp. 2556–2565, 2018.",""
+"Shorten, C. and Khoshgoftaar, T. M. A survey on image",""
+"data augmentation for deep learning. J. Big Data, 6:60,",""
+"2019.",""
+"Suhr, A., Zhou, S., Zhang, A., Zhang,
+I., Bai, H., and",""
+"Artzi, Y. A corpus for reasoning about natural language",""
+"grounded in photographs.
+In Korhonen, A., Traum, D. R.,",""
+"and M`arquez, L. (eds.), ACL, pp. 6418–6428, 2019.",""
+"Touvron, H., Cord, M., Douze, M., Massa, F., Sablayrolles,",""
+"A., and J´egou, H.
+Training data-efﬁcient
+image trans-",""
+"formers & distillation through attention. arXiv preprint",""
+"arXiv:2012.12877, 2020.",""
+"Wang, Y., Joty, S. R., Lyu, M. R., King, I., Xiong, C., and",""
+"Hoi, S. C. H. VD-BERT: A uniﬁed vision and dialog",""
+"transformer with BERT.
+In Webber, B., Cohn, T., He, Y.,",""
+"and Liu, Y. (eds.), EMNLP, pp. 3325–3338, 2020.",""

@@ -1,0 +1,82 @@
+"in the frequency domain for input
+is analyzed by calculat-",""
+"ing average Relative Change in discrete cosine Transforms",""
+"(RCT) of an input x and its perturbed image x(cid:48).",""
+"DCT(x(cid:48)",""
+"i) − DCT(xi)",""
+"1 N
+N(cid:88) i
+|
+|
+RCT =
+(8)",""
+"DCT(xi)",""
+"=1",""
+"where DCT(x) is discrete cosine transform of input x and",""
+"N is the number of samples in the dataset. We evaluate 200",""
+"images from CIFAR-10 dataset on a pre-trained VGG-19",""
+"model and the result is show in Figure 2.","Figure 3. Frequency domain of the different between robust/non-"
+"","robust
+images and the starting images.
+The left one (a)
+is
+the"
+"Fig 2 show that all adversarial attacks,
+regardless of
+the",""
+"","robust images and the right one (b) is the non-robust images"
+"white-box and the black-box,
+perturb images mostly at",""
+"middle and high frequencies and low frequency perturba-",""
+"","explore the difference between with its robust counterpart."
+"tions are very small. This explains why perturbations are",""
+"","We use the deﬁnition of robust dataset introduced by (Ilyas"
+"not detected by human eye whereas most of the deep net-",""
+"","the
+et al., 2019), which attempts to ﬁnd a neighbor xr of"
+"work models give wrong predictions.",""
+"","original input x where the features in xr remains correlated"
+"","to the output within a certain maximum allowed perturba-"
+"","tion. We solve the following objective to ﬁnd the robust"
+"","counterpart xr."
+"","(9)
+xr = arg min
+||g(xr) − g(x)||2"
+"","xr"
+"","where x is the original
+image and g(·) is the mapping to"
+"","a representation layer. When g(·) is extraced from a ad-"
+"","versarially trained network,
+the generated dataset
+is
+ro-"
+"","bust. When the representation mapping g(·) is extracted"
+"","from the standard network,
+the generated dataset
+is non-"
+"","robust.
+is an randomly selected
+The initial value for xr"
+"","image from the dataset. We conducted this generation pro-"
+"","cess on the CIFAR-10 test dataset. We then show the differ-"
+"","ence in the Fourier domain between the robust counterpart"
+"","and the non-robust counterpart with each natural
+image,"
+"","respectively and the result
+is shown in Fig.3.
+The result"
+"","demonstrates that the robust counterpart is mostly different"
+"","from the original
+input
+in the low-frequency components"
+"","while the non-robust counterpart is different on the middle-"
+"","frequency components.
+Since the robust counterparts are"
+"","generated from a robust model, we can also draw conclu-"
+"","sions that a robust model only associates the low-frequency"
+"","features with the labels while a regular model does not"
+"Figure 2. RCT maps for different adversarial attacks on 200 im-","have a strong connection between the low-frequency fea-"
+"ages from CIFAR-10. The upper left corner and the lower right","tures and the label.
+Instead,
+it captures a lot more features"
+"corner represent the lowest and highest frequency components in","in the middle-frequency range."

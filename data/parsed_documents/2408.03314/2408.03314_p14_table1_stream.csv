@@ -1,0 +1,10 @@
+"Takeaways for compute-optimal scaling by refining the proposal distribution with revisions"
+"We find that there exists a tradeoff between sequential (e.g. revisions) and parallel (e.g. standard"
+"best-of-N) test-time computation, and the ideal ratio of sequential to parallel test-time compute"
+"depends critially on both the compute budget and the specific question at hand.
+Specifically,"
+"easier questions benefit from purely sequential test-time compute, whereas harder questions often"
+"perform best with some ideal ratio of sequential
+to parallel compute. Moreover, by optimally"
+"selecting the best setting for a given question difficulty and test-time compute budget, we can"
+"outperform the parallel best-of-N baseline using up to 4x less test-time compute."

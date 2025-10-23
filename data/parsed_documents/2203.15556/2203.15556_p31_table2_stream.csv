@@ -1,0 +1,13 @@
+"","Model Details"
+"Organization Developing the Model","DeepMind"
+"Model Date","March 2022"
+"Model Type","Autoregressive Transformer Language Model (Section 4.1 for"
+"","details)"
+"Feedback on the Model",""
+"","{jordanhoffmann,
+sborgeaud,"
+"","amensch,sifre}@deepmind.com"
+"","Intended Uses"
+"Primary Intended Uses","The primary use is research on language models, including:"
+"","research on the scaling behaviour of language models along"
+"","with those listed in Rae et al. (2021)."

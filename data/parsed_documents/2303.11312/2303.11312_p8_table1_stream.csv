@@ -1,0 +1,19 @@
+"8","waywiser: Ergonomic Methods for Assessing Spatial Models"
+"R>","metrics <-
+yardstick::metric_set("
+"+","waywiser::ww_willmott_d,
+waywiser::ww_willmott_d1,"
+"+","waywiser::ww_willmott_dr,
+waywiser::ww_systematic_mse,"
+"+","waywiser::ww_unsystematic_mse,
+waywiser::ww_systematic_rmse,"
+"+","waywiser::ww_unsystematic_rmse,
+waywiser::ww_agreement_coefficient,"
+"+","waywiser::ww_systematic_agreement_coefficient,"
+"+","waywiser::ww_unsystematic_agreement_coefficient,"
+"+","waywiser::ww_systematic_mpd,
+waywiser::ww_unsystematic_mpd,"
+"+","waywiser::ww_systematic_rmpd,
+waywiser::ww_unsystematic_rmpd)"
+"R>","print(metrics(data
+= worldclim_testing,"

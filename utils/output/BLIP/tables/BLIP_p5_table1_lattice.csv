@@ -1,0 +1,52 @@
+"Table 1. Evaluation of the effect of the captioner (C) and ﬁlter (F) for dataset bootstrapping. Downstream tasks include image-text retrieval
+and image captioning with ﬁnetuning (FT) and zero-shot (ZS) settings. TR / IR@1: recall@1 for text retrieval / image retrieval. (cid:51)B/L:
+captioner or ﬁlter uses ViT-B / ViT-L as vision backbone.
+Figure 4. Examples of the web text Tw and the synthetic text Ts. Green texts are accepted by the ﬁlter, whereas red texts are rejected.
+Generation
+Noise
+method
+ratio
+None
+N.A.
+78.4
+60.7
+93.9
+82.1
+38.0
+127.8
+102.2
+Beam
+19%
+79.6
+61.9
+94.1
+83.1
+38.4
+128.9
+103.5","","𝑇!: “from bridge 
+near my house”
+𝑇"": “a flock of birds 
+flying over a lake at 
+sunset”","Retrieval-FT (COCO)
+TR@1
+IR@1","","","𝑇!: “in front of a house 
+door in Reichenfels, 
+Austria” 
+𝑇"": “a potted plant sitting 
+on top of a pile of rocks”","Caption-FT (COCO)
+B@4
+CIDEr","","",""
+"","","","","","","","","","","𝑇!: “the current castle was 
+built in 1180, replacing a 9th 
+century wooden castle”
+𝑇"": “a large building with a lot 
+of windows on it” 
+Caption-ZS (NoCaps)
+SPICE
+13.9
+14.2"
+"","","","","","Retrieval-ZS (Flickr)
+TR@1
+IR@1","","","","CIDEr",""
+"","","","","","","","","","",""
+"","","","","","","","","","",""

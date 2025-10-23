@@ -1,0 +1,68 @@
+"","Figure 14. Parallel generation and beam search with OPT-13B on the Alpaca dataset.",""
+"","",""
+"6.2
+Basic Sampling","","12
+60
+55.16
+9.79
+53.13"
+"","","8.53"
+"","","8
+37.56"
+"","","Memory saving (%)
+40
+6.09"
+"We evaluate the performance of vLLM with basic sampling","","Memory saving (%)
+4
+20"
+"(one sample per request) on three models and two datasets.","",""
+"","","0
+0"
+"","","2
+4
+6
+2
+4
+6"
+"The first row of Fig. 12 shows the results on the ShareGPT","","# Output sequences
+Beam width"
+"dataset. The curves illustrate that as the request rate in-","",""
+"","","(a) Parallel sampling
+(b) Beam search"
+"creases, the latency initially increases at a gradual pace but","",""
+"","","Figure 15. Average amount of memory saving from sharing"
+"then suddenly explodes. This can be attributed to the fact","",""
+"","","KV blocks, when serving OPT-13B for the Alpaca trace."
+"that when the request rate surpasses the capacity of the serv-","",""
+"ing system, the queue length continues to grow infinitely","",""
+"","","6.3
+Parallel Sampling and Beam Search"
+"and so does the latency of the requests.","",""
+"On the ShareGPT dataset, vLLM can sustain 1.7×–2.7×","","We evaluate the effectiveness of memory sharing in Page-"
+"higher request rates compared to Orca (Oracle) and 2.7×–8×","","dAttention with two popular sampling methods: parallel"
+"compared to Orca (Max), while maintaining similar laten-","","sampling and beam search. In parallel sampling, all paral-"
+"cies. This is because vLLM’s PagedAttention can efficiently","","lel sequences in a request can share the KV cache for the"
+"manage the memory usage and thus enable batching more","","prompt. As shown in the first row of Fig. 14, with a larger"
+"requests than Orca. For example, as shown in Fig. 13a, for","","number of sequences to sample, vLLM brings more improve-"
+"OPT-13B vLLM processes 2.2× more requests at the same","","ment over the Orca baselines. Similarly, the second row of"
+"time than Orca (Oracle) and 4.3× more requests than Orca","","Fig. 14 shows the results for beam search with different beam"
+"(Max). Compared to FasterTransformer, vLLM can sustain up","","widths. Since beam search allows for more sharing, vLLM"
+"to 22× higher request rates, as FasterTransformer does not","","demonstrates even greater performance benefits. The im-"
+"utilize a fine-grained scheduling mechanism and inefficiently","","provement of vLLM over Orca (Oracle) on OPT-13B and the"
+"manages the memory like Orca (Max).","","Alpaca dataset goes from 1.3× in basic sampling to 2.3× in"
+"The second row of Fig. 12 and Fig. 13b shows the results","","beam search with a width of 6."
+"on the Alpaca dataset, which follows a similar trend to the","","Fig. 15 plots the amount of memory saving, computed by"
+"ShareGPT dataset. One exception is Fig. 12 (f), where vLLM’s","","the number of blocks we saved by sharing divided by the"
+"advantage over Orca (Oracle) and Orca (Pow2) is less pro-","","number of total blocks without sharing. We show 6.1% - 9.8%"
+"nounced. This is because the model and server configuration","","memory saving on parallel sampling and 37.6% - 55.2% on"
+"for OPT-175B (Table 1) allows for large GPU memory space","","beam search. In the same experiments with the ShareGPT"
+"available to store KV cache, while the Alpaca dataset has","","dataset, we saw 16.2% - 30.5% memory saving on parallel"
+"short sequences. In this setup, Orca (Oracle) and Orca (Pow2)","","sampling and 44.3% - 66.3% on beam search."
+"can also batch a large number of requests despite the inef-","",""
+"","","6.4
+Shared prefix"
+"ficiencies in their memory management. As a result,
+the","",""
+"performance of the systems becomes compute-bound rather","","We explore the effectiveness of vLLM for the case a prefix"
+"than memory-bound.","","is shared among different input prompts, as illustrated in"
+"","11",""

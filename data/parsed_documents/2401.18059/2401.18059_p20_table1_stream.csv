@@ -1,0 +1,47 @@
+"Published as a conference paper at ICLR 2024"
+"significantly impacts downstream tasks. When GPT-4 is provided with RAPTOR’s context,
+it gen-"
+"erates a detailed answer: “Cinderella finds a happy ending when the Prince searches for the owner"
+"of the lost glass slipper and discovers it belongs to Cinderella. They eventually marry,
+transform-"
+"ing Cinderella’s life for the better.” In contrast, using DPR’s context, GPT-4 states: “Based on the"
+"given context, it is not possible to determine how Cinderella finds a happy ending, as the text lacks"
+"information about the story’s conclusion.”"
+"The second question we examine is “What
+is the central
+theme of the story?”, a thematic question"
+"that requires holistic understanding of the entire text. The text retrieved by RAPTOR and DPR for"
+"this question is shown in Table 13. The text retrieved by RAPTOR contains short descriptions of"
+"all the major parts of the story, whereas the text retrieved by DPR contains detailed descriptions of"
+"a narrow subset of the story. Again, the difference in retrieval mechanisms affects the performance"
+"of GPT-4 when answering the question. Given DPR’s context,
+it outputs “The central
+theme of"
+"the story is transformation and the power of inner beauty, as Cinderella, a kind and humble girl,
+is"
+"magically transformed into a beautiful princess, capturing the attention and admiration of the Prince"
+"and others at
+the ball.” This answer only takes into account
+the first portion of the story, up until"
+"Cinderella first meets the prince. In contrast, given RAPTOR’s context, GPT-4 outputs “The central"
+"theme of the story is transformation and overcoming adversity, as Cinderella, with the help of her"
+"Fairy Godmother, transforms from a mistreated and downtrodden girl into a beautiful and confident"
+"young woman who ultimately finds happiness and love with the Prince.” This is a more complete"
+"answer, demonstrating a comprehensive understanding of the story."
+"This qualitative analysis indicates that RAPTOR outperforms prior
+retrieval mechanisms because"
+"the information that it retrieves is more relevant and exhaustive, allowing for better performance on"
+"downstream tasks."
+"We also created a 2600-word story along with questions about
+its narrative and theme. An excerpt"
+"from the story is present below and the full PDF of this story is linked here. For questions like “What"
+"is the central
+theme of
+the story?”, an upper-level node is retrieved which includes the sentence:"
+"“This story is about
+the power of human connection...
+inspiring and uplifting each other as they"
+"pursued their passions.” This summary, not explicitly present
+in the original
+text, almost directly"
+"answers the question."

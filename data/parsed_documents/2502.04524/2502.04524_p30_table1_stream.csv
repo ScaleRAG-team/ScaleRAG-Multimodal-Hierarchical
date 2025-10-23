@@ -1,0 +1,62 @@
+"in analogue memristive devices for neuromorphic computing. Scientific Reports"
+"8(1), 7178 (2018) https://doi.org/10.1038/s41598-018-25376-x"
+"[41] Abedin, M., Gong, N., Beckmann, K., Liehr, M., Saraf, I., Straten, O.V., Ando,"
+"T., Cady, N.: Material
+to system-level benchmarking of
+cmos-integrated rram"
+"with ultra-fast
+switching for
+low power on-chip learning. Scientific Reports 13"
+"(2023) https://doi.org/10.1038/s41598-023-42214-x"
+"[42] Mott, N.F., Gurney, R.W.: Electronic processes in ionic crystals. Oxford at the"
+"Clarendon Press, 2 ed. (1950)"
+"[43] Alibart, F., Gao, L., Hoskins, B.D., Strukov, D.B.: High precision tuning of state"
+"for memristive devices by adaptable variation-tolerant algorithm. Nanotechnology"
+"23 (2012) https://doi.org/10.1088/0957-4484/23/7/075201"
+"[44] Rasch, M.J., Moreda, D., Gokmen, T., Le Gallo, M., Carta, F., Goldberg, C.,"
+"El Maghraoui, K., Sebastian, A., Narayanan, V.: A flexible and fast pytorch"
+"toolkit for simulating training and inference on analog crossbar arrays.
+In: 2021"
+"IEEE 3rd International Conference on Artificial Intelligence Circuits and Systems"
+"(AICAS), pp. 1–4 (2021). https://doi.org/10.1109/AICAS51828.2021.9458494"
+"[45] Nandakumar, S.R., Boybat, I., Joshi, V., Piveteau, C., Le Gallo, M., Rajendran,"
+"B., Sebastian, A., Eleftheriou, E.: Phase-change memory models for deep learning"
+"training and inference. In: 2019 26th IEEE International Conference on Electron-"
+"ics, Circuits and Systems (ICECS), pp. 727–730 (2019). https://doi.org/10.1109/"
+"ICECS46596.2019.8964852"
+"Supplementary information.
+This manuscript is supported by additional supple-"
+"mentary information provided in a separate document."
+"Acknowledgements.
+The authors acknowledge the Binnig and Rohrer Nanotech-"
+"nology Center
+(BRNC)
+at
+IBM Research Europe
+- Zurich. Special
+thanks
+go
+to"
+"Jean-Michel Portal, Eloi Muhr and Dominique Drouin for their contributions to the"
+"design of
+the NMOS transistors used in this work. The authors also extend their"
+"gratitude to Stephan Menzel
+for
+the fruitful discussions and to Ralph Heller
+for his"
+"assistance in wire-bonding the chip. This work is funded by SNSF ALMOND (grantID:"
+"198612), by the European Union and Swiss state secretariat SERI within the H2020"
+"MeM-Scales
+(grantID: 871371), MANIC (grantID: 861153), PHASTRAC (grantID:"
+"101092096) and CHIST-ERA UNICO (20CH21-186952) projects."
+"Author contributions.
+Conceptualization: D. F. F. and V. B.; hardware fabrica-"
+"tion: D. F. F. and L. B. L.; electrical characterization: D. F. F, W. C., T. S., F. H.,"
+"physical
+simulations: D. F. F.;
+inference and training simulations: V. C., D. F. F.;"
+"NMOS transistor design : N. G., F. A.; result interpretation: D. F. F., V. C., W. C.,"
+"V. B., M. G., A. L. P. and B. J. O., supervision: V. B. and B. J. O.; manuscript writ-"
+"ing: D. F. F., V. C.; data curation: D. F. F., V. C. and V. B.; manuscript review and"
+"editing: all authors;
+funding acquisition: B. J. O. and V. B."

@@ -1,0 +1,25 @@
+"6 parameters:
+four empirically obtained (Gmax, Gmin, ∆Gsp and up down) and two"
+"analytically modelled from SBM linear fitting (γ and γup down)."
+"4.7.2
+Intra and inter-device variability"
+"By extracting the standard deviation of the minimum conductance step size (σ∆Gsp )"
+"from the experimental traces and incorporating it into the simulation’s device model,"
+"the device response intrinsically includes noise from cycle to cycle. This provides a real-"
+"istic device behavior with intra-device variability. Furthermore,
+the network devices"
+"shall
+include inter-device variabilities to perform physically accurate simulations. To"
+"achieve this, two multi-variate Gaussian distributions, G1 and G2, are created (see Fig."
+"S9 in Supplementary Information). G1 is extracted from the experimentally obtained"
+"(which accounts for variations across devices in the G-range and
+parameters: Nstates"
+"step) and SP in the normalized G-range, whereas G2 is fitted to the analytical model"
+"parameters obtained from the fitted generalized SBM (γ and γup down). Therefore, vari-"
+"ables from G1 showed statistical
+independence from those of G2. New device instances"
+"are independently sampled from the two Gaussian distributions to represent synapses"
+"on the DNN layers. The instantiated CMO/HfOx ReRAM devices include variations in"
+"the device response, conductance ranges, and asymmetrical behavior, thus providing"
+"a more hardware-aware and realistic scenario for analog training simulation."
+"References"

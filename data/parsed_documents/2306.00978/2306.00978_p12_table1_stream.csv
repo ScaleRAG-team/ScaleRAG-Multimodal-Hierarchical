@@ -1,0 +1,101 @@
+"AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration",""
+"Bengio, Y., L´eonard, N., and Courville, A. Estimating or","Dettmers, T. and Zettlemoyer, L. The case for 4-bit pre-"
+"propagating gradients through stochastic neurons for con-","arXiv preprint
+cision:
+k-bit
+inference scaling laws."
+"ditional computation. arXiv preprint arXiv:1308.3432,","arXiv:2212.09720, 2022."
+"2013.",""
+"","Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L."
+"Black, S., Biderman, S., Hallahan, E., Anthony, Q., Gao,","Llm.int8(): 8-bit matrix multiplication for transformers"
+"L., Golding, L., He, H., Leahy, C., McDonell, K., Phang,","at scale. arXiv preprint arXiv:2208.07339, 2022."
+"J., et al. Gpt-neox-20b: An open-source autoregressive",""
+"","Driess, D., Xia, F., Sajjadi, M. S., Lynch, C., Chowdhery,"
+"language model. arXiv preprint arXiv:2204.06745, 2022.",""
+"","A., Ichter, B., Wahid, A., Tompson, J., Vuong, Q., Yu, T.,"
+"Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan,","et al. Palm-e: An embodied multimodal language model."
+"J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry,","arXiv preprint arXiv:2303.03378, 2023."
+"G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger,",""
+"","Esser, S. K., McKinstry, J. L., Bablani, D., Appuswamy, R.,"
+"G., Henighan, T., Child, R., Ramesh, A., Ziegler, D.,",""
+"","and Modha, D. S. Learned step size quantization. arXiv"
+"Wu,
+J., Winter, C., Hesse, C., Chen, M., Sigler, E.,",""
+"","preprint arXiv:1902.08153, 2019."
+"Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C.,",""
+"McCandlish, S., Radford, A., Sutskever, I., and Amodei,",""
+"","Feng, S., Hou, B., Jin, H., Lin, W., Shao, J., Lai, R., Ye, Z.,"
+"D. Language models are few-shot learners. In Larochelle,",""
+"","Zheng, L., Yu, C. H., Yu, Y., and Chen, T. TensorIR: An"
+"H., Ranzato, M., Hadsell, R., Balcan, M.,
+and Lin,",""
+"","Abstraction for Automatic Tensorized Program Optimiza-"
+"Information Processing
+H.
+(eds.), Advances in Neural",""
+"","tion.
+In ASPLOS, 2023."
+"Systems,
+volume
+33,
+pp.
+1877–1901. Curran Asso-",""
+"","Frankle, J. and Carbin, M. The lottery ticket hypothesis:"
+"ciates,
+Inc., 2020.
+URL https://proceedings.",""
+"neurips.cc/paper/2020/file/","Finding sparse, trainable neural networks. arXiv preprint"
+"1457c0d6bfcb4967418bfb8ac142f64a-Paper.","arXiv:1803.03635, 2018."
+"pdf.",""
+"","Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq:"
+"Chen, T., Moreau, T., Jiang, Z., Zheng, L., Yan, E., Shen, H.,","Accurate post-training quantization for generative pre-"
+"Cowan, M., Wang, L., Hu, Y., Ceze, L., et al. TVM: An","trained transformers. arXiv preprint arXiv:2210.17323,"
+"Automated End-to-End Optimizing Compiler for Deep","2022."
+"Learning.
+In 13th USENIX Symposium on Operating",""
+"","Fu, C., Chen, P., Shen, Y., Qin, Y., Zhang, M., Lin, X.,"
+"Systems Design and Implementation (OSDI), 2018.",""
+"","Yang,
+J., Zheng, X., Li, K., Sun, X., Wu, Y., and Ji,"
+"Chen, X., Fang, H., Lin, T.-Y., Vedantam, R., Gupta, S.,","R. MME: A Comprehensive Evaluation Benchmark for"
+"Doll´ar, P., and Zitnick, C. L. Microsoft coco captions:","arXiv preprint
+Multimodal Large Language Models."
+"arXiv preprint
+Data collection and evaluation server.","arXiv:2306.13394, 2023."
+"arXiv:1504.00325, 2015.",""
+"","Gao, L., Biderman, S., Black, S., Golding, L., Hoppe, T.,"
+"Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang,","Foster, C., Phang, J., He, H., Thite, A., Nabeshima, N.,"
+"H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E.,","et al.
+The pile: An 800gb dataset of diverse text
+for"
+"Stoica,
+I., and Xing, E. P.
+Vicuna: An open-source","language modeling.
+arXiv preprint arXiv:2101.00027,"
+"chatbot
+impressing gpt-4 with 90%* chatgpt quality,","2020."
+"March 2023.
+URL https://lmsys.org/blog/",""
+"","Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W.,"
+"2023-03-30-vicuna/.",""
+"","and Keutzer, K.
+A survey of quantization methods"
+"Choi, J., Wang, Z., Venkataramani, S., Chuang, P. I.-J., Srini-","arXiv preprint
+for efficient neural network inference."
+"vasan, V., and Gopalakrishnan, K. Pact: Parameterized","arXiv:2103.13630, 2021."
+"clipping activation for quantized neural networks. arXiv",""
+"","Goyal, Y., Khot, T., Summers-Stay, D., Batra, D.,
+and"
+"preprint arXiv:1805.06085, 2018.",""
+"","Parikh, D. Making the v in vqa matter: Elevating the"
+"Chung, H. W., Hou, L., Longpre, S., Zoph, B., Tay, Y.,","role of image understanding in visual question answer-"
+"Fedus, W., Li, E., Wang, X., Dehghani, M., Brahma,","ing.
+In Proceedings of the IEEE conference on computer"
+"S., et al. Scaling instruction-finetuned language models.","vision and pattern recognition, pp. 6904–6913, 2017."
+"arXiv preprint arXiv:2210.11416, 2022.",""
+"","Gurari, D., Li, Q., Stangl, A. J., Guo, A., Lin, C., Grauman,"
+"Cobbe, K., Kosaraju, V., Bavarian, M., Chen, M., Jun, H.,","K., Luo, J., and Bigham, J. P. Vizwiz grand challenge:"
+"Kaiser, L., Plappert, M., Tworek, J., Hilton, J., Nakano,","Answering visual questions from blind people.
+In Pro-"
+"R., Hesse, C., and Schulman, J. Training verifiers to solve","ceedings of the IEEE conference on computer vision and"
+"math word problems, 2021.","pattern recognition, pp. 3608–3617, 2018."

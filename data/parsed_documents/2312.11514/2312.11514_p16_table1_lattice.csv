@@ -1,0 +1,116 @@
+"","Threshold
+Sensitives *
+Other Layers","ArcEasy
+Challenge
+Swag"
+"OPT 6.7B
+OPT 6.7B with predictors","-
+-
+-
+1024
+128
+0.5","66.1
+30.6
+50.3
+66.2
+30.6
+49.8"
+"Falcon 7B
+Falcon 7B relufied
+Falcon 7B relufied with predictors
+Falcon 7B relufied with predictors
+Falcon 7B relufied with predictors","-
+-
+-
+-
+-
+-
+128
+128
+0.50
+1152
+128
+0.50
+1152
+256
+0.50","74.62
+40.05
+57.77
+72.52
+38.23
+54.17
+70.20
+35.41
+50.74
+71.51
+34.22
+52.28
+72.35
+36.35
+53.16"
+"Persimmon 8B
+Persimmon 8B with predictors
+Persimmon 8B with predictors
+Persimmon 8B with predictors
+Persimmon 8B with predictors
+Persimmon 8B with predictors","-
+-
+-
+256
+256
+0.5
+256
+256
+0.55
+256
+256
+0.60
+256
+256
+0.65
+1152
+256
+0.70","67.80
+34.64
+50.70
+67.26
+33.87
+50.51
+66.71
+34.73
+50.54
+66.67
+34.04
+50.59
+66.41
+34.22
+50.42
+66.30
+34.40
+52.70"
+"Phi-2
+Phi-2 relufied
+Phi-2 relufied with predictors
+Phi-2 relufied with predictors","-
+-
+-
+-
+-
+-
+800
+mix 160, 480
+0.40
+800
+mix 160, 480
+0.55","79.62
+51.49
+55.17
+80.60
+50.12
+54.30
+79.96
+49.57
+53.50
+78.90
+47.90
+52.75"

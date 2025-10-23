@@ -1,0 +1,22 @@
+"","Inference scaling (Weighted Majority)","","Inference scaling (Best-of-N)"
+"75","Sampling (7B)","75","Sampling (7B)"
+"","Sampling (34B)","","Sampling (34B)"
+"70","MCTS (7B)","","MCTS (7B)"
+"","","70",""
+"","MCTS (34B)","","MCTS (34B)"
+"65","REBASE (7B)","","REBASE (7B)"
+"Test error on MATH","REBASE (34B)","Test error on MATH
+65","REBASE (34B)"
+"60","","",""
+"","","60",""
+"55","","",""
+"","","55",""
+"50","","",""
+"","4
+16
+64
+256
+1024","4","16
+64
+256
+1024"

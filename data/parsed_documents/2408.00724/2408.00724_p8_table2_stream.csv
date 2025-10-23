@@ -1,0 +1,80 @@
+"12
+12"
+"2
+4
+8
+16
+32
+64
+128
+256
+2
+4
+8
+16
+32
+64
+128
+256"
+"Inference FLOPs per question (×1012)
+Inference FLOPs per question (×1012)"
+"Figure 5: GSM8k inference scaling across inference strategies and model sizes (lower
+is bet-"
+"ter).
+The left/right panel
+shows
+the problem-solving error
+rate on GSM8K based on weighted"
+"majority/best-of-n. MCTS is not included in the comparison because of its poor compute-accuracy"
+"trade-off. REBASE is the compute-optimal inference strategy, and the optimal model size varies."
+"fine-tuning (Full-SFT), The finetuning configuration is given in the Appendix. Additionally, we test"
+"the Mistral-7B (Jiang et al., 2023) to expand our findings across different models and architectures."
+"Reward model.
+All of the experiments use the same Llemma-34B reward model, which we fine-"
+"tuned on the synthetic process reward modeling dataset, Math-Shepherd (Wang et al., 2024). We"
+"added a reward head to the model, enabling it to output a scalar reward at the end of each step."
+"Inference configuration.
+We use sampling and tree search methods to generate multiple candi-"
+"dates, and select
+the answer
+through best-of-n, majority voting, or weighted voting.
+Each con-"
+"figuration is run multiple times to calculate the mean and variance, which mitigates effects from"
+"randomness and thereby improves the reliability of our conclusions. Unless explicitly stated other-"
+"wise, each point in the figures in this section corresponds to 2i samples, where i is an integer starting"
+"from 0."
+"4.2
+COMPUTE-OPTIMAL MODEL SIZE"
+"To compare the inference compute budgets of different models, we plot
+the figures with the num-"
+"ber of FLOPs used per question during inference. We compute the inference FLOPs based on the"
+"commonly-used formula proposed by Kaplan et al. (2020)."
+"Scaling law of compute-optimal inference for model size.
+Fig. 1 shows the relationship between"
+"inference compute and error rate for different model sizes. The error rate first decreases steadily and"
+"then starts to saturate.
+Initially, sampling many times from smaller models is compute-optimal. At"
+"larger compute budgets the larger models are preferable, since the performance of small models has"
+"saturated. As highlighted in the right panel of Fig. 1,
+the optimal model size varies based on the"
+"inference budget. We performed a regression analysis on inference FLOPs C and model sizes N"
+"to establish a relationship between a given computational budget and its optimal model size. The"
+"resulting equation, log10 (C) = 1.19 log10 (N ) + 2.03, lets us estimate the optimal inference model"
+"size for a specific compute budget."
+"Llemma-7B achieves competitive accuracy to Llemma-34B with less compute.
+Fig. 4 and"
+"Fig. 5 shows the relationship between error rate and inference FLOPs for Llemma 7B and Llemma"
+"34B using different
+inference strategies.
+Llemma-7B requires around 2× less total FLOPs than"
+"Llemma-34B to achieve comparable accuracy. This held across inference strategies (sampling strate-"
+"gies, MCTS, REBASE) and tasks (MATH, GSM8K). This result suggests that, with the same training"
+"dataset and model family, generating more tokens with a suitable inference strategy using a smaller"
+"model can have more favorable cost-performance tradeoffs than using a larger model."
+"4.3
+COMPUTE-OPTIMAL INFERENCE STRATEGY"
+"REBASE is Pareto-optimal.
+REBASE consistently achieves the best cost-performance tradeoffs,"
+"outperforming the sampling-based methods in all settings when fixing the model and the evaluation"
+"task (Fig. 4, 5, 6, and 7). For example,
+in Fig. 4, REBASE is the compute-optimal strategy at all"

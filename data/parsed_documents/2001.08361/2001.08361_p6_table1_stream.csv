@@ -1,0 +1,7 @@
+"","be maximally compute-efﬁcient because of hardware constraints. Optimal performance depends on total"
+"compute as a power law (see Equation (1.3)).",""
+"","We provide some basic theoretical motivation for Equation (1.5), an analysis of learning curve ﬁts and their"
+"","implications for training time, and a breakdown of our results per token. We also make some brief compar-"
+"isons to LSTMs and recurrent Transformers [DGV+18].",""
+"1.3","Notation"
+"We use the following notation:",""

@@ -1,0 +1,88 @@
+"Published as a conference paper at ICLR 2024"
+"2020.
+URL https://proceedings.neurips.cc/paper_files/paper/2020/"
+"file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf."
+"S´ebastien Bubeck, Varun Chandrasekaran, Ronen Eldan, Johannes Gehrke, Eric Horvitz, Ece Ka-"
+"mar, Peter Lee, Yin Tat Lee, Yuanzhi Li, Scott Lundberg, et al.
+Sparks of Artificial General"
+"Intelligence: Early Experiments with GPT-4.
+arXiv preprint arXiv:2303.12712, 2023.
+URL"
+"https://arxiv.org/abs/2303.12712."
+"Shuyang Cao and Lu Wang. HIBRIDS: Attention with hierarchical biases for structure-aware long"
+"the 60th Annual Meeting of
+the Association for
+document summarization.
+In Proceedings of"
+"Computational Linguistics (Volume 1: Long Papers), pp. 786–807, Dublin,
+Ireland, May 2022."
+"Association for Computational Linguistics.
+doi: 10.18653/v1/2022.acl-long.58. URL https:"
+"//aclanthology.org/2022.acl-long.58."
+"Danqi Chen, Adam Fisch,
+Jason Weston,
+and Antoine Bordes.
+Reading Wikipedia to Answer"
+"the 55th Annual Meeting of
+the Association for
+Open-Domain Questions.
+In Proceedings of"
+"Computational Linguistics (Volume 1: Long Papers), pp. 1870–1879, Vancouver, Canada, July"
+"2017. Association for Computational Linguistics.
+doi: 10.18653/v1/P17-1171. URL https:"
+"//aclanthology.org/P17-1171."
+"Aakanksha Chowdhery, Sharan Narang,
+Jacob Devlin, Maarten Bosma, Gaurav Mishra, Adam"
+"Roberts, Paul Barham, Hyung Won Chung, Charles Sutton, Sebastian Gehrmann, et al. PaLM:"
+"Scaling Language Modeling with Pathways.
+arXiv preprint arXiv:2204.02311, 2022.
+URL"
+"https://arxiv.org/abs/2204.02311."
+"Arman Cohan and Nazli Goharian.
+Contextualizing citations for scientific summarization using"
+"word embeddings and domain knowledge.
+In Proceedings of the 40th International ACM SIGIR"
+"Conference on Research and Development in Information Retrieval, pp. 1133–1136, 2017. URL"
+"https://dl.acm.org/doi/abs/10.1145/3077136.3080740."
+"Zihang Dai, Zhilin Yang, Yiming Yang,
+Jaime Carbonell, Quoc Le, and Ruslan Salakhutdinov."
+"Transformer-XL: Attentive language models beyond a fixed-length context. In Proceedings of the"
+"57th Annual Meeting of the Association for Computational Linguistics, pp. 2978–2988, Florence,"
+"Italy, July 2019. Association for Computational Linguistics.
+doi: 10.18653/v1/P19-1285. URL"
+"https://aclanthology.org/P19-1285."
+"Tri Dao, Dan Fu, Stefano Ermon, Atri Rudra,
+and Christopher R´e.
+FlashAttention:
+Fast and"
+"memory-efficient exact attention with IO-Awareness. Advances in Neural Information Processing"
+"Systems, 35:16344–16359, 2022. URL https://arxiv.org/abs/2205.14135."
+"Pradeep Dasigi, Kyle Lo, Iz Beltagy, Arman Cohan, Noah A. Smith, and Matt Gardner. A Dataset"
+"of
+Information-Seeking Questions and Answers Anchored in Research Papers.
+In Proceed-"
+"ings of
+the 2021 Conference of
+the North American Chapter of
+the Association for Computa-"
+"tional Linguistics: Human Language Technologies, pp. 4599–4610, Online,
+June 2021. Asso-"
+"ciation for Computational Linguistics.
+doi: 10.18653/v1/2021.naacl-main.365. URL https:"
+"//aclanthology.org/2021.naacl-main.365."
+"Mengxing Dong, Bowei Zou, Yanling Li, and Yu Hong. CoLISA: Inner Interaction via Contrastive"
+"Learning for Multi-choice Reading Comprehension.
+In Advances in Information Retrieval: 45th"
+"European Conference on Information Retrieval, ECIR 2023, Dublin,
+Ireland, April 2–6, 2023,"
+"Proceedings, Part I, pp. 264–278. Springer, 2023a. URL https://link.springer.com/"
+"chapter/10.1007/978-3-031-28244-7_17."
+"Zican Dong, Tianyi Tang, Lunyi Li, and Wayne Xin Zhao. A survey on long text modeling with"
+"transformers.
+arXiv preprint arXiv:2302.14502, 2023b. URL https://arxiv.org/abs/"
+"2302.14502."
+"Tianyu Gao, Howard Yen, Jiatong Yu, and Danqi Chen. Enabling large language models to generate"
+"text with citations.
+arXiv preprint arXiv:2305.14627, 2023.
+URL https://arxiv.org/"
+"abs/2305.14627."

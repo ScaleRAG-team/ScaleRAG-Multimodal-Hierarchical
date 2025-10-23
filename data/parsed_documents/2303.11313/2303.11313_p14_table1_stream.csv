@@ -1,0 +1,81 @@
+"Overall Acc",""
+"Method
+Backbone",""
+"ShapeNet [5]
+ModelNet40 [61] (ZS)",""
+"PointCLIP [72]
+ViT-B
+33.6
+10.1",""
+"CG3D-render
+ViT-B + prompt
+77.8
+24.8",""
+"CG3D-depth
+ViT-B + prompt
+37.0
+34.4",""
+"Table 4: Comparison of classiﬁcation performance of CLIP",""
+"visual encoder and CG3D visual encoder on the ShapeNet",""
+"and ModelNet datasets. CG3D is pretrained on ShapeNet.",""
+"Linear probe acc",""
+"Method
+Backbone",""
+"ShapeNet
+ModelNet40",""
+"PointCLIP
+ViT-B
+70.31
+43.31",""
+"CG3D-render
+ViT-B + prompt
+82.47
+46.15",""
+"CG3D-depth
+ViT-B + prompt
+70.38
+68.80",""
+"Table 5: Comparison of
+linear probe classiﬁcation perfor-",""
+"mance of CLIP visual encoder and CG3D visual encoder",""
+"on the ShapeNet and ModelNet datasets.",""
+"compare the overall classiﬁcation accuracy of single-view",""
+"PointCLIP [72] against the prompt-tuned visual encoder on",""
+"rendered images of ShapeNet objects. Column 4 compares",""
+"zero-shot classﬁcation performance on the 40-class split of",""
+"ModelNet. CG3D-render denotes that
+the framework uses",""
+"rendered images of ShapeNet objects during pre-training.",""
+"CG3D-depth denotes that depth projections are used as in-",""
+"puts to the visual encoder during pre-training.",""
+"We observe that performing visual prompt
+tuning of the",""
+"2D encoder signiﬁcantly improves the performance of CLIP",""
+"visual encoder in CG3D for 3D shape datasets. Classiﬁca-",""
+"tion performance on rendered ShapeNet
+images improves",""
+"by 44.2% points and and zero-shot performance on Mod-",""
+"elNet depth images improves by 24.3% points.
+The best",""
+"performance
+is observed when the modality of
+the pre-",""
+"training image dataset aligns with the modality during eval-",""
+"uation. Nonetheless, we observe improvements even when",""
+"the modalities do not match.",""
+"As a further demonstration of the quality of image fea-",""
+"tures obtained after visual prompt tuning, we perform linear",""
+"probing as done in [46] by performing logistic regression",""
+"on the learned image features from the visual encoder.
+In",""
+"Table 5, we compare the linear probe performance using",""
+"image features from the out-of-the-box vision encoder of",""
+"CLIP (as used in [72]) with the visual encoder with tuned",""
+"prompt tokens. A trend similar to Table 4 can be observed,",""
+"where prompt tuning results in improved classiﬁcation per-",""
+"formance, with the best performance occurring when the",""
+"modalities of the train and test data match. This means that",""
+"the visual encoder is able to effectively learn image features",""
+"speciﬁc to 3D shapes. This opens up numerous possibilities",""
+"in multi-modal learning between 3D shapes and images.",""
+"","14"

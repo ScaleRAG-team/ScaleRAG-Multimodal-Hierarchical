@@ -1,0 +1,103 @@
+"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",""
+"Han, S., Mao, H., and Dally, W. J. Deep Compression: Com-","Nagel, M., Baalen, M. v., Blankevoort, T., and Welling,"
+"pressing Deep Neural Networks with Pruning, Trained","M. Data-free quantization through weight equalization"
+"Quantization and Huffman Coding.
+In ICLR, 2016.","the IEEE/CVF
+and bias correction.
+In Proceedings of"
+"","International Conference on Computer Vision, pp. 1325–"
+"Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M.,","1334, 2019."
+"Song, D., and Steinhardt, J. Measuring massive multitask",""
+"language understanding. CoRR, abs/2009.03300, 2020.",""
+"","Paperno, D., Kruszewski, G., Lazaridou, A., Pham, N. Q.,"
+"URL https://arxiv.org/abs/2009.03300.",""
+"","Bernardi, R., Pezzelle, S., Baroni, M., Boleda, G., and"
+"","Fernández, R. The LAMBADA dataset: Word prediction"
+"Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard,",""
+"","requiring a broad discourse context.
+In Proceedings of"
+"A., Adam, H.,
+and Kalenichenko, D.
+Quantization",""
+"","the 54th Annual Meeting of the Association for Compu-"
+"and training of neural networks
+for
+efficient
+integer-",""
+"","tational Linguistics (Volume 1: Long Papers), pp. 1525–"
+"the IEEE
+arithmetic-only inference.
+In Proceedings of",""
+"","1534, Berlin, Germany, August 2016. Association for"
+"Conference on Computer Vision and Pattern Recognition,",""
+"","Computational Linguistics. doi: 10.18653/v1/P16-1144."
+"pp. 2704–2713, 2018.",""
+"","URL https://aclanthology.org/P16-1144."
+"Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C.,",""
+"","Park, G., Park, B., Kwon, S. J., Kim, B., Lee, Y., and Lee,"
+"Chaplot, D. S., de las Casas, D., Bressand, F., Lengyel,",""
+"","D. nuqmm: Quantized matmul for efficient inference of"
+"G., Lample, G., Saulnier, L., Lavaud, L. R., Lachaux, M.-",""
+"","large-scale generative language models. arXiv preprint"
+"A., Stock, P., Scao, T. L., Lavril, T., Wang, T., Lacroix,",""
+"","arXiv:2206.09557, 2022."
+"T., and Sayed, W. E. Mistral 7b, 2023.",""
+"","Pope, R., Douglas, S., Chowdhery, A., Devlin, J., Bradbury,"
+"Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary,",""
+"","J., Levskaya, A., Heek, J., Xiao, K., Agrawal, S., and"
+"B., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna,",""
+"","Dean, J. Efficiently scaling transformer inference. arXiv"
+"E. B., Bressand, F., Lengyel, G., Bour, G., Lample, G.,",""
+"","preprint arXiv:2211.05102, 2022."
+"Lavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P.,",""
+"Subramanian, S., Yang, S., Antoniak, S., Scao, T. L.,",""
+"Gervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed,","Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann,"
+"W. E. Mixtral of experts, 2024.","J., Song, F., Aslanides,
+J., Henderson, S., Ring, R.,"
+"","Young, S., et al.
+Scaling language models: Methods,"
+"Kim, S., Gholami, A., Yao, Z., Mahoney, M. W.,
+and","analysis & insights from training gopher. arXiv preprint"
+"Keutzer, K.
+I-bert:
+Integer-only bert quantization.
+In","arXiv:2112.11446, 2021."
+"International conference on machine learning, pp. 5506–",""
+"5518. PMLR, 2021.","Roemmele, M., Bejan, C. A., and Gordon, A. S. Choice"
+"","of plausible alternatives: An evaluation of commonsense"
+"Lewis, M., Liu, Y., Goyal, N., Ghazvininejad, M., Mo-",""
+"","causal reasoning.
+In Logical Formalizations of Common-"
+"hamed, A., Levy, O., Stoyanov, V., and Zettlemoyer, L.",""
+"","sense Reasoning, Papers from the 2011 AAAI Spring Sym-"
+"Bart: Denoising sequence-to-sequence pre-training for",""
+"","posium, Technical Report SS-11-06, Stanford, California,"
+"natural language generation, translation, and comprehen-",""
+"","USA, March 21-23, 2011. AAAI, 2011. URL http://www."
+"sion. arXiv preprint arXiv:1910.13461, 2019.",""
+"","aaai.org/ocs/index.php/SSS/SSS11/paper/view/2418."
+"Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet:",""
+"","Sakaguchi, K., Bras, R. L., Bhagavatula, C., and Choi, Y."
+"Tiny deep learning on iot devices. Advances in Neural",""
+"","Winogrande: An adversarial winograd schema challenge"
+"Information Processing Systems, 33:11711–11722, 2020.",""
+"","at scale. arXiv preprint arXiv:1907.10641, 2019."
+"Liu, Z., Wang, Y., Han, K., Zhang, W., Ma, S., and Gao,",""
+"","Scao, T. L., Fan, A., Akiki, C., Pavlick, E., Ili´c, S., Hesslow,"
+"W. Post-training quantization for vision transformer. Ad-",""
+"","D., Castagné, R., Luccioni, A. S., Yvon, F., Gallé, M.,"
+"vances in Neural
+Information Processing Systems, 34:",""
+"","et al. Bloom: A 176b-parameter open-access multilingual"
+"28092–28103, 2021.",""
+"","language model. arXiv preprint arXiv:2211.05100, 2022."
+"Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer",""
+"sentinel mixture models, 2016.","Shen, S., Dong, Z., Ye, J., Ma, L., Yao, Z., Gholami, A.,"
+"","Mahoney, M. W., and Keutzer, K. Q-bert: Hessian based"
+"Mihaylov, T., Clark, P., Khot, T., and Sabharwal, A. Can a","ultra low precision quantization of bert.
+In Proceedings"
+"suit of armor conduct electricity? a new dataset for open","of
+the AAAI Conference on Artificial
+Intelligence, vol-"
+"book question answering.
+In EMNLP, 2018.","ume 34, pp. 8815–8821, 2020."

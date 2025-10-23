@@ -1,0 +1,25 @@
+"1.4B"
+"2"
+"103"
+"105
+103
+104
+105
+103
+104"
+""
+"S
+1/
+Step
+Sc × [L(N, D)
+L(N,
+)]"
+"Figure 16
+Left: We characterize the step on which early stopping occurs, as a function of the extent of"
+"overﬁtting. The red line indicates a lower bound for early stopping that
+is derived in Section 5.3. Right:"
+"We display train and test
+loss for a series of 300M parameter models trained on different sized dataset sub-"
+"samples. The test loss typically follows that of a run done with unrestricted data until diverging. Note that the"
+"degree of overﬁtting (as compared to the inﬁnite data limit) is signiﬁcantly overestimated by Ltest − Ltrain"
+"(denoted by a black bar for each run)."

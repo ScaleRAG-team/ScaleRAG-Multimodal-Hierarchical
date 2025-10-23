@@ -1,0 +1,13 @@
+"We first train a GPT-2 using Wiki-Text-103 dataset and subsequently identify
+Elimination of H2."
+"and prune the neurons exhibiting an activation frequency exceeding 20% (i.e., H2). This pruning"
+"operation leads to a substantial decline in performance, as evidenced by an increase in perplexity"
+"from 19.32 to 31.78. The results emphasize the criticality of H2 in preserving the functionality of the"
+"model. To assess the recoverability of the discarded information, we conduct a few-shot fine-tuning"
+"experiment, and the results are summarized in Table 12. The pruned model is fine-tuned with varying"
+"ratios of training data for 500 iterations, and it successfully regains performance levels equivalent"
+"to those of the pre-trained model.
+In contrast, when training the model from scratch using only"
+"1% of the training data,
+the resulting model achieves a perplexity of 554.12 only. These findings"
+"demonstrate that the knowledge encoded in H2 can be easily restored."

@@ -1,0 +1,60 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"fine the concept of using multiple decoding heads on top","training recipe and dataset availability. When the model is"
+"of the backbone model
+to expedite inference (Stern et al.,","fine-tuned on a public dataset,
+it can be directly used for"
+"2018). We find that when applied effectively,
+this tech-","MEDUSA.
+If
+the dataset
+is unavailable or
+the model un-"
+"nique can overcome the challenges of speculative decoding,","derwent a Reinforcement Learning with Human Feedback"
+"allowing for seamless integration into existing LLM sys-","(RLHF) (Ouyang et al., 2022) process, we suggest a self-"
+"tems. Specifically, we introduce MEDUSA, a method that","distillation approach to generate a training dataset for the"
+"enhances LLM inference by integrating additional decoding","MEDUSA heads."
+"heads to concurrently predict multiple tokens. These heads",""
+"","Our experiments primarily focus on scenarios with a batch"
+"are fine-tuned in a parameter-efficient manner and can be",""
+"","size of one, which is representative of the use case where"
+"added to any existing model. With no requirement for a",""
+"","LLMs are locally hosted for personal use. We test MEDUSA"
+"draft model, MEDUSA offers easy integration into current",""
+"","on models of varying sizes and training settings, including"
+"LLM systems, including those in distributed environments,",""
+"","Vicuna-7B, 13B (trained with a public dataset), Vicuna-"
+"ensuring a user-friendly experience.",""
+"","33B (Chiang et al., 2023) (trained with a private dataset1),"
+"We further enhance MEDUSA with two key insights. Firstly,","and Zephyr-7B (trained with both supervised fine-tuning and"
+"the current approach of generating a single candidate con-","alignment). MEDUSA can achieve a speedup of 2.3 to 2.8"
+"tinuation at each decoding step leads to inefficient use of","times across different prompt types without compromising"
+"computational resources. To address this, we propose gener-","on the quality of generation."
+"ating multiple candidate continuations using the MEDUSA",""
+"heads and verifying them concurrently through a simple",""
+"adjustment to the attention mask. Secondly, we can reuse",""
+"","❄/🔥"
+"","🔝Top-k Predictions"
+"the rejection sampling scheme as used in speculative de-","Original Model"
+"coding (Leviathan et al., 2022; Chen et al., 2023) to gener-","LM Head
+It, I, As"
+"ate consistent responses with the same distribution as the","🔥Medusa Heads"
+"",""
+"original model. However,
+it cannot
+further enhance the","Last Hidden"
+"","Medusa Head 1
+is, ', the"
+"acceleration rate. Alternatively, we introduce a typical ac-","Transformer"
+"",""
+"ceptance scheme that selects reasonable candidates from the","Layers
+Medusa Head 2
+difficult, is, '"
+"MEDUSA head outputs. We use temperature as a threshold",""
+"","Medusa Head 3
+not, difficult, a"
+"",""
+"to manage deviation from the original model’s predictions,","Embedding"
+"providing an efficient alternative to the rejection sampling",""
+"method. Our results suggest
+that
+the proposed typical ac-",""

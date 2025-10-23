@@ -1,0 +1,25 @@
+"One might also conjecture that this intersection point has a deeper meaning. If we cannot increase the model"
+"size beyond N ∗ without qualitatively different data requirements, perhaps this means that once we reach"
+"C ∗"
+"language data.
+In this
+min and N ∗, we have extracted all of the reliable information available in natural"
+"interpretation, L∗ would provide a rough estimate for
+the entropy-per-token7 of natural
+language.
+In this"
+"scenario, we would expect the loss trend to level off at or before L∗."
+"We can guess at
+the functional
+levels off by considering a version of our
+training
+form of L(Cmin) as it"
+"dataset with added noise. For example, we could append a random string of tokens to each context shown"
+"to the model
+to artiﬁcially boost
+the loss by a constant additive factor. Then,
+the distance from the noise"
+"ﬂoor L − Lnoise would be a more meaningful performance metric, with even a small decrease in this distance"
+"potentially representing a signiﬁcant boost in qualitative performance. Since the artiﬁcial noise would affect"
+"all of our trends equally, the critical point of 6.8 would not change (aside from the absolute value of L∗), and"
+"may be meaningful even if it occurs after the leveling off."

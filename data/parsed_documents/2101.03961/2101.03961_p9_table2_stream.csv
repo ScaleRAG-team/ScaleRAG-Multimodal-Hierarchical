@@ -1,0 +1,24 @@
+"Switch-Base
+1.0
+-1.561
+62.8
+1000"
+"Switch-Base+
+1.0
+-1.534
+67.6
+780"
+"Table 1: Benchmarking Switch versus MoE. Head-to-head comparison measuring per step"
+"and per time beneﬁts of the Switch Transformer over the MoE Transformer and"
+"T5 dense baselines. We measure quality by the negative log perplexity and the"
+"time to reach an arbitrary chosen quality threshold of Neg. Log Perp.=-1.50. All"
+"MoE and Switch Transformer models use 128 experts, with experts at every other"
+"feed-forward layer. For Switch-Base+, we increase the model size until
+it matches"
+"the speed of the MoE model by increasing the model hidden-size from 768 to 896"
+"and the number of heads
+from 14 to 16. All models are trained with the same"
+"amount of computation (32 cores) and on the same hardware (TPUv3). Further"
+"note that all our models
+required pre-training beyond 100k steps
+to achieve our"

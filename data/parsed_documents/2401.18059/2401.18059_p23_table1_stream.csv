@@ -1,0 +1,7 @@
+"Table 19: Percentage of nodes from different layers with DPR as the retriever","","",""
+"Layer","NarrativeQA","Quality","Qasper"
+"0","42.64%","67.71%","77.07%"
+"1","45.00%","29.43%","21.88%"
+"2","10.57%","2.85%","1.05%"
+"3","1.78%","-","-"
+"4","0.003%","-","-"

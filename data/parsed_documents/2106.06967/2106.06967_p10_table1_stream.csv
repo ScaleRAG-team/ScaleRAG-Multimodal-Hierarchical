@@ -1,0 +1,138 @@
+"10"
+"∂3 wλ (r, y, y0)"
+"∞(cid:88) n
+(cid:12)(cid:12)(cid:12)
+(55)
+(cid:104)|n(n − 1) (n − 2)|(cid:105) =
+M3 (r, y, y0) =
+n (n − 1) (n − 2)wn (r, y, y0) ="
+"λ = 1
+∂ λ3"
+"=1"
+"Using Eq. (55) we obtain the equation for M3 (r, y, y0) from Eq. (18):"
+"(cid:40)"
+"(cid:90)"
+"∂ M3 (r, y, y0)"
+"=
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r)
+M3 (r(cid:48), y, y0) + M3 (r − r(cid:48), y, y0)"
+"∂ y"
+"(cid:41)"
+"+
+6 M2 (r(cid:48), y, y0) N (r − r(cid:48), y, y0) − M3 (r, y, y0)"
+"Rewriting Eq. (56) in momentum representation(see Eq. (32)) we reduce this eqaution to the form:"
+"(cid:90)"
+"d2k(cid:48)
+∂ m3 (kT , y, y0)"
+"(cid:0)k(cid:48)
+(cid:1) m3
+(cid:1) + 6 m2 (kT , y, y0) n (kT , y, y0)"
+"=
+(56)
+T
+T , y, y0
+∂ y
+(2π)2 K (cid:0)kT , k(cid:48)"
+"where we use lowcase letters denoting the moments in the momentum representation."
+"The Mellin image of Eq. (56) has the form:"
+"∂ (cid:101)m3 (γ, y, y0)"
+""
+"(57)
+= χ (γ) (cid:101)m3 (γ, y, y0) + 6 (cid:103)n2 n"
+"∂ y"
+"form:
+where (cid:103)n2 n is the Mellin image of m2 (kT , y, y0) N (kT , y, y0) which has the general"
+"(cid:15)+i ∞"
+"(cid:90)"
+"d γ(cid:48)"
+""
+"n2 n (γ, y) =
+(58)
+n2 (γ(cid:48), y) (cid:101)n (γ − γ(cid:48), y)"
+"2 π i"
+"(cid:15)−i ∞"
+"where (cid:102)n2 (γ, y) is determined by (see Eq. (46))"
+"(cid:41)
+(cid:40)"
+"2 χ (γ)"
+"1 γ
+2 γ) y − eχ(γ) y
+e2χ( 1
+(59)
+n2 ="
+"2 χ (cid:0) 1"
+"2 γ(cid:1) − χ (γ)"
+"Plugging Eq. (21) and Eq. (59) into Eq. (58) one can see that (cid:103)n2 n (γ, y) is a sun of two terms. Taking the integral"
+"over γ(cid:48)
+in each of them in the saddle point approximation (see Eq. (42) - Eq. (44)) we obtain two equations for the"
+"saddle points:"
+"d χ (cid:0) 1"
+"d χ (γ − γ(cid:48))
+d χ (γ − γ(cid:48))
+d χ (γ(cid:48))
+2 γ(cid:48)(cid:1)"
+"2 3
+1 2
++
+= 0
+with
+γ(cid:48)
+γ;
++
+= 0;
+with γ(cid:48)
+γ;
+(60)
+2
+SP =
+SP ="
+"dγ(cid:48)
+dγ(cid:48)
+d γ(cid:48)
+d γ(cid:48)"
+"Hence, (cid:103)n2 n (γ, y) takes the form:"
+"(cid:40)
+(cid:41)"
+"2 χ (γ)"
+""
+"n2 n (γ, y) =
+e3χ( 1
+3 γ) y − eχ( 1
+(61)
+H2 (γ)"
+""
+"3 γ(cid:1) − χ (cid:0) 1
+2 γ(cid:1)"
+"The solution does not depend on the form of H2 (γ) , which we will specify below."
+"Plugging this equation in Eq. (57) we obtain the solution:"
+"(cid:33) (cid:32)
+(cid:33) (cid:40)
+(cid:41)
+(cid:32)"
+"2 χ (γ)
+1"
+"e3 χ( 1
+3 γ) y − e χ(γ) y
+=
+6
+m3 (γ, y, y0)"
+""
+"(cid:101)"
+"3 γ(cid:1) − χ (γ)
+3 γ(cid:1) − χ (cid:0) 1
+2 γ(cid:1)"
+"(cid:32)
+(cid:33) (cid:32)
+(cid:33) (cid:40)
+(cid:41)"
+"1
+2 χ (γ)"
+"−
+e2 χ( 1
+2 γ) y − e χ(γ) y
+(62)
+H2 (γ)"
+""
+"3 γ(cid:1) − χ (cid:0) 1
+2 γ(cid:1)
+2 γ(cid:1) − χ (γ)"

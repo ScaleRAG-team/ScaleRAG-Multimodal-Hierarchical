@@ -1,0 +1,36 @@
+"Published as a conference paper at ICLR 2025"
+"• Majority voting. In this strategy, a set of candidates are generated, and the final answer to the"
+"problem is determined by the most frequently occurring answer in all the outputs."
+"• Weighted majority voting. This strategy is a variant of majority voting in which the candidates"
+"are weighted based on the scores given by the reward model."
+"We say a strategy is sampling-based if it uses a standard autoregressive sampling algorithm (e.g.,"
+"temperature sampling) to generate the candidate set (greedy search is separate,
+in that
+it only has a"
+"single deterministic candidate). A tree-search variant uses a tree search to generate the candidate"
+"set. Before discussing tree-search methods, we analyze sampling-based voting below."
+"Theoretical analysis of sampling-based voting.
+We present theoretical results on the asymptotic"
+"behavior of voting-based strategies given infinite compute in Theorems 1 & 2. Informally, we show"
+"that
+the accuracy of standard/weighted majority voting converges with infinite samples, and the"
+"limit only depends on the distribution modeled by the language model
+(and the reward model)."
+"This theoretical finding is also aligned with our empirical findings shown in Sec. 4.2, which show"
+"saturation at high sampling budgets. The proofs are presented in Appendix A."
+"Notations and assumptions.
+Let V be a finite vocabulary and V ∗ its Kleene closure,
+i.e.,
+the set"
+"of all strings. Given a problem x, we say a language model answers y to this problem if the model"
+"outputs rey where r ∈ V ∗ can be any “reasoning path” and e ∈ V denotes a special token that marks"
+"the end of reasoning. We further assume that the answer string is always shorter than L tokens, i.e.,"
+"|y| ≤ L for some fixed L ∈ N∗ where |y| denotes the length of y. For a language model π, denote"
+"by π(v|w) the probability of generating v given input (prompt) w. For a reward model ρ, denote by"
+"ρ(v) the score it assigns to the string v. We use I to denote the indicator function."
+"Theorem 1. Consider a dataset D = {(xi, yi)}m
+i=1 where xi and yi denotes input and true answer,"
+"(D; π) the accuracy on D using majority
+respectively. For a language model π, denote by accMV
+n"
+"voting with n samples. Following the notations and assumptions defined above, we have:"

@@ -1,0 +1,21 @@
+"N","∞","∞","Fixed","L (N ) = (Nc/N )αN"
+"∞","D","Early Stop","Fixed","L (D) = (Dc/D)αD"
+"Optimal","∞","C","Fixed","L (C) = (Cc/C)αC (naive)"
+"Nopt","Dopt","Cmin","B (cid:28) Bcrit","(cid:1)αmin
+L (Cmin) = (cid:0)C min
+/Cmin"
+"N","D","Early Stop","Fixed","(cid:20)
+(cid:21)αD
+(cid:0) Nc
+(cid:1) αN
+L (N, D) =
+αD + Dc
+N
+D"
+"N","∞","S steps","B","(cid:16)
+(cid:17)αS
+Sc
+(cid:1)αN +
+L (N, S) = (cid:0) Nc
+N
+Smin(S,B)"

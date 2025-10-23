@@ -1,0 +1,52 @@
+"Published as a conference paper at ICLR 2025"
+"We denote by En(xi) the event
+that majority voting with n samples does not output y∗(xi) given"
+"input xi. Then it’s easy to see that"
+"(cid:18)
+(cid:19)"
+"nδ2"
+""
+"min
+−
+⇒
+P(En(xi)) ≤ |A| exp
+P(En(xi)) = O(c−n)"
+"2"
+"where c > 1 is a constant (which does not depend on i)."
+"Note that if accMV
+({xi, yi}; π) = 1, we have yi = y∗(xi) unless En(xi) happens. In other words,
+n"
+"accMV
+({xi, yi}; π) ≤ I [yi = y∗(xi)] + I[En(xi)]
+n"
+"(cid:12)(cid:12)
+E (cid:2)accMV
+⇒
+({xi, yi}; π)(cid:3) − I [yi = y∗(xi)](cid:12)
+(cid:12) ≤ P(En(xi)) = O(c−n).
+n"
+"Taking a summation over the entire dataset D yields"
+"(cid:12)(cid:12)(cid:12)(cid:12)(cid:12)
+1 m
+m(cid:88) i
+(cid:12)(cid:12)(cid:12)(cid:12)(cid:12)
+1 m
+m(cid:88) i
+accMV
+(D; π) −
+≤
+I [yi = y∗(xi)]
+P(En(xi)) = O(c−n),
+n"
+"=1
+=1"
+"which concludes the proof."
+"A.2
+PROOF OF THEOREM 2"
+"Proof. The proof is similar to the proof of Theorem 1. We only need to set"
+"(cid:88)"
+"π(y | x) =
+π(rey|xi)ρ(xirey)."
+"r∈V ∗"
+"Then the technique in the proof of Theorem 1 immediately applies."
+"17"

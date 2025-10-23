@@ -1,0 +1,59 @@
+"4.5 Identical-pulse closed-loop scheme"
+"The procedure begins with a quasi-static voltage
+sweep from 0 to −1.5 V to reset"
+"each cell within the array to the HRS. Subsequently, a closed-loop scheme is initiated,"
+"which iteratively repeats the following two steps until convergence to G target within an"
+"acceptance range: (1) read the conductance of the ReRAM cell, and (2) if the measured"
+"value is below (above) the target conductance, apply a set (reset) programming pulse."
+"During this iterative process, the cell conductance may fluctuate multiple times before"
+"eventually reaching the acceptance range. Starting from the HRS,
+this procedure is"
+"applied to the CMO/HfOx ReRAM array to sequentially program 35 representative"
+"conductance
+levels,
+ranging from approximately 10 µS to 90 µS, using acceptance"
+"ranges of both 0.2% G target and 2% G target. Unlike the conventional incremental-pulse"
+"closed-loop technique previously used for ReRAM [9, 43], where the amplitudes of set"
+"and reset pulses are gradually increased to achieve convergence, this work employs an"
+"identical-pulse closed-loop scheme to simplify the pulse generation circuitry design,"
+"using only two fixed amplitude values for the set (1.35 V or 1.5 V) and two for the reset"
+"(−1.3 V or −1.5 V) pulses. Specifically, depending on G target, three ranges are used:"
+"from approximately 10 µS to 30 µS with Vset = 1.35 V and Vreset = −1.5 V; from 30 µS"
+"to 60 µS Vset = 1.35 V and Vreset = −1.3 V ; and from 60 µS to 90 µS Vset = 1.5 V and"
+"the flowchart of
+the
+Vreset = −1.3 V. Fig. S5b in Supplementary Information shows"
+"identical-pulse closed-loop technique used in this work. The set/reset pulse width is"
+"fixed at 2.5 µs due to setup limitations, even though previous work has demonstrated"
+"CMO/HfOx ReRAM switching with pulse width as short as 60 ns [25]. The reading"
+"pulse amplitude and width are Vread = 0.2 V and 300 µs, respectively. During the set,"
+"reset, and read operations of each 1T1R cell, the transistor’s gate voltage is controlled"
+"with constant values of VG equal to 1.4 V, 3.3 V, and 3.3 V, respectively."
+"4.6 HW-aware simulation of analog MVM"
+"The ’aihwkit’
+[44]
+simulation tool was used to perform MVM assessments
+including"
+"non-ideal behaviors and noise, and their
+effect on the
+computation accuracy with"
+"respect to floating-point operations. The MVM simulation included the exhibited pro-"
+"gramming noise, conductance relaxation,
+input and output quantization, and IR-drop"
+"across array wires. The ’aihwkit’ allows to configure such noisy effects for dedicated"
+"memristive devices such as PCM by Nandakumar et al. [45] and ReRAM by Wan et al."
+"[9]. Therefore, a unique phenomenological noise model for CMO/HfOx ReRAM devices"
+"for
+inference is developed to incorporate into the simulation both the characterized"
+"programming noise and conductance relaxation. Additionally,
+input and output are"
+"quantized with 6-bit and 8-bit resolution, respectively, and the IR-drop is considered,"
+"with 100 µS as the maximum ReRAM conductance level and a default segment wire"
+"resistance of 0.35 Ω."
+"4.6.1 Modelling the programming noise"
+"For a target
+the device’s programmed conductance
+is defined
+conductance G target,"
+"as the target value plus normally distributed noise with a standard deviation σprog,"
+"which is a function of G target. As depicted in Fig. 3e, the programming noise (σprog)"

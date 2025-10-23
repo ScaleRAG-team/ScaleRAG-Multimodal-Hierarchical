@@ -1,0 +1,43 @@
+"","","","Michael J Mahoney","","","13"
+"","","","","","","Local I"
+"","","","","","","75"
+"","","","","","","50"
+"","","","","","","02
+5"
+"","120(cid:176) W","0(cid:176)
+ 60(cid:176) W","","60(cid:176) E
+120(cid:176) E","",""
+"","","","","","","Local C"
+"","","","","","","50"
+"","","","","","","40"
+"","","","","","","30"
+"","","","","","","20"
+"","","","","","","01
+0"
+"","120(cid:176) W","0(cid:176)
+ 60(cid:176) W","","60(cid:176) E
+120(cid:176) E","",""
+"Figure 3: Local I and c values for model residuals from a linear model ﬁt to the WorldClim","","","","","",""
+"simulation data.","","","","","",""
+"R>","","waywiser::ww_local_moran_i(worldclim_testing,","","","",""
+"+","","truth
+=","response,","","",""
+"+","","estimate","=","predictions)","|>","head(2)"
+"#","A
+tibble: 2
+x 3","","","","",""
+"",".metric
+.estimator",".estimate","","","",""
+"","<chr>
+<chr>","<dbl>","","","",""
+"1","local_moran_i standard","0.290","","","",""
+"2","local_moran_i standard","4.00","","","",""
+"Autocorrelation metrics are useful for informing qualitative assessments of model performance,","","","","","",""
+"with local statistics in particular being more useful","","","","","for data exploration tasks than inference",""
+"(Anselin 2018). For instance, when evaluating our linear model ﬁt to simulation data, visually","","","","","",""
+"inspecting local I statistics (plotted in Figure 3 using ggplot2 (Wickham 2016) and patchwork","","","","","",""
+"","(Pedersen 2022)) indicate notable clustering of residuals in southern India. Local c statistics","","","","",""
+"meanwhile highlight the same location as an area of concern, but also highlight several other","","","","","",""
+"regions in southeastern Asia, as well as areas in western Africa and South America.","","","","","",""
+"The presence of spatial autocorrelation in model residuals suggests a misspeciﬁcation in the","","","","","",""
+"underlying model. Similarities between regions exhibiting residual autocorrelation may help","","","","","",""

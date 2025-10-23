@@ -1,0 +1,82 @@
+"BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation",""
+"Fan, C., Zhang, X., Zhang, S., Wang, W., Zhang, C., and","Kumar, V., Choudhary, A., and Cho, E. Data augmentation"
+"Huang, H. Heterogeneous memory enhanced multimodal","arXiv preprint
+using pre-trained transformer models."
+"attention model for video question answering.
+In CVPR,","arXiv:2003.02245, 2020."
+"pp. 1999–2007, 2019.","Le, T. M., Le, V., Venkatesh, S., and Tran, T. Hierarchical"
+"Gan, Z., Cheng, Y., Kholy, A. E., Li, L., Liu, J., and Gao, J.","conditional relation networks for video question answer-"
+"Multi-step reasoning via recurrent dual attention for vi-","ing.
+In CVPR, pp. 9972–9981, 2020."
+"sual dialog. In Korhonen, A., Traum, D. R., and M`arquez,","Lei, J., Li, L., Zhou, L., Gan, Z., Berg, T. L., Bansal, M.,"
+"L. (eds.), ACL, pp. 6463–6474, 2019.","and Liu, J. Less is more: Clipbert for video-and-language"
+"Gan, Z., Chen, Y., Li, L., Zhu, C., Cheng, Y., and Liu, J.","learning via sparse sampling.
+In CVPR, pp. 7331–7341,"
+"Large-scale adversarial training for vision-and-language","2021."
+"representation learning.
+In Larochelle, H., Ranzato, M.,","Li, J., Selvaraju, R. R., Gotmare, A. D., Joty, S., Xiong,"
+"Hadsell, R., Balcan, M., and Lin, H.
+(eds.), NeurIPS,","C., and Hoi, S. Align before fuse: Vision and language"
+"2020.","representation learning with momentum distillation.
+In"
+"Goyal, Y., Khot, T., Summers-Stay, D., Batra, D.,
+and","NeurIPS, 2021a."
+"Parikh, D. Making the V in VQA matter: Elevating the","Li, W., Gao, C., Niu, G., Xiao, X., Liu, H., Liu, J., Wu,"
+"role of image understanding in visual question answering.","H., and Wang, H. UNIMO:
+towards uniﬁed-modal un-"
+"In CVPR, pp. 6325–6334, 2017.","derstanding and generation via cross-modal contrastive"
+"","learning.
+In Zong, C., Xia, F., Li, W., and Navigli, R."
+"Hinton,
+G.,
+Vinyals,
+O.,
+and Dean,
+J.
+Distilling","(eds.), ACL, pp. 2592–2607, 2021b."
+"arXiv preprint
+the knowledge
+in a neural network.",""
+"arXiv:1503.02531, 2015.","Li, X., Yin, X., Li, C., Zhang, P., Hu, X., Zhang, L., Wang,"
+"","L., Hu, H., Dong, L., Wei, F., Choi, Y., and Gao, J. Oscar:"
+"Holtzman, A., Buys, J., Du, L., Forbes, M., and Choi, Y.","Object-semantics aligned pre-training for vision-language"
+"The curious case of neural
+text degeneration.
+In ICLR,","tasks.
+In ECCV, pp. 121–137, 2020."
+"2020.",""
+"","Lin, T., Maire, M., Belongie, S. J., Hays, J., Perona, P.,"
+"Hu, X., Gan, Z., Wang, J., Yang, Z., Liu, Z., Lu, Y., and","Ramanan, D., Doll´ar, P., and Zitnick, C. L. Microsoft"
+"Wang, L.
+Scaling up vision-language pre-training for","COCO: common objects in context. In Fleet, D. J., Pajdla,"
+"image captioning, 2021.","T., Schiele, B., and Tuytelaars, T. (eds.), ECCV, volume"
+"","8693, pp. 740–755, 2014."
+"Jia, C., Yang, Y., Xia, Y., Chen, Y.-T., Parekh, Z., Pham,",""
+"H., Le, Q. V., Sung, Y., Li, Z., and Duerig, T. Scaling up","Loshchilov, I. and Hutter, F. Decoupled weight decay regu-"
+"visual and vision-language representation learning with","larization. arXiv preprint arXiv:1711.05101, 2017."
+"noisy text supervision. arXiv preprint arXiv:2102.05918,","Lu, J., Batra, D., Parikh, D., and Lee, S. Vilbert: Pretraining"
+"2021.","task-agnostic visiolinguistic representations for vision-"
+"Karpathy, A. and Li, F. Deep visual-semantic alignments for","and-language tasks.
+In Wallach, H. M., Larochelle, H.,"
+"generating image descriptions.
+In CVPR, pp. 3128–3137,","Beygelzimer, A., d’Alch´e-Buc, F., Fox, E. B., and Garnett,"
+"2015.","R. (eds.), NeurIPS, pp. 13–23, 2019."
+"Kim, J., Jun, J., and Zhang, B. Bilinear attention networks.","Miech, A., Alayrac, J.-B., Smaira, L., Laptev, I., Sivic, J.,"
+"In Bengio, S., Wallach, H. M., Larochelle, H., Grauman,","and Zisserman, A. End-to-end learning of visual repre-"
+"K., Cesa-Bianchi, N., and Garnett, R. (eds.), NIPS, pp.","sentations from uncurated instructional videos.
+In CVPR,"
+"1571–1581, 2018.","pp. 9879–9889, 2020."
+"","Murahari, V., Batra, D., Parikh, D., and Das, A. Large-scale"
+"Kim, W., Son, B., and Kim, I. Vilt: Vision-and-language","pretraining for visual dialog: A simple state-of-the-art"
+"transformer without convolution or region supervision.","baseline. In Vedaldi, A., Bischof, H., Brox, T., and Frahm,"
+"arXiv preprint arXiv:2102.03334, 2021.","J. (eds.), ECCV, pp. 336–352, 2020."
+"Krishna, R., Zhu, Y., Groth, O.,
+Johnson,
+J., Hata, K.,","Ordonez, V., Kulkarni, G., and Berg, T. L. Im2text: Describ-"
+"Kravitz,
+J., Chen, S., Kalantidis, Y., Li, L., Shamma,","ing images using 1 million captioned photographs.
+In"
+"D. A., Bernstein, M. S., and Fei-Fei, L. Visual genome:","Shawe-Taylor, J., Zemel, R. S., Bartlett, P. L., Pereira, F."
+"Connecting language and vision using crowdsourced","C. N., and Weinberger, K. Q. (eds.), NIPS, pp. 1143–1151,"
+"dense image annotations.
+IJCV, 123(1):32–73, 2017.","2011."

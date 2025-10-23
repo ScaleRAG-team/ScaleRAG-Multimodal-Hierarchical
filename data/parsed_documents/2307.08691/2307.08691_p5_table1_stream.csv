@@ -1,0 +1,11 @@
+"2.3.2
+Backward pass",""
+"In the backward pass, by re-computing the values of the attention matrices S and P once blocks of","inputs"
+"Q, K, V are already loaded to SRAM, FlashAttention avoids having to store large intermediate values. By",""
+"not having to save the large matrices S and P of size 𝑁 × 𝑁, FlashAttention yields 10-20× memory saving",""
+"depending on sequence length (memory required in linear in sequence length 𝑁 instead of quadratic). The",""
+"backward pass also achieves 2-4× wall-clock speedup due to reduce memory reads/writes.",""
+"","The backward pass applies tiling to the equations in Section 2.2. Though the backward pass is simpler"
+"than the forward pass conceptually (there is no softmax rescaling), the implementation is significantly more",""
+"involved. This is because there are more values to be kept in SRAM to perform 5 matrix multiples in the",""
+"backward pass, compared to just 2 matrix multiples in the forward pass.",""

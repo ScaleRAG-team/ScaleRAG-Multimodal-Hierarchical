@@ -1,0 +1,15 @@
+"Michael J Mahoney","15"
+"The output
+typically have one
+row for
+from ww_multi_scale() will","each combination of"
+"metric and aggregation level. As with functions","for model agreement metrics, however,
+if"
+"data is a grouped data frame produced by group_by(), this function will","instead calculate"
+"metrics for each group independently, resulting in an output with one row per combination",""
+"of unique grouping, metric, and aggregation:",""
+"R>
+waywiser::ww_multi_scale(",""
+"+
+dplyr::group_by(worldclim_testing,
+group),",""

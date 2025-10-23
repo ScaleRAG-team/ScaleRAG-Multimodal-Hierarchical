@@ -1,0 +1,50 @@
+"64"
+"54"
+"72"
+"40%
+60%
+80%
+100%
+40%
+60%
+80%
+100%
+40%
+60%
+80%
+100%
+40%
+60%
+80%
+100%"
+"KV Cache Budget
+KV Cache Budget
+KV Cache Budget
+KV Cache Budget"
+"Figure 5: Performance of Adaptive KV Cache (FastGen) and Fixed KV Cache (Frequency+Local;"
+"Zhang et al., 2023 and Liu et al., 2023a) of Llama 1 on GSM8k, HumanEval, NQ, and TQA."
+"the open-sourced Llama 2-chat
+(Touvron et al., 2023b) model due to its grouped-query attention"
+"techniques.
+Instead, we use the original multi-head attention architecture in this study and leave"
+"the integration of grouped-query attention to future work.
+To prepare a comparable instruction-"
+"following model for analysis, we fine-tuned the Llama 1 model with open-sourced instruction-tuning"
+"datasets. Specifically, the fine-tuned variants are trained on LIMA1 data (Zhou et al., 2023) and Open"
+"Assistant2 (K¨opf et al., 2023) data."
+"Tasks.
+We use standard generation tasks to evaluate Llama 1 and our fine-tuned Llama 1 models."
+"For Llama 1, we choose 4 different tasks, including HumanEval (Chen et al., 2021), GSM8k (Cobbe"
+"et al., 2021), NQ (Kwiatkowski et al., 2019) and TQA (Kembhavi et al., 2017) to evaluate models’"
+"abilities on different domains (code, math, question answering and reading comprehension). Note"
+"that in the four tasks, each testing sample is in a generative format, where answers are extracted after"
+"model generation finishes. This is crucial for a fair comparison on model’s generation quality. We"
+"evaluate the instruction finetuned LLaMa model on the instruction tuning benchmark AlpacaEval"
+"(Li et al., 2023), which consists of 805 question prompts from diverse domains."
+"Experiment Setup.
+The evaluation of the Llama 1 model follows the default setting and evalu-"
+"ation metrics on each benchmark. We calculate F1 scores for GSM8k, NQ and TQA, and use the"
+"code execution Pass@1 rate for HumanEval. While evaluating an instruction-tuning model remains"
+"challenging, we follow previous work (Zhou et al., 2023; Touvron et al., 2023b)
+to use GPT4 as"
+"an evaluator for pair-wise comparison between two different model generations. For each prompt,"

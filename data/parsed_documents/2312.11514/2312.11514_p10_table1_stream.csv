@@ -1,0 +1,122 @@
+"8
+Limitations","References"
+"","Arash Ahmadian, Saurabh Dash, Hongyu Chen, Bharat"
+"Our
+study represents an initial endeavor
+in the",""
+"","Venkitesh, Stephen Gou, Phil Blunsom, A. Ustun,"
+"pursuit of democratizing Large Language Model",""
+"","and Sara Hooker. 2023.
+Intriguing properties of quan-"
+"(LLM) inference, making it accessible to a wider","tization at scale. ArXiv, abs/2305.19268."
+"array of individuals and devices. We recognize that",""
+"","Ebtesam Almazrouei, Hamza Alobeidli, Abdulaziz Al-"
+"this early effort has its limitations, which, in turn,",""
+"","shamsi, Alessandro Cappelli, Ruxandra Cojocaru,"
+"open up compelling avenues for future research. A","Maitha Alhammadi, Mazzotta Daniele, Daniel Hes-"
+"critical aspect for future exploration is the system-","low, Julien Launay, Quentin Malartic, Badreddine"
+"","Noune, Baptiste Pannier,
+and Guilherme Penedo."
+"atic analysis of power consumption and thermal",""
+"","2023.
+The falcon series of
+language models: To-"
+"limitations inherent
+in the methods we propose,",""
+"","wards open frontier models."
+"particularly for on-device deployment.",""
+"","Reza Yazdani Aminabadi, Samyam Rajbhandari, Am-"
+"Currently, our study is limited to single-batch",""
+"","mar Ahmad Awan, Cheng Li, Du Li, Elton Zheng,"
+"inference. We provide some preliminary results",""
+"","Olatunji Ruwase, Shaden Smith, Minjia Zhang, Jeff"
+"on combining our proposed idea with specula-",""
+"","Rasley, et al. 2022. Deepspeed-inference: enabling"
+"tive decoding, however, expanding this to include","efficient inference of transformer models at unprece-"
+"","dented scale.
+In SC22: International Conference for"
+"more complex scenarios like prompt processing",""
+"","High Performance Computing, Networking, Storage"
+"and multi-batch inference are valuable areas for",""
+"","and Analysis, pages 1–15. IEEE."
+"further investigation.",""
+"","Sangmin Bae,
+Jongwoo Ko, Hwanjun
+Song,
+and"
+"In our initial proof of concept, we operated under",""
+"","Se-Young Yun.
+2023.
+Fast
+and
+robust
+early-"
+"the assumption of memory availability being half",""
+"","exiting framework for autoregressive language mod-"
+"the size of the model. Exploring the dynamics of",""
+"","els with synchronized parallel decoding.
+ArXiv,"
+"working with varying memory sizes—both larger","abs/2310.05424."
+"and smaller—introduces a fascinating balance be-",""
+"","Cenk Baykal, Dylan Cutler, Nishanth Dikkala, Nikhil"
+"tween latency and accuracy, and is a compelling",""
+"","Ghosh, Rina Panigrahy, and Xin Wang. 2023. Al-"
+"area for future exploration.","ternating updates for efficient
+transformers. ArXiv,"
+"In conclusion, our methodology is constructed","abs/2301.13310."
+"on the foundation of sparsified networks. Nonethe-",""
+"","Tom Brown, Benjamin Mann, Nick Ryder, Melanie"
+"less,
+the underlying concept holds potential
+for","Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind"
+"broader applications.
+It can be adapted to selec-","Neelakantan, Pranav Shyam, Girish Sastry, Amanda"
+"","Askell, et al. 2020. Language models are few-shot"
+"tively load weights in non-sparse networks or to",""
+"","learners. Advances in neural information processing"
+"dynamically retrieve model weights from flash stor-",""
+"","systems, 33:1877–1901."
+"age. This adaptation would be contingent on the",""
+"","Yew Ken Chia, Pengfei Hong, Lidong Bing, and Sou-"
+"specific requirements of the input prompt or the",""
+"","janya Poria. 2023.
+Instructeval: Towards holistic"
+"contextual parameters provided. Such an approach",""
+"","evaluation of instruction-tuned large language mod-"
+"suggests a versatile strategy for managing model",""
+"","els."
+"weights, and optimizing performance based on the",""
+"","Aakanksha Chowdhery, Sharan Narang, Jacob Devlin,"
+"nature of
+the input,
+thereby enhancing the effi-",""
+"","Maarten Bosma, Gaurav Mishra, Adam Roberts,"
+"ciency, usefulness, and applicability of
+the pro-",""
+"","Paul Barham, Hyung Won Chung, Charles Sutton,"
+"posed scheme in various scenarios dealing with","Sebastian Gehrmann, et al. 2022.
+Palm:
+Scaling"
+"","arXiv preprint
+language modeling with pathways."
+"Large Language Models (LLMs).",""
+"","arXiv:2204.02311."
+"Acknowledgements",""
+"","Han Dai, Yi Zhang, Ziyu Gong, Nanqing Yang, Wei Dai,"
+"","Eric Song, and Qiankun Xie. 2021. Spatten: Efficient"
+"We would like to thank Itay Sagron, Lailin Chen,",""
+"","sparse attention architecture with cascade token and"
+"Chenfan (Frank) Sun, Hanieh Hashemi, Mahyar","head pruning.
+In Advances in Neural Information"
+"Najibi, Qichen Fu, Moin Nabi, Peter Zatloukal, Ar-","Processing Systems, volume 34."
+"salan Farooq, Sachin Mehta, Mohammad Samragh,",""
+"","Erich Elsen, Augustus Odena, Maxwell Nye, Sa˘g-"
+"Matt Johnson, Etai Zaltsman, Lin Chang, Dominic","nak Ta¸sırlar, Tri Dao, Curtis Hawthorne, Deepak"
+"Giampaolo, Tal Uliel, Hadi Pouransari, Fartash","Moparthi,
+and Arushi Somani. 2023.
+Releasing"
+"","Persimmon-8B."
+"Faghri, Oncel Tuzel, Samy Bengio, Ruoming Pang,",""
+"Chong Wang, Ronan Collobert, David Grangier,",""
+"","Trevor Gale, Matei Zaharia, Cliff Young, and Erich"
+"and Aftab Munshi for the valuable discussions.","Elsen. 2020. Sparse gpu kernels for deep learning."

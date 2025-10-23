@@ -1,0 +1,4223 @@
+{
+  "title": "SmoothQuant: Accurate and Efficient  Post-Training Quantization for Large Language Models",
+  "authors": [
+    "Guangxuan Xiao",
+    "Ji Lin",
+    "Mickael Seznec",
+    "Hao Wu",
+    "Julien Demouth",
+    "Song Han"
+  ],
+  "source_path": "../data/pdf/2211.10438.pdf",
+  "page_count": 13,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "counts": {
+    "texts": 373,
+    "pictures": 14,
+    "tables": 21
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 15,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 2,
+      "text_blocks": 31,
+      "layout_blocks": 4,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 4,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 35,
+      "layout_blocks": 4,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 4,
+      "tables_found": 3
+    },
+    {
+      "page": 4,
+      "text_blocks": 12,
+      "layout_blocks": 2,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 16,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 2
+    },
+    {
+      "page": 6,
+      "text_blocks": 17,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 26,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 58,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 9,
+      "text_blocks": 92,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 10,
+      "text_blocks": 21,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 22,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 18,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 13,
+      "text_blocks": 10,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        127.4070053100586,
+        89.9119873046875,
+        469.47784423828125,
+        122.19116973876953
+      ],
+      "text": "SmoothQuant: Accurate and Efficient\nPost-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        106.83399963378906,
+        157.28546142578125,
+        488.90887451171875,
+        170.8640899658203
+      ],
+      "text": "Guangxuan Xiao * 1 Ji Lin * 1 Mickael Seznec 2 Hao Wu 2 Julien Demouth 2 Song Han 1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        209.99298095703125,
+        172.94740295410156,
+        386.88885498046875,
+        182.91000366210938
+      ],
+      "text": "https://github.com/mit-han-lab/smoothquant"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        150.19798278808594,
+        206.0430908203125,
+        194.6832733154297,
+        217.998291015625
+      ],
+      "text": "Abstract"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        74.89700317382812,
+        225.45626831054688,
+        271.25738525390625,
+        522.4180297851562
+      ],
+      "text": "Large language models (LLMs) show excel-\nlent performance but are compute- and memory-\nintensive. Quantization can reduce memory and\naccelerate inference. However, existing methods\ncannot maintain accuracy and hardware efficiency\nat the same time. We propose SmoothQuant, a\ntraining-free, accuracy-preserving, and general-\npurpose post-training quantization (PTQ) solution\nto enable 8-bit weight, 8-bit activation (W8A8)\nquantization for LLMs. Based on the fact that\nweights are easy to quantize while activations are\nnot, SmoothQuant smooths the activation outliers\nby offline migrating the quantization difficulty\nfrom activations to weights with a mathemati-\ncally equivalent transformation. SmoothQuant\nenables an INT8 quantization of both weights and\nactivations for all the matrix multiplications in\nLLMs, including OPT, BLOOM, GLM, MT-NLG,\nLlama-1/2, Falcon, Mistral, and Mixtral models.\nWe demonstrate up to 1.56× speedup and 2×\nmemory reduction for LLMs with negligible loss\nin accuracy. SmoothQuant enables serving 530B\nLLM within a single node. Our work offers a\nturn-key solution that reduces hardware costs and\ndemocratizes LLMs."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.43999481201172,
+        547.9751586914062,
+        138.25367736816406,
+        559.9303588867188
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.439998626708984,
+        568.8932495117188,
+        291.0934753417969,
+        638.685302734375
+      ],
+      "text": "Large-scale language models (LLMs) show excellent per-\nformance on various tasks (Brown et al., 2020a; Zhang\net al., 2022). However, serving LLMs is budget and energy-\nconsuming due to their gigantic model size. For example,\nthe GPT-3 (Brown et al., 2020a) model contains 175B pa-\nrameters, which will consume at least 350GB of memory to"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.27000045776367,
+        646.9426879882812,
+        290.5595703125,
+        677.3764038085938
+      ],
+      "text": "*Equal contribution\n1Massachusetts Institute of Technology\n2NVIDIA. Correspondence to: Guangxuan Xiao <xgx@mit.edu>,\nJi Lin <jilin@mit.edu>."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.1619987487793,
+        684.2979125976562,
+        289.44171142578125,
+        717.2273559570312
+      ],
+      "text": "Proceedings of the 40 th International Conference on Machine\nLearning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright\n2023 by the author(s)."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        339.53515625,
+        543.0895385742188,
+        397.2580871582031
+      ],
+      "text": "Figure 1: The model size of large language models is devel-\noping at a faster pace than the GPU memory in recent years,\nleading to a big gap between the supply and demand for\nmemory. Quantization and model compression techniques\ncan help bridge the gap."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        421.55780029296875,
+        543.0975341796875,
+        575.342041015625
+      ],
+      "text": "store and run in FP16, requiring 8×48GB A6000 GPUs or\n5×80GB A100 GPUs just for inference. Due to the huge\ncomputation and communication overhead, the inference\nlatency may also be unacceptable to real-world applica-\ntions. Quantization is a promising way to reduce the cost of\nLLMs (Dettmers et al., 2022; Yao et al., 2022). By quantiz-\ning the weights and activations with low-bit integers, we can\nreduce GPU memory requirements, in size and bandwidth,\nand accelerate compute-intensive operations (i.e., GEMM*\nin linear layers, BMM† in attention). For instance, INT8\nquantization of weights and activations can halve the GPU\nmemory usage and nearly double the throughput of matrix\nmultiplications compared to FP16."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.0820007324219,
+        583.3048706054688,
+        543.0978393554688,
+        688.9410400390625
+      ],
+      "text": "However, unlike CNN models or smaller transformer mod-\nels like BERT (Devlin et al., 2019), the activations of LLMs\nare difficult to quantize. When we scale up LLMs beyond\n6.7B parameters, systematic outliers with large magnitude\nwill emerge in activations (Dettmers et al., 2022), leading\nto large quantization errors and accuracy degradation. Ze-\nroQuant (Yao et al., 2022) applies dynamic per-token ac-\ntivation quantization and group-wise weight quantization\n(defined in Figure 3 Sec. 2). It can be implemented effi-"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        320.0929870605469,
+        697.2366943359375,
+        410.24908447265625,
+        717.2273559570312
+      ],
+      "text": "*General matrix multiply\n†Batch matrix multiply"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        295.9499816894531,
+        732.4114379882812,
+        300.9312744140625,
+        742.3740234375
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        210.03997802734375,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2211.10438v7  [cs.CL]  29 Mar 2024"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        138.07847595214844,
+        67.27470397949219,
+        252.37875366210938,
+        81.9453353881836
+      ],
+      "text": "|X|\n|W|"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        68.92443084716797,
+        170.34361267089844,
+        77.68309783935547,
+        210.32969665527344
+      ],
+      "text": "quant. levels"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        93.39248657226562,
+        154.9139862060547,
+        252.43284606933594,
+        171.36976623535156
+      ],
+      "text": "|X|\n|W|\nsmoothed"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        156.52304077148438,
+        135.1597900390625,
+        203.962646484375,
+        146.35142517089844
+      ],
+      "text": "(a) Original"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        147.08779907226562,
+        225.59259033203125,
+        217.57186889648438,
+        236.7842254638672
+      ],
+      "text": "(b) SmoothQuant"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.84307861328125,
+        122.37571716308594,
+        270.0168762207031,
+        132.59417724609375
+      ],
+      "text": "hard to quantize\nvery easy to quantize"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        101.8729248046875,
+        210.8929443359375,
+        260.150634765625,
+        221.1114044189453
+      ],
+      "text": "easy to quantize\neasy to quantize"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        91.89669799804688,
+        65.99702453613281,
+        114.8434829711914,
+        75.72888946533203
+      ],
+      "text": "outlier"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        118.0667724609375,
+        90.65751647949219,
+        178.930908203125,
+        100.3893814086914
+      ],
+      "text": "low effective bits"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        68.92443084716797,
+        81.38882446289062,
+        77.68309783935547,
+        121.37489318847656
+      ],
+      "text": "quant. levels"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        79.17410278320312,
+        78.00328826904297,
+        184.3084259033203,
+        84.81558990478516
+      ],
+      "text": "10\n0.1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        80.71255493164062,
+        167.39219665527344,
+        183.09788513183594,
+        174.3782958984375
+      ],
+      "text": "1\n1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        80.71255493164062,
+        117.84026336669922,
+        83.78947448730469,
+        124.6525650024414
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        80.71255493164062,
+        205.8654022216797,
+        83.78947448730469,
+        212.67770385742188
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        181.01089477539062,
+        117.84026336669922,
+        184.0878143310547,
+        124.6525650024414
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        179.79330444335938,
+        205.8654022216797,
+        182.87022399902344,
+        212.67770385742188
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        153.88650512695312,
+        150.58840942382812,
+        215.48556518554688,
+        160.3202667236328
+      ],
+      "text": "migrate difficulty"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439998626708984,
+        248.04490661621094,
+        290.68585205078125,
+        329.9690856933594
+      ],
+      "text": "Figure 2: SmoothQuant’s intuition: the activation X is hard\nto quantize because outliers stretch the quantization range,\nleaving few effective bits for most values. We migrate the\nscale variance from activations to weights W during offline\nto reduce the quantization difficulty of activations. The\nsmoothed activation ˆX and the adjusted weight ˆ\nW are both\neasy to quantize."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.082000732421875,
+        354.7522888183594,
+        291.0934753417969,
+        496.2970886230469
+      ],
+      "text": "ciently and delivers good accuracy for GPT-3-350M and\nGPT-J-6B. However, it can not maintain the accuracy for\nthe large OPT model with 175 billion parameters (see Sec-\ntion 5.2). LLM.int8() (Dettmers et al., 2022) addresses\nthat accuracy issue by further introducing a mixed-precision\ndecomposition (i.e., it keeps outliers in FP16 and uses INT8\nfor the other activations). However, it is hard to imple-\nment the decomposition efficiently on hardware accelera-\ntors. Therefore, deriving an efficient, hardware-friendly, and\npreferably training-free quantization scheme for LLMs that\nwould use INT8 for all the compute-intensive operations\nremains an open challenge."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.97200012207031,
+        504.1922912597656,
+        291.1858215332031,
+        717.4920043945312
+      ],
+      "text": "We propose SmoothQuant, an accurate and efficient\npost-training quantization (PTQ) solution for LLMs.\nSmoothQuant relies on a key observation: even if activations\nare much harder to quantize than weights due to the presence\nof outliers (Dettmers et al., 2022), different tokens exhibit\nsimilar variations across their channels. Based on this obser-\nvation, SmoothQuant offline migrates the quantization diffi-\nculty from activations to weights (Figure 2). SmoothQuant\nproposes a mathematically equivalent per-channel scaling\ntransformation that significantly smooths the magnitude\nacross the channels, making the model quantization-friendly.\nSince SmoothQuant is compatible with various quantization\nschemes, we implement three efficiency levels of quantiza-\ntion settings for SmoothQuant (see Table 2, O1-O3). Exper-\niments show that SmoothQuant is hardware-efficient: it can\nmaintain the performance of OPT-175B (Zhang et al., 2022),\nBLOOM-176B (Scao et al., 2022) , GLM-130B (Zeng et al.,\n2022), and MT-NLG 530B (Smith et al., 2022), leading"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        69.1078109741211,
+        543.0980224609375,
+        210.93710327148438
+      ],
+      "text": "to up to 1.51× speed up and 1.96× memory saving on\nPyTorch. SmoothQuant is easy to implement. We inte-\ngrate SmoothQuant into FasterTransformer, the state-of-the-\nart transformer serving framework, achieving up to 1.56×\nspeedup and halving the memory usage compared with\nFP16. Remarkably, SmoothQuant allows serving large mod-\nels like OPT-175B using only half number of GPUs com-\npared to FP16 while being faster, and enabling the serving\nof a 530B model within one 8-GPU node. Our work democ-\nratizes the use of LLMs by offering a turnkey solution to\nreduce the serving cost. We hope SmoothQuant can inspire\ngreater use of LLMs in the future."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        227.919189453125,
+        394.2228088378906,
+        239.8743896484375
+      ],
+      "text": "2\nPreliminaries"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        248.7454376220703,
+        542.6884765625,
+        294.7410888671875
+      ],
+      "text": "Quantization maps a high-precision value into discrete\nlevels. We study integer uniform quantization (Jacob et al.,\n2018) (specifically INT8) for better hardware support and\nefficiency. The quantization process can be expressed as:"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        347.2869873046875,
+        303.4351806640625,
+        413.8496398925781,
+        321.2555236816406
+      ],
+      "text": "¯XINT8 = ⌈XFP16"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        398.25299072265625,
+        304.4237976074219,
+        497.6314697265625,
+        328.0895080566406
+      ],
+      "text": "∆\n⌋,\n∆= max(|X|)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        457.44000244140625,
+        311.29290771484375,
+        542.1074829101562,
+        328.0895080566406
+      ],
+      "text": "2N−1 −1,\n(1)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.0820007324219,
+        334.117919921875,
+        543.185791015625,
+        406.6330871582031
+      ],
+      "text": "where X is the floating-point tensor, ¯X is the quantized\ncounterpart, ∆is the quantization step size, ⌈·⌋is the round-\ning function, and N is the number of bits (8 in our case).\nHere we assume the tensor is symmetric at 0 for simplicity;\nthe discussion is similar for asymmetric cases (e.g., after\nReLU) by adding a zero-point (Jacob et al., 2018)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        306.97198486328125,
+        414.56201171875,
+        543.1832885742188,
+        603.89404296875
+      ],
+      "text": "Such quantizer uses the maximum absolute value to calcu-\nlate ∆so that it preserves the outliers in activation, which\nare found to be important for accuracy (Dettmers et al.,\n2022). We can calculate ∆offline with the activations of\nsome calibration samples, what we call static quantization.\nWe can also use the runtime statistics of activations to get ∆,\nwhat we call dynamic quantization. As shown in Figure 3,\nquantization has different granularity levels. The per-tensor\nquantization uses a single step size for the entire matrix. We\ncan further enable finer-grained quantization by using dif-\nferent quantization step sizes for activations associated with\neach token (per-token quantization) or each output channel\nof weights (per-channel quantization). A coarse-grained\nversion of per-channel quantization is to use different quanti-\nzation steps for different channel groups, called group-wise\nquantization (Shen et al., 2020; Yao et al., 2022)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.0050048828125,
+        611.7882690429688,
+        543.1859741210938,
+        717.4920043945312
+      ],
+      "text": "For a linear layer in Transformers (Vaswani et al., 2017)\nY = X · W, Y ∈RT ×Co, X ∈RT ×Ci, W ∈RCi×Co,\nwhere T is the number of tokens, Ci is the input channel,\nand Co is the output channel (see Figure 3, we omit the\nbatch dimension for simplicity), we can reduce the storage\nby half compared to FP16 by quantizing the weights to INT8.\nHowever, to speed up the inference, we need to quantize\nboth weights and activations into INT8 (i.e., W8A8) to\nutilize the integer kernels (e.g., INT8 GEMM), which are"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        110.315185546875,
+        93.69742584228516,
+        226.39556884765625,
+        125.41033935546875
+      ],
+      "text": "X\n*\nW\nT"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        127.73782348632812,
+        78.65921783447266,
+        135.5218963623047,
+        92.64155578613281
+      ],
+      "text": "Ci"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        182.4908447265625,
+        90.41735076904297,
+        223.61666870117188,
+        116.9166259765625
+      ],
+      "text": "Co\n Ci"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        223.211181640625,
+        72.94440460205078,
+        236.6532745361328,
+        92.58110046386719
+      ],
+      "text": "ΔW"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        86.08102416992188,
+        72.8974838256836,
+        244.42434692382812,
+        101.76042175292969
+      ],
+      "text": "[1]\nΔX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        97.67031860351562,
+        82.07674407958984,
+        105.4413833618164,
+        95.23291015625
+      ],
+      "text": "[1]"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        91.84609985351562,
+        64.87199401855469,
+        250.509765625,
+        74.81572723388672
+      ],
+      "text": "per-tensor quant.\nper-tensor quant."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        122.72109985351562,
+        134.21389770507812,
+        222.56541442871094,
+        144.65481567382812
+      ],
+      "text": "(a) per-tensor quantization"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        88.63613891601562,
+        145.7105255126953,
+        100.2254409790039,
+        161.63937377929688
+      ],
+      "text": "ΔX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        100.22543334960938,
+        141.80555725097656,
+        116.42216491699219,
+        154.9617156982422
+      ],
+      "text": "[T×1]"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        110.315185546875,
+        172.943115234375,
+        227.76629638671875,
+        205.3514862060547
+      ],
+      "text": "X\n*\nW\nT"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        127.73782348632812,
+        158.97360229492188,
+        135.5218963623047,
+        172.9558868408203
+      ],
+      "text": "Ci"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        182.4908447265625,
+        169.31539916992188,
+        223.61666870117188,
+        195.81468200683594
+      ],
+      "text": "Co\n Ci"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        204.273193359375,
+        145.7996368408203,
+        217.7152862548828,
+        161.72853088378906
+      ],
+      "text": "ΔW"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        217.7152862548828,
+        141.8946533203125,
+        236.43792724609375,
+        155.70423889160156
+      ],
+      "text": "[1×C0]"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        92.84402465820312,
+        208.3513946533203,
+        255.09629821777344,
+        228.75584411621094
+      ],
+      "text": "per-token quant.\nper-channel quant.\n(b) per-token + per-channel quantization"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        240.22329711914062,
+        291.0934143066406,
+        322.6035461425781
+      ],
+      "text": "Figure 3: Definition of per-tensor, per-token, and per-\nchannel quantization. Per-tensor quantization is the most\nefficient to implement. For vector-wise quantization to ef-\nficiently utilize the INT8 GEMM kernels, we can only use\nscaling factors from the outer dimensions (i.e., token di-\nmension T and out channel dimension Co) but not inner\ndimension (i.e., in channel dimension Ci)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        342.8314208984375,
+        290.6878662109375,
+        364.6730651855469
+      ],
+      "text": "supported by a wide range of hardware (e.g., NVIDIA GPUs,\nIntel CPUs, Qualcomm DSPs, etc.)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        381.6551513671875,
+        244.21261596679688,
+        393.6103515625
+      ],
+      "text": "3\nReview of Quantization Difficulty"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.11199951171875,
+        402.72442626953125,
+        290.8285827636719,
+        484.31787109375
+      ],
+      "text": "LLMs are notoriously difficult to quantize due to the outliers\nin the activations (Dettmers et al., 2022; Wei et al., 2022;\nBondarenko et al., 2021). We first review the difficulties\nof activation quantization and look for a pattern amongst\noutliers. We visualize the input activations and the weights\nof a linear layer that has a large quantization error in Figure 4\n(left). We can find several patterns that motivate our method:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.69300079345703,
+        492.2598571777344,
+        290.2702331542969,
+        562.051025390625
+      ],
+      "text": "1. Activations are harder to quantize than weights. The\nweight distribution is quite uniform and flat, which is easy\nto quantize. Previous work has shown that quantizing the\nweights of LLMs with INT8 or even with INT4 does not\ndegrade accuracy (Dettmers et al., 2022; Yao et al., 2022;\nZeng et al., 2022), which echoes our observation."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.11199951171875,
+        569.8533935546875,
+        291.0921630859375,
+        699.5350341796875
+      ],
+      "text": "2. Outliers make activation quantization difficult. The\nscale of outliers in activations is ∼100× larger than most of\nthe activation values. In the case of per-tensor quantization\n(Equation 1), the large outliers dominate the maximum mag-\nnitude measurement, leading to low effective quantization\nbits/levels (Figure 2) for non-outlier channels: suppose the\nmaximum magnitude of channel i is mi, and the maximum\nvalue of the whole matrix is m, the effective quantization\nlevels of channel i is 28 · mi/m. For non-outlier channels,\nthe effective quantization levels would be very small (2-3),\nleading to large quantization errors."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        707.33837890625,
+        289.61199951171875,
+        717.4920043945312
+      ],
+      "text": "3. Outliers persist in fixed channels.\nOutliers appear"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        67.83580017089844,
+        543.0980224609375,
+        125.65707397460938
+      ],
+      "text": "Table 1: Among different activation quantization schemes,\nonly per-channel quantization (Bondarenko et al., 2021) pre-\nserves the accuracy, but it is not compatible (marked in gray)\nwith INT8 GEMM kernels. We report the average accuracy\non WinoGrande, HellaSwag, PIQA, and LAMBADA."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        318.14300537109375,
+        140.68399047851562,
+        528.8713989257812,
+        149.650390625
+      ],
+      "text": "Model size (OPT-)\n6.7B\n13B\n30B\n66B\n175B"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        318.14300537109375,
+        155.85195922851562,
+        530.7363891601562,
+        164.818359375
+      ],
+      "text": "FP16\n64.9% 65.6% 67.9% 69.5% 71.6%"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        318.14300537109375,
+        171.01998901367188,
+        530.7364501953125,
+        199.911376953125
+      ],
+      "text": "INT8 per-tensor\n39.9% 33.0% 32.8% 33.1% 32.3%\nINT8 per-token\n42.5% 33.0% 33.1% 32.9% 31.7%\nINT8 per-channel\n64.8% 65.6% 68.0% 69.4% 71.4%"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.11199951171875,
+        229.89907836914062,
+        543.1848754882812,
+        419.4430847167969
+      ],
+      "text": "in a small fraction of the channels. If one channel has an\noutlier, it persistently appears in all tokens (Figure 4, red).\nThe variance amongst the channels for a given token is large\n(the activations in some channels are very large, but most\nare small), but the variance between the magnitudes of a\ngiven channel across tokens is small (outlier channels are\nconsistently large).\nDue to the persistence of outliers\nand the small variance inside each channel, if we could per-\nform per-channel quantization (Bondarenko et al., 2021) of\nthe activation (i.e., using a different quantization step for\neach channel), the quantization error would be much smaller\ncompared to per-tensor quantization, while per-token quan-\ntization helps little. In Table 1, we verify the assumption\nthat simulated per-channel activation quantization success-\nfully bridges the accuracy with the FP16 baseline, which\nechos the findings of Bondarenko et al.."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        427.446533203125,
+        543.0979614257812,
+        544.9478759765625
+      ],
+      "text": "However, per-channel activation quantization does not map\nwell to hardware-accelerated GEMM kernels, that rely on a\nsequence of operations executed at a high throughput (e.g.,\nTensor Core MMAs) and do not tolerate the insertion of\ninstructions with a lower throughput (e.g., conversions or\nCUDA Core FMAs) in that sequence. In those kernels, scal-\ning can only be performed along the outer dimensions of the\nmatrix multiplication (i.e., token dimension of activations\nT, output channel dimension of weights Co, see Figure 3),\nwhich can be applied after the matrix multiplication finishes:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.7330017089844,
+        556.9497680664062,
+        542.107421875,
+        573.6174926757812
+      ],
+      "text": "Y = diag(∆FP16\nX\n) · (¯XINT8 · ¯\nWINT8) · diag(∆FP16\nW )\n(2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.1310119628906,
+        587.9085693359375,
+        543.097900390625,
+        633.6640625
+      ],
+      "text": "Therefore, previous works all use per-token activation quan-\ntization for linear layers (Dettmers et al., 2022; Yao et al.,\n2022), although they cannot address the difficulty of activa-\ntion quantization (only slightly better than per-tensor)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        650.6461791992188,
+        397.115966796875,
+        662.6013793945312
+      ],
+      "text": "4\nSmoothQuant"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.1310119628906,
+        671.5642700195312,
+        543.1834716796875,
+        717.4728393554688
+      ],
+      "text": "Instead of per-channel activation quantization (which is\ninfeasible), we propose to “smooth” the input activation\nby dividing it by a per-channel smoothing factor s ∈RCi.\nTo keep the mathematical equivalence of a linear layer, we"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.11199951171875,
+        217.28329467773438,
+        543.1786499023438,
+        275.1420593261719
+      ],
+      "text": "Figure 4: Magnitude of the input activations and weights of a linear layer in OPT-13B before and after SmoothQuant.\nObservations: (1) there are a few channels in the original activation map whose magnitudes are very large (greater than 70);\n(2) the variance in one activation channel is small; (3) the original weight distribution is flat and uniform. SmoothQuant\nmigrates the outlier channels from activation to weight. In the end, the outliers in the activation are greatly smoothed while\nthe weight is still pretty smooth and flat."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        288.6914367675781,
+        274.44775390625,
+        298.654052734375
+      ],
+      "text": "scale the weights accordingly in the reversed direction:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        87.89999389648438,
+        306.7519226074219,
+        290.1073303222656,
+        319.4910583496094
+      ],
+      "text": "Y = (Xdiag(s)−1) · (diag(s)W) = ˆX ˆ\nW\n(3)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        330.1339416503906,
+        291.09344482421875,
+        412.0580749511719
+      ],
+      "text": "Considering input X is usually produced from previous\nlinear operations (e.g., linear layers, layer norms, etc.), we\ncan easily fuse the smoothing factor into previous layers’\nparameters offline, which doe not incur kernel call overhead\nfrom an extra scaling. For some other cases, when the input\nis from a residual add, we can add an extra scaling to the\nresidual branch similar to Wei et al. (2022)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        420.4144287109375,
+        291.1834716796875,
+        717.468017578125
+      ],
+      "text": "Migrate the quantization difficulty from activations to\nweights.\nWe aim to choose a per-channel smoothing factor\ns such that ˆX = Xdiag(s)−1 is easy to quantize. To reduce\nthe quantization error, we should increase the effective quan-\ntization bits for all the channels. The total effective quanti-\nzation bits would be largest when all the channels have the\nsame maximum magnitude. Therefore, a straight-forward\nchoice is sj = max(|Xj|), j = 1, 2, ..., Ci, where j corre-\nsponds to j-th input channel. This choice ensures that after\nthe division, all the activation channels will have the same\nmaximum value, which is easy to quantize. Note that the\nrange of activations is dynamic; it varies for different input\nsamples. Here, we estimate the scale of activations channels\nusing calibration samples from the pre-training dataset (Ja-\ncob et al., 2018). However, this formula pushes all the\nquantization difficulties to the weights. We find that, in this\ncase, the quantization errors would be large for the weights\n(outlier channels are migrated to weights now), leading to\na large accuracy degradation (see Figure 10). On the other\nhand, we can also push all the quantization difficulty from\nweights to activations by choosing sj = 1/ max(|Wj|).\nSimilarly, the model performance is bad due to the activa-\ntion quantization errors. Therefore, we need to split the\nquantization difficulty between weights and activations so\nthat they are both easy to quantize."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        374.9469299316406,
+        542.6819458007812,
+        421.00506591796875
+      ],
+      "text": "Figure 5: Main idea of SmoothQuant when α is 0.5. The\nsmoothing factor s is obtained on calibration samples and\nthe entire transformation is performed offline. At runtime,\nthe activations are smooth without scaling."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        433.2023010253906,
+        541.44189453125,
+        467.15008544921875
+      ],
+      "text": "Here we introduce a hyper-parameter, migration strength\nα, to control how much difficulty we want to migrate from\nactivation to weights, using the following equation:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        353.0670166015625,
+        475.410400390625,
+        542.107421875,
+        488.73553466796875
+      ],
+      "text": "sj = max(|Xj|)α/ max(|Wj|)1−α\n(4)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        306.97198486328125,
+        497.7543029785156,
+        543.093505859375,
+        663.2100219726562
+      ],
+      "text": "We find that for most of the models, e.g., all OPT (Zhang\net al., 2022) and BLOOM (Scao et al., 2022) models,\nα = 0.5 is a well-balanced point to evenly split the quan-\ntization difficulty, especially when we are using the same\nquantizer for weights and activations (e.g., per-tensor, static\nquantization). The formula ensures that the weights and\nactivations at the corresponding channel share a similar\nmaximum value, thus sharing the same quantization dif-\nficulty. Figure 5 illustrates the smoothing transformation\nwhen we take α = 0.5. For some other models where acti-\nvation outliers are more significant (e.g., GLM-130B (Zeng\net al., 2022) has ∼30% outliers, which are more difficult\nfor activation quantization), we can choose a larger α to\nmigrate more quantization difficulty to weights (like 0.75)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        671.472412109375,
+        543.0936889648438,
+        717.482421875
+      ],
+      "text": "Applying SmoothQuant to Transformer blocks.\nLin-\near layers take up most of the parameters and computation\nof LLM models. By default, we perform scale smoothing\nfor the input activations of self-attention and feed-forward"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        295.7749938964844,
+        732.4114379882812,
+        300.75628662109375,
+        742.3740234375
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        216.83731079101562,
+        291.0934753417969,
+        250.78610229492188
+      ],
+      "text": "Figure 6: SmoothQuant’s precision mapping for a Trans-\nformer block. All compute-intensive operators like linear\nlayers and batched matmul (BMMs) use INT8 arithmetic."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.13100051879883,
+        273.5382995605469,
+        291.09344482421875,
+        319.44207763671875
+      ],
+      "text": "Table 2:\nQuantization setting of the baselines and\nSmoothQuant. All weight and activations use INT8 repre-\nsentations unless specified. For SmoothQuant, the efficiency\nimproves from O1 to O3 (i.e., lower latency)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        65.0459976196289,
+        334.468994140625,
+        226.03770446777344,
+        343.4353942871094
+      ],
+      "text": "Method\nWeight\nActivation"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        65.0459976196289,
+        349.6369934082031,
+        279.8306884765625,
+        388.4914245605469
+      ],
+      "text": "W8A8\nper-tensor\nper-tensor dynamic\nZeroQuant\ngroup-wise per-token dynamic\nLLM.int8()\nper-channel per-token dynamic+FP16\nOutlier Suppression per-tensor\nper-tensor static"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        65.0459976196289,
+        394.6929931640625,
+        257.9222412109375,
+        423.58441162109375
+      ],
+      "text": "SmoothQuant-O1\nper-tensor\nper-token dynamic\nSmoothQuant-O2\nper-tensor\nper-tensor dynamic\nSmoothQuant-O3\nper-tensor\nper-tensor static"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.97200012207031,
+        458.1352844238281,
+        291.1813049316406,
+        563.8140258789062
+      ],
+      "text": "layers and quantize all linear layers with W8A8. We also\nquantize BMM operators in the attention computation. We de-\nsign a quantization flow for transformer blocks in Figure 6.\nWe quantize the inputs and weights of compute-heavy opera-\ntors like linear layers and BMM in attention layers with INT8,\nwhile keeping the activation as FP16 for other lightweight\nelement-wise operations like ReLU, Softmax, and Layer-\nNorm. Such a design helps us to balance accuracy and\ninference efficiency."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        580.796142578125,
+        138.4569091796875,
+        592.7513427734375
+      ],
+      "text": "5\nExperiments"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.082000732421875,
+        603.29248046875,
+        291.0958557128906,
+        721.6620483398438
+      ],
+      "text": "5.1\nSetups\nBaselines.\nWe compare with four baselines in the INT8\npost-training quantization setting, i.e., without re-training\nof the model parameters: W8A8 naive quantization, Zero-\nQuant (Yao et al., 2022), LLM.int8() (Dettmers et al.,\n2022), and Outlier Suppression (Wei et al., 2022). Since\nSmoothQuant is orthogonal to the quantization schemes,\nwe provide gradually aggressive and efficient quantization\nlevels from O1 to O3. The detailed quantization schemes of\nthe baselines and SmoothQuant are shown in Table 2."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        306.6929931640625,
+        69.43408966064453,
+        543.093505859375,
+        318.5340881347656
+      ],
+      "text": "Models and datasets.\nWe choose three families of LLMs\nto evaluate SmoothQuant:\nOPT (Zhang et al., 2022),\nBLOOM (Scao et al., 2022), and GLM-130B (Zeng\net al., 2022). We use seven zero-shot evaluation tasks:\nLAMBADA (Paperno et al., 2016), HellaSwag (Zellers\net al., 2019), PIQA (Bisk et al., 2020), WinoGrande (Sak-\naguchi et al., 2019), OpenBookQA (Mihaylov et al., 2018),\nRTE (Wang et al., 2018), COPA (Roemmele et al., 2011),\nand one language modeling dataset WikiText (Merity et al.,\n2016) to evaluate the OPT and BLOOM models. We use\nMMLU (Hendrycks et al., 2020), MNLI (Williams et al.,\n2018), QNLI (Wang et al., 2018) and LAMBADA to eval-\nuate the GLM-130B model because some of the afore-\nmentioned benchmarks appear in the training set of GLM-\n130B. We use lm-eval-harness‡ to evaluate OPT and\nBLOOM models, and GLM-130B’s official repo§ for its own\nevaluation. Finally, we scale up our method to MT-NLG\n530B (Smith et al., 2022) and for the first time enabling the\nserving of a >500B model within a single node. Note that\nwe focus on the relative performance change before and\nafter quantization but not the absolute value."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        331.6999206542969,
+        543.0911254882812,
+        473.40008544921875
+      ],
+      "text": "Activation smoothing.\nThe migration strength α = 0.5 is\na general sweet spot for all the OPT and BLOOM models,\nand α = 0.75 for GLM-130B since its activations are more\ndifficult to quantize (Zeng et al., 2022). We get a suitable α\nby running a quick grid search on a subset of the Pile (Gao\net al., 2020) validation set. To get the statistics of activations,\nwe calibrate the smoothing factors and the static quantiza-\ntion step sizes once with 512 random sentences from the\npre-training dataset Pile, and apply the same smoothed and\nquantized model for all downstream tasks. In this way, we\ncan benchmark the generality and zero-shot performance of\nthe quantized LLMs."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        486.70654296875,
+        543.1875,
+        604.3560180664062
+      ],
+      "text": "Implementation.\nWe implement SmoothQuant with two\nbackends: (1) PyTorch Huggingface¶ for the proof of con-\ncept, and (2) FasterTransformer||, as an example of a high-\nperformance framework used in production environments.\nIn both PyTorch Huggingface and FasterTransformer frame-\nworks, we implement INT8 linear modules and the batched\nmatrix multiplication (BMM) function with CUTLASS\nINT8 GEMM kernels. We simply replace the original floating\npoint (FP16) linear modules and the bmm function with our\nINT8 kernels as the INT8 model."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        619.435546875,
+        543.182373046875,
+        666.092041015625
+      ],
+      "text": "5.2\nAccurate Quantization\nResults of OPT-175B.\nSmoothQuant can handle the quan-\ntization of very large LLMs, whose activations are more\ndifficult to quantize. We study quantization on OPT-175B."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        320.0929870605469,
+        674.2626953125,
+        513.7930297851562,
+        706.4243774414062
+      ],
+      "text": "‡https://github.com/EleutherAI/lm-evaluation-harness\n§https://github.com/THUDM/GLM-130B\n¶https://github.com/huggingface/transformers"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        321.0849914550781,
+        706.7186889648438,
+        491.8702697753906,
+        717.2273559570312
+      ],
+      "text": "||https://github.com/NVIDIA/FasterTransformer"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        295.9499816894531,
+        732.4114379882812,
+        300.9312744140625,
+        742.3740234375
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.13100051879883,
+        67.89240264892578,
+        541.4441528320312,
+        125.65707397460938
+      ],
+      "text": "Table 3: SmoothQuant maintains the accuracy of OPT-175B model after INT8 quantization, even with the most aggressive\nand most efficient O3 setting (Table 2). We extensively benchmark the performance on 7 zero-shot benchmarks (by reporting\nthe average accuracy) and 1 language modeling benchmark (perplexity). *For ZeroQuant, we also tried leaving the input\nactivation of self-attention in FP16 and quantizing the rest to INT8, which is their solution to the GPT-NeoX-20B. But this\ndoes not solve the accuracy degradation of OPT-175B."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        76.97799682617188,
+        139.8722381591797,
+        519.9036865234375,
+        149.162353515625
+      ],
+      "text": "OPT-175B\nLAMBADA HellaSwag PIQA WinoGrande OpenBookQA\nRTE\nCOPA Average↑WikiText↓"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        76.97799682617188,
+        154.66598510742188,
+        509.9925537109375,
+        163.63238525390625
+      ],
+      "text": "FP16\n74.7%\n59.3%\n79.7%\n72.6%\n34.0%\n59.9% 88.0%\n66.9%\n10.99"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        76.97798919677734,
+        169.13699340820312,
+        511.1134033203125,
+        205.8994140625
+      ],
+      "text": "W8A8\n0.0%\n25.6%\n53.4%\n50.3%\n14.0%\n49.5% 56.0%\n35.5%\n93080\nZeroQuant\n0.0%*\n26.0%\n51.7%\n49.3%\n17.8%\n50.9% 55.0%\n35.8%\n84648\nLLM.int8()\n74.7%\n59.2%\n79.7%\n72.1%\n34.2%\n60.3% 87.0%\n66.7%\n11.10\nOutlier Suppression\n0.00%\n25.8%\n52.5%\n48.6%\n16.6%\n53.4% 55.0%\n36.0%\n96151"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        76.97799682617188,
+        211.40298461914062,
+        509.9925537109375,
+        238.8994140625
+      ],
+      "text": "SmoothQuant-O1\n74.7%\n59.2%\n79.7%\n71.2%\n33.4%\n58.1% 89.0%\n66.5%\n11.11\nSmoothQuant-O2\n75.0%\n59.0%\n79.2%\n71.2%\n33.0%\n59.6% 88.0%\n66.4%\n11.14\nSmoothQuant-O3\n74.6%\n58.9%\n79.7%\n71.2%\n33.4%\n59.9% 90.0%\n66.8%\n11.17"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.69300079345703,
+        262.7662658691406,
+        291.0933837890625,
+        356.4900817871094
+      ],
+      "text": "Table 4: SmoothQuant works for different LLMs. We\ncan quantize the 3 largest, openly available LLM mod-\nels into INT8 without degrading the accuracy. For OPT-\n175B and BLOOM-176B, we show the average accuracy\non WinoGrande, HellaSwag, PIQA, and LAMBADA. For\nGLM-130B we show the average accuracy on LAMBADA,\nMMLU, MNLI, and QNLI. *Accuracy is not column-wise\ncomparable due to different datasets."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.63999938964844,
+        371.1689758300781,
+        281.23663330078125,
+        380.1353759765625
+      ],
+      "text": "Method\nOPT-175B BLOOM-176B GLM-130B*"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.63999938964844,
+        385.8389892578125,
+        269.4099426269531,
+        394.8053894042969
+      ],
+      "text": "FP16\n71.6%\n68.2%\n73.8%"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.639991760253906,
+        400.50799560546875,
+        269.4110412597656,
+        437.8683776855469
+      ],
+      "text": "W8A8\n32.3%\n64.2%\n26.9%\nZeroQuant\n31.7%\n67.4%\n26.7%\nLLM.int8()\n71.4%\n68.0%\n73.8%\nOutlier Suppression\n31.7%\n54.1%\n63.5%"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.639984130859375,
+        443.4901123046875,
+        270.1585998535156,
+        471.4673767089844
+      ],
+      "text": "SmoothQuant-O1\n71.2%\n68.3%\n73.7%\nSmoothQuant-O2\n71.1%\n68.4%\n72.5%\nSmoothQuant-O3\n71.1%\n67.4%\n72.8%"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        497.2132873535156,
+        291.1867980957031,
+        590.9323120117188
+      ],
+      "text": "As shown in Table 3, SmoothQuant can match the FP16\naccuracy on all evaluation datasets with all quantization\nschemes. LLM.int8() can match the floating point ac-\ncuracy because they use floating-point values to represent\noutliers, which leads to a large latency overhead (Table 11).\nThe W8A8, ZeroQuant, and Outlier Suppression baselines\nproduce nearly random results, indicating that naively quan-\ntizing the activation of LLMs will destroy the performance."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.69300079345703,
+        611.8455200195312,
+        291.0979309082031,
+        717.44384765625
+      ],
+      "text": "Results of different LLMs.\nSmoothQuant can be applied\nto various LLM designs. In Table 4, we show SmoothQuant\ncan quantize all existing open LLMs beyond 100B param-\neters. Compared with the OPT-175B model, the BLOOM-\n176B model is easier to quantize: none of the baselines\ncompletely destroys the model; even the naive W8A8 per-\ntensor dynamic quantization only degrades the accuracy by\n4%. The O1 and O2 levels of SmoothQuant successfully\nmaintain the floating point accuracy, while the O3 level (per-"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        402.43304443359375,
+        543.095947265625,
+        448.3320617675781
+      ],
+      "text": "Figure 7: SmoothQuant-O3 (the most efficient setting, de-\nfined in Table 2) preserves the accuracy of OPT models\nacross different scales when quantized to INT8. LLM.int8()\nrequires mixed precision and suffers from slowing down."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        475.2554016113281,
+        543.1860961914062,
+        616.6382446289062
+      ],
+      "text": "tensor static) degrades the average accuracy by 0.8%, which\nwe attribute to the discrepancy between the statically col-\nlected statistics and the real evaluation samples’ activation\nstatistics. On the contrary, the GLM-130B model is more\ndifficult to quantize (which echos Zeng et al.). Nonethe-\nless, SmoothQuant-O1 can match the FP16 accuracy, while\nSmoothQuant-O3 only degrades the accuracy by 1%, which\nsignificantly outperforms the baselines. Note that we clip\nthe top 2% tokens when calibrating the static quantization\nstep sizes for GLM-130B following Wei et al. (2022). Note\nthat different model/training designs have different quantiza-\ntion difficulties, which we hope will inspire future research."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        641.0593872070312,
+        543.0935668945312,
+        710.8120727539062
+      ],
+      "text": "Results on LLMs of different sizes.\nSmoothQuant works\nnot only for the very large LLMs beyond 100B parameters,\nbut it also works consistently for smaller LLMs. In Fig-\nure 7, we show that SmoothQuant can work on all scales\nof OPT models, matching the FP16 accuracy with INT8\nquantization."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.13100051879883,
+        67.79830932617188,
+        289.9307861328125,
+        89.79104614257812
+      ],
+      "text": "Table 5: SmoothQuant’s performance on the OPT-IML\nmodel."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        85.91999816894531,
+        104.14629364013672,
+        258.96173095703125,
+        113.4364013671875
+      ],
+      "text": "OPT-IML-30B\nLAMBADA ↑WikiText ↓"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        85.91999816894531,
+        119.13998413085938,
+        249.00088500976562,
+        128.10638427734375
+      ],
+      "text": "FP16\n69.12%\n14.26"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        85.91999816894531,
+        133.80996704101562,
+        253.48406982421875,
+        171.16937255859375
+      ],
+      "text": "W8A8\n4.21%\n576.53\nZeroQuant\n5.12%\n455.12\nLLM.int8()\n69.14%\n14.27\nOutlier Suppression\n0.00%\n9485.62"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        85.91999816894531,
+        176.7910919189453,
+        248.99554443359375,
+        185.83935546875
+      ],
+      "text": "SmoothQuant-O3\n69.77%\n14.37"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.13100051879883,
+        205.16629028320312,
+        291.08917236328125,
+        263.0250549316406
+      ],
+      "text": "Table 6: SmoothQuant can enable lossless W8A8 quanti-\nzation for LLaMA models (Touvron et al., 2023a). Results\nare perplexities on the WikiText-2 dataset with a sequence\nlength of 512. We used per-token activation quantization\nand α=0.8 for SmoothQuant."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        66.71299743652344,
+        277.3792724609375,
+        277.7926025390625,
+        286.66937255859375
+      ],
+      "text": "Wiki PPL↓\n7B\n13B\n30B\n65B"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        66.71299743652344,
+        292.37298583984375,
+        278.1676025390625,
+        310.80438232421875
+      ],
+      "text": "FP16\n11.51\n10.05\n7.53\n6.17\nW8A8 SmoothQuant\n11.56\n10.08\n7.56\n6.20"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.97200012207031,
+        339.6072082519531,
+        291.09344482421875,
+        481.2400817871094
+      ],
+      "text": "Results on Instruction-Tuned LLM\nShown in Table 5,\nSmoothQuant also works on instruction-tuned LLMs. We\ntest SmoothQuant on the OPT-IML-30B model using the\nWikiText-2 and LAMBADA datasets. Our results show\nthat SmoothQuant successfully preserves model accuracy\nwith W8A8 quantization, whereas the baselines fail to do\nso. SmoothQuant is a general method designed to balance\nthe quantization difficulty for Transformer models. As the\narchitecture of instruction-tuned LLMs is not fundamen-\ntally different from vanilla LLMs, and their pre-training\nprocesses are very similar, SmoothQuant is applicable to\ninstruction-tuned LLMs as well."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        493.58343505859375,
+        290.6869201660156,
+        599.3540649414062
+      ],
+      "text": "Results on LLaMA models.\nLLaMA models are new\nopen languange models with superior performance (Touvron\net al., 2023a). Through initial experiments, we find LLaMA\nmodels generally have less severe activation outlier issues\ncompared to models like OPT and BLOOM. Nonetheless,\nSmoothQuant still works quite well for LLaMA models. We\nprovide some initial results of LLaMA W8A8 quantization\nin Table 6. SmoothQuant enables W8A8 quantization at a\nnegligible performance degradation."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.082000732421875,
+        611.7305908203125,
+        291.09893798828125,
+        717.468017578125
+      ],
+      "text": "Results on Llama-2, Falcon, Mistral, and Mixtral mod-\nels.\nWe apply SmoothQuant on several more recent LLMs\nusing diverse architectures, such as Llama-2 (Touvron et al.,\n2023b), Falcon (Almazrouei et al., 2023), Mistral (Jiang\net al., 2023), and Mixtral (Jiang et al., 2024)—notably, the\nMixtral model is a Mixture of Experts (MoE) model. The\nresults, detailed in Table 7, demonstrate that SmoothQuant\nenables W8A8 quantization while maintaining performance\nwith minimal loss across these varied architectures."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        306.97198486328125,
+        67.79830932617188,
+        543.1875,
+        149.56704711914062
+      ],
+      "text": "Table 7: SmoothQuant can enable lossless W8A8 quan-\ntization for Llama-2 (Touvron et al., 2023b), Falcon (Al-\nmazrouei et al., 2023), Mistral (Jiang et al., 2023), and\nMixtral (Jiang et al., 2024) models. Results are perplexities\non the WikiText-2 dataset with a sequence length of 2048.\nWe used per-token activation quantization and per-channel\nweight quantization for SmoothQuant."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        164.0384979248047,
+        504.8498229980469,
+        173.21240234375
+      ],
+      "text": "Model\nMethod\nPPL\nα"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        178.91598510742188,
+        509.747314453125,
+        197.34637451171875
+      ],
+      "text": "Llama-2-7B\nFP16\n5.474\nW8A8 SQ\n5.515\n0.85"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        203.05001831054688,
+        509.747314453125,
+        221.48040771484375
+      ],
+      "text": "Llama-2-13B\nFP16\n4.950\nW8A8 SQ\n4.929\n0.85"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        227.18399047851562,
+        507.50567626953125,
+        245.61541748046875
+      ],
+      "text": "Llama-2-70B\nFP16\n3.320\nW8A8 SQ\n3.359\n0.9"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        251.31900024414062,
+        507.50567626953125,
+        269.7493896484375
+      ],
+      "text": "Falcon-7B\nFP16\n6.590\nW8A8 SQ\n6.629\n0.6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        275.4529724121094,
+        507.50567626953125,
+        293.88336181640625
+      ],
+      "text": "Falcon-40B\nFP16\n5.228\nW8A8 SQ\n5.255\n0.7"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        299.58697509765625,
+        507.50567626953125,
+        318.01837158203125
+      ],
+      "text": "Mistral-7B\nFP16\n5.253\nW8A8 SQ\n5.277\n0.8"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        339.13800048828125,
+        323.72198486328125,
+        507.50567626953125,
+        342.1523742675781
+      ],
+      "text": "Mixtral-8x7B\nFP16\n3.842\nW8A8 SQ\n3.893\n0.8"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        372.1385192871094,
+        454.9862060546875,
+        382.1011047363281
+      ],
+      "text": "5.3\nSpeedup and Memory Saving"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        390.9584045410156,
+        541.7896728515625,
+        424.75506591796875
+      ],
+      "text": "In this section, we show the measured speedup and memory\nsaving of SmoothQuant-O3 integrated into PyTorch and\nFasterTransformer."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.0820007324219,
+        438.39959716796875,
+        543.0936279296875,
+        639.759033203125
+      ],
+      "text": "Context-stage: PyTorch Implementation.\nWe measure\nthe end-to-end latency of generating all hidden states for\na batch of 4 sentences in one pass, i.e., the context stage\nlatency. We record the (aggregated) peak GPU memory\nusage in this process. We only compare SmoothQuant with\nLLM.int8() because it is the only existing quantization\nmethod that can preserve LLM accuracy at all scales. Due\nto the lack of support for model parallelism in Hugging-\nface, we only measure SmoothQuant’s performance on a\nsingle GPU for the PyTorch implementation, so we choose\nOPT-6.7B, OPT-13B, and OPT-30B for evaluation. In the\nFasterTransformer library, SmoothQuant can seamlessly\nwork with Tensor Parallelism (Shoeybi et al., 2019) algo-\nrithm, so we test SmoothQuant on OPT-13B, OPT-30B,\nOPT-66B, and OPT-175B for both single and multi-GPU\nbenchmarks. All our experiments are conducted on NVIDIA\nA100 80GB GPU servers."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        647.805419921875,
+        543.0936279296875,
+        717.4920043945312
+      ],
+      "text": "In Figure 8, we show the inference latency and peak memory\nusage based on the PyTorch implementation. SmoothQuant\nis consistently faster than the FP16 baseline, getting a 1.51x\nspeedup on OPT-30B when the sequence length is 256. We\nalso see a trend that the larger the model, the more signif-\nicant the acceleration. On the other hand, LLM.int8()"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        295.8249816894531,
+        732.4114379882812,
+        300.8062744140625,
+        742.3740234375
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        116.71743774414062,
+        66.75381469726562,
+        264.0042419433594,
+        74.44574737548828
+      ],
+      "text": "FP16\nLLM.int8()\nSmoothQuant"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        70.42141723632812,
+        123.15911102294922,
+        73.66402435302734,
+        130.33824157714844
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        63.93620300292969,
+        110.8631820678711,
+        73.66403198242188,
+        118.04232025146484
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        63.93620300292969,
+        98.56720733642578,
+        73.66403198242188,
+        105.74634552001953
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        63.93620300292969,
+        86.27127838134766,
+        73.66403198242188,
+        93.4504165649414
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        63.93620300292969,
+        73.97528839111328,
+        73.66403198242188,
+        81.15442657470703
+      ],
+      "text": "400"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        91.62271118164062,
+        130.6387481689453,
+        163.22222900390625,
+        136.79229736328125
+      ],
+      "text": "128\n256\n512"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        163.80557250976562,
+        92.26309967041016,
+        172.14370727539062,
+        98.4166488647461
+      ],
+      "text": "223"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        101.933837890625,
+        105.90546417236328,
+        140.409912109375,
+        118.13196563720703
+      ],
+      "text": "112\n63"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        155.23150634765625,
+        74.52635192871094,
+        162.8748016357422,
+        80.16709899902344
+      ],
+      "text": "371"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        91.97012329101562,
+        91.04843139648438,
+        131.2440948486328,
+        102.49409484863281
+      ],
+      "text": "237\n190"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        146.31002807617188,
+        83.76924133300781,
+        153.9533233642578,
+        89.40998840332031
+      ],
+      "text": "296"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        114.67935180664062,
+        101.44345092773438,
+        122.32264709472656,
+        107.08419799804688
+      ],
+      "text": "153"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        84.32254028320312,
+        109.82560729980469,
+        89.41807556152344,
+        115.46635437011719
+      ],
+      "text": "84"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        67.17881774902344,
+        137.38638305664062,
+        73.66403198242188,
+        178.9989471435547
+      ],
+      "text": "0\n7\n13\n20\n26"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        91.62271118164062,
+        179.29949951171875,
+        163.22222900390625,
+        185.4530487060547
+      ],
+      "text": "128\n256\n512"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        91.33319091796875,
+        149.9527130126953,
+        172.8385772705078,
+        157.79066467285156
+      ],
+      "text": "13.6\n12.9\n12.6\n14.3\n13.3\n12.8"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        82.41171264648438,
+        134.6622772216797,
+        154.59027099609375,
+        142.2025909423828
+      ],
+      "text": "25.9\n24.9\n24.4"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        184.12493896484375,
+        123.15911102294922,
+        187.3675537109375,
+        130.33824157714844
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        177.63970947265625,
+        110.8631820678711,
+        187.36753845214844,
+        118.04232025146484
+      ],
+      "text": "175"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        177.63970947265625,
+        98.56720733642578,
+        187.36753845214844,
+        105.74634552001953
+      ],
+      "text": "350"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        177.63970947265625,
+        86.27127838134766,
+        187.36753845214844,
+        93.4504165649414
+      ],
+      "text": "525"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        177.63970947265625,
+        73.97528839111328,
+        187.36753845214844,
+        81.15442657470703
+      ],
+      "text": "700"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.32623291015625,
+        130.6387481689453,
+        276.92572021484375,
+        136.79229736328125
+      ],
+      "text": "128\n256\n512"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        277.50909423828125,
+        87.47924041748047,
+        285.84722900390625,
+        93.6327896118164
+      ],
+      "text": "458"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        214.24771118164062,
+        103.7015151977539,
+        254.216552734375,
+        116.30233001708984
+      ],
+      "text": "228\n136"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        268.9350280761719,
+        74.19195556640625,
+        276.57830810546875,
+        79.83270263671875
+      ],
+      "text": "655"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        237.3043212890625,
+        92.94711303710938,
+        244.94761657714844,
+        98.58786010742188
+      ],
+      "text": "388"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.67364501953125,
+        100.77857971191406,
+        213.3169403076172,
+        106.41932678222656
+      ],
+      "text": "276"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        260.0135498046875,
+        73.83499145507812,
+        267.6568298339844,
+        79.47573852539062
+      ],
+      "text": "660"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        228.38284301757812,
+        96.10401916503906,
+        236.02613830566406,
+        101.74476623535156
+      ],
+      "text": "343"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        196.75216674804688,
+        106.86471557617188,
+        204.3954620361328,
+        112.50546264648438
+      ],
+      "text": "190"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        180.88232421875,
+        137.38638305664062,
+        187.3675537109375,
+        178.9989471435547
+      ],
+      "text": "0\n15\n30\n45\n60"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.32623291015625,
+        179.29949951171875,
+        276.92572021484375,
+        185.4530487060547
+      ],
+      "text": "128\n256\n512"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.03671264648438,
+        150.7263641357422,
+        286.5420837402344,
+        157.9478759765625
+      ],
+      "text": "30.4\n29.3\n28.9\n31.6\n30.0\n29.1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        196.115234375,
+        134.9851531982422,
+        268.29376220703125,
+        142.0392608642578
+      ],
+      "text": "59.0\n57.3\n56.6"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.405792236328125,
+        80.78739166259766,
+        62.61051940917969,
+        180.4475555419922
+      ],
+      "text": "Latency (ms)\nMemory (GB)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        113.65109252929688,
+        185.19593811035156,
+        254.89688110351562,
+        192.88792419433594
+      ],
+      "text": "OPT-13B\nOPT-30B"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        204.77040100097656,
+        289.6070556640625,
+        250.52206420898438
+      ],
+      "text": "Figure 8: The PyTorch implementation of SmoothQuant-O3\nachieves up to 1.51× speedup and 1.96× memory saving for\nOPT models on a single NVIDIA A100-80GB GPU, while\nLLM.int8() slows down the inference in most cases."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        265.1142883300781,
+        291.0933532714844,
+        334.9280700683594
+      ],
+      "text": "is almost always slower than the FP16 baseline, which is\ndue to the large overhead of the mixed-precision activa-\ntion representation. In terms of memory, SmoothQuant and\nLLM.int8() can all nearly halve the memory usage of\nthe FP16 model, while SmoothQuant saves slightly more\nmemory because it uses fully INT8 GEMMs."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        344.7364501953125,
+        291.184814453125,
+        522.238037109375
+      ],
+      "text": "Context-stage:\nFasterTransformer Implementation.\nAs shown in Figure 9 (top), compared to FasterTrans-\nformer’s FP16 implementation of OPT, SmoothQuant-O3\ncan further reduce the execution latency of OPT-13B and\nOPT-30B by up to 1.56× when using a single GPU. This is\nchallenging since FasterTransformer is already more than\n3× faster compared to the PyTorch implementation for\nOPT-30B. Remarkably, for bigger models that have to be\ndistributed across multiple GPUs, SmoothQuant achieves\nsimilar or even better latency using only half the number of\nGPUs (1 GPU instead of 2 for OPT-66B, 4 GPUs instead\nof 8 for OPT-175B). This could greatly lower the cost of\nserving LLMs. The amount of memory needed when us-\ning SmoothQuant-O3 in FasterTransformer is reduced by a\nfactor of almost 2×, as shown on Figure 9 (bottom)."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        532.0719604492188,
+        291.18280029296875,
+        613.9060668945312
+      ],
+      "text": "Decoding-stage.\nIn Table 8, we show SmoothQuant can\nsignificantly accelerate the autoregressive decoding stage\nof LLMs. SmoothQuant constantly reduces the per-token\ndecoding latency compared to FP16 (up to 1.42x speedup).\nAdditionally, SmoothQuant halves the memory footprints\nfor LLM inference, enabling the deployment of LLMs at a\nsignificantly lower cost."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        628.9865112304688,
+        274.507568359375,
+        638.9490966796875
+      ],
+      "text": "5.4\nScaling Up: 530B Model Within a Single Node"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.97200012207031,
+        647.654296875,
+        289.6103210449219,
+        717.4740600585938
+      ],
+      "text": "We can further scale up SmoothQuant beyond 500B-level\nmodels, enabling efficient and accurate W8A8 quantization\nof MT-NLG 530B (Smith et al., 2022). As shown in Table 9\nand 10, SmoothQuant enables W8A8 quantization of the\n530B model at a negligible accuracy loss. The reduced\nmodel size allows us to serve the model using half number"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.1310119628906,
+        67.94942474365234,
+        541.4415893554688,
+        77.81189727783203
+      ],
+      "text": "Table 8: SmoothQuant ’s performance in the decoding stage."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        309.9309997558594,
+        92.51498413085938,
+        524.4476928710938,
+        106.3133544921875
+      ],
+      "text": "BS SeqLen\nLatency (ms)\nMemory (GB)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        359.24200439453125,
+        106.66124725341797,
+        541.6088256835938,
+        115.95135498046875
+      ],
+      "text": "FP16 Ours Speedup (↑) FP16 Ours Saving (↑)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        310.9310302734375,
+        121.65499877929688,
+        534.2601318359375,
+        168.47943115234375
+      ],
+      "text": "OPT-30B (1 GPU)\n1\n512\n422\n314\n1.35×\n57\n30\n1.91×\n1\n1024\n559\n440\n1.27×\n58\n31\n1.87×\n16\n512\n2488 1753\n1.42×\n69\n44\n1.59×\n16\n1024\nOOM 3947\n-\nOOM\n61\n-"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        310.9310302734375,
+        174.18295288085938,
+        534.2601318359375,
+        221.00738525390625
+      ],
+      "text": "OPT-175B (8 GPUs)\n1\n512\n426\n359\n1.19×\n44\n23\n1.87×\n1\n1024\n571\n475\n1.20×\n44\n24\n1.85×\n16\n512\n2212 1628\n1.36×\n50\n30\n1.67×\n16\n1024\n4133 3231\n1.28×\n56\n37\n1.52×"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        306.97198486328125,
+        231.14932250976562,
+        541.4429931640625,
+        253.14205932617188
+      ],
+      "text": "Table 9: SmoothQuant can quantize MT-NLG 530B to\nW8A8 with negligible accuracy loss."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        335.8280029296875,
+        267.8209533691406,
+        542.3333129882812,
+        276.787353515625
+      ],
+      "text": "LAMBADA HellaSwag PIQA WinoGrande Average"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        310.4289855957031,
+        282.490966796875,
+        539.1260986328125,
+        300.9213562011719
+      ],
+      "text": "FP16\n76.6%\n62.1%\n81.0%\n72.9%\n73.1%\nINT8\n77.2%\n60.4%\n80.7%\n74.1%\n73.1%"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        319.6322937011719,
+        541.440673828125,
+        353.580078125
+      ],
+      "text": "of the GPUs (16 to 8) at a similar latency, enabling the\nserving of a >500B model within a single node (8×A100\n80GB GPUs)."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.1310119628906,
+        368.6595153808594,
+        543.1863403320312,
+        498.97442626953125
+      ],
+      "text": "5.5\nAblation Study\nQuantization schemes.\nTable 11 shows the inference la-\ntency of different quantization schemes based on our Py-\nTorch implementation. We can see that the coarser the\nquantization granularity (from O1 to O3), the lower the la-\ntency. And static quantization can significantly accelerate\ninference compared with dynamic quantization because we\nno longer need to calculate the quantization step sizes at\nruntime. SmoothQuant is faster than FP16 baseline under\nall settings, while LLM.int8() is usually slower. We\nrecommend using a coarser scheme if the accuracy permits."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        306.97198486328125,
+        510.1017761230469,
+        543.1846923828125,
+        627.6870727539062
+      ],
+      "text": "Migration strength.\nWe need to find a suitable migration\nstrength α (see Equation 4) to balance the quantization\ndifficulty of weights and activations. We ablate the effect of\ndifferent α’s on OPT-175B with LAMBADA in Figure 10.\nWhen α is too small (<0.4), the activations are hard to\nquantize; when α is too large (>0.6), the weights will be\nhard to quantize. Only when we choose α from the sweet\nspot region (0.4-0.6) can we get small quantization errors\nfor both weights and activations, and maintain the model\nperformance after quantization."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        644.6691284179688,
+        543.09814453125,
+        717.4860229492188
+      ],
+      "text": "6\nRelated Work\nLarge language models (LLMs).\nPre-trained language\nmodels have achieved remarkable performance on various\nbenchmarks by scaling up. GPT-3 (Brown et al., 2020b) is\nthe first LLM beyond 100B parameters and achieves impres-\nsive few-shot/zero-shot learning results. Later works (Rae"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.93330383300781,
+        79.31040954589844,
+        63.543636322021484,
+        120.55757141113281
+      ],
+      "text": "Latency (ms)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        74.33941650390625,
+        116.97667694091797,
+        77.74232482910156,
+        124.5107192993164
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        70.9365234375,
+        106.5590591430664,
+        77.74234008789062,
+        114.09310150146484
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.53361511230469,
+        96.14142608642578,
+        77.74234008789062,
+        103.67546844482422
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.53361511230469,
+        85.72382354736328,
+        77.74234008789062,
+        93.25786590576172
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.53361511230469,
+        75.30620574951172,
+        77.74234008789062,
+        82.84024810791016
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        92.43667602539062,
+        124.82613372802734,
+        177.31591796875,
+        131.2838897705078
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        171.99627685546875,
+        87.39664459228516,
+        180.74661254882812,
+        93.8543930053711
+      ],
+      "text": "125"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        98.78424072265625,
+        100.31452178955078,
+        154.3980712890625,
+        115.31266021728516
+      ],
+      "text": "63\n33\n22"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        162.218017578125,
+        75.62476348876953,
+        170.96835327148438,
+        82.08251190185547
+      ],
+      "text": "181"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        138.7862548828125,
+        95.1473617553711,
+        144.61981201171875,
+        101.60511016845703
+      ],
+      "text": "87"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        89.00595092773438,
+        104.1273422241211,
+        119.72964477539062,
+        113.8750228881836
+      ],
+      "text": "44\n28"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        285.25347900390625,
+        66.98750305175781,
+        379.019287109375,
+        75.0596923828125
+      ],
+      "text": "FP16\nSmoothQuant"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        192.81076049804688,
+        116.97667694091797,
+        196.2136688232422,
+        124.5107192993164
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        186.00494384765625,
+        106.5590591430664,
+        196.2136688232422,
+        114.09310150146484
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        186.00494384765625,
+        96.14142608642578,
+        196.2136688232422,
+        103.67546844482422
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        186.00494384765625,
+        85.72382354736328,
+        196.2136688232422,
+        93.25786590576172
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        186.00494384765625,
+        75.30620574951172,
+        196.2136688232422,
+        82.84024810791016
+      ],
+      "text": "400"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        210.9080810546875,
+        124.82613372802734,
+        295.7872009277344,
+        131.2838897705078
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        290.4676513671875,
+        87.38623809814453,
+        299.2179870605469,
+        93.84398651123047
+      ],
+      "text": "249"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        217.25558471679688,
+        100.90833282470703,
+        274.2196350097656,
+        115.33763885498047
+      ],
+      "text": "119\n65\n43"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        280.68939208984375,
+        73.80167388916016,
+        289.4397277832031,
+        80.2594223022461
+      ],
+      "text": "380"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        255.7991943359375,
+        93.92853546142578,
+        264.5495300292969,
+        100.38628387451172
+      ],
+      "text": "186"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        207.477294921875,
+        103.11687469482422,
+        238.20098876953125,
+        113.69268035888672
+      ],
+      "text": "98\n59"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        311.2819519042969,
+        116.97667694091797,
+        314.68487548828125,
+        124.5107192993164
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.47613525390625,
+        106.5590591430664,
+        314.68487548828125,
+        114.09310150146484
+      ],
+      "text": "125"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.47613525390625,
+        96.14142608642578,
+        314.68487548828125,
+        103.67546844482422
+      ],
+      "text": "250"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.47613525390625,
+        85.72382354736328,
+        314.68487548828125,
+        93.25786590576172
+      ],
+      "text": "375"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.47613525390625,
+        75.30620574951172,
+        314.68487548828125,
+        82.84024810791016
+      ],
+      "text": "500"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        329.3796081542969,
+        124.82613372802734,
+        414.25836181640625,
+        131.2838897705078
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        408.93914794921875,
+        72.52611541748047,
+        417.6894836425781,
+        78.9838638305664
+      ],
+      "text": "490"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        335.72698974609375,
+        94.21813201904297,
+        392.7991638183594,
+        113.51873016357422
+      ],
+      "text": "229\n131\n75"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        399.16064453125,
+        72.60112762451172,
+        407.9109802246094,
+        79.05887603759766
+      ],
+      "text": "489"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        374.270751953125,
+        93.70972442626953,
+        383.0210876464844,
+        100.16747283935547
+      ],
+      "text": "236"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        325.948486328125,
+        103.16893768310547,
+        358.1308288574219,
+        113.19365692138672
+      ],
+      "text": "122\n79"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        333.4300537109375,
+        77.9941635131836,
+        396.1946716308594,
+        93.0171890258789
+      ],
+      "text": "FP16 (2 GPUs)\nSmoothQuant (1 GPU)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        430.26568603515625,
+        117.44580078125,
+        433.425537109375,
+        124.44169616699219
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        423.94598388671875,
+        107.06794738769531,
+        433.425537109375,
+        114.0638427734375
+      ],
+      "text": "225"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        423.94598388671875,
+        96.69007873535156,
+        433.425537109375,
+        103.68597412109375
+      ],
+      "text": "450"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        423.94598388671875,
+        86.31222534179688,
+        433.425537109375,
+        93.30812072753906
+      ],
+      "text": "675"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        423.94598388671875,
+        75.93437194824219,
+        433.425537109375,
+        82.93026733398438
+      ],
+      "text": "900"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        447.486328125,
+        124.94293212890625,
+        533.2158203125,
+        131.93882751464844
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        527.4105224609375,
+        80.0709457397461,
+        536.160888671875,
+        86.52869415283203
+      ],
+      "text": "720"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        452.73992919921875,
+        96.35907745361328,
+        511.2704772949219,
+        114.0830307006836
+      ],
+      "text": "366\n194\n122"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        517.6319580078125,
+        74.1255874633789,
+        526.38232421875,
+        80.58333587646484
+      ],
+      "text": "848"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        492.74212646484375,
+        93.31217193603516,
+        501.4924621582031,
+        99.7699203491211
+      ],
+      "text": "432"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        442.96142578125,
+        102.7361831665039,
+        476.6020812988281,
+        113.31739044189453
+      ],
+      "text": "228\n139"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        451.9329833984375,
+        78.17981719970703,
+        517.3464965820312,
+        93.2027816772461
+      ],
+      "text": "FP16 (8 GPUs)\nSmoothQuant (4 GPUs)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        74.29641723632812,
+        160.97792053222656,
+        77.69932556152344,
+        168.511962890625
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        70.89349365234375,
+        147.55245971679688,
+        77.69931030273438,
+        155.0865020751953
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        70.89349365234375,
+        134.12701416015625,
+        77.69931030273438,
+        141.6610565185547
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        92.40444946289062,
+        168.82730102539062,
+        177.34814453125,
+        175.28506469726562
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        98.75616455078125,
+        140.690185546875,
+        179.32473754882812,
+        150.19102478027344
+      ],
+      "text": "19\n17\n16\n15"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        88.96945190429688,
+        130.72987365722656,
+        169.53799438476562,
+        140.01454162597656
+      ],
+      "text": "30\n27\n27\n27"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        192.76776123046875,
+        160.97792053222656,
+        196.17066955566406,
+        168.511962890625
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        189.36483764648438,
+        147.55245971679688,
+        196.170654296875,
+        155.0865020751953
+      ],
+      "text": "35"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        189.36483764648438,
+        134.12701416015625,
+        196.170654296875,
+        141.6610565185547
+      ],
+      "text": "70"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        210.87579345703125,
+        168.82730102539062,
+        295.8194885253906,
+        175.28506469726562
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        217.22756958007812,
+        143.22186279296875,
+        297.7961120605469,
+        151.54383850097656
+      ],
+      "text": "37\n34\n32\n32"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        207.44082641601562,
+        132.71163940429688,
+        288.0093994140625,
+        141.1908721923828
+      ],
+      "text": "64\n61\n60\n59"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        311.2391662597656,
+        160.97792053222656,
+        314.64208984375,
+        168.511962890625
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.8362731933594,
+        147.55245971679688,
+        314.6421203613281,
+        155.0865020751953
+      ],
+      "text": "70"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.433349609375,
+        134.12701416015625,
+        314.64208984375,
+        141.6610565185547
+      ],
+      "text": "140"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        329.3470153808594,
+        168.82730102539062,
+        414.29095458984375,
+        175.28506469726562
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        335.69879150390625,
+        143.08375549316406,
+        416.267578125,
+        151.21395874023438
+      ],
+      "text": "74\n69\n67\n66"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        324.45367431640625,
+        130.72987365722656,
+        407.9391784667969,
+        138.8241424560547
+      ],
+      "text": "139\n134\n131\n130"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        429.667236328125,
+        161.25486755371094,
+        433.0701599121094,
+        168.78890991210938
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        422.86138916015625,
+        147.55245971679688,
+        433.07012939453125,
+        155.0865020751953
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        422.86138916015625,
+        133.8500213623047,
+        433.07012939453125,
+        141.38406372070312
+      ],
+      "text": "400"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        447.77557373046875,
+        169.1042938232422,
+        532.7190551757812,
+        175.5620574951172
+      ],
+      "text": "128\n256\n512\n1024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        452.6689453125,
+        143.9123077392578,
+        536.154052734375,
+        151.6306610107422
+      ],
+      "text": "200\n189\n184\n182"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        442.8822021484375,
+        130.9772186279297,
+        526.3673095703125,
+        138.80523681640625
+      ],
+      "text": "389\n378\n372\n369"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.85577392578125,
+        126.91253662109375,
+        63.46610641479492,
+        171.62872314453125
+      ],
+      "text": "Memory (GB)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        119.69491577148438,
+        174.70455932617188,
+        505.8360595703125,
+        182.77674865722656
+      ],
+      "text": "OPT-13B\nOPT-30B\nOPT-66B\nOPT-175B"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.082000732421875,
+        192.76132202148438,
+        541.7965698242188,
+        238.66506958007812
+      ],
+      "text": "Figure 9: Inference latency (top) and memory usage (bottom) of the FasterTransformer implementation on NVIDIA\nA100-80GB GPUs. For smaller models, the latency can be significantly reduced with SmoothQuant-O3 by up to 1.56x\ncompared to FP16. For the bigger models (OPT-66B and 175B), we can achieve similar or even faster inference using only\nhalf number of GPUs. Memory footprint is almost halved compared to FP16."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.082000732421875,
+        260.6279296875,
+        289.4447021484375,
+        306.4100646972656
+      ],
+      "text": "Table 10: When serving MT-NLG 530B, SmoothQuant can\nreduce the memory by half at a similar latency using half\nnumber of GPUs, which allows serving the 530B model\nwithin a single node."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        77.25299835205078,
+        321.0889892578125,
+        265.385986328125,
+        330.0553894042969
+      ],
+      "text": "SeqLen\nPrec.\n#GPUs\nLatency\nMemory"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        77.25299835205078,
+        335.75897216796875,
+        265.1439514160156,
+        354.1893615722656
+      ],
+      "text": "128\nFP16\n16\n232ms\n1040GB\nINT8\n8\n253ms\n527GB"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        77.25299835205078,
+        359.8929748535156,
+        265.1439514160156,
+        378.3243713378906
+      ],
+      "text": "256\nFP16\n16\n451ms\n1054GB\nINT8\n8\n434ms\n533GB"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        77.25299835205078,
+        384.0269775390625,
+        265.1439514160156,
+        402.4583740234375
+      ],
+      "text": "512\nFP16\n16\n838ms\n1068GB\nINT8\n8\n839ms\n545GB"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        77.25299835205078,
+        408.1619873046875,
+        265.1439208984375,
+        426.5923767089844
+      ],
+      "text": "1024\nFP16\n16\n1707ms\n1095GB\nINT8\n8\n1689ms\n570GB"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        456.57830810546875,
+        291.09344482421875,
+        574.2130737304688
+      ],
+      "text": "et al., 2021; Smith et al., 2022; Du et al., 2022; Chowdh-\nery et al., 2022) continue to push the frontier of scaling,\ngoing beyond 500B parameters. However, as the language\nmodel gets larger, serving such models for inference be-\ncomes expensive and challenging. In this work, we show\nthat our proposed method can quantize the three largest,\nopenly available LLMs: OPT-175B (Zhang et al., 2022),\nBLOOM-176B (Scao et al., 2022) and GLM-130B (Zeng\net al., 2022), and even MT-NLG 530B (Smith et al., 2022)\nto reduce the memory cost and accelerate inference."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.97200012207031,
+        587.9201049804688,
+        291.09857177734375,
+        717.4668579101562
+      ],
+      "text": "Model quantization.\nQuantization is an effective method\nfor reducing the model size and accelerating inference. It\nproves to be effective for various convolutional neural works\n(CNNs) (Han et al., 2016; Jacob et al., 2018; Nagel et al.,\n2019; Wang et al., 2019; Lin et al., 2020) and transform-\ners (Shen et al., 2020; Kim et al., 2021; Liu et al., 2021;\nWang et al., 2020; Bondarenko et al., 2021). Weight equal-\nization (Nagel et al., 2019) and channel splitting (Zhao et al.,\n2019) reduce quantization error by suppressing the outliers\nin weights. However, these techniques cannot address the\nactivation outliers, which are the major quantization bottle-"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.1310119628906,
+        260.5072937011719,
+        543.093505859375,
+        330.3210754394531
+      ],
+      "text": "Table 11: GPU Latency (ms) of different quantization\nschemes. The coarser the quantization scheme (from per-\ntoken to per-tensor, dynamic to static, O1 to O3, defined\nin Table 2), the lower the latency. SmoothQuant achieves\nlower latency compared to FP16 under all settings, while\nLLM.int8() is mostly slower. The batch size is 4."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        347.3550109863281,
+        344.9989929199219,
+        510.328369140625,
+        353.96539306640625
+      ],
+      "text": "Model\nOPT-13B\nOPT-30B"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        327.1809997558594,
+        359.469970703125,
+        516.0942993164062,
+        368.4363708496094
+      ],
+      "text": "Sequence Length\n256\n512\n256\n512"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        327.1809997558594,
+        374.1399841308594,
+        519.4583129882812,
+        392.57037353515625
+      ],
+      "text": "FP16\n152.6\n296.3\n343.0\n659.9\nLLM.int8()\n237.1\n371.5\n387.9\n654.9"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        327.1809997558594,
+        398.27398681640625,
+        519.4566650390625,
+        426.16937255859375
+      ],
+      "text": "SmoothQuant-O1\n124.5\n243.3\n246.7\n490.7\nSmoothQuant-O2\n120.5\n235.1\n240.2\n478.3\nSmoothQuant-O3\n112.1\n223.1\n227.6\n458.4"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        448.16644287109375,
+        462.6573486328125,
+        458.1290588378906
+      ],
+      "text": "neck for LLMs (Dettmers et al., 2022)."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        306.6929931640625,
+        468.23443603515625,
+        543.1820678710938,
+        717.4920043945312
+      ],
+      "text": "Quantization of LLMs.\nGPTQ (Frantar et al., 2022)\napplies quantization only to weights but not activations\n(please find a short discussion in Appendix A). Zero-\nQuant (Yao et al., 2022) and nuQmm (Park et al., 2022)\nuse a per-token and group-wise quantization scheme for\nLLMs, which requires customized CUDA kernels. Their\nlargest evaluated models are 20B and 2.7B, respectively\nand fail to maintain the performance of LLMs like OPT-\n175B. LLM.int8() (Dettmers et al., 2022) uses mixed\nINT8/FP16 decomposition to address the activation outliers.\nHowever, such implementation leads to large latency over-\nhead, which can be even slower than FP16 inference. Outlier\nSuppression (Wei et al., 2022) uses the non-scaling Layer-\nNorm and token-wise clipping to deal with the activation\noutliers. However, it only succeeds on small language mod-\nels such as BERT (Devlin et al., 2019) and BART (Lewis\net al., 2019) and fails to maintain the accuracy for LLMs (Ta-\nble 4). Our algorithm preserves the performance of LLMs\n(up to 176B, the largest open-source LLM we can find) with\nan efficient per-tensor, static quantization scheme without\nretraining, allowing us to use off-the-shelf INT8 GEMM to"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        189.65989685058594,
+        290.6833190917969,
+        235.71804809570312
+      ],
+      "text": "Figure 10: A suitable migration strength α (sweet spot)\nmakes both activations and weights easy to quantize. If the\nα is too large, weights will be hard to quantize; if too small,\nactivations will be hard to quantize."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        249.06947326660156,
+        188.34109497070312,
+        259.0320739746094
+      ],
+      "text": "achieve high hardware efficiency."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        276.01416015625,
+        130.5067138671875,
+        287.9693603515625
+      ],
+      "text": "7\nConclusion"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.97200012207031,
+        296.9322814941406,
+        291.1858215332031,
+        438.4770812988281
+      ],
+      "text": "We propose SmoothQuant, an accurate and efficient post-\ntraining quantization method to enable lossless 8-bit weight\nand activation quantization for LLMs up to 530B parameters.\nSmoothQuant enables the quantization for both weight and\nactivations for all GEMMs in the LLMs, which significantly\nreduces the inference latency and memory usage compared\nwith the mixed-precision activation quantization baseline.\nWe integrate SmoothQuant into PyTorch and FasterTrans-\nformer, getting up to 1.56× inference acceleration and halv-\ning the memory footprint. SmoothQuant democratizes the\napplication of LLMs by offering a turnkey solution to reduce\nthe serving cost."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        455.45916748046875,
+        154.2736358642578,
+        467.41436767578125
+      ],
+      "text": "Acknowledgements"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.97200012207031,
+        476.52459716796875,
+        291.09765625,
+        546.1910400390625
+      ],
+      "text": "We thank MIT-IBM Watson AI Lab, MIT AI Hardware Pro-\ngram, Amazon and MIT Science Hub, NVIDIA Academic\nPartnership Award, Qualcomm Innovation Fellowship, Mi-\ncrosoft Turing Academic Program, and NSF for supporting\nthis research. We thank Haotian Tang, Aohan Zeng, Eric\nLin and Jilei Hou for the helpful discussions."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        563.1731567382812,
+        110.98384094238281,
+        575.1283569335938
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        584.0912475585938,
+        290.6868896484375,
+        641.9500122070312
+      ],
+      "text": "Almazrouei, E., Alobeidli, H., Alshamsi, A., Cappelli, A.,\nCojocaru, R., Debbah, M., Étienne Goffinet, Hesslow,\nD., Launay, J., Malartic, Q., Mazzotta, D., Noune, B.,\nPannier, B., and Penedo, G. The falcon series of open\nlanguage models, 2023."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        651.73828125,
+        291.18487548828125,
+        697.6410522460938
+      ],
+      "text": "Bisk, Y., Zellers, R., Bras, R. L., Gao, J., and Choi, Y.\nPiqa: Reasoning about physical commonsense in natural\nlanguage. In Thirty-Fourth AAAI Conference on Artificial\nIntelligence, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        707.4302368164062,
+        291.09344482421875,
+        717.4920043945312
+      ],
+      "text": "Bondarenko, Y., Nagel, M., and Blankevoort, T. Under-"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.40301513671875,
+        69.54341888427734,
+        543.1871337890625,
+        151.16110229492188
+      ],
+      "text": "standing and overcoming the challenges of efficient trans-\nformer quantization. In Proceedings of the 2021 Con-\nference on Empirical Methods in Natural Language Pro-\ncessing, pp. 7947–7969, Online and Punta Cana, Domini-\ncan Republic, November 2021. Association for Compu-\ntational Linguistics. URL https://aclanthology.org/2021.\nemnlp-main.627."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        159.75559997558594,
+        543.17919921875,
+        313.1080627441406
+      ],
+      "text": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D.,\nDhariwal, P., Neelakantan, A., Shyam, P., Sastry, G.,\nAskell, A., Agarwal, S., Herbert-Voss, A., Krueger, G.,\nHenighan, T., Child, R., Ramesh, A., Ziegler, D., Wu,\nJ., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin,\nM., Gray, S., Chess, B., Clark, J., Berner, C., McCan-\ndlish, S., Radford, A., Sutskever, I., and Amodei, D.\nLanguage models are few-shot learners. In Larochelle,\nH., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H.\n(eds.), Advances in Neural Information Processing Sys-\ntems, volume 33, pp. 1877–1901. Curran Associates, Inc.,\n2020a. URL https://proceedings.neurips.cc/paper/2020/\nfile/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        321.70159912109375,
+        543.1849975585938,
+        379.4130859375
+      ],
+      "text": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D.,\nDhariwal, P., Neelakantan, A., Shyam, P., Sastry, G.,\nAskell, A., et al. Language models are few-shot learners.\nAdvances in neural information processing systems, 33:\n1877–1901, 2020b."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        387.938232421875,
+        542.6813354492188,
+        433.7630615234375
+      ],
+      "text": "Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra,\nG., Roberts, A., Barham, P., Chung, H. W., Sutton, C.,\nGehrmann, S., et al. Palm: Scaling language modeling\nwith pathways. arXiv preprint arXiv:2204.02311, 2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        442.20928955078125,
+        543.1849365234375,
+        476.1580810546875
+      ],
+      "text": "Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L.\nLlm.int8(): 8-bit matrix multiplication for transformers\nat scale. arXiv preprint arXiv:2208.07339, 2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        484.6042785644531,
+        543.0980224609375,
+        530.508056640625
+      ],
+      "text": "Devlin, J., Chang, M., Lee, K., and Toutanova, K. BERT:\npre-training of deep bidirectional transformers for lan-\nguage understanding. In NAACL-HLT 2019, pp. 4171–\n4186. Association for Computational Linguistics, 2019."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        538.9918212890625,
+        543.097900390625,
+        596.8130493164062
+      ],
+      "text": "Du, N., Huang, Y., Dai, A. M., Tong, S., Lepikhin, D., Xu,\nY., Krikun, M., Zhou, Y., Yu, A. W., Firat, O., et al. Glam:\nEfficient scaling of language models with mixture-of-\nexperts. In International Conference on Machine Learn-\ning, pp. 5547–5569. PMLR, 2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        605.410400390625,
+        543.094482421875,
+        651.1630249023438
+      ],
+      "text": "Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq:\nAccurate post-training quantization for generative pre-\ntrained transformers. arXiv preprint arXiv:2210.17323,\n2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        659.6092529296875,
+        542.6868896484375,
+        717.468017578125
+      ],
+      "text": "Gao, L., Biderman, S., Black, S., Golding, L., Hoppe, T.,\nFoster, C., Phang, J., He, H., Thite, A., Nabeshima, N.,\net al. The pile: An 800gb dataset of diverse text for\nlanguage modeling. arXiv preprint arXiv:2101.00027,\n2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        293.08502197265625,
+        732.4114379882812,
+        303.047607421875,
+        742.3740234375
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        69.54341888427734,
+        291.0979309082031,
+        103.34109497070312
+      ],
+      "text": "Han, S., Mao, H., and Dally, W. J. Deep Compression: Com-\npressing Deep Neural Networks with Pruning, Trained\nQuantization and Huffman Coding. In ICLR, 2016."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        115.38772583007812,
+        291.1880187988281,
+        161.16708374023438
+      ],
+      "text": "Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M.,\nSong, D., and Steinhardt, J. Measuring massive multitask\nlanguage understanding. CoRR, abs/2009.03300, 2020.\nURL https://arxiv.org/abs/2009.03300."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        173.23275756835938,
+        291.0977478027344,
+        242.90304565429688
+      ],
+      "text": "Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard,\nA., Adam, H., and Kalenichenko, D.\nQuantization\nand training of neural networks for efficient integer-\narithmetic-only inference. In Proceedings of the IEEE\nConference on Computer Vision and Pattern Recognition,\npp. 2704–2713, 2018."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        254.82626342773438,
+        291.09808349609375,
+        312.6850891113281
+      ],
+      "text": "Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C.,\nChaplot, D. S., de las Casas, D., Bressand, F., Lengyel,\nG., Lample, G., Saulnier, L., Lavaud, L. R., Lachaux, M.-\nA., Stock, P., Scao, T. L., Lavril, T., Wang, T., Lacroix,\nT., and Sayed, W. E. Mistral 7b, 2023."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        324.7584228515625,
+        290.6878967285156,
+        406.3760681152344
+      ],
+      "text": "Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary,\nB., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna,\nE. B., Bressand, F., Lengyel, G., Bour, G., Lample, G.,\nLavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P.,\nSubramanian, S., Yang, S., Antoniak, S., Scao, T. L.,\nGervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed,\nW. E. Mixtral of experts, 2024."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        418.2992858886719,
+        290.9356994628906,
+        464.20208740234375
+      ],
+      "text": "Kim, S., Gholami, A., Yao, Z., Mahoney, M. W., and\nKeutzer, K. I-bert: Integer-only bert quantization. In\nInternational conference on machine learning, pp. 5506–\n5518. PMLR, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        476.12530517578125,
+        291.17913818359375,
+        533.9840698242188
+      ],
+      "text": "Lewis, M., Liu, Y., Goyal, N., Ghazvininejad, M., Mo-\nhamed, A., Levy, O., Stoyanov, V., and Zettlemoyer, L.\nBart: Denoising sequence-to-sequence pre-training for\nnatural language generation, translation, and comprehen-\nsion. arXiv preprint arXiv:1910.13461, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        546.057373046875,
+        291.1270751953125,
+        579.84423828125
+      ],
+      "text": "Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet:\nTiny deep learning on iot devices. Advances in Neural\nInformation Processing Systems, 33:11711–11722, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        591.7772827148438,
+        291.0942687988281,
+        637.6810302734375
+      ],
+      "text": "Liu, Z., Wang, Y., Han, K., Zhang, W., Ma, S., and Gao,\nW. Post-training quantization for vision transformer. Ad-\nvances in Neural Information Processing Systems, 34:\n28092–28103, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        649.6455078125,
+        289.6075134277344,
+        671.5970458984375
+      ],
+      "text": "Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer\nsentinel mixture models, 2016."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        683.568115234375,
+        289.4443664550781,
+        717.468017578125
+      ],
+      "text": "Mihaylov, T., Clark, P., Khot, T., and Sabharwal, A. Can a\nsuit of armor conduct electricity? a new dataset for open\nbook question answering. In EMNLP, 2018."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        542.9348754882812,
+        127.25106811523438
+      ],
+      "text": "Nagel, M., Baalen, M. v., Blankevoort, T., and Welling,\nM. Data-free quantization through weight equalization\nand bias correction. In Proceedings of the IEEE/CVF\nInternational Conference on Computer Vision, pp. 1325–\n1334, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        141.67532348632812,
+        543.1881103515625,
+        247.35409545898438
+      ],
+      "text": "Paperno, D., Kruszewski, G., Lazaridou, A., Pham, N. Q.,\nBernardi, R., Pezzelle, S., Baroni, M., Boleda, G., and\nFernández, R. The LAMBADA dataset: Word prediction\nrequiring a broad discourse context. In Proceedings of\nthe 54th Annual Meeting of the Association for Compu-\ntational Linguistics (Volume 1: Long Papers), pp. 1525–\n1534, Berlin, Germany, August 2016. Association for\nComputational Linguistics. doi: 10.18653/v1/P16-1144.\nURL https://aclanthology.org/P16-1144."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        261.7782897949219,
+        542.6869506835938,
+        307.68206787109375
+      ],
+      "text": "Park, G., Park, B., Kwon, S. J., Kim, B., Lee, Y., and Lee,\nD. nuqmm: Quantized matmul for efficient inference of\nlarge-scale generative language models. arXiv preprint\narXiv:2206.09557, 2022."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        322.2269287109375,
+        542.6885986328125,
+        368.0090637207031
+      ],
+      "text": "Pope, R., Douglas, S., Chowdhery, A., Devlin, J., Bradbury,\nJ., Levskaya, A., Heek, J., Xiao, K., Agrawal, S., and\nDean, J. Efficiently scaling transformer inference. arXiv\npreprint arXiv:2211.05102, 2022."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        382.43328857421875,
+        542.6870727539062,
+        440.2920837402344
+      ],
+      "text": "Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann,\nJ., Song, F., Aslanides, J., Henderson, S., Ring, R.,\nYoung, S., et al. Scaling language models: Methods,\nanalysis & insights from training gopher. arXiv preprint\narXiv:2112.11446, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        454.7162780761719,
+        543.183349609375,
+        536.4850463867188
+      ],
+      "text": "Roemmele, M., Bejan, C. A., and Gordon, A. S. Choice\nof plausible alternatives: An evaluation of commonsense\ncausal reasoning. In Logical Formalizations of Common-\nsense Reasoning, Papers from the 2011 AAAI Spring Sym-\nposium, Technical Report SS-11-06, Stanford, California,\nUSA, March 21-23, 2011. AAAI, 2011. URL http://www.\naaai.org/ocs/index.php/SSS/SSS11/paper/view/2418."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        550.9092407226562,
+        543.1849365234375,
+        584.8570556640625
+      ],
+      "text": "Sakaguchi, K., Bras, R. L., Bhagavatula, C., and Choi, Y.\nWinogrande: An adversarial winograd schema challenge\nat scale. arXiv preprint arXiv:1907.10641, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        599.3333740234375,
+        543.1853637695312,
+        645.1669921875
+      ],
+      "text": "Scao, T. L., Fan, A., Akiki, C., Pavlick, E., Ili´c, S., Hesslow,\nD., Castagné, R., Luccioni, A. S., Yvon, F., Gallé, M.,\net al. Bloom: A 176b-parameter open-access multilingual\nlanguage model. arXiv preprint arXiv:2211.05100, 2022."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        659.6092529296875,
+        543.0958251953125,
+        717.468017578125
+      ],
+      "text": "Shen, S., Dong, Z., Ye, J., Ma, L., Yao, Z., Gholami, A.,\nMahoney, M. W., and Keutzer, K. Q-bert: Hessian based\nultra low precision quantization of bert. In Proceedings\nof the AAAI Conference on Artificial Intelligence, vol-\nume 34, pp. 8815–8821, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        293.08502197265625,
+        732.4114379882812,
+        303.047607421875,
+        742.3740234375
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        291.0977478027344,
+        127.25106811523438
+      ],
+      "text": "Shoeybi, M., Patwary, M., Puri, R., LeGresley, P., Casper,\nJ., and Catanzaro, B.\nMegatron-lm: Training multi-\nbillion parameter language models using model par-\nallelism.\nCoRR, abs/1909.08053, 2019.\nURL http:\n//arxiv.org/abs/1909.08053."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.44000244140625,
+        135.77247619628906,
+        291.1854553222656,
+        193.53793334960938
+      ],
+      "text": "Smith, S., Patwary, M., Norick, B., LeGresley, P., Rajbhan-\ndari, S., Casper, J., Liu, Z., Prabhumoye, S., Zerveas, G.,\nKorthikanti, V., et al. Using deepspeed and megatron to\ntrain megatron-turing nlg 530b, a large-scale generative\nlanguage model. arXiv preprint arXiv:2201.11990, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        202.07089233398438,
+        291.0948181152344,
+        247.90609741210938
+      ],
+      "text": "Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux,\nM.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E.,\nAzhar, F., et al. Llama: Open and efficient foundation lan-\nguage models. arXiv preprint arXiv:2302.13971, 2023a."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        256.3522644042969,
+        290.68890380859375,
+        445.71807861328125
+      ],
+      "text": "Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi,\nA., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P.,\nBhosale, S., Bikel, D., Blecher, L., Ferrer, C. C., Chen,\nM., Cucurull, G., Esiobu, D., Fernandes, J., Fu, J., Fu, W.,\nFuller, B., Gao, C., Goswami, V., Goyal, N., Hartshorn,\nA., Hosseini, S., Hou, R., Inan, H., Kardas, M., Kerkez,\nV., Khabsa, M., Kloumann, I., Korenev, A., Koura, P. S.,\nLachaux, M.-A., Lavril, T., Lee, J., Liskovich, D., Lu, Y.,\nMao, Y., Martinet, X., Mihaylov, T., Mishra, P., Molybog,\nI., Nie, Y., Poulton, A., Reizenstein, J., Rungta, R., Saladi,\nK., Schelten, A., Silva, R., Smith, E. M., Subramanian, R.,\nTan, X. E., Tang, B., Taylor, R., Williams, A., Kuan, J. X.,\nXu, P., Yan, Z., Zarov, I., Zhang, Y., Fan, A., Kambadur,\nM., Narang, S., Rodriguez, A., Stojnic, R., Edunov, S.,\nand Scialom, T. Llama 2: Open foundation and fine-tuned\nchat models, 2023b."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        454.1717834472656,
+        291.0977783203125,
+        500.0680847167969
+      ],
+      "text": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,\nL., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. At-\ntention is all you need. Advances in neural information\nprocessing systems, 30, 2017."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        508.5143127441406,
+        291.1791687011719,
+        566.373046875
+      ],
+      "text": "Wang, A., Singh, A., Michael, J., Hill, F., Levy, O., and\nBowman, S. R. GLUE: A multi-task benchmark and anal-\nysis platform for natural language understanding. CoRR,\nabs/1804.07461, 2018. URL http://arxiv.org/abs/1804.\n07461."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        574.8192749023438,
+        289.9300231933594,
+        620.7230224609375
+      ],
+      "text": "Wang, H., Zhang, Z., and Han, S.\nSpatten: Efficient\nsparse attention architecture with cascade token and\nhead pruning.\nCoRR, abs/2012.09852, 2020.\nURL\nhttps://arxiv.org/abs/2012.09852."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        629.1692504882812,
+        290.8291931152344,
+        663.1180419921875
+      ],
+      "text": "Wang, K., Liu, Z., Lin, Y., Lin, J., and Han, S. HAQ:\nHardware-Aware Automated Quantization with Mixed\nPrecision. In CVPR, 2019."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        671.6697387695312,
+        290.6826171875,
+        717.468017578125
+      ],
+      "text": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang,\nQ., Yu, F., and Liu, X. Outlier suppression: Pushing the\nlimit of low-bit transformer language models, 2022. URL\nhttps://arxiv.org/abs/2209.13325."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        543.0964965820312,
+        163.11709594726562
+      ],
+      "text": "Williams, A., Nangia, N., and Bowman, S.\nA broad-\ncoverage challenge corpus for sentence understanding\nthrough inference. In Proceedings of the 2018 Confer-\nence of the North American Chapter of the Association\nfor Computational Linguistics: Human Language Tech-\nnologies, Volume 1 (Long Papers), pp. 1112–1122. As-\nsociation for Computational Linguistics, 2018.\nURL\nhttp://aclweb.org/anthology/N18-1101."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        173.0230255126953,
+        541.9292602539062,
+        218.90707397460938
+      ],
+      "text": "Yao, Z., Aminabadi, R. Y., Zhang, M., Wu, X., Li, C., and\nHe, Y. Zeroquant: Efficient and affordable post-training\nquantization for large-scale transformers, 2022. URL\nhttps://arxiv.org/abs/2206.01861."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        228.82530212402344,
+        543.096923828125,
+        286.653076171875
+      ],
+      "text": "Yu, G.-I., Jeong, J. S., Kim, G.-W., Kim, S., and Chun, B.-\nG. Orca: A distributed serving system for {Transformer-\nBased} generative models. In 16th USENIX Symposium\non Operating Systems Design and Implementation (OSDI\n22), pp. 521–538, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        296.5412902832031,
+        542.68701171875,
+        342.4440612792969
+      ],
+      "text": "Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., and Choi,\nY. Hellaswag: Can a machine really finish your sentence?\nCoRR, abs/1905.07830, 2019. URL http://arxiv.org/abs/\n1905.07830."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        352.331298828125,
+        542.8246459960938,
+        398.2350769042969
+      ],
+      "text": "Zeng, A., Liu, X., Du, Z., Wang, Z., Lai, H., Ding, M.,\nYang, Z., Xu, Y., Zheng, W., Xia, X., et al. Glm-130b:\nAn open bilingual pre-trained model.\narXiv preprint\narXiv:2210.02414, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        408.1222839355469,
+        543.0978393554688,
+        477.9360656738281
+      ],
+      "text": "Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M.,\nChen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., Mi-\nhaylov, T., Ott, M., Shleifer, S., Shuster, K., Simig, D.,\nKoura, P. S., Sridhar, A., Wang, T., and Zettlemoyer,\nL. Opt: Open pre-trained transformer language models,\n2022. URL https://arxiv.org/abs/2205.01068."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        487.82330322265625,
+        543.1802368164062,
+        533.7186279296875
+      ],
+      "text": "Zhao, R., Hu, Y., Dotzel, J., De Sa, C., and Zhang, Z. Im-\nproving neural network quantization without retraining\nusing outlier channel splitting. In International confer-\nence on machine learning, pp. 7543–7552. PMLR, 2019."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        293.0849914550781,
+        732.4114379882812,
+        303.0475769042969,
+        742.3740234375
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        117.55400085449219,
+        47.22712326049805,
+        479.330322265625,
+        56.19352340698242
+      ],
+      "text": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        67.84716033935547,
+        284.16693115234375,
+        79.80236053466797
+      ],
+      "text": "A\nDiscussion on Weight-Only Quantization"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        88.76528930664062,
+        289.6097717285156,
+        182.49008178710938
+      ],
+      "text": "In this work, we study W8A8 quantization so that we can\nutilize INT8 GEMM kernels to increase the throughput and\naccelerate inference. There is another line of work that\nonly quantizes the weight of LLMs (e.g., GPTQ (Frantar\net al., 2022)). It converts the quantized weights to FP16\non the fly for matmul during inference and can also lead to\nspeed up due to the reduced data loading, especially for the\ngeneration stage with batch size 1."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.97200012207031,
+        190.38430786132812,
+        289.4393615722656,
+        260.1980895996094
+      ],
+      "text": "We mainly compare our method with existing work on\nweight-activation quantization (i.e., W8A8) like (Dettmers\net al., 2022; Yao et al., 2022; Wei et al., 2022) since they are\nunder the same setting. Here we would like to give a short\ndiscussion about the weight-only quantization methods in\nLLM settings:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        62.9119987487793,
+        279.4972839355469,
+        291.1838073730469,
+        421.0420837402344
+      ],
+      "text": "1. Firstly, we were trying to compare our method with\nGPTQ (Frantar et al., 2022) but found it difficult due to\ndifferent implementations. GPTQ’s low-bit kenerl **\nonly supports the generation stage with batch size 1\n(i.e., only processing a single token at a time), and can-\nnot support the context stage (widely used in different\ndownstream tasks and chatbot) or batch-based setting.\nFurthermore, its low-bit kernel optimization only tar-\ngets the OPT-175B model (as stated in the README).\nAt the same time, our work utilizes FasterTransformer\nfor serving large models, which may lead to an unfair\nadvantage if we make a direct comparison."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        62.91199493408203,
+        437.8724670410156,
+        291.0916748046875,
+        579.342041015625
+      ],
+      "text": "2. GPTQ may perform better at handling a small number\nof input tokens (1 in its experiments) since the process\nis highly memory-bounded. In contrast, SmoothQuant\nmay serve better with a batching setting or for the con-\ntext stage (i.e., when the number of processed tokens\nis more significant). Nonetheless, some work shows\nthat in production, we can improve the throughput of\nserving GPT models by 37× at similar latency with\nadvanced batching (Yu et al., 2022). We believe in\nproduction, batching will be the future standard, and\nSmoothQuant will bring further improvement, even for\nthe generation stage."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        62.91199493408203,
+        596.0972900390625,
+        291.1834411621094,
+        701.7770385742188
+      ],
+      "text": "3. Applications like chatbots need to handle a long con-\ntext length and potentially run under a batch setting.\nDue to the two factors, the memory size of the KV\ncache can no longer be ignored (as shown in (Pope\net al., 2022), the KV cache totals 3TB given batch size\n512 and context length 2048, which is 3× larger than\nthe model weights). In this case, quantization of activa-\ntion can also help reduce the memory cost from storing\nthe KV cache."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        65.10399627685547,
+        708.0396728515625,
+        205.28695678710938,
+        717.2273559570312
+      ],
+      "text": "**https://github.com/IST-DASLab/gptq"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        314.9119873046875,
+        69.46742248535156,
+        543.096923828125,
+        151.16110229492188
+      ],
+      "text": "4. Finally, we think the two settings are somewhat orthog-\nonal. We believe we can integrate GPTQ’s method for\na better weight quantization and potentially achieve\nW4A4 quantization, which will lead to even better\nhardware efficiency (INT4 instructions are supported\non NVIDIA’s Hopper GPU architecture). We leave this\nexploration to future work."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        293.0849914550781,
+        732.4114990234375,
+        303.0475769042969,
+        742.3740844726562
+      ],
+      "text": "13"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 1,
+      "bbox": [
+        319.1409912109375,
+        205.25814819335938,
+        529.7289428710938,
+        328.6990051269531
+      ],
+      "xref": 9,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p1_blk1_crop.png"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        181.89126586914062,
+        75.65093231201172,
+        279.0197448730469,
+        152.04017639160156
+      ],
+      "xref": 12,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p2_blk1_crop.png"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        83.64089965820312,
+        160.8629913330078,
+        180.08700561523438,
+        272.5194091796875
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p2_blk2_crop.png"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        81.20571899414062,
+        77.83428192138672,
+        178.33419799804688,
+        120.91116333007812
+      ],
+      "xref": 16,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p2_blk3_crop.png"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        181.93881225585938,
+        160.8629913330078,
+        278.3849182128906,
+        272.5194091796875
+      ],
+      "xref": 18,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p2_blk4_crop.png"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        91.0,
+        100.0,
+        98.0,
+        107.0
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p3_blk1_crop.png"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        216.0,
+        80.0,
+        222.0,
+        87.0
+      ],
+      "xref": 16,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p3_blk2_crop.png"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        91.0,
+        159.0,
+        98.0,
+        208.0
+      ],
+      "xref": 22,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p3_blk3_crop.png"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        182.0,
+        159.0,
+        257.0,
+        166.0
+      ],
+      "xref": 30,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p3_blk4_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        67.59100341796875,
+        67.05900573730469,
+        529.28857421875,
+        206.5830078125
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p4_blk1_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        313.2909851074219,
+        286.2856140136719,
+        535.585205078125,
+        364.4020080566406
+      ],
+      "xref": 7,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p4_blk2_crop.png"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        67.14099884033203,
+        67.05926513671875,
+        277.74444580078125,
+        206.13702392578125
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p5_blk1_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        315.6310119628906,
+        262.030029296875,
+        533.2371215820312,
+        391.72900390625
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p6_blk1_crop.png"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        67.06090545654297,
+        289.44256591796875,
+        179.114990234375
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2211.10438/images/2211.10438_p10_blk1_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 3,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p1_table1_lattice.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 87,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 16,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 26,
+      "ncols": 10,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p3_table2_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 62,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p3_table3_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 58,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 15,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 69,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p5_table2_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p6_table1_lattice.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 43,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 27,
+      "ncols": 21,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 46,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p8_table2_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 22,
+      "ncols": 18,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 14,
+      "ncols": 10,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p9_table2_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 24,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p9_table3_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 4,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p9_table4_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 4,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p10_table1_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 80,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 73,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 22,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p13_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 36,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.10438/2211.10438_p13_table2_stream.csv"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+"solve the optimization problem.","",""
+"Algorithm 4 A greedy type algorithm.","",""
+"","",""
+"","1: procedure OURITERATIVEMETHOD(A
+d, b
+Rn, w
+×","Rn, ϵ, δ)"
+"","∈
+∈
+∈",""
+"2:","Initialize x0",""
+"3:","T
+log(","▷ Let T denote the number of iterations."
+"","←
+∥
+x0 −
+∥2/ϵ)",""
+"4:","for t = 0
+T do",""
+"","→",""
+"5:","D
+w)
+Bdiag(xt) + diag(w",""
+"","←
+◦",""
+"6:","D
+SUBSAMPLE(D, A, ϵ1 = Θ(1), δ1 = δ/T )",""
+"","←",""
+"7:","Compute gradient g exactly",""
+"8:","Get the approximate Hessian (cid:101)H by computing A⊤ (cid:101)DA",""
+"9:","1g
+Update xt+1 by using the Newton step xt + (cid:101)H −",""
+"10:","end for",""
+"11:","x
+xT +1",""
+"","(cid:101)",""
+"","←",""
+"","",""
+"12:","return (cid:101)x",""
+"13:","end procedure",""

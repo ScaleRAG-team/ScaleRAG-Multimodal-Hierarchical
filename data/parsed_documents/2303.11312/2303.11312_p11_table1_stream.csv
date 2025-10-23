@@ -1,0 +1,131 @@
+"Michael J Mahoney
+11"
+"entire study area:"
+""
+"(cid:16)P N"
+"(xi − ¯x)
+j=1wij (xj − ¯x)"
+"(18)
+Ii ="
+"m2"
+"P n"
+"i=1 (xi − ¯x)2"
+"(Bivand and Wong 2018).
+Where m2 ="
+"n"
+"A less frequently used alternative to I is Geary’s c (Geary 1954), deﬁned as:"
+"P n
+P n"
+"n − 1
+i=1
+j=1wij (xi − xj)2"
+"c =
+(19)"
+"P n"
+""
+"2W
+i=1 (xi − ¯x)2"
+"As with Moran’s I, c stated this way provides a single index of spatial autocorrelation across"
+"the entire study area. Values of c are greater than or equal to 0, with low values relative to"
+"the expected value of 1 reﬂecting positive autocorrelation. Anselin (1995) extended c in a"
+"similar manner to I, providing a method to estimate local c values for each observation in a"
+"data set, with further elaboration provided in Anselin (2018):"
+"ci = X n"
+"(20)
+j=1wij (xi − xj)2"
+"A ﬁnal metric of
+(Getis
+local spatial autocorrelation provided in waywiser is Getis-Ord’s Gi"
+"and Ord 1992; Ord and Getis 1995). As with the other spatial autocorrelation metrics pro-"
+"in waywiser is a thin wrapper over a function from spdep,
+vided, the function implementing Gi"
+"which calculates Gi as a standard deviate (Bivand and Wong 2018; Getis and Ord 1996):"
+""
+"hPn
+hPn"
+""
+"j=1 wijxj
+j=1 wij ¯xi"
+", i 6= j
+(21)
+Z(Gi) ="
+"1/2"
+"(cid:17)2"
+"(cid:16)Pn
+(cid:16)Pn"
+" 
+ 
+(n−1)
+w2
+−
+wij"
+"ij
+j=1
+j=1"
+"si"
+"n−1"
+""
+"(cid:17)
+(cid:17)
+(cid:17)
+(cid:16)Pn
+r(cid:16)(cid:16)Pn"
+"− [¯xi]2, i"
+"/ (n − 1) , i
+6= j. An
+/ (n − 1)
+Where si =
+6= j and ¯xi =
+j=1 xj
+j=1 x2"
+"extension of this metric, G∗
+removes the requirement that i 6= j by including i as a neighbor"
+"i"
+"of
+itself, resulting in the formula (Bivand and Wong 2018; Getis and Ord 1996):"
+""
+""
+"−
+x∗i"
+"j=1 wijxj
+j=1 wij"
+"Z(G∗"
+"(22)
+i ) =
+1/2"
+""
+"(cid:16)Pn
+(cid:16)Pn"
+" 
+ 
+(n−1)
+w2
+−
+wij"
+"ij
+j=1
+j=1"
+"s∗"
+"n−1"
+""
+"(cid:17)
+(cid:17)
+(cid:17)
+(cid:16)Pn
+r(cid:16)(cid:16)Pn"
+"− ¯x∗2 and ¯x∗ =
+Where s∗ =
+In practice, both Gi and G∗"
+"/n
+/n.
+j=1 xj
+j=1 x2"
+"generally provide similar information (Getis and Ord 1992)."
+"Much as with the model agreement metrics, spatial autocorrelation metrics are implemented"
+"in waywiser using the infrastructure provided by yardstick (Kuhn et al. 2023), with functions"
+"As before,
+these
+functions
+and
+preﬁxed with ww_ for autocompletion.
+take data, truth,"

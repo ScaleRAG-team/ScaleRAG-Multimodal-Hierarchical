@@ -1,0 +1,76 @@
+"Published as a conference paper at ICLR 2024"
+"Given a set of N text segments, each represented as a d-dimensional dense vector embedding,
+the"
+"likelihood of a text vector, x, given its membership in the kth Gaussian distribution,
+is denoted by"
+"P (x|k) = N (x; µk, Σk). The overall probability distribution is a weighted combination P (x) ="
+"(cid:80)K"
+"k=1 πkN (x; µk, Σk), where πk signifies the mixture weight for the kth Gaussian distribution."
+"The high dimensionality of vector embeddings presents a challenge for traditional GMMs, as dis-"
+"tance metrics may behave poorly when used to measure similarity in high-dimensional spaces (Ag-"
+"garwal et al., 2001). To mitigate this, we employ Uniform Manifold Approximation and Projection"
+"(UMAP), a manifold learning technique for dimensionality reduction (McInnes et al., 2018). The"
+"number of nearest neighbors parameter, n neighbors,
+in UMAP determines the balance between"
+"the preservation of local and global structures. Our algorithm varies n neighbors to create a hierar-"
+"chical clustering structure:
+it first identifies global clusters and then performs local clustering within"
+"these global clusters. This two-step clustering process captures a broad spectrum of relationships"
+"among the text data, from broad themes to specific details."
+"Should a local cluster’s combined context ever exceed the summarization model’s token threshold,"
+"our algorithm recursively applies clustering within the cluster, ensuring that
+the context
+remains"
+"within the token threshold."
+"To determine the optimal number of clusters, we employ the Bayesian Information Criterion (BIC)"
+"for model selection. BIC not only penalizes model complexity but also rewards goodness of fit"
+"(Schwarz, 1978). The BIC for a given GMM is BIC = ln(N )k − 2 ln( ˆL), where N is the number"
+"of
+text segments (or data points), k is the number of model parameters, and ˆL is the maximized"
+"value of the likelihood function of the model.
+In the context of GMM, the number of parameters k"
+"is a function of the dimensionality of the input vectors and the number of clusters."
+"With the optimal number of clusters determined by BIC,
+the Expectation-Maximization algorithm"
+"is then used to estimate the GMM parameters, namely the means, covariances, and mixture weights."
+"While the Gaussian assumption in GMMs may not perfectly align with the nature of text data, which"
+"often exhibits a sparse and skewed distribution, our empirical observations suggest
+that
+it offers an"
+"effective model for our purpose. We run an ablation comparing GMM Clustering with summarizing"
+"contiguous chunks and provide details in Appendix B."
+"Model-Based Summarization
+After clustering the nodes using Gaussian Mixture Models,
+the"
+"nodes in each cluster are sent
+to a language model for summarization. This step allows the model"
+"to transform large chunks of text
+into concise, coherent summaries of the selected nodes. For our"
+"experiments, we use gpt-3.5-turbo to generate the summaries. The summarization step con-"
+"denses the potentially large volume of
+retrieved information into a manageable size. We provide"
+"statistics on the compression due to the summarization in Appendix C and the prompt used for"
+"summarization in Appendix D."
+"While the summarization model generally produces reliable summaries, a focused annotation study"
+"revealed that about 4% of the summaries contained minor hallucinations. These did not propagate"
+"to parent nodes and had no discernible impact on question-answering tasks. For an in-depth analysis"
+"of hallucinations, refer to the appendix E."
+"Querying
+In this section, we elaborate on the two querying mechanisms employed by RAPTOR:"
+"tree traversal and collapsed tree. These methods offer unique ways of traversing the multi-layered"
+"RAPTOR tree to retrieve relevant
+information, each with its own advantages and trade-offs. We"
+"provide the pseudocode of both methods in Appendix F. Note that we embed all nodes using SBERT."
+"The tree traversal method first selects the top-k most
+relevant
+root nodes based on their cosine"
+"similarity to the query embedding. The children of these selected nodes are considered at
+the next"
+"layer and the top-k nodes are selected from this pool again based on their cosine similarity to the"
+"query vector. This process is repeated until we reach the leaf nodes. Finally, the text from all selected"
+"nodes is concatenated to form the retrieved context. The algorithm’s steps are outlined below:"
+"1. Start at
+the root
+layer of
+the RAPTOR tree. Compute the cosine similarity between the"
+"query embedding and the embeddings of all nodes present at this initial layer."

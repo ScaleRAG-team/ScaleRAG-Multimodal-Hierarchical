@@ -1,0 +1,26 @@
+"we input
+the FastGen generation and the generation from the same model with Full KV Cache as"
+"a pair, and ask GPT4 to judge which one is better.We then calculate the win rate of FastGen over"
+"Full Cache. Hypothetically,
+the win rate of a lossless method should be around 50%. Aside from"
+"full-cache models, we also include non-adaptive KV cache methods for comparison. Specifically,"
+""
+"to all attention head without any adaptation, as
+we apply Clocal, Cfrequent, and Clocal+frequent"
+"baselines. It is worth mentioning that Clocal+frequent is a very strong baseline as it is identical to the"
+"H2O method (Zhang et al., 2023) and the Scissorhands method (Liu et al., 2023a). We set rl = 0.3,"
+"the pruned KV cache ratio.
+rf = 0.3 in FastGen, and only change the recovery ratio T to control"
+"For generation, we use nucleus sampling (Holtzman et al., 2019) with temperature T = 0.6, p = 0.9."
+"Experiments are conducted on 8 NVIDIA A100 80GB GPUs."
+"Main Results.
+In Figure 2 and Figure 5, we present the model quality as a function of KV cache"
+"budget increasing from 30% to 100%. For 30B models, FastGen (50% cache compressed) surpasses"
+"all non-adaptive KV compression methods (15% cache compressed)
+. Also, we can see FastGen"
+"achieves more KV cache reduction ratio as the model size increases, while preserving the same"
+"model quality. For example, achieving a 45% win rate, FastGen can get as much as 44.9% pruned"
+"ratio on Llama 1-65B, compared to 16.9% pruned ratio on Llama 1-7B.
+In all settings, FastGen"
+"shows consistent and significant improvement over non-adaptive compression methods. The results"
+"validate the effectiveness of adaptive KV cache compression using FastGen, despite its simplicity."

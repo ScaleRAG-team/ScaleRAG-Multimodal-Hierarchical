@@ -1,0 +1,101 @@
+"critical
+to estimate the MVM accuracy over
+time.
+In analog ReRAM devices, a sig-"
+"nificant
+conductance
+relaxation has been observed immediately after programming"
+"(within 1 second) [9]. Following this initial abrupt conductance change, the relaxation"
+"process
+slows
+considerably [9,
+37]. The physical
+cause
+of
+retention degradation is"
+"attributed to the Brownian motion of defects
+in the
+resistive
+switching layer
+[37]."
+"In this
+section,
+the
+conductance
+relaxation of
+the CMO/HfOx ReRAM array after"
+"programming is characterized. Fig. 4a shows the relaxation of the distributions pre-"
+"viously reported in Fig. 3a, approximately 10 minutes after programming. The 35"
+"levels remain distinguishable 10 minutes after programming, with an average overlap"
+"of 9.6% between adjacent
+states gaussians, while the average standard deviation of"
+"the distributions increases to 0.6 µS, showing almost independence from the G target"
+"(see Fig. 4b)."
+"The stability of the CMO/HfOx ReRAM conductance states is further assessed on a"
+"longer time-scale, up to 1 hour. To achieve so, a linearly spaced G target vector within"
+"the experimental conductance range of 10 µS to 90 µS is defined, with a fine step of"
+"0.2 µS (400 points). Each G target value is programmed into a single ReRAM device"
+"within the array. Due to the size mismatch between the array (32 devices) and the"
+"G target vector (size 400), multiple measurement batches are needed. Fig. 4c shows the"
+"experimental relaxation of the 400 programmed states within the entire conductance"
+"window,
+1
+second and 1 hour
+after programming,
+executed with the
+closed-loop"
+"scheme (see ”Methods” section ”Identical-pulse closed-loop scheme” for details) and"
+"induced by
+with a 0.2% G target acceptance range. The exhibited conductance error"
+"is plotted as a function
+the relaxation process after 1 hour, computed as G1h − Gprog.,"
+"of
+the programmed conductances
+in Fig. 4d. After 1 hour, although both positive"
+"and negative
+relaxation errors are
+recorded, an average decrease
+in conductance
+is"
+"observed across
+all programmed states, with a
+relaxation error
+averaging
+around"
+"-0.7 µS. This highlights
+that
+the relaxation process
+in CMO/HfOx ReRAM devices"
+"leads, on average, to a decrease in the mean and an increase in the standard deviation"
+"of
+the Gaussian distributions
+regardless of
+the
+initial
+conductance
+state. Since
+the"
+"absolute magnitudes of
+the mean decrease and the standard deviation increase are"
+"independent of G target, an extended characterization of the relaxation process up to"
+"1 week is conducted for a representative conductance state (50 µS). To achieve this,"
+"identical-pulse
+the array’s CMO/HfOx ReRAM devices are programmed using the"
+"closed-loop scheme to G target of 50 µS, with a 0.2% G target acceptance range. Fig."
+"4e illustrates
+the experimental array relaxation over 1 week. The insets display the"
+"evolution of both the mean and standard deviation as a function of the logarithm of"
+"time after programming (in seconds), using a linear fit
+to predict
+the conductance"
+"distribution over a 10-year period."
+"To assess the accuracy of analog MVM, a comprehensive set of non-idealities—both"
+"intrinsic to CMO/HfOx ReRAM devices and at the architecture level—is considered,"
+"including finite programming
+acceptance
+range,
+con-
+resolution with 0.2% G target"
+"ductance relaxation,
+limited ADC and DAC quantization, and IR-drop across array"
+"wires. Fig. 4f shows the hardware-aware simulation results of the analog MVM using"

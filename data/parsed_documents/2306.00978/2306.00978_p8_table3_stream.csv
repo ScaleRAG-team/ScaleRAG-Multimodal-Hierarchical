@@ -1,0 +1,69 @@
+"2019); POPE (Li et al., 2023d); MME (Fu et al., 2023); MMB: MMBench (Liu et al., 2023b); MMBCN: MMBench-Chinese (Liu et al.,",""
+"2023b); SEED: SEED-Bench (Li et al., 2023a); LLaVAW: LLaVA-Bench (In-the-Wild) (Liu et al., 2023a); MM-Vet (Yu et al., 2023).",""
+"et al., 2023b)) due to their superior performance compared","MBPP (7B) pass@1 pass@10
+GSM8K 7B
+13B
+70B"
+"to other open-source LLMs (Zhang et al., 2022; Scao et al.,",""
+"","FP16
+38.53
+49.77
+FP16
+13.87 26.16 56.41"
+"2022); it is also the foundation of many popular open-source",""
+"","RTN
+37.51
+48.49
+RTN
+11.07 21.23 53.98"
+"models (Taori et al., 2023; Chiang et al., 2023). We evalu-",""
+"","GPTQ
+31.97
+44.75
+GPTQ
+12.13 24.26 56.03"
+"ate the perplexity before and after quantization in Table 4.",""
+"","40.64
+49.25
+13.57 25.25 56.40
+AWQ
+AWQ"
+"AWQ consistently outperforms round-to-nearest (RTN) and",""
+"GPTQ (Frantar et al., 2022) (w/ and w/o reordering) across",""
+"","Table 8.
+INT4-g128 quantization results of CodeLlama-7b-"
+"different model scales (7B-70B) and generations.","Instruct-hf on MBPP dataset
+and Llama-2 (7B/13B/70B) on"
+"","GSM8K dataset. AWQ outperforms existing methods on program-"
+"Results on Mistral
+/ Mixtral models.
+We also evalu-","ming and math datasets, demonstrating the generability to different"
+"ated AWQ on the Mistral and Mixtral models, which are","scenarios and evaluation settings. Notably, AWQ under the INT4-"
+"","g128 configuration demonstrates comparable performance to the"
+"among the most popular open-source LLMs and Mixture-",""
+"","original FP16 model across both datasets."
+"of-Experts (MoE) models, respectively (Jiang et al., 2023;",""
+"2024). The results indicate that AWQ achieves superior",""
+"performance on both the Mistral and Mixtral models. This",""
+"demonstrates that AWQ is effective across various model","effect (we found GPT-4 tends to increase the rating of the"
+"architectures.","first
+input),
+leading to 160 trials. AWQ consistently im-"
+"","proves the INT3-g128 quantized Vicuna models over RTN"
+"Quantization of instruction-tuned models.
+Instruction",""
+"","and GPTQ under both scales (7B and 13B), demonstrating"
+"tuning can significantly improve the models’ performance",""
+"","the generability to instruction-tuned models."
+"and usability (Wei et al., 2021; Sanh et al., 2021; Ouyang",""
+"et al., 2022; Chung et al., 2022). It has become an essential","Quantization of multi-modal language models.
+Large"
+"procedure before model deployment. We further benchmark","multi-modal models (LMMs) or visual
+language models"
+"our method’s performance on a popular instruction-tuned","(VLMs) are LLMs augmented with vision inputs (Alayrac"
+"model Vicuna (Chiang et al., 2023) in Figure 5. We used the","et al., 2022; Li et al., 2023b; Koh et al., 2023; Driess et al.,"
+"GPT-4 score to evaluate the quantized models’ performance","2023; Zhang et al., 2023; Liu et al., 2023a). Such models are"
+"against the FP16 counterpart on 80 sample questions (Chi-","able to perform text generation conditioned on image/video"
+"ang et al., 2023). We compare the responses with both orders","inputs. Since our method does not have the overfitting issue"
+"(quantized-FP16, FP16-quantized) to get rid of the ordering","to the calibration set,
+it can be directly applied to VLMs"

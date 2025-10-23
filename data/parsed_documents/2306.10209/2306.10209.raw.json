@@ -1,0 +1,4911 @@
+{
+  "title": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training",
+  "authors": [],
+  "source_path": "../data/pdf/2306.10209.pdf",
+  "page_count": 12,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "counts": {
+    "texts": 434,
+    "pictures": 22,
+    "tables": 22
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 52,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 2,
+      "text_blocks": 5,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 23,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 4,
+      "text_blocks": 18,
+      "layout_blocks": 2,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 10,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 65,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 63,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 46,
+      "layout_blocks": 18,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 18,
+      "tables_found": 2
+    },
+    {
+      "page": 9,
+      "text_blocks": 69,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 5
+    },
+    {
+      "page": 10,
+      "text_blocks": 56,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 11,
+      "text_blocks": 23,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 4,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        53.9119987487793,
+        82.87884521484375,
+        558.0911865234375,
+        119.90949249267578
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant\nModel Training"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        94.33601379394531,
+        129.80381774902344,
+        518.6619873046875,
+        179.73004150390625
+      ],
+      "text": "Guanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari\nOlatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He\nMicrosoft\n{ guanhuawang, heyangqin, samjacobs, connorholmes, samyamr, olruwase, yuxhe } @microsoft.com"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79802322387695,
+        188.98858642578125,
+        111.94351959228516,
+        199.89768981933594
+      ],
+      "text": "ABSTRACT"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79800033569336,
+        203.75588989257812,
+        295.5589599609375,
+        377.10626220703125
+      ],
+      "text": "Zero Redundancy Optimizer (ZeRO) has been used to train a wide\nrange of large language models on massive GPUs clusters due to its\nease of use, efficiency, and good scalability. However, when training\non low-bandwidth clusters, or at scale which forces batch size per\nGPU to be small, ZeRO’s effective throughput is limited because of\nhigh communication volume from gathering weights in forward\npass, backward pass, and averaging gradients. This paper introduces\nthree communication volume reduction techniques, which we col-\nlectively refer to as ZeRO++, targeting each of the communication\ncollectives in ZeRO. First is block-quantization based all-gather.\nSecond is data remapping that trades-off communication for more\nmemory. Third is a novel all-to-all based quantized gradient aver-\naging paradigm as replacement of reduce-scatter collective, which\npreserves accuracy despite communicating low precision data. Col-\nlectively, ZeRO++ reduces communication volume of ZeRO by 4x,\nenabling up to 2.16x better throughput at 384 GPU scale."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79800033569336,
+        388.70654296875,
+        115.66350555419922,
+        399.6156311035156
+      ],
+      "text": "KEYWORDS"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79800033569336,
+        403.473876953125,
+        294.04534912109375,
+        412.4402770996094
+      ],
+      "text": "Large model training, High performance computing, Deep learning"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.50299835205078,
+        419.31915283203125,
+        295.27288818359375,
+        476.7490234375
+      ],
+      "text": "ACM Reference Format:\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam\nRajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He. 2023.\nZeRO++: Extremely Efficient Collective Communication for Giant Model\nTraining. In Proceedings of ABC. ACM, New York, NY, USA, 12 pages. https:\n//doi.org/10.1145/nnnnnnn.nnnnnnn"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79800033569336,
+        489.3265686035156,
+        218.21995544433594,
+        500.23565673828125
+      ],
+      "text": "1\nEXTENDED INTRODUCTION"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.79800033569336,
+        504.0938720703125,
+        295.5647277832031,
+        600.7322387695312
+      ],
+      "text": "Deep learning (DL) models have been applied successfully in many\ndifferent domains such as image/video analysis, natural language\nprocessing, speech recognition, etc. Over years, the quality, func-\ntionality, and coverage of these models have continued to improve.\nModel size has been a key factor in this improvement. There is a\nstrong correlation of model size with accuracy and improved func-\ntionality, and as result, the model size has grown dramatically in\nrecent years. For example, parameter size grows from 100 million\nto 500+ billion from BERT [9] to Megatron-Turing NLG [33]."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.3170051574707,
+        611.0209350585938,
+        294.8104553222656,
+        708.7417602539062
+      ],
+      "text": "Permission to make digital or hard copies of all or part of this work for personal or\nclassroom use is granted without fee provided that copies are not made or distributed\nfor profit or commercial advantage and that copies bear this notice and the full citation\non the first page. Copyrights for components of this work owned by others than ACM\nmust be honored. Abstracting with credit is permitted. To copy otherwise, or republish,\nto post on servers or to redistribute to lists, requires prior specific permission and/or a\nfee. Request permissions from permissions@acm.org.\n1University of Houston, 2University of Nevada-Reno, * Equal Contribution.\nABC, 2023, USA\n© 2023 Association for Computing Machinery.\nACM ISBN 978-x-xxxx-xxxx-x/YY/MM...$15.00\nhttps://doi.org/10.1145/nnnnnnn.nnnnnnn"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        339.7382507324219,
+        285.98724365234375,
+        363.11395263671875,
+        298.51910400390625
+      ],
+      "text": "8IB\n(800Gbps)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        363.5793151855469,
+        285.98724365234375,
+        386.95501708984375,
+        298.51910400390625
+      ],
+      "text": "4IB\n(400Gbps)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        387.4203796386719,
+        285.98724365234375,
+        410.79608154296875,
+        298.51910400390625
+      ],
+      "text": "2IB\n(200Gbps)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        411.26141357421875,
+        285.98724365234375,
+        434.6371154785156,
+        298.51910400390625
+      ],
+      "text": "1IB\n(100Gbps)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        335.3625183105469,
+        279.4541320800781,
+        338.8995666503906,
+        288.8862609863281
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        331.8258056640625,
+        261.18206787109375,
+        338.89990234375,
+        270.61419677734375
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        331.8258056640625,
+        242.91000366210938,
+        338.89990234375,
+        252.34213256835938
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        331.8258056640625,
+        224.637939453125,
+        338.89990234375,
+        234.070068359375
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        321.58831787109375,
+        231.2039031982422,
+        331.02044677734375,
+        275.7475891113281
+      ],
+      "text": "TFLOPs per GPU"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        347.1116943359375,
+        221.46170043945312,
+        376.6120300292969,
+        232.4608154296875
+      ],
+      "text": "61\n57"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        394.7937927246094,
+        236.837646484375,
+        400.4530944824219,
+        244.3833465576172
+      ],
+      "text": "44"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        418.63482666015625,
+        251.7476348876953,
+        424.29412841796875,
+        259.2933349609375
+      ],
+      "text": "28"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        353.0719299316406,
+        234.00547790527344,
+        358.7312316894531,
+        241.55117797851562
+      ],
+      "text": "47"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        376.9129943847656,
+        240.6291046142578,
+        406.4133605957031,
+        250.84251403808594
+      ],
+      "text": "40\n37"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        424.5951232910156,
+        253.4926300048828,
+        430.2544250488281,
+        261.038330078125
+      ],
+      "text": "26"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        346.2979431152344,
+        206.29974365234375,
+        431.0370178222656,
+        215.73187255859375
+      ],
+      "text": "(a) Communication Bandwidth"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        359.093505859375,
+        212.5233154296875,
+        418.2469787597656,
+        221.9554443359375
+      ],
+      "text": "Impacts Performance"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        459.86431884765625,
+        285.98724365234375,
+        483.20440673828125,
+        293.532958984375
+      ],
+      "text": "Batch Size"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        460.4552001953125,
+        290.973388671875,
+        482.5981140136719,
+        303.5052185058594
+      ],
+      "text": "per GPU:\n2K Tokens"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        493.2418212890625,
+        285.98724365234375,
+        516.5819091796875,
+        293.532958984375
+      ],
+      "text": "Batch Size"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        493.83270263671875,
+        290.973388671875,
+        515.9756469726562,
+        303.5052185058594
+      ],
+      "text": "per GPU:\n1K Tokens"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        526.6192626953125,
+        285.98724365234375,
+        549.9593505859375,
+        293.532958984375
+      ],
+      "text": "Batch Size"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        525.8372192382812,
+        290.973388671875,
+        550.7208251953125,
+        303.5052185058594
+      ],
+      "text": "per GPU:\n512 Tokens"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        452.9833984375,
+        279.4541320800781,
+        456.52044677734375,
+        288.8862609863281
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        449.44671630859375,
+        261.18206787109375,
+        456.52081298828125,
+        270.61419677734375
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        449.44671630859375,
+        242.91000366210938,
+        456.52081298828125,
+        252.34213256835938
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        449.44671630859375,
+        224.637939453125,
+        456.52081298828125,
+        234.070068359375
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        439.2091979980469,
+        231.2039031982422,
+        448.6413269042969,
+        275.7475891113281
+      ],
+      "text": "TFLOPs per GPU"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        465.92462158203125,
+        221.46170043945312,
+        471.58392333984375,
+        229.0074005126953
+      ],
+      "text": "61"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        499.3020935058594,
+        233.29286193847656,
+        504.9613952636719,
+        240.83856201171875
+      ],
+      "text": "48"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        532.6795654296875,
+        252.07655334472656,
+        538.3388671875,
+        259.62225341796875
+      ],
+      "text": "28"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        474.26898193359375,
+        234.00547790527344,
+        479.92828369140625,
+        241.55117797851562
+      ],
+      "text": "47"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        507.646484375,
+        248.65966796875,
+        513.3057861328125,
+        256.20538330078125
+      ],
+      "text": "31"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        541.02392578125,
+        262.53729248046875,
+        546.6832275390625,
+        270.0830078125
+      ],
+      "text": "16"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        474.6332092285156,
+        206.29974365234375,
+        537.9552612304688,
+        215.73187255859375
+      ],
+      "text": "(b) Batch Size per GPU"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        476.7143859863281,
+        212.5233154296875,
+        535.867919921875,
+        221.9554443359375
+      ],
+      "text": "Impacts Performance"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        401.1109619140625,
+        185.45834350585938,
+        493.73065185546875,
+        201.43777465820312
+      ],
+      "text": "64 GPUs\n384 GPUs"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.9549865722656,
+        320.28955078125,
+        558.4494018554688,
+        340.1707763671875
+      ],
+      "text": "Figure 1: Large scale training throughput are constrained by\nnetwork bandwidth and batch size per GPU"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.9549865722656,
+        367.3318786621094,
+        559.7198486328125,
+        628.353271484375
+      ],
+      "text": "With the increase in model size, the memory and compute re-\nquirements for training have increased significantly beyond the\ncapability of a single accelerator (e.g., a GPU). Training massive\nmodels requires efficiently using aggregated computing power and\nmemory across hundreds or even thousands of GPU devices. There\nare two popular approaches to this, namely 3D parallelism [22, 36]\nand Zero Redundancy Optimizer (ZeRO) [29].\n3D parallelism combines data parallelism [2, 6], pipeline paral-\nlelism [13, 14, 21] and tensor parallelism [32] to distribute model\ntraining workloads across hundreds of GPUs. This approach can\nachieve excellent per-GPU computing and memory efficiency. How-\never, a major downside here is the system and user complexity. It\nputs the burden of refactoring the single GPU code to work for\n3D parallelism on data scientists and AI practitioners, which is\nnontrivial and often cumbersome.\nIn contrast, ZeRO offers an alternative that requires no model\ncode refactoring. ZeRO is a memory efficient variation of data paral-\nlelism [2, 6] where model states are partitioned across all the GPUs,\ninstead of being replicated, and reconstructed using gather based\ncommunication collectives on-the-fly during training. This allows\nZeRO to effectively leverage the aggregate GPU memory across\nmachines, at the expense of minimal communication overhead com-\npared to standard data parallel training (2M vs 3M for model size of\nM) [29], while still achieving excellent throughput scalability [30]."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.9549865722656,
+        641.570556640625,
+        443.81329345703125,
+        652.4796752929688
+      ],
+      "text": "1.1\nLimitations of ZeRO"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.62298583984375,
+        656.3388671875,
+        558.4326782226562,
+        709.1402587890625
+      ],
+      "text": "Ease of use of ZeRO combined with its ability to scale efficiently\nacross hundreds to thousands of GPUs, has resulted in its wide\nadoption. However, there are two critical scenarios where efficiency\nof ZeRO can be limited due to communication overhead: i) clusters\nwith low-bandwidth, and ii) at very small batch sizes per GPU."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        213.3599853515625,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2306.10209v1  [cs.DC]  16 Jun 2023"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.36800003051758,
+        86.47586822509766,
+        295.56170654296875,
+        391.332275390625
+      ],
+      "text": "On one hand, clusters with low-bandwidth is common in major-\nity of cloud computing environments. Although high performance\nnodes like DGX boxes [10, 11] are equipped with high-bandwidth\nNVLink [25] and NVSwitch [26] as intra-node interconnects, cross-\nnode links are often less than 100Gbps ethernet which makes it\nthe communication bottleneck. As shown in Figure 1(a), the per\nGPU throughput on low bandwidth clusters is only half of that with\nhigh-bandwidth clusters.\nOn the other hand, even on high-bandwidth clusters, when run-\nning on thousands of GPUs, the batch size per GPU is limited by\nthe maximum global batch size that can be used during the train-\ning without sacrificing convergence efficiency [2, 17, 39]. In other\nwords, as global batch size cannot be increased indefinitely without\nslowing down model convergence, training on thousands of GPUs\nforces the batch size per GPU to be very small, which reduces the\ncompute-to-communication ratio and thus creates a communica-\ntion bottleneck. As shown in Figure 1(b), the per GPU throughput\nis heavily impacted by small batch size per GPU, which is a result\nof communication bottleneck.\nHowever, rare efforts have been made to optimize end-to-end\ncommunication efficiency for ZeRO. There are many previous work\non reducing communication overhead in distributed model training,\nsuch as 1-bit LAMB [18], 1-bit Adam [35] and other error compen-\nsation compression techniques for gradient averaging [1, 12, 31, 34].\nHowever, none of them can work with ZeRO as they all assume\nmodel state replication, while model states are partitioned in ZeRO.\nWe start from scratch and provide an end-to-end system for reduc-\ning all communication overhead in ZeRO training."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.79800033569336,
+        411.4335632324219,
+        118.21623992919922,
+        422.3426513671875
+      ],
+      "text": "1.2\nZeRO++"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.52899932861328,
+        426.2018737792969,
+        295.5567626953125,
+        709.1402587890625
+      ],
+      "text": "In this paper, we present a novel system of communication opti-\nmizations collectively called ZeRO++ that offers dramatic commu-\nnication volume reduction for ZeRO. Below we discuss the main\ncommunication overheads in ZeRO, followed by three different\ncommunication optimizations in ZeRO++ that address them.\nAssume the model size as 𝑀. During the forward pass, ZeRO\n[29] conducts an all-gather operation to collect all the parameters\n(𝑀) needed to train for all model layers. In the backward pass,\nZeRO re-collects parameters (𝑀) with all-gather first, then each\nGPU can compute local gradients. After that, ZeRO operates reduce-\nscatter function to aggregate and redistribute gradients (𝑀) across\naccelerators. In total, ZeRO has a total communication volume of\n3𝑀, spreads evenly across 2 all-gather and 1 reduce-scatter.\nTo reduce these communication overheads, ZeRO++ has three\nsets of communication optimizations, targeting each of the above\nmentioned three communication collectives respectively:\nQuantized Weight Communication for ZeRO (qwZ) First, in\norder to reduce parameter communication volume during forward\nall-gather, we adopt quantization on weights to shrink down each\nmodel parameter from FP16 (2 bytes) to INT8 (1 byte) data type\nbefore communicating, thus reducing the communication volume\nby half. However, naively conducting quantization on weights may\nlose model training accuracy. In order to preserve decent model\ntraining precision, we adopt block-based quantization [8], which\nconducts independent quantization on each subset of model param-\neters. There is no existing implementation for high performance"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        317.62298583984375,
+        86.47586822509766,
+        559.719970703125,
+        709.1402587890625
+      ],
+      "text": "block-based quantization. Thus, we implement highly optimized\nquantization CUDA kernels from scratch.\nHierarchical Weight Partition for ZeRO (hpZ) Second, to re-\nduce communication overhead of all-gather on weights during back-\nward, we trade GPU memory for communication. More specifically,\ninstead of spreading whole model weights across all the machines,\nwe maintain a full model copy within each machine. At the expense\nof higher memory overhead, this allows us to replace the expensive\ncross-machine all-gather on weights with intra-machine all-gather,\nwhich is substantially faster due to much higher intra-machine\ncommunication bandwidth.\nQuantized Gradient Communication for ZeRO (qgZ) Third,\nreducing communication cost of gradients using reduce-scatter is\neven more challenging. Directly applying quantization to reduce\ncommunication volume is infeasible. The main issue is, even by\nincorporating block-based quantization to reduce-scatter opera-\ntion, it will still significantly hurt model training accuracy. The\nkey reason behind is quantization will decrease value precision.\nAnd reduction on low-precision values will accumulate and amplify\nthe errors. Therefore, we propose a novel and much more efficient\ngradient communication paradigm as a general replacement of\nreduce-scatter collective, where the gradients are compressed using\nblock-based INT4 quantization during the communication to re-\nduce the communication volume, but the full precision is recovered\nbefore the reduction operator to preserve training accuracy. We\ncall this 𝑞𝑔𝑍, and is designed to i) overcome significant accuracy\nloss that would result from low-precision reduction if we were\nto simply implement reduce-scatter in INT4/INT8, and ii) avoid\naccuracy degradation and significant latency overhead of a long\nsequence of quantization and dequantization steps needed by a\nring [23] or tree [5, 37] based reduce-scatter (e.g., left of Figure 5),\neven if we did the reductions in full-precision. Furthermore, 𝑞𝑔𝑍\nleverages the hierarchical nature of modern GPU clusters, where\nintra-node bandwidth is significantly higher than inter-node, to\nfirst reduce gradients within a node before doing cross-node re-\nduction to minimize inter-node communication volume, resulting\nin 2/4x communication volume reduction (INT8/4) compared to\nFP16 reduce-scatter. We further reduce end-to-end latency of 𝑞𝑔𝑍\nby pipelining intra-node and inter-node communication and con-\nducting CUDA kernel fusion.\nCommunication Volume Reduction By incorporating all\nthree components above, we reduce the cross-node communication\nvolume from 3𝑀down to 0.75𝑀. More specifically, for forward\nall-gather operation on model weights, by applying INT8 quanti-\nzation, we reduce the communication size from 𝑀to 0.5𝑀. Dur-\ning backward all-gather on weights, with our secondary copy of\nmodel parameters, we reduce the communication size from 𝑀to\n0. By replacing backward fp16 reduce-scatter on gradients to our\nnovel all-to-all based INT4 reduce-scatter, we reduce cross-node\ncommunication from 𝑀to 0.25𝑀. Thus, in total, we reduce 3𝑀\ncommunication to 0.75𝑀.\nEvaluation We implemented ZeRO++ and performed extensive\nevaluation demonstrating three key results: i) scalability of GPT-3\nlike models on up to 384 GPUs achieving over 45% of sustained peak\nthroughput, ii) consistent speedup of up to 2.4x over ZeRO [29]\nbaseline across models ranging from 10-138B parameters, and iii)\ncomparing with baseline in 4x higher bandwidth cluster, ZeRO++"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.79800033569336,
+        62.163856506347656,
+        558.198974609375,
+        69.13765716552734
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training\nABC, 2023, USA"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.46699905395508,
+        86.47586822509766,
+        295.5570983886719,
+        172.15423583984375
+      ],
+      "text": "achieves similar throughput in low-bandwidth setting. In addition,\nwe show the impact of each of the three optimizations in ZeRO++\nand how they compose together. Furthermore, we also show the\nimpact of our optimized kernel implementations on end-to-end\nsystem throughput. Finally, we conduct convergence evaluation in-\ndicating that ZeRO++ has negligible impact on model convergence\nand maintains similar model training accuracy as ZeRO baseline.\nThe main contributions of this paper are as follows:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        69.76499938964844,
+        175.62777709960938,
+        295.5643310546875,
+        449.1812744140625
+      ],
+      "text": "• Blocked quantized weights (𝑞𝑤𝑍) reduces communication\nvolume of all-gather of weights by 50%.\n• Hierarchical partitioning of model weights (ℎ𝑝𝑍) completely\neliminates inter-node all-gather communication in backward\npropagation.\n• Novel, all-to-all quantized gradient reduction collective (𝑞𝑔𝑍)\nreduces gradient communication by 75% comparing with\nreduce-scatter.\n• Optimized Integration of each of the above techniques into\nexisting ZeRO implementation, that enables communication\nand computation overlapping, and leverages custom high\nperformance CUDA kernels for quantization, dequantiza-\ntion, as well as operator fusion (section 4). Our implementa-\ntion translates the 4x communication volume reduction of\nZeRO++ into real throughput improvement.\n• Extensive experiments shows that i) over 45% of sustained\npeak throughput even at small batch sizes, ii) up to 2.4x end-\nto-end system improvement over ZeRO, and iii) achieving\nsimilar throughput in low-bandwidth cluster compared to\nbaseline in high-bandwidth cluster. In addition, we present\nperformance breakdown and analysis of diffrent components\nof ZeRO++.Our end-to-end training shows that ZeRO++ does\nnot affect model convergence.\n• ZeRO++ is open-sourced and released as part of https://\ngithub.com/microsoft/DeepSpeed"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.79800033569336,
+        461.4955749511719,
+        265.3254699707031,
+        488.0966491699219
+      ],
+      "text": "2\nBACKGROUND AND RELATED WORK\n2.1\nData, Model and 3D parallelism"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.46699905395508,
+        491.9548645019531,
+        295.55926513671875,
+        709.1402587890625
+      ],
+      "text": "Data parallelism (DP), pipeline parallelism (PP), and tensor paral-\nlelism (TP) are three forms of parallelism used to train large models\nacross multi-GPU clusters. [6, 15, 20, 22] DP is commonly used\nwhen model size fits within a single GPU memory. In DP, each GPU\nholds a full copy of model weights and trains on separate input data.\nMP is orthogonal to DP, and is often used in cases where model\nsize cannot fit into a single GPU’s memory. Instead of splitting\ninput data, model parallelism partitions a full model into pieces\nand assigns each model piece onto a GPU. There are mainly two\napproaches for model parallelism: i) pipeline parallelism (PP) and\nii) tensor parallelism (TP). PP [14, 15, 20] splits models vertically,\ncreating sequential stages consisting of a contiguous subset of lay-\ners. While there is sequential dependency between stages for an\ninput micro-batch, the stages can be executed in parallel across\nmicro-batches. In contrast, TP [22] splits each layer across multiple\nGPUs, where each GPU works on a different part of the layer for\nthe same input.\n3D parallelism [33, 36] refers to combination of DP, PP, and TP,\nand is capable of achieving excellent throughput and scalability,\nand has been used to train a wide range of large language models [4,"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.7489929199219,
+        86.47586822509766,
+        559.5823364257812,
+        117.36029815673828
+      ],
+      "text": "19, 22, 28]. Despite being highly efficient, 3D parallelism is severely\nlimited by the fact that it requires complete rewrite of model and\ntraining pipeline to make them compatible with 3D parallelism [33]."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        322.6050109863281,
+        132.88088989257812,
+        435.9492492675781,
+        142.2458038330078
+      ],
+      "text": "Algorithm 1: ZeRO algorithm"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        327.9179992675781,
+        144.81546020507812,
+        417.138916015625,
+        164.500244140625
+      ],
+      "text": "Input\n:𝑚𝑜𝑑𝑒𝑙,𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒\nOutput:𝑚𝑜𝑑𝑒𝑙"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.5899963378906,
+        164.74148559570312,
+        428.95074462890625,
+        174.5182342529297
+      ],
+      "text": "1 while 𝑚𝑜𝑑𝑒𝑙not converged do"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9880065917969,
+        174.70346069335938,
+        470.2398986816406,
+        184.07101440429688
+      ],
+      "text": "2\n𝑎𝑙𝑙_𝑔𝑎𝑡ℎ𝑒𝑟_𝑃𝑎𝑟𝑎𝑚𝑒𝑡𝑒𝑟𝑠(𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒);"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9879455566406,
+        185.66244506835938,
+        406.83392333984375,
+        195.02999877929688
+      ],
+      "text": "3\n𝑚𝑜𝑑𝑒𝑙.𝑓𝑜𝑟𝑤𝑎𝑟𝑑();"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.98797607421875,
+        196.62142944335938,
+        420.75390625,
+        205.98898315429688
+      ],
+      "text": "4\n𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛(𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒);"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9879455566406,
+        207.58041381835938,
+        470.2398376464844,
+        216.94796752929688
+      ],
+      "text": "5\n𝑎𝑙𝑙_𝑔𝑎𝑡ℎ𝑒𝑟_𝑃𝑎𝑟𝑎𝑚𝑒𝑡𝑒𝑟𝑠(𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒);"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9878845214844,
+        218.53939819335938,
+        410.71484375,
+        227.90695190429688
+      ],
+      "text": "6\n𝑚𝑜𝑑𝑒𝑙.𝑏𝑎𝑐𝑘𝑤𝑎𝑟𝑑();"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9878845214844,
+        229.49838256835938,
+        420.75384521484375,
+        238.86593627929688
+      ],
+      "text": "7\n𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛(𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒);"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9878845214844,
+        240.45736694335938,
+        481.1828308105469,
+        249.82492065429688
+      ],
+      "text": "8\n𝑟𝑒𝑑𝑢𝑐𝑒_𝑠𝑐𝑎𝑡𝑡𝑒𝑟_𝐺𝑟𝑎𝑑𝑖𝑒𝑛𝑡𝑠(𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒);"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        320.9878845214844,
+        251.41635131835938,
+        404.0358581542969,
+        260.7839050292969
+      ],
+      "text": "9\n𝑜𝑝𝑡𝑖𝑚𝑖𝑧𝑒𝑟.𝑠𝑡𝑒𝑝();"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.7449035644531,
+        264.12603759765625,
+        363.368896484375,
+        272.09613037109375
+      ],
+      "text": "10 end while"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.7449035644531,
+        273.3333435058594,
+        380.66357421875,
+        283.05511474609375
+      ],
+      "text": "11 Return: 𝑚𝑜𝑑𝑒𝑙"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.9549865722656,
+        310.8455810546875,
+        423.4241943359375,
+        321.7546691894531
+      ],
+      "text": "2.2\nZeRO Optimizer"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.6860046386719,
+        325.6138610839844,
+        559.7185668945312,
+        630.4702758789062
+      ],
+      "text": "ZeRO is a memory-optimized solution for data parallel training.\nZeRO partitions and distributes all model states (i.e., parameters,\ngradients, optimizer states) among GPUs in use and recollects model\nstates only when the layer needs to be computed. There are three\ndifferent stages for using ZeRO to optimize on-device memory\nusage. In ZeRO stage 1 (ZeRO-1), only optimizer states are split and\nspread across all GPUs in use. ZeRO stage 2 (ZeRO-2) partitions\nboth optimizer states and gradients, where ZeRO stage 3 (ZeRO-3)\nsplits all three components of model states as parameters, gradients,\nand optimizer states.\nZeRO-3 is the most memory efficient solution for model training\nat large scale, but at the cost of more collective communications. Al-\ngorithm 1 illustrates the high-level pseudocode for ZeRO-3. During\nmodel training, ZeRO-3 lazy-schedules the fetching of parameters\nuntil the computation needs to happen on a particular layer. Before\nforward propagation, ZeRO launches an all-gather to collect the\nfull model weights and then computes the forward pass (line 2-3)\nof Algorithm 1. Then ZeRO empties the all-gather weights buffer\nafter forward computation completes (line 4). During backward,\nZeRO re-collects all model weights again via a second all-gather\n(line 5) to calculate gradients (line 6). Once gradients are calcu-\nlated on each GPU, ZeRO empties weights buffer again (line 7) and\nconducts a reduce-scatter operation to do gradient averaging and\nre-distribution (line 8). Model states and parameters are updated\nin optimizer step (line 9). In a nutshell, to minimize the on-device\nmemory footprint using ZeRO-3, three collective communication\noperations are issued at each training iteration, which include 2\nall-gather on weights and 1 reduce-scatter on gradients."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.9549865722656,
+        641.570556640625,
+        536.6060791015625,
+        652.4796752929688
+      ],
+      "text": "2.3\nCommunication Reduction Techniques"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.62298583984375,
+        656.3388671875,
+        559.7132568359375,
+        709.1402587890625
+      ],
+      "text": "Quantization: Quantization is often used to reduce memory\nfootprint, and data movement volume by using low precision to\nrepresent data [7, 8]. However, the loss of information from rep-\nresenting high precision data with lower precision often comes\nwith accuracy degradation. Many related work focus on improving"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.46699905395508,
+        86.47586822509766,
+        295.56365966796875,
+        457.0862731933594
+      ],
+      "text": "quantization accuracy. The fundamental challenge of quantization\naccuracy lies in the vast difference in number ranges and granu-\nlarity between high precision and low precision data (Eg. FP32/16\nvs. INT8). Some related work [41] propose to filter the outliers in\ndata to mitigate the gap in numerical ranges. Yet their accuracy\nhinges on the quality of outlier filtering and it brings extra filtering\noverhead. Dettmers et al. [8] proposes to use block based quantiza-\ntion on optimizer states to improve the quantization accuracy yet\nit requires changes to the model structure thus limits its usability.\nGradient Compression: Starting from 1-bit SGD of error-\ncompensation compression [31], gradient compression has been\npushed to an extreme direction of using just a single bit. To deal\nwith non-linear gradient-based optimizers like Adam or Lamb, 1-bit\nquantization algorithms like 1-bit Adam [35] and 1-bit Lamb [18]\nare proposed, which achieve extreme efficient gradient communica-\ntion in distributed training. However, 1-bit Adam/LAMB cannot be\ndirectly applicable to ZeRO-3. The main reason is 1-bit Adam/Lamb\nassumes each GPU has the full view of optimizer states (OS) for\nthe model, but ZeRO-3 splits it across all the GPUs in use. There-\nfore, it is infeasible to directly apply existing gradient compression\ntechniques at ZeRO-3 and we need to design our own.\nZeRO Communication Reduction: To reduce expensive cross-\nnode communication, recent optimization on ZeRO-3, such as MiCS\n[40], trades on-device memory for communication. In MiCS, the\nGPU cluster is divided into sub-groups, and model states are par-\ntitioned within a sub-group but replicated across sub-groups. By\nkeeping the sub-group size small, MiCS can either leverage high\nbandwidth intra-node interconnect, or use hierarchical communi-\ncation to lower the communication volume. ℎ𝑝𝑍in ZeRO++ adopts\na similar approach of trading memory for less communication. The\nkey difference is that ℎ𝑝𝑍only do secondary partition on weights,\nwhile keeping all other model states partitioned across all GPUs.\nThis allows hpZ to achieve significant communication reduction\nwithout the massive memory overhead of MiCS."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.79800033569336,
+        481.6705627441406,
+        110.52530670166016,
+        492.57965087890625
+      ],
+      "text": "3\nDESIGN"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.48400115966797,
+        496.4378662109375,
+        295.5633239746094,
+        571.1582641601562
+      ],
+      "text": "In this section, we elaborate on the design of our three key op-\ntimizations in ZeRO++ introduced in Section 1 for reducing the\ncommunication overhead of ZeRO: i) Quantized Weight Commu-\nnication for ZeRO (𝑞𝑤𝑍), ii) Hierarchical Partitioning for ZeRO\n(ℎ𝑝𝑍), and iii) Quantized Gradient communication for ZeRO (𝑞𝑔𝑍).\nAfter that, we discuss the end-to-end impact of these optimizations\nto reduce to total communication volume of ZeRO."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.79800033569336,
+        595.7425537109375,
+        268.7073059082031,
+        619.6036987304688
+      ],
+      "text": "3.1\nQuantized Weight Communication for\nZeRO (𝑞𝑤𝑍)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.39500045776367,
+        623.4619140625,
+        295.5640869140625,
+        709.1402587890625
+      ],
+      "text": "As discussed in Section 2.2, ZeRO partitions the model weights\nacross all the ranks (i.e., GPUs) and fetches the FP16 weights layer-\nby-layer right before they are needed in computation via all-gather\nfor the forward and backward of each training iteration. To reduce\nthe communication overhead of forward all-gather on weights,\n𝑞𝑤𝑍, quantizes FP16 weights to INT8 right during the all-gather,\nand dequantizes them back to FP16 on the receiver side, and then\nconducts layer computation."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        466.70184326171875,
+        184.9788055419922,
+        550.923095703125,
+        204.4261474609375
+      ],
+      "text": "1\n16\n64\n5122048\nNubmer of Blocks"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        448.12109375,
+        163.30624389648438,
+        460.23443603515625,
+        174.07363891601562
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        448.12109375,
+        141.1937255859375,
+        460.23443603515625,
+        151.96112060546875
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        448.12109375,
+        119.08055877685547,
+        460.23443603515625,
+        129.84796142578125
+      ],
+      "text": "400"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        448.12109375,
+        96.9680404663086,
+        460.23443603515625,
+        107.73543548583984
+      ],
+      "text": "500"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        436.4344177246094,
+        110.3617172241211,
+        447.2018127441406,
+        171.05526733398438
+      ],
+      "text": "Euclidean Distance"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        471.27099609375,
+        95.69512939453125,
+        498.1894836425781,
+        106.4625244140625
+      ],
+      "text": "Baseline"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        472.9578552246094,
+        87.51927185058594,
+        533.5625610351562,
+        95.58847045898438
+      ],
+      "text": "(b) Quantization Error"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        323.2732849121094,
+        86.77774810791016,
+        425.3159484863281,
+        94.8469467163086
+      ],
+      "text": "(a) Baseline vs. Blocked Quantization"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        317.72198486328125,
+        220.28041076660156,
+        558.200439453125,
+        240.15480041503906
+      ],
+      "text": "Figure 2: Illustration & example of block based quantization\nvs. baseline"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        317.9549865722656,
+        407.4179992675781,
+        559.8045043945312,
+        438.3697814941406
+      ],
+      "text": "Figure 3: hpZ removes cross node traffic in backward all-\ngather by holding secondary weight partitions in on-device\nmemory."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        317.552001953125,
+        480.9958801269531,
+        559.7197265625,
+        709.1402587890625
+      ],
+      "text": "While this reduces the communication volume of the all-gather\nby 2x, doing so naively results in two major issues: i) the lower-\ning of precision results in significant accuracy degradation during\ntraining as discussed in 2.3 , and ii) the quantization and dequanti-\nzation overhead negates any throughput gain from communication\nvolume reduction. We discuss the optimized implementation of\n𝑞𝑤𝑍to minimize the quantization and dequantization overhead in\nSection 4. Here, we primarily focus on design choices to mitigate\naccuracy degradation.\n𝑞𝑤𝑍uses blocked based quantization to improve the quanti-\nzation accuracy. As illustrated in Figure 2, each weight tensor is\ndivided into smaller chunks, and converted into INT8 by symmetric\nquantization, using an independent quantization scaling coefficient.\nBy keeping the quantization granularity small, we significantly\nmitigate the gap in number ranges and granularity.\nWe show an example of the quantization error of performing\nblock based quantization vs. the non-blocked quantization baseline\nin Figure 2(a). Fig. 2(b) shows a case study of weights quantization\non BERT model, where block based quantization reduces the quan-\ntization error by 3x. More in-depth convergence evaluations are\nshown in Sec. 5."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        53.79800033569336,
+        62.163856506347656,
+        558.198974609375,
+        69.13765716552734
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training\nABC, 2023, USA"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        53.79800033569336,
+        83.00774383544922,
+        280.079345703125,
+        96.31565856933594
+      ],
+      "text": "3.2\nHierarchical Partitioning for ZeRO (ℎ𝑝𝑍)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        53.46699905395508,
+        100.17386627197266,
+        295.56396484375,
+        372.1542663574219
+      ],
+      "text": "ZeRO-3 partitions all its model states across all its ranks, resulting\nin communication collectives that span all the GPUs. With ℎ𝑝𝑍,\nwe notice that it is possible to have different partitioning for dif-\nferent model states, limiting the communication collectives to a\nsubset of the GPUs. Given that on modern GPU clusters, intra-node\ncommunication bandwidth is significantly higher than inter-node\ncommunication bandwidth, this presents opportunities to reduce\nthe inter-node communication.\nMore specifically, in ℎ𝑝𝑍, we eliminate the inter-node all-gather\nduring the backward pass by holding secondary FP16 weights par-\ntition within each node. We do this by creating a hierarchical parti-\ntioning strategy consisting of two partitions: first, all model states\nare partitioned globally across all devices as in ZeRO-3, which we\ncall primary partition. Second, a secondary copy of FP16 parame-\nters is partitioned at the sub-global level (e,.g., compute node, see\nfigure 3), which we call secondary partition. This secondary copy of\nFP16 parameters is replicated across multiple secondary partitions.\nConsider a 64-node cluster, each node with 8 GPUs. Model\nweights are partitioned in two stages: i) across all 512 GPUs that we\ncall primary partition, and ii) the same weights are also partitioned\nwithin a compute node across 8 GPUs, that we call secondary par-\ntition. In this example, for the secondary partition, each compute\nnode in the cluster holds a full replica of FP16 weights partitioned\namong the 8 GPUs within the node, and there are 64 of such replicas\nin total."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        53.79800033569336,
+        389.21588134765625,
+        295.5639953613281,
+        639.2772827148438
+      ],
+      "text": "3.2.1\nA training iteration with hpZ. During the forward pass of a\ntraining iteration, we all-gather weights based on the primary parti-\ntion across all GPUs. However, once the weights are consumed dur-\ning the forward pass, they are partitioned based on the secondary\npartition. Given the temporal consistency of model parameters be-\ntween forward and backward passes, when the weights are needed\nagain during the backward pass, we all-gather weights based on this\nsecondary group. Note that when the secondary partitioning is set\nto be a compute node, this avoids any inter-node communication\nfor this all-gather. Finally, at the end of the iteration, during the\noptimizer step, all the model states, as well as the primary copy of\nthe fp16 parameter are updated based on the primary partition. hpZ\nmakes two changes to baseline ZeRO pseudocode in Algorithm 1:\ni) in line 4, parameter partitioning is based on secondary group size,\nii) parameter all-gather preceding backward pass in line 5 is also\nbased on secondary group size.\nOur design of ℎ𝑝𝑍is flexible to support any secondary group\nsize. The group size controls how many ranks (i.e., GPUs) are in the\nsecondary partition. It is also a measure of memory-communication\ntrade-off of ℎ𝑝𝑍. Simply put, by default, ℎ𝑝𝑍secondary partition is\nnode-based (recall intra-node bandwidth is multiple factors of inter-\nnode bandwidth for current and future hardware configurations)\nbut can be extended to support multiple compute nodes as needed."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        53.79800033569336,
+        654.7657470703125,
+        295.55682373046875,
+        709.1402587890625
+      ],
+      "text": "3.2.2\nMemory Usage Analysis. By design, ℎ𝑝𝑍trades memory for\ncommunication efficiency. It is important to analyze this tradeoff.\nRecall that standard data parallel DNN (DP) replicates model param-\neters across data parallel ranks, ZeRO-3 on the other hand partitions\nparameter across data parallel ranks. A midway approach is model"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.72198486328125,
+        193.7288818359375,
+        559.8101806640625,
+        312.2977600097656
+      ],
+      "text": "Figure 4: Per-device memory consumption analysis of stan-\ndard data parallel (DP), ZeRO stage 3 (ZeRO-3) and proposed\nhierarchical partitioning of ZeRO parameters (ℎ𝑝𝑍). 𝐾de-\nnotes the memory multiplier of optimizer states, 𝑀repre-\nsents the number of trainable parameters, 𝑃is the data paral-\nlel group size or world size, and 𝛼is the number of secondary\ngroups or ratio of world size to the number of ranks in the\nsecondary group. A typical real world scenario example is\nprovided in the last column. We assume a model size of 100B\ntrained on 1024 V100 GPU DGX cluster (64 compute nodes,\n16 GPUs per node)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.6860046386719,
+        337.0588684082031,
+        559.72119140625,
+        477.53228759765625
+      ],
+      "text": "parameters partitioned across a subset of devices as long as model\nparameters fit.\nFigure 4 provides a concrete memory usage estimate of a typical\nlarge language model of size of 100B parameters, with primary\ngroup size of 1024 GPUs and secondary group size of 16 GPUs\n(e.g., DGX-2 V100 node). As shown in Figure 4, with our proposed\nmethod, ℎ𝑝𝑍consumes 8.9𝑥more memory than ZeRO-3, our ap-\nproach is still 114𝑥less memory requirement than standard DP.\nThis marginal increase in memory usage is compensated for by\nefficient intra-node communication schedule. By eliminating or\nreducing inter-node communication for backward pass, ℎ𝑝𝑍re-\nduces the end-to-end communication of ZeRO by 1.5𝑥, while still\nsupporting model training with hundreds of billions of parameters."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.9549865722656,
+        490.15057373046875,
+        545.7588500976562,
+        514.0106811523438
+      ],
+      "text": "3.3\nQuantized Gradients Communication for\nZeRO (𝑞𝑔𝑍)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.9549865722656,
+        517.869873046875,
+        561.6716918945312,
+        647.38427734375
+      ],
+      "text": "In this section, we propose a novel quantized reduce-scatter algo-\nrithm called qgZ based on all-to-all collectives that enables a 4x\ncommunication volume reduction of gradient reduce-scatter by re-\nplacing FP16 with INT4 quantized data, while overcoming precision\nloss challenges described in Section 1, as well as numerous system\nchallenges that we will outline in this section.\nqgZ leverages all-to-all collectives to implement quantized reduce-\nscatter which includes three major components: 1) all-to-all-based\nimplementation of quantized gradient reduce-scatter, 2) reducing\ncommunication volume with hierarchical collectives, 3) tensor slice\nreordering for correct gradient placement. We talk about each of\nthem step-by-step."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.9549865722656,
+        656.3388671875,
+        559.7139892578125,
+        709.1402587890625
+      ],
+      "text": "3.3.1\nAll-to-all based implementation. A naive approach towards\nquantized reduce-scatter, while avoiding precision loss due to re-\nduction is to apply quantization and dequantization to a ring-based\nreduce-scatter directly as shown on the left of Figure 5. We can\ninject quantization and dequantization on each GPU. Once a GPU"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        145.28062438964844,
+        100.21940612792969,
+        172.25991821289062,
+        106.52445220947266
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        139.6236114501953,
+        111.62452697753906,
+        179.94293212890625,
+        117.92957305908203
+      ],
+      "text": "G2\nG3"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        210.93710327148438,
+        100.21940612792969,
+        237.91641235351562,
+        106.52445220947266
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        208.3905792236328,
+        111.76814270019531,
+        240.92669677734375,
+        118.07318878173828
+      ],
+      "text": "G0\nG1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        265.73138427734375,
+        100.21940612792969,
+        292.7106628417969,
+        106.52445220947266
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        263.18487548828125,
+        111.76814270019531,
+        295.7209777832031,
+        118.07318878173828
+      ],
+      "text": "G2\nG3"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        72.11624145507812,
+        195.30641174316406,
+        177.8650665283203,
+        201.6114501953125
+      ],
+      "text": "NCCL Ring-based reduce-scatter (ZeRO-3)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        82.49854278564453,
+        202.87246704101562,
+        167.44003295898438,
+        209.17750549316406
+      ],
+      "text": "# of sequential Q+D == # of GPUs"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        215.01437377929688,
+        195.30641174316406,
+        294.6771240234375,
+        201.6114501953125
+      ],
+      "text": "1-hop all-to-all (qgZ in ZeRO++)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        223.2949981689453,
+        202.87246704101562,
+        286.4385681152344,
+        209.17750549316406
+      ],
+      "text": "# of sequential Q+D == 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        84.32279968261719,
+        87.15396118164062,
+        277.6479797363281,
+        93.80438232421875
+      ],
+      "text": "Quantization\nDequantization + Reduction\n1 2 3 4 Gradient slices"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        61.64987564086914,
+        126.88272857666016,
+        80.64276123046875,
+        133.18777465820312
+      ],
+      "text": "1 2 3 4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.44610595703125,
+        87.40615844726562,
+        134.5725555419922,
+        93.7112045288086
+      ],
+      "text": "Q\nD"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.496158599853516,
+        126.88272857666016,
+        86.72502136230469,
+        133.18777465820312
+      ],
+      "text": "Q\nD"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        90.71050262451172,
+        141.95245361328125,
+        121.94502258300781,
+        148.2659149169922
+      ],
+      "text": "1 2 3 4 Q\nD"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        125.356689453125,
+        158.29232788085938,
+        156.57504272460938,
+        164.5973663330078
+      ],
+      "text": "1 2 3 4 Q\nD"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        160.13600158691406,
+        174.93902587890625,
+        191.59954833984375,
+        181.35125732421875
+      ],
+      "text": "1 2 3 4 Q\nD"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        75.38645935058594,
+        100.09400177001953,
+        102.37013244628906,
+        106.4074478149414
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        65.28157806396484,
+        111.62452697753906,
+        111.57878112792969,
+        117.92957305908203
+      ],
+      "text": "G0\nG1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        201.2938995361328,
+        126.68376922607422,
+        301.778076171875,
+        142.15843200683594
+      ],
+      "text": "1 2 3 4\n1 2 3 4\n1 2 3 4\n1 2 3 4\nQ"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        239.7791748046875,
+        153.14671325683594,
+        264.5201721191406,
+        159.45175170898438
+      ],
+      "text": "All_to_All"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        250.82699584960938,
+        177.19203186035156,
+        254.7097625732422,
+        183.5054931640625
+      ],
+      "text": "D"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        201.4550323486328,
+        145.11129760742188,
+        301.59515380859375,
+        151.50039672851562
+      ],
+      "text": "1 2 3 4\n1 2 3 4\n1 2 3 4\n1 2 3 4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        201.2938995361328,
+        167.89419555664062,
+        301.8753967285156,
+        174.40870666503906
+      ],
+      "text": "1 1 1 1\n2 2 2 2\n3 3 3 3\n4 4 4 4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        205.9351043701172,
+        186.43101501464844,
+        291.3852844238281,
+        192.82643127441406
+      ],
+      "text": "1\n2\n3\n4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.79800033569336,
+        222.5709991455078,
+        295.647705078125,
+        242.5637969970703
+      ],
+      "text": "Figure 5: Comparison between ZeRO-3 ring-based reduce-\nscatter and qgZ 1-hop all-to-all."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        67.76213836669922,
+        354.9872131347656,
+        170.76747131347656,
+        361.99261474609375
+      ],
+      "text": "Cross-node gradient comm. volume"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        105.92610931396484,
+        363.38671875,
+        130.8892364501953,
+        370.4014892578125
+      ],
+      "text": "(ZeRO-3)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        192.49752807617188,
+        354.9125061035156,
+        295.34100341796875,
+        361.91790771484375
+      ],
+      "text": "Cross-node gradient comm. volume"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        220.52699279785156,
+        363.3119812011719,
+        265.69610595703125,
+        370.3267517089844
+      ],
+      "text": "(qgZ in ZeRO++)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        101.1079330444336,
+        274.3711853027344,
+        131.0890350341797,
+        281.3859558105469
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        95.35570526123047,
+        287.21368408203125,
+        138.681884765625,
+        298.20672607421875
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        101.66058349609375,
+        312.8612976074219,
+        131.6367645263672,
+        319.86669921875
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        95.90446472167969,
+        325.69677734375,
+        139.2345428466797,
+        336.6890563964844
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        143.74758911132812,
+        302.6800842285156,
+        149.7372283935547,
+        309.68548583984375
+      ],
+      "text": "M"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        93.56932067871094,
+        342.1649475097656,
+        143.7127685546875,
+        349.1797180175781
+      ],
+      "text": "Reduce-scatter M"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        229.3927459716797,
+        274.3711853027344,
+        259.3808288574219,
+        281.3859558105469
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        223.63662719726562,
+        287.21368408203125,
+        266.9667053222656,
+        298.20672607421875
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        229.94149780273438,
+        312.8612976074219,
+        259.917724609375,
+        319.86669921875
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        224.18927001953125,
+        325.69677734375,
+        267.51544189453125,
+        336.6890563964844
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        211.05410766601562,
+        301.5047302246094,
+        223.03103637695312,
+        308.5101318359375
+      ],
+      "text": "M/Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        212.98060607910156,
+        342.3050537109375,
+        276.3777770996094,
+        349.31982421875
+      ],
+      "text": "1-hop all-to-all N*M/Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        246.6066131591797,
+        301.5047302246094,
+        280.68951416015625,
+        308.7537841796875
+      ],
+      "text": "M/Z\nM/Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        64.69843292236328,
+        261.9747009277344,
+        293.225341796875,
+        268.9801025390625
+      ],
+      "text": "GPUs per node = N\nModel size = M          Quantization compression ratio = Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.79800033569336,
+        383.44000244140625,
+        294.0471496582031,
+        403.4327697753906
+      ],
+      "text": "Figure 6:\nCommunication volume comparison between\nZeRO-3 reduce-scatter and qgZ 1-hop all-to-all."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.46699905395508,
+        426.2018737792969,
+        295.5626220703125,
+        709.1402587890625
+      ],
+      "text": "receives gradients from its predecessor, we dequantize it to recover\nfull precision and conduct a local reduction. Next we can quantize\nlocal reduction output and pass quantized data to its successor. To\nfinish the whole reduce-scatter, the number of sequential quanti-\nzation and dequantization kernels is equal to the number of GPUs\n(i.e., n) in use.\nThus, applying quantization and dequantization on existing ring\nbased reduce-scatter collective will lead to high communication\nlatency and low value precision due to multiple sequential quantiza-\ntion and dequantization steps. Although recent tree-based collective\nlike Blink[38] could reduce the number of sequential kernels from n\nto log(n), the long latency and low precision issue is not completely\nresolved.\nTo overcome this, we completely abandon existing ring-based\nreduce-scatter approach and incorporate 1-hop all-to-all collec-\ntive for our gradient communication. As shown on the right of\nFigure 5, we first apply quantization on a given tensor, then we\nconduct all-to-all communication among all the GPUs. After all-to-\nall, we apply another dequantization to recover the data precision\nand then reduce on high-precision values to get the final gradi-\nent reduction output. By replacing ring-based solution with our\nall-to-all collective, we reduce the number of sequential quantiza-\ntion+dequantization kernel from the number of GPUs to 1. Thus,\nwe solve the long latency and low precision issues when applying\nquantization in reduce-scatter for supercomputing scenarios like\nDGX boxes connected in fat-tree topology."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        342.65142822265625,
+        187.95030212402344,
+        546.2780151367188,
+        194.95571899414062
+      ],
+      "text": "Step 1: Intra-node all-to-all\nStep 2: Inter-node all-to-all"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        328.85540771484375,
+        87.09170532226562,
+        557.3823852539062,
+        94.09712982177734
+      ],
+      "text": "GPUs per node = N\nModel size = M          Quantization compression ratio = Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        362.1825256347656,
+        98.33540344238281,
+        392.1587219238281,
+        105.34082794189453
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        356.4287414550781,
+        111.17089080810547,
+        399.7565002441406,
+        122.16551208496094
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        362.7351989746094,
+        136.8037109375,
+        392.7162780761719,
+        143.8184814453125
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        356.97906494140625,
+        149.64622497558594,
+        400.30914306640625,
+        160.6385040283203
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        489.560546875,
+        98.40156555175781,
+        519.5367431640625,
+        105.40699005126953
+      ],
+      "text": "Machine 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        483.8044128417969,
+        111.23704528808594,
+        527.134521484375,
+        122.23167419433594
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        490.1092834472656,
+        136.869873046875,
+        520.09033203125,
+        143.8846435546875
+      ],
+      "text": "Machine 1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        484.3570556640625,
+        149.70849609375,
+        527.6871337890625,
+        160.70620727539062
+      ],
+      "text": "...\nG1\nG_N"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        328.9488220214844,
+        164.19725036621094,
+        432.87811279296875,
+        171.20266723632812
+      ],
+      "text": "Each GPU comm. volume reduction:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        356.9245910644531,
+        172.603759765625,
+        403.3199157714844,
+        179.6091766357422
+      ],
+      "text": "M/Z => M/(Z*N)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        466.06903076171875,
+        164.19725036621094,
+        548.876220703125,
+        171.20266723632812
+      ],
+      "text": "Cross-node traffic reduction:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        485.5907897949219,
+        172.603759765625,
+        527.7805786132812,
+        179.6091766357422
+      ],
+      "text": "N*M/Z => M/Z"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        460.2584228515625,
+        125.64098358154297,
+        553.5750122070312,
+        132.92662048339844
+      ],
+      "text": "M/(Z*N)\nM/(Z*N)\nM/(Z*N)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        317.9549865722656,
+        208.6822052001953,
+        558.2061157226562,
+        228.5497589111328
+      ],
+      "text": "Figure 7: qgZ apply hierarchy all-to-all to reduce cross node\ntraffic."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        317.6409912109375,
+        254.54684448242188,
+        559.7186279296875,
+        614.1983032226562
+      ],
+      "text": "3.3.2\nReducing inter-node communication volume. Although replac-\ning reduce-scatter with all-to-all achieves single-shot quantization\nand dequantization, it introduces a new problem; the inter-node\ncommunication volume increases instead of decreasing despite the\nquantization of data. We elaborate on this in Figure 6.\nHere we assume model size of 𝑀, GPU per node is 𝑁, gradient\ncompression ratio as 𝑍. Reduce-scatter, reduces the data during\ntransmission over the ring, thus the total amount of data for cross-\nnode communication is M. However, when using our 1-hop all-to-all\napproach, even though the data are compressed before communica-\ntion (i.e., 𝑀/𝑍), each GPU needs to send out 𝑀/𝑍amount of data\nto GPUs on the other nodes. Therefore, each machine will generate\n𝑁∗𝑀/𝑍amount of cross-node communication data, which is much\nbigger than reduce-scatter communication volume.\nTo address this, we do a hierarchical 2-hop all-to-all instead of\n1-hop: a) first intra-node all-to-all and b) followed by inter-node all-\nto-all, which is shown as Figure 7. First, with high-bandwidth links\namong GPUs inside a machine, we conduct intra-node all-to-all on\nquantized data, then dequantize data and reduce on dequantized\ndata. After intra-node quantization, all-to-all, dequantization, and\nreduction, we reduce the data size per GPU from 𝑀/𝑍to 𝑀/(𝑍∗𝑁).\nAfter intra-node all-to-all is completed, we conduct the inter-node\nall-to-all communication, which is similar to 1-hop all-to-all we\ndescribed above. Given that now each GPU only needs to send\nout 𝑀/(𝑍∗𝑁) data, the communication volume per machine is\nnow 𝑀/(𝑍∗𝑁) ∗𝑁= 𝑀/𝑍. By adopting this hierarchical all-to-all\ncommunication as 2-hop approach, we resolve the communication\nvolume blow-up issue in our 1-hop scheme perfectly. Note that\neven though the total communication volume is doubled (one intra-\nnode, the other inter-node), intra-node communication introduces\nnegligible overhead given NVLink/NVswitch high bandwidth, and\ncross-node traffic has been significantly reduced, which is the major\nbottleneck in gradient communication."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        317.9549865722656,
+        623.4619140625,
+        559.7155151367188,
+        709.1402587890625
+      ],
+      "text": "3.3.3\nTensor slice reordering for correct data placement. With the 2-\nhop all-to-all, the inter-node communication volume is as expected,\nhowever, this introduces a gradient misplacement issue. We describe\nthis issue using a 2x2 example, where we have 2 machines and each\nmachine has 2 GPUs. As shown in Figure 8, the correct final gradient\nplacement is shown as green boxes in the figure, where GPU 0 holds\nfinal gradient partition 1, GPU 1 holds gradient partition 2, so on\nand so forth."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.79800033569336,
+        62.163856506347656,
+        558.198974609375,
+        69.13765716552734
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training\nABC, 2023, USA"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        224.79067993164062,
+        174.9873809814453,
+        263.96807861328125,
+        181.29241943359375
+      ],
+      "text": "Mis-placement"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        70.33401489257812,
+        88.26435089111328,
+        160.6060791015625,
+        94.56939697265625
+      ],
+      "text": "Machine 1\nMachine 0"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        66.9040756225586,
+        99.80606842041016,
+        167.70205688476562,
+        106.11111450195312
+      ],
+      "text": "G0\nG1\nG3\nG2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        62.13746643066406,
+        113.92236328125,
+        171.48716735839844,
+        120.46208953857422
+      ],
+      "text": "1 2 3 4\n1 2 3 4\n1 2 3 4\n1 2 3 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.97734069824219,
+        130.05694580078125,
+        108.19157409667969,
+        136.7185821533203
+      ],
+      "text": "1 2\n3 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.97734069824219,
+        142.61380004882812,
+        108.19583892822266,
+        150.30804443359375
+      ],
+      "text": "3 4\n1 2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        124.50552368164062,
+        130.99501037597656,
+        171.71560668945312,
+        137.6454315185547
+      ],
+      "text": "1 2\n3 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        124.50552368164062,
+        143.5385284423828,
+        171.7113494873047,
+        151.23770141601562
+      ],
+      "text": "3 4\n1 2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        191.3389434814453,
+        191.3300323486328,
+        299.9881591796875,
+        197.7548828125
+      ],
+      "text": "1\n2\n3\n4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.85964584350586,
+        157.35076904296875,
+        171.6000213623047,
+        164.13499450683594
+      ],
+      "text": "3 4\n1 2\n3 4\n1 2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        189.9798583984375,
+        113.08869171142578,
+        300.71246337890625,
+        119.85610961914062
+      ],
+      "text": "3 4\n1 2\n3 4\n1 2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        199.57052612304688,
+        88.11443328857422,
+        289.8455810546875,
+        94.4278793334961
+      ],
+      "text": "Machine 1\nMachine 0"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        196.1412811279297,
+        99.6729736328125,
+        296.929443359375,
+        105.97801971435547
+      ],
+      "text": "G0\nG1\nG3\nG2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        227.7260284423828,
+        134.21827697753906,
+        230.92694091796875,
+        140.53173828125
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        296.71014404296875,
+        145.0272216796875,
+        299.90679931640625,
+        151.33226013183594
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        189.0551300048828,
+        134.34019470214844,
+        192.2517852783203,
+        140.64523315429688
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        227.7260284423828,
+        145.0272216796875,
+        261.3487854003906,
+        151.91233825683594
+      ],
+      "text": "2\n3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        296.591064453125,
+        133.87782287597656,
+        299.7877197265625,
+        140.182861328125
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        189.0551300048828,
+        145.598876953125,
+        192.25604248046875,
+        151.91233825683594
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        258.1478576660156,
+        133.9969024658203,
+        261.3445129394531,
+        140.30194091796875
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        189.16371154785156,
+        161.39649963378906,
+        299.91107177734375,
+        167.7099609375
+      ],
+      "text": "1\n3\n2\n4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        82.01935577392578,
+        201.8468475341797,
+        280.0585632324219,
+        208.8601531982422
+      ],
+      "text": "Step 1: intra-node all-to-all\nStep 2: inter-node all-to-all"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        56.740352630615234,
+        170.96896362304688,
+        180.65713500976562,
+        185.5651397705078
+      ],
+      "text": "Notation\nx Initial grad. slices\nx Grad. after intra-comm"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        56.673099517822266,
+        191.4834442138672,
+        180.20176696777344,
+        198.2340545654297
+      ],
+      "text": "x Grad. after inter-comm\nx Correct final grad."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.79800033569336,
+        222.5777130126953,
+        294.0415954589844,
+        242.5637969970703
+      ],
+      "text": "Figure 8: Gradient partition misplacement when applying\nhierarchical all-to-all in qgZ."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.79800033569336,
+        264.7828674316406,
+        295.559326171875,
+        438.13226318359375
+      ],
+      "text": "Our 2-step all-to-all communication works as follows, first we\ndivide all gradients on each GPU into 4 chunks, then conduct our\nintra-node all-to-all. After intra-node all-to-all finishes, GPU0 (i.e.,\nG0) holds partial aggregated gradient partition 1,2 whereas G1 holds\ngradient partition 3,4. Same thing happens on G2 and G3. Since G1\ndoes not have gradient partition 2 (which is supposed to be held by\nG1) while G2 does not have gradient partition 3, after inter-node\nall-to-all, there is gradient misplacement issue on both G1 and G2.\nWe address this with tensor slice reordering. As shown in Fig-\nure 9, before intra-node all-to-all begin, we first swap the tensor\nslice order of slice 2 and 3, which is shown as orange arrows. Then\nafter intra-node all-to-all is completed, G1 now has gradient 2 while\nG2 has gradient 3. Therefore, after the inter-node all-to-all, all GPUs\nget the correct gradient placement. Mathematically, given X GPUs\nper node and Y nodes in total, each GPU will hold X*Y gradient\nslices initially. Our tensor slice reordering works as follows:"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        89.1240005493164,
+        444.01873779296875,
+        294.5833435058594,
+        454.5582580566406
+      ],
+      "text": "𝑏𝑒𝑓𝑜𝑟𝑒: [0, 1, 2, 3, 4, ...𝑌𝑋−3,𝑌𝑋−2,𝑌𝑋−1]\n(1)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        57.988983154296875,
+        462.07574462890625,
+        294.5833740234375,
+        472.6152648925781
+      ],
+      "text": "𝑎𝑓𝑡𝑒𝑟: [0,𝑋, 2𝑋, ...(𝑌−1)𝑋, 1,𝑋+ 1, (𝑌−1)𝑋+ 1, ...𝑌𝑋−1] (2)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.46699905395508,
+        478.1568603515625,
+        295.5634765625,
+        563.8352661132812
+      ],
+      "text": "Based on Equation 1 and 2, we can map each original tensor slice\nposition (i.e., Equation 1) to new tensor slice position (i.e., Equation\n2) on each GPU to correct final gradient misplacement issue.\nIn summary, by solving above three challenges step-by-step,\nwe design a novel gradient communication and reduction proto-\ncol, which can be a more communication efficient and generalized\nreplacement of reduce-scatter collective. We discuss some of the\noptimization and implementation details for our approach in Sec. 4."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.79800033569336,
+        575.8175659179688,
+        288.0818176269531,
+        586.7266845703125
+      ],
+      "text": "3.4\nZeRO++ Communication Volume Analysis"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.52899932861328,
+        590.5848999023438,
+        295.1004943847656,
+        709.1402587890625
+      ],
+      "text": "Table 1 illustrates theoretical communication volume comparison\nbetween ZeRO-3 and ZeRO++. We assume the model size of 𝑀. As\ndescribed in Section 2, during ZeRO-3 there are 3 collective calls:\nall-gather on weights in forward pass, then all-gather on weights\nin backward pass and last is reduce-scatter on gradients in the\nbackward. And each collective communicates 𝑀volume of data.\nWith ZeRO-3, in total we need to communicate 3M data per each\ntraining iteration. Given that intra-node communication is fast with\nNVLink and NVSwitch, we ignore intra-node communication and\nfocus on cross-node traffic only. For all-gather in the forward pass,\nby incorporating our quantized weights communication, we reduce"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        334.4909973144531,
+        88.26435089111328,
+        424.7630615234375,
+        94.56939697265625
+      ],
+      "text": "Machine 1\nMachine 0"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.0610656738281,
+        99.80606842041016,
+        431.8590393066406,
+        106.11111450195312
+      ],
+      "text": "G0\nG1\nG3\nG2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        455.49591064453125,
+        191.3300323486328,
+        564.1451416015625,
+        197.7548828125
+      ],
+      "text": "1\n2\n3\n4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        463.7275085449219,
+        88.11443328857422,
+        554.0025634765625,
+        94.4278793334961
+      ],
+      "text": "Machine 1\nMachine 0"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        460.29827880859375,
+        99.6729736328125,
+        561.08642578125,
+        105.97801971435547
+      ],
+      "text": "G0\nG1\nG3\nG2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        453.3206787109375,
+        161.39649963378906,
+        564.0680541992188,
+        167.7099609375
+      ],
+      "text": "1\n2\n3\n4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        346.17633056640625,
+        202.54669189453125,
+        544.6428833007812,
+        209.11865234375
+      ],
+      "text": "Step 1: intra-node all-to-all\nStep 2: inter-node all-to-all"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.9750061035156,
+        137.2096710205078,
+        435.8963623046875,
+        143.9904022216797
+      ],
+      "text": "1\n2\n3\n4\n1\n2\n3\n4\n1\n2\n3\n4\n1\n2\n3\n4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.2772521972656,
+        153.3638916015625,
+        372.4964599609375,
+        160.017822265625
+      ],
+      "text": "1 3\n2 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.2772521972656,
+        166.02650451660156,
+        372.4921875,
+        173.61007690429688
+      ],
+      "text": "2 4\n1 3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        389.0338134765625,
+        154.064453125,
+        436.24664306640625,
+        160.7127685546875
+      ],
+      "text": "1 3\n2 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        389.0338134765625,
+        166.72357177734375,
+        436.24664306640625,
+        174.30712890625
+      ],
+      "text": "2 4\n1 3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        326.7904357910156,
+        116.7806396484375,
+        436.13531494140625,
+        123.31196594238281
+      ],
+      "text": "1 2 3 4\n1 2 3 4\n1 2 3 4\n1 2 3 4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.8572998046875,
+        180.77960205078125,
+        436.5934143066406,
+        187.54701232910156
+      ],
+      "text": "2 4\n1 3\n2 4\n1 3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        454.0352478027344,
+        116.12211608886719,
+        564.7713623046875,
+        122.88953399658203
+      ],
+      "text": "2 4\n1 3\n2 4\n1 3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        491.78143310546875,
+        137.2580108642578,
+        494.97808837890625,
+        143.56304931640625
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        560.758544921875,
+        148.06065368652344,
+        563.9552001953125,
+        154.36569213867188
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        453.11053466796875,
+        137.3771209716797,
+        456.30718994140625,
+        143.68215942382812
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        491.78143310546875,
+        148.06065368652344,
+        525.39990234375,
+        154.94715881347656
+      ],
+      "text": "3\n2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        560.6499633789062,
+        136.9147491455078,
+        563.8466186523438,
+        143.21978759765625
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        453.11053466796875,
+        148.64212036132812,
+        456.30718994140625,
+        154.94715881347656
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        522.2032470703125,
+        137.03033447265625,
+        525.39990234375,
+        143.3353729248047
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        499.64874267578125,
+        173.98065185546875,
+        518.5512084960938,
+        180.2941131591797
+      ],
+      "text": "Correct"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        222.5709991455078,
+        559.8045654296875,
+        242.5637969970703
+      ],
+      "text": "Figure 9: Tensor slices reordering to correct gradient mis-\nplacement in qgZ."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.65899658203125,
+        258.9998474121094,
+        559.8043212890625,
+        325.3517761230469
+      ],
+      "text": "Comm.\nforward\nbackward\nbackward\nVolume\nall-gather\nall-gather\nreduce-scatter\nZeRO-3\nM\nM\nM\nZeRO++\n0.5M\n0\n0.25M\nTable 1: Communication volume comparison between ZeRO-\n3 and ZeRO++."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        359.4538879394531,
+        559.7198486328125,
+        445.13330078125
+      ],
+      "text": "communication volume from M to 0.5M. During the all-gather in\nthe backward pass, by holding secondary weights partition within\neach node, we completely removed cross-node traffic. For reduce-\nscatter in the backward pass, by replacing reduce-scatter with our\nnovel quantized gradient communication protocol, we reduce cross-\nnode traffic from M to 0.25M. Therefore, compared with ZeRO-3,\nZeRO++ reduces communication volume from 3M down to 0.75M\nfor each training iteration."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        457.09759521484375,
+        497.73687744140625,
+        468.0066833496094
+      ],
+      "text": "4\nOPTIMIZED IMPLEMENTATION"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        471.8648681640625,
+        560.39013671875,
+        568.5032958984375
+      ],
+      "text": "In this section, we discuss two key optimizations that enable ZeRO++\nto fully realize the potential of 4x communication volume reduction\nto improve throughput without getting limited by implementation\noverheads: i) overlapping different communication and compute\nstreams, when doing so enables better resource utilization, and\nii) optimized CUDA kernels for quantization, dequantization, and\ntensor slice reordering operators, and kernel fusion across these op-\nerators when appropriate to minimize the memory traffic overhead.\nBelow we discuss the two lines of optimization in detail."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        580.4675903320312,
+        534.9916381835938,
+        591.376708984375
+      ],
+      "text": "4.1\nOverlap Compute and Communication"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.6860046386719,
+        595.2349243164062,
+        558.2057495117188,
+        648.0372924804688
+      ],
+      "text": "To reduce end-to-end communication time, we overlap quantization\ncomputation with communication for all-gathering of weights in\nboth forward and backward passes. For the hierarchical all-to-all\nbased reduce-scatter implementation of gradients, we overlap the\nintra-node communication with inter-node communication."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        317.9549865722656,
+        656.3388671875,
+        559.7191162109375,
+        709.1402587890625
+      ],
+      "text": "4.1.1\nCommunication-computation overlapping on weights. For all-\ngather on weights, we enable communication-computation overlap\nusing two key features : i) we track the execution order of model\nlayers to get the sequence they will be fetched. ii) we guarantee\nasynchronous quantization execution. Specifically, the call to the"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        71.15708923339844,
+        114.4538803100586,
+        75.23597717285156,
+        120.51463317871094
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        57.151187896728516,
+        101.9126968383789,
+        63.20386505126953,
+        130.01531982421875
+      ],
+      "text": "No Pipeline"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        77.21783447265625,
+        88.110595703125,
+        286.884033203125,
+        94.6878433227539
+      ],
+      "text": "Reorder+Quant\nDequant+Reduction+Quant\nDequant+Reduction"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        56.9272346496582,
+        146.2910614013672,
+        62.98798370361328,
+        185.70132446289062
+      ],
+      "text": "2-Stage Pipeline"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        202.9024200439453,
+        114.2386703491211,
+        240.53768920898438,
+        120.29942321777344
+      ],
+      "text": "Inter-node A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        95.94818878173828,
+        114.38931274414062,
+        133.4243621826172,
+        120.4419937133789
+      ],
+      "text": "Intra-node A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        274.40472412109375,
+        197.3184356689453,
+        286.5705871582031,
+        203.37110900878906
+      ],
+      "text": "Time"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        154.2489471435547,
+        114.27498626708984,
+        157.97134399414062,
+        120.32766723632812
+      ],
+      "text": "D"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        285.88128662109375,
+        114.17074584960938,
+        289.1678771972656,
+        120.22342681884766
+      ],
+      "text": "R"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        68.54232788085938,
+        148.5432586669922,
+        72.61578369140625,
+        154.59593200683594
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        67.47705841064453,
+        89.089111328125,
+        71.5505142211914,
+        95.14179229736328
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        136.10772705078125,
+        88.62171173095703,
+        139.8301239013672,
+        94.67439270019531
+      ],
+      "text": "D"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        228.0344696044922,
+        88.73268127441406,
+        231.32107543945312,
+        94.78536224365234
+      ],
+      "text": "R"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        110.45780944824219,
+        148.50962829589844,
+        114.18020629882812,
+        154.5623016357422
+      ],
+      "text": "D"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        177.67617797851562,
+        148.46926879882812,
+        180.96278381347656,
+        154.52194213867188
+      ],
+      "text": "R"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        104.64051055908203,
+        181.39585876464844,
+        108.7139663696289,
+        187.4485321044922
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        146.46116638183594,
+        181.3332977294922,
+        150.1885223388672,
+        187.39404296875
+      ],
+      "text": "D"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        213.65264892578125,
+        181.46243286132812,
+        216.94363403320312,
+        187.52317810058594
+      ],
+      "text": "R"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        78.42837524414062,
+        144.83766174316406,
+        105.83557891845703,
+        150.8903350830078
+      ],
+      "text": "Intra-node"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        86.41790771484375,
+        152.1008758544922,
+        96.49562072753906,
+        158.15354919433594
+      ],
+      "text": "A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        114.47947692871094,
+        177.63511657714844,
+        141.8678436279297,
+        183.6877899169922
+      ],
+      "text": "Intra-node"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        122.46900939941406,
+        184.89833068847656,
+        132.54672241210938,
+        190.9510040283203
+      ],
+      "text": "A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        126.800048828125,
+        148.46926879882812,
+        164.4275360107422,
+        154.52194213867188
+      ],
+      "text": "Inter-node A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        163.0118865966797,
+        181.46243286132812,
+        200.6471710205078,
+        187.52317810058594
+      ],
+      "text": "Inter-node A2A"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        69.60759735107422,
+        135.45265197753906,
+        102.40101623535156,
+        141.5053253173828
+      ],
+      "text": "Data Chunk 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        103.71243286132812,
+        169.50839233398438,
+        136.50584411621094,
+        175.56106567382812
+      ],
+      "text": "Data Chunk 2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        232.85308837890625,
+        160.82009887695312,
+        284.1409606933594,
+        167.55874633789062
+      ],
+      "text": "Latency Reduction"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.79800033569336,
+        217.63455200195312,
+        295.6463623046875,
+        237.51576232910156
+      ],
+      "text": "Figure 10: Pipelining and overlapping intra-node communi-\ncation with inter-node communication in 𝑞𝑔𝑍."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.79800033569336,
+        291.40887451171875,
+        295.0348205566406,
+        420.92327880859375
+      ],
+      "text": "quantization kernel is non-blocking and we further avoid operations\nthat involve explicit/implicit CUDA synchronization (e.g. tensor\nconcatenation), making the quantization a non-blocking operation\nthat can be launched asynchronously.\nWith this two features, as ZeRO fetch parameters for each layer,\nthe communication of the current layer and the quantization of the\nnext layer can be launched at the same time on different CUDA\nstreams. When the quantized data are needed for the next layer,\nZeRO++ synchronizes the quantization stream to make sure the\nquantized data are ready. This approach hides the quantization cost\nof the next layer under the communication time span of the current\nlayer which hides the quantization overhead."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.46699905395508,
+        437.160888671875,
+        295.55963134765625,
+        709.1402587890625
+      ],
+      "text": "4.1.2\nHierarchical Collectives for Gradient Communication. As dis-\ncussed in Sec. 3.3.2, our all-to-all based gradient communication is\nbroken into two stages: first intra-node communication followed\nby inter-node communication. The inter-node communication de-\npends on the results of the intra-node communication, therefore,\nwith a naive implementation, inter-nodes links are idle during intra-\nnode communication and vice versa. To reduce latency by leverag-\ning both inter-node and intra-node links in parallel, we chunk our\ninput gradient tensor and pipeline transfer between intra-node com-\nmunication and inter-node communication. As shown in Figure 10,\ncompared with \"no pipeline\" case on the top, simply adopting a \"2-\nstage pipeline\" transfer achieves the amount of end-to-end latency\nreduction shown as the red arrow-line in Figure 10. By overlapping\nintra-node and inter-node communication, the end-to-end latency\nof gradient communication is significantly reduced.\nDoing this pipeline correctly has implications on our tensor slice\nreordering process. The more pipeline stages we have, the more\nfine-grained tensor slices are needed for reordering. Therefore,\nwe also propose a generalized tensor slices reordering scheme as\nalgorithm 2, which covers both w/ and w/o pipelining data transfer\ncases. Here stages refer to the number of pipeline stages we have,\nnodeSize is the number of GPUs per node and nodes is the number\nof nodes.\nNext, we discuss how we optimize our CUDA kernels to further\nreduce all quantization related overhead."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        322.6050109863281,
+        86.04678344726562,
+        527.1900024414062,
+        96.98481750488281
+      ],
+      "text": "Algorithm 2: Generalized tensor slice reordering (𝑞𝑔𝑍)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        327.9179992675781,
+        99.28475952148438,
+        457.3069152832031,
+        132.13978576660156
+      ],
+      "text": "Constants:𝑠𝑡𝑎𝑔𝑒𝑠, 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒, 𝑛𝑜𝑑𝑒𝑠\nInput\n:𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷\nOutput\n:𝑚𝑎𝑝𝑝𝑒𝑑𝑃𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        132.16073608398438,
+        452.1870422363281,
+        142.70025634765625
+      ],
+      "text": "1 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠←𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒∗𝑛𝑜𝑑𝑒𝑠;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        144.11575317382812,
+        473.2530517578125,
+        154.6552734375
+      ],
+      "text": "2 𝑠𝑡𝑎𝑔𝑒𝐼𝐷←𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷% 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        154.82769775390625,
+        415.1857604980469,
+        168.26361083984375
+      ],
+      "text": "3 𝑐ℎ𝑢𝑛𝑘𝐼𝐷←𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        375.1839904785156,
+        159.50387573242188,
+        420.2630615234375,
+        170.43235778808594
+      ],
+      "text": "𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        170.21377563476562,
+        485.4430847167969,
+        180.7532958984375
+      ],
+      "text": "4 𝑝𝑖𝑝𝑒𝑙𝑖𝑛𝑒𝑂𝑓𝑓𝑠𝑒𝑡←𝑠𝑡𝑎𝑔𝑒𝐼𝐷∗𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.3620300292969,
+        180.92572021484375,
+        419.5821228027344,
+        194.36065673828125
+      ],
+      "text": "5 𝑐ℎ𝑢𝑛𝑘𝑂𝑓𝑓𝑠𝑒𝑡←𝑠𝑡𝑎𝑔𝑒𝐼𝐷"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        392.4440002441406,
+        185.60086059570312,
+        425.1810607910156,
+        196.53038024902344
+      ],
+      "text": "𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        196.37374877929688,
+        494.2210693359375,
+        206.91326904296875
+      ],
+      "text": "6 𝑐ℎ𝑢𝑛𝑘𝐵𝑎𝑠𝑒←(𝑐ℎ𝑢𝑛𝑘𝐼𝐷% 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒) ∗𝑛𝑜𝑑𝑒𝑠;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        320.36199951171875,
+        208.32876586914062,
+        529.924072265625,
+        219.2667999267578
+      ],
+      "text": "7 Return: 𝑝𝑖𝑝𝑒𝑙𝑖𝑛𝑒𝑂𝑓𝑓𝑠𝑒𝑡+ 𝑐ℎ𝑢𝑛𝑘𝐵𝑎𝑠𝑒+ 𝑐ℎ𝑢𝑛𝑘𝑂𝑓𝑓𝑠𝑒𝑡;"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        317.9549865722656,
+        244.392578125,
+        414.9914245605469,
+        255.3016815185547
+      ],
+      "text": "4.2\nCUDA Kernels"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        317.62298583984375,
+        259.1608581542969,
+        559.7196044921875,
+        618.812255859375
+      ],
+      "text": "As existing quantization implementations are unable to capture\nthe combination of data mapping and high throughput necessary\nto minimize kernel overhead, we implement and optimize custom\nCUDA kernels to implement these primitives. In particular, these\nkernels aim to (1) saturate device memory bandwidth and (2) mini-\nmize the total traffic via fusion.\nMaximizing Bandwidth Utilization: A core quantization and\ndequantization library of composable operators was developed as\nthe foundation for ZeRO++. The core primitives leverage efficient\nvectorized memory accesses at the maximum granularity a given\nGPU architecture supports. In order to satisfy the alignment re-\nquirements these instructions have, model state is partitioned such\nthat quantization granularities will be 16B aligned. Additionally,\nwe leverage instruction level parallelism to overlap multiple mem-\nory transactions with each other. In practice, the combination of\nvectorized accesses and instruction level parallelism enables the\nquantization library to achieve full GPU memory bandwidth uti-\nlization.\nMinimizing Total Traffic: Multiple techniques are used to re-\nduce the total memory traffic for quantization kernels. First, the\nsize of each quantization block is tuned so as to express sufficient\nparallelism to schedule across a GPU’s streaming multiprocessors\nand cache values not quantized yet in the register file while cal-\nculating the quantization scale and offset for the block. Second,\nwe fuse tensor reshaping and quantization into the same kernel to\navoid redundantly loading data from global memory. For example,\nthe tensor slice reordering (i.e., orange arrow-lines in Figure 9) is\nrealized within a fused quantization and remapping kernel.This\nfused kernel achieves the same level of performance as a single\nquantization kernel working with contiguous data. Finally, we fuse\nsequential dequantization, reduction, and quantization operations\ninto single kernel implementation, which reduces total memory\ntraffic by 9x in 𝑞𝑔𝑍."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        317.9549865722656,
+        630.611572265625,
+        403.7768249511719,
+        641.5206909179688
+      ],
+      "text": "5\nEVALUATION"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        317.6860046386719,
+        645.3798828125,
+        559.5850830078125,
+        709.1402587890625
+      ],
+      "text": "In this section, we perform three sets of evaluations for ZeRO++.\nFirst, we perform end-to-end evaluations showing : i) scalability\nevaluation on up to 384 GPUs , ii) speedup over state-of-the-art\n(SOTA) baseline across models ranging from 10-138B parameters,\nand iii) throughput comparisons for cluster setting with varied\ncross-node bandwidth. Second, we perform throughput analysis"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.79800033569336,
+        62.163856506347656,
+        558.198974609375,
+        69.13765716552734
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training\nABC, 2023, USA"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        81.83625793457031,
+        177.6400604248047,
+        93.5418930053711,
+        190.17190551757812
+      ],
+      "text": "64\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        106.82355499267578,
+        177.6400604248047,
+        118.52919006347656,
+        190.17190551757812
+      ],
+      "text": "128\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        131.81085205078125,
+        177.6400604248047,
+        143.51649475097656,
+        190.17190551757812
+      ],
+      "text": "256\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        156.79815673828125,
+        177.6400604248047,
+        168.50379943847656,
+        190.17190551757812
+      ],
+      "text": "384\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        71.20552825927734,
+        171.10693359375,
+        74.7425765991211,
+        180.5390625
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.6688232421875,
+        155.2529296875,
+        74.742919921875,
+        164.68505859375
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.6688232421875,
+        139.39894104003906,
+        74.742919921875,
+        148.83108520507812
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.6688232421875,
+        123.54493713378906,
+        74.742919921875,
+        132.97708129882812
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        57.43132781982422,
+        121.99583435058594,
+        66.86346435546875,
+        166.53952026367188
+      ],
+      "text": "TFLOPs per GPU"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        83.29856872558594,
+        145.099853515625,
+        163.91973876953125,
+        153.99314880371094
+      ],
+      "text": "15\n15\n14\n14"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        89.54539489746094,
+        111.55278015136719,
+        170.1665496826172,
+        127.96088409423828
+      ],
+      "text": "36\n34\n32\n31"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        74.36736297607422,
+        102.45429992675781,
+        179.11074829101562,
+        111.88643646240234
+      ],
+      "text": "IB: 1, Micro Batch per GPU: 1K Tokens"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        195.04412841796875,
+        177.6400604248047,
+        206.74977111816406,
+        190.17190551757812
+      ],
+      "text": "64\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        220.0314178466797,
+        177.6400604248047,
+        231.737060546875,
+        190.17190551757812
+      ],
+      "text": "128\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        245.0187225341797,
+        177.6400604248047,
+        256.724365234375,
+        190.17190551757812
+      ],
+      "text": "256\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        270.0060119628906,
+        177.6400604248047,
+        281.7116394042969,
+        190.17190551757812
+      ],
+      "text": "384\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        184.41339111328125,
+        171.10693359375,
+        187.950439453125,
+        180.5390625
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        180.87669372558594,
+        148.92115783691406,
+        187.95079040527344,
+        158.35330200195312
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        180.87669372558594,
+        126.73538208007812,
+        187.95079040527344,
+        136.16751098632812
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        196.50643920898438,
+        115.53514099121094,
+        202.16571044921875,
+        123.08084869384766
+      ],
+      "text": "48"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        221.4937286376953,
+        127.77058410644531,
+        252.1403045654297,
+        136.14825439453125
+      ],
+      "text": "37\n36"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        271.4682922363281,
+        134.19338989257812,
+        277.1275939941406,
+        141.7390899658203
+      ],
+      "text": "31"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        202.7532501220703,
+        111.55278015136719,
+        208.4125213623047,
+        119.0984878540039
+      ],
+      "text": "52"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        227.7405548095703,
+        115.32437133789062,
+        233.3998260498047,
+        122.87007904052734
+      ],
+      "text": "48"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        252.72784423828125,
+        120.85972595214844,
+        258.3871154785156,
+        128.40542602539062
+      ],
+      "text": "43"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        277.71514892578125,
+        126.8720703125,
+        283.37445068359375,
+        134.4177703857422
+      ],
+      "text": "38"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        187.57522583007812,
+        102.45429992675781,
+        292.3186340332031,
+        111.88643646240234
+      ],
+      "text": "IB: 8, Micro Batch per GPU: 1K Tokens"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        81.83625793457031,
+        267.13409423828125,
+        93.5418930053711,
+        279.66595458984375
+      ],
+      "text": "64\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        106.82355499267578,
+        267.13409423828125,
+        118.52919006347656,
+        279.66595458984375
+      ],
+      "text": "128\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        131.81085205078125,
+        267.13409423828125,
+        143.51649475097656,
+        279.66595458984375
+      ],
+      "text": "256\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        156.79815673828125,
+        267.13409423828125,
+        168.50379943847656,
+        279.66595458984375
+      ],
+      "text": "384\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        71.20552825927734,
+        260.6009826660156,
+        74.7425765991211,
+        270.0331115722656
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.6688232421875,
+        238.757568359375,
+        74.742919921875,
+        248.189697265625
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        67.6688232421875,
+        216.9141387939453,
+        74.742919921875,
+        226.34628295898438
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        57.43132781982422,
+        211.48988342285156,
+        66.86346435546875,
+        256.0335693359375
+      ],
+      "text": "TFLOPs per GPU"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        83.29856872558594,
+        227.91424560546875,
+        163.91973876953125,
+        237.54598999023438
+      ],
+      "text": "28\n27\n26\n26"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        89.54539489746094,
+        201.0468292236328,
+        170.1665496826172,
+        215.24386596679688
+      ],
+      "text": "52\n51\n48\n46"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        74.36736297607422,
+        191.9483642578125,
+        179.11074829101562,
+        201.3804931640625
+      ],
+      "text": "IB: 1, Micro Batch per GPU: 2K Tokens"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        195.04412841796875,
+        267.13409423828125,
+        206.74977111816406,
+        279.66595458984375
+      ],
+      "text": "64\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        220.0314178466797,
+        267.13409423828125,
+        231.737060546875,
+        279.66595458984375
+      ],
+      "text": "128\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        245.0187225341797,
+        267.13409423828125,
+        256.724365234375,
+        279.66595458984375
+      ],
+      "text": "256\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        270.0060119628906,
+        267.13409423828125,
+        281.7116394042969,
+        279.66595458984375
+      ],
+      "text": "384\nGPUs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        184.41339111328125,
+        260.6009826660156,
+        187.950439453125,
+        270.0331115722656
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        180.87669372558594,
+        242.2442626953125,
+        187.95079040527344,
+        251.6763916015625
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        180.87669372558594,
+        223.8875274658203,
+        187.95079040527344,
+        233.31967163085938
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        180.87669372558594,
+        205.53079223632812,
+        187.95079040527344,
+        214.96292114257812
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        196.50643920898438,
+        202.3501739501953,
+        202.16571044921875,
+        209.8958740234375
+      ],
+      "text": "61"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        221.4937286376953,
+        207.9306182861328,
+        252.1403045654297,
+        217.54144287109375
+      ],
+      "text": "55\n53"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        271.4682922363281,
+        214.95205688476562,
+        277.1275939941406,
+        222.4977569580078
+      ],
+      "text": "47"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        202.7532501220703,
+        201.0468292236328,
+        283.37445068359375,
+        216.67868041992188
+      ],
+      "text": "62\n59\n56\n54"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        187.57522583007812,
+        191.9483642578125,
+        292.3186340332031,
+        201.3804931640625
+      ],
+      "text": "IB: 8, Micro Batch per GPU: 2K Tokens"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        138.21397399902344,
+        83.47784423828125,
+        228.3012237548828,
+        98.56925964355469
+      ],
+      "text": "Baseline\nZeRO++"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.79800033569336,
+        296.709228515625,
+        294.2362976074219,
+        327.6307678222656
+      ],
+      "text": "Figure 11: Scalability on up to 384 GPUs of 18B model with\ndifferent numbers of InfiniBand connections and tokens per\nGPU"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.79800033569336,
+        353.1288757324219,
+        295.5567321777344,
+        405.9312744140625
+      ],
+      "text": "and breakdown, evaluating the impact of different components of\nZeRO++, as well as the impacts of our kernel optimizations on\nend-to-end throughput. Finally, we show convergence evaluation\nindicating that ZeRO++ doesn’t harm model convergence and main-\ntains similar model training accuracy."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.79800033569336,
+        418.7325744628906,
+        143.92897033691406,
+        429.64166259765625
+      ],
+      "text": "5.1\nMethodology"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.52899932861328,
+        433.5008850097656,
+        295.55609130859375,
+        661.645263671875
+      ],
+      "text": "Hardware: 24 NVIDIA DGX-2 nodes where each with 16 V100\nSXM3 32 GB GPUs [11]. The nodes are connected by InfiniBand\n(IB) with NVIDIA SHARP support [16], achieving total inter-node\nbandwidth of over 800 Gbps. To evaluate ZeRO++ in clusters un-\nder different network environments, we show the performance of\nZeRO++ running with different cross-node bandwidth by enabling\nfrom 1 to 8 IB connections (i.e., 100 Gbps to 800 Gbps).\nBaseline: We use ZeRO-3 as the baseline given its ease-to-use for\ntraining giant models at large scale. To evaluate the performance of\nour optimized kernels, we also implemented ZeRO++ with PyTorch\nquantization[27] and non-fused kernels as baselines for our ablation\nstudy.\nModel Configurations: We use GPT-style transformer models for\nevaluation. Given Megatron-Turing-NLG [33] training 530B model\non 2K GPUs using 2K tokens per GPU (i.e., micro batch size), we\nevaluate ZeRO++ with the same 2k tokens per GPU setting. We also\nevaluate on 1K tokens per GPU to test ZeRO++ with more extreme\nscale scenario. The number of layers and hidden sizes are adjusted\nto have models of different sizes. Please refer to the appendix and\nour open-sourced evaluation scripts for hyperparameters and other\ntraining details."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.79800033569336,
+        674.4475708007812,
+        196.61993408203125,
+        685.356689453125
+      ],
+      "text": "5.2\nE2E System Evaluations"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.36800003051758,
+        689.2158813476562,
+        294.0458984375,
+        709.5791015625
+      ],
+      "text": "We evaluate ZeRO++ end-to-end performance here. One key metric\nwe use here is the percentage of peak performance, which is shown"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.65899658203125,
+        84.51496887207031,
+        558.2007446289062,
+        104.50776672363281
+      ],
+      "text": "Table 2: End-to-end speedup of ZeRO++ on 384 GPUs with\ndifferent model sizes"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        321.70184326171875,
+        118.23346710205078,
+        535.7288818359375,
+        141.7587890625
+      ],
+      "text": "1 IB Connection\n8 IB Connections\nModel\nSize\nTokens\nper GPU"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        377.8055419921875,
+        126.77429962158203,
+        554.455322265625,
+        141.7587890625
+      ],
+      "text": "Baseline\nTFLOPs\nZeRO++\nTFLOPs\nSpeedup\nBaseline\nTFLOPs\nZeRO++\nTFLOPs\nSpeedup"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        323.6714172363281,
+        143.55734252929688,
+        549.83447265625,
+        208.88876342773438
+      ],
+      "text": "138B\n2K\n19.96\n37.90\n1.90x\n47.55\n55.30\n1.16x\n138B\n1K\n11.25\n21.81\n1.94x\n34.19\n44.38\n1.30x\n91B\n2K\n19.99\n38.06\n1.90x\n47.74\n56.26\n1.18x\n91B\n1K\n11.27\n21.93\n1.95x\n34.49\n44.36\n1.29x\n49B\n2K\n20.06\n38.08\n1.90x\n48.05\n56.24\n1.17x\n49B\n1K\n11.27\n21.95\n1.95x\n34.54\n44.46\n1.29x\n18B\n2K\n25.98\n46.40\n1.79x\n47.31\n53.65\n1.13x\n18B\n1K\n14.15\n30.57\n2.16x\n31.27\n37.87\n1.21x"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.9549865722656,
+        328.72894287109375,
+        559.80615234375,
+        348.623779296875
+      ],
+      "text": "Figure 12: ZeRO++ achieving high bandwidth cluster perfor-\nmance with significantly lower bandwidth"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.9549865722656,
+        370.3938903808594,
+        368.2565612792969,
+        379.36029052734375
+      ],
+      "text": "as equation 3."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        336.4019775390625,
+        385.03076171875,
+        558.7393798828125,
+        395.6159973144531
+      ],
+      "text": "𝑝𝑒𝑎𝑘_𝑝𝑒𝑟𝑓𝑜𝑟𝑚𝑎𝑛𝑐𝑒= 𝑎𝑐ℎ𝑖𝑒𝑣𝑒𝑑_𝑇𝐹𝐿𝑂𝑃𝑠/𝑚𝑎𝑥_𝑇𝐹𝐿𝑂𝑃𝑠\n(3)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.9549865722656,
+        401.2407531738281,
+        559.606201171875,
+        434.16888427734375
+      ],
+      "text": "Given that we use V100 GPU, its𝑚𝑎𝑥_𝑇𝐹𝐿𝑂𝑃𝑠is 120 TFLOPs [24]\nfor mixed precision computation. Thus, our reported peak perfor-\nmance refers to the percentage number of 𝑎𝑐ℎ𝑖𝑒𝑣𝑒𝑑_𝑇𝐹𝐿𝑂𝑃𝑠/120."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.6860046386719,
+        452.8638610839844,
+        559.5821533203125,
+        582.3782958984375
+      ],
+      "text": "5.2.1\nScalability upto 384 GPUs. In Figure 11, we present ZeRO++\nscalability evaluation from 64 to 384 GPUs with 18B model on both\nlow (1 IB) and high (8 IB) bandwidth clusters. On low bandwidth\ncluster, ZeRO++ achieves 30% and 38.3% of peak performance (120\nTFLOPs) even at 384 GPUs for 1K and 2K batch sizes, which is much\nhigher compared to 12.5% and 21.6% as baseline peak performance.\nThis presents up to 2.4x better throughput. On high bandwidth\ncluster, despite having significantly more bandwidth, ZeRO++ still\nenables up to 1.29x better throughput, and can achieve up 45%\nof sustained peak throughput at 384 GPUs. ZeRO++ significantly\nspeed up large scale training for low bandwidth clusters while\narchiving decent speedup even on high bandwidth clusters."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.62298583984375,
+        590.5848999023438,
+        559.7139282226562,
+        709.1402587890625
+      ],
+      "text": "5.2.2\nThroughput for different model sizes. Table 2 compares train-\ning throughput for models of 18B-138B on 384 GPUs between\nZeRO++ and baseline on both low and high bandwidth clusters. On\nlow bandwidth cluster, ZeRO++ consistently achieves over 31.5%\nand 18.1% peak performance for 2K and 1K batch sizes on all models.\nCompared with the baseline peak performance of 16.6% and 9.3%,\nthe speedup is up to 2.16x. On high bandwidth cluster, ZeRO++\npeak performances are 44.7% and 31.5%, which is 1.3x over the base-\nline peak performance of 31.5% and 26.0%. ZeRO++ is robust and\noffers consistent speedup across different model and batch sizes as\nwell as across clusters with different network bandwidths."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.50199890136719,
+        84.62997436523438,
+        295.5827331542969,
+        104.50776672363281
+      ],
+      "text": "Table 3: End-to-end performance when using ZeRO++ w.\\wo.\noptimized kernels"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        125.84886932373047,
+        118.68862915039062,
+        174.0435028076172,
+        150.3180389404297
+      ],
+      "text": "Optimized\nQuantization\nKernel"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        185.34075927734375,
+        118.68862915039062,
+        223.77536010742188,
+        150.3180389404297
+      ],
+      "text": "Optimized\nFusion\nKernel"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        235.0711669921875,
+        130.04769897460938,
+        264.3783264160156,
+        139.0847625732422
+      ],
+      "text": "TFLOPs"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        83.4659423828125,
+        153.02902221679688,
+        260.11749267578125,
+        209.46095275878906
+      ],
+      "text": "Baseline\nN/A\nN/A\n15\nZeRO++\nNo\nNo\n19.73\nZeRO++\nNo\nYes\n21.6\nZeRO++\nYes\nNo\n31.40\nZeRO++\nYes\nYes\n36.16"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.79800033569336,
+        245.83987426757812,
+        295.55743408203125,
+        397.2712707519531
+      ],
+      "text": "5.2.3\nDemocratization for large scale training. Figure 12 compares\nthe throughput of ZeRO++ on a low cross-node bandwidth (200\nGbps as 2 IB) cluster with the baseline running on 800 Gbps high-\nbandwidth (8 IB) cluster. For small model of 18B, ZeRO++ achieves\na higher peak performance of 41.6% compared with baseline peak\nperformance of 39.1% despite running with 4x lower cross-node\nbandwidth. For large model of 138B, ZeRO++ and baseline achieve\nthe same peak performance of 40%, but baseline runs at 4x higher\ncross-node bandwidth. This evaluation shows that ZeRO++ makes\nlarge scale training more accessible by significantly decreasing the\nminimum cross-node bandwidth requirement for efficient training.\nFurthermore, it demonstrates that optimized ZeRO++ implemen-\ntation effectively translates the 4x communication reduction of\nZeRO++ into real end-to-end system throughput gain."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.79800033569336,
+        412.6595764160156,
+        264.5945129394531,
+        423.56866455078125
+      ],
+      "text": "5.3\nThroughput Breakdown and Analysis"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.46699905395508,
+        427.4278869628906,
+        295.5568542480469,
+        600.7772827148438
+      ],
+      "text": "5.3.1\nImpact of Individual Techniques. In Figure 13, we show the\nindividual and combined impact of qwZ, hpZ, and qgZ, on the\nthroughput of 18B model on 128 GPUs. On low bandwidth clusters,\neach of these techniques enables a speedup ranging from 1.3-1.4x\ncompared with baseline, while achieving an aggregated speedup of\nup to 2.26x. Note that our TFLOPs throughput is calculated from\nwall-clock time measurement, ZeRO++ aggregated throughput gain\nis not equivalent to sum of qgZ, qwZ, hpZ gain. We can validate\nthe theoretical speedup with composition of our techniques by\naccumulating the speedup multiplicatively: 1.4 ∗1.26 ∗1.3 = 2.29,\nwhich is very near to what we achieved as 2.26x.\nFor high bandwidth clusters, the individual speedup ranges be-\ntween 1.13-1.16x, for a combined speedup of up to 1.3x. The figure\ndemonstrates that each of these techniques has a similar impact\ntowards throughput improvement and they compose effectively to\nproduce a much larger aggregated speedup."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.79800033569336,
+        612.5029296875,
+        295.560791015625,
+        709.1402587890625
+      ],
+      "text": "5.3.2\nImpact of Kernel Optimizations. Here, we evaluate the impact\nof our optimized kernels on ZeRO++ throughput using a 18B model\nrunning on 64 GPUs.\nQuantization Kernel: As shown in Table 3, compared with the\nbaseline that uses PyTorch quantization [27], our optimize quantiza-\ntion kernels can achieve up to 1.67x speedup in terms of end-to-end\nthroughput. Also, the baseline implementation suffers performance\ndegradation as group number increases which means the through-\nput gap will be larger when used with larger models."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        354.9600830078125,
+        183.6971893310547,
+        388.18133544921875,
+        192.75193786621094
+      ],
+      "text": "Micro Batch:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        358.296875,
+        189.68048095703125,
+        384.8680725097656,
+        198.7352294921875
+      ],
+      "text": "1K Tokens"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        398.6993103027344,
+        183.6971893310547,
+        431.9205627441406,
+        192.75193786621094
+      ],
+      "text": "Micro Batch:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        402.0361022949219,
+        189.68048095703125,
+        428.6072998046875,
+        198.7352294921875
+      ],
+      "text": "2K Tokens"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        338.8437805175781,
+        175.8575439453125,
+        343.08819580078125,
+        187.17596435546875
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        334.59979248046875,
+        154.48291015625,
+        343.088623046875,
+        165.80133056640625
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        334.59979248046875,
+        133.1082763671875,
+        343.088623046875,
+        144.42669677734375
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        322.31494140625,
+        124.49275970458984,
+        333.63336181640625,
+        177.94454956054688
+      ],
+      "text": "TFLOPs per GPU"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        352.45166015625,
+        157.46522521972656,
+        359.24273681640625,
+        166.5199737548828
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        360.3247375488281,
+        143.90301513671875,
+        402.9819641113281,
+        160.11827087402344
+      ],
+      "text": "27\n21"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        404.06396484375,
+        133.79281616210938,
+        410.85504150390625,
+        142.84756469726562
+      ],
+      "text": "37"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        368.1977844238281,
+        152.92311096191406,
+        374.9888610839844,
+        161.9778594970703
+      ],
+      "text": "19"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        411.93701171875,
+        136.13333129882812,
+        418.72808837890625,
+        145.18807983398438
+      ],
+      "text": "35"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        376.07086181640625,
+        151.57650756835938,
+        382.8619384765625,
+        160.63125610351562
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        383.94390869140625,
+        136.40052795410156,
+        426.60113525390625,
+        145.56214904785156
+      ],
+      "text": "34\n34"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        367.12689208984375,
+        108.61109161376953,
+        434.4742126464844,
+        128.2059326171875
+      ],
+      "text": "51\nNumber of IB: 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        466.7829284667969,
+        183.6971893310547,
+        500.0041809082031,
+        192.75193786621094
+      ],
+      "text": "Micro Batch:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        470.1197509765625,
+        189.68048095703125,
+        496.6909484863281,
+        198.7352294921875
+      ],
+      "text": "1K Tokens"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        510.52215576171875,
+        183.6971893310547,
+        543.743408203125,
+        192.75193786621094
+      ],
+      "text": "Micro Batch:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        513.8589477539062,
+        189.68048095703125,
+        540.4301147460938,
+        198.7352294921875
+      ],
+      "text": "2K Tokens"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        450.6666259765625,
+        175.8575439453125,
+        454.9110412597656,
+        187.17596435546875
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        446.422607421875,
+        157.48451232910156,
+        454.91143798828125,
+        168.8029327392578
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        446.422607421875,
+        139.11148071289062,
+        454.91143798828125,
+        150.42990112304688
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        446.422607421875,
+        120.73846435546875,
+        454.91143798828125,
+        132.056884765625
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        464.2745361328125,
+        139.1410369873047,
+        471.06561279296875,
+        148.19578552246094
+      ],
+      "text": "37"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        508.01373291015625,
+        122.69718933105469,
+        514.8048095703125,
+        131.75193786621094
+      ],
+      "text": "55"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        472.1475830078125,
+        134.171142578125,
+        478.93865966796875,
+        143.22589111328125
+      ],
+      "text": "42"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        515.8867797851562,
+        121.53050231933594,
+        522.6777954101562,
+        130.5852508544922
+      ],
+      "text": "56"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        480.0206298828125,
+        134.59371948242188,
+        486.81170654296875,
+        143.64846801757812
+      ],
+      "text": "42"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        523.7598876953125,
+        121.34677124023438,
+        530.5509033203125,
+        130.40151977539062
+      ],
+      "text": "56"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        487.8936767578125,
+        133.39947509765625,
+        494.68475341796875,
+        142.4542236328125
+      ],
+      "text": "43"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        531.6329345703125,
+        120.05146789550781,
+        538.4239501953125,
+        129.10621643066406
+      ],
+      "text": "58"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        495.7667541503906,
+        128.8337860107422,
+        502.5578308105469,
+        137.88853454589844
+      ],
+      "text": "48"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        478.94976806640625,
+        108.61109161376953,
+        546.2969970703125,
+        128.2059326171875
+      ],
+      "text": "59\nNumber of IB: 8"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        379.831787109375,
+        79.77655029296875,
+        440.20220947265625,
+        107.64049530029297
+      ],
+      "text": "Baseline\nqwZ"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        440.17572021484375,
+        86.53065490722656,
+        453.22259521484375,
+        107.64049530029297
+      ],
+      "text": "qgZ\nhpZ"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        485.2537841796875,
+        86.53065490722656,
+        515.0046997070312,
+        97.84907531738281
+      ],
+      "text": "ZeRO++"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.9549865722656,
+        216.59498596191406,
+        558.2040405273438,
+        247.54676818847656
+      ],
+      "text": "Figure 13: Throughput of 18B models on128 GPUs with\nZeRO++, qwZ, qgZ, hpZ, and baseline on different numbers\nof InfiniBand connections"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.65899658203125,
+        270.7845153808594,
+        558.2048950195312,
+        290.64178466796875
+      ],
+      "text": "Table 4: hpZ vs MiCS evaluation on a 4 node cluster (16 V100\nGPUs per node)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        335.4053649902344,
+        304.7814025878906,
+        462.5267028808594,
+        324.3672180175781
+      ],
+      "text": "Model Size\nToken Size\nZeRO\nTFLOPs"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        473.4073791503906,
+        304.7814025878906,
+        501.63800048828125,
+        324.3672180175781
+      ],
+      "text": "hpZ\nTFLOPs"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        347.1838684082031,
+        304.7814025878906,
+        540.75048828125,
+        369.63427734375
+      ],
+      "text": "MiCS\nTFLOPs\n7.5B\n1K\n36.99\n38.39\n38.96\n7.5B\n2K\n53.3\n54.4\n52.72\n18B\n1K\n51.47\n52.42\nOOM\n18B\n2K\n60.94\n61.44\nOOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.9549865722656,
+        401.62286376953125,
+        559.7197265625,
+        465.3832702636719
+      ],
+      "text": "Kernel Fusion: As described in Section 4.2, kernel fusion is one\nof our key optimizations to improve memory throughput when ex-\necuting sequences of CUDA kernels. Our fusion includes 1) tensor-\nreorder and quantization fusion 2) intra-node dequant, intra-node\nreduction and inter-node quant fusion. As shown in Table 3, we\nachieve up to 1.15x speedup on the end-to-end throughput."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.6860046386719,
+        475.92987060546875,
+        559.717529296875,
+        583.5263061523438
+      ],
+      "text": "5.3.3\nComparing hpZ with MICS. As previously discussed in Sec-\ntion 2, closely related to hierarchical weight partition for ZeRO\n(ℎ𝑝𝑍) is 𝑀𝑖𝐶𝑆[40]. Key difference of the two methods is what data\nare replicated in secondary group; model weights are replicated\nin ℎ𝑝𝑍, entire model states are replicated in 𝑀𝑖𝐶𝑆. Table 4 shows\nper-GPU throughput of both methods for different model and token\nsize configurations. The table also shows that given a secondary\npartition size of a single node (16 V100 GPUs), ℎ𝑝𝑍can support\n18 billion parameter model where as 𝑀𝑖𝐶𝑆reports out-of-memory\n(OOM) at this scale."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.95501708984375,
+        597.735595703125,
+        480.7515563964844,
+        608.6447143554688
+      ],
+      "text": "5.4\nModel convergence analysis"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.6860046386719,
+        612.5029296875,
+        559.7180786132812,
+        709.1402587890625
+      ],
+      "text": "Next we evaluate ZeRO++’s impact on model convergence by train-\ning GPT-350M model with 30B tokens on the pile dataset [3] us-\ning ZeRO++, ZeRO++ with basic (non-blocked) quantization, and\nZeRO-3 as baseline. All hyperparameters are kept the same between\nbaseline training and ZeRO++ trainings to ensure fair comparison.\nThe convergence is measured by the validation LM loss.\nAs shown in Figure 14, we present end-to-end training trace.\nThe training with basic (non-blocked) quantization diverged at\nthe beginning so there is no visible data, on the contrary, ZeRO++"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.79800033569336,
+        62.163856506347656,
+        558.198974609375,
+        69.13765716552734
+      ],
+      "text": "ZeRO++: Extremely Efficient Collective Communication for Giant Model Training\nABC, 2023, USA"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        124.21125793457031,
+        191.73109436035156,
+        244.75323486328125,
+        212.17295837402344
+      ],
+      "text": "0\n20000\n40000\n60000\nsteps"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        181.9801483154297,
+        116.71014404296875,
+        193.29823303222656
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        166.99588012695312,
+        116.71014404296875,
+        178.31396484375
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        152.0115966796875,
+        116.71014404296875,
+        163.32968139648438
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        137.02731323242188,
+        116.71014404296875,
+        148.34539794921875
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        122.04302978515625,
+        116.71014404296875,
+        133.36111450195312
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        112.46585845947266,
+        107.05875396728516,
+        116.71014404296875,
+        118.37683868408203
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        100.18138122558594,
+        116.27913665771484,
+        111.49946594238281,
+        174.6380157470703
+      ],
+      "text": "validation lm loss"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        122.59249877929688,
+        86.78536987304688,
+        233.04934692382812,
+        100.36707305908203
+      ],
+      "text": "Validation LM loss vs. Steps"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        198.51467895507812,
+        103.50874328613281,
+        228.26470947265625,
+        124.61795806884766
+      ],
+      "text": "Baseline\nZeRO++"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.79800033569336,
+        231.14247131347656,
+        294.04534912109375,
+        240.0187530517578
+      ],
+      "text": "Figure 14: Training convergence for GPT-350M on 30B tokens"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.50199890136719,
+        257.4369812011719,
+        294.61077880859375,
+        277.42974853515625
+      ],
+      "text": "Table 5: Validation loss at the end of training (GPT 350M /\n30B tokens)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        89.08186340332031,
+        291.4584045410156,
+        264.59210205078125,
+        337.9454040527344
+      ],
+      "text": "Evaluation LM loss\nBaseline\n2.121762\nZeRO++\n(hpZ&qwZ&qgZ on)\n2.165584"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        89.54084014892578,
+        340.5516357421875,
+        171.0860595703125,
+        374.2220764160156
+      ],
+      "text": "ZeRO++\n(hpZ&qwZ on;\nqgZ on for first 50%)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        209.4301300048828,
+        352.6224365234375,
+        243.39913940429688,
+        362.397705078125
+      ],
+      "text": "2.134013"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        83.25141906738281,
+        376.828369140625,
+        243.39913940429688,
+        398.55126953125
+      ],
+      "text": "ZeRO++\n(hpZ&qwZ on; qgZ off)\n2.121653"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.79800033569336,
+        423.036865234375,
+        295.55615234375,
+        563.51025390625
+      ],
+      "text": "is closely aligned with the baseline, and also confirms our previ-\nous analysis of better quantization accuracy by using block based\nquantization.\nWe further extended the convergence evaluation by comparing\nthe final evaluation loss at the end of training. As shown in Ta-\nble 5, even with all three optimizations on, the final evaluation\nloss is only off by 1%. We further merged this convergence gap by\nusing a straightforward interleaving schedule where the hierarchi-\ncal partitioning and quantized weights are turned on throughout\nthe training and the quantized gradient is only turned on for the\nfirst 50% of training. For a more extended case, we also evaluate\nhierarchical partitioning and quantized weights alone. The results\nsuggest our convergence is identical to the baseline in this case."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.79800033569336,
+        575.8175659179688,
+        141.57261657714844,
+        586.7266845703125
+      ],
+      "text": "6\nCONCLUSION"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.52899932861328,
+        590.5848999023438,
+        295.5624084472656,
+        709.1402587890625
+      ],
+      "text": "This paper present ZeRO++, an efficient collective communication\nsolution for giant model training using ZeRO stage-3. We optimize\nboth model weights and gradients communication in forward and\nbackward pass of each training iteration. To reduce communica-\ntion volume of model weights in forward propagation, we adopt\nblock-based quantization and data pre-fetching. To remove cross-\nnode communication of weights during backward pass, we hold\nsecondary model partition on each node to trade memory for com-\nmunication. To minimize gradient communication during backward\npropagation, we design and implement a novel all-to-all based gra-\ndient quantization and reduction scheme. By incorporating all the"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        317.9549865722656,
+        86.47586822509766,
+        559.7182006835938,
+        128.31927490234375
+      ],
+      "text": "three optimizations above, we improve system throughput up to\n2.16x in large scale model training using 384 V100 GPUs. We envi-\nsion ZeRO++ as the next generation of easy-to-use framework for\ntraining giant models at trillion-level model scale."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        317.9549865722656,
+        139.45355224609375,
+        519.5877685546875,
+        163.31468200683594
+      ],
+      "text": "7\nAUTHORSHIP AND MAJOR CREDIT\nATTRIBUTION"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        333.9219970703125,
+        166.96621704101562,
+        559.7193603515625,
+        319.00372314453125
+      ],
+      "text": "• Guanhua Wang: design and implementation of qgZ, code\nintegration, high performance quantization kernels design\nand implementation, solving all CUDA kernel conflicts in\ncode merging, majority of paper writing.\n• Heyang Qin: design and implementation of qwZ, code in-\ntegration/resolve conflicts in code merging, experimental\ndesign and evaluation, in depth convergence study.\n• Sam Ade Jacobs: design and implementation of hpZ, code\nintegration/resolve conflicts in code merging.\n• Connor Holmes: design and implementation of high per-\nformance quantization kernels.\n• Samyam Rajbhandari: chief architect\n• Olatunji Ruwase: technical support\n• Yuxiong He: team lead"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        53.582000732421875,
+        60.32337188720703,
+        558.201904296875,
+        69.13765716552734
+      ],
+      "text": "ABC, 2023, USA\nGuanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan1, Lei Yang2, Yuxiong He"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        53.7979736328125,
+        85.40655517578125,
+        123.21256256103516,
+        96.31565856933594
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        53.79798889160156,
+        98.77996826171875,
+        295.2246398925781,
+        703.5117797851562
+      ],
+      "text": "[1] Dan Alistarh, Demjan Grubic, Jerry Li, Ryota Tomioka, and Milan Vojnovic. 2017.\nQSGD: Communication-efficient SGD via gradient quantization and encoding.\nAdvances in neural information processing systems 30 (2017).\n[2] Tal Ben-Nun and Torsten Hoefler. 2019. Demystifying parallel and distributed\ndeep learning: An in-depth concurrency analysis. ACM Computing Surveys\n(CSUR) 52, 4 (2019), 1–43.\n[3] Stella Biderman, Kieran Bicheno, and Leo Gao. 2022. Datasheet for the Pile.\narXiv:2201.07311 [cs.CL]\n[4] Sid Black, Stella Biderman, Eric Hallahan, Quentin Anthony, Leo Gao, Laurence\nGolding, Horace He, Connor Leahy, Kyle McDonell, Jason Phang, Michael Pieler,\nUSVSN Sai Prashanth, Shivanshu Purohit, Laria Reynolds, Jonathan Tow, Ben\nWang, and Samuel Weinbach. 2022. GPT-NeoX-20B: An Open-Source Autore-\ngressive Language Model. (2022).\n[5] Ernie Chan, Marcel Heimlich, Avi Purkayastha, and Robert Van De Geijn. 2007.\nCollective communication: theory, practice, and experience. Concurrency and\nComputation: Practice and Experience 19, 13 (2007), 1749–1783.\n[6] Jeffrey Dean, Greg Corrado, Rajat Monga, Kai Chen, Matthieu Devin, Mark\nMao, Marc’aurelio Ranzato, Andrew Senior, Paul Tucker, Ke Yang, et al. 2012.\nLarge scale distributed deep networks. Advances in neural information processing\nsystems 25 (2012).\n[7] Tim Dettmers. 2015. 8-bit approximations for parallelism in deep learning. arXiv\npreprint arXiv:1511.04561 (2015).\n[8] Tim Dettmers, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022. 8-bit\nOptimizers via Block-wise Quantization. In The Tenth International Conference\non Learning Representations, ICLR 2022, Virtual Event, April 25-29, 2022. OpenRe-\nview.net. https://openreview.net/forum?id=shpkpVXzo3h\n[9] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. Bert:\nPre-training of deep bidirectional transformers for language understanding. arXiv\npreprint arXiv:1810.04805 (2018).\n[10] dgx1 2017. NVIDIA DGX-1. https://www.nvidia.com/en-us/data-center/dgx-1/.\n[11] dgx2 2018. NVIDIA DGX-2. https://www.nvidia.com/en-us/data-center/dgx-2/.\n[12] Nikoli Dryden, Tim Moon, Sam Ade Jacobs, and Brian Van Essen. 2016. Commu-\nnication Quantization for Data-Parallel Training of Deep Neural Networks. In\nProceedings of the Workshop on Machine Learning in High Performance Computing\nEnvironments (Salt Lake City, Utah) (MLHPC ’16). IEEE Press, 1–8.\n[13] Aaron Harlap, Deepak Narayanan, Amar Phanishayee, Vivek Seshadri, Nikhil\nDevanur, Greg Ganger, and Phil Gibbons. 2018. Pipedream: Fast and efficient\npipeline parallel dnn training. arXiv preprint arXiv:1806.03377 (2018).\n[14] Yanping Huang, Youlong Cheng, Ankur Bapna, Orhan Firat, Dehao Chen, Mia\nChen, HyoukJoong Lee, Jiquan Ngiam, Quoc V Le, Yonghui Wu, et al. 2019. Gpipe:\nEfficient training of giant neural networks using pipeline parallelism. Advances\nin neural information processing systems 32 (2019).\n[15] Yanping Huang, Yonglong Cheng, Dehao Chen, HyoukJoong Lee, Jiquan Ngiam,\nQuoc V. Le, and Zhifeng Chen. 2018. GPipe: Efficient Training of Giant Neural\nNetworks using Pipeline Parallelism. ArXiv abs/1811.06965 (2018).\n[16] Infiniband Sharp white paper 2021.\nNVIDIA InfiniBand Adaptive Routing\nTechnology. https://nvdam.widen.net/s/whmszwfrbt/infiniband-white-paper-\nadaptive-routing-1846350.\n[17] Nitish Shirish Keskar, Dheevatsa Mudigere, Jorge Nocedal, Mikhail Smelyan-\nskiy, and Ping Tak Peter Tang. 2016. On large-batch training for deep learning:\nGeneralization gap and sharp minima. arXiv preprint arXiv:1609.04836 (2016).\n[18] Conglong Li, Ammar Ahmad Awan, Hanlin Tang, Samyam Rajbhandari, and\nYuxiong He. 2021. 1-bit LAMB: Communication Efficient Large-Scale Large-\nBatch Training with LAMB’s Convergence Speed. CoRR abs/2104.06069 (2021).\narXiv:2104.06069 https://arxiv.org/abs/2104.06069\n[19] Microsoft. 2020.\nTuring-NLG: A 17-billion-parameter language model by\nMicrosoft. https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-\nbillion-parameter-language-model-by-microsoft/.\n[20] Deepak Narayanan, Aaron Harlap, Amar Phanishayee, Vivek Seshadri, Nikhil\nDevanur, Greg Granger, Phil Gibbons, and Matei Zaharia. 2019. PipeDream: Gen-\neralized Pipeline Parallelism for DNN Training. In ACM Symposium on Operating\nSystems Principles (SOSP 2019).\n[21] Deepak Narayanan, Amar Phanishayee, Kaiyu Shi, Xie Chen, and Matei Zaharia.\n2021. Memory-efficient pipeline-parallel dnn training. In International Conference\non Machine Learning. PMLR, 7937–7947.\n[22] Deepak Narayanan, Mohammad Shoeybi, Jared Casper, Patrick LeGresley,\nMostofa Patwary, Vijay Korthikanti, Dmitri Vainbrand, Prethvi Kashinkunti,\nJulie Bernauer, Bryan Catanzaro, Amar Phanishayee, and Matei Zaharia. 2021.\nEfficient Large-Scale Language Model Training on GPU Clusters Using Megatron-\nLM. In Proceedings of the International Conference for High Performance Com-\nputing, Networking, Storage and Analysis (St. Louis, Missouri) (SC ’21). Asso-\nciation for Computing Machinery, New York, NY, USA, Article 58, 15 pages.\nhttps://doi.org/10.1145/3458817.3476209\n[23] N NVIDIA. 2017. NVIDIA Collective Communications Library (NCCL).\n[24] Nvidia V100 datasheet 2017.\nNVIDIA TESLA V100 GPU ACCELERA-\nTOR. https://www.penguinsolutions.com/computing/wp-content/uploads/2019/"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        317.9549560546875,
+        88.0699462890625,
+        559.3803100585938,
+        541.3697509765625
+      ],
+      "text": "03/penguin-computing-tesla-v100-ds.pdf.\n[25] NVLink 2017. NVIDIA NVLINK. http://www.nvidia.com/object/nvlink.html.\n[26] NVSwitch 2018. NVIDIA NVSWITCH. http://images.nvidia.com/content/pdf/\nnvswitch-technical-overview.pdf.\n[27] Quantization - PyTorch documentation 2023. Quantization - PyTorch documen-\ntation. https://pytorch.org/docs/stable/quantization.html.\n[28] Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya\nSutskever. 2019. Language Models are Unsupervised Multitask Learners. (2019).\n[29] Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and Yuxiong He. 2020. Zero:\nMemory optimizations toward training trillion parameter models. In SC20: Inter-\nnational Conference for High Performance Computing, Networking, Storage and\nAnalysis. IEEE, 1–16.\n[30] Samyam Rajbhandari, Olatunji Ruwase, Jeff Rasley, Shaden Smith, and Yuxiong\nHe. 2021. ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep\nLearning. In Proceedings of the International Conference for High Performance\nComputing, Networking, Storage and Analysis (SC ’21).\n[31] Frank Seide, Hao Fu, Jasha Droppo, Gang Li, and Dong Yu. 2014. 1-bit stochastic\ngradient descent and its application to data-parallel distributed training of speech\ndnns. In Fifteenth annual conference of the international speech communication\nassociation.\n[32] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper,\nand Bryan Catanzaro. 2019. Megatron-lm: Training multi-billion parameter\nlanguage models using model parallelism. arXiv preprint arXiv:1909.08053 (2019).\n[33] Shaden Smith, Mostofa Patwary, Brandon Norick, Patrick LeGresley, Samyam\nRajbhandari, Jared Casper, Zhun Liu, Shrimai Prabhumoye, George Zerveas, Vijay\nKorthikanti, et al. 2022. Using DeepSpeed and Megatron to Train Megatron-\nTuring NLG 530B, A Large-Scale Generative Language Model. arXiv preprint\narXiv:2201.11990 (2022).\n[34] Nikko Ström. 2015. Scalable distributed DNN training using commodity GPU\ncloud computing. (2015).\n[35] Hanlin Tang, Shaoduo Gan, Ammar Ahmad Awan, Samyam Rajbhandari, Con-\nglong Li, Xiangru Lian, Ji Liu, Ce Zhang, and Yuxiong He. 2021. 1-bit Adam:\nCommunication Efficient Large-Scale Training with Adam’s Convergence Speed.\nCoRR abs/2102.02888 (2021). arXiv:2102.02888 https://arxiv.org/abs/2102.02888\n[36] DeepSpeed Team and Rangan Majumder. 2020.\nDeepSpeed: Extreme-scale\nmodel training for everyone. https://www.microsoft.com/en-us/research/blog/\ndeepspeed-extreme-scale-model-training-for-everyone/.\n[37] Rajeev Thakur, Rolf Rabenseifner, and William Gropp. 2005. Optimization of\ncollective communication operations in MPICH. The International Journal of\nHigh Performance Computing Applications 19, 1 (2005), 49–66.\n[38] Guanhua Wang, Shivaram Venkataraman, Amar Phanishayee, Jorgen Thelin,\nNikhil R. Devanur, and Ion Stoica. 2020. Blink: Fast and Generic Collectives for\nDistributed ML. In Proceedings of Machine Learning and Systems 2020, MLSys 2020,\nAustin, TX, USA, March 2-4, 2020, Inderjit S. Dhillon, Dimitris S. Papailiopoulos,\nand Vivienne Sze (Eds.). mlsys.org. https://proceedings.mlsys.org/book/299.pdf\n[39] Yang You, Jing Li, Jonathan Hseu, Xiaodan Song, James Demmel, and Cho-Jui\nHsieh. 2019. Reducing BERT Pre-Training Time from 3 Days to 76 Minutes. CoRR\nabs/1904.00962 (2019). arXiv:1904.00962 http://arxiv.org/abs/1904.00962\n[40] Zhen Zhang, Shuai Zheng, Yida Wang, Justin Chiu, George Karypis, Trishul\nChilimbi, Mu Li, and Xin Jin. 2022. MiCS: Near-linear Scaling for Training\nGigantic Model on Public Cloud. arXiv:2205.00119 [cs.DC]\n[41] Ritchie Zhao, Yuwei Hu, Jordan Dotzel, Christopher De Sa, and Zhiru Zhang.\n2019. Improving Neural Network Quantization without Retraining using Outlier\nChannel Splitting. In Proceedings of the 36th International Conference on Machine\nLearning, ICML 2019, 9-15 June 2019, Long Beach, California, USA (Proceedings of\nMachine Learning Research, Vol. 97), Kamalika Chaudhuri and Ruslan Salakhutdi-\nnov (Eds.). PMLR, 7543–7552. http://proceedings.mlr.press/v97/zhao19c.html"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 4,
+      "bbox": [
+        320.9494323730469,
+        95.9234390258789,
+        427.3230895996094,
+        204.46278381347656
+      ],
+      "xref": 14,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p4_blk1_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        317.9549865722656,
+        271.0539245605469,
+        565.1151123046875,
+        394.6340026855469
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p4_blk2_crop.png"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        317.9549865722656,
+        83.68611145019531,
+        565.1068115234375,
+        180.8909912109375
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p5_blk1_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        67.0,
+        110.0,
+        79.0,
+        123.0
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk1_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        162.0,
+        110.0,
+        281.0,
+        123.0
+      ],
+      "xref": 6,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk2_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        80.0,
+        110.0,
+        150.0,
+        123.0
+      ],
+      "xref": 8,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk3_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        150.0,
+        110.0,
+        162.0,
+        123.0
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk4_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        281.0,
+        110.0,
+        294.0,
+        123.0
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk5_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        67.0,
+        145.0,
+        74.0,
+        158.0
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk6_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        63.0,
+        85.0,
+        76.0,
+        98.0
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk7_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        132.0,
+        85.0,
+        144.0,
+        98.0
+      ],
+      "xref": 19,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk8_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        223.0,
+        85.0,
+        236.0,
+        98.0
+      ],
+      "xref": 21,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk9_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        109.0,
+        144.0,
+        116.0,
+        158.0
+      ],
+      "xref": 23,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk10_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        176.0,
+        144.0,
+        183.0,
+        158.0
+      ],
+      "xref": 25,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk11_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        103.0,
+        177.0,
+        110.0,
+        190.0
+      ],
+      "xref": 27,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk12_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        145.0,
+        177.0,
+        152.0,
+        190.0
+      ],
+      "xref": 29,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk13_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        212.0,
+        177.0,
+        219.0,
+        190.0
+      ],
+      "xref": 31,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk14_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        74.0,
+        144.0,
+        109.0,
+        158.0
+      ],
+      "xref": 33,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk15_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        110.0,
+        177.0,
+        145.0,
+        190.0
+      ],
+      "xref": 36,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk16_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        116.0,
+        144.0,
+        176.0,
+        158.0
+      ],
+      "xref": 39,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk17_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        152.0,
+        177.0,
+        212.0,
+        191.0
+      ],
+      "xref": 41,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p8_blk18_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.9549865722656,
+        224.173095703125,
+        558.201416015625,
+        315.84698486328125
+      ],
+      "xref": 63,
+      "image_path": "../data/parsed_documents/2306.10209/images/2306.10209_p9_blk1_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p1_table1_lattice.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p1_table2_lattice.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 64,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 54,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p3_table2_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 76,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 92,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 79,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 32,
+      "ncols": 9,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 24,
+      "ncols": 9,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 64,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p8_table2_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p9_table1_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p9_table2_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 6,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p9_table3_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p9_table4_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 5,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p9_table5_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p10_table1_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p10_table2_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 6,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p10_table3_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p10_table4_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p11_table1_lattice.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 125,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.10209/2306.10209_p12_table1_stream.csv"
+    }
+  ]
+}

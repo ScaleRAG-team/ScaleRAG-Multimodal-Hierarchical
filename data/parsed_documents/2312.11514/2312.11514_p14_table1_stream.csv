@@ -1,0 +1,109 @@
+"A
+Appendix Overview","false negatives constitute a small fraction of predic-"
+"","tions. To reduce false negatives, the predictor has"
+"The appendix is structured as follows:",""
+"","to ""over-predict"", which results in loading neurons"
+"","that are redundant, that is, will have zero activation"
+"•
+In Appendix B, we provide additional details on",""
+"","and no effect on the outcome. An interesting future"
+"the low-rank predictor introduced in Section 3.",""
+"","direction of this work is improving the accuracy"
+"We evaluate our trained predictors from both ac-",""
+"","of the predictors to be able to load fewer neurons."
+"curacy (i.e., their impact on the model’s accuracy)",""
+"","One observation we had in OPT and Persimmon"
+"and efficiency perspectives (i.e.,
+the additional",""
+"","is the later layers have more active neurons, which"
+"neurons they predict to be activated).",""
+"","can be seen in Figure 9d."
+"• Appendix C offers a more detailed description of",""
+"our experimental setup and implementation for","B.2
+Accuracy of models using predictors"
+"the experiments conducted in Section 4.",""
+"","We evaluate the accuracy of models on public"
+"","benchmarks with predictors in place. In Table
+4 it"
+"•
+In Appendix D, we discuss a negative result re-",""
+"","can be seen zero shot accuracy of models doesn’t"
+"garding the strategy of bundling neurons based",""
+"","drop. Also, we can see that increasing the predictor"
+"on co-activation as a potential method for increas-",""
+"","size for the last 4 layers of Persimmon and Falcon"
+"ing chunk size (cf. Section 3.2). We intention-",""
+"","improves the zero-shot metrics. We evaluated mod-"
+"ally include this negative result as we believe it",""
+"","els on MMLU (Hendrycks et al., 2021) benchmark"
+"may inspire future research on effective neuron",""
+"","as well. We used Instruct Eval’s implementaion"
+"bundling and its utilization for efficient inference.",""
+"","(Chia et al., 2023) for evaluating MMLU. In Figure"
+"•
+In Appendix E, we delve deeper into the review","10a we can see the MMLU of Persimmon doesn’t"
+"of related works in the literature.","drop when the last 4 layers use higher
+rank pre-"
+"","dictors but
+this is not
+the case for
+lower
+ranked"
+"•
+In Appendix F, we go over implications of llm in",""
+"","ones.
+Phi2’s MMLU will drop 2.3 points from"
+"flash when going to smaller devices.",""
+"","the relufied model still keeping at 52 as shown in"
+"","Figure
+10b. By increasing the threshold of low-"
+"• Finally, Appendix G compares the texts gener-",""
+"","rank predictor we can reduce the amount of data"
+"ated by the base model with those produced by",""
+"","load, this comes with a slight degradation in zero-"
+"our models that utilize the predictor.",""
+"","shot metrics as seen in the Table
+4 for different"
+"B
+Low-Rank Activation Predictor:","thresholds of the Persimmon model. We have used"
+"Additional Results","threshold=0.7 for Persimmon."
+"B.1
+Sparsity patterns of predictors",""
+"","B.3
+Overhead of predictors"
+"The number of neurons predicted to be active will",""
+"","The average rank of predictors in the OPT-6.7B"
+"determine the efficiency of our algorithm, the less",""
+"","is 240,
+this will
+result
+in less than 2.4% of non-"
+"sparse the predicted activation the more weights",""
+"","embedding weights and FLOPs. In M1 Max CPU"
+"will have to be loaded from flash. We evaluated",""
+"","experiments
+this was comprising 2.75% and in"
+"the sparsity patterns over 100 random samples of",""
+"","RTX GPU it was 4.8% of
+inference time which"
+"the C4 validation dataset. In Figure 9 we can see",""
+"","is negligible. For Falocn 7B, predictors take
+4%"
+"the sparsity patterns of OPT, Persimmon, and Phi.",""
+"","model size and CPU computation. For Persimmon"
+"In OPT, the number of active neurons predicted by",""
+"","it was taking 2.85% of inference time on CPU. For"
+"the predictor is 3x the amount of actual sparsity",""
+"","Llama 2 7B it was taking 3.92% of inference time"
+"observed in the case of dense inference. In Persim-",""
+"","on CPU."
+"mon it is about the same - 3x the required neurons,",""
+"and in Phi-2 it is roughly 2x the required neurons",""
+"","C
+Extended Results"
+"of the original model that are activated by the pre-",""
+"dictor. The neurons that are activated by the model","Experimental Setup: Our experiment is designed"
+"and not the predictor are the false negatives. The","to optimize inference efficiency on personal de-"
+"gap between the neurons active in both the predic-","vices. To this end, we process sequences individ-"
+"tor and the model, and the neurons active only in","ually, running only one sequence at a time. This"
+"the model is very narrow in all three models, hence","approach allows us to allocate a specific portion of"

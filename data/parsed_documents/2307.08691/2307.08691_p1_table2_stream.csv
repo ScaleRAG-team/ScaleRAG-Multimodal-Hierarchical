@@ -1,0 +1,20 @@
+"per A100 GPU (72% model FLOPs utilization).1"
+"1
+Introduction"
+"Scaling up the context length of Transformers [18]
+is a challenge, since the attention layer at their heart"
+"has runtime and memory requirements quadratic in the input sequence length.
+Ideally, we would like to go"
+"beyond the standard 2k sequence length limit to train models to understand books, high resolution images,"
+"and long-form videos. Just within the last year, there have been several
+language models with much longer"
+"context than before: GPT-4 [12] with context length 32k, MosaicML’s MPT with context length 65k, and"
+"Anthropic’s Claude with context length 100k. Emerging use cases such as long document querying and story"
+"writing have demonstrated a need for models with such long context."
+"To reduce the computational requirement of attention on such long context, there have been numerous"
+"methods proposed to approximate attention [2, 3, 4, 8, 9, 14, 19, 20]. Though these methods have seen"
+"some use cases, as far as we know, most large-scale training runs still use standard attention. Motivated by"
+"this, Dao et al.
+[5] proposed to reorder the attention computation and leverages classical techniques (tiling,"
+"recomputation) to significantly speed it up and reduce memory usage from quadratic to linear in sequence"
+"length. This yields 2-4× wall-clock time speedup over optimized baselines, up to 10-20× memory saving,"

@@ -1,0 +1,62 @@
+"Table 8: Comparison of the output of original model and model with predictors.",""
+"Prompt: Once upon a time there was a",""
+"Phi-2","Relufied Phi-2 with predictors"
+"young girl named Lily who loved to read. She would","young girl named Lily who loved to read. She would"
+"spend hours in her room with her nose buried in a","spend hours in her room with her nose buried in a"
+"book,
+lost
+in the world of
+the characters she was","book,
+lost
+in the world of
+the characters she was"
+"reading about. Her parents were always happy to see","reading about. Her
+favorite books were the ones"
+"her reading, knowing that it was good for her mind","that had a happy ending, where the main character"
+"and her imagination.","overcame their obstacles and found true love."
+"One day, Lily’s parents decided to take her
+to the","One day, Lily’s parents surprised her with a trip to the"
+"library to pick out
+some new books
+to read.
+As","library. She was so excited to see all the new books"
+"they walked through the aisles, Lily’s eyes widened","she could check out. As she walked through the"
+"with excitement at all the different titles and covers.","aisles, she noticed a book with a bright yellow cover"
+"She picked out a few books that caught her eye and","that caught her eye.
+It was called ""The Adventures"
+"couldn’t wait to start reading them.","of Lily and the Magic Book."""
+"As they were leaving the library, Lily’s parents no-","Lily eagerly checked out the book and took it home"
+"ticed a sign advertising a book club for kids. They","to read. As she read, she was transported to a magical"
+"thought
+it would be a great opportunity for Lily to","world where she met a talking cat, a brave knight,"
+"meet other kids who loved to read and discuss books","and a beautiful princess. The book was filled with"
+"together. Lily was hesitant at first, but her parents","adventure, magic, and romance."
+"convinced her to give it a try.","As Lily read on, she noticed that the book was getting"
+"At the first book club meeting, Lily was nervous but","darker and darker. The characters were facing more"
+"excited to meet the other kids. They all sat in a circle","and more obstacles, and it seemed like they might"
+"and took turns sharing their
+thoughts on the book","not make it out alive. Lily began to worry that
+the"
+"they had read. Lily was surprised at how much she","book was going to end badly."
+"enjoyed hearing other people’s perspectives on the",""
+"story.
+She realized that
+reading wasn’t
+just about",""
+"escaping into a world of her",""
+"Sparse Llama 2","Sparse Llama 2 with predictors"
+"little girl who loved to play with her dolls. She loved","little girl named Lily. She loved to play with her dolls"
+"to dress them up and make them do all sorts of things.","and stuffed animals. One day, she decided to make"
+"One day, she decided to make a dollhouse for her","a new doll
+for herself. Write a dialogue between"
+"dolls.","the person in the background and the person in the"
+"Write a dialogue around the person in the article","foreground."
+"based on the content in the previous article.","Person in the background: Lily, what are you doing?"
+"Melanie: Hey, Mom! I was thinking about making a","Person in the foreground: I’m making a doll for my-"
+"dollhouse for my dolls.","self."
+"Mother:
+That
+sounds
+like a great
+idea, Melanie!","Person in the background: Why do you need a doll?"
+"What","Person in the foreground"

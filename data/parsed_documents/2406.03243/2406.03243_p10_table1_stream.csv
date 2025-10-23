@@ -1,0 +1,19 @@
+"Sequence Length","Sequence Length",""
+"Figure 10: Downtime and overhead of migration.","",""
+"","","6.3
+Serving Performance"
+"","","We evaluate the scheduling performance of Llumnix in on-"
+"","memory load as it is the dominant resource in LLM serving.",""
+"","","line serving using 16 LLaMA-7B instances (auto-scaling is"
+"","This load also counts in the memory required by queuing",""
+"","","disabled except in experiments in §6.5)."
+"requests on each instance to reflect the queue pressure.","",""
+"","","Real datasets.
+We first compare Llumnix with round-robin"
+"• Llumnix-base: a base version of Llumnix that is priority-","",""
+"","","and INFaaS++ using the ShareGPT and BurstGPT traces (the"
+"","agnostic (i.e., treats all requests as the same priority) but",""
+"","","top two rows in Figure 11). Llumnix outperforms the base-"
+"enables all the other features including migration.","",""
+"","","lines in end-to-end request
+latency by up to 2× and 2.9×"

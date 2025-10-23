@@ -1,0 +1,14 @@
+"Figure 2: Illustration of compute-optimal scaling laws in training and inference. The Chinchilla",""
+"scaling law (Hoffmann et al., 2022) shows how to choose a model size and number of training tokens",""
+"under a training-compute budget, while our work shows how to choose a model size and an inference",""
+"strategy under an inference-compute budget.",""
+"task for measuring LLM reasoning abilities (Cobbe et al., 2021; Hendrycks et al., 2021b).","Ling"
+"et al.
+(2017) first developed the method of producing step by step solutions that","lead to the final"
+"answer. Later, Cobbe et al. (2021) extended the work by training a verifier for evaluating and ranking",""
+"solutions.
+Subsequent
+research has shown the performance benefits of","inference-time techniques"
+"such as majority voting and weighted majority voting (Lewkowycz et al., 2022; Li et al., 2023).",""
+"We choose problem solving in mathematics as the task to study compute-optimal strategies since it",""
+"allows us to accurately evaluate problem solving ability.",""

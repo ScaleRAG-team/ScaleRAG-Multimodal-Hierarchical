@@ -1,0 +1,48 @@
+"s",""
+"(4)",""
+"","has minimal reliance on the calibration set since we only"
+"L(s) = ∥Q(W · diag(s))(diag(s)−1 · X) − WX∥",""
+"","measure the average magnitude per channel, thus preventing"
+"","over-fitting (Figure 8). Therefore, our method requires fewer"
+"Here Q means
+the weight
+quantization
+function
+(e.g.,",""
+"","data for the quantization process and can preserve LLMs’"
+"INT3/INT4 quantization with group size 128), W is the",""
+"","knowledge outside of the calibration set’s distribution. See"
+"original weights in FP16, and X is the input features cached",""
+"","Section 5.3 for more details."
+"from a small calibration set
+(we take a small calibration",""
+"set from he pre-training dataset
+in order not
+to overfit
+to",""
+"","4
+TINYCHAT: MAPPING AWQ ONTO EDGE"
+"a specific task).
+s is a per-(input) channel scaling factor;",""
+"","PLATFORMS"
+"for s−1 · X,
+it can usually be fused into the previous op-",""
+"erator
+(Wei et al., 2022b; Xiao et al., 2022).
+Since the",""
+"","AWQ can substantially reduce the size of LLMs. However,"
+"quantization function is not differentiable, we are not able",""
+"","converting the theoretical memory savings from W4A16"
+"to directly optimize the problem with vanilla backpropaga-",""
+"","(4-bit weight, 16-bit activation) quantization into measured"
+"tion. There are some techniques relying on approximated",""
+"","speedup is non-trivial. Alternative W8A8 quantization meth-"
+"gradients (Bengio et al., 2013; Esser et al., 2019), which we",""
+"","ods, such as SmoothQuant (Xiao et al., 2022), maintain the"
+"found still suffers from unstable convergence.",""
+"","same data precision for both storage and computation. This"
+"To make the process more stable, we define a search space","allows the dequantization procedure to be seamlessly inte-"
+"for the optimal scale by analyzing the factors that will affect","grated into the computation kernel’s epilogue. On the other"
+"the choice of scaling factor. As shown in the last section, the","hand, W4A16 quantization employs different data types for"
+"saliency of weight channels is actually determined by the","memory access and computation. As a result, its dequantiza-"
+"activation scale (thus “activation-awareness”). Therefore,","tion must be incorporated into the primary computation loop"

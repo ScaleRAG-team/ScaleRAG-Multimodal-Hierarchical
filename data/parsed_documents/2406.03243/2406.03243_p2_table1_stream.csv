@@ -1,0 +1,87 @@
+"","Normal instance
+Terminating instance
+Queuing request"
+"beyond what existing inference serving systems are designed",""
+"",""
+"for. Although there has been a series of LLM-tailored infer-","Running request
+Rescheduling destination
+High-priority request"
+"ence engines that shows superior performance, such systems",""
+"concentrate on the sole goal of maximizing throughput within",""
+"a single instance [34, 46, 67]. The request scheduling across",""
+"instances, on the other hand, has received relatively little at-",""
+"tention;
+the common practice today is still
+to use generic",""
+"scheduling systems or policies inherited from the era of tradi-",""
+"tional DNNs [4, 28, 35, 47, 53]. Such a clear gap introduces","(a) Load balancing
+(b) De-frag
+(c) Prioritization
+(d) Auto-scaling"
+"challenges in the following aspects that are crucial in multi-",""
+"","Figure 1: Example rescheduling scenarios in Llumnix."
+"tenant environments and online services.",""
+"Isolation. The system can hardly provide performance isola-",""
+"tion to requests as their memory consumption grows unpre-",""
+"dictably. Memory contention incurs performance interference","memory states across instances. Straightforward rescheduling"
+"and even preemptions of certain requests in a batch [34], lead-","approaches could introduce substantial downtimes to resched-"
+"ing to highly unstable latencies and service-level objective","uled requests, especially for
+long sequences. By contrast,"
+"(SLO) violations, significantly sacrificing user experiences.","Llumnix introduces near-zero downtime that is constant
+to"
+"","sequence lengths, by carefully coordinating the computation"
+"Fragmentation. The varying request
+lengths and memory",""
+"","and the memory transfer to hide the cost."
+"demands inevitably result in memory fragmentation across",""
+"instances, which introduces conflicting scheduling objectives.","To exploit such great scheduling flexibility of migration,"
+"The running requests prefer load balancing to reduce preemp-","Llumnix adopts a distributed scheduling architecture that en-"
+"tions and interference, but such load balancing fragments the","ables continuous rescheduling with high scalability. Llumnix"
+"free memory space across instances at
+the same time. The","further introduces a dynamic scheduling policy under this"
+"fragmentation can cause long queuing delays of new requests","architecture that unifies all the rescheduling scenarios with"
+"that instead require a large space on one instance for the in-","different goals elegantly. This unification is achieved via a"
+"put sequences. This conflict is difficult for the scheduler to","concept called virtual usage: Llumnix just needs to define a"
+"reconcile with unpredictable arrivals and lengths of requests.","set of rules for setting the virtual usages of GPU memory for"
+"Priorities. Requests from different applications and scenarios","requests in different scenarios, and then use a simple load-"
+"naturally come with different latency objectives. Online chat-","balancing policy based on the virtual usages."
+"bots [6, 8] are interactive applications and are therefore with","We have implemented Llumnix as a scheduling layer on"
+"tight SLO constraints. On the contrary, offline applications,","top of inference engines. Llumnix currently supports a repre-"
+"such as evaluation [51], scoring [36], or data wrangling [43],","sentative system, vLLM [34], as the underlying engine. Eval-"
+"are less sensitive to latency. Such different latency objectives","uation on a 16-GPU cluster using realistic workloads shows"
+"are also a consequence of the commercial purpose of earn-","that Llumnix improves P99 first-token latency by up to 15×"
+"ing more profits from LLMs via diversified service classes","and P99 per-token generation latency by up to 2×, compared"
+"(e.g., ChatGPT Plus [2]). However, existing LLM inference","against a state-of-the-art scheduler INFaaS [53]. Llumnix also"
+"systems [34, 67] often treat all requests for a model equally","accelerates high-priority requests by 1.5×, and achieves 36%"
+"and cannot differentiate their priorities, which has limitations","cost saving when delivering similar tail latencies."
+"in meeting different latency objectives of requests.",""
+"","In summary, this paper makes the following contributions."
+"We introduce Llumnix, a new scheduling system for LLM",""
+"runtime
+serving that addresses
+the
+challenges
+above via",""
+"","• We reveal the unique characteristics and scheduling chal-"
+"rescheduling of requests across model instances. Analogous",""
+"","lenges of LLM serving that necessitate new scheduling"
+"to context switching across CPU cores in OS process man-",""
+"","goals such as isolation, de-fragmentation, and priorities."
+"agement, rescheduling enables Llumnix to react to the unpre-",""
+"dictable workload dynamics at runtime, instead of having to","• We propose request
+rescheduling as a key measure to"
+"address all
+the complex scheduling concerns and tradeoffs","achieve these goals and realize it with an efficient migration"
+"with the one-shot dispatching of requests. Llumnix resched-","mechanism of requests and their GPU memory states."
+"ules requests for multiple purposes (Figure 1): load balancing",""
+"","• We design a distributed scheduling architecture and an"
+"for reducing preemptions and interference, de-fragmentation",""
+"","accompanying scheduling policy that exploit request mi-"
+"for mitigating queuing delays, prioritization of urgent requests",""
+"","gration to achieve the multiple goals in a unified manner."
+"by creating even higher degree of isolation, saturating or drain-",""
+"","• We implement and evaluate Llumnix to show its advantages"
+"ing out instances during auto-scaling more quickly.",""
+"","over state-of-the-art inference serving systems."
+"Llumnix reschedules requests via an efficient and scalable",""
+"live migration mechanism of requests along with their GPU",""

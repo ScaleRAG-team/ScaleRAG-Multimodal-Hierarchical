@@ -1,0 +1,17 @@
+"mitigate token overﬂow during",""
+"","Device 0
+Device 0"
+"routing.",""
+"","Tokens
+Tokens"
+"Figure 3:","Illustration of token routing dynamics. Each expert processes a ﬁxed batch-size"
+"","of tokens modulated by the capacity factor. Each token is routed to the expert"
+"","with the highest
+router probability, but
+each expert has a ﬁxed batch size of"
+"","(total tokens / num experts) × capacity factor.
+If the tokens are unevenly dis-"
+"","patched then certain experts will overﬂow (denoted by dotted red lines), resulting"
+"","in these tokens not being processed by this layer. A larger capacity factor allevi-"
+"","ates this overﬂow issue, but also increases computation and communication costs"
+"","(depicted by padded white/empty slots)."

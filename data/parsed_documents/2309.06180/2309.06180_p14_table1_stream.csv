@@ -1,0 +1,131 @@
+"limited GPU memory, but it does not target the online serv-","","Joseph, Greg Brockman, et al. 2021. Evaluating large language models"
+"","","trained on code. arXiv preprint arXiv:2107.03374 (2021)."
+"ing settings. OLLA [48] optimizes the lifetime and location","",""
+"","","[7] Tianqi Chen, Bing Xu, Chiyuan Zhang, and Carlos Guestrin. 2016."
+"of tensors to reduce fragmentation, but it does not do fine-","",""
+"","","Training deep nets with sublinear memory cost.
+arXiv preprint"
+"grained block-level management or online serving. FlashAt-","",""
+"","","arXiv:1604.06174 (2016)."
+"tention [13] applies tiling and kernel optimizations to reduce","","[8] Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao"
+"the peak memory of attention computation and reduce I/O","","Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E."
+"","","Gonzalez, Ion Stoica, and Eric P. Xing. 2023. Vicuna: An Open-Source"
+"costs. This paper introduces a new idea of block-level mem-","",""
+"","","Chatbot Impressing GPT-4 with 90%* ChatGPT Quality.
+https://lmsys."
+"ory management in the context of online serving.","",""
+"","","org/blog/2023-03-30-vicuna/"
+"","","[9] Aakanksha Chowdhery, Sharan Narang, Jacob Devlin, Maarten Bosma,"
+"10
+Conclusion","",""
+"","","Gaurav Mishra, Adam Roberts, Paul Barham, Hyung Won Chung,"
+"This paper proposes PagedAttention, a new attention algo-","","Charles Sutton, Sebastian Gehrmann, et al. 2022. Palm: Scaling lan-"
+"","","guage modeling with pathways. arXiv preprint arXiv:2204.02311 (2022)."
+"rithm that allows attention keys and values to be stored","",""
+"","","[10] Daniel Crankshaw, Gur-Eyal Sela, Xiangxi Mo, Corey Zumar,
+Ion"
+"in non-contiguous paged memory, and presents vLLM, a","",""
+"","","Stoica, Joseph Gonzalez, and Alexey Tumanov. 2020. InferLine: latency-"
+"high-throughput LLM serving system with efficient mem-","",""
+"","","aware provisioning and scaling for prediction serving pipelines. In"
+"ory management enabled by PagedAttention.
+Inspired by","","Proceedings of the 11th ACM Symposium on Cloud Computing. 477–491."
+"operating systems, we demonstrate how established tech-","","[11] Daniel Crankshaw, Xin Wang, Guilio Zhou, Michael
+J Franklin,"
+"","","Joseph E Gonzalez, and Ion Stoica. 2017.
+Clipper: A Low-Latency"
+"niques, such as virtual memory and copy-on-write, can be","",""
+"","","Online Prediction Serving System.
+In 14th USENIX Symposium on"
+"adapted to efficiently manage KV cache and handle various","",""
+"","","Networked Systems Design and Implementation (NSDI 17). 613–627."
+"decoding algorithms in LLM serving. Our experiments show","",""
+"","","[12] Weihao Cui, Han Zhao, Quan Chen, Hao Wei, Zirui Li, Deze Zeng,"
+"that vLLM achieves 2-4× throughput improvements over the","","Chao Li, and Minyi Guo. 2022. DVABatch: Diversity-aware Multi-"
+"state-of-the-art systems.","","Entry Multi-Exit Batching for Efficient Processing of DNN Services"
+"","","on GPUs. In 2022 USENIX Annual Technical Conference (USENIX ATC"
+"Acknowledgement","","22). 183–198."
+"","","[13] Tri Dao, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré."
+"We would like to thank Xiaoxuan Liu, Zhifeng Chen, Yan-","","2022. Flashattention: Fast and memory-efficient exact attention with"
+"ping Huang, anonymous SOSP reviewers, and our shepherd,","","io-awareness. Advances in Neural Information Processing Systems 35"
+"","","(2022), 16344–16359."
+"Lidong Zhou, for their insightful feedback. This research is","",""
+"","","[14]
+Jiarui Fang, Yang Yu, Chengduo Zhao, and Jie Zhou. 2021. TurboTrans-"
+"partly supported by gifts from Andreessen Horowitz, Anyscale,","",""
+"","","formers: an efficient GPU serving system for transformer models. In"
+"Astronomer, Google, IBM, Intel, Lacework, Microsoft, Mo-","",""
+"","","Proceedings of the 26th ACM SIGPLAN Symposium on Principles and"
+"hamed Bin Zayed University of Artificial Intelligence, Sam-","","Practice of Parallel Programming. 389–402."
+"sung SDS, Uber, and VMware.","","[15]
+FastAPI. 2023. FastAPI. https://github.com/tiangolo/fastapi."
+"","","[16] Pin Gao, Lingfan Yu, Yongwei Wu, and Jinyang Li. 2018. Low latency"
+"References","","rnn inference with cellular batching. In Proceedings of the Thirteenth"
+"","","EuroSys Conference. 1–15."
+"[1] Reza Yazdani Aminabadi, Samyam Rajbhandari, Minjia Zhang, Am-","",""
+"","","[17] Amir Gholami, Zhewei Yao, Sehoon Kim, Michael W Mahoney, and"
+"mar Ahmad Awan, Cheng Li, Du Li, Elton Zheng, Jeff Rasley, Shaden","",""
+"","","Kurt Keutzer. 2021. Ai and memory wall. RiseLab Medium Post 1 (2021),"
+"Smith, Olatunji Ruwase, et al. 2022. DeepSpeed Inference: Enabling","",""
+"","","6."
+"Efficient Inference of Transformer Models at Unprecedented Scale.","",""
+"","","[18] Github. 2022.
+https://github.com/features/copilot"
+"arXiv preprint arXiv:2207.00032 (2022).","",""
+"","","[19] Google. 2023.
+https://bard.google.com/"
+"[2]
+Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. 2016. Layer","",""
+"","","[20] Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao, Antoine Kauf-"
+"normalization. arXiv preprint arXiv:1607.06450 (2016).","",""
+"","","mann, Ymir Vigfusson, and Jonathan Mace. 2020. Serving {DNNs} like"
+"[3] Yoshua Bengio, Réjean Ducharme, and Pascal Vincent. 2000. A neural","",""
+"","","Clockwork: Performance Predictability from the Bottom Up. In 14th"
+"probabilistic language model. Advances in neural information process-","",""
+"","","USENIX Symposium on Operating Systems Design and Implementation"
+"ing systems 13 (2000).","",""
+"","","(OSDI 20). 443–462."
+"[4] Ond rej Bojar, Rajen Chatterjee, Christian Federmann, Yvette Gra-","",""
+"","","[21] Mingcong Han, Hanze
+Zhang,
+Rong Chen,
+and Haibo Chen."
+"ham, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp","",""
+"","","2022.
+Microsecond-scale
+Preemption
+for
+Concurrent
+{GPU-"
+"Koehn, Varvara Logacheva, Christof Monz, Matteo Negri, Aurelie","",""
+"","","accelerated} {DNN} Inferences. In 16th USENIX Symposium on Oper-"
+"Neveol, Mariana Neves, Martin Popel, Matt Post, Raphael Rubino, Car-","",""
+"","","ating Systems Design and Implementation (OSDI 22). 539–558."
+"olina Scarton, Lucia Specia, Marco Turchi, Karin Verspoor, and Marcos","",""
+"","","[22] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. 2016. Deep"
+"Zampieri. 2016. Findings of the 2016 Conference on Machine Trans-","",""
+"","","residual
+learning for image recognition.
+In Proceedings of
+the IEEE"
+"lation. In Proceedings of the First Conference on Machine Translation.","",""
+"","","conference on computer vision and pattern recognition. 770–778."
+"Association for Computational Linguistics, Berlin, Germany, 131–198.","",""
+"","","[23] Chien-Chin Huang, Gu Jin, and Jinyang Li. 2020. Swapadvisor: Push-"
+"http://www.aclweb.org/anthology/W/W16/W16-2301","",""
+"","","ing deep learning beyond the gpu memory limit via smart swapping."
+"[5] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D","",""
+"","","In Proceedings of the Twenty-Fifth International Conference on Archi-"
+"Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish","",""
+"","","tectural Support for Programming Languages and Operating Systems."
+"Sastry, Amanda Askell, et al. 2020.
+Language models are few-shot","",""
+"","","1341–1355."
+"learners. Advances in neural information processing systems 33 (2020),","",""
+"","","[24] Paras Jain, Ajay Jain, Aniruddha Nrusimha, Amir Gholami, Pieter"
+"1877–1901.","",""
+"","","Abbeel, Joseph Gonzalez, Kurt Keutzer, and Ion Stoica. 2020. Check-"
+"[6] Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde","",""
+"","","mate: Breaking the memory wall with optimal tensor rematerialization."
+"de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas","",""
+"","14",""

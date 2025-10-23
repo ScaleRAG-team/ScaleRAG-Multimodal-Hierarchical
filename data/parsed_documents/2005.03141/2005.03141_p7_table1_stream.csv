@@ -1,0 +1,117 @@
+"Acknowledgement","","Narasimha, M. and Peterson, A. On the computation of the"
+"","","IEEE Transactions on Com-
+discrete cosine transform."
+"We thank Mr. Haohan Wang for providing valuable feed-","",""
+"","","munications, 26(6):934–936, 1978."
+"back during the discussion.","",""
+"","","Papernot, N., McDaniel, P., Jha, S., Fredrikson, M., Celik,"
+"","","Z. B., and Swami, A. The limitations of deep learning in"
+"References","",""
+"","","adversarial settings. In 2016 IEEE European Symposium"
+"Bracewell and Newbold, R. The Fourier transform and its","","on Security and Privacy (EuroS P), pp. 372–387, 2016."
+"applications, volume 31999. McGraw-Hill New York,","",""
+"","","Rahaman, N., Baratin, A., Arpit, D., Draxler, F., Lin, M.,"
+"1986.","",""
+"","","Hamprecht, F. A., Bengio, Y., and Courville, A. On the"
+"Carlini, N. and Wagner, D. Towards evaluating the robust-","",""
+"","","spectral bias of neural networks, 2018."
+"ness of neural networks.
+In 2017 IEEE Symposium on","",""
+"Security and Privacy (SP), pp. 39–57, 2017.","","Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,"
+"","","Parikh, D., and Batra, D.
+Grad-cam: Visual explana-"
+"Cohen,
+J. M., Rosenfeld, E., and Kolter,
+J. Z.
+Certiﬁed","",""
+"","","tions
+from deep networks via gradient-based localiza-"
+"adversarial robustness via randomized smoothing, 2019.","",""
+"","","tion.
+International Journal of Computer Vision, 128(2):"
+"","","336359, Oct 2019.
+ISSN 1573-1405.
+doi:
+10.1007/"
+"Engstrom, L.,
+Ilyas, A., Santurkar, S.,
+and Tsipras, D.","",""
+"","","s11263-019-01228-7. URL http://dx.doi.org/"
+"Robustness
+(python library), 2019.
+URL https://","",""
+"","","10.1007/s11263-019-01228-7."
+"github.com/MadryLab/robustness.","",""
+"","","Shafahi, A., Najibi, M., Ghiasi, A., Xu, Z., Dickerson, J.,"
+"Ghorbani, A., Abid, A., and Zou, J. Interpretation of neural","",""
+"","","Studer, C., Davis, L. S., Taylor, G., and Goldstein, T."
+"networks is fragile, 2017.","",""
+"","","Adversarial training for free!, 2019."
+"Goodfellow,
+I. J., Shlens, J., and Szegedy, C. Explaining","",""
+"","","Sharma, Y., Ding, G. W., and Brubaker, M. A.
+On the"
+"and harnessing adversarial examples, 2014.","",""
+"","","effectiveness of
+low frequency perturbations.
+CoRR,"
+"Guo, C., Frank, J. S., and Weinberger, K. Q. Low frequency","","abs/1903.00073, 2019. URL http://arxiv.org/"
+"adversarial perturbation, 2018.","","abs/1903.00073."
+"Guo, C., Gardner, J. R., You, Y., Wilson, A. G., and Wein-","","Shrikumar, A., Greenside, P., and Kundaje, A.
+Learning"
+"berger, K. Q.
+Simple black-box adversarial
+attacks.","","important features through propagating activation differ-"
+"CoRR, abs/1905.07121, 2019. URL http://arxiv.","","ences, 2017."
+"org/abs/1905.07121.","",""
+"","","Simonyan, K., Vedaldi, A., and Zisserman, A. Deep inside"
+"He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-","","convolutional networks: Visualising image classiﬁcation"
+"ing for image recognition, 2015.","","models and saliency maps, 2013."
+"Ilyas, A., Santurkar, S., Tsipras, D., Engstrom, L., Tran, B.,","","Sundararajan, M., Taly, A., and Yan, Q. Axiomatic attri-"
+"and Madry, A. Adversarial examples are not bugs,
+they","","the 34th
+bution for deep networks.
+In Proceedings of"
+"are features, 2019.","","International Conference on Machine Learning-Volume"
+"","","70, pp. 3319–3328. JMLR. org, 2017."
+"Karpathy, A.,
+Johnson,
+J.,
+and Fei-Fei, L.
+Visualizing","",""
+"arXiv preprint
+and understanding recurrent networks.","",""
+"","","Szegedy, C., Zaremba, W., Sutskever, I., Bruna, J., Erhan,"
+"arXiv:1506.02078, 2015.","","D., Goodfellow, I., and Fergus, R.
+Intriguing properties"
+"","","of neural networks, 2013."
+"Koh, P. W. and Liang, P. Understanding black-box predic-","",""
+"tions via inﬂuence functions, 2017.","",""
+"","","Wang, H., Wu, X., Yin, P., and Xing, E. P. High frequency"
+"","","component helps explain the generalization of convolu-"
+"Kurakin, A., Goodfellow,
+I., and Bengio, S. Adversarial","",""
+"","","tional neural networks.
+CoRR, abs/1905.13545, 2019."
+"examples in the physical world, 2016.","",""
+"","","URL http://arxiv.org/abs/1905.13545."
+"Leino, K., Sen, S., Datta, A., Fredrikson, M., and Li, L.","",""
+"","","Yeh, C.-K., Kim,
+J. S., Yen,
+I. E. H., and Ravikumar, P."
+"Inﬂuence-directed explanations
+for deep convolutional","",""
+"","","Representer point
+selection for explaining deep neural"
+"networks, 2018.","",""
+"","","networks, 2018."
+"Madry, A., Makelov, A., Schmidt, L., Tsipras, D.,
+and","",""
+"","","Zeiler, M. D. and Fergus, R. Visualizing and understanding"
+"Vladu, A.
+Towards deep learning models
+resistant
+to","",""
+"","","convolutional networks, 2013."
+"adversarial attacks, 2017.","",""
+"","7",""

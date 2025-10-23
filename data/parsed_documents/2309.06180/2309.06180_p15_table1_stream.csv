@@ -1,0 +1,107 @@
+"Proceedings of Machine Learning and Systems 2 (2020), 497–511.","Language Models with a Single GPU. arXiv preprint arXiv:2303.06865"
+"[25] Tom Kilburn, David BG Edwards, Michael J Lanigan, and Frank H","(2023)."
+"Sumner. 1962. One-level storage system.
+IRE Transactions on Electronic","[47] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley,"
+"Computers 2 (1962), 223–235.","Jared Casper, and Bryan Catanzaro. 2019. Megatron-lm: Training multi-"
+"[26] Brian Lester, Rami Al-Rfou, and Noah Constant. 2021.
+The power","billion parameter language models using model parallelism.
+arXiv"
+"of
+scale
+for parameter-efficient prompt
+tuning.
+arXiv
+preprint","preprint arXiv:1909.08053 (2019)."
+"arXiv:2104.08691 (2021).","[48] Benoit Steiner, Mostafa Elhoushi, Jacob Kahn, and James Hegarty. 2022."
+"[27] Xiang Lisa Li and Percy Liang. 2021. Prefix-tuning: Optimizing contin-","OLLA: Optimizing the Lifetime and Location of Arrays to Reduce the"
+"uous prompts for generation. arXiv preprint arXiv:2101.00190 (2021).","Memory Usage of Neural Networks.
+(2022).
+https://doi.org/10.48550/"
+"[28] Zhuohan Li, Lianmin Zheng, Yinmin Zhong, Vincent Liu, Ying Sheng,","arXiv.2210.12924"
+"Xin Jin, Yanping Huang, Zhifeng Chen, Hao Zhang, Joseph E Gonzalez,","[49]
+Ilya Sutskever, Oriol Vinyals, and Quoc V Le. 2014. Sequence to se-"
+"et al. 2023. AlpaServe: Statistical Multiplexing with Model Parallelism","quence learning with neural networks. Advances in neural information"
+"for Deep Learning Serving. arXiv preprint arXiv:2302.11665 (2023).","processing systems 27 (2014)."
+"[29] Lingxiao Ma, Zhiqiang Xie, Zhi Yang, Jilong Xue, Youshan Miao, Wei","[50] Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen"
+"Cui, Wenxiang Hu, Fan Yang, Lintao Zhang, and Lidong Zhou. 2020.","Li, Carlos Guestrin, Percy Liang, and Tatsunori B. Hashimoto. 2023."
+"Rammer: Enabling holistic deep learning compiler optimizations with","Stanford Alpaca: An Instruction-following LLaMA model.
+https://"
+"rtasks.
+In Proceedings of
+the 14th USENIX Conference on Operating","github.com/tatsu-lab/stanford_alpaca."
+"Systems Design and Implementation. 881–897.","[51]
+ShareGPT Team. 2023.
+https://sharegpt.com/"
+"[30] NVIDIA. [n. d.]. Triton Inference Server. https://developer.nvidia.com/","[52] Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-"
+"nvidia-triton-inference-server.","Anne Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric"
+"FasterTransformer.
+[31] NVIDIA. 2023.
+https://github.com/NVIDIA/","Hambro, Faisal Azhar, et al. 2023. Llama: Open and efficient foundation"
+"FasterTransformer.","language models. arXiv preprint arXiv:2302.13971 (2023)."
+"[32] NVIDIA. 2023. NCCL: The NVIDIA Collective Communication Library.","[53] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion"
+"https://developer.nvidia.com/nccl.","Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. At-"
+"[33] Christopher Olston, Noah Fiedel, Kiril Gorovoy, Jeremiah Harmsen, Li","tention is all you need. Advances in neural
+information processing"
+"Lao, Fangwei Li, Vinu Rajashekhar, Sukriti Ramesh, and Jordan Soyke.","systems 30 (2017)."
+"2017.
+Tensorflow-serving: Flexible, high-performance ml serving.","[54]
+Jing Wang, Youyou Lu, Qing Wang, Minhui Xie, Keji Huang, and Jiwu"
+"arXiv preprint arXiv:1712.06139 (2017).","Shu. 2022.
+Pacman: An Efficient Compaction Approach for {Log-"
+"[34] OpenAI. 2020.
+https://openai.com/blog/openai-api","Structured} {Key-Value} Store on Persistent Memory. In 2022 USENIX"
+"[35] OpenAI. 2022.
+https://openai.com/blog/chatgpt","Annual Technical Conference (USENIX ATC 22). 773–788."
+"[36] OpenAI. 2023.
+https://openai.com/blog/custom-instructions-for-","Jinmian Ye, Yiyang Zhao, Wei Wu, Ang Li, Shuai-
+[55] Linnan Wang,"
+"chatgpt","wen Leon Song, Zenglin Xu, and Tim Kraska. 2018. Superneurons: Dy-"
+"[37] OpenAI. 2023. GPT-4 Technical Report.
+arXiv:2303.08774 [cs.CL]","namic GPU memory management for training deep neural networks."
+"[38] LMSYS ORG. 2023. Chatbot Arena Leaderboard Week 8:
+Introduc-","In Proceedings of the 23rd ACM SIGPLAN symposium on principles and"
+"ing MT-Bench and Vicuna-33B.
+https://lmsys.org/blog/2023-06-22-","practice of parallel programming. 41–53."
+"leaderboard/.","[56] Xiaohui Wang, Ying Xiong, Yang Wei, Mingxuan Wang, and Lei Li."
+"[39] Adam Paszke,
+Sam Gross,
+Francisco Massa, Adam Lerer,
+James","2021. LightSeq: A High Performance Inference Library for Transform-"
+"Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia","ers. In Proceedings of the 2021 Conference of the North American Chapter"
+"Gimelshein, Luca Antiga, et al. 2019. Pytorch: An imperative style,","of the Association for Computational Linguistics: Human Language Tech-"
+"high-performance deep learning library. Advances in neural informa-","nologies: Industry Papers. 113–120."
+"tion processing systems 32 (2019).","[57] Yizhong Wang, Yeganeh Kordi, Swaroop Mishra, Alisa Liu, Noah A"
+"Shishir G Patil, Paras Jain, Prabal Dutta, Ion Stoica, and Joseph Gon-
+[40]","Smith, Daniel Khashabi, and Hannaneh Hajishirzi. 2022. Self-Instruct:"
+"zalez. 2022. POET: Training Neural Networks on Tiny Devices with","Aligning Language Model with Self Generated Instructions.
+arXiv"
+"Integrated Rematerialization and Paging. In International Conference","preprint arXiv:2212.10560 (2022)."
+"on Machine Learning. PMLR, 17573–17583.","[58] Thomas Wolf,
+Lysandre Debut, Victor
+Sanh,
+Julien Chaumond,"
+"[41] Reiner Pope, Sholto Douglas, Aakanksha Chowdhery, Jacob Devlin,","Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf,"
+"James Bradbury, Anselm Levskaya, Jonathan Heek, Kefan Xiao, Shivani","Morgan Funtowicz, et al. 2020. Transformers: State-of-the-art natural"
+"Agrawal, and Jeff Dean. 2022. Efficiently Scaling Transformer Inference.","language processing. In Proceedings of the 2020 conference on empirical"
+"arXiv preprint arXiv:2211.05102 (2022).","methods in natural language processing: system demonstrations. 38–45."
+"[42]
+Jie Ren, Samyam Rajbhandari, Reza Yazdani Aminabadi, Olatunji","[59] Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad"
+"Ruwase, Shuangyan Yang, Minjia Zhang, Dong Li, and Yuxiong He.","Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao,"
+"2021. ZeRO-Offload: Democratizing Billion-Scale Model Training.. In","Klaus Macherey, et al. 2016.
+Google’s neural machine translation"
+"USENIX Annual Technical Conference. 551–564.","system: Bridging the gap between human and machine translation."
+"[43] Reuters. 2023.
+https://www.reuters.com/technology/tech-giants-ai-","arXiv preprint arXiv:1609.08144 (2016)."
+"like-bing-bard-poses-billion-dollar-search-problem-2023-02-22/","[60] Gyeong-In Yu, Joo Seong Jeong, Geon-Woo Kim, Soojeong Kim, and"
+"[44] Amazon Web Services. 2023.
+https://aws.amazon.com/bedrock/","Byung-Gon Chun. 2022.
+Orca: A Distributed Serving System for"
+"[45] Haichen Shen, Lequn Chen, Yuchen Jin, Liangyu Zhao, Bingyu Kong,","{Transformer-Based} Generative Models. In 16th USENIX Symposium"
+"Matthai Philipose, Arvind Krishnamurthy, and Ravi Sundaram. 2019.","on Operating Systems Design and Implementation (OSDI 22). 521–538."
+"Nexus: A GPU cluster engine for accelerating DNN-based video anal-","[61] Hong Zhang, Yupeng Tang, Anurag Khandelwal, and Ion Stoica. 2023."
+"ysis. In Proceedings of the 27th ACM Symposium on Operating Systems","SHEPHERD: Serving DNNs in the Wild. In 20th USENIX Symposium on"
+"Principles. 322–337.","Networked Systems Design and Implementation (NSDI 23). USENIX As-"
+"[46] Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan Li, Max Ryabinin,","sociation, Boston, MA, 787–808.
+https://www.usenix.org/conference/"
+"Daniel Y Fu, Zhiqiang Xie, Beidi Chen, Clark Barrett, Joseph E Gon-","nsdi23/presentation/zhang-hong"
+"zalez, et al. 2023. High-throughput Generative Inference of Large",""

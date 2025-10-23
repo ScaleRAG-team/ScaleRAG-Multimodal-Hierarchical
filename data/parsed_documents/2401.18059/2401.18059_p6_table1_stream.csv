@@ -1,0 +1,66 @@
+"Published as a conference paper at ICLR 2024"
+"One drawback, however, of the collapsed tree approach is that it requires cosine similarity search to"
+"be performed on all nodes in the tree. However, this can be made more efficient with fast k-nearest"
+"neighbor libraries such as FAISS (Johnson et al., 2019)."
+"Overall,
+given
+the
+collapsed
+tree
+approach’s"
+"greater flexibility and its superior performance"
+"on the subset of
+the QASPER dataset,
+this is"
+"the querying approach with which we proceed."
+"Specifically, we
+use
+the
+collapsed
+tree with"
+"2000 maximum tokens, which approximately"
+"equates to retrieving the top-20 nodes. Using a"
+"token-based approach ensures the context does"
+"not exceed model context constraints as token"
+"counts can vary across nodes. For experiments"
+"with the UnifiedQA model, we provide 400 to-"
+"kens of context, as UnifiedQA has a max con-"
+"text length of 512 tokens. We provide the same"
+"amount of tokens of context to RAPTOR and to"
+"the baselines."
+"Comparison of querying methods.
+Figure 3:"
+"Results on 20 stories from the QASPER dataset"
+"Qualitative Study
+We conduct a qualitative"
+"using tree
+traversal with different
+top-k values,"
+"analysis
+to
+understand
+the
+benefits
+of RAP-"
+"and collapsed tree with different context
+lengths."
+"TOR’s
+retrieval
+process
+compared
+to Dense"
+"Collapsed tree with 2000 tokens produces the best"
+"Passage Retrieval
+(DPR) methods. Our study"
+"results,
+so we use this querying strategy for our"
+"focuses on thematic, multi-hop questions using"
+"main results."
+"a 1500-word Cinderella fairytale. As illustrated"
+"in Figure 4, RAPTOR’s tree-based retrieval allows it
+to choose nodes from different
+tree layers,"
+"matching the question’s detail
+level. This approach often yields more relevant and comprehensive"
+"information for downstream tasks than DPR. For a detailed discussion and examples, including the"
+"text retrieved by both RAPTOR and DPR for specific questions, please refer to the appendix G."

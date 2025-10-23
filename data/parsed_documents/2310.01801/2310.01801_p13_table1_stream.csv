@@ -1,0 +1,89 @@
+"Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Niko-"
+"lay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Dan Bikel, Lukas Blecher,"
+"Cristian Canton Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernandes, Jeremy"
+"Fu, Wenyin Fu, Brian Fuller, Cynthia Gao, Vedanuj Goswami, Naman Goyal, Anthony Hartshorn,"
+"Saghar Hosseini, Rui Hou, Hakan Inan, Marcin Kardas, Viktor Kerkez, Madian Khabsa, Isabel"
+"Kloumann, Artem Korenev, Punit Singh Koura, Marie-Anne Lachaux, Thibaut Lavril, Jenya Lee,"
+"Diana Liskovich, Yinghai Lu, Yuning Mao, Xavier Martinet, Todor Mihaylov, Pushkar Mishra,"
+"Igor Molybog, Yixin Nie, Andrew Poulton, Jeremy Reizenstein, Rashi Rungta, Kalyan Saladi,"
+"Alan Schelten, Ruan Silva, Eric Michael Smith, Ranjan Subramanian, Xiaoqing Ellen Tan, Binh"
+"Tang, Ross Taylor, Adina Williams, Jian Xiang Kuan, Puxin Xu, Zheng Yan, Iliyan Zarov, Yuchen"
+"Zhang, Angela Fan, Melanie Kambadur, Sharan Narang, Aurelien Rodriguez, Robert Stojnic,"
+"Sergey Edunov, and Thomas Scialom.
+Llama 2: Open foundation and fine-tuned chat models,"
+"2023b."
+"Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov. Analyzing multi-head"
+"self-attention: Specialized heads do the heavy lifting,
+the rest can be pruned, July 2019. URL"
+"https://aclanthology.org/P19-1580."
+"Ziheng Wang, Jeremy Wohlwend, and Tao Lei.
+Structured pruning of large language models.
+In"
+"Bonnie Webber, Trevor Cohn, Yulan He, and Yang Liu (eds.), Proceedings of the 2020 Conference"
+"on Empirical Methods in Natural Language Processing, EMNLP 2020, Online, November 16-20,"
+"2020, pp. 6151–6162. Association for Computational Linguistics, 2020. doi: 10.18653/v1/2020."
+"emnlp-main.496. URL https://doi.org/10.18653/v1/2020.emnlp-main.496."
+"Zhenyu Zhang, Ying Sheng, Tianyi Zhou, Tianlong Chen, Lianmin Zheng, Ruisi Cai, Zhao"
+"Song, Yuandong Tian, Christopher R´e, Clark W. Barrett, Zhangyang Wang, and Beidi Chen."
+"CoRR,"
+"H2o: Heavy-hitter oracle for efficient generative inference of"
+"abs/2306.14048, 2023.
+doi:
+10.48550/arXiv.2306.14048.
+URL https://doi.org/10."
+"48550/arXiv.2306.14048."
+"Chunting Zhou, Pengfei Liu, Puxin Xu, Srini Iyer, Jiao Sun, Yuning Mao, Xuezhe Ma, Avia Efrat,"
+"Ping Yu, Lili Yu, Susan Zhang, Gargi Ghosh, Mike Lewis, Luke Zettlemoyer, and Omer Levy."
+"LIMA:
+less is more for alignment.
+CoRR, abs/2305.11206, 2023.
+doi:
+10.48550/arXiv.2305."
+"11206. URL https://doi.org/10.48550/arXiv.2305.11206."
+"Wangchunshu
+Zhou,
+Canwen
+Xu,
+Tao
+Ge,
+Julian
+J. McAuley,
+Ke
+Xu,
+and
+Furu"
+"Wei.
+BERT
+loses
+patience:
+Fast
+and
+robust
+inference with
+early
+exit.
+In Hugo"
+"Larochelle, Marc’Aurelio Ranzato,
+Raia Hadsell, Maria-Florina Balcan,
+and Hsuan-Tien"
+"Advances
+in Neural
+Information Processing
+Systems
+33:
+Annual Conference
+Lin
+(eds.),"
+"on Neural
+Information Processing
+Systems
+2020,
+NeurIPS
+2020, December
+6-12,
+2020,"
+"https://proceedings.neurips.cc/paper/2020/hash/
+virtual,
+2020.
+URL"
+"d4dd111a4fd973394238aca5c05bebe3-Abstract.html."

@@ -1,0 +1,96 @@
+"Published as a conference paper at ICLR 2024"
+"Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal,"
+"Heinrich K¨uttler, Mike Lewis, Wen-tau Yih, Tim Rockt¨aschel, et al. Retrieval-Augmented Gener-"
+"ation for Knowledge-Intensive NLP Tasks. Advances in Neural Information Processing Systems,"
+"33:9459–9474, 2020. URL https://doi.org/10.48550/arXiv.2005.11401."
+"Jerry Liu. LlamaIndex, 2022. URL https://github.com/jerryjliu/llama_index."
+"Nelson F Liu, Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua, Fabio Petroni, and"
+"arXiv preprint
+Percy Liang.
+Lost
+in the middle: How language models use long contexts."
+"arXiv:2307.03172, 2023. URL https://arxiv.org/abs/2307.03172."
+"Ye Liu, Kazuma Hashimoto, Yingbo Zhou, Semih Yavuz, Caiming Xiong, and Philip Yu. Dense"
+"hierarchical retrieval for open-domain question answering.
+In Marie-Francine Moens, Xuanjing"
+"the Association for Compu-
+Huang, Lucia Specia, and Scott Wen-tau Yih (eds.), Findings of"
+"tational Linguistics: EMNLP 2021, pp. 188–200, Punta Cana, Dominican Republic, Novem-"
+"ber 2021. Association for Computational Linguistics. doi: 10.18653/v1/2021.findings-emnlp.19."
+"URL https://aclanthology.org/2021.findings-emnlp.19."
+"Leland McInnes,
+John Healy,
+and James Melville.
+UMAP: Uniform Manifold Approximation"
+"and Projection for Dimension Reduction, 2018. URL https://arxiv.org/abs/1802."
+"03426. arXiv preprint arXiv:1802.03426."
+"Sewon Min, Kenton Lee, Ming-Wei Chang, Kristina Toutanova, and Hannaneh Hajishirzi.
+Joint"
+"passage ranking for diverse multi-answer retrieval.
+In Marie-Francine Moens, Xuanjing Huang,"
+"the 2021 Conference on Empirical
+Lucia Specia, and Scott Wen-tau Yih (eds.), Proceedings of"
+"Methods in Natural Language Processing, pp. 6997–7008, Online and Punta Cana, Dominican"
+"Republic, November 2021. Association for Computational Linguistics.
+doi: 10.18653/v1/2021."
+"emnlp-main.560. URL https://aclanthology.org/2021.emnlp-main.560."
+"Sewon Min, Weijia Shi, Mike Lewis, Xilun Chen, Wen-tau Yih, Hannaneh Hajishirzi, and Luke"
+"the Association for
+Zettlemoyer.
+Nonparametric masked language modeling.
+In Findings of"
+"Computational Linguistics: ACL 2023, pp. 2097–2118, Toronto, Canada,
+July 2023. Associ-"
+"ation for Computational Linguistics.
+doi:
+10.18653/v1/2023.findings-acl.132.
+URL https:"
+"//aclanthology.org/2023.findings-acl.132."
+"Eric Mitchell,
+Charles Lin, Antoine Bosselut,
+Christopher D Manning,
+and Chelsea
+Finn."
+"Memory-based model
+editing at
+scale.
+In International Conference on Machine Learning,"
+"pp.
+15817–15831. PMLR,
+2022.
+URL https://proceedings.mlr.press/v162/"
+"mitchell22a/mitchell22a.pdf."
+"Xiangyang Mou, Mo Yu, Bingsheng Yao, Chenghao Yang, Xiaoxiao Guo, Saloni Potdar, and Hui"
+"the First Joint
+Su.
+Frustratingly hard evidence retrieval for QA over books.
+In Proceedings of"
+"Workshop on Narrative Understanding, Storylines, and Events, pp. 108–113, Online, July 2020."
+"Association for Computational Linguistics.
+doi:
+10.18653/v1/2020.nuse-1.13. URL https:"
+"//aclanthology.org/2020.nuse-1.13."
+"Inderjeet Nair, Aparna Garimella, Balaji Vasan Srinivasan, Natwar Modani, Niyati Chhaya, Srikr-"
+"ishna Karanam,
+and Sumit Shekhar.
+A neural CRF-based
+hierarchical
+approach
+for
+lin-"
+"the Association for Computational Linguistics:
+EACL
+ear
+text
+segmentation.
+In Findings of"
+"2023, pp. 883–893, Dubrovnik, Croatia, May 2023. Association for Computational Linguis-"
+"tics. doi: 10.18653/v1/2023.findings-eacl.65. URL https://aclanthology.org/2023."
+"findings-eacl.65."
+"Benjamin Newman, Luca Soldaini, Raymond Fok, Arman Cohan, and Kyle Lo. A controllable qa-"
+"based framework for decontextualization. arXiv preprint arXiv:2305.14772, 2023. URL https:"
+"//arxiv.org/pdf/2305.14772.pdf."
+"OpenAI. GPT-4 Technical Report. ArXiv, abs/2303.08774, 2023. URL https://arxiv.org/"
+"abs/2303.08774."
+"Richard Yuanzhe Pang, Alicia Parrish, Nitish Joshi, Nikita Nangia, Jason Phang, Angelica Chen,"
+"Vishakh Padmakumar, Johnny Ma, Jana Thompson, He He, and Samuel Bowman. QuALITY:"

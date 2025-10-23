@@ -1,0 +1,159 @@
+"3D Point Cloud",""
+"",""
+"Learnable","f 2D
+))
+(2)
+= ψ2D(φ2D(x2D
+i"
+"Frozen",""
+"","f text
+))
+(3)
+= ψtext(φtext(xtext
+i"
+"","where i ranges from 1 to the number of samples N and"
+"","ψ is the projection operation for each modality.
+Through"
+"P1.I1
+P1.T1
+P","normalization, we constrain the output of each projection"
+"",""
+"P2.T2
+P2.I2","network to reside within a unit hypersphere, enabling us to"
+"P
+P
+P3.I3
+P3.T3",""
+"","measure feature similarity using the inner product. The con-"
+"P4.T4
+P4.I4",""
+"P5.T5
+P5.I5","trastive losses (InfoNCE objective [41]) between 3D-image"
+"T
+I","features; and 3D-text features are deﬁned by:"
+"I","(cid:88)
+NCE(f 3D, f 2D)+"
+"",""
+"I1.T1
+T","1 2
+L(3D,2D) ="
+"",""
+"I2.T2","(f 3D,f 2D)∈B
+(4)"
+"Visual",""
+"I
+I3.T3
+Text",""
+"Encoder",""
+"",""
+"Encoder
+I4.T4","NCE(f 2D, f 3D)"
+"I5.T5",""
+"","(cid:88)"
+"","1 2
+NCE(f 3D, f text)+"
+"T","L(3D,text) ="
+"There is a sofa 
+There is a sofa","(f 3D,f text)∈B
+(5)"
+"There is a sofa",""
+"in the scene
+in the scene",""
+"in the scene",""
+"",""
+"Learnable 
+prompts","NCE(f text, f 3D)"
+"",""
+"Text Caption
+2D Rendered Image","where f 3D, f 2D, and f text are the projected 3D,
+image"
+"","and text features respectively. B corresponds to the batch."
+"Figure 2: Overview of
+the proposed learning strategy in",""
+"","NCE loss is deﬁned as:"
+"CG3D. Note that only the 3D Encoder and learnable visual",""
+"","exp((cid:104)f A, f B
++ (cid:105)/τ )"
+"prompts are trained while everything else is frozen.","(6)
+NCE(f A, f B) = − log"
+"","(cid:80)"
+"","f ∈(f B
++ ,f B
+− ) exp((cid:104)f A, f (cid:105)/τ )"
+"","where A, B are two different modalities and f A, f B are"
+"Text Encoder takes in the corresponding text caption of the","τ
+their corresponding features.
+is the temperature hyper-"
+"3D point cloud as input. Adopting natural
+language super-","parameter, f B
++ are the positive embeddings from modality"
+"vision for
+feature learning on images has been successful","B overlapping with modality A, and f B
+− are the negatively"
+"in training models to grasp visual concepts that can be de-","embeddings formed while pairing with modality A. For ex-"
+"picted in both images and text
+[46].
+In CLIP,
+the text en-","ample,
+the positive pairs between 3D and 2D
+in L(3D,2D)"
+"coder is trained to correspond text descriptions with images,","are formed by matching the features corresponding to same"
+"which we use out-of-the-box under the same conﬁguration","class while the rest are termed as negative pairs. The total"
+"as [46].","loss L3D used to train the 3D encoder is deﬁned by:"
+"","(7)
+L3D = L(3D,2D) + L(3D,text)"
+"3.2. Training the 3D Encoder",""
+"","3.3. Prompt Tuning for Visual Encoder"
+"Our main training objective
+is
+to align the 3D point",""
+"clouds with their corresponding category level
+images and","The visual encoder in the CG3D framework takes in the"
+"texts.
+This alignment happens
+in a common embedding","rendered image of
+the 3D point cloud as its input. While"
+"space to which data from each modality is projected from","the CLIP visual encoder has been trained on vast amounts"
+"the modality-speciﬁc encoder and a projection head. Our","of internet data and is highly resilient, during pre-training of"
+"training strategy relies on contrastive learning, which incen-","CG3D, it only deals with rendered images. As a result, ﬁne-"
+"tivizes cross-modal features of the same pair to be in close","tuning the CLIP visual encoder to handle rendered images"
+"proximity to one
+another
+in the
+embedding space while","could improve the training process for the 3D encoder. One"
+"keeping apart
+samples belonging to other pairs. We for-","possible approach is to train the visual encoder by optimiz-"
+"mulate the proposed losses below.
+Consider a set of N","ing its weights using the CLIP loss function that computes"
+", x2D
+, xtext
+}N
+pointcloud-image-text triplets {x3D","the similarity between image and text
+features. However,"
+"i
+i
+i
+i=1, where",""
+"x3D
+represents a pointcloud, x2D
+is the corresponding ren-","when we tried this method, we noticed a substantial de-"
+"i
+i",""
+"dered image, and xtext
+is the corresponding text. Let
+the
+i","crease in performance. This phenomenon can be explained"
+"encoder for each modality be represented as φ3D, φ2D, and","by the fact
+that
+training the visual encoder of CLIP causes"
+"φtext. We obtain the feature representation of each sample","catastrophic forgetting. That
+is,
+the encoder loses all of its"
+"in a common embedding space by projecting the encoded","prior knowledge while attempting to adapt
+to the new data"
+"feature to a common dimension represented by:","distribution. Typically, this issue can be avoided by increas-"
+"f 3D
+))
+(1)
+= ψ3D(φ3D(x3D
+i","ing the amount of new data available for ﬁne-tuning. How-"

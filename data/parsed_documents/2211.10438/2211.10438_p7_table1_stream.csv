@@ -1,0 +1,94 @@
+"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",""
+"Table 5:
+SmoothQuant’s performance on the OPT-IML","Table 7: SmoothQuant can enable lossless W8A8 quan-"
+"model.","tization for Llama-2 (Touvron et al., 2023b), Falcon (Al-"
+"","mazrouei et al., 2023), Mistral
+(Jiang et al., 2023), and"
+"OPT-IML-30B
+LAMBADA ↑ WikiText ↓","Mixtral (Jiang et al., 2024) models. Results are perplexities"
+"","on the WikiText-2 dataset with a sequence length of 2048."
+"FP16
+69.12%
+14.26",""
+"","We used per-token activation quantization and per-channel"
+"W8A8
+4.21%
+576.53",""
+"","weight quantization for SmoothQuant."
+"ZeroQuant
+5.12%
+455.12",""
+"LLM.int8()
+69.14%
+14.27",""
+"Outlier Suppression
+0.00%
+9485.62","α"
+"","Model
+Method
+PPL"
+"69.77%
+14.37
+SmoothQuant-O3",""
+"","FP16
+5.474"
+"","Llama-2-7B"
+"","W8A8 SQ
+5.515
+0.85"
+"","FP16
+4.950"
+"Table 6: SmoothQuant can enable lossless W8A8 quanti-","Llama-2-13B"
+"","W8A8 SQ
+4.929
+0.85"
+"zation for LLaMA models (Touvron et al., 2023a). Results",""
+"","FP16
+3.320"
+"are perplexities on the WikiText-2 dataset with a sequence","Llama-2-70B"
+"","W8A8 SQ
+3.359
+0.9"
+"length of 512. We used per-token activation quantization",""
+"","FP16
+6.590"
+"and α=0.8 for SmoothQuant.",""
+"","Falcon-7B"
+"","W8A8 SQ
+6.629
+0.6"
+"","FP16
+5.228"
+"Wiki PPL↓
+7B
+13B
+30B
+65B",""
+"","Falcon-40B"
+"","W8A8 SQ
+5.255
+0.7"
+"FP16
+11.51
+10.05
+7.53
+6.17",""
+"","FP16
+5.253"
+"W8A8 SmoothQuant
+11.56
+10.08
+7.56
+6.20",""
+"","Mistral-7B"
+"","W8A8 SQ
+5.277
+0.8"
+"","FP16
+3.842"
+"","Mixtral-8x7B"
+"","W8A8 SQ
+3.893
+0.8"
+"Results on Instruction-Tuned LLM
+Shown in Table 5,",""

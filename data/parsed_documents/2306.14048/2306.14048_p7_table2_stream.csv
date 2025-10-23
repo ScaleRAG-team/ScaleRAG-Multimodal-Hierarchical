@@ -1,0 +1,22 @@
+"","In this section, our goal is to demonstrate that H2O, a remarkably simple KV cache eviction policy is"
+"","capable of enhancing end-to-end throughput and reducing latency in wall-clock while maintaining"
+"generation quality across a broad spectrum of domains and tasks.",""
+"•","without
+In Section 5.1, we show that H2O can reduce the memory footprint of KV cache by up to 5"
+"","×"
+"","accuracy degradation on a wide range of model architectures (OPT, LLaMA, GPT-NeoX), sizes"
+"","(from 6.7B to 175B) and evaluation benchmarks (HELM and lm-eval-harness). More importantly,"
+"","can enhance the performance of existing KV cache sparsification techniques."
+"•",",
+, 29
+In Section 5.2, we demonstrate that H2O can increase the inference throughput by up to 3"
+"","×
+×"
+"","compared to the state-of-the-art inference engine FlexGen, DeepSpeed and the widely used
+29"
+"","×"
+"","Hugging Face Accelerate without compromising model quality."
+"•","In Section 5.3, we present extensive ablation studies to show the effectiveness of H2O under"
+"","different sequence lengths, especially the input with infinite sequence length and its compatibility"
+"","with quantization."
+"All details (hyperparameters, data splits, etc.), along with additional experiments, are in Appendix A.",""

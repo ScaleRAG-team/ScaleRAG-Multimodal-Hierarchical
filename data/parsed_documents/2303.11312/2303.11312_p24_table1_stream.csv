@@ -1,0 +1,110 @@
+"24
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"#
+A
+tibble:
+1 x
+4"
+"mtry trees min_n .config"
+"<int>
+<int> <int> <chr>"
+"1
+2
+482
+7 Preprocessor1_Model3"
+"Having found the optimal hyperparameters for the random forest, we can then ﬁt our tuned"
+"model
+to our
+full
+set of
+training data and use
+functions
+from yardstick and waywiser
+to"
+"evaluate predictions against the test set:"
+"R>
+tuned_rf_workflow <- rf_workflow
+|>"
+"+
+finalize_workflow(select_best(rf_res))
+|>"
+"+
+fit(worldclim_training)"
+"R>
+worldclim_testing$predictions
+<-
+predict(tuned_rf_workflow,"
+"+
+worldclim_testing)$.pred"
+"R>
+metrics <-
+metric_set(waywiser::ww_willmott_d1,"
+"+
+waywiser::ww_agreement_coefficient)"
+"R>
+metrics(worldclim_testing,
+response,
+predictions)"
+"#
+A
+tibble: 2
+x 3"
+".metric
+.estimator
+.estimate"
+"<chr>
+<chr>
+<dbl>"
+"1
+willmott_d1
+standard
+0.983"
+"2
+agreement_coefficient standard
+0.998"
+"Finally, as alluded to in Section 5, we may also use ww_area_of_applicability() with our"
+"cross-validation object to estimate the AOA of this random forest.
+In order to do so, we will"
+"ﬁrst estimate our variable importance scores through vip::vi_permute():"
+"R>
+d1_wrapper
+<- function(actual,
+predicted)
+{"
+"+
+waywiser::ww_willmott_d1_vec(actual,
+predicted)"
+"+
+}"
+"R>
+pred_wrapper <- function(object,
+newdata)
+{"
+"+
+object |>"
+"+
+predict(newdata) |>"
+"+
+ranger::predictions()"
+"+
+}"
+"R>
+importance
+<- vip::vi_permute("
+"+
+extract_fit_engine(tuned_rf_workflow),"
+"+
+train = as.data.frame(worldclim_training)[c(1:4,
+6)],"
+"+
+target = ""response"","
+"+
+metric = d1_wrapper,"
+"+
+smaller_is_better
+= FALSE,"
+"+
+pred_wrapper = pred_wrapper)"
+"We are then able to calculate our area of applicability by passing our cross-validation object,"
+"model
+formula, and importance scores to ww_area_of_applicability():"

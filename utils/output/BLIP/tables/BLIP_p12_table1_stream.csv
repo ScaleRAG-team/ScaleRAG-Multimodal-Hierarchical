@@ -1,0 +1,74 @@
+"Image-Text Retrieval. We use the Karpathy split (Karpa-","B. Additional Examples of Synthetic Captions"
+"thy & Li, 2015)
+for both COCO and Flickr30K. COCO",""
+"contains
+113/5k/5k
+images
+for
+train/validation/test,","In Figure 6, we show additional examples of images and"
+"and
+Flickr30K
+contains
+29k/1k/1k
+images
+for","texts where the web captions are ﬁltered out, and the syn-"
+"train/validation/test.","thetic captions are kept as clean training samples."
+"Image Captioning. We ﬁnetune on COCO’s Karpathy train","C. Pre-training Dataset Details"
+"split, and evaluate on COCO’s Karpathy test split and No-",""
+"Caps validation split. During inference, we use beam search","Table 15 shows the statistics of the pre-training datasets."
+"with a beam size of 3, and set
+the maximum generation",""
+"length as 20.","COCO
+VG
+SBU
+CC3M
+CC12M
+LAION"
+"VQA. We experiment with the VQA2.0 dataset
+(Goyal","# image
+113K
+100K
+860K
+3M
+10M
+115M"
+"et al., 2017), which contains 83k/41k/81k images for train-","567K
+769K
+860K
+3M
+10M
+115M
+# text"
+"ing/validation/test.
+Following Li et al.
+(2021a), we use","Table 15. Statistics of the pre-training datasets."
+"both training and validation splits for training, and include",""
+"additional training samples from Visual Genome. During",""
+"inference on VQA, we use the decoder to rank the 3,128",""
+"candidate answers (Li et al., 2021a; Kim et al., 2018).",""
+"NLVR2. We conduct experiment on the ofﬁcial split (Suhr",""
+"et al., 2019).",""
+"VisDial. We ﬁnetune on the training split of VisDial v1.0",""
+"and evaluate on its validation set.",""
+"𝑇!: “a week spent at our","𝑇!: “that's what a sign 
+𝑇!: “hand held through the"
+"rented beach house in","says over the door”
+glass in my front bedroom"
+"Sandbridge”","window”"
+"","𝑇"": “the car is driving"
+"𝑇"": “an outdoor walkway","past a small old 
+𝑇"": “a moon against the night"
+"on a grass covered hill”","building”
+sky with a black background”"
+"𝑇!: “stunning sky over","𝑇!: “living in my 
+𝑇!: “the pink rock"
+"walney island, lake","little white house”
+from below”"
+"district, july 2009”",""
+"","𝑇"": “a tiny white 
+𝑇"": “some colorful"
+"𝑇"": “an outdoor walkway","flower with a bee 
+trees that are on a hill"
+"on a grass covered hill”","in it”
+in the mountains”"
+"Figure 6. Examples of the web text Tw and the synthetic text Ts. Green texts are accepted by the ﬁlter, whereas red texts are rejected.",""

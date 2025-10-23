@@ -1,0 +1,3328 @@
+{
+  "title": null,
+  "authors": [
+    "Yaniv Leviathan",
+    "Matan Kalman",
+    "Yossi Matias"
+  ],
+  "source_path": "../data/pdf/2211.17192.pdf",
+  "page_count": 13,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "counts": {
+    "texts": 301,
+    "pictures": 2,
+    "tables": 16
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 2,
+      "text_blocks": 13,
+      "layout_blocks": 1,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 53,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 4,
+      "text_blocks": 38,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 37,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 25,
+      "layout_blocks": 1,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 16,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 18,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 9,
+      "text_blocks": 24,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 10,
+      "text_blocks": 5,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 31,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 24,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 3
+    },
+    {
+      "page": 13,
+      "text_blocks": 4,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        116.052001953125,
+        89.9119873046875,
+        480.8330078125,
+        104.25818634033203
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        184.1199951171875,
+        139.3885498046875,
+        411.6239013671875,
+        152.9661407470703
+      ],
+      "text": "Yaniv Leviathan * 1 Matan Kalman * 1 Yossi Matias 1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        75.03700256347656,
+        174.1732177734375,
+        271.1731872558594,
+        439.3870849609375
+      ],
+      "text": "Abstract\nInference from large autoregressive models like\nTransformers is slow - decoding K tokens takes\nK serial runs of the model. In this work we in-\ntroduce speculative decoding - an algorithm to\nsample from autoregressive models faster without\nany changes to the outputs, by computing several\ntokens in parallel. At the heart of our approach lie\nthe observations that (1) hard language-modeling\ntasks often include easier subtasks that can be ap-\nproximated well by more efﬁcient models, and\n(2) using speculative execution and a novel sam-\npling method, we can make exact decoding from\nthe large models faster, by running them in par-\nallel on the outputs of the approximation mod-\nels, potentially generating several tokens concur-\nrently, and without changing the distribution. Our\nmethod can accelerate existing off-the-shelf mod-\nels without retraining or architecture changes. We\ndemonstrate it on T5-XXL and show a 2X-3X\nacceleration compared to the standard T5X imple-\nmentation, with identical outputs."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.43999481201172,
+        470.2431640625,
+        132.2760772705078,
+        482.1983642578125
+      ],
+      "text": "1. Introduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.11199951171875,
+        491.1612854003906,
+        291.0980224609375,
+        608.7950439453125
+      ],
+      "text": "Large autoregressive models, notably large Transformers\n(Vaswani et al., 2017), are much more capable than smaller\nmodels, as is evidenced countless times in recent years e.g.,\nin the text or image domains, like GPT-3 (Brown et al.,\n2020), LaMDA (Thoppilan et al., 2022), Parti (Yu et al.,\n2022), and PaLM (Chowdhery et al., 2022). Unfortunately,\na single decode step from these larger models is signiﬁcantly\nslower than a step from their smaller counterparts, and mak-\ning things worse, these steps are done serially - decoding K\ntokens takes K serial runs of the model."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.439998626708984,
+        616.6902465820312,
+        289.43701171875,
+        638.70703125
+      ],
+      "text": "Given the importance of large autoregressive models and\nspeciﬁcally large Transformers, several approaches were"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.11800003051758,
+        646.9426879882812,
+        289.4445495605469,
+        677.3764038085938
+      ],
+      "text": "*Equal\ncontribution\n1Google\nResearch,\nMountain\nView,\nCA,\nUSA.\nCorrespondence\nto:\nYaniv\nLeviathan\n<leviathan@google.com>."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.1619987487793,
+        684.2979125976562,
+        289.44171142578125,
+        717.2273559570312
+      ],
+      "text": "Proceedings of the 40 th International Conference on Machine\nLearning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright\n2023 by the author(s)."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.0820007324219,
+        175.71829223632812,
+        543.0935668945312,
+        365.08306884765625
+      ],
+      "text": "developed to make inference from them faster. Some ap-\nproaches aim to reduce the inference cost for all inputs\nequally (e.g. Hinton et al., 2015; Jaszczur et al., 2021;\nHubara et al., 2016; So et al., 2021; Shazeer, 2019). Other\napproaches stem from the observation that not all infer-\nence steps are born alike - some require a very large model,\nwhile others can be approximated well by more efﬁcient\nmodels. These adaptive computation methods (e.g. Han\net al., 2021; Sukhbaatar et al., 2019; Schuster et al., 2021;\nScardapane et al., 2020; Bapna et al., 2020; Elbayad et al.,\n2019; Schwartz et al., 2020) aim to use less compute re-\nsources for easier inference steps. While many of these\nsolutions have proven extremely effective in practice, they\nusually require changing the model architecture, changing\nthe training-procedure and re-training the models, and don’t\nmaintain identical outputs."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        306.114990234375,
+        372.9783020019531,
+        543.186279296875,
+        526.4780883789062
+      ],
+      "text": "The key observation above, that some inference steps are\n“harder” and some are “easier”, is also a key motivator for\nour work. We additionally observe that inference from large\nmodels is often not bottlenecked on arithmetic operations,\nbut rather on memory bandwidth and communication, so\nadditional computation resources might be available. There-\nfore we suggest increasing concurrency as a complemen-\ntary approach to using an adaptive amount of computation.\nSpeciﬁcally, we are able to accelerate inference without\nchanging the model architectures, without changing the\ntraining-procedures or needing to re-train the models, and\nwithout changing the model output distribution. This is\naccomplished via speculative execution."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.0820007324219,
+        534.5244140625,
+        543.1849365234375,
+        711.8070068359375
+      ],
+      "text": "Speculative execution (Burton, 1985; Hennessy & Patterson,\n2012) is an optimization technique, common in processors,\nwhere a task is performed in parallel to verifying if it’s\nactually needed - the payoff being increased concurrency.\nA well-known example of speculative execution is branch\nprediction. For speculative execution to be effective, we\nneed an efﬁcient mechanism to suggest tasks to execute\nthat are likely to be needed. In this work, we generalize\nspeculative execution to the stochastic setting - where a\ntask might be needed with some probability. Applying this\nto decoding from autoregressive models like Transformers,\nwe sample generations from more efﬁcient approximation\nmodels as speculative preﬁxes for the slower target mod-\nels. With a novel sampling method, speculative sampling,\nwe maximize the probability of these speculative tasks to"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        205.5999755859375,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2211.17192v2  [cs.LG]  18 May 2023"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.9379997253418,
+        214.77688598632812,
+        543.0057373046875,
+        267.62237548828125
+      ],
+      "text": "Figure 1. Our technique illustrated in the case of unconditional language modeling. Each line represents one iteration of the algorithm.\nThe green tokens are the suggestions made by the approximation model (here, a GPT-like Transformer decoder with 6M parameters\ntrained on lm1b with 8k tokens) that the target model (here, a GPT-like Transformer decoder with 97M parameters in the same setting)\naccepted, while the red and blue tokens are the rejected suggestions and their corrections, respectively. For example, in the ﬁrst line the\ntarget model was run only once, and 5 tokens were generated."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.11199951171875,
+        289.6553039550781,
+        291.0934143066406,
+        383.3790588378906
+      ],
+      "text": "be accepted, while guaranteeing that the outputs from our\nsystem have the same distribution as those from the target\nmodel alone. For example, the sentence in Figure 1, con-\nsisting of 38 tokens, was generated by our method with\nonly 9 serial runs of a larger target model (97M parameters)\nthanks to a smaller and more efﬁcient approximation model\n(6M parameters), while the probability of generating it is\nunchanged."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.97200012207031,
+        391.2732849121094,
+        291.097900390625,
+        508.9080810546875
+      ],
+      "text": "We analyze our method in a variety of tasks and model\nsizes: unconditional generation from a 97M parameter GPT-\nlike model trained on lm1b, English to German translation\nand news article summarization with an 11B parameters\nT5-XXL model, and a dialog task with a 137B parameter\nLaMDA model. We implement our method and compare\nactual walltimes for T5-XXL to those of the robust T5X\nimplementation (Roberts et al., 2022), showing an out-of-\nthe-box latency improvement of 2X-3X, without any change\nto the outputs (Section 4)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439998626708984,
+        516.9163208007812,
+        290.6818542480469,
+        586.6170654296875
+      ],
+      "text": "Our method is easy to employ in actual production settings,\ndoesn’t require training new models, and doesn’t change the\noutputs. Therefore, in common situations where memory\nbandwidth is the bottleneck, and compute resources are\navailable, it may be a good default to accelerate sampling\nfrom autoregressive models like Transformers."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.11199951171875,
+        594.662353515625,
+        291.09521484375,
+        676.280029296875
+      ],
+      "text": "To summarize, our main contributions are: (1) A generaliza-\ntion of speculative execution to the stochastic setting, with\na novel sampling method we call speculative sampling, and\n(2) A decoding mechanism we call speculative decoding that\ncan accelerate decoding from autoregressive models, with-\nout any change to the model architectures, training regimes\nand output distributions."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        288.11016845703125,
+        428.4147033691406,
+        300.06536865234375
+      ],
+      "text": "2. Speculative Decoding"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        309.01251220703125,
+        365.62158203125,
+        318.97509765625
+      ],
+      "text": "2.1. Overview"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        327.5249328613281,
+        543.0929565429688,
+        554.405029296875
+      ],
+      "text": "Let Mp be the target model, inference from which we’re\ntrying to accelerate, and p(xt|x<t) the distribution we get\nfrom the model for a preﬁx x<t. Let Mq be a more efﬁ-\ncient approximation model for the same task, and denote\nby q(xt|x<t) the distribution we get from the model for a\npreﬁx x<t1. The core idea is to (1) use the more efﬁcient\nmodel Mq to generate γ ∈Z+ completions (see Section 3.5\nfor how to optimally choose this parameter), then (2) use\nthe target model Mp to evaluate all of the guesses and their\nrespective probabilities from Mq in parallel, accepting all\nthose that can lead to an identical distribution, and (3) sam-\npling an additional token from an adjusted distribution to ﬁx\nthe ﬁrst one that was rejected, or to add an additional one\nif they are all accepted. That way, each parallel run of the\ntarget model Mp will produce at least one new token (so the\nnumber of serial runs of the target model can never, even\nin the worst case, be larger than the simple autoregressive\nmethod), but it can potentially generate many new tokens,\nup to γ + 1, depending on how well Mq approximates Mp."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        567.990478515625,
+        424.79949951171875,
+        577.9530639648438
+      ],
+      "text": "2.2. Standardized Sampling"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        306.97198486328125,
+        586.6732788085938,
+        543.1812744140625,
+        680.4010620117188
+      ],
+      "text": "First, note that while there are many methods and parame-\nters of sampling, like argmax, top-k, nucleus, and setting\na temperature, and popular implementations usually treat\nthem differently at the logits level, they can all easily be cast\ninto standard sampling from an adjusted probability distribu-\ntion. For example, argmax sampling is equivalent to zeroing\nout non-max elements of the distribution and normalizing.\nWe can therefore only deal with standard sampling from a"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        688.6427001953125,
+        540.9437255859375,
+        709.1134033203125
+      ],
+      "text": "1We’ll use p(x) to denote p(xt|x<t) whenever the preﬁx x<t\nis clear from the context, and similarly for q(x)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        289.43792724609375,
+        115.29611206054688
+      ],
+      "text": "probability distribution, and cast all of the other types of\nsampling into that framework. Going forward we’ll assume\nthat p(x) and q(x) are the distributions from Mp and Mq\nrespectively, adjusted for the sampling method."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.44000244140625,
+        130.37554931640625,
+        164.2913360595703,
+        140.33815002441406
+      ],
+      "text": "2.3. Speculative Sampling"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.13100051879883,
+        148.75880432128906,
+        289.4440612792969,
+        184.5618896484375
+      ],
+      "text": "To sample x ∼p(x), we instead sample x ∼q(x), keeping\nit if q(x) ≤p(x), and in case q(x) > p(x) we reject the\nsample with probability 1−p(x)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        174.39292907714844,
+        290.6812438964844,
+        234.11605834960938
+      ],
+      "text": "q(x) and sample x again from an\nadjusted distribution p′(x) = norm(max(0, p(x) −q(x)))\ninstead. It’s easy to show (see Appendix A.1) that for any\ndistributions p(x) and q(x), and x sampled in this way,\nindeed x ∼p(x)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.97200012207031,
+        241.85594177246094,
+        291.183837890625,
+        359.64508056640625
+      ],
+      "text": "Given the distribution q(x) obtained from running Mq on\na conditioning prefix, we can sample a token x1 ∼q(x).\nWe then calculate the distribution p(x) by running Mp on\nprefix while in parallel speculatively calculating the distri-\nbution of the next token x2 by running Mp on prefix+[x1].\nOnce both computations complete, we proceed as per above:\nIf x1 is rejected, we discard the computation of x2 and\nre-sample x1 from an adjusted distribution, and if x1 is ac-\ncepted, we keep both tokens. Algorithm 1 generalizes this\nidea to sample between 1 and γ + 1 tokens at once."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.082000732421875,
+        373.9715270996094,
+        211.8530731201172,
+        384.02508544921875
+      ],
+      "text": "Algorithm 1 SpeculativeDecodingStep"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.40296936035156,
+        387.2909240722656,
+        280.48297119140625,
+        421.3030700683594
+      ],
+      "text": "Inputs: Mp, Mq, prefix.\n▷Sample γ guesses x1,...,γ from Mq autoregressively.\nfor i = 1 to γ do"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.40293884277344,
+        423.0267639160156,
+        232.60800170898438,
+        481.78045654296875
+      ],
+      "text": "qi(x) ←Mq(prefix + [x1, . . . , xi−1])\nxi ∼qi(x)\nend for\n▷Run Mp in parallel.\np1(x), . . . , pγ+1(x) ←"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.40293884277344,
+        482.93182373046875,
+        271.32598876953125,
+        532.2083740234375
+      ],
+      "text": "Mp(prefix), . . . , Mp(prefix + [x1, . . . , xγ])\n▷Determine the number of accepted guesses n.\nr1 ∼U(0, 1), . . . , rγ ∼U(0, 1)\nn ←min({i −1 | 1 ≤i ≤γ, ri > pi(x)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.40301513671875,
+        520.6217651367188,
+        263.44647216796875,
+        567.7470703125
+      ],
+      "text": "qi(x)} ∪{γ})\n▷Adjust the distribution from Mp if needed.\np′(x) ←pn+1(x)\nif n < γ then"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.4029541015625,
+        568.2303466796875,
+        277.16162109375,
+        628.2245483398438
+      ],
+      "text": "p′(x) ←norm(max(0, pn+1(x) −qn+1(x)))\nend if\n▷Return one token from Mp, and n tokens from Mq.\nt ∼p′(x)\nreturn prefix + [x1, . . . , xn, t]"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        655.9041748046875,
+        110.577392578125,
+        667.859375
+      ],
+      "text": "3. Analysis"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        676.8065185546875,
+        198.8715362548828,
+        686.7691040039062
+      ],
+      "text": "3.1. Number of Generated Tokens"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        695.4752807617188,
+        291.0960998535156,
+        717.4559936523438
+      ],
+      "text": "Let’s analyze the reduction factor in the number of serial\ncalls to the target model, or equivalently, the expected num-"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        69.46748352050781,
+        525.102783203125,
+        79.43008422851562
+      ],
+      "text": "ber of tokens produced by a single run of Algorithm 1."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        86.05709838867188,
+        541.7888793945312,
+        120.18307495117188
+      ],
+      "text": "Deﬁnition 3.1. The acceptance rate βx<t, given a preﬁx\nx<t, is the probability of accepting xt ∼q(xt|x<t) by\nspeculative sampling, as per Section 2.32."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        132.81089782714844,
+        543.0944213867188,
+        214.73507690429688
+      ],
+      "text": "E(β) is then a natural measure of how well Mq approxi-\nmates Mp. If we make the simplifying assumption that the\nβs are i.i.d., and denote α = E(β), then the number of\ntokens produced by a single run of Algorithm 1 is a capped\ngeometric variable, with success probability 1 −α and cap\nγ + 1, and the expected number of tokens generated by\nAlgorithm 1 satisﬁes Equation (1). See Figure 2."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        346.218017578125,
+        233.00880432128906,
+        500.9731140136719,
+        250.99053955078125
+      ],
+      "text": "E(# generated tokens) = 1 −αγ+1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        470.29998779296875,
+        241.2584991455078,
+        541.4404907226562,
+        257.82452392578125
+      ],
+      "text": "1 −α\n(1)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        430.784912109375,
+        524.8233032226562,
+        444.880126953125
+      ],
+      "text": "0.50\n0.55\n0.60\n0.65\n0.70\n0.75\n0.80\n0.85\n0.90\n0\n0"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        403.7580261230469,
+        524.8233032226562,
+        412.3704833984375
+      ],
+      "text": "2\n2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        376.7311706542969,
+        524.8233032226562,
+        385.3436279296875
+      ],
+      "text": "4\n4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        349.70428466796875,
+        524.8233032226562,
+        358.3167419433594
+      ],
+      "text": "6\n6"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        322.67742919921875,
+        524.8233032226562,
+        331.2898864746094
+      ],
+      "text": "8\n8"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        326.6764831542969,
+        295.65057373046875,
+        528.052978515625,
+        304.2630310058594
+      ],
+      "text": "10\n10"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        329.90582275390625,
+        417.2714538574219,
+        524.8233032226562,
+        425.8839111328125
+      ],
+      "text": "1\n1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.3286437988281,
+        338.9891357421875,
+        325.94110107421875,
+        396.131103515625
+      ],
+      "text": "E(tokens per iteration)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        355.47882080078125,
+        302.1489562988281,
+        377.00994873046875,
+        310.76141357421875
+      ],
+      "text": "Baseline"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        359.4733581542969,
+        309.44873046875,
+        367.947265625,
+        318.0611877441406
+      ],
+      "text": "= 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        359.4733581542969,
+        317.63714599609375,
+        367.947265625,
+        326.2496032714844
+      ],
+      "text": "= 3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        359.4733581542969,
+        325.6986389160156,
+        367.947265625,
+        334.31109619140625
+      ],
+      "text": "= 5"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        359.4733581542969,
+        333.8236083984375,
+        367.947265625,
+        342.4360656738281
+      ],
+      "text": "= 7"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        359.4733581542969,
+        341.82952880859375,
+        363.72882080078125,
+        350.4419860839844
+      ],
+      "text": "="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        306.93798828125,
+        468.54498291015625,
+        542.1129760742188,
+        488.4693908691406
+      ],
+      "text": "Figure 2. The expected number of tokens generated by Algorithm 1\nas a function of α for various values of γ."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        509.87493896484375,
+        383.0060729980469,
+        519.9771118164062
+      ],
+      "text": "3.2. Calculating α"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        306.97198486328125,
+        528.5278930664062,
+        541.4424438476562,
+        563.2415771484375
+      ],
+      "text": "We’ll now derive a simple formula for calculating α given a\npreﬁx and the two models Mp and Mq. We start by deﬁning\na natural divergence DLK:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        568.9722900390625,
+        454.4045104980469,
+        580.0845947265625
+      ],
+      "text": "Deﬁnition 3.2. DLK(p, q)\n=\nP"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        569.1517944335938,
+        541.4429321289062,
+        592.98193359375
+      ],
+      "text": "x |p(x) −M(x)|\n=\nP"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        317.95599365234375,
+        580.8317260742188,
+        488.38934326171875,
+        596.1504516601562
+      ],
+      "text": "x |q(x) −M(x)| where M(x) = p(x)+q(x)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        468.6000061035156,
+        583.5584716796875,
+        492.0776672363281,
+        596.0735473632812
+      ],
+      "text": "2\n."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        599.8623046875,
+        446.8544921875,
+        610.9745483398438
+      ],
+      "text": "Lemma 3.3. DLK(p, q) = 1 −P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        446.8499755859375,
+        600.1709594726562,
+        519.0118408203125,
+        613.1224975585938
+      ],
+      "text": "x min(p(x), q(x))"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.43994140625,
+        632.727294921875,
+        407.0084228515625,
+        650.1619873046875
+      ],
+      "text": "Proof. DLK(p, q) = P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        407.00390625,
+        632.727294921875,
+        501.5653991699219,
+        650.1619873046875
+      ],
+      "text": "x |p(x) −M(x)| = P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        501.5608825683594,
+        630.4493408203125,
+        528.3980102539062,
+        645.3345947265625
+      ],
+      "text": "x\n|p−q|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        306.9420166015625,
+        633.0359497070312,
+        541.4429321289062,
+        657.4924926757812
+      ],
+      "text": "2\n=\n1 −P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        334.61602783203125,
+        644.943359375,
+        381.8051452636719,
+        659.8285522460938
+      ],
+      "text": "x\np+q−|p−q|"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.1619873046875,
+        647.2213134765625,
+        423.9645080566406,
+        660.2755737304688
+      ],
+      "text": "2\n= 1 −P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        423.9599914550781,
+        647.5299072265625,
+        496.12188720703125,
+        660.4815063476562
+      ],
+      "text": "x min(p(x), q(x))"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        678.5713500976562,
+        542.7210693359375,
+        688.4840087890625
+      ],
+      "text": "From Lemma 3.3 we immediately get the following results:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        696.7556762695312,
+        541.4440307617188,
+        717.2273559570312
+      ],
+      "text": "2As before, we’ll omit the x<t subscript whenever the preﬁx is\nclear from the context."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43998718261719,
+        69.23692321777344,
+        300.9795837402344,
+        103.95159149169922
+      ],
+      "text": "Corollary 3.4. DLK(p, q) is a symmetric divergence in [0, 1].\nDLK(p, q) = 0 ⇐⇒p = q.\nDLK(p, q) = 1 ⇐⇒p and q have disjoint support."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.11199951171875,
+        108.90181732177734,
+        196.07444763183594,
+        119.83458709716797
+      ],
+      "text": "Theorem 3.5. β = 1 −DLK(p, q)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43998718261719,
+        142.8889617919922,
+        168.72332763671875,
+        153.99761962890625
+      ],
+      "text": "Proof. β\n=\nEx∼q(x)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        170.885009765625,
+        133.01637268066406,
+        289.4429016113281,
+        161.56256103515625
+      ],
+      "text": "(\n1\nq(x) ≤p(x)\np(x)\nq(x)\nq(x) > p(x)\n="
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43998718261719,
+        163.90480041503906,
+        136.2753143310547,
+        178.16253662109375
+      ],
+      "text": "Ex∼q(x) min(1, p(x)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        121.52999877929688,
+        166.0923614501953,
+        165.1525115966797,
+        183.52694702148438
+      ],
+      "text": "q(x)) = P"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        165.14801025390625,
+        166.4009246826172,
+        237.30990600585938,
+        179.3525390625
+      ],
+      "text": "x min(p(x), q(x))"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        192.53846740722656,
+        115.21558380126953,
+        202.50106811523438
+      ],
+      "text": "Finally we get:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        208.06178283691406,
+        282.659912109375,
+        218.99456787109375
+      ],
+      "text": "Corollary 3.6. α = 1 −E(DLK(p, q)) = E(min(p, q))"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        230.05088806152344,
+        291.09063720703125,
+        252.20010375976562
+      ],
+      "text": "See Table 3 for empirically observed α values in our experi-\nments."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        267.279541015625,
+        171.73341369628906,
+        277.24212646484375
+      ],
+      "text": "3.3. Walltime Improvement"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        54.97200012207031,
+        285.9735107421875,
+        289.60821533203125,
+        321.347900390625
+      ],
+      "text": "We’ve shown that with the i.i.d. assumption our algorithm\nreduces the number of calls to the target model by a factor\nof 1−αγ+1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        311.3653869628906,
+        291.0909729003906,
+        405.6405334472656
+      ],
+      "text": "1−α . Note that speculative execution in general, and\nour algorithm in particular, assume that we have enough\ncompute resources to support the increased concurrency\n(Section 3.4). For the walltime anaylsis, we’ll assume that\nwe can run γ + 1 concurrent evaluations of Mp in parallel\nwithout increasing the walltime. To get the total walltime\nimprovement, we now consider the cost of running the ap-\nproximation model Mq."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43998718261719,
+        410.69708251953125,
+        291.0938415527344,
+        445.43353271484375
+      ],
+      "text": "Deﬁnition 3.7. Let c, the cost coefﬁcient, be the ratio be-\ntween the time for a single run of Mq and the time for a\nsingle run of Mp."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43998718261719,
+        456.48992919921875,
+        289.6895751953125,
+        526.4590454101562
+      ],
+      "text": "Note that unlike α which is an intrinsic property of the\nmodels and the task, the value of c depends on the hardware\nconﬁguration and software implementation details. In our\nexperiments where Mq is typically a couple of orders of\nmagnitude smaller than Mp, c was always less than 0.05\nand often negligibly close to 0."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.11198806762695,
+        532.1259765625,
+        289.4433288574219,
+        558.1975708007812
+      ],
+      "text": "Theorem 3.8. The expected improvement factor in total\nwalltime by Algorithm 1 is\n1−αγ+1\n(1−α)(γc+1)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        571.3839111328125,
+        291.183837890625,
+        619.5996704101562
+      ],
+      "text": "Proof. Denote the cost of running a single step of Mp by T.\nNow, each run of Algorithm 1 costs Tcγ + T (for running\nthe approximation model Mq γ times and running Mp once)\nand according to Equation (1) produces 1−αγ+1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        609.572509765625,
+        289.4384460449219,
+        644.779052734375
+      ],
+      "text": "1−α\ntokens on\naverage. So the overall expected cost for producing a token\nwith Algorithm 1 is (cγ+1)(1−α)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        634.5619506835938,
+        291.08905029296875,
+        668.6650390625
+      ],
+      "text": "1−αγ+1\nT. Since the cost of pro-\nducing a single token with the standard decoding algorithm\nis T, we get the desired result."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.11199951171875,
+        683.519287109375,
+        291.0906982421875,
+        717.468017578125
+      ],
+      "text": "Note that Theorem 3.8 assumes long enough generations\n(for example, since we run Mp at least once, the improve-\nment factor is capped by the number of generated tokens)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        69.21401977539062,
+        541.4381713867188,
+        98.53453826904297
+      ],
+      "text": "Corollary 3.9. If α > c, there exists γ for which we’ll get\nan improvement, and the improvement factor will be at least\n1+α"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        309.44500732421875,
+        93.2020263671875,
+        327.58868408203125,
+        106.59962463378906
+      ],
+      "text": "1+c ."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.1910095214844,
+        119.05290222167969,
+        541.6046752929688,
+        169.65350341796875
+      ],
+      "text": "Proof. If we get an improvement for γ, we’d also get an\nimprovement for any 0 < γ∗< γ, so for our method to\nyield an improvement, we can evaluate Theorem 3.8 for\nγ = 1, yielding\n1−α2\n(1−α)(c+1) = 1+α"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        430.7030029296875,
+        156.48548889160156,
+        448.8466796875,
+        169.88406372070312
+      ],
+      "text": "1+c ."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        182.61248779296875,
+        470.1393127441406,
+        192.57508850097656
+      ],
+      "text": "3.4. Number of Arithmetic Operations"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        306.97198486328125,
+        201.1249237060547,
+        543.1837768554688,
+        318.9150695800781
+      ],
+      "text": "Algorithm 1 does γ+1 runs of Mp in parallel, so the number\nof concurrent arithmetic operations grows by a factor of\nγ+1. Now, since Algorithm 1 produces at most γ+1 tokens\nper run, the total number of arithmetic operations might be\nhigher than that of the standard decoding algorithm. When\nwe accept the sample from Mq the increased concurrency\nis “free” and the total number of operations isn’t increased3.\nWhen we reject a guess though, computation is wasted. Let’s\nnow analyze the effect of our method on the total number\nof arithmetic operations."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        324.81494140625,
+        541.4410400390625,
+        359.529541015625
+      ],
+      "text": "Deﬁnition 3.10. Let ˆc be the ratio of arithmetic operations\nper token of the approximation model Mq to that of the\ntarget model Mp."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.11102294921875,
+        364.93218994140625,
+        543.0968017578125,
+        387.95159912109375
+      ],
+      "text": "Theorem 3.11. The expected factor of increase in the num-\nber of total operations of Algorithm 1 is (1−α)(γˆc+γ+1)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        484.3030090332031,
+        377.989013671875,
+        530.6266479492188,
+        390.6805725097656
+      ],
+      "text": "1−αγ+1\n."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.11199951171875,
+        404.06494140625,
+        542.6881713867188,
+        489.8360595703125
+      ],
+      "text": "Proof. Denote by ˆT the number of arithmetic operations\ndone by a standard decoding baseline per token, i.e. the\nnumber of operations of a single run of Mp. Then a single\niteration of Algorithm 1 costs ˆT ˆcγ + ˆT(γ + 1) operations\n(for γ runs of Mq and γ + 1 parallel runs of Mp). Dividing\nby the expected number of tokens produced by Algorithm 1,\ni.e. Equation (1), and by ˆT, we get the desired result."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        505.54791259765625,
+        543.183837890625,
+        563.5379028320312
+      ],
+      "text": "If α is low, the increase in the number of arithmetic oper-\nations is high, and vice-versa. Note that for Transformer\ndecoders, the total number of arithmetic operations by Al-\ngorithm 1 (not counting runs of Mq) can be bounded from\nabove by a single run of the same-size Transformer encoder."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        571.456298828125,
+        543.18701171875,
+        637.91259765625
+      ],
+      "text": "Unlike the total number of arithmetic operations, the total\nnumber of memory accesses can go down with our method.\nSpeciﬁcally, the target model’s weights and KV cache can\nbe read once per execution of Algorithm 1, so the number\nof memory accesses for reading them shrinks by a factor of\n1−αγ+1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        315.1730041503906,
+        632.7554321289062,
+        447.85162353515625,
+        646.154052734375
+      ],
+      "text": "1−α , according to Equation (1)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        657.6578979492188,
+        372.3866271972656,
+        667.7600708007812
+      ],
+      "text": "3.5. Choosing γ"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        676.3109130859375,
+        543.096923828125,
+        698.4638671875
+      ],
+      "text": "Given c and α and assuming enough compute resources (see\nSection 3.4), the optimal γ is the one maximizing the wall-"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        320.0929870605469,
+        706.7186889648438,
+        419.89459228515625,
+        717.3629150390625
+      ],
+      "text": "3Neglecting the cost of Mq."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        295.7749938964844,
+        732.4114379882812,
+        300.75628662109375,
+        742.3740234375
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        74.67647552490234,
+        103.59294891357422,
+        263.8594970703125,
+        247.41712951660156
+      ],
+      "text": "0.50\n0.55\n0.60\n0.65\n0.70\n0.75\n0.80\n0.85\n0.90\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        64.65420532226562,
+        160.82273864746094,
+        73.26666259765625,
+        182.529296875
+      ],
+      "text": "Optimal"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        103.47882080078125,
+        104.39238739013672,
+        123.80989074707031,
+        135.35641479492188
+      ],
+      "text": "c = 0.01\nc = 0.02\nc = 0.05\nc = 0.1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.9379997253418,
+        270.8744812011719,
+        290.7996520996094,
+        280.04840087890625
+      ],
+      "text": "Figure 3. The optimal γ as a function of α for various values of c."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        304.7159729003906,
+        291.1834716796875,
+        342.8700866699219
+      ],
+      "text": "time improvement equation (Theorem 3.8):\n1−αγ+1\n(1−α)(γc+1).\nSince γ is an integer, it can be easily found numerically, see\nFigure 3."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.13100051879883,
+        350.7652893066406,
+        291.08929443359375,
+        396.6680603027344
+      ],
+      "text": "Table 1 and Figure 4 illustrate the trade-off between infer-\nence speed and the total number of arithmetic operations for\nvarious values of α and γ, assuming c = ˆc = 0. Figure 5\nshows a simpliﬁed trace diagram."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.89299774169922,
+        422.5283203125,
+        290.9294738769531,
+        453.4803771972656
+      ],
+      "text": "Table 1. The total number of arithmetic operations and the infer-\nence speed vs the baseline, for various values of γ and α, assuming\nc = ˆc = 0."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        104.83399963378906,
+        466.7634582519531,
+        237.58262634277344,
+        475.9373779296875
+      ],
+      "text": "α\nγ\nOPERATIONS\nSPEED"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        105.05899810791016,
+        481.93597412109375,
+        237.21475219726562,
+        540.7154541015625
+      ],
+      "text": "0.6\n2\n1.53X\n1.96X\n0.7\n3\n1.58X\n2.53X\n0.8\n2\n1.23X\n2.44X\n0.8\n5\n1.63X\n3.69X\n0.9\n2\n1.11X\n2.71X\n0.9\n10\n1.60X\n6.86X"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        560.7439575195312,
+        291.1834716796875,
+        678.5340576171875
+      ],
+      "text": "Instead of picking a single value for γ based on α, since the\nβs aren’t constant, we could get further improvement by pre-\ndicting the value of β and accordingly varying the value of γ\nduring the run of Algorithm 1. To get an upper bound on the\nadditional improvement factor, assume we had an oracle for\nγ. We would then have E(# generated tokens) =\n1\n1−α.\nFor typical values of c and α, and assuming unbounded com-\npute resources, the enhanced walltime improvement factor\ncan be up to ∼60% higher than the improvement factor with\na ﬁxed γ. We leave exploring this for future work4."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        686.7926635742188,
+        290.9256896972656,
+        717.2273559570312
+      ],
+      "text": "4The above bound assumes that we still run Mp to verify the or-\nacle’s predictions. If we skip those veriﬁcations the bound doesn’t\nhold and we would get a substantial additional improvement."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        233.32191467285156,
+        524.8233032226562,
+        247.41712951660156
+      ],
+      "text": "0.50\n0.55\n0.60\n0.65\n0.70\n0.75\n0.80\n0.85\n0.90\n0\n0"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        206.2950439453125,
+        524.8233032226562,
+        214.90750122070312
+      ],
+      "text": "2\n2"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        179.2681884765625,
+        524.8233032226562,
+        187.88064575195312
+      ],
+      "text": "4\n4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        152.24131774902344,
+        524.8233032226562,
+        160.85377502441406
+      ],
+      "text": "6\n6"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        125.21443939208984,
+        524.8233032226562,
+        133.826904296875
+      ],
+      "text": "8\n8"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        326.6764831542969,
+        98.18758392333984,
+        528.052978515625,
+        106.80004119873047
+      ],
+      "text": "10\n10"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.90582275390625,
+        219.80848693847656,
+        524.8233032226562,
+        228.4209442138672
+      ],
+      "text": "1\n1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        104.68596649169922,
+        447.7173156738281,
+        113.29842376708984
+      ],
+      "text": "Speed = 1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        112.72364044189453,
+        441.6647644042969,
+        121.33609771728516
+      ],
+      "text": "Ops = 1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        120.93587493896484,
+        447.7173156738281,
+        129.54833984375
+      ],
+      "text": "Speed = 3"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        128.9735565185547,
+        441.6647644042969,
+        137.5860137939453
+      ],
+      "text": "Ops = 3"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        137.185791015625,
+        447.7173156738281,
+        145.79824829101562
+      ],
+      "text": "Speed = 5"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        145.22348022460938,
+        441.6647644042969,
+        153.8359375
+      ],
+      "text": "Ops = 5"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        153.43572998046875,
+        447.7173156738281,
+        162.04818725585938
+      ],
+      "text": "Speed = 7"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        161.473388671875,
+        441.6647644042969,
+        170.08584594726562
+      ],
+      "text": "Ops = 7"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        169.68563842773438,
+        450.9481506347656,
+        178.298095703125
+      ],
+      "text": "Speed = 10"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        417.7160339355469,
+        177.72332763671875,
+        444.8955993652344,
+        186.33578491210938
+      ],
+      "text": "Ops = 10"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        306.93798828125,
+        271.0345764160156,
+        542.9246826171875,
+        291.0063781738281
+      ],
+      "text": "Figure 4. The speedup factor and the increase in number of arith-\nmetic operations as a function of α for various values of γ."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        323.86651611328125,
+        423.24530029296875,
+        333.8291015625
+      ],
+      "text": "3.6. Approximation Models"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.43994140625,
+        342.5417785644531,
+        543.0930786132812,
+        460.1690673828125
+      ],
+      "text": "Speculative sampling, and therefore speculative decoding,\nguarantee an identical output distribution for any choice\nof approximation model Mq without restriction (see Ap-\npendix A.1). In our experiments, we mostly tested existing\noff-the-shelf smaller Transformers as the approximation\nmodels. Further, we only tested approximation models of\nthe same architecture as the target models Mp and using the\nsame probability standardization. In this setup, choosing\nMq to be around two orders of magnitude smaller than Mp\nusually performed best, balancing α and c (Theorem 3.8)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        468.04071044921875,
+        543.0970458984375,
+        515.4017944335938
+      ],
+      "text": "Another type of approximation models, negligible-cost mod-\nels, are those for which c ≈0, i.e. approximation models\nwith a negligible cost relative to the target model. In this\ncase, we get an expected walltime improvement of 1−αγ+1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        505.494140625,
+        543.0988159179688,
+        624.7350463867188
+      ],
+      "text": "1−α ,\nwhich is bounded from above by\n1\n1−α (we approach equal-\nity if γ is large). One interesting type of negligible-cost\napproximation models are n-gram models, where the evalu-\nation amounts to a table lookup. Interestingly, in empirical\ntests (Section 4.2) we get non zero αs even for these triv-\nial n-gram models. For example, for the English-German\ntranslation task, with Mp being T5-XXL 11B and Mq being\na trivial bigram model, we get α ≈0.2 which leads to an\ninference speed improvement factor of 1.25X with γ = 3."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        632.6302490234375,
+        543.0933837890625,
+        678.5098876953125
+      ],
+      "text": "Other simple heuristics can be used as negligible-cost ap-\nproximation models. For example, in cases where long se-\nquences are likely to repeat, such as for summarization tasks\nor chat-like interfaces 5, an approximation model that simply"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        306.24798583984375,
+        686.7926635742188,
+        542.5587158203125,
+        717.2273559570312
+      ],
+      "text": "5E.g. where a user and a language model iterate on content, like\ntext or code (“can you rewrite this story but change the ending”,\n“can you make this function also do X”)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        295.9499816894531,
+        732.4114379882812,
+        300.9312744140625,
+        742.3740234375
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        277.3795166015625,
+        142.44149780273438,
+        312.0476989746094,
+        154.0790557861328
+      ],
+      "text": "Wall time"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.072837829589844,
+        74.70171356201172,
+        67.02867889404297,
+        139.0230712890625
+      ],
+      "text": "= 7\n= 3\nBase"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        498.19952392578125,
+        72.71279907226562,
+        532.5665893554688,
+        82.8956527709961
+      ],
+      "text": "Mp encoder"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        498.19952392578125,
+        82.57657623291016,
+        532.5665893554688,
+        92.75942993164062
+      ],
+      "text": "Mq encoder"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        498.19952392578125,
+        92.44036102294922,
+        532.5724487304688,
+        102.62321472167969
+      ],
+      "text": "Mp decoder"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        498.19952392578125,
+        102.30413055419922,
+        532.5724487304688,
+        112.48698425292969
+      ],
+      "text": "Mq decoder"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.9379997253418,
+        181.6484832763672,
+        542.5607299804688,
+        223.69940185546875
+      ],
+      "text": "Figure 5. A simpliﬁed trace diagram for a full encoder-decoder Transformer stack. The top row shows speculative decoding with γ = 7\nso each of the calls to Mp (the purple blocks) is preceded by 7 calls to Mq (the blue blocks). The yellow block on the left is the call to the\nencoder for Mp and the orange block is the call to the encoder for Mq. Likewise the middle row shows speculative decoding with γ = 3,\nand the bottom row shows standard decoding."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        245.74252319335938,
+        291.1014099121094,
+        291.63165283203125
+      ],
+      "text": "copies tokens from the context in case we ﬁnd a matching\npreﬁx, might yield high values of α. These parameter-less\napproximation models, have the additional advantage of\nbeing even simpler to deploy from a production standpoint."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        299.5893859863281,
+        291.0934143066406,
+        357.3880615234375
+      ],
+      "text": "Another type of approximation models that can be used by\nspeculative decoding are non-autoregressive models, like\nthose from (Stern et al., 2018). Then, instead of the au-\ntogreressive loop in Algorithm 1 we’d just call the non-\nautoregressive model once."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        365.28228759765625,
+        291.091064453125,
+        411.7965393066406
+      ],
+      "text": "A ﬁnal example, interesting mostly from a theoretical per-\nspective, is an approximation model which chooses tokens\nat random, which guarantees some improvement (although\nvery small) for all models Mp."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.43998718261719,
+        457.64813232421875,
+        132.4792938232422,
+        469.60333251953125
+      ],
+      "text": "4. Experiments"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.43998718261719,
+        478.55047607421875,
+        216.8440704345703,
+        488.5130615234375
+      ],
+      "text": "4.1. Empirical Walltime Improvement"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.97200012207031,
+        497.2182922363281,
+        291.0928039550781,
+        519.2109985351562
+      ],
+      "text": "We implement our algorithm and compare it to the imple-\nmentation in the T5X codebase for accelerating T5-XXL."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.11199951171875,
+        536.5554809570312,
+        291.0943298339844,
+        666.1600341796875
+      ],
+      "text": "Setup\nWe test a standard encoder-decoder T5 version 1.1\nmodel (Raffel et al., 2020) on two tasks from the T5 paper:\n(1) English to German translation ﬁne tuned on WMT EnDe,\nand (2) Text summarization ﬁne tuned on CCN/DM. For\nboth tasks, we use T5-XXL (11B) for Mp. For the approx-\nimation model Mq we test several existing conﬁgurations,\nnamely T5-large (800M), T5-base (250M), and T5-small\n(77M) (Raffel et al., 2020). We use existing checkpoints\nfor all models. We measure walltime improvements with a\nbatch size of 1 on a single TPU-v4 for both argmax sampling\n(temp=0) and standard sampling (temp=1)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        683.5035400390625,
+        289.61346435546875,
+        717.4920043945312
+      ],
+      "text": "Results\nTable 2 shows the empirical results from our\nmethod. We see that T5-small (77M), with a good balance\nof c and α, provides the highest speedup out of the tested"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        245.57591247558594,
+        543.0960693359375,
+        351.4100646972656
+      ],
+      "text": "approximation models. As expected we see that α increases\nwith the size of the approximation model. Interestingly, α\nand walltime improvement are higher for argmax sampling\n(temp=0). We observe speedups of 2.6X (temp=1) and 3.4X\n(temp=0) on the translation task and slightly lower speedups\nof 2.3X (temp=1) and 3.1X (temp=0) for the summarization\ntask. These empirical results match well with the theoreti-\ncal predictions, with some variance due to implementation\ndetails (see Appendix A.3)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        306.89300537109375,
+        372.8713073730469,
+        542.9295654296875,
+        392.8643798828125
+      ],
+      "text": "Table 2. Empirical results for speeding up inference from a T5-\nXXL 11B model."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        315.1409912109375,
+        406.1484680175781,
+        531.5005493164062,
+        415.4579162597656
+      ],
+      "text": "TASK\nMq\nTEMP\nγ\nα\nSPEED"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        315.1399841308594,
+        419.15460205078125,
+        531.4993286132812,
+        480.1004333496094
+      ],
+      "text": "ENDE\nT5-SMALL ⋆\n0\n7\n0.75\n3.4X\nENDE\nT5-BASE\n0\n7\n0.8\n2.8X\nENDE\nT5-LARGE\n0\n7\n0.82\n1.7X\nENDE\nT5-SMALL ⋆\n1\n7\n0.62\n2.6X\nENDE\nT5-BASE\n1\n5\n0.68\n2.4X\nENDE\nT5-LARGE\n1\n3\n0.71\n1.4X"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        315.1409912109375,
+        483.9316101074219,
+        531.4993286132812,
+        544.87841796875
+      ],
+      "text": "CNNDM\nT5-SMALL ⋆\n0\n5\n0.65\n3.1X\nCNNDM\nT5-BASE\n0\n5\n0.73\n3.0X\nCNNDM\nT5-LARGE\n0\n3\n0.74\n2.2X\nCNNDM\nT5-SMALL ⋆\n1\n5\n0.53\n2.3X\nCNNDM\nT5-BASE\n1\n3\n0.55\n2.2X\nCNNDM\nT5-LARGE\n1\n3\n0.56\n1.7X"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        567.7089233398438,
+        406.7513732910156,
+        577.8110961914062
+      ],
+      "text": "4.2. Empirical α Values"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        306.97198486328125,
+        586.5162353515625,
+        543.0927734375,
+        644.985595703125
+      ],
+      "text": "While we only implemented our method for T5, we mea-\nsured α values for various tasks, sampling methods, target\nmodels Mp, and approximation models Mq. Speciﬁcally,\nwe evaluated the expectation from Corollary 3.6 on 10K\ntokens generated by Mp, for each of the settings below."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.052001953125,
+        659.593505859375,
+        543.0953979492188,
+        718.9860229492188
+      ],
+      "text": "GPT-like (97M params)\nWe test a decoder-only Trans-\nformer model on unconditional language generation, trained\non lm1b (Chelba et al., 2013). The model here is a GPT-\nlike Transformer decoder with Gelu activations (Hendrycks\n& Gimpel, 2016). For Mq we experimented with a Trans-"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.082000732421875,
+        69.40353393554688,
+        291.0978698730469,
+        139.20608520507812
+      ],
+      "text": "former decoder model with 6M parameters: dim 256, dim\nfeed-forward 1024, 2 layers, 4 attention heads, as well as\nsimple unigram and bigram models. Mp has 97M parame-\nters: dim 768, dim feed-forward 3072, 12 layers, 12 atten-\ntion heads. We used Bert tokenization (Devlin et al., 2019)\nwith 8k tokens for all models."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.97200012207031,
+        157.3594970703125,
+        291.1849365234375,
+        203.88958740234375
+      ],
+      "text": "LaMDA (137B params)\nWe tested a decoder only\nLaMDA model on a dialog task (Thoppilan et al., 2022).\nWe used existing checkpoints from LaMDA 137B as Mp\nand LaMDA 8B, LaMDA 2B, and LaMDA 100M for Mq."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        211.2333984375,
+        290.1074523925781,
+        233.16604614257812
+      ],
+      "text": "See Section 4.1 for the setup of the T5-XXL (11B params)\nmodel."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.082000732421875,
+        240.9059295654297,
+        290.6878967285156,
+        394.5610656738281
+      ],
+      "text": "Table 3 summarizes the α values for the tested cases. We\nobserve that approximation models that are a couple of\norders of magnitude smaller than the target model tend to\nproduce α values between 0.5 and 0.9. Interestingly, we also\nnote that for all models, the sharper the adjusted distribution,\nthe higher the α values. Finally, we note that even trivial\nunigram and bigram approximations yield non negligible\nα values. For example, for the case of English to German\ntranslation, the bigram model has an α value of 0.2, and\nsince c = 0 in this case, yields a 1.25X speed improvement,\nwhich is surprisingly high for this trivial approximation\nmodel (but is still lower than the speedup we get from using\nT5-small as the approximation model)."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.439998626708984,
+        411.54315185546875,
+        136.00608825683594,
+        423.49835205078125
+      ],
+      "text": "5. Related work"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.97200012207031,
+        432.49127197265625,
+        291.184814453125,
+        717.44384765625
+      ],
+      "text": "The efﬁciency of inference from large models was studied\nextensively (Dehghani et al., 2021). Many approaches aim\nto speed up inference from large models in general, and au-\ntoregressive models like Transformers in particular. Numer-\nous techniques try to make inference more efﬁcient for all\ntokens, e.g. distillation (Hinton et al., 2015), sparciﬁcation\n(Jaszczur et al., 2021), quantization (Hubara et al., 2016),\nand architecture modiﬁcation (So et al., 2021; Shazeer,\n2019). Closer to our approach are adaptive computation\nmethods which adapt the amount of computation to problem\ndifﬁculty (Han et al., 2021). Examples include attending to a\nsubset of the inputs (Sukhbaatar et al., 2019), and early exits\n(Schuster et al., 2021; Scardapane et al., 2020; Bapna et al.,\n2020; Elbayad et al., 2019; Schwartz et al., 2020). Notably,\nWisdom of Committees (Schwartz et al., 2020) leverages\noff-the-shelf smaller models, but is an adaptive computation\napproach, and so it uses a heuristic to determine when to\nstop, losing the guarantee of identical outputs to those of\nthe target models. In general, adaptive computation meth-\nods usually learn, either within the model itself or with an\nauxiliary model, when a computation shortcut can be taken.\nUsually, these methods save on both inference time and\narithmetic operations, but require a change of architecture, a\nchange of training procedure and training custom models or"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        306.89300537109375,
+        76.14250183105469,
+        542.9266967773438,
+        107.234375
+      ],
+      "text": "Table 3. Empirical α values for various target models Mp, approx-\nimation models Mq, and sampling settings. T=0 and T=1 denote\nargmax and standard sampling respectively6."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.60699462890625,
+        122.35649108886719,
+        527.2418823242188,
+        131.66590881347656
+      ],
+      "text": "Mp\nMq\nSMPL\nα"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.8319396972656,
+        137.52896118164062,
+        532.8047485351562,
+        196.308349609375
+      ],
+      "text": "GPT-LIKE (97M)\nUNIGRAM\nT=0\n0.03\nGPT-LIKE (97M)\nBIGRAM\nT=0\n0.05\nGPT-LIKE (97M)\nGPT-LIKE (6M)\nT=0\n0.88\nGPT-LIKE (97M)\nUNIGRAM\nT=1\n0.03\nGPT-LIKE (97M)\nBIGRAM\nT=1\n0.05\nGPT-LIKE (97M)\nGPT-LIKE (6M)\nT=1\n0.89"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.8320007324219,
+        204.79696655273438,
+        532.8050537109375,
+        303.4273986816406
+      ],
+      "text": "T5-XXL (ENDE)\nUNIGRAM\nT=0\n0.08\nT5-XXL (ENDE)\nBIGRAM\nT=0\n0.20\nT5-XXL (ENDE)\nT5-SMALL\nT=0\n0.75\nT5-XXL (ENDE)\nT5-BASE\nT=0\n0.80\nT5-XXL (ENDE)\nT5-LARGE\nT=0\n0.82\nT5-XXL (ENDE)\nUNIGRAM\nT=1\n0.07\nT5-XXL (ENDE)\nBIGRAM\nT=1\n0.19\nT5-XXL (ENDE)\nT5-SMALL\nT=1\n0.62\nT5-XXL (ENDE)\nT5-BASE\nT=1\n0.68\nT5-XXL (ENDE)\nT5-LARGE\nT=1\n0.71"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.8320007324219,
+        311.9159851074219,
+        532.8048095703125,
+        410.5464782714844
+      ],
+      "text": "T5-XXL (CNNDM)\nUNIGRAM\nT=0\n0.13\nT5-XXL (CNNDM)\nBIGRAM\nT=0\n0.23\nT5-XXL (CNNDM)\nT5-SMALL\nT=0\n0.65\nT5-XXL (CNNDM)\nT5-BASE\nT=0\n0.73\nT5-XXL (CNNDM)\nT5-LARGE\nT=0\n0.74\nT5-XXL (CNNDM)\nUNIGRAM\nT=1\n0.08\nT5-XXL (CNNDM)\nBIGRAM\nT=1\n0.16\nT5-XXL (CNNDM)\nT5-SMALL\nT=1\n0.53\nT5-XXL (CNNDM)\nT5-BASE\nT=1\n0.55\nT5-XXL (CNNDM)\nT5-LARGE\nT=1\n0.56"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.8320007324219,
+        419.0359802246094,
+        532.8048095703125,
+        477.8154296875
+      ],
+      "text": "LAMDA (137B)\nLAMDA (100M)\nT=0\n0.61\nLAMDA (137B)\nLAMDA (2B)\nT=0\n0.71\nLAMDA (137B)\nLAMDA (8B)\nT=0\n0.75\nLAMDA (137B)\nLAMDA (100M)\nT=1\n0.57\nLAMDA (137B)\nLAMDA (2B)\nT=1\n0.71\nLAMDA (137B)\nLAMDA (8B)\nT=1\n0.74"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        510.3204040527344,
+        543.0921020507812,
+        579.9830322265625
+      ],
+      "text": "re-training of existing models. They usually also change the\noutputs of the model. We note that while many of the meth-\nods above improve the memory to arithmetic-operations\nratio, in cases where the ratio remains high, these methods\nand our speculative decoding method might be effective in\ntandem."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.0820007324219,
+        588.0294189453125,
+        543.0968627929688,
+        717.482421875
+      ],
+      "text": "Two prior methods leverage speculative execution for speed-\ning up decoding from autoregressive models. Blockwise\nParallel Decoding (Stern et al., 2018) decodes several to-\nkens in parallel, similarly to our work. However, it only\nsupports greedy decoding (temperature=0) and not the gen-\neral stochastic setting, it requires additional training of a\ncustom model, and focuses on preserving down-stream task\nquality, instead of guaranteeing identical outputs. Shallow\nAggressive Decoding (SAD) (Sun et al., 2021) also decodes\nseveral tokens in parallel, similarly to our work. Unlike\nour work, SAD only supports copying the input to the out-"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        295.82501220703125,
+        732.4114379882812,
+        300.8063049316406,
+        742.3740234375
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        69.46370697021484,
+        291.0954284667969,
+        127.25106811523438
+      ],
+      "text": "put, and not general approximation models, making it only\nsuitable for the cases where the inputs and outputs are very\nsimilar like grammatical error correction. In addition, simi-\nlarly to Blockwise Parallel Decoding, SAD does not support\nthe general stochastic sampling setting."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        135.14627075195312,
+        291.0910949707031,
+        169.09408569335938
+      ],
+      "text": "After we initially published our work, an independent im-\nplementation of speculative decoding (Chen et al., 2023)\nshowed similar 2X-2.5X improvements on Chinchilla 70B."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        186.076171875,
+        121.20556640625,
+        198.0313720703125
+      ],
+      "text": "6. Discussion"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.97200012207031,
+        206.88528442382812,
+        291.09893798828125,
+        288.7630615234375
+      ],
+      "text": "We presented speculative sampling which enables efﬁcient\nstochastic speculative execution - i.e. speculative execu-\ntion in the stochastic setting. We analyzed its impact on\ndecoding from autoregressive models like Transformers via\nspeculative decoding and have shown that given enough\ncompute resources, we get meaningful 2X-3X speedups in\npractice vs T5X, a popular optimized implementation."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        296.6582946777344,
+        291.0959167480469,
+        462.1130676269531
+      ],
+      "text": "One limitation of speculative execution in general, and of\nspeculative decoding in particular, is that latency is im-\nproved through increased concurrency at the cost of an in-\ncreased number of arithmetic operations. Thus, our method\nis not helpful for conﬁgurations where additional compu-\ntation resources are not available. However, in common\ncases where additional computation resources are available\n(e.g. when memory bandwidth is the bottleneck) our method\nprovides the speedup with signiﬁcant beneﬁts: the model\narchitecture doesn’t change, retraining isn’t required, and\nmost importantly, the output distribution is guaranteed to\nstay the same. Our method is easy to implement, and can\nbe used to speedup inference using out-of-the-box models\nwithout developing and evaluating custom schemes."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.13100051879883,
+        470.01953125,
+        291.0979919433594,
+        671.35205078125
+      ],
+      "text": "There are several directions for follow up research, impor-\ntantly, further investigating the compatibility of speculative\ndecoding with beam search (see Appendix A.4). Also, while\nour method yields substantial speedups with existing off-the-\nshelf approximation models, greater improvements might\nbe obtained via custom approximation models (Section 3.6),\nsuch as those with custom architectures (e.g. custom sizes,\nnon-autoregressive models, or various heuristics) or with\ncustom training procedures (e.g. standard distillation with\nsoft targets from Mp, or optimizing Mq for α directly). It\ncould also be interesting to explore a hierarchical version\nof the algorithm, where the approximation model is itself\naccelerated by an even faster model, which could allow\nfor more capable approximation models. In this work we\nﬁxed the approximation model and the number of guesses\nγ throughout inference, but varying them during inference\ncould yield additional improvements (Section 3.5). In our"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        679.587646484375,
+        289.4414367675781,
+        710.0223999023438
+      ],
+      "text": "6Note that the outputs from the LaMDA model always go\nthrough a Top40 ﬁlter. This has no effect on argmax, but does\nhave some effect on standard sampling."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        69.52816772460938,
+        543.18115234375,
+        151.16110229492188
+      ],
+      "text": "experiments we always performed the same standardization\non the distributions generated by the approximation model\nas the desired one for the target model (Section 2.2), but fur-\nther improvements might be obtained by applying different\ntransformations. We tested speculative decoding only in the\ntext modality, but it might work well in other domains (e.g.\nimages) which would be interesting to experiment with."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.0820007324219,
+        158.87808227539062,
+        543.1848754882812,
+        276.6910705566406
+      ],
+      "text": "Finally, we note that stochastic speculative execution and\nspeculative sampling can be helpful outside the scope of\nspeculative decoding from autoregressive models. For ex-\nample, given two slow functions, f(x) and g(y) such that\nf(x) generates a distribution from which g’s input is sam-\npled, we could use our method to run f and g in parallel.\nThis setup might arise e.g. in physics simulations, or in rein-\nforcement learning where f is a large model that produces a\ndistribution on actions, and g is the world simulation, which\nwould be interesting to explore."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        293.67315673828125,
+        400.9655456542969,
+        305.62835693359375
+      ],
+      "text": "Acknowledgments"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        306.97198486328125,
+        314.7157287597656,
+        541.800048828125,
+        420.27008056640625
+      ],
+      "text": "We would like to extend a special thank you to YaGuang Li\nfor help with everything LaMDA related and for calculating\nthe LaMDA ﬁgures in the paper, and to Blake Hechtman\nfor great insights and help with XLA. We would also like\nto thank the reviewers for insightful comments, as well\nas Asaf Aharoni, Reiner Pope, Sasha Goldshtein, Nadav\nSherman, Eyal Segalis, Eyal Molad, Dani Valevski, Daniel\nWasserman, Valerie Nygaard, Danny Vainstein, the LaMDA\nand Theta Labs teams at Google, and our families."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        437.2521667480469,
+        362.9838562011719,
+        449.2073669433594
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        456.73028564453125,
+        543.1824340820312,
+        490.6780700683594
+      ],
+      "text": "Bapna, A., Arivazhagan, N., and Firat, O.\nControlling\ncomputation versus quality for neural sequence models.\nArXiv, abs/2002.07106, 2020."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        500.4462890625,
+        543.097900390625,
+        630.0350341796875
+      ],
+      "text": "Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan,\nJ., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G.,\nAskell, A., Agarwal, S., Herbert-Voss, A., Krueger, G.,\nHenighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu,\nJ., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M.,\nGray, S., Chess, B., Clark, J., Berner, C., McCandlish,\nS., Radford, A., Sutskever, I., and Amodei, D.\nLan-\nguage models are few-shot learners. In Proceedings of\nthe 34th International Conference on Neural Informa-\ntion Processing Systems, NIPS’20, Red Hook, NY, USA,\n2020. Curran Associates Inc. ISBN 9781713829546."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        639.8032836914062,
+        543.1818237304688,
+        685.70703125
+      ],
+      "text": "Burton, F. W. Speculative computation, parallelism, and\nfunctional programming. IEEE Transactions on Comput-\ners, C-34(12):1190–1193, 1985. doi: 10.1109/TC.1985.\n6312218."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        695.4752807617188,
+        543.0930786132812,
+        717.4872436523438
+      ],
+      "text": "Chelba, C., Mikolov, T., Schuster, M., Ge, Q., Brants, T.,\nKoehn, P. T., and Robinson, T. One billion word bench-"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        65.40299987792969,
+        69.49397277832031,
+        291.0987243652344,
+        91.38607788085938
+      ],
+      "text": "mark for measuring progress in statistical language mod-\neling. In Interspeech, 2013."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        100.91726684570312,
+        290.68701171875,
+        146.82107543945312
+      ],
+      "text": "Chen, C., Borgeaud, S., Irving, G., Lespiau, J.-B., Sifre,\nL., and Jumper, J. M.\nAccelerating large language\nmodel decoding with speculative sampling.\nArXiv,\nabs/2302.01318, 2023."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        156.43121337890625,
+        291.0933532714844,
+        357.6730651855469
+      ],
+      "text": "Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra,\nG., Roberts, A., Barham, P., Chung, H. W., Sutton, C.,\nGehrmann, S., Schuh, P., Shi, K., Tsvyashchenko, S.,\nMaynez, J., Rao, A., Barnes, P., Tay, Y., Shazeer, N. M.,\nPrabhakaran, V., Reif, E., Du, N., Hutchinson, B. C.,\nPope, R., Bradbury, J., Austin, J., Isard, M., Gur-Ari,\nG., Yin, P., Duke, T., Levskaya, A., Ghemawat, S., Dev,\nS., Michalewski, H., Garc´ıa, X., Misra, V., Robinson,\nK., Fedus, L., Zhou, D., Ippolito, D., Luan, D., Lim,\nH., Zoph, B., Spiridonov, A., Sepassi, R., Dohan, D.,\nAgrawal, S., Omernick, M., Dai, A. M., Pillai, T. S., Pel-\nlat, M., Lewkowycz, A., Moreira, E., Child, R., Polozov,\nO., Lee, K., Zhou, Z., Wang, X., Saeta, B., D´ıaz, M., Fi-\nrat, O., Catasta, M., Wei, J., Meier-Hellstern, K. S., Eck,\nD., Dean, J., Petrov, S., and Fiedel, N. Palm: Scaling lan-\nguage modeling with pathways. ArXiv, abs/2204.02311,\n2022."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        367.2427978515625,
+        290.68475341796875,
+        401.153076171875
+      ],
+      "text": "Dehghani, M., Arnab, A., Beyer, L., Vaswani, A., and Tay,\nY. The efﬁciency misnomer. ArXiv, abs/2110.12894,\n2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        410.7680358886719,
+        291.0978088378906,
+        444.6330871582031
+      ],
+      "text": "Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. Bert:\nPre-training of deep bidirectional transformers for lan-\nguage understanding. ArXiv, abs/1810.04805, 2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        454.3154296875,
+        289.4382019042969,
+        476.1580810546875
+      ],
+      "text": "Elbayad, M., Gu, J., Grave, E., and Auli, M. Depth-adaptive\ntransformer. ArXiv, abs/1910.10073, 2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        485.8404235839844,
+        291.0967102050781,
+        531.5930786132812
+      ],
+      "text": "Han, Y., Huang, G., Song, S., Yang, L., Wang, H., and Wang,\nY. Dynamic neural networks: A survey. IEEE Transac-\ntions on Pattern Analysis and Machine Intelligence, 44:\n7436–7456, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        541.20703125,
+        291.1790466308594,
+        575.0730590820312
+      ],
+      "text": "Hendrycks, D. and Gimpel, K. Bridging nonlinearities and\nstochastic regularizers with gaussian error linear units.\nArXiv, abs/1606.08415, 2016."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        584.5806884765625,
+        291.0973205566406,
+        618.5530395507812
+      ],
+      "text": "Hennessy, J. L. and Patterson, D. A. Computer Architecture:\nA Quantitative Approach. Morgan Kaufmann, Amster-\ndam, 5 edition, 2012. ISBN 978-0-12-383872-8."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        628.084228515625,
+        290.681396484375,
+        662.0330200195312
+      ],
+      "text": "Hinton, G. E., Vinyals, O., and Dean, J. Distilling the\nknowledge in a neural network. ArXiv, abs/1503.02531,\n2015."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        671.6055297851562,
+        291.1868896484375,
+        717.468017578125
+      ],
+      "text": "Hubara, I., Courbariaux, M., Soudry, D., El-Yaniv, R., and\nBengio, Y. Quantized neural networks: Training neu-\nral networks with low precision weights and activations.\nArXiv, abs/1609.07061, 2016."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        542.68701171875,
+        115.29605102539062
+      ],
+      "text": "Jaszczur, S., Chowdhery, A., Mohiuddin, A., Kaiser, L.,\nGajewski, W., Michalewski, H., and Kanerva, J. Sparse\nis enough in scaling transformers. In Neural Information\nProcessing Systems, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        126.02328491210938,
+        542.6870727539062,
+        183.88204956054688
+      ],
+      "text": "Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S.,\nMatena, M., Zhou, Y., Li, W., and Liu, P. J. Exploring\nthe limits of transfer learning with a uniﬁed text-to-text\ntransformer. The Journal of Machine Learning Research,\n21(1):5485–5551, 2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        194.73373413085938,
+        543.0977783203125,
+        336.1540832519531
+      ],
+      "text": "Roberts, A., Chung, H. W., Levskaya, A., Mishra, G., Brad-\nbury, J., Andor, D., Narang, S., Lester, B., Gaffney, C.,\nMohiuddin, A., Hawthorne, C., Lewkowycz, A., Salcianu,\nA., van Zee, M., Austin, J., Goodman, S., Soares, L. B.,\nHu, H., Tsvyashchenko, S., Chowdhery, A., Bastings,\nJ., Bulian, J., Garc´ıa, X., Ni, J., Chen, A., Kenealy, K.,\nClark, J., Lee, S., Garrette, D. H., Lee-Thorp, J., Raffel,\nC., Shazeer, N. M., Ritter, M., Bosma, M., Passos, A.,\nMaitin-Shepard, J. B., Fiedel, N., Omernick, M., Saeta,\nB., Sepassi, R., Spiridonov, A., Newlan, J., and Ges-\nmundo, A. Scaling up models and data with t5x and\nseqio. ArXiv, abs/2203.17189, 2022."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        346.88128662109375,
+        542.6871337890625,
+        380.8290710449219
+      ],
+      "text": "Scardapane, S., Scarpiniti, M., Baccarelli, E., and Uncini,\nA. Why should we add early exits to neural networks?\nCognitive Computation, 12(5):954–966, 2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        391.5862731933594,
+        543.098388671875,
+        437.4600830078125
+      ],
+      "text": "Schuster, T., Fisch, A., Jaakkola, T., and Barzilay, R. Con-\nsistent accelerated inference via conﬁdent adaptive trans-\nformers. In Conference on Empirical Methods in Natural\nLanguage Processing, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        448.1872863769531,
+        542.6868896484375,
+        494.090087890625
+      ],
+      "text": "Schwartz, R., Stanovsky, G., Swayamdipta, S., Dodge, J.,\nand Smith, N. A. The right tool for the job: Matching\nmodel and instance complexities. In Annual Meeting of\nthe Association for Computational Linguistics, 2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        504.9161376953125,
+        541.4437866210938,
+        526.81103515625
+      ],
+      "text": "Shazeer, N. M. Fast transformer decoding: One write-head\nis all you need. ArXiv, abs/1911.02150, 2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        537.6893920898438,
+        541.6085815429688,
+        571.4860229492188
+      ],
+      "text": "So, D. R., Ma’nke, W., Liu, H., Dai, Z., Shazeer, N. M., and\nLe, Q. V. Primer: Searching for efﬁcient transformers for\nlanguage modeling. ArXiv, abs/2109.08668, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        582.3567504882812,
+        541.4412841796875,
+        616.1620483398438
+      ],
+      "text": "Stern, M., Shazeer, N., and Uszkoreit, J. Blockwise parallel\ndecoding for deep autoregressive models. Advances in\nNeural Information Processing Systems, 31, 2018."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        626.8892822265625,
+        543.1851196289062,
+        672.7920532226562
+      ],
+      "text": "Sukhbaatar, S., Grave, E., Bojanowski, P., and Joulin, A.\nAdaptive attention span in transformers. In Annual Meet-\ning of the Association for Computational Linguistics,\n2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        683.6134033203125,
+        543.180419921875,
+        717.468017578125
+      ],
+      "text": "Sun, X., Ge, T., Wei, F., and Wang, H. Instantaneous gram-\nmatical error correction with shallow aggressive decoding.\nArXiv, abs/2106.04970, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        295.95001220703125,
+        732.4114379882812,
+        300.9313049316406,
+        742.3740234375
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        69.45993041992188,
+        291.1876525878906,
+        246.80307006835938
+      ],
+      "text": "Thoppilan, R., Freitas, D. D., Hall, J., Shazeer, N. M., Kul-\nshreshtha, A., Cheng, H.-T., Jin, A., Bos, T., Baker, L.,\nDu, Y., Li, Y., Lee, H., Zheng, H., Ghafouri, A., Mene-\ngali, M., Huang, Y., Krikun, M., Lepikhin, D., Qin, J.,\nChen, D., Xu, Y., Chen, Z., Roberts, A., Bosma, M.,\nZhou, Y., Chang, C.-C., Krivokon, I. A., Rusch, W. J.,\nPickett, M., Meier-Hellstern, K. S., Morris, M. R., Doshi,\nT., Santos, R. D., Duke, T., Søraker, J. H., Zevenber-\ngen, B., Prabhakaran, V., D´ıaz, M., Hutchinson, B., Ol-\nson, K., Molina, A., Hoffman-John, E., Lee, J., Aroyo,\nL., Rajakumar, R., Butryna, A., Lamm, M., Kuzmina,\nV. O., Fenton, J., Cohen, A., Bernstein, R., Kurzweil, R.,\nAguera-Arcas, B., Cui, C., Croak, M., hsin Chi, E. H., and\nLe, Q. Lamda: Language models for dialog applications.\nArXiv, abs/2201.08239, 2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        256.69775390625,
+        291.0892639160156,
+        302.59307861328125
+      ],
+      "text": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,\nL., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. At-\ntention is all you need. Advances in neural information\nprocessing systems, 30, 2017."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        312.4812927246094,
+        291.0934143066406,
+        382.2950744628906
+      ],
+      "text": "Yu, J., Xu, Y., Koh, J. Y., Luong, T., Baid, G., Wang, Z.,\nVasudevan, V., Ku, A., Yang, Y., Ayan, B. K., Hutchinson,\nB. C., Han, W., Parekh, Z., Li, X., Zhang, H., Baldridge,\nJ., and Wu, Y. Scaling autoregressive models for content-\nrich text-to-image generation. ArXiv, abs/2206.10789,\n2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        293.08502197265625,
+        732.4114990234375,
+        303.047607421875,
+        742.3740844726562
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        67.84716033935547,
+        119.57966613769531,
+        79.80236053466797
+      ],
+      "text": "A. Appendix"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        88.74950408935547,
+        230.5027618408203,
+        98.71210479736328
+      ],
+      "text": "A.1. Correctness of Speculative Sampling"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.97200012207031,
+        107.26292419433594,
+        542.6073608398438,
+        129.41110229492188
+      ],
+      "text": "We will now show that for any distributions p(x) and q(x), the tokens sampled via speculative sampling from p(x) and q(x)\nare distributed identically to those sampled from p(x) alone. Let β be the acceptance probability (Deﬁnition 3.1)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        136.15841674804688,
+        365.1106872558594,
+        151.18328857421875
+      ],
+      "text": "Note that as p′(x) = norm(max(0, p(x) −q(x))) =\np(x)−min(q(x),p(x))\nP"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        284.5970153808594,
+        136.15841674804688,
+        470.61676025390625,
+        153.2962646484375
+      ],
+      "text": "x′(p(x′)−min(q(x′),p(x′))) = p(x)−min(q(x),p(x))"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.13100051879883,
+        138.90029907226562,
+        541.4417724609375,
+        175.05606079101562
+      ],
+      "text": "1−β\n, the normalizing\nconstant for the adjusted distribution p′(x) is 1 −β, where the last equation follows immediately from Lemma 3.3 and\nTheorem 3.5."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        183.0264434814453,
+        77.32783508300781,
+        192.98904418945312
+      ],
+      "text": "Now:"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        152.7989959716797,
+        211.80935668945312,
+        444.0824279785156,
+        223.6405029296875
+      ],
+      "text": "P(x = x′) = P(guess accepted, x = x′) + P(guess rejected, x = x′)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.97198486328125,
+        238.8124542236328,
+        84.29190826416016,
+        248.77505493164062
+      ],
+      "text": "Where:"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        153.7329864501953,
+        264.6243591308594,
+        353.721435546875,
+        282.697509765625
+      ],
+      "text": "P(guess accepted, x = x′) = q(x′) min(1, p(x′)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        332.5740051269531,
+        270.8663635253906,
+        443.1499328613281,
+        289.530517578125
+      ],
+      "text": "q(x′)) = min(q(x′), p(x′))"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.08203125,
+        303.0294494628906,
+        75.0072250366211,
+        312.9920654296875
+      ],
+      "text": "And:"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        149.77003479003906,
+        331.8123474121094,
+        447.1130065917969,
+        343.64349365234375
+      ],
+      "text": "P(guess rejected, x = x′) = (1 −β)p′(x′) = p(x′) −min(q(x′), p(x′))"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.440093994140625,
+        358.8154296875,
+        87.93807983398438,
+        368.7780456542969
+      ],
+      "text": "Overall:"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        157.77508544921875,
+        387.5993347167969,
+        439.107666015625,
+        399.4294738769531
+      ],
+      "text": "P(x = x′) = min(p(x′), q(x′)) + p(x′) −min(p(x′), q(x′)) = p(x′)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.082061767578125,
+        412.1943664550781,
+        110.74195861816406,
+        424.56402587890625
+      ],
+      "text": "As desired. □"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.440059661865234,
+        439.64447021484375,
+        266.7268371582031,
+        449.6070556640625
+      ],
+      "text": "A.2. Speculative Sampling vs. Rejection Sampling"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.440059661865234,
+        458.3874206542969,
+        469.6051330566406,
+        468.35003662109375
+      ],
+      "text": "Rejection sampling is the following iterative sampling procedure that looks superﬁcially similar to ours:"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        62.91205978393555,
+        485.7547607421875,
+        214.9097137451172,
+        496.0770263671875
+      ],
+      "text": "1. Sample x ∼q(x) and r ∼U(0, 1)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        62.91206359863281,
+        506.2326965332031,
+        164.8846435546875,
+        522.3570556640625
+      ],
+      "text": "2. If r <\np(x)\nMq(x) return x."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        62.91199493408203,
+        531.2244873046875,
+        107.74368286132812,
+        541.1870727539062
+      ],
+      "text": "3. Go to 1."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.7869987487793,
+        556.2257690429688,
+        541.4442138671875,
+        612.3529663085938
+      ],
+      "text": "Where M = maxx\np(x)\nq(x). We could employ a non-iterative version of rejection sampling instead of speculative sampling\n- speciﬁcally go through steps 1 and 2 above, and otherwise sample from an unmodiﬁed p(x) directly. That would\nbe much less efﬁcient than our method though. Speciﬁcally, the expected accept probability here is Ex∼q(x)\np(x)\nMq(x) =\nP"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        65.95600128173828,
+        598.689453125,
+        137.36033630371094,
+        615.6505126953125
+      ],
+      "text": "x p(x) minx′ q(x′)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        119.91899871826172,
+        602.3903198242188,
+        162.4765167236328,
+        615.9674072265625
+      ],
+      "text": "p(x′) ≤P"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        162.47201538085938,
+        600.2027587890625,
+        235.0933380126953,
+        615.6505126953125
+      ],
+      "text": "x p(x) min(1, q(x)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        220.34800720214844,
+        602.3903198242188,
+        264.08453369140625,
+        619.824951171875
+      ],
+      "text": "p(x)) = P"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        602.6989135742188,
+        541.4407958984375,
+        625.862060546875
+      ],
+      "text": "x min(p(x), q(x)) = α is (potentially much) lower than the expected\naccept probability in our method α."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.44001770019531,
+        640.9415283203125,
+        277.05804443359375,
+        650.9041137695312
+      ],
+      "text": "A.3. Theoretical Predictions vs. Empirical Runtimes"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.13100051879883,
+        659.6204833984375,
+        541.6060180664062,
+        717.468017578125
+      ],
+      "text": "Table 4 compares the expected runtime improvements based on Theorem 3.8 to the empirically measured runtimes from\nTable 2. We estimated the values of c for the various models based on proﬁler traces. We can see that the theoretical\npredictions mostly match the measured runtimes. The larger differences are due to: (1) optimization differences between our\nimplementation and the baseline, and (2) the simplifying assumption that the βs are i.i.d. being only an approximation (see\nSection 3.1)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        293.0849914550781,
+        732.4114379882812,
+        303.0475769042969,
+        742.3740234375
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        120.77999877929688,
+        76.33798217773438,
+        476.10040283203125,
+        85.30438232421875
+      ],
+      "text": "Table 4. Expected improvement factor (EXP) vs. empirically measured improvement factor (EMP)."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        169.78599548339844,
+        100.42649841308594,
+        424.8589172363281,
+        109.73590850830078
+      ],
+      "text": "TASK\nMq\nTEMP\nγ\nα\nc\nEXP\nEMP"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        169.78598022460938,
+        115.59896850585938,
+        424.857177734375,
+        174.37835693359375
+      ],
+      "text": "ENDE\nT5-SMALL\n0\n7\n0.75\n0.02\n3.2\n3.4\nENDE\nT5-BASE\n0\n7\n0.8\n0.04\n3.3\n2.8\nENDE\nT5-LARGE\n0\n7\n0.82\n0.11\n2.5\n1.7\nENDE\nT5-SMALL\n1\n7\n0.62\n0.02\n2.3\n2.6\nENDE\nT5-BASE\n1\n5\n0.68\n0.04\n2.4\n2.4\nENDE\nT5-LARGE\n1\n3\n0.71\n0.11\n2.0\n1.4"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        169.78599548339844,
+        180.37698364257812,
+        424.85821533203125,
+        239.1563720703125
+      ],
+      "text": "CNNDM\nT5-SMALL\n0\n5\n0.65\n0.02\n2.4\n3.1\nCNNDM\nT5-BASE\n0\n5\n0.73\n0.04\n2.6\n3.0\nCNNDM\nT5-LARGE\n0\n3\n0.74\n0.11\n2.0\n2.2\nCNNDM\nT5-SMALL\n1\n5\n0.53\n0.02\n1.9\n2.3\nCNNDM\nT5-BASE\n1\n3\n0.55\n0.04\n1.8\n2.2\nCNNDM\nT5-LARGE\n1\n3\n0.56\n0.11\n1.6\n1.7"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        268.26849365234375,
+        193.93006896972656,
+        278.2310791015625
+      ],
+      "text": "A.4. Application to Beam Search"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.11199951171875,
+        286.78192138671875,
+        541.4439697265625,
+        358.24505615234375
+      ],
+      "text": "Our method can be applied, with some performance penalty, to beam search sampling. Given the original beam width w, we\ncan perform beam search with the approximation model Mq and beam width u ≥w for γ steps. Then, we can use Mp to\ncheck all of the candidates in parallel (costing a compute budget of (w + uγ) runs of Mp). Finally, for each step, we can\naccept the guesses of Mq as long as topw(Mp) ⊆topu(Mq) to get identical results to regular beam search with Mp alone\n(with a more elaborate procedure we could also accept cases where the candidates we got happen to have higher probabilities\nthan those of Mp alone). The analysis of our method in this setting is more involved and we leave it for future work."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.44000244140625,
+        371.83050537109375,
+        113.27288818359375,
+        381.7930908203125
+      ],
+      "text": "A.5. Lenience"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.082000732421875,
+        390.498291015625,
+        541.7915649414062,
+        448.3570861816406
+      ],
+      "text": "A strong property of Algorithm 1 is that the output distribution is guaranteed to remain unchanged. That said, if we’re\nwilling to allow some changes, with nice guarantees, we can get further inference speed improvements. To further motivate\nthis, note that when we train two models with identical architectures and sizes on the same dataset, the generated probability\ndistributions will not be identical, so some lenience might make sense. Note that the results in this paper except for this\nsection use the strictest version of Algorithm 1 and don’t allow lenience of any kind."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.97200012207031,
+        455.966796875,
+        541.4393310546875,
+        479.8330383300781
+      ],
+      "text": "We could include a lenience parameter l ∈[0, 1] and multiply q(x) by l before comparing with p(x) in Algorithm 1. This\nstill maintains the nice guarantee that no token can be sampled with probability greater than p(x)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        469.8953857421875,
+        542.680908203125,
+        515.7040405273438
+      ],
+      "text": "l . This means for example,\nthat with l =\n1\n10 no token can be sampled with more than 10X its ground truth probability, so we can guarantee that\nextremely rare tokens will remain extremely rare (there is no guarantee on the minimum probability, so lenience could hurt\nthe diversity of the samples)."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        532.0769653320312,
+        314.5743408203125,
+        543.1845703125
+      ],
+      "text": "Speciﬁcally, with a lenience factor l we have α = Ex∼q(x)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        316.73602294921875,
+        522.203369140625,
+        541.4429321289062,
+        551.4035034179688
+      ],
+      "text": "(\n1\nlq(x) ≤p(x)\np(x)\nlq(x) lq(x) > p(x)\n= Ex∼q(x)\np(x)\nmax(p(x),lq(x)) ="
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.44000244140625,
+        555.279296875,
+        65.96051025390625,
+        565.241943359375
+      ],
+      "text": "P"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        65.95600128173828,
+        553.0927124023438,
+        150.0370635986328,
+        568.9865112304688
+      ],
+      "text": "x\np(x)q(x)\nmax(p(x),lq(x)) = 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        146.76800537109375,
+        555.279296875,
+        163.40951538085938,
+        568.3335571289062
+      ],
+      "text": "l\nP"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        163.40501403808594,
+        555.279296875,
+        262.5374755859375,
+        572.7139892578125
+      ],
+      "text": "x min(p(x), lq(x)) = P"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        262.5329895019531,
+        553.0927124023438,
+        305.7323303222656,
+        568.5394897460938
+      ],
+      "text": "x min( p(x)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        297.0299987792969,
+        555.5879516601562,
+        335.9716491699219,
+        568.9865112304688
+      ],
+      "text": "l , q(x))."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.13100051879883,
+        574.659912109375,
+        542.6854858398438,
+        608.7630615234375
+      ],
+      "text": "Table 5 shows α values for different values of l when Mp is T5-XXL (11B) and Mq is T5-small (77M). With c = 0.015,\nusing lenience values of 1, 0.5, 0.3, and 0.1 (meaning that no token can be sampled with probability greater than 1X, 2X, 3X\nand 10X of the ground truth) we get improvement factors of 2.5X, 3.1X, 3.6X, and 5X respectively."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.89299774169922,
+        635.4044799804688,
+        494.1673278808594,
+        645.5753784179688
+      ],
+      "text": "Table 5. α values for various values of l with standard sampling where Mp is T5-XXL (11B) on the EnDe translation task."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        188.9669952392578,
+        659.9185180664062,
+        405.6727294921875,
+        669.2279052734375
+      ],
+      "text": "Mq\nl = 1\nl = 0.5\nl = 0.3\nl = 0.1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        189.1909942626953,
+        675.0899658203125,
+        405.452392578125,
+        713.9443969726562
+      ],
+      "text": "UNIGRAM\n0.07\n0.1\n0.11\n0.16\nBIGRAM\n0.19\n0.23\n0.25\n0.32\nT5-SMALL (77M)\n0.62\n0.71\n0.76\n0.84\nT5-BASE (250M)\n0.68\n0.8\n0.83\n0.90"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        293.0849914550781,
+        732.4114379882812,
+        303.0475769042969,
+        742.3740234375
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        184.44700622558594,
+        47.22712326049805,
+        412.43560791015625,
+        56.19352340698242
+      ],
+      "text": "Fast Inference from Transformers via Speculative Decoding"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.082000732421875,
+        69.42228698730469,
+        542.6836547851562,
+        139.20608520507812
+      ],
+      "text": "Note that when using temperature = 0 (i.e. argmax sampling), we can no longer use lenience as above. Instead, we could\nallow some lenience before standardizing the distributions. For example, we could accept the token x sampled from Mq in\ncase p(x) ≤l · max(p). In this case, we measure similar empirical increases in α values to those with temperature = 1. For\nexample, when using lenience values of 1, 0.5, 0.3, and 0.1 for Mp T5-XXL Mq T5-small for English-German translation,\nwe get α values of 0.75, 0.75, 0.8, 0.87. Taking for example c = 0.015 and γ = 8 we get speed improvement factors of\n3.3X, 3.3X, 3.9X, and 4.9X respectively7."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        68.09300231933594,
+        706.7186889648438,
+        507.0600891113281,
+        717.2273559570312
+      ],
+      "text": "7In this case, unlike in the standard sampling case shown in Table 5, a lenience factor of 0.5 doesn’t improve the speed-up."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        293.08502197265625,
+        732.4114379882812,
+        303.047607421875,
+        742.3740234375
+      ],
+      "text": "13"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439998626708984,
+        67.06104278564453,
+        541.4310302734375,
+        188.7440185546875
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2211.17192/images/2211.17192_p2_blk1_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        59.73308181762695,
+        69.91934204101562,
+        538.3408203125,
+        144.3351287841797
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2211.17192/images/2211.17192_p6_blk1_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 79,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 67,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 44,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 42,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p3_table2_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 84,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 2,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p5_table1_lattice.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 42,
+      "ncols": 9,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 84,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 83,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 83,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 26,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 14,
+      "ncols": 8,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 36,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p12_table2_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 6,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p12_table3_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 7,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2211.17192/2211.17192_p13_table1_stream.csv"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+"Insights.
+The attention blocks’ sparsity suggests that access to all previous key and value embed-"
+"dings is unnecessary for generating the next token. This suggests it is possible to evict unessential"
+"KV embeddings and reduce the requirement of KV cache during generation."
+"3.2
+Heavy-Hitters for Low Miss Rate"
+"The previous section showed the sparse nature of attention blocks in pre-trained LLMs, which"
+"provides the opportunity for designing small KV cache size while still maintaining the performance"
+"of LLMs. However, determining the best eviction policy that preserves generation accuracy presents"
+"a combinatorial challenge. Although Belady’s Algorithm [37] is optimal and easy to compute for"
+"standard cache (offline), it is not applicable for KV cache design. Because once evicting important"
+"KVs, it could destroy the performance of LLMs due to the sequential dependency of LLM generation."
+"Observation.
+Fortunately,
+in the early stage of our exploration, we find that
+the accumulated"
+"attention scores of all the tokens within attention blocks follow a power-law distribution, as shown"
+"in Figure 2. This suggests the existence of a small set of tokens that are critical during generation."
+"We denote those tokens as heavy-hitters (H2). In order to verify the importance of these tokens, we"
+"compare the quality of LLM generation after masking heavy hitters with that of the original model."
+"Not surprisingly, as shown in Figure 2, the accuracy drops drastically, confirming the importance of"
+"those tokens. Additionally, we can see the accumulated attention score of each word (in red dots)"
+"have a high correlation with their co-occurrences in the data (gray curve)."
+"Analysis.
+First, based on H2, we see an opportunity to side-step from the combinatorial search"
+"problem and design a KV cache eviction policy that preserves the LLM generation quality. We"
+"conduct an empirical study implementing a KV cache eviction policy that retains only the H2 and"
+"the recent KV embeddings in the cache. The intuition is that recent words typically exhibit stronger"
+"correlations with current
+tokens. We assess the effectiveness of this eviction policy through pre-"
+"trained OPT-30B and six downstream tasks. The outcomes of these evaluations are illustrated in"
+"Figure 2. It is obvious that the H2 based eviction policy can largely reduce the KV cache size without"
+"degrading the performance of OPT-30B."
+"Moreover, during the post analysis,
+inspired by [38], we find that H2 based policy is related to"
+"the classical greedy algorithm (a polynomial-time algorithm with provable guarantees) under the"
+"assumption that the attention schema is submodular. We present details in Appendix D."
+"Lemma 3.1 (informal). Assuming the attention scheme is submodular, then greedily constructing the"
+"set Si (without cache size limitation) satisfies the near-optimal property in terms of submodular."
+"4
+Heavy-Hitter Oracle"
+"The goal of this section is to propose the greedy algorithm using the H2-based policy and to show"
+"the provable guarantees. We first present the H2-based policy called H2O cache eviction policy and"
+"formulate its deployment
+in LLM generation as a variant of submodular maximization problem,"
+"named dynamic submodular. Then we present H2O in the generative process, followed by a practical"
+"example of deploying our proposal. Finally, we provide theoretical guarantees for H2O and show our"
+"efficient system implementation."
+"4.1
+Greedy Algorithm for Low-Cost Policy"
+"We have shown a simple yet effective KV cache policy based on H2. However, it is impractical to"
+"deploy such an algorithm because we do not have access to the future-generated tokens. Fortunately,"
+"we empirically observe that local H2, which is calculated using local statistics at every decoding step"
+"by summing up the attention scores of the previous tokens, is equally effective as taking into account"
+"the attention of future tokens (Figure 2). In the following, we formally define this dynamic attention"
+"score computation (with space limitation) as a novel dynamic submodular type problem."
+"R,
+Definition 4.1 (Dynamic submodular framework, informal). Define function F : 2[n]
+2[n]"
+"×
+→"
+"R is a submodular function w.r.t.
+then for any set Z
+[n], we assume that F (Z,
+) : 2[n]
+to Z, i.e.,"
+"⊂
+·
+→"
+"• For all sets X, Y
+[n] satisfy that Z
+X
+Y ,"
+"⊂
+⊂
+⊂"
+"• For all element x
+[n] satisfy that x
+[n]
+Y ,"
+"∈
+∈
+\"
+"we have f (X
+x
+)
+f (X)
+f (Y
+x
+)
+f (Y ), where f (
+) := F (Z,
+)."
+"∪ {
+}
+−
+≥
+∪ {
+}
+−
+·
+·"

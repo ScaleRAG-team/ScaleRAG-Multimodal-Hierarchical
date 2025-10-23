@@ -1,0 +1,24 @@
+"Figure 4: Querying Process:
+Illustration of how RAPTOR retrieves information for two questions"
+"about the Cinderella story: “What is the central theme of the story?” and “How did Cinderella find"
+"a happy ending?”. Highlighted nodes indicate RAPTOR’s selections, while arrows point
+to DPR’s"
+"leaf nodes. Notably, RAPTOR’s context often encompasses the information retrieved by DPR, either"
+"directly or within higher-layer summaries."
+"our results demonstrate that RAPTOR, when combined with any retriever, consistently outperforms"
+"the respective retriever across all datasets. 2"
+"Since RAPTOR with SBERT has the best performance, we use it
+in all subsequent experiments."
+"We now compare RAPTOR with BM25 and DPR, using three different LLMs: GPT-3, GPT-4, and"
+"UnifiedQA. As shown in Table 3, RAPTOR consistently outperforms BM25 and DPR across all"
+"three Language Models on the QASPER dataset. RAPTOR’s F-1 Match scores are 53.1%, 55.7%,"
+"and 36.6% when using GPT-3, GPT-4, and UnifiedQA, respectively. These scores surpass DPR by"
+"margins of 1.8, 2.7, and 4.5 points, and outdo BM25 by 6.5, 5.5, and 10.2 points across the respective"
+"LLMs. QASPER requires synthesizing information within NLP papers, so it
+is unsurprising that"
+"RAPTOR’s higher-level summary nodes would allow it to outperform methods that can only extract"
+"the top-k most similar raw chunks of text, which may not contain the correct response in isolation."
+"Table 1: NarrativeQA Performance With + Without RAPTOR: Performance comparison of"
+"various retrieval methods (SBERT, BM25, DPR) with and without RAPTOR on the NarrativeQA"
+"dataset, using UnifiedQA-3B as the language model. RAPTOR outperforms baselines of each re-"
+"spective retrieval method."

@@ -1,0 +1,105 @@
+"References","[15] Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie"
+"","Subbiah,
+Jared Kaplan, Prafulla Dhariwal, Arvind"
+"[1] Nccl, https://developer.nvidia.com/nccl/.","Neelakantan, Pranav Shyam, Girish Sastry, Amanda"
+"","Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen"
+"https://openai.com/blog/
+[2] Chatgpt plus, 2023.",""
+"","Krueger, Tom Henighan, Rewon Child, Aditya Ramesh,"
+"chatgpt-plus.",""
+"","Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christo-"
+"https://github.com/
+[3] Code
+llama,
+2023.","pher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin,"
+"facebookresearch/codellama.","Scott Gray, Benjamin Chess, Jack Clark, Christopher"
+"","Berner, Sam McCandlish, Alec Radford, Ilya Sutskever,"
+"https://github.com/
+[4] Deepspeed-mii,
+2023.",""
+"","and Dario Amodei.
+Language models are few-shot"
+"microsoft/DeepSpeed-MII.",""
+"","learners.
+In Hugo Larochelle, Marc’Aurelio Ranzato,"
+"","Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien"
+"[5] Gloo collective communication library, 2023. https:",""
+"","Lin, editors, Advances in Neural Information Process-"
+"//github.com/facebookincubator/gloo.",""
+"","ing Systems 33: Annual Conference on Neural Informa-"
+"[6] Google bard, 2023. https://bard.google.com/.",""
+"","tion Processing Systems 2020, NeurIPS 2020, December"
+"","6-12, 2020, virtual, 2020."
+"https://github.com/
+[7] Longllama,
+2023.",""
+"CStanKonrad/long_llama.",""
+"","[16] Quan Chen, Hailong Yang, Minyi Guo, Ram Srivatsa"
+"[8] Openai chatgpt, 2023. https://chat.openai.com/.",""
+"","Kannan, Jason Mars, and Lingjia Tang. Prophet: Precise"
+"","qos prediction on non-preemptive accelerators to im-"
+"[9] Ray serve, 2023. https://docs.ray.io/en/latest/",""
+"","prove utilization in warehouse-scale computers.
+In Pro-"
+"serve/index.html.",""
+"","ceedings of the Twenty-Second International Conference"
+"https://huggingface.co/
+[10] Sharegpt_gpt4, 2023.","on Architectural Support for Programming Languages"
+"datasets/shibing624/sharegpt_gpt4.","and Operating Systems, pages 17–32, 2017."
+"[11] vllm.
+https://github.com/vllm-project/vllm,",""
+"","[17] Christopher Clark, Keir
+Fraser, Steven
+Hand,
+Ja-"
+"2023.",""
+"","cob Gorm Hansen, Eric Jul, Christian Limpach, Ian"
+"[12] Marcelo Amaral, Jordà Polo, David Carrera, Seetharami","Pratt, and Andrew Warfield. Live migration of virtual"
+"Seelam, and Malgorzata Steinder. Topology-aware GPU","machines.
+In Amin Vahdat and David Wetherall, edi-"
+"scheduling for
+learning workloads
+in cloud environ-","tors, 2nd Symposium on Networked Systems Design and"
+"ments.
+In Proceedings of the International Conference","Implementation (NSDI 2005), May 2-4, 2005, Boston,"
+"for High Performance Computing, Networking, Stor-","Massachusetts, USA, Proceedings. USENIX, 2005."
+"age and Analysis, page 17, New York, NY, USA, 2017.",""
+"ACM.","[18] Eli Cortez, Anand Bonde, Alexandre Muzio, Mark"
+"","Russinovich, Marcus Fontoura, and Ricardo Bianchini."
+"[13]
+Jinze Bai, Shuai Bai, Yunfei Chu, Zeyu Cui, Kai Dang,",""
+"","Resource central: Understanding and predicting work-"
+"Xiaodong Deng, Yang Fan, Wenbin Ge, Yu Han, Fei",""
+"","loads for improved resource management in large cloud"
+"Huang, Binyuan Hui, Luo Ji, Mei Li, Junyang Lin, Runji",""
+"","the 26th Symposium on
+platforms.
+In Proceedings of"
+"Lin, Dayiheng Liu, Gao Liu, Chengqiang Lu, Keming",""
+"","Operating Systems Principles, pages 153–167, 2017."
+"Lu, Jianxin Ma, Rui Men, Xingzhang Ren, Xuancheng",""
+"Ren, Chuanqi Tan, Sinan Tan, Jianhong Tu, Peng Wang,",""
+"","[19] Daniel Crankshaw, Xin Wang, Guilio Zhou, Michael J."
+"Shijie Wang, Wei Wang, Shengguang Wu, Benfeng Xu,",""
+"","Franklin, Joseph E. Gonzalez, and Ion Stoica. Clipper:"
+"Jin Xu, An Yang, Hao Yang, Jian Yang, Shusheng Yang,",""
+"","A low-latency online prediction serving system.
+In 14th"
+"Yang Yao, Bowen Yu, Hongyi Yuan, Zheng Yuan, Jian-",""
+"","USENIX Symposium on Networked Systems Design and"
+"wei Zhang, Xingxuan Zhang, Yichang Zhang, Zhenru",""
+"","Implementation (NSDI 17), pages 613–627, Boston, MA,"
+"Zhang, Chang Zhou, Jingren Zhou, Xiaohuan Zhou, and",""
+"","March 2017. USENIX Association."
+"Tianhang Zhu. Qwen technical report. arXiv preprint",""
+"arXiv:2309.16609, 2023.",""
+"","[20] Weihao Cui, Han Zhao, Quan Chen, Hao Wei, Zirui"
+"[14] Tom Brown, Benjamin Mann, Nick Ryder, Melanie","Li, Deze Zeng, Chao Li, and Minyi Guo. DVABatch:"
+"Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind","Diversity-aware Multi-Entry Multi-Exit batching for ef-"
+"Neelakantan, Pranav Shyam, Girish Sastry, Amanda","ficient processing of DNN services on GPUs.
+In 2022"
+"Askell, et al.
+Language models are few-shot
+learn-","USENIX Annual Technical Conference (USENIX ATC"
+"ers. Advances in neural information processing systems,","22), pages 183–198, Carlsbad, CA, July 2022. USENIX"
+"33:1877–1901, 2020.","Association."

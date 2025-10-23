@@ -1,0 +1,91 @@
+"include redox-based resistive switching memory (ReRAM)
+[15, 16], electro-chemical"
+"random access memory (ECRAM) [17], and capacitive weight elements [18]. Address-"
+"ing the various non-idealities of
+these technologies
+[19]
+requires
+the co-optimization"
+"of technology and designated training algorithms."
+"Gokmen et al.
+[20] proposed an efficient,
+fully parallel approach that
+leverages
+the"
+"coincidence of stochastic voltage pulse trains to carry out outer-product calculations"
+"and weight updates entirely within memory,
+in O(1)
+time complexity. To relax the"
+"device symmetry requirements, a novel training algorithm, known as Tiki-Taka, was"
+"designed based on this parallel scheme [21]. The primary advantage of the Tiki-Taka"
+"approach lies in reduced device symmetry constraints across the entire conductance"
+"(G)
+range,
+focusing
+instead
+on
+a
+localized
+symmetry
+point where
+increases
+and"
+"decreases in G are balanced [21]. More recently, the Tiki-Taka version 2 (TTv2) algo-"
+"rithm was demonstrated in hardware [22] on small-scale tasks using optimized analog"
+"ReRAM technology in a 6-Transistor-1ReRAM unit cell crossbar array configuration."
+"However, TTv2 faces some convergence issues when the reference conductance is not"
+"programmed with high precision [23]. Analog gradient accumulation with dynamic"
+"reference
+(AGAD)
+learning
+algorithm (i.e., TTv4) was proposed to
+overcome
+the"
+"reference conductance limitation, providing enhanced and robust performance [23]."
+"From a technology perspective, the addition of an engineered conductive-metal-oxide"
+"(CMO) layer in a conventional HfOx-based ReRAM metal/insulator/metal (M/I/M)"
+"stack has been shown to improve switching characteristics in terms of the number of"
+"analog states,
+stochasticity,
+symmetry point, and endurance,
+compared to conven-"
+"tional M/I/M technology [24–26]. However, while CMO/HfOx ReRAM technology"
+"has proven to meet all the fundamental device criteria for on-chip training [24], array-"
+"level assessment and BEOL integration remain unexplored. Furthermore, although"
+"accelerating DNN training using AIMC is more challenging than inference, a unified"
+"technology platform capable of performing on-chip training,
+retaining the weights,"
+"and enabling long-term inference acceleration has yet to be reported."
+"This work fills
+this
+gap by demonstrating
+an all-in-one AI
+accelerator based on"
+"CMO/HfOx ReRAM technology, able to perform analog acceleration of both training"
+"and long-term inference operations. Such an integrated approach paves
+the way for"
+"highly autonomous, energy-efficient, and continuously adaptable AI systems, opening"
+"new paths
+for
+real-time
+learning and inference applications. The flowchart
+in Fig."
+"1a illustrates the all-in-one analog training and inference challenge addressed in this"
+"integrated into the BEOL
+study. To achieve this goal, CMO/HfOx ReRAM devices,"
+"of
+a
+130 nm complementary metal-oxide-semiconductor
+(CMOS)
+technology
+node"
+"with copper
+interconnects
+(see ”Methods” section ”Device fabrication” for details),"
+"are arranged in an array architecture using a 1T1R unit
+cell. Compared to imple-"
+"mentations that use multiple transistors to control the resistive switching, the 1T1R"
+"unit cell maximizes memory density, which is crucial
+for storing large AI models on"
+"a single chip. Fig. 1b shows an image of the all-in-one analog ReRAM-based AI core"
+"used in this work, with the corresponding 8x4 array architecture and the schematic"

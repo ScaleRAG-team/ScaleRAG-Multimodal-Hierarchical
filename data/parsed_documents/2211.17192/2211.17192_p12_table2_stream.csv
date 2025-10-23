@@ -1,0 +1,57 @@
+"CNNDM
+T5-BASE
+1
+3
+0.55
+0.04
+1.8
+2.2",""
+"CNNDM
+T5-LARGE
+1
+3
+0.56
+0.11
+1.6
+1.7",""
+"A.4. Application to Beam Search",""
+"Our method can be applied, with some performance penalty, to beam search sampling. Given the original beam width w, we",""
+"can perform beam search with the approximation model Mq and beam width u ≥ w for γ steps. Then, we can use Mp to",""
+"check all of the candidates in parallel (costing a compute budget of (w + uγ) runs of Mp). Finally, for each step, we can",""
+"accept the guesses of Mq as long as topw(Mp) ⊆ topu(Mq) to get identical results to regular beam search with Mp alone",""
+"(with a more elaborate procedure we could also accept cases where the candidates we got happen to have higher probabilities",""
+"than those of Mp alone). The analysis of our method in this setting is more involved and we leave it for future work.",""
+"A.5. Lenience",""
+"A strong property of Algorithm 1 is that","the output distribution is guaranteed to remain unchanged. That said,
+if we’re"
+"willing to allow some changes, with nice guarantees, we can get further inference speed improvements. To further motivate",""
+"this, note that when we train two models with identical architectures and sizes on the same dataset, the generated probability",""
+"distributions will not be identical, so some lenience might make sense. Note that the results in this paper except for this",""
+"section use the strictest version of Algorithm 1 and don’t allow lenience of any kind.",""
+"We could include a lenience parameter l ∈ [0, 1] and multiply q(x) by l before comparing with p(x) in Algorithm 1. This",""
+"still maintains the nice guarantee that no token can be sampled with probability greater than p(x)",". This means for example,"
+"l",""
+"that with l = 1",""
+"","10 no token can be sampled with more than 10X its ground truth probability, so we can guarantee that"
+"extremely rare tokens will remain extremely rare (there is no guarantee on the minimum probability, so lenience could hurt",""
+"the diversity of the samples).",""
+"(cid:40)",""
+"1
+lq(x) ≤ p(x)",""
+"","p(x)"
+"Speciﬁcally, with a lenience factor",""
+"p(x)","max(p(x),lq(x)) ="
+"lq(x) > p(x)",""
+"lq(x)",""
+"(cid:80)
+(cid:80)",""
+"",""
+", q(x)).
+x
+x min(p(x), lq(x)) = (cid:80)
+x min( p(x)
+max(p(x),lq(x)) = 1",""
+"","Table 5 shows α values for different values of l when Mp is T5-XXL (11B) and Mq is T5-small (77M). With c = 0.015,"
+"using lenience values of 1, 0.5, 0.3, and 0.1 (meaning that no token can be sampled with probability greater than 1X, 2X, 3X",""
+"and 10X of the ground truth) we get improvement factors of 2.5X, 3.1X, 3.6X, and 5X respectively.",""
+"Table 5. α values for various values of l with standard sampling where Mp is T5-XXL (11B) on the EnDe translation task.",""

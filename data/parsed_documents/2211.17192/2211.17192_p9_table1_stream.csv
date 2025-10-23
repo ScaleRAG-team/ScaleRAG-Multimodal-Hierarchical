@@ -1,0 +1,113 @@
+"Fast Inference from Transformers via Speculative Decoding",""
+"mark for measuring progress in statistical language mod-","Jaszczur, S., Chowdhery, A., Mohiuddin, A., Kaiser, L.,"
+"eling.
+In Interspeech, 2013.","Gajewski, W., Michalewski, H., and Kanerva, J. Sparse"
+"","is enough in scaling transformers.
+In Neural Information"
+"Chen, C., Borgeaud, S.,
+Irving, G., Lespiau, J.-B., Sifre,",""
+"","Processing Systems, 2021."
+"L.,
+and Jumper,
+J. M.
+Accelerating large
+language",""
+"model
+decoding with
+speculative
+sampling.
+ArXiv,","Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S.,"
+"abs/2302.01318, 2023.","Matena, M., Zhou, Y., Li, W., and Liu, P. J. Exploring"
+"","the limits of transfer learning with a uniﬁed text-to-text"
+"Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra,",""
+"","transformer. The Journal of Machine Learning Research,"
+"G., Roberts, A., Barham, P., Chung, H. W., Sutton, C.,",""
+"","21(1):5485–5551, 2020."
+"Gehrmann, S., Schuh, P., Shi, K., Tsvyashchenko, S.,",""
+"Maynez, J., Rao, A., Barnes, P., Tay, Y., Shazeer, N. M.,",""
+"","Roberts, A., Chung, H. W., Levskaya, A., Mishra, G., Brad-"
+"Prabhakaran, V., Reif, E., Du, N., Hutchinson, B. C.,",""
+"","bury, J., Andor, D., Narang, S., Lester, B., Gaffney, C.,"
+"Pope, R., Bradbury, J., Austin, J.,
+Isard, M., Gur-Ari,",""
+"","Mohiuddin, A., Hawthorne, C., Lewkowycz, A., Salcianu,"
+"G., Yin, P., Duke, T., Levskaya, A., Ghemawat, S., Dev,",""
+"","A., van Zee, M., Austin, J., Goodman, S., Soares, L. B.,"
+"S., Michalewski, H., Garc´ıa, X., Misra, V., Robinson,",""
+"","Hu, H., Tsvyashchenko, S., Chowdhery, A., Bastings,"
+"K., Fedus, L., Zhou, D.,
+Ippolito, D., Luan, D., Lim,",""
+"","J., Bulian, J., Garc´ıa, X., Ni, J., Chen, A., Kenealy, K.,"
+"H., Zoph, B., Spiridonov, A., Sepassi, R., Dohan, D.,",""
+"","Clark, J., Lee, S., Garrette, D. H., Lee-Thorp, J., Raffel,"
+"Agrawal, S., Omernick, M., Dai, A. M., Pillai, T. S., Pel-",""
+"","C., Shazeer, N. M., Ritter, M., Bosma, M., Passos, A.,"
+"lat, M., Lewkowycz, A., Moreira, E., Child, R., Polozov,",""
+"","Maitin-Shepard, J. B., Fiedel, N., Omernick, M., Saeta,"
+"O., Lee, K., Zhou, Z., Wang, X., Saeta, B., D´ıaz, M., Fi-",""
+"","B., Sepassi, R., Spiridonov, A., Newlan,
+J., and Ges-"
+"rat, O., Catasta, M., Wei, J., Meier-Hellstern, K. S., Eck,",""
+"","mundo, A.
+Scaling up models and data with t5x and"
+"D., Dean, J., Petrov, S., and Fiedel, N. Palm: Scaling lan-",""
+"","seqio. ArXiv, abs/2203.17189, 2022."
+"guage modeling with pathways. ArXiv, abs/2204.02311,",""
+"2022.","Scardapane, S., Scarpiniti, M., Baccarelli, E., and Uncini,"
+"","A. Why should we add early exits to neural networks?"
+"Dehghani, M., Arnab, A., Beyer, L., Vaswani, A., and Tay,",""
+"","Cognitive Computation, 12(5):954–966, 2020."
+"Y
+.
+The efﬁciency misnomer.
+ArXiv, abs/2110.12894,",""
+"2021.","Schuster, T., Fisch, A., Jaakkola, T., and Barzilay, R. Con-"
+"","sistent accelerated inference via conﬁdent adaptive trans-"
+"Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. Bert:",""
+"","formers.
+In Conference on Empirical Methods in Natural"
+"Pre-training of deep bidirectional
+transformers for lan-",""
+"","Language Processing, 2021."
+"guage understanding. ArXiv, abs/1810.04805, 2019.",""
+"","Schwartz, R., Stanovsky, G., Swayamdipta, S., Dodge, J.,"
+"Elbayad, M., Gu, J., Grave, E., and Auli, M. Depth-adaptive",""
+"","and Smith, N. A. The right
+tool for the job: Matching"
+"transformer. ArXiv, abs/1910.10073, 2019.",""
+"","model and instance complexities.
+In Annual Meeting of"
+"Han, Y., Huang, G., Song, S., Yang, L., Wang, H., and Wang,","the Association for Computational Linguistics, 2020."
+"IEEE Transac-
+Y
+. Dynamic neural networks: A survey.",""
+"","Shazeer, N. M. Fast transformer decoding: One write-head"
+"tions on Pattern Analysis and Machine Intelligence, 44:",""
+"","is all you need. ArXiv, abs/1911.02150, 2019."
+"7436–7456, 2021.",""
+"","So, D. R., Ma’nke, W., Liu, H., Dai, Z., Shazeer, N. M., and"
+"Hendrycks, D. and Gimpel, K. Bridging nonlinearities and",""
+"","Le, Q. V. Primer: Searching for efﬁcient transformers for"
+"stochastic regularizers with gaussian error linear units.",""
+"","language modeling. ArXiv, abs/2109.08668, 2021."
+"ArXiv, abs/1606.08415, 2016.",""
+"","Stern, M., Shazeer, N., and Uszkoreit, J. Blockwise parallel"
+"Hennessy, J. L. and Patterson, D. A. Computer Architecture:",""
+"","decoding for deep autoregressive models. Advances in"
+"A Quantitative Approach. Morgan Kaufmann, Amster-",""
+"","Neural Information Processing Systems, 31, 2018."
+"dam, 5 edition, 2012.
+ISBN 978-0-12-383872-8.",""
+"Hinton, G. E., Vinyals, O., and Dean,
+J.
+Distilling the","Sukhbaatar, S., Grave, E., Bojanowski, P., and Joulin, A."
+"knowledge in a neural network. ArXiv, abs/1503.02531,","Adaptive attention span in transformers.
+In Annual Meet-"
+"2015.","ing of
+the Association for Computational Linguistics,"
+"","2019."
+"Hubara, I., Courbariaux, M., Soudry, D., El-Yaniv, R., and",""
+"Bengio, Y. Quantized neural networks: Training neu-","Sun, X., Ge, T., Wei, F., and Wang, H.
+Instantaneous gram-"
+"ral networks with low precision weights and activations.","matical error correction with shallow aggressive decoding."
+"ArXiv, abs/1609.07061, 2016.","ArXiv, abs/2106.04970, 2021."

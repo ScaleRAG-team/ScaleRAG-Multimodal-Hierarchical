@@ -1,0 +1,112 @@
+"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",""
+"","Models and datasets.
+We choose three families of LLMs"
+"","to
+evaluate SmoothQuant:
+OPT (Zhang
+et
+al.,
+2022),"
+"","BLOOM (Scao
+et
+al.,
+2022),
+and GLM-130B (Zeng"
+"","et al., 2022). We use seven zero-shot evaluation tasks:"
+"","LAMBADA (Paperno et al., 2016), HellaSwag (Zellers"
+"","et al., 2019), PIQA (Bisk et al., 2020), WinoGrande (Sak-"
+"","aguchi et al., 2019), OpenBookQA (Mihaylov et al., 2018),"
+"","RTE (Wang et al., 2018), COPA (Roemmele et al., 2011),"
+"","and one language modeling dataset WikiText (Merity et al.,"
+"","2016) to evaluate the OPT and BLOOM models. We use"
+"","MMLU (Hendrycks et al., 2020), MNLI (Williams et al.,"
+"","2018), QNLI (Wang et al., 2018) and LAMBADA to eval-"
+"","uate the GLM-130B model because some of
+the afore-"
+"Figure 6: SmoothQuant’s precision mapping for a Trans-",""
+"","mentioned benchmarks appear in the training set of GLM-"
+"former block. All compute-intensive operators like linear",""
+"","130B. We use lm-eval-harness‡ to evaluate OPT and"
+"layers and batched matmul (BMMs) use INT8 arithmetic.",""
+"","BLOOM models, and GLM-130B’s official repo§ for its own"
+"","evaluation. Finally, we scale up our method to MT-NLG"
+"Table
+2:
+Quantization
+setting
+of
+the
+baselines
+and","530B (Smith et al., 2022) and for the first time enabling the"
+"SmoothQuant. All weight and activations use INT8 repre-","serving of a >500B model within a single node. Note that"
+"sentations unless specified. For SmoothQuant, the efficiency","we focus on the relative performance change before and"
+"improves from O1 to O3 (i.e., lower latency).","after quantization but not the absolute value."
+"Method
+Weight
+Activation","Activation smoothing.
+The migration strength α = 0.5 is"
+"","a general sweet spot for all the OPT and BLOOM models,"
+"W8A8
+per-tensor
+per-tensor dynamic",""
+"","and α = 0.75 for GLM-130B since its activations are more"
+"ZeroQuant
+group-wise
+per-token dynamic",""
+"LLM.int8()
+per-channel
+per-token dynamic+FP16","difficult to quantize (Zeng et al., 2022). We get a suitable α"
+"Outlier Suppression
+per-tensor
+per-tensor static","by running a quick grid search on a subset of the Pile (Gao"
+"","et al., 2020) validation set. To get the statistics of activations,"
+"SmoothQuant-O1
+per-tensor
+per-token dynamic",""
+"SmoothQuant-O2
+per-tensor
+per-tensor dynamic","we calibrate the smoothing factors and the static quantiza-"
+"SmoothQuant-O3
+per-tensor
+per-tensor static","tion step sizes once with 512 random sentences from the"
+"","pre-training dataset Pile, and apply the same smoothed and"
+"","quantized model for all downstream tasks. In this way, we"
+"","can benchmark the generality and zero-shot performance of"
+"layers and quantize all linear layers with W8A8. We also",""
+"","the quantized LLMs."
+"quantize BMM operators in the attention computation. We de-",""
+"sign a quantization flow for transformer blocks in Figure 6.",""
+"","Implementation.
+We implement SmoothQuant with two"
+"We quantize the inputs and weights of compute-heavy opera-",""
+"","backends: (1) PyTorch Huggingface¶ for the proof of con-"
+"tors like linear layers and BMM in attention layers with INT8,",""
+"","cept, and (2) FasterTransformer||, as an example of a high-"
+"while keeping the activation as FP16 for other lightweight",""
+"","performance framework used in production environments."
+"element-wise operations like ReLU, Softmax, and Layer-",""
+"","In both PyTorch Huggingface and FasterTransformer frame-"
+"Norm.
+Such a design helps us to balance accuracy and",""
+"","works, we implement INT8 linear modules and the batched"
+"inference efficiency.",""
+"","matrix multiplication (BMM)
+function with CUTLASS"
+"","INT8 GEMM kernels. We simply replace the original floating"
+"5
+Experiments","point (FP16) linear modules and the bmm function with our"
+"","INT8 kernels as the INT8 model."
+"5.1
+Setups",""
+"Baselines.
+We compare with four baselines in the INT8",""
+"","5.2
+Accurate Quantization"
+"post-training quantization setting, i.e., without re-training",""
+"","Results of OPT-175B.
+SmoothQuant can handle the quan-"
+"of the model parameters: W8A8 naive quantization, Zero-",""
+"","tization of very large LLMs, whose activations are more"
+"Quant (Yao et al., 2022), LLM.int8() (Dettmers et al.,",""
+"","difficult to quantize. We study quantization on OPT-175B."
+"2022), and Outlier Suppression (Wei et al., 2022). Since",""

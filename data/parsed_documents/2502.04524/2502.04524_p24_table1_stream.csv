@@ -1,0 +1,65 @@
+"of the CMO/HfOx ReRAM devices is statistically described by a first-order polyno-"
+"mial equation for a given acceptance range. The polynomial coefficients for acceptance"
+"ranges of 2% and 0.2% of G target are extracted from the characterization and intro-"
+"duced into the simulation environment. To assess the effects of the programming noise,"
+"each weight
+in the normalized matrix (ranging from [-1, 1])
+is mapped to its corre-"
+"sponding conductance value (within the range [9, 89] µS from Fig. 3a), and is
+then"
+"further adjusted by the programming noise described by the extracted linear
+func-"
+"tions. Therefore, the MVM accuracy can be assessed immediately after programming"
+"(t = 0), see Fig. 4f."
+"4.6.2 Modelling the conductance relaxation"
+"After programming, the conductance levels exhibit relaxation over time, as shown in"
+"Fig. 4. Unlike previous ReRAM drift characterizations reported by Wan et al.
+[9] the"
+"observed relaxation in CMO/HfOx ReRAM is approximately independent of the initial"
+"programmed conductance. Consequently, a new modelling approach in the ’aihwkit’"
+"is needed to accurately simulate the conductance relaxation effect, which differs from"
+"the methods derived from previous literature on ReRAM [9]. The conductance relax-"
+"ation mean and standard deviation are modelled independently of G target and solely"
+"as a function of time after programming. The coefficients of the first-order polynomials"
+"describing the time dependence of both the mean and standard deviation of the pro-"
+"grammed conductance are incorporated into the simulation environment to estimate"
+"conductance variations at any given inference time. By doing so, the MVM accuracy"
+"can be estimated after a period of time up to 10 years."
+"4.7 HW-aware simulation of analog training"
+"4.7.1 Generalized soft bounds model"
+"The generalized soft bounds model (SBM) selection was based on the observed char-"
+"acteristics of the potentiation and depression since the devices did not strictly exhibit"
+"thorough saturation at
+the upper and lower boundaries
+(see Fig. S8 in Supplemen-"
+"tary Information). The generalized SBM incorporates a tunable scale exponent
+(γ)"
+"that describes abrupt and gradual
+trends
+toward the maximum and minimum con-"
+"ductance levels. This exponent parameter also varies depending on the conductance"
+"update direction. Therefore, the analytical expression of the generalized SBM imple-"
+"for this
+mented in the ’aihwkit’
+includes an asymmetry factor (γup down) to account"
+"behavior[38]. However, these two parameters do not have a direct physical equivalence,"
+"and therefore, cannot be derived from experimental
+traces. Hereby, γ and γup down"
+"are obtained for each device through an independent linear fitting of the generalized"
+"SBM to the experimental
+response.
+In addition to the analytical parameters of
+the"
+"generalized SBM, devices
+in the
+’aihwkit’ are defined by a set of parameters
+that"
+"can be extracted from experimental
+traces. More precisely,
+the empirical maximum"
+"and minimum conductance, minimum conductance step size and its standard devia-"
+"tion, and the asymmetry between up and down response are considered (Gmax, Gmin,"
+"∆Gsp, σ∆Gsp , and up down). More details on the up down parameter are provided in"
+"the Supplementary Information.
+In this
+regard, each simulated device is defined by"

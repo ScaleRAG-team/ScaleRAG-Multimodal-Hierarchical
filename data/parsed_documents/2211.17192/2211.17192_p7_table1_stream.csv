@@ -1,0 +1,160 @@
+"","Fast Inference from Transformers via Speculative Decoding",""
+"former decoder model with 6M parameters: dim 256, dim","",""
+"","","Table 3. Empirical α values for various target models Mp, approx-"
+"feed-forward 1024, 2 layers, 4 attention heads, as well as","",""
+"","","imation models Mq, and sampling settings. T=0 and T=1 denote"
+"simple unigram and bigram models. Mp has 97M parame-","",""
+"","argmax and standard sampling respectively6.",""
+"ters: dim 768, dim feed-forward 3072, 12 layers, 12 atten-","",""
+"tion heads. We used Bert tokenization (Devlin et al., 2019)","",""
+"","Mp","α
+SMPL
+Mq"
+"with 8k tokens for all models.","",""
+"","GPT-LIKE (97M)","UNIGRAM
+T=0
+0.03"
+"","GPT-LIKE (97M)","BIGRAM
+T=0
+0.05"
+"LaMDA (137B params)
+We
+tested
+a
+decoder
+only","GPT-LIKE (97M)","GPT-LIKE (6M)
+T=0
+0.88"
+"","GPT-LIKE (97M)","UNIGRAM
+T=1
+0.03"
+"LaMDA model on a dialog task (Thoppilan et al., 2022).","",""
+"","GPT-LIKE (97M)","BIGRAM
+T=1
+0.05"
+"We used existing checkpoints from LaMDA 137B as Mp","",""
+"","GPT-LIKE (97M)","GPT-LIKE (6M)
+T=1
+0.89"
+"and LaMDA 8B, LaMDA 2B, and LaMDA 100M for Mq.","",""
+"","T5-XXL (ENDE)","UNIGRAM
+T=0
+0.08"
+"See Section 4.1 for the setup of the T5-XXL (11B params)","",""
+"","T5-XXL (ENDE)","BIGRAM
+T=0
+0.20"
+"model.","T5-XXL (ENDE)","T5-SMALL
+T=0
+0.75"
+"","T5-XXL (ENDE)","T5-BASE
+T=0
+0.80"
+"Table 3 summarizes the α values for the tested cases. We","",""
+"","T5-XXL (ENDE)","T5-LARGE
+T=0
+0.82"
+"observe that approximation models that are a couple of","T5-XXL (ENDE)","UNIGRAM
+T=1
+0.07"
+"orders of magnitude smaller than the target model tend to","T5-XXL (ENDE)","BIGRAM
+T=1
+0.19"
+"","T5-XXL (ENDE)","T5-SMALL
+T=1
+0.62"
+"produce α values between 0.5 and 0.9. Interestingly, we also","",""
+"","T5-XXL (ENDE)","T5-BASE
+T=1
+0.68"
+"note that for all models, the sharper the adjusted distribution,","",""
+"","T5-XXL (ENDE)","T5-LARGE
+T=1
+0.71"
+"the higher the α values. Finally, we note that even trivial","",""
+"unigram and bigram approximations yield non negligible","T5-XXL (CNNDM)","UNIGRAM
+T=0
+0.13"
+"","T5-XXL (CNNDM)","BIGRAM
+T=0
+0.23"
+"α values. For example, for the case of English to German","",""
+"","T5-XXL (CNNDM)","T5-SMALL
+T=0
+0.65"
+"translation,
+the bigram model has an α value of 0.2, and","",""
+"","T5-XXL (CNNDM)","T5-BASE
+T=0
+0.73"
+"since c = 0 in this case, yields a 1.25X speed improvement,","",""
+"","T5-XXL (CNNDM)","T5-LARGE
+T=0
+0.74"
+"which is surprisingly high for
+this trivial approximation","T5-XXL (CNNDM)","UNIGRAM
+T=1
+0.08"
+"model (but is still lower than the speedup we get from using","T5-XXL (CNNDM)","BIGRAM
+T=1
+0.16"
+"","T5-XXL (CNNDM)","T5-SMALL
+T=1
+0.53"
+"T5-small as the approximation model).","",""
+"","T5-XXL (CNNDM)","T5-BASE
+T=1
+0.55"
+"","T5-XXL (CNNDM)","T5-LARGE
+T=1
+0.56"
+"5. Related work","",""
+"","LAMDA (137B)","LAMDA (100M)
+T=0
+0.61"
+"","LAMDA (137B)","LAMDA (2B)
+T=0
+0.71"
+"The efﬁciency of inference from large models was studied","",""
+"","LAMDA (137B)","LAMDA (8B)
+T=0
+0.75"
+"extensively (Dehghani et al., 2021). Many approaches aim","",""
+"","LAMDA (137B)","LAMDA (100M)
+T=1
+0.57"
+"to speed up inference from large models in general, and au-","LAMDA (137B)","LAMDA (2B)
+T=1
+0.71"
+"toregressive models like Transformers in particular. Numer-","LAMDA (137B)","LAMDA (8B)
+T=1
+0.74"
+"ous techniques try to make inference more efﬁcient for all","",""
+"tokens, e.g. distillation (Hinton et al., 2015), sparciﬁcation","",""
+"(Jaszczur et al., 2021), quantization (Hubara et al., 2016),","",""
+"","","re-training of existing models. They usually also change the"
+"and architecture modiﬁcation (So et al., 2021; Shazeer,","",""
+"","","outputs of the model. We note that while many of the meth-"
+"2019). Closer to our approach are adaptive computation","",""
+"","","ods above improve the memory to arithmetic-operations"
+"methods which adapt the amount of computation to problem","",""
+"","","ratio, in cases where the ratio remains high, these methods"
+"difﬁculty (Han et al., 2021). Examples include attending to a","",""
+"","","and our speculative decoding method might be effective in"
+"subset of the inputs (Sukhbaatar et al., 2019), and early exits","",""
+"","tandem.",""
+"(Schuster et al., 2021; Scardapane et al., 2020; Bapna et al.,","",""
+"2020; Elbayad et al., 2019; Schwartz et al., 2020). Notably,","","Two prior methods leverage speculative execution for speed-"
+"Wisdom of Committees (Schwartz et al., 2020) leverages","","ing up decoding from autoregressive models. Blockwise"
+"off-the-shelf smaller models, but is an adaptive computation","Parallel Decoding (Stern et al., 2018) decodes several","to-"
+"approach, and so it uses a heuristic to determine when to","kens in parallel, similarly to our work. However,","it only"
+"stop,
+losing the guarantee of identical outputs to those of","","supports greedy decoding (temperature=0) and not the gen-"
+"the target models. In general, adaptive computation meth-","eral stochastic setting,","it requires additional
+training of a"
+"ods usually learn, either within the model itself or with an","","custom model, and focuses on preserving down-stream task"
+"auxiliary model, when a computation shortcut can be taken.","","quality, instead of guaranteeing identical outputs. Shallow"
+"Usually,
+these methods save on both inference time and","","Aggressive Decoding (SAD) (Sun et al., 2021) also decodes"
+"arithmetic operations, but require a change of architecture, a","several","tokens in parallel, similarly to our work. Unlike"
+"change of training procedure and training custom models or","","our work, SAD only supports copying the input to the out-"

@@ -1,0 +1,30 @@
+"AWQ models using native PyTorch APIs, and this code is",""
+"","REFERENCES"
+"reused across various GPU architectures. Hence, TinyChat",""
+"offers exceptional extensibility.","Alayrac, J.-B., Donahue, J., Luc, P., Miech, A., Barr,
+I.,"
+"","Hasson, Y., Lenc, K., Mensch, A., Millican, K., Reynolds,"
+"","M., et al. Flamingo: a visual language model for few-shot"
+"Comparisons against other systems.
+We compare Tiny-",""
+"","Advances in Neural
+Information Processing
+learning."
+"Chat against existing edge LLM inference systems Auto-",""
+"","Systems, 35:23716–23736, 2022."
+"GPTQ,
+llama.cpp and exllama in Figure 10. Our system",""
+"achieves up to 1.7× speedup over llama.cpp on Orin. Fur-",""
+"","Austin, J., Odena, A., Nye, M., Bosma, M., Michalewski,"
+"thermore, llama.cpp and exllama exhibit limited adaptability,",""
+"","H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., and"
+"primarily tailored for LLaMA and Llama-2 models. In con-",""
+"","Sutton, C. Program synthesis with large language models,"
+"trast, our TinyChat supports a wide range of applications,",""
+"","2021."
+"including StarCoder (Li et al., 2023c), StableCode (GPT-",""
+"NeoX) (Black et al., 2022), Mistral (Jiang et al., 2023), and","Awadalla, A., Gao, I., Gardner, J., Hessel, J., Hanafy, Y.,"
+"Falcon (Penedo et al., 2023) while consistently delivering","Zhu, W., Marathe, K., Bitton, Y., Gadre, S., Jitsev, J.,"
+"significant speedup over AutoGPTQ. TinyChat even democ-","Kornblith, S., Koh, P. W., Ilharco, G., Wortsman, M., and"
+"ratizes LLM deployment on extremely resource-constrained","Schmidt, L. Openflamingo, March 2023. URL https:"
+"Raspberry Pi 4B, achieving 0.7 tokens/s for 7B models.","//doi.org/10.5281/zenodo.7733589."

@@ -1,0 +1,171 @@
+"11"
+"Going to the coordinate representation as was discussed above and choosing H2 (γ) = χ (γ) /γ, which reproduces the"
+"correct initial conditions we obtain"
+"(cid:15)+i ∞"
+"(cid:32)
+(cid:33) (cid:40)
+(cid:41)
+(cid:33) (cid:32)"
+"(cid:90)"
+"d γ
+χ (γ)
+2 χ (γ)"
+"=
+6
+,
+e3 χ( 1
+3 γ) y − e χ(γ) y
+M3 (ξ, y, y0)"
+""
+"2 π i
+3 γ(cid:1) − χ (γ)
+3 γ(cid:1) − χ (cid:0) 1
+2 γ(cid:1)"
+"(cid:15)−i ∞"
+"(cid:32)
+(cid:33) (cid:32)
+(cid:33) (cid:40)
+(cid:41)"
+"χ (γ)
+2 χ (γ)"
+"1 γ
+−
+eγ ξ
+(63)
+e2 χ( 1
+2 γ) y − e χ(γ) y"
+"2 χ (cid:0) 1
+2 χ (cid:0) 1"
+"3 γ(cid:1) − χ (cid:0) 1
+2 γ(cid:1)
+2 γ(cid:1) − χ (γ)"
+"ξ(cid:48)"
+"Using the method of steepest descent and neglecting contributions of the order of
+in all pre-exponential factors,"
+"2 D y"
+"we see that"
+"(64)
+M3 (ξ, y, y0) = 6 N (ξ, y, y0) (N (ξ, y, y0) − 1)2 ,"
+"which is the same as for the multiplicity distribution of Eq. (1)."
+"C.
+General approach"
+"The equation for a general moment"
+"∂k wλ (r, y, y0)"
+"∞(cid:88) n
+(cid:12)(cid:12)(cid:12)
+(65)
+Mk (r, y, y0) = (cid:104)|n(n − 1) . . . (n − k + 1)|(cid:105) =
+(n (n − 1) . . . (n − k + 1)) wn (r, y, y0) ="
+"λ = 1
+∂ λk"
+"=1"
+"we can obtain by diﬀerentiating Eq. (18) with respect to λ.
+It has the simple form in the momentum representation"
+"(see Eq. (32)):"
+"k−1"
+"(cid:90)"
+"k!
+∂
+d2kT"
+"(cid:1) +
+(cid:0)k(cid:48)
+(cid:1) mk"
+"(cid:88) i
+(66)
+mk (kT , y, y0) =
+mk−i (kT ,
+y, y0) mi (kT , y, y0)
+T
+T , y, y0
+∂ y
+(2π)2 K (cid:0)kT , k(cid:48)
+(k − i)! i!"
+"=1"
+"As we have discussed, we can go back to coordinate representation in Eq. (66), since mk are solution to the linear"
+"equations, and, therefore, have the Mellin image"
+"(cid:15) + i ∞"
+"(cid:90)"
+"dγ"
+"eω(γ) y + γ ξ(cid:48)
+with
+ξ(cid:48) = ln k2
+(67)
+=
+mk0 (γ)
+mk (kT , y)
+T"
+"2 π i"
+"(cid:15) − i ∞"
+"In coordinate representation we have"
+"(cid:15) + i ∞"
+"(cid:19)"
+"(cid:90)
+dγ
+(cid:18) 1"
+"=
+with
+ξ = ln
+(68)
+Mk (r, y)
+eω(γ) y + γ ξ mk0 (γ) Hk(γ)"
+"2 π i
+r2"
+"(cid:15) − i ∞"
+"The
+coordinate
+is
+image of mk−i (kT ,
+y, y0) mk (kT , y, y0)
+(cid:82) d2r(cid:48) K (r(cid:48), r − r(cid:48)|r) Mk−i (r(cid:48), y, y0) Mi (r − r(cid:48), y, y0)."
+"On
+the
+other
+hand,
+in
+has
+the
+image
+in
+γ-representation,
+which
+is
+SCA mk−i (kT ,
+y, y0) mi (kT , y, y0)"
+""
+"Const exp (cid:0)kχ (cid:0) 1"
+"(see
+Eq.
+(45)
+and
+Eq.
+(61))2.
+Using
+this
+im-
+equal
+to
+Hk (γ)
+k γ(cid:1) y(cid:1) mk−i,0
+k
+k"
+"age,
+one
+can
+see,
+that
+the
+coordinate
+representation
+can
+be
+reduced
+to
+for mk−i (kT ,
+y, y0) mk (kT , y, y0)"
+"that
+from Eq.
+(46)
+(cid:82) d2r(cid:48)K (r(cid:48), r − r(cid:48)|r) Mk−i (r(cid:48), y, y0) Mi (r(cid:48), y, y0), which means,
+Hk (γ) = χ (γ) as we expect"
+"and Eq. (63)."
+"2 Actually, the γ image of mk is a sum of the terms with diﬀerent k (see Eq. (45) and Eq. (61)), but this does not change the conclusion."

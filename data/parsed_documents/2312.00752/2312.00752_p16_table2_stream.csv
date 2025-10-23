@@ -1,0 +1,40 @@
+"Table 7: (Ablations: Selective parameters.) Δ is the most impor-","Table 8:"
+"","(Ablations: Parameterization of 𝑨.) The more"
+"tant parameter (Theorem 1), but using multiple selective parameters","standard initializations based on S4D-Lin (Gu, Gupta, et al."
+"together synergizes.","2022) perform worse than S4D-Real or a random initialization,"
+"","when the SSM is selective."
+"Selective Δ",""
+"Selective 𝑩
+Selective 𝑪",""
+"",""
+"","𝑨𝑛 Initialization"
+"✗
+✗
+✗
+10.93",""
+"",""
+"✗
+✓
+✗
+10.15","Complex
+9.16
+𝑨𝑛 = − 1
+2 + 𝑛𝑖"
+"","Real
+8.85"
+"✗
+✗
+✓
+9.98","𝑨𝑛 = −1/2"
+"","Real
+8.71"
+"✓
+✗
+✗
+9.81","𝑨𝑛 = −(𝑛 + 1)"
+"","Real
+8.71"
+"✓
+✓
+✓
+8.71","𝑨𝑛 ∼ exp(N (0, 1))"

@@ -1,0 +1,27 @@
+"R>","","tidyr::unnest(multi_scale_output,","",".grid_args)","","","","",""
+"#","A
+tibble: 6 x 6","","","","","","","",""
+"",".metric",".estimator .estimate","n",".grid","",".notes","","",""
+"","<chr>
+<chr>","<dbl>","<dbl>","<list>","","<list>","","",""
+"1","rmse
+standard","0.0299","2","<sf","[4
+x
+5]>","<tibble","[0","x","2]>"
+"2","willmott_d1 standard","0.586","2","<sf","[4
+x
+5]>","<tibble","[0","x","2]>"
+"3","rmse
+standard","0.0650","5","<sf","[25
+x
+5]>","<tibble","[0","x","2]>"
+"4","willmott_d1 standard","0.759","5","<sf","[25
+x
+5]>","<tibble","[0","x","2]>"
+"5","rmse
+standard","0.0761","10","<sf","[100
+x
+5]>","<tibble","[0","x","2]>"
+"6","willmott_d1 standard","0.810","10","<sf","[100
+x
+5]>","<tibble","[0","x","2]>"

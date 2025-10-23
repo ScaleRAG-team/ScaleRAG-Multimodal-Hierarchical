@@ -1,0 +1,24 @@
+"1.
+Introduction"
+"Large scale training has been an eﬀective path towards ﬂexible and powerful neural language"
+"models (Radford et al., 2018; Kaplan et al., 2020; Brown et al., 2020). Simple architectures—"
+"backed by a generous computational budget, data set size and parameter count—surpass"
+"more complicated algorithms (Sutton, 2019). An approach followed in Radford et al. (2018);"
+"Raﬀel
+et al.
+(2019); Brown et al.
+(2020)
+expands
+the model
+size of a densely-activated"
+"Transformer
+(Vaswani et al., 2017). While eﬀective,
+it
+is also extremely computationally"
+"intensive (Strubell et al., 2019).
+Inspired by the success of model scale, but seeking greater"
+"computational eﬃciency, we instead propose a sparsely-activated expert model:
+the Switch"
+"Transformer.
+In our case the sparsity comes from activating a subset of the neural network"
+"weights for each incoming example."

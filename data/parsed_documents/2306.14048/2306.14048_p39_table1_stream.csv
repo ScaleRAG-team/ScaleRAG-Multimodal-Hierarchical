@@ -1,0 +1,19 @@
+"Algorithm 3 Greedy algorithm benchmark","","","","","","",""
+"","1: procedure GREEDYALGORITHM(submodular function f )","","","","","",""
+"2:","","","","","","","▷ Initialize an empty set S0"
+"","S0 ← ∅","","","","","",""
+"3:","for t = 0","k","1 do","","","",""
+"","→","−","","","","",""
+"","","","","","","",""
+"4:","j
+←","arg maxi{","f (St ∪ {","i
+)
+}","}","∈","i
+)
+[n] that maximize f (St ∪ {
+}"
+"5:","","","j","","","","▷ Append element i to set St to get St+1"
+"","St+1 ←","St ∪ {","}","","","",""
+"6:","end for","","","","","",""
+"7:","return Sk","","","","","",""
+"8:","end procedure","","","","","",""

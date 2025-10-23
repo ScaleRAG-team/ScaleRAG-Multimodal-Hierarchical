@@ -1,0 +1,20 @@
+"D.17
+Definition of Loss Function","","","",""
+"In this section, we follow the theoretical softmax regression literature [105] and define a number","","","",""
+"of functions to make the calculations of gradient and Hessian convenient. We also proposed a new","","","",""
+"penalty term (ℓ1 type sparsity penalty, see Definition D.41) into the final loss function, which is not","","","",""
+"studied in previous work [104, 105, 107, 110, 132, 133]. We first provide some function definitions.","","","",""
+"","Rn","","",""
+"Definition D.35 (Function u, [105]). Given matrix A","×","d, let function u : Rd","",""
+"","∈","","→",""
+"as follows","","","",""
+"","u(x) := exp(Ax)","","",""
+"Definition D.36 (Function α, see Definition 5.4 in [105] as an example). We define u(x) as Defini-","","","",""
+"tion D.35. Then we define α : Rd","R as follows","","",""
+"→","","","",""
+"","","","",""
+"","α(x) :=
+⟨
+u(x), 1n⟩","","",""
+"Definition D.37 (Function f , see Definition 5.1 in [105] as an example). Provided that the following","","","",""
+"conditions are true","","","",""

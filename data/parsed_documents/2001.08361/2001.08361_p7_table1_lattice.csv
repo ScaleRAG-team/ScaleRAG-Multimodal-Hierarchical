@@ -1,0 +1,6 @@
+"Embed","(nvocab + nctx) dmodel","4dmodel"
+"Attention: QKV","nlayerdmodel3dattn","2nlayerdmodel3dattn"
+"Attention: Mask","—","2nlayernctxdattn"
+"Attention: Project","nlayerdattndmodel","2nlayerdattndembd"
+"Feedforward","nlayer2dmodeldﬀ","2nlayer2dmodeldﬀ"
+"De-embed","—","2dmodelnvocab"

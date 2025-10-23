@@ -1,0 +1,121 @@
+"6"
+"Taking the second derivative with respect to λ from Eq. (18) we obtain the equation for M2 (r, y, y0)"
+"(cid:40)"
+"(cid:90)"
+"∂ M2 (r, y, y0)"
+"=
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r)
+M2 (r(cid:48), y, y0) + M2 (r − r(cid:48), y, y0)"
+"∂ y"
+"(cid:41)"
+"+
+(29)
+2 N (r(cid:48), y, y0) N (r − r(cid:48), y, y0) − M2 (r, y, y0)"
+"Eq. (29) is a linear but inhomogeneous equation with the inhomogeneous term, which is determined by the multi-"
+"plicity of the dipoles."
+"The initial conditions (see Eq. (4) and Eq. (7a)) for this equation is"
+"(30)
+M2 (r, y = y0, y0) = 0"
+"First,
+lets us start to solve Eq. (29) making ﬁrst iteration at small y = ∆y."
+"For y = 0 N (r, y = 0) = 1 and M2 (r, y = 0) = 0, and hence"
+"M (1)
+(31)
+= 2 ∆y ωG (r)"
+"2"
+"where ω is
+given
+by Eq.
+(8b).
+The
+ﬁrst
+iteration
+of Eq.
+(20)
+leads
+to N (1)
+=
+1 +
+Compar-
+∆y ωG (r)."
+"ing
+these
+two
+estimates
+one
+can
+see
+that
+the
+ﬁrst
+iteration
+can
+be written
+as
+the
+expansion
+of
+the
+solution"
+"to ∆ y. Hence, we see,
+that at
+small ∆y we obtain the simple
+M2 (r, y) = 2 (cid:0)N 2 (r, y) − N (r, y)(cid:1) with respect"
+"expression for M2, which turns out to be the same as for the multiplicity distribution of Eq. (1) for the simple toy"
+"model
+[5]. We will try to prove this equation below, but we have succeeded only in the semi-classical approximation."
+"2.
+General solution"
+"The general solution to Eq. (29) we can obtain going to momentum representation:"
+"(cid:90)"
+""
+"(32)
+m2 (kT , y) =
+(2π)2 e−ikT · r M2 (r, y)"
+"Eq. (29) takes the form:"
+"(cid:90)"
+"∂ m2 (kT , y, y0)
+d2kT"
+"(cid:0)k(cid:48)
+(cid:1) m2
+(cid:1) + 2 N 2 (kT , y, y0)"
+"=
+(33)
+T
+T , y, y0
+∂ y
+(2π)2 K (cid:0)kT , k(cid:48)"
+"Taking the Mellin transform:"
+"(cid:15)+i∞"
+"(cid:90)"
+"dγ"
+"eγ ξ(cid:48)
+where
+ξ(cid:48) = ln k2
+(34)
+m2 (γ, y, y0)
+m2 (kT , y, y0) ="
+"T
+(cid:101)"
+"2 π i"
+"(cid:15)−i∞"
+"from both part of Eq. (33) we obtain:"
+"∂ (cid:101)m2 (γ, y, y0)"
+""
+"(35)
+= χ (γ) (cid:101)m2 (γ, y, y0) + 2 (cid:102)n2"
+"∂ y"
+"where χ (γ) is given by Eq. (8b) and (cid:102)n2 denotes the Mellin image of N 2 (kT , b, y, y0)."
+"Eq. (35) has the following solution which satisﬁes the initial condition of Eq. (30):"
+"(cid:90) y"
+"m2 (γ, y, y0) = e χ(γ) y
+dy(cid:48) 2 (cid:102)n2e − χ(γ) y(cid:48)"
+"(36)
+(γ, y, y0)
++ (cid:101)mBFKL
+(cid:101)"
+"0"
+""
+"(γ, y, y0) is a solution to the homogeneous linear BFKL equation with the initial condition of Eq. (30).
+where (cid:101)mBFKL"
+"In the following, we neglect the contribution of this term."

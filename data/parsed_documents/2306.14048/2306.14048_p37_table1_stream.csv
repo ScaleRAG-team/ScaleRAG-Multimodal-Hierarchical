@@ -1,0 +1,101 @@
+"Rn","Rn","",""
+"Algorithm 2 H2 Eviction Algorithm, Query matrix Q
+×","d, key matrix K","×","d, budget size"
+"","∈","",""
+"N. Formal and detailed version of Algorithm 1.
+of KV cache k","","",""
+"∈","","",""
+"","","",""
+"N)
+d, K
+d, k
+×
+×
+1: procedure H2_EVICTION(Q","","",""
+"∈
+∈
+∈","","",""
+"","","",""
+"2:
+0
+S0 ← ∅
+, (cid:101)o0 ←","","",""
+"3:
+for i = 1
+n do","","▷ Linear scan each token",""
+"→","","",""
+"4:
+if i
+k then","▷ If the KV cache is not full","",""
+"≤","","",""
+"5:
+i","","▷ Expand the set directly",""
+"−
+Si ←
+1 ∪ {
+}","","",""
+"6:
+else","","▷ If the KV cache is full",""
+"7:
+)⊤)
+(exp(Qi,
+1i
+(KSi−1,
+1[i]","▷ Compute the normalization factor","",""
+"∗
+∗
+\
+Di ←
+−
+·","","",""
+"1","","",""
+"8:
+D−
+)⊤)
+exp(Qi,
+(KSi−1,","","▷ Compute score vector",""
+"","","",""
+"i
+∗
+∗
+oi ←
+·","","",""
+"9:","▷ Accumulate the scores (Remark D.15)","",""
+"oi ← (cid:101)oi","","",""
+"10:
+Let score function be Fscore(T ) := h((cid:80)","▷ Score function (Remark D.14)","",""
+"s
+T (cid:101)oi,s)","","",""
+"∈","","",""
+"11:
+u
+i
+v
+arg maxv
+) Fscore(Si","","▷ Find an entry to swap",""
+"i
+(Si−1
+−
+∈
+∪{
+}
+←
+1 ∪ {
+}\{
+}}","","",""
+"12:
+i
+)
+u","","","▷ Construct Si"
+"−
+Si ←
+1 ∪ {
+}
+\{
+}","","",""
+"13:
+end if","","",""
+"14:
+end for","","",""
+"15:
+end procedure","","",""

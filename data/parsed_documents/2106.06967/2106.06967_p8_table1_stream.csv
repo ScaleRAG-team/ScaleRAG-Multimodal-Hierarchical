@@ -1,0 +1,167 @@
+"8"
+"which reproduces the Mellin transform of Eq. (39)."
+"2 γ) yH (γ) we can take the integral over y(cid:48) and the solution has the form:
+Plugging in Eq. (36) (cid:102)n2 = e2χ( 1"
+"(cid:40)
+(cid:41)"
+"(cid:90) y"
+"2"
+"2 γ) yH (γ) − eχ(γ) yH (γ)
+e χ(γ) yH (γ)
+=
+e2χ( 1
+(45)
+m2 (γ, y, y0) =
+dy(cid:48) 2 (cid:102)n2 e − χ(γ) y(cid:48)"
+"2χ (cid:0) 1"
+"0
+2 γ(cid:1) − χ (γ)"
+""
+"(γ, y, y0) in Eq. (36).
+Note, that in Eq. (45) we neglected the contribution of (cid:101)mBFKL"
+"Before ﬁxing H (γ) we need to go back to coordinate representation.
+Indeed,
+in this representation we have simple"
+"initial conditions for M2 of Eq. (30). Since all solutions are solutions of the linear equations and γSP (cid:28) 1, we can"
+""
+"replace ξ(cid:48) = ln k2
+T by ξ = ln 1
+r2 . Bearing this in mind, we can reduce the solution to the form:"
+"(cid:15)+i ∞"
+"(cid:41)
+(cid:40)"
+"(cid:90)"
+"d γ
+2 χ (γ)"
+"1 γ
+2 γ) y − eχ(γ) y
+eγ ξ
+(46)
+e2χ( 1
+M2 (ξ, y, y0) ="
+"2 χ (cid:0) 1"
+"2 π i
+2 γ(cid:1) − χ (γ)"
+"(cid:15)−i ∞"
+"First, we note,
+that taking the integral over γ using the method of steepest descent, we reproduce Eq. (45) with"
+"the particular choice of H (γ) = χ (γ) /γ, which has been discussed in Eq. (27). Second, one can see that at y → 0"
+"this solution coincides with Eq. (31)."
+"In DLA this solution takes the form (see Eq. (22):"
+"(cid:15)+i ∞"
+"(cid:40)
+(cid:41)"
+"(cid:90)"
+"d γ"
+"2 3
+4γ
+1γ
+1 γ
+y
+e
+y − e
+eγ ξ(cid:48)
+(47a)
+M DLA
+=
+(ξ(cid:48), y, y0)
+2"
+"2 π i"
+"(cid:15)−i ∞"
+"(cid:40)
+(cid:41)"
+"2 3
+=
+N 2
+← with semiclassical accuracy
+(47b)
+SCA (r, y, y0) − NSCA (r, y, y0)"
+"However,
+it
+turns out
+that Eq.
+(47a)
+reproduces at
+least
+two terms of
+the expansion at
+small values of y of
+the"
+"following relation:"
+"(cid:32)
+(cid:33)"
+""
+"3 2
+=
+2 yξ +
+(y ξ)2 + O
+(y ξ)3(cid:17)
+(48)
+M2 (Eq. (47a)) = 2
+N 2 (r, y, y0) − N (r, y, y0)"
+"Concluding, we see that Eq. (2) does not hold in the DLA, but Eq. (48) gives us some hope to ﬁnd an approach in"
+"which it will be correct."
+"4.
+Diﬀusion approximation"
+"Actually, the most adequate approach at high energies is the diﬀusion one (see Eq. (22)). Plugging in Eq. (46) the"
+""
+"BFKL kernel
+and taking the integral using the method of steepest descent
+in the form χ (γ) = ω0 + D (cid:0)γ − 1"
+"2"
+"we obtain the saddle point"
+""
+"ξ
+(cid:18) 1
+ξ2
+ξ2"
+"1 2
++ i
+;
+2 χ
+;
+;
+(49)
+γSP =
+γSP
+= 2 ω0 −
+χ (γSP ) =
+ω0 −"
+"2 D y
+2
+2 D y
+4 D y"
+"2 χ(γ)
+ξ"
+"reducing it to 2. Hence, Eq. (46)"
+"Considering
+2 D y (cid:28) 1 we can neglect their contributions in the factor"
+"2 χ( 1
+2 γ) − χ(γ)"
+"reads"
+"(cid:32)
+(cid:33)"
+"M DA
+(50)
+(r, y, y0) = 2
+N 2 (r, y, y0) − N (r, y, y0)
+2"
+"if we note that the BFKL
+We can obtain the solution of Eq. (50) directly from the equation for M2 (see Eq. (29)),"
+"kernel has maxima at r(cid:48) → 0 and |r − r(cid:48)| → 0.
+In Fig. 1 we plot the term of Eq. (29) , which is proportional to N 2:"
+"(cid:18)
+(cid:19)
+(cid:90)
+(cid:90)
+(cid:90)"
+"r(cid:48)"
+"(cid:16)
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r) (
+r(cid:48)2 (r − r(cid:48))2(cid:17) 1
+=
+dr(cid:48)I
+τ =
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r) 2 N (r(cid:48), y, y0) N (r − r(cid:48), y, y0) ∝"
+"r"
+"(51)"

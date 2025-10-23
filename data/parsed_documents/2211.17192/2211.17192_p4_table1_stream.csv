@@ -1,0 +1,113 @@
+"Fast Inference from Transformers via Speculative Decoding",""
+"Corollary 3.4. DLK(p, q) is a symmetric divergence in [0, 1].","If α > c, there exists γ for which we’ll get
+Corollary 3.9."
+"DLK(p, q) = 0 ⇐⇒ p = q.","an improvement, and the improvement factor will be at least"
+"","1+α"
+"DLK(p, q) = 1 ⇐⇒ p and q have disjoint support.","1+c ."
+"Theorem 3.5. β = 1 − DLK(p, q)",""
+"","Proof.
+If we get an improvement for γ, we’d also get an"
+"(cid:40)","improvement for any 0 < γ∗ < γ, so for our method to"
+"1
+q(x) ≤ p(x)",""
+"Proof. β
+=
+=
+p(x)
+Ex∼q(x)","yield an improvement, we can evaluate Theorem 3.8 for"
+"q(x) > p(x)",""
+"q(x)",""
+"",""
+"","γ = 1, yielding
+(1−α)(c+1) = 1+α
+1+c ."
+"Ex∼q(x) min(1, p(x)
+x min(p(x), q(x))
+q(x) ) = (cid:80)",""
+"","3.4. Number of Arithmetic Operations"
+"Finally we get:",""
+"","Algorithm 1 does γ +1 runs of Mp in parallel, so the number"
+"Corollary 3.6. α = 1 − E(DLK(p, q)) = E(min(p, q))",""
+"","of concurrent arithmetic operations grows by a factor of"
+"","γ +1. Now, since Algorithm 1 produces at most γ +1 tokens"
+"See Table 3 for empirically observed α values in our experi-",""
+"","per run, the total number of arithmetic operations might be"
+"ments.",""
+"","higher than that of the standard decoding algorithm. When"
+"","we accept the sample from Mq the increased concurrency"
+"3.3. Walltime Improvement",""
+"","is “free” and the total number of operations isn’t increased3."
+"We’ve shown that with the i.i.d. assumption our algorithm","When we reject a guess though, computation is wasted. Let’s"
+"reduces the number of calls to the target model by a factor","now analyze the effect of our method on the total number"
+"",""
+"of 1−αγ+1
+. Note that speculative execution in general, and","of arithmetic operations."
+"1−α",""
+"our algorithm in particular, assume that we have enough","Deﬁnition 3.10. Let ˆc be the ratio of arithmetic operations"
+"compute resources to support
+the increased concurrency",""
+"","per
+token of
+to that of
+the
+the approximation model Mq"
+"(Section 3.4). For the walltime anaylsis, we’ll assume that",""
+"","target model Mp."
+"we can run γ + 1 concurrent evaluations of Mp in parallel",""
+"","Theorem 3.11. The expected factor of increase in the num-"
+"without increasing the walltime. To get the total walltime",""
+"","ber of total operations of Algorithm 1 is (1−α)(γˆc+γ+1)
+."
+"",""
+"improvement, we now consider the cost of running the ap-","1−αγ+1"
+"proximation model Mq.",""
+"","ˆ"
+"","Proof. Denote by
+T the number of arithmetic operations"
+"Deﬁnition 3.7. Let c,
+the cost coefﬁcient, be the ratio be-",""
+"","done by a standard decoding baseline per token,
+i.e.
+the"
+"tween the time for a single run of Mq and the time for a",""
+"","number of operations of a single run of Mp. Then a single"
+"single run of Mp.",""
+"","iteration of Algorithm 1 costs ˆT ˆcγ + ˆT (γ + 1) operations"
+"Note that unlike α which is an intrinsic property of
+the","(for γ runs of Mq and γ + 1 parallel runs of Mp). Dividing"
+"models and the task, the value of c depends on the hardware","by the expected number of tokens produced by Algorithm 1,"
+"conﬁguration and software implementation details. In our","i.e. Equation (1), and by ˆT , we get the desired result."
+"is typically a couple of orders of
+experiments where Mq",""
+"magnitude smaller than Mp, c was always less than 0.05","If α is low,
+the increase in the number of arithmetic oper-"
+"and often negligibly close to 0.","ations is high, and vice-versa. Note that for Transformer"
+"","decoders, the total number of arithmetic operations by Al-"
+"The expected improvement
+factor in total
+Theorem 3.8.",""
+"1−αγ+1","gorithm 1 (not counting runs of Mq) can be bounded from"
+"",""
+"(1−α)(γc+1) .",""
+"","above by a single run of the same-size Transformer encoder."
+"Proof. Denote the cost of running a single step of Mp by T .","Unlike the total number of arithmetic operations, the total"
+"Now, each run of Algorithm 1 costs T cγ + T (for running","number of memory accesses can go down with our method."
+"the approximation model Mq γ times and running Mp once)","Speciﬁcally, the target model’s weights and KV cache can"
+"",""
+"and according to Equation (1) produces 1−αγ+1
+tokens on","be read once per execution of Algorithm 1, so the number"
+"1−α",""
+"","of memory accesses for reading them shrinks by a factor of"
+"average. So the overall expected cost for producing a token",""
+"(cγ+1)(1−α)","1−αγ+1"
+"",", according to Equation (1)."
+"with Algorithm 1 is
+T . Since the cost of pro-","1−α"
+"1−αγ+1",""
+"ducing a single token with the standard decoding algorithm",""
+"is T , we get the desired result.","3.5. Choosing γ"
+"","Given c and α and assuming enough compute resources (see"
+"Note that Theorem 3.8 assumes long enough generations",""
+"","Section 3.4), the optimal γ is the one maximizing the wall-"
+"(for example, since we run Mp at least once, the improve-",""
+"ment factor is capped by the number of generated tokens).","3Neglecting the cost of Mq."

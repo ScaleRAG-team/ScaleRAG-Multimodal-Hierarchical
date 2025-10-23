@@ -1,0 +1,18 @@
+"As with FlashAttention, Algorithm 1 returns
+Correctness, runtime, and memory requirement."
+"the correct output O = softmax(QK⊤)V (with no approximation), using 𝑂 (𝑁 2𝑑) FLOPs and requires 𝑂 (𝑁)"
+"is almost the same as
+additional memory beyond inputs and output (to store the logsumexp 𝐿). The proof"
+"the proof of Dao et al.
+[5, Theorem 1], so we omit it here."
+"3.1.2
+Backward pass"
+"The backward pass of FlashAttention-2 is almost the same as that of FlashAttention. We make a"
+"minor tweak to only use the row-wise logsumexp 𝐿 instead of both the row-wise max and row-wise sum of"
+"exponentials in the softmax. We include the backward pass description in Algorithm 2 for completeness."
+"Algorithm 2 FlashAttention-2 Backward Pass"
+"Require: Matrices Q, K, V, O, dO ∈ R𝑁 ×𝑑 in HBM, vector 𝐿 ∈ R𝑁 in HBM, block sizes 𝐵𝑐, 𝐵𝑟 ."
+""
+"(cid:109) blocks"
+"1: Divide Q into 𝑇𝑟 =
+(cid:109) blocks Q1, . . . , Q𝑇𝑟 of size 𝐵𝑟 × 𝑑 each, and divide K, V in to 𝑇𝑐 ="

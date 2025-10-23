@@ -1,0 +1,78 @@
+"[55] Song Han, Huizi Mao,
+and William J Dally.
+Deep compression:
+Compressing deep"
+"arXiv preprint
+neural networks with pruning,
+trained quantization and huffman coding."
+"arXiv:1510.00149, 2015."
+"[56] Benoit Jacob, Skirmantas Kligys, Bo Chen, Menglong Zhu, Matthew Tang, Andrew Howard,"
+"Hartwig Adam, and Dmitry Kalenichenko. Quantization and training of neural networks for"
+"efficient integer-arithmetic-only inference. In Proceedings of the IEEE conference on computer"
+"vision and pattern recognition, pages 2704–2713, 2018."
+"[57] Markus Nagel, Mart van Baalen, Tijmen Blankevoort, and Max Welling. Data-free quantization"
+"through weight equalization and bias correction. In Proceedings of the IEEE/CVF International"
+"Conference on Computer Vision, pages 1325–1334, 2019."
+"Improving neural
+[58] Ritchie Zhao, Yuwei Hu, Jordan Dotzel, Chris De Sa, and Zhiru Zhang."
+"network quantization without
+retraining using outlier channel splitting.
+In International"
+"conference on machine learning, pages 7543–7552. PMLR, 2019."
+"[59] Pavlo Molchanov, Stephen Tyree, Tero Karras, Timo Aila, and Jan Kautz. Pruning convo-"
+"lutional neural networks for resource efficient inference. arXiv preprint arXiv:1611.06440,"
+"2016."
+"[60] Zhuang Liu, Mingjie Sun, Tinghui Zhou, Gao Huang, and Trevor Darrell. Rethinking the"
+"value of network pruning. arXiv preprint arXiv:1810.05270, 2018."
+"Filter pruning via geometric
+[61] Yang He, Ping Liu, Ziwei Wang, Zhilan Hu, and Yi Yang."
+"median for deep convolutional neural networks acceleration.
+In Proceedings of the IEEE/CVF"
+"conference on computer vision and pattern recognition, pages 4340–4349, 2019."
+"[62] Torsten Hoefler, Dan Alistarh, Tal Ben-Nun, Nikoli Dryden, and Alexandra Peste. Sparsity in"
+"deep learning: Pruning and growth for efficient inference and training in neural networks. J."
+"Mach. Learn. Res., 22(241):1–124, 2021."
+"[63] Geoffrey Hinton, Oriol Vinyals, Jeff Dean, et al. Distilling the knowledge in a neural network."
+"arXiv preprint arXiv:1503.02531, 2(7), 2015."
+"[64]
+Jang Hyun Cho and Bharath Hariharan. On the efficacy of knowledge distillation.
+In Pro-"
+"ceedings of the IEEE/CVF international conference on computer vision, pages 4794–4802,"
+"2019."
+"[65] Raphael Tang, Yao Lu, Linqing Liu, Lili Mou, Olga Vechtomova, and Jimmy Lin. Dis-"
+"arXiv preprint
+tilling task-specific knowledge
+from bert
+into simple neural networks."
+"arXiv:1903.12136, 2019."
+"[66] Hugo Touvron, Matthieu Cord, Matthijs Douze, Francisco Massa, Alexandre Sablayrolles, and"
+"Hervé Jégou. Training data-efficient image transformers & distillation through attention.
+In"
+"International Conference on Machine Learning, pages 10347–10357. PMLR, 2021."
+"[67] Ashish Vaswani, Noam M. Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N."
+"Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need.
+In NIPS, 2017."
+"[68] Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Russ R Salakhutdinov, and Quoc V"
+"Le. Xlnet: Generalized autoregressive pretraining for language understanding. Advances in"
+"neural information processing systems, 32, 2019."
+"[69] Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy,"
+"Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov. Roberta: A robustly optimized bert"
+"pretraining approach. arXiv preprint arXiv:1907.11692, 2019."
+"[70] Alon Talmor, Jonathan Herzig, Nicholas Lourie, and Jonathan Berant. Commonsenseqa:"
+"arXiv
+preprint
+A question
+answering
+challenge
+targeting
+commonsense
+knowledge."
+"arXiv:1811.00937, 2018."
+"[71] Ajay Jaiswal, Liyan Tang, Meheli Ghosh,
+Justin Rousseau, Yifan Peng, and Ying Ding."
+"Radbert-cl: Factually-aware contrastive learning for radiology report classification. Proceed-"
+"ings of machine learning research, 158:196–208, 2021."
+"[72] Wei Yang, Yuqing Xie, Aileen Lin, Xingyu Li, Luchen Tan, Kun Xiong, Ming Li, and"
+"arXiv preprint
+Jimmy Lin. End-to-end open-domain question answering with bertserini."
+"arXiv:1902.01718, 2019."

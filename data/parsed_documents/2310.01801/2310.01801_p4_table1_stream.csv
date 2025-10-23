@@ -1,0 +1,18 @@
+"also consider four fundamental KV cache compression policies. While we mainly use these four"
+"fundamental KV cache compression policies for evaluation in this study,
+it
+is easy for FastGen to"
+"use numerous other strategies. The four KV cache compression policies are:"
+"• Special Tokens. We keep in KV cache only special
+tokens, such as the begin-of-the-sentence"
+"token <s>, the instruction token [INST], and so on. This policy is referred to as Cspecial."
+"• Punctuation. We keep in the KV cache only punctuation tokens like ”.”, ”:”, ”?”. This policy is"
+"referred to as Cpunct.."
+"• Locality This policy evicts long-range contexts. Once the relative distance between the context"
+"token and the current token exceeds a threshold, the KV cache of the context token will be evicted."
+"The threshold is determined by a pre-defined ratio rl of the length budget of local context over the"
+"input sequence length. This policy is referred to as Clocal."
+"• Frequency (Heavy Hitter) This policy has been used in multiple previous studies (e.g., Sheng"
+"et al., 2023; Zhang et al., 2023; Liu et al., 2023a). We monitor
+for each token its cumulative"
+"sum of attention score, then treat these scores as token frequency and only keep the most frequent"

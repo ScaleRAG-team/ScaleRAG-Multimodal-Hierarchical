@@ -1,0 +1,61 @@
+"Fedus, Zoph and Shazeer"
+"5.4 Expert and Data Parallelism"
+"Next we describe the partitioning strategy for expert and data parallelism. Switch Trans-"
+"formers will allocate all of their cores to the data partitioning dimension n, which will also"
+"correspond to the number of experts in the model. For each token per core a router locally"
+"computes assignments
+to the experts. The output
+is a binary matrix of
+size [n, B/n, E,"
+"C] which is partitioned across the ﬁrst dimension and determines expert assignment. This"
+"binary matrix is then used to do a gather via matrix multiplication with the input tensor"
+"of
+[n, B/n, dmodel]."
+"(7)
+einsum([n, B/n, dmodel], [n, B/n, E, C], dimension = [B/n])"
+"resulting in the ﬁnal
+tensor of
+sharded across
+the ﬁrst
+shape [n, E, C, dmodel], which is"
+"dimension.
+Because each core has
+its own expert, we do an all-to-all communication of"
+"to now shard the E dimension instead of
+the n-dimension. There are
+size [E, C, dmodel]"
+"in the forward pass
+additional communication costs of bﬂoat16 tensors of size E ×C ×dmodel"
+"to analogusly receive the tokens from each expert located on diﬀerent cores. See Appendix F"
+"for a detailed analysis of the expert partitioning code."
+"5.5 Expert, Model and Data Parallelism"
+"In the design of our best model, we seek to balance the FLOPS per token and the parameter"
+"count. When we scale the number of experts, we increase the number of parameters, but do"
+"not change the FLOPs per token.
+In order to increase FLOPs, we must also increase the df f"
+"dimension (which also increases parameters, but at a slower rate). This presents a trade-oﬀ:"
+"as we increase df f we will run out of memory per core, which then necessitates increasing"
+"m. But
+since we have a ﬁxed number of cores N , and N = n × m, we must decrease n,"
+"which forces use of a smaller batch-size (in order to hold tokens per core constant)."
+"When combining both model and expert-parallelism, we will have all-to-all communica-"
+"tion costs from routing the tokens to the correct experts along with the internal all-reduce"
+"communications from the model parallelism. Balancing the FLOPS, communication costs"
+"and memory per core becomes quite complex when combining all three methods where the"
+"best mapping is empirically determined. See our further analysis in section 5.6 for how the"
+"number of experts eﬀects the downstream performance as well."
+"5.6 Towards Trillion Parameter Models"
+"Combining expert, model and data parallelism, we design two large Switch Transformer"
+"models, one with 395 billion and 1.6 trillion parameters, respectively. We study how these"
+"models perform on both up-stream pre-training as language models and their downstream"
+"ﬁne-tuning performance. The parameters, FLOPs per
+sequence and hyper-parameters of"
+"the two diﬀerent models are listed below in Table 9.
+Standard hyper-parameters of
+the"
+"Transformer, including dmodel, df f , dkv, number of heads and number of layers are described,"
+"as well as a less common feature, F F NGEGLU , which refers to a variation of the FFN layer"
+"where the expansion matrix is substituted with two sets of weights which are non-linearly"
+"combined (Shazeer, 2020)."
+"The Switch-C model is designed using only expert-parallelism, and no model-parallelism,"
+"as described earlier in Section 5.4. As a result, the hyper-parameters controlling the width,"

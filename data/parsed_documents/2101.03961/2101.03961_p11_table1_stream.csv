@@ -1,0 +1,8 @@
+"","Regularizing large sparse models. Our paper considers the common NLP approach",""
+"of pre-training on a large corpus followed by ﬁne-tuning on smaller downstream tasks such","",""
+"as summarization or question answering. One issue that naturally arises is overﬁtting since","",""
+"many ﬁne-tuning tasks have very few examples.","During ﬁne-tuning of","standard Trans-"
+"formers, Raﬀel et al. (2019) use dropout (Srivastava et al., 2014) at each layer to prevent","",""
+"overﬁtting. Our Switch Transformers have signiﬁcantly more parameters than the FLOP","",""
+"matched dense baseline, which can lead to more severe overﬁtting on these smaller down-","",""
+"stream tasks.","",""

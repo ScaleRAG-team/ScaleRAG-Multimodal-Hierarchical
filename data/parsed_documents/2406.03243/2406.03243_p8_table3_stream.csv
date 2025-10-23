@@ -1,0 +1,62 @@
+"",""
+"18
+return f reeness","non-intrusive and extensible to different backends. Llumnix"
+"","currently supports vLLM [11] as the backend, which is an"
+"","open-source state-of-the-art
+inference engine that
+features"
+"","continuous batching, PagedAttention, and tensor-parallel dis-"
+"Dispatching.
+Llumnix dispatches new requests with higher","tributed inference [34, 56]."
+"scheduling priorities first. Within the same priority, it adopts","Multi-instance serving.
+Llumnix instantiates the multiple"
+"a simple first-come-first-serve order. On each instance, re-","instances of the backend and the other components as Ray [42]"
+"quests are scheduled in the same order. Llumnix uses a load-","actors. Ray’s Python-native distributed runtime enables fine-"
+"balancing policy that dispatches each request
+to the freest","grained coordination among these actors in a simple and"
+"instance. We introduce a metric for measuring the freeness","efficient manner. Llumnix also launches a set of request fron-"
+"of an instance defined as F = (M − ∑V )/B, where M is the","tend actors that exposes an OpenAI-style API endpoint [48]."
+"total memory, V is the virtual usage of each request, and B","Although a request can be migrated across backend instances,"
+"is the batch size. While (M − ∑V ) already measures the free","the generated tokens are forwarded to the frontend and then"
+"space, we divide it by the batch size because it determines","returned to end users, ensuring a steady API service."
+"the consumption speed, i.e., the number of new tokens per",""
+"","KV cache transfer.
+We use the Gloo collective communica-"
+"iteration. Thus the metric suggests how many iterations the",""
+"","tion library [5] (the Send/Recv primitives) for the KV cache"
+"batch can still run for. Then Llumnix dispatches each incom-",""
+"","transfer during migration. A potential alternative is NCCL [1],"
+"ing request to the instance with the highest freeness. Because",""
+"","which is generally faster than Gloo on GPUs but has been"
+"the virtual usage of a request can be larger than the physi-",""
+"","adopted in communication for distributed inference. However,"
+"cal, it is possible that F is a negative value, e.g., when there",""
+"","Llumnix needs to migrate requests in parallel with the infer-"
+"are queuing requests or high-priority requests. Such nega-",""
+"","ence to minimize the downtimes, but concurrent invocations"
+"tive freeness values help Llumnix automatically treat such",""
+"","of NCCL are known to be unsafe [45]. The pipelined migra-"
+"instances as overloaded and prefer dispatching requests to",""
+"","tion design allows us to use Gloo while maintaining negligible"
+"other instances. The freeness metric also guides the migration",""
+"","downtimes. Using Gloo needs to copy the KV cache between"
+"and auto-scaling, as shown later.",""
+"","CPU and GPU memory, which is done in another CUDA"
+"Migration.
+Llumnix triggers the migration policy period-","stream to avoid blocking the inference computation. Note"
+"ically. In each round, Llumnix selects the candidate sets of","that
+in typical deployments, the communication-heavy ten-"
+"source and destination instances by choosing those with free-","sor parallelism is limited in a single machine for high-speed"
+"ness values smaller or greater than given thresholds, respec-","transfer [44]. In such cases, migration between instances (ma-"
+"tively. Llumnix pairs the instances from both sets by picking","chines) will not interfere with the tensor-parallel inference."
+"the two with the lowest and the highest freeness values repeat-","Block fusion.
+vLLM stores the KV cache in non-contiguous"
+"edly, and then sets them in corresponding states. The llumlet","small blocks that are dynamically allocated. For example, the"
+"of each source instance then starts to migrate requests to the","block size of a 16-bit LLaMA-7B model is 128 KB (for key or"
+"destination continuously, until it is no longer set in the source","value tensors of 16 tokens in each layer), and a sequence of 1k"
+"state. The llumlet prefers the requests with lower priorities","tokens translates to 4k such blocks (32 layers). To avoid the"
+"and shorter sequence lengths when choosing the requests to","overhead of sending these blocks using many small messages,"
+"migrate. In the next round, if an instance during migration","we fuse the blocks by copying them from GPU memory to"
+"is no longer beyond the thresholds, Llumnix will unset
+the","a contiguous CPU memory buffer and use Gloo to send the"
+"migration state and the migration will stop.","buffer as a whole, thereby improving the transfer efficiency."

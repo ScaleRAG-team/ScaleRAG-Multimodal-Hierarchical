@@ -1,0 +1,15 @@
+"3.3 Work Partitioning Between Warps"
+"As Section 3.2 describe how we schedule thread blocks, even within each thread block, we also have to decide"
+"how to partition the work between different warps. We typically use 4 or 8 warps per thread block, and the"
+"partitioning is described in Fig. 3."
+"Forward pass.
+For each block, FlashAttention splits K and V across 4 warps while keeping Q accessible"
+"by all warps. Each warp multiplies to get a slice of QK⊤, then they need to multiply with a slice of V and"
+"communicate to add up the result. This is referred to as the “split-K”
+scheme. However, this is inefficient"
+"since all warps need to write their intermediate results out to shared memory, synchronize, then add up the"
+"intermediate results. These shared memory reads/writes slow down the forward pass in FlashAttention."
+"In FlashAttention-2, we instead split Q across 4 warps while keeping K and V accessible by all warps."
+"After each warp performs matrix multiply to get a slice of QK⊤, they just need to multiply with their shared"
+"slice of V to get their corresponding slice of the output. There is no need for communication between warps."
+"The reduction in shared memory reads/writes yields speedup (Section 4)."

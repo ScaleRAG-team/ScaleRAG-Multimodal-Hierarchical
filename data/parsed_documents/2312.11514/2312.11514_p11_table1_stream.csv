@@ -1,0 +1,126 @@
+"Mingyu Gao,
+Jie Yu, Wentai Li, Michael C Dai,","Learning Representations, ICLR 2020, Addis Ababa,"
+"Nam Sung Kim, and Krste Asanovic. 2022.
+com-","Ethiopia, April 26-30, 2020. OpenReview.net."
+"putedram:
+In-memory compute using off-the-shelf",""
+"dram.
+In Proceedings of the 27th ACM International","Ajay Jaiswal, Zhe Gan, Xianzhi Du, Bowen Zhang,"
+"Conference on Architectural Support
+for Program-","Zhangyang Wang, and Yinfei Yang. 2023. Compress-"
+"ming Languages and Operating Systems, pages 1065–","ing llms: The truth is rarely pure and never simple."
+"1079.","ArXiv, abs/2310.01382."
+"Google Gemini Team. 2023.
+Gemini:
+a family of","Albert Q. Jiang, Alexandre Sablayrolles, Arthur Men-"
+"highly capable multimodal models. arXiv preprint","sch, Chris Bamford, Devendra Singh Chaplot, Diego"
+"arXiv:2312.11805.","de Las Casas, Florian Bressand, Gianna Lengyel,"
+"","Guillaume
+Lample,
+Lucile
+Saulnier,
+Lélio Re-"
+"Alex Graves. 2016. Adaptive computation time for re-","nard Lavaud, Marie-Anne Lachaux, Pierre Stock,"
+"current neural networks.
+In International Conference","Teven Le Scao, Thibaut Lavril, Thomas Wang, Timo-"
+"on Machine Learning, pages 3500–3509. PMLR.","thée Lacroix, and William El Sayed. 2023. Mistral"
+"","7b. CoRR, abs/2310.06825."
+"Suriya Gunasekar,
+Yi
+Zhang,
+Jyoti Aneja,
+Caio",""
+"César Teodoro Mendes, Allie Del Giorno, Sivakanth",""
+"","Yaniv Leviathan, Matan Kalman,
+and Yossi Matias."
+"Gopi, Mojan Javaheripi, Piero Kauffmann, Gustavo",""
+"","2022.
+Fast
+inference from transformers via spec-"
+"de Rosa, Olli Saarikivi, Adil Salim, Shital Shah,",""
+"","ulative decoding."
+"Harkirat Singh Behl, Xin Wang, Sébastien Bubeck,",""
+"Ronen Eldan, Adam Tauman Kalai, Yin Tat Lee, and","Liang Li, Qingyuan Li, Bo Zhang, and Xiangxiang"
+"Yuanzhi Li. 2023. Textbooks are all you need. CoRR,","Chu. 2023. Norm tweaking: High-performance low-"
+"abs/2306.11644.","bit quantization of
+large language models.
+ArXiv,"
+"","abs/2309.02784."
+"Jongmin Ham, Jinha Kim, Jinwoong Choi, Cheolwoo",""
+"Cho, Seulki Hong, Kyeongsu Han, and Taejoo Chung.",""
+"","Ji Lin,
+Jiaming Tang, Haotian Tang,
+Shang Yang,"
+"2016. Graphssd: a high performance flash-based stor-",""
+"","Xingyu Dang, and Song Han. 2023. Awq: Activation-"
+"age system for large-scale graph processing.
+In 2016",""
+"","aware weight quantization for llm compression and"
+"USENIX Annual Technical Conference (USENIXATC",""
+"","acceleration. ArXiv, abs/2306.00978."
+"16), pages 243–256.",""
+"","Zechun Liu, Barlas Oguz, Changsheng Zhao, Ernie"
+"Song Han, Xingyu Liu, Huizi Mao, Jing Pu, Ardavan Pe-",""
+"","Chang, Pierre Stock, Yashar Mehdad, Yangyang Shi,"
+"dram, Mark A Horowitz, and William J Dally. 2016a.",""
+"","Raghuraman Krishnamoorthi, and Vikas Chandra."
+"Eie: efficient inference engine on compressed deep",""
+"","2023a. Llm-qat: Data-free quantization aware train-"
+"neural network. arXiv preprint arXiv:1602.01528.",""
+"","ing for large language models. CoRR."
+"Song Han, Huizi Mao, and William J Dally. 2016b.",""
+"","Zichang Liu, Jue Wang, Tri Dao, Tianyi Zhou, Binhang"
+"Deep compression: Compressing deep neural net-",""
+"","Yuan, Zhao Song, Anshumali Shrivastava, Ce Zhang,"
+"works with pruning,
+trained quantization and huff-",""
+"","Yuandong Tian, Christopher Re, et al. 2023b. Deja"
+"man coding.
+In International Conference on Learn-",""
+"","vu: Contextual sparsity for efficient
+llms at
+infer-"
+"ing Representations (ICLR).",""
+"","ence time.
+In International Conference on Machine"
+"","Learning, pages 22137–22176. PMLR."
+"Awni Hannun, Jagrit Digani, Angelos Katharopoulos,",""
+"and Ronan Collobert. 2023. MLX: Efficient and",""
+"","Moinuddin K Meswani, Sergey Blagodurov, David"
+"flexible machine learning on apple silicon.",""
+"","Roberts, John Slice, Mike Ignatowski, and Gabriel"
+"","Loh. 2015. Neural cache: Bit-serial in-cache acceler-"
+"Zhenyu He, Zexuan Zhong, Tianle Cai, Jason D Lee,",""
+"","ation of deep neural networks.
+In 2015 48th Annual"
+"and Di He. 2023. Rest: Retrieval-based speculative",""
+"","IEEE/ACM International Symposium on Microarchi-"
+"decoding. ArXiv, abs/2311.08252.",""
+"","tecture (MICRO), pages 383–394. IEEE."
+"Dan Hendrycks, Collin Burns, Steven Basart, Andy",""
+"","Iman Mirzadeh, Keivan Alizadeh, Sachin Mehta, Carlo"
+"Zou, Mantas Mazeika, Dawn Song, and Jacob Stein-",""
+"","C Del Mundo, Oncel Tuzel, Golnoosh Samei, Mo-"
+"hardt. 2021. Measuring massive multitask language",""
+"","hammad Rastegari, and Mehrdad Farajtabar. 2023."
+"understanding.
+In 9th International Conference on",""
+"","Relu strikes back: Exploiting activation sparsity in"
+"Learning Representations, ICLR 2021, Virtual Event,",""
+"","large language models."
+"Austria, May 3-7, 2021. OpenReview.net.",""
+"Duc Nien Hoang, Minsik Cho, Thomas Merth, Moham-","Angshuman Parashar, Minsoo Rhu, Anurag Mukkara,"
+"mad Rastegari, and Zhangyang Wang. 2023.
+(dy-","Antonio Puglielli, Rangharajan Venkatesan, Brucek"
+"namic) prompting might be all you need to repair","Khailany,
+Joel Emer,
+Stephen W Keckler,
+and"
+"compressed llms. ArXiv, abs/2310.00867.","William J Dally. 2017. Timeloop: A systematic ap-"
+"","proach to dnn accelerator evaluation.
+In 2017 IEEE"
+"Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, and","International Symposium on Performance Analysis"
+"Yejin Choi. 2020. The curious case of neural
+text","of Systems and Software (ISPASS), pages 241–251."
+"degeneration.
+In 8th International Conference on","IEEE."

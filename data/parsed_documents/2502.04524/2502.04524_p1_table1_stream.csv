@@ -1,0 +1,60 @@
+"All-in-One Analog AI Hardware: On-Chip"
+"Training and Inference with"
+"Conductive-Metal-Oxide/HfOx ReRAM Devices"
+"Donato Francesco Falcone1*, Victoria Clerico1, Wooseok Choi1,"
+"Tommaso Stecconi1,
+Folkert Horst1,
+Laura B´egon-Lours1,"
+"Matteo Galetta1, Antonio La Porta1, Nikhil Garg2,3,"
+"Fabien Alibart2,3, Bert Jan Offrein1, Valeria Bragaglia1"
+"1IBM Research - Europe, R¨uschlikon, 8803, Z¨urich, Switzerland."
+"2Institut Interdisciplinaire d’Innovation Technologique (3IT), Universit´e"
+"de Sherbrooke, Sherbrooke, QC J1K 0A5, Quebec, Canada."
+"3Institute of Electronics, Microelectronics and Nanotechnology (IEMN),"
+"Universit´e de Lille, Villeneuve d’Ascq, 59650, France."
+"*Corresponding author(s). E-mail(s): dof@zurich.ibm.com;"
+"Abstract"
+"Analog in-memory computing is an emerging paradigm designed to efficiently"
+"accelerate deep neural network workloads. Recent advancements have focused on"
+"either
+inference or
+training acceleration. However, a unified analog in-memory"
+"technology platform—capable of on-chip training, weight
+retention, and long-"
+"term inference
+acceleration—has
+yet
+to
+be
+reported. This work
+presents
+an"
+"all-in-one analog AI accelerator, combining these capabilities
+to enable energy-"
+"efficient,
+continuously adaptable AI
+systems. The platform leverages an array"
+"of analog filamentary conductive-metal-oxide
+resistive
+switching
+(CMO)/HfOx"
+"memory cells (ReRAM) integrated into the back-end-of-line (BEOL). The array"
+"demonstrates
+reliable resistive switching with voltage amplitudes below 1.5 V,"
+"compatible with advanced technology nodes. The
+array’s multi-bit
+capability"
+"(over 32 stable states) and low programming noise (down to 10 nS) enable a nearly"
+"ideal weight transfer process, more than an order of magnitude better than other"
+"memristive
+technologies.
+Inference
+performance
+is
+validated
+through matrix-"
+"vector multiplication simulations on a 64×64 array, achieving a root-mean-square"
+"error
+improvement by a factor of 20 at 1 second and 3 at 10 years after pro-"
+"gramming, compared to state-of-the-art. Training accuracy closely matching the"
+"software equivalent is achieved across different datasets. The CMO/HfOx ReRAM"

@@ -1,0 +1,37 @@
+"","",""
+"frequency components with highest attribution scores are","","30
+30
+30"
+"","","0
+10
+20
+30
+0
+10
+20
+30
+0
+10
+20
+30"
+"ablated. A consequence of using features corresponding","",""
+"to the middle and high-frequency range is that by manip-","",""
+"","","Figure 4. (First Row) Left:
+the input image. Middle: an example"
+"ulating the middle and high-frequency features, we should","",""
+"","","of computing the attribution score for a speciﬁc frequency com-"
+"expect the change happens to the model’s prediction while","",""
+"","","ponent by ablating the frequency of interest with zeros. Right:
+the"
+"the human is still not aware of the change made on the in-","",""
+"","","attribution scores for all frequency components in the input on the"
+"put.","Images like this are usually considered as adversarial",""
+"","","left. Higher scores denotes higher contribution to the prediction."
+"examples.","",""
+"","","(Second and Third Row) The input image with the k − th lowest"
+"","","frequency components are ablated. The values of k at
+the third"
+"Experiment IV: Attribution Shift","","column are the components with the top1,
+top2 and top3 attribu-"
+"","","tion scores."
+"We further extent Experiment III to the entire dataset and","",""

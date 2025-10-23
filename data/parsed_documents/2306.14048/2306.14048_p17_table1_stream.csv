@@ -1,0 +1,69 @@
+"[115] Yeqi Gao, Zhao Song, and Junze Yin. Gradientcoin: A peer-to-peer decentralized large"
+"language models. arXiv preprint arXiv:2308.10502, 2023."
+"[116] Yichuan Deng, Zhao Song, Shenghao Xie, and Chiwun Yang. Unmasking transformers: A"
+"theoretical approach to data recovery via attention weights. arXiv preprint arXiv:2310.12462,"
+"2023."
+"[117] Yichuan Deng, Zhihang Li, Sridhar Mahadevan, and Zhao Song. Zero-th order algorithm for"
+"softmax attention optimization. arXiv preprint arXiv:2307.08352, 2023."
+"[118]
+Josh Alman and Zhao Song. How to capture higher-order correlations? generalizing matrix"
+"softmax attention to kronecker computation. arXiv preprint arXiv:2310.04064, 2023."
+"[119] Yichuan Deng, Zhao Song, and Shenghao Xie. Convergence of two-layer regression with"
+"nonlinear units. arXiv preprint arXiv:2308.08358, 2023."
+"[120] Timothy Chu, Zhao Song, and Chiwun Yang. Fine-tune language models to approximate"
+"unbiased in-context learning. arXiv preprint arXiv:2310.03331, 2023."
+"[121] Abhishek Panigrahi, Sadhika Malladi, Mengzhou Xia, and Sanjeev Arora. Trainable trans-"
+"former in transformer. arXiv preprint arXiv:2307.01189, 2023."
+"[122] Haoyu Zhao, Abhishek Panigrahi, Rong Ge, and Sanjeev Arora. Do transformers parse while"
+"predicting the masked word? arXiv preprint arXiv:2303.08117, 2023."
+"Combinatorial optimization:
+[123] Alexander Schrijver.
+polyhedra and efficiency, volume 24."
+"Springer, 2003."
+"[124] Kasper Green Larsen, Jelani Nelson, Huy L Nguyen, and Mikkel Thorup. Heavy hitters"
+"via cluster-preserving clustering.
+In 2016 IEEE 57th Annual Symposium on Foundations of"
+"Computer Science (FOCS), pages 61–70. IEEE, 2016."
+"[125] Vasileios Nakos and Zhao Song. Stronger l2/l2 compressed sensing; without
+iterating.
+In"
+"Proceedings of the 51st Annual ACM SIGACT Symposium on Theory of Computing, pages"
+"289–297, 2019."
+"[126] Vasileios Nakos, Zhao Song, and Zhengyu Wang.
+(nearly) sample-optimal sparse fourier"
+"transform in any dimension; ripless and filterless.
+In 2019 IEEE 60th Annual Symposium on"
+"Foundations of Computer Science (FOCS), pages 1568–1577. IEEE, 2019."
+"[127] Andreas Krause and Carlos Guestrin. Beyond convexity: Submodularity in machine learning."
+"ICML Tutorials, 2008."
+"[128]
+Jeff Bilmes. Submodularity in machine learning applications.
+In Twenty-Ninth Conference on"
+"Artificial Intelligence, AAAI-15 Tutorial Forum, 2015."
+"[129] Simeng Han, Xiang Lin, and Shafiq Joty. Resurrecting submodularity for neural text generation."
+"arXiv preprint arXiv:1911.03014, 2019."
+"[130] George L Nemhauser, Laurence A Wolsey, and Marshall L Fisher. An analysis of approxima-"
+"tions for maximizing submodular set functions—i. Mathematical programming, 14(1):265–"
+"294, 1978."
+"[131] Lianke Qin, Zhao Song, and Yitan Wang. Fast submodular function maximization. arXiv"
+"preprint arXiv:2305.08367, 2023."
+"[132]
+Junda Wu, Tong Yu, Rui Wang, Zhao Song, Ruiyi Zhang, Handong Zhao, Chaochao Lu, Shuai"
+"Li, and Ricardo Henao.
+Infoprompt:
+Information-theoretic soft prompt
+tuning for natural"
+"language understanding. arXiv preprint arXiv:2306.04933, 2023."
+"[133] Shuai Li, Zhao Song, Yu Xia, Tong Yu, and Tianyi Zhou. The closeness of in-context learning"
+"and weight shifting for softmax regression. arXiv preprint, 2023."
+"[134] Michael B Cohen, Yin Tat Lee, and Zhao Song. Solving linear programs in the current matrix"
+"multiplication time.
+In STOC, 2019."
+"[135] Yin Tat Lee, Zhao Song, and Qiuyi Zhang. Solving empirical risk minimization in the current"
+"matrix multiplication time.
+In Conference on Learning Theory, pages 2140–2157. PMLR,"
+"2019."
+"[136] Haotian Jiang, Tarun Kathuria, Yin Tat Lee, Swati Padmanabhan, and Zhao Song. A faster"
+"interior point method for semidefinite programming.
+In 2020 IEEE 61st annual symposium on"
+"foundations of computer science (FOCS), pages 910–918. IEEE, 2020."

@@ -1,0 +1,53 @@
+"Sebastian, A.: A 64-core mixed-signal
+in-memory compute chip based on phase-"
+"change memory for deep neural network inference. Nature Electronics 6 (2023)"
+"https://doi.org/10.1038/s41928-023-01010-1"
+"[13] Gemini: A Family of Highly Capable Multimodal Models (2024). https://arxiv."
+"org/abs/2312.11805"
+"[14] Woo, J., Yu, S.: Resistive memory-based analog synapse: The pursuit for linear"
+"and symmetric weight update. IEEE Nanotechnology Magazine 12 (2018) https:"
+"//doi.org/10.1109/MNANO.2018.2844902"
+"[15] Yin, S., Sun, X., Yu, S., Seo, J.S.: High-throughput
+in-memory computing for"
+"binary deep neural networks with monolithically integrated rram and 90-nm cmos."
+"IEEE Transactions on Electron Devices 67 (2020) https://doi.org/10.1109/TED."
+"2020.3015178"
+"[16] Zahoor, F., Zulkifli, T.Z.A., Khanday, F.A.: Resistive Random Access Memory"
+"(RRAM): an Overview of Materials, Switching Mechanism, Performance, Multi-"
+"level Cell (mlc) Storage, Modeling, and Applications (2020). https://doi.org/10."
+"1186/s11671-020-03299-9"
+"[17] Tang, J., Bishop, D., Kim, S., Copel, M., Gokmen, T., Todorov, T., Shin, S., Lee,"
+"K.T., Solomon, P., Chan, K., Haensch, W., Rozen, J.: Ecram as scalable synaptic"
+"cell
+for high-speed,
+low-power neuromorphic computing.
+In: Technical Digest
+-"
+"International Electron Devices Meeting, IEDM, vol. 2018-December (2019). https:"
+"//doi.org/10.1109/IEDM.2018.8614551"
+"[18] Li, Y., Kim, S., Sun, X., Solomon, P., Gokmen, T., Tsai, H., Koswatta, S., Ren,"
+"Z., Mo, R., Yeh, C.C., Haensch, W., Leobandung, E.: Capacitor-based cross-point"
+"array for analog neural network with record symmetry and linearity.
+In: Digest"
+"of Technical Papers
+- Symposium on VLSI Technology, vol. 2018-June (2018)."
+"https://doi.org/10.1109/VLSIT.2018.8510648"
+"[19]
+Ielmini, D.: Resistive switching memories based on metal oxides: Mechanisms,"
+"reliability and scaling (2016). https://doi.org/10.1088/0268-1242/31/6/063002"
+"[20] Gokmen, T., Vlasov, Y.: Acceleration
+of
+deep
+neural
+network
+training with"
+"resistive cross-point devices: Design considerations. Frontiers in Neuroscience 10"
+"(2016) https://doi.org/10.3389/fnins.2016.00333"
+"[21] Gokmen, T., Haensch, W.: Algorithm for
+training neural networks on resistive"
+"device arrays. Frontiers in Neuroscience 14 (2020) https://doi.org/10.3389/fnins."
+"2020.00103"
+"[22] Gong, N., Rasch, M.J., Seo, S.C., Gasasira, A., Solomon, P., Bragaglia, V., Con-"
+"siglio, S., Higuchi, H., Park, C., Brew, K., Jamison, P., Catano, C., Saraf,
+I.,"
+"Athena, F.F., Silvestre, C., Liu, X., Khan, B., Jain, N., McDermott, S., Johnson,"

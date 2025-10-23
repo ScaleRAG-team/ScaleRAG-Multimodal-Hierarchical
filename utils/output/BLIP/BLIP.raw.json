@@ -1,0 +1,3728 @@
+{
+  "title": "BLIP: Bootstrapping Language-Image Pre-training for  Unified Vision-Language Understanding and Generation",
+  "authors": [
+    "Junnan Li",
+    "Dongxu Li",
+    "Caiming Xiong",
+    "Steven Hoi",
+    "Salesforce Research"
+  ],
+  "source_path": "BLIP.pdf",
+  "page_count": 12,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "counts": {
+    "texts": 345,
+    "pictures": 0,
+    "tables": 12
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 22,
+      "layout_blocks": 0,
+      "xobjects_found": 3,
+      "xobjects_exported": 3,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 2,
+      "text_blocks": 34,
+      "layout_blocks": 0,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 16,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 4,
+      "text_blocks": 40,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 34,
+      "layout_blocks": 0,
+      "xobjects_found": 3,
+      "xobjects_exported": 3,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 26,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 46,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 26,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 9,
+      "text_blocks": 25,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 10,
+      "text_blocks": 25,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 20,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 31,
+      "layout_blocks": 0,
+      "xobjects_found": 6,
+      "xobjects_exported": 6,
+      "figures": 0,
+      "with_caption": 0,
+      "leftovers": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        124.93199920654297,
+        89.9119873046875,
+        471.952392578125,
+        122.19116973876953
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for\nUniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        187.9219970703125,
+        159.42950439453125,
+        407.2983703613281,
+        192.88304138183594
+      ],
+      "text": "Junnan Li Dongxu Li Caiming Xiong Steven Hoi\nSalesforce Research\nhttps://github.com/salesforce/BLIP"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        150.197998046875,
+        215.93316650390625,
+        194.68328857421875,
+        227.88836669921875
+      ],
+      "text": "Abstract"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        75.03700256347656,
+        236.32131958007812,
+        271.1699523925781,
+        509.3730773925781
+      ],
+      "text": "Vision-Language Pre-training (VLP) has ad-\nvanced the performance for many vision-language\ntasks. However, most existing pre-trained mod-\nels only excel in either understanding-based tasks\nor generation-based tasks. Furthermore, perfor-\nmance improvement has been largely achieved\nby scaling up the dataset with noisy image-text\npairs collected from the web, which is a subop-\ntimal source of supervision. In this paper, we\npropose BLIP, a new VLP framework which trans-\nfers ﬂexibly to both vision-language understand-\ning and generation tasks. BLIP effectively uti-\nlizes the noisy web data by bootstrapping the\ncaptions, where a captioner generates synthetic\ncaptions and a ﬁlter removes the noisy ones. We\nachieve state-of-the-art results on a wide range of\nvision-language tasks, such as image-text retrieval\n(+2.7% in average recall@1), image captioning\n(+2.8% in CIDEr), and VQA (+1.6% in VQA\nscore). BLIP also demonstrates strong general-\nization ability when directly transferred to video-\nlanguage tasks in a zero-shot manner. Code, mod-\nels, and datasets are released."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.43999481201172,
+        531.0941772460938,
+        132.2760772705078,
+        543.0493774414062
+      ],
+      "text": "1. Introduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.082000732421875,
+        552.0620727539062,
+        291.1848449707031,
+        585.9610595703125
+      ],
+      "text": "Vision-language pre-training has recently received tremen-\ndous success on various multimodal downstream tasks.\nHowever, existing methods have two major limitations:"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.082000732421875,
+        593.8562622070312,
+        291.0967102050781,
+        675.6250610351562
+      ],
+      "text": "(1) Model perspective: most methods either adopt an\nencoder-based model (Radford et al., 2021; Li et al., 2021a),\nor an encoder-decoder (Cho et al., 2021; Wang et al., 2021)\nmodel. However, encoder-based models are less straightfor-\nward to directly transfer to text generation tasks (e.g. image\ncaptioning), whereas encoder-decoder models have not been\nsuccessfully adopted for image-text retrieval tasks."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.11199951171875,
+        683.341064453125,
+        290.6869201660156,
+        717.4547729492188
+      ],
+      "text": "(2) Data perspective: most state-of-the-art methods (e.g.,\nCLIP (Radford et al., 2021), ALBEF (Li et al., 2021a),\nSimVLM (Wang et al., 2021)) pre-train on image-text pairs"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        397.185302734375,
+        258.9604187011719,
+        409.4156494140625,
+        268.6927185058594
+      ],
+      "text": "Cap"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        430.295166015625,
+        241.11956787109375,
+        485.72723388671875,
+        274.19366455078125
+      ],
+      "text": "“chocolate cake \nwith cream frosting \nand chocolate \nsprinkles on top”"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        430.295166015625,
+        217.48056030273438,
+        484.1203308105469,
+        234.02101135253906
+      ],
+      "text": "“blue sky bakery in \nsunset park ”"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        520.2388305664062,
+        258.9604187011719,
+        530.2055053710938,
+        268.6927185058594
+      ],
+      "text": "Filt"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        520.6849975585938,
+        222.34043884277344,
+        530.6516723632812,
+        232.07273864746094
+      ],
+      "text": "Filt"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        306.93798828125,
+        284.6729736328125,
+        541.439697265625,
+        304.598388671875
+      ],
+      "text": "Figure 1. We use a Captioner (Cap) to generate synthetic captions\nfor web images, and a Filter (Filt) to remove noisy captions."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        315.4093017578125,
+        543.0935668945312,
+        349.3580627441406
+      ],
+      "text": "collected from the web. Despite the performance gain ob-\ntained by scaling up the dataset, our paper shows that the\nnoisy web text is suboptimal for vision-language learning."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.1310119628906,
+        357.2522888183594,
+        543.0928955078125,
+        427.0660705566406
+      ],
+      "text": "To this end, we propose BLIP: Bootstrapping Language-\nImage Pre-training for uniﬁed vision-language understand-\ning and generation. BLIP is a new VLP framework which\nenables a wider range of downstream tasks than existing\nmethods. It introduces two contributions from the model\nand data perspective, respectively:"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.11199951171875,
+        435.0781555175781,
+        543.0934448242188,
+        528.68505859375
+      ],
+      "text": "(a) Multimodal mixture of Encoder-Decoder (MED): a new\nmodel architecture for effective multi-task pre-training and\nﬂexible transfer learning. An MED can operate either as\na unimodal encoder, or an image-grounded text encoder,\nor an image-grounded text decoder. The model is jointly\npre-trained with three vision-language objectives: image-\ntext contrastive learning, image-text matching, and image-\nconditioned language modeling."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        306.97198486328125,
+        536.6365966796875,
+        543.1849975585938,
+        606.39404296875
+      ],
+      "text": "(b) Captioning and Filtering (CapFilt): a new dataset boos-\ntrapping method for learning from noisy image-text pairs.\nWe ﬁnetune a pre-trained MED into two modules: a cap-\ntioner to produce synthetic captions given web images, and\na ﬁlter to remove noisy captions from both the original web\ntexts and the synthetic texts."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        306.97198486328125,
+        614.3370971679688,
+        541.437744140625,
+        636.2820434570312
+      ],
+      "text": "We perform extensive experiments and analysis, and make\nthe following key observations."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        643.7474365234375,
+        541.4424438476562,
+        689.5750122070312
+      ],
+      "text": "• We show that the captioner and the ﬁlter work together to\nachieve substantial performance improvement on various\ndownstream tasks by bootstrapping the captions. We also\nﬁnd that more diverse captions yield larger gains."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        695.4752807617188,
+        543.0977172851562,
+        717.4920043945312
+      ],
+      "text": "• BLIP achieves state-of-the-art performance on a wide\nrange of vision-language tasks, including image-text re-"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        211.13995361328125,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2201.12086v2  [cs.CV]  15 Feb 2022"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        99.70276641845703,
+        162.9217987060547,
+        144.8470001220703,
+        172.82640075683594
+      ],
+      "text": "Self Attention"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        99.72593688964844,
+        126.07068634033203,
+        144.80934143066406,
+        135.9752960205078
+      ],
+      "text": "Feed Forward"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        61.250587463378906,
+        151.37974548339844,
+        72.25725555419922,
+        161.2843475341797
+      ],
+      "text": "N×"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        224.2185516357422,
+        149.15476989746094,
+        274.9242858886719,
+        159.0593719482422
+      ],
+      "text": "Cross Attention"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        227.0941619873047,
+        113.41614532470703,
+        272.17755126953125,
+        123.32075500488281
+      ],
+      "text": "Feed Forward"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        233.4154052734375,
+        187.11839294433594,
+        265.7238464355469,
+        197.0229949951172
+      ],
+      "text": "Bi Self-Att"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        349.6834411621094,
+        149.85008239746094,
+        400.38916015625,
+        159.7546844482422
+      ],
+      "text": "Cross Attention"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        352.5101318359375,
+        113.9723892211914,
+        397.593505859375,
+        123.87699890136719
+      ],
+      "text": "Feed Forward"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        358.8313903808594,
+        187.8136749267578,
+        391.13983154296875,
+        197.71827697753906
+      ],
+      "text": "Bi Self-Att"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        473.0213623046875,
+        149.85008239746094,
+        523.7271118164062,
+        159.7546844482422
+      ],
+      "text": "Cross Attention"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        475.84808349609375,
+        113.9723892211914,
+        520.9314575195312,
+        123.87699890136719
+      ],
+      "text": "Feed Forward"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        474.564453125,
+        187.8136749267578,
+        522.0826416015625,
+        197.71827697753906
+      ],
+      "text": "Causal Self-Att"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        178.48471069335938,
+        76.5650405883789,
+        503.2557067871094,
+        90.08522033691406
+      ],
+      "text": "ITM\nITC\nLM"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        190.25094604492188,
+        151.37974548339844,
+        201.25759887695312,
+        161.2843475341797
+      ],
+      "text": "N×"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        224.70057678222656,
+        224.3866729736328,
+        277.3434143066406,
+        234.29127502441406
+      ],
+      "text": "“[CLS] +           ”"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        308.1820068359375,
+        245.1067352294922,
+        468.0979919433594,
+        255.01133728027344
+      ],
+      "text": "“a little girl holding a kitten next to a blue fence”"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        341.18414306640625,
+        224.3866729736328,
+        406.5772399902344,
+        234.29127502441406
+      ],
+      "text": "“[Encode] +           ”"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        463.1300354003906,
+        224.3866729736328,
+        529.3099975585938,
+        234.29127502441406
+      ],
+      "text": "“[Decode] +           ”"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        186.61062622070312,
+        213.7183837890625,
+        212.39320373535156,
+        229.68951416015625
+      ],
+      "text": "Text\nEncoder"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        59.12872314453125,
+        189.52178955078125,
+        84.91128540039062,
+        205.3538818359375
+      ],
+      "text": "Image\nEncoder"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        293.44464111328125,
+        214.27462768554688,
+        346.1484375,
+        230.24575805664062
+      ],
+      "text": "Image-grounded \nText encoder"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        416.6665954589844,
+        213.857421875,
+        469.3703918457031,
+        229.68951416015625
+      ],
+      "text": "Image-grounded \nText decoder"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.9379997253418,
+        265.8479919433594,
+        541.4442138671875,
+        340.5673828125
+      ],
+      "text": "Figure 2. Pre-training model architecture and objectives of BLIP (same parameters have the same color). We propose multimodal mixture\nof encoder-decoder, a uniﬁed vision-language model which can operate in one of the three functionalities: (1) Unimodal encoder is\ntrained with an image-text contrastive (ITC) loss to align the vision and language representations. (2) Image-grounded text encoder uses\nadditional cross-attention layers to model vision-language interactions, and is trained with a image-text matching (ITM) loss to distinguish\nbetween positive and negative image-text pairs. (3) Image-grounded text decoder replaces the bi-directional self-attention layers with\ncausal self-attention layers, and shares the same cross-attention layers and feed forward networks as the encoder. The decoder is trained\nwith a language modeling (LM) loss to generate captions given images."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        63.909000396728516,
+        353.6407775878906,
+        291.0983581542969,
+        411.4920654296875
+      ],
+      "text": "trieval, image captioning, visual question answering, vi-\nsual reasoning, and visual dialog. We also achieve state-of-\nthe-art zero-shot performance when directly transferring\nour models to two video-language tasks: text-to-video\nretrieval and videoQA."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.44000244140625,
+        427.26214599609375,
+        138.55255126953125,
+        439.21734619140625
+      ],
+      "text": "2. Related Work"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.44000244140625,
+        445.9225158691406,
+        196.03221130371094,
+        455.8851013183594
+      ],
+      "text": "2.1. Vision-language Pre-training"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.97200012207031,
+        462.34930419921875,
+        291.09613037109375,
+        639.759033203125
+      ],
+      "text": "Vision-language pre-training (VLP) aims to improve per-\nformance of downstream vision and language tasks by pre-\ntraining the model on large-scale image-text pairs. Due to\nthe prohibitive expense of acquiring human-annotated texts,\nmost methods (Chen et al., 2020; Li et al., 2020; 2021a;\nWang et al., 2021; Radford et al., 2021) use image and\nalt-text pairs crawled from the web (Sharma et al., 2018;\nChangpinyo et al., 2021; Jia et al., 2021), Despite the use of\nsimple rule-based ﬁlters, noise is still prevalent in the web\ntexts. However, the negative impact of the noise has been\nlargely overlooked, shadowed by the performance gain ob-\ntained from scaling up the dataset. Our paper shows that the\nnoisy web texts are suboptimal for vision-language learning,\nand proposes CapFilt that utilizes web datasets in a more\neffective way."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.13100051879883,
+        647.654296875,
+        290.6868896484375,
+        717.44873046875
+      ],
+      "text": "There have been many attempts to unify various vision\nand language tasks into a single framework (Zhou et al.,\n2020; Cho et al., 2021; Wang et al., 2021). The biggest\nchallenge is to design model architectures that can perform\nboth understanding-based tasks (e.g. image-text retrieval)\nand generation-based tasks (e.g. image captioning). Neither"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        353.63330078125,
+        542.6871337890625,
+        447.3570861816406
+      ],
+      "text": "encoder-based models (Li et al., 2021a;b; Radford et al.,\n2021) nor encoder-decoder models (Cho et al., 2021; Wang\net al., 2021) can excel at both types of tasks, whereas a single\nuniﬁed encoder-decoder (Zhou et al., 2020) also limits the\nmodel’s capability. Our proposed multimodal mixture of\nencoder-decoder model offers more ﬂexibility and better\nperformance on a wide range of downstream tasks, in the\nmeantime keeping the pre-training simple and efﬁcient."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        457.9535217285156,
+        421.9201965332031,
+        467.9161071777344
+      ],
+      "text": "2.2. Knowledge Distillation"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.0820007324219,
+        474.3802795410156,
+        543.0972900390625,
+        627.8800659179688
+      ],
+      "text": "Knowledge distillation (KD) (Hinton et al., 2015) aims to\nimprove the performance of a student model by distilling\nknowledge from a teacher model. Self-distillation is a spe-\ncial case of KD where the teacher and student have equal\nsizes. It has been shown to be effective for image classi-\nﬁcation (Xie et al., 2020), and recently for VLP (Li et al.,\n2021a). Different from mostly existing KD methods which\nsimply enforce the student to have the same class predic-\ntions as the teacher, our proposed CapFilt can be interpreted\nas a more effective way to perform KD in the context of\nVLP, where the captioner distills its knowledge through\nsemantically-rich synthetic captions, and the ﬁlter distills\nits knowledge by removing noisy captions."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        638.4765014648438,
+        408.2216491699219,
+        648.4390869140625
+      ],
+      "text": "2.3. Data Augmentation"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        306.97198486328125,
+        654.9746704101562,
+        541.6099853515625,
+        712.7850341796875
+      ],
+      "text": "While data augmentation (DA) has been widely adopted in\ncomputer vision (Shorten & Khoshgoftaar, 2019), DA for\nlanguage tasks is less straightforward. Recently, generative\nlanguage models have been used to synthesize examples\nfor various NLP tasks (Kumar et al., 2020; Anaby-Tavor"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        291.0934143066406,
+        127.25106811523438
+      ],
+      "text": "et al., 2020; Puri et al., 2020; Yang et al., 2020). Differ-\nent from these methods which focus on the low-resource\nlanguage-only tasks, our method demonstrates the advan-\ntage of synthetic captions in large-scale vision-language\npre-training."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        137.5081787109375,
+        107.24188232421875,
+        149.46337890625
+      ],
+      "text": "3. Method"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.97200012207031,
+        156.20399475097656,
+        289.7994689941406,
+        202.08810424804688
+      ],
+      "text": "We propose BLIP, a uniﬁed VLP framework to learn from\nnoisy image-text pairs. This section ﬁrst introduces our new\nmodel architecture MED and its pre-training objectives, and\nthen delineates CapFilt for dataset bootstrapping."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        212.6845703125,
+        156.3412322998047,
+        222.6471710205078
+      ],
+      "text": "3.1. Model Architecture"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.97200012207031,
+        229.1187744140625,
+        291.09564208984375,
+        322.8350830078125
+      ],
+      "text": "We employ a visual transformer (Dosovitskiy et al., 2021)\nas our image encoder, which divides an input image into\npatches and encodes them as a sequence of embeddings,\nwith an additional [CLS] token to represent the global im-\nage feature. Compared to using pre-trained object detectors\nfor visual feature extraction (Chen et al., 2020), using a ViT\nis more computation-friendly and has been adopted by the\nmore recent methods (Li et al., 2021a; Kim et al., 2021)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.11199951171875,
+        330.88140869140625,
+        291.0929870605469,
+        575.0890502929688
+      ],
+      "text": "In order to pre-train a uniﬁed model with both understanding\nand generation capabilities, we propose multimodal mixture\nof encoder-decoder (MED), a multi-task model which can\noperate in one of the three functionalities:\n(1) Unimodal encoder, which separately encodes image\nand text. The text encoder is the same as BERT (Devlin et al.,\n2019), where a [CLS] token is appended to the beginning\nof the text input to summarize the sentence.\n(2) Image-grounded text encoder, which injects visual\ninformation by inserting one additional cross-attention (CA)\nlayer between the self-attention (SA) layer and the feed\nforward network (FFN) for each transformer block of the\ntext encoder. A task-speciﬁc [Encode] token is appended\nto the text, and the output embedding of [Encode] is used\nas the multimodal representation of the image-text pair.\n(3) Image-grounded text decoder, which replaces the bi-\ndirectional self-attention layers in the image-grounded text\nencoder with causal self-attention layers. A [Decode]\ntoken is used to signal the beginning of a sequence, and an\nend-of-sequence token is used to signal its end."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        585.685546875,
+        172.38101196289062,
+        595.6481323242188
+      ],
+      "text": "3.2. Pre-training Objectives"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.97200012207031,
+        602.1122436523438,
+        291.0967102050781,
+        683.8810424804688
+      ],
+      "text": "We jointly optimize three objectives during pre-training,\nwith two understanding-based objectives and one generation-\nbased objective. Each image-text pair only requires one for-\nward pass through the computational-heavier visual trans-\nformer, and three forward passes through the text trans-\nformer, where different functionalities are activated to com-\npute the three losses as delineated below."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        691.760498046875,
+        291.0979309082031,
+        713.744873046875
+      ],
+      "text": "Image-Text Contrastive Loss (ITC) activates the unimodal\nencoder. It aims to align the feature space of the visual trans-"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        543.0933837890625,
+        175.07205200195312
+      ],
+      "text": "former and the text transformer by encouraging positive\nimage-text pairs to have similar representations in contrast\nto the negative pairs. It has been shown to be an effective\nobjective for improving vision and language understand-\ning (Radford et al., 2021; Li et al., 2021a). We follow the\nITC loss by Li et al. (2021a), where a momentum encoder\nis introduced to produce features, and soft labels are created\nfrom the momentum encoder as training targets to account\nfor the potential positives in the negative pairs."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        182.95050048828125,
+        543.0972900390625,
+        312.5560607910156
+      ],
+      "text": "Image-Text Matching Loss (ITM) activates the image-\ngrounded text encoder. It aims to learn image-text mul-\ntimodal representation that captures the ﬁne-grained align-\nment between vision and language. ITM is a binary clas-\nsiﬁcation task, where the model uses an ITM head (a lin-\near layer) to predict whether an image-text pair is positive\n(matched) or negative (unmatched) given their multimodal\nfeature. In order to ﬁnd more informative negatives, we\nadopt the hard negative mining strategy by Li et al. (2021a),\nwhere negatives pairs with higher contrastive similarity in a\nbatch are more likely to be selected to compute the loss."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        320.4355163574219,
+        543.0986938476562,
+        426.13006591796875
+      ],
+      "text": "Language Modeling Loss (LM) activates the image-\ngrounded text decoder, which aims to generate textual de-\nscriptions given an image. It optimizes a cross entropy loss\nwhich trains the model to maximize the likelihood of the\ntext in an autoregressive manner. We apply a label smooth-\ning of 0.1 when computing the loss. Compared to the MLM\nloss that has been widely-used for VLP, LM enables the\nmodel with the generalization capability to convert visual\ninformation into coherent captions."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        434.0252990722656,
+        541.6099243164062,
+        575.5700073242188
+      ],
+      "text": "In order to perform efﬁcient pre-training while leveraging\nmulti-task learning, the text encoder and text decoder share\nall parameters except for the SA layers. The reason is that\nthe differences between the encoding and decoding tasks are\nbest captured by the SA layers. In particular, the encoder\nemploys bi-directional self-attention to build representations\nfor the current input tokens, while the decoder employs\ncausal self-attention to predict next tokens. On the other\nhand, the embedding layers, CA layers and FFN function\nsimilarly between encoding and decoding tasks, therefore\nsharing these layers can improve training efﬁciency while\nbeneﬁting from multi-task learning,"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        588.4075317382812,
+        357.5319519042969,
+        598.3701171875
+      ],
+      "text": "3.3. CapFilt"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        604.834228515625,
+        543.0933837890625,
+        710.5140380859375
+      ],
+      "text": "Due to the prohibitive annotation cost, there exist a lim-\nited number of high-quality human-annotated image-text\npairs {(Ih, Th)} (e.g., COCO (Lin et al., 2014)). Recent\nwork (Li et al., 2021a; Wang et al., 2021) utilizes a much\nlarger number of image and alt-text pairs {(Iw, Tw)} that\nare automatically collected from the web. However, the\nalt-texts often do not accurately describe the visual content\nof the images, making them a noisy signal that is suboptimal\nfor learning vision-language alignment."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        79.40091705322266,
+        140.2093505859375,
+        153.995361328125,
+        149.81378173828125
+      ],
+      "text": "Multimodal Mixture of"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        88.14346313476562,
+        149.783447265625,
+        143.48858642578125,
+        159.38787841796875
+      ],
+      "text": "Encoder-Decoder"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        72.03038024902344,
+        91.68036651611328,
+        152.5589599609375,
+        101.88374328613281
+      ],
+      "text": "𝐷=\n𝐼!, 𝑇!\n+\n𝐼\", 𝑇\""
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        81.70741271972656,
+        115.26274871826172,
+        109.73906707763672,
+        124.8671875
+      ],
+      "text": "Pre-train"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        222.4909210205078,
+        83.30416107177734,
+        279.64971923828125,
+        102.48269653320312
+      ],
+      "text": "Filter \n(Image-grounded"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        228.44383239746094,
+        102.45235443115234,
+        271.8974304199219,
+        112.05679321289062
+      ],
+      "text": "Text Encoder)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        222.66790771484375,
+        182.01174926757812,
+        279.8267517089844,
+        201.19027709960938
+      ],
+      "text": "Captioner \n(Image-grounded"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        228.23594665527344,
+        201.15994262695312,
+        272.4604187011719,
+        210.76437377929688
+      ],
+      "text": "Text Decoder)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        188.18910217285156,
+        122.81414031982422,
+        244.8717803955078,
+        132.4185791015625
+      ],
+      "text": "ITC&ITM finetune"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        203.92678833007812,
+        162.45901489257812,
+        242.85581970214844,
+        172.06344604492188
+      ],
+      "text": "LM finetune"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        241.39825439453125,
+        141.1690216064453,
+        258.22314453125,
+        151.50721740722656
+      ],
+      "text": "𝐼\", 𝑇\""
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        342.152099609375,
+        189.57887268066406,
+        359.0950012207031,
+        199.91709899902344
+      ],
+      "text": "𝐼!, 𝑇#"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        300.635986328125,
+        160.1823272705078,
+        314.3667297363281,
+        170.5205535888672
+      ],
+      "text": "{𝐼!}"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        290.8135070800781,
+        200.08114624023438,
+        325.3792419433594,
+        209.68557739257812
+      ],
+      "text": "Captioning"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        297.74774169921875,
+        120.2677993774414,
+        316.56719970703125,
+        130.6060333251953
+      ],
+      "text": "𝐼!, 𝑇!"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        311.57574462890625,
+        81.68599700927734,
+        441.83404541015625,
+        102.15342712402344
+      ],
+      "text": "𝐼!, 𝑇!\n+\n𝐼!, 𝑇#\nFiltering"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.56549072265625,
+        65.63927459716797,
+        362.4023132324219,
+        75.24371337890625
+      ],
+      "text": "Dataset Bootstrapping\nModel Pretraining"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        369.97344970703125,
+        131.5949249267578,
+        450.6200256347656,
+        151.50721740722656
+      ],
+      "text": "𝐷=\n𝐼!, 𝑇!\n+\n𝐼!, 𝑇#\n+\n𝐼\", 𝑇\""
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.06597137451172,
+        196.17062377929688,
+        145.54502868652344,
+        205.77505493164062
+      ],
+      "text": "Downstream Tasks"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        484.61676025390625,
+        76.42699432373047,
+        513.9625854492188,
+        86.03143310546875
+      ],
+      "text": "To model"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        484.61700439453125,
+        90.99040985107422,
+        507.88946533203125,
+        100.5948486328125
+      ],
+      "text": "To data"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        470.26336669921875,
+        111.3521957397461,
+        538.7008666992188,
+        131.28025817871094
+      ],
+      "text": "𝐼!: web images\n𝐼\": human-annotated"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        480.7982177734375,
+        130.50039672851562,
+        503.33050537109375,
+        140.10482788085938
+      ],
+      "text": "images"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        470.26336669921875,
+        148.974365234375,
+        538.939697265625,
+        187.91575622558594
+      ],
+      "text": "𝑇!: web texts\n𝑇!: filtered web texts\n𝑇#: synthetic texts\n𝑇#: filtered synthetic"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        470.26336669921875,
+        187.13589477539062,
+        540.0718383789062,
+        206.52455139160156
+      ],
+      "text": "texts\n𝑇\": human-annotated"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        482.5540771484375,
+        205.74472045898438,
+        498.1634521484375,
+        215.34915161132812
+      ],
+      "text": "texts"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        54.9379997253418,
+        232.5043182373047,
+        541.4442138671875,
+        263.45538330078125
+      ],
+      "text": "Figure 3. Learning framework of BLIP. We introduce a captioner to produce synthetic captions for web images, and a ﬁlter to remove\nnoisy image-text pairs. The captioner and ﬁlter are initialized from the same pre-trained model and ﬁnetuned individually on a small-scale\nhuman-annotated dataset. The bootstrapped dataset is used to pre-train a new model."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        54.97200012207031,
+        276.52130126953125,
+        291.1849365234375,
+        370.2450866699219
+      ],
+      "text": "We propose Captioning and Filtering (CapFilt), a new\nmethod to improve the quality of the text corpus. Figure 3\ngives an illustration of CapFilt. It introduces two modules:\na captioner to generate captions given web images, and a\nﬁlter to remove noisy image-text pairs. Both the captioner\nand the ﬁlter are initialized from the same pre-trained MED\nmodel, and ﬁnetuned individually on the COCO dataset.\nThe ﬁnetuning is a lightweight procedure."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        377.9620666503906,
+        291.1838684082031,
+        519.68505859375
+      ],
+      "text": "Speciﬁcally, the captioner is an image-grounded text de-\ncoder. It is ﬁnetuned with the LM objective to decode texts\ngiven images. Given the web images Iw, the captioner gen-\nerates synthetic captions Ts with one caption per image.\nThe ﬁlter is an image-grounded text encoder. It is ﬁnetuned\nwith the ITC and ITM objectives to learn whether a text\nmatches an image. The ﬁlter removes noisy texts in both\nthe original web texts Tw and the synthetic texts Ts, where\na text is considered to be noisy if the ITM head predicts it\nas unmatched to the image. Finally, we combine the ﬁltered\nimage-text pairs with the human-annotated pairs to form a\nnew dataset, which we use to pre-train a new model."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        532.1841430664062,
+        216.18963623046875,
+        544.1393432617188
+      ],
+      "text": "4. Experiments and Discussions"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        553.1888427734375,
+        291.155517578125,
+        575.0878295898438
+      ],
+      "text": "In this section, we ﬁrst introduce pre-training details. Then\nwe provide a detailed experimental analysis on our method."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        585.6915283203125,
+        157.08840942382812,
+        595.6541137695312
+      ],
+      "text": "4.1. Pre-training Details"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.439998626708984,
+        602.1182861328125,
+        291.0934143066406,
+        707.821044921875
+      ],
+      "text": "Our models are implemented in PyTorch (Paszke et al.,\n2019) and pre-trained on two 16-GPU nodes.\nThe im-\nage transformer is initialized from ViT pre-trained on Ima-\ngeNet (Touvron et al., 2020; Dosovitskiy et al., 2021), and\nthe text transformer is initialized from BERTbase (Devlin\net al., 2019). We explore two variants of ViTs: ViT-B/16\nand ViT-L/16. Unless otherwise speciﬁed, all results re-\nported in this paper as “BLIP” uses ViT-B. We pre-train the\nmodel for 20 epochs using a batch size of 2880 (ViT-B) /"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.0820007324219,
+        276.67242431640625,
+        543.0980224609375,
+        453.93206787109375
+      ],
+      "text": "2400 (ViT-L). We use AdamW (Loshchilov & Hutter, 2017)\noptimizer with a weight decay of 0.05. The learning rate\nis warmed-up to 3e-4 (ViT-B) / 2e-4 (ViT-L) and decayed\nlinearly with a rate of 0.85. We take random image crops of\nresolution 224 × 224 during pre-training, and increase the\nimage resolution to 384 × 384 during ﬁnetuning. We use\nthe same pre-training dataset as Li et al. (2021a) with 14M\nimages in total, including two human-annotated datasets\n(COCO and Visual Genome (Krishna et al., 2017)), and\nthree web datasets (Conceptual Captions (Changpinyo et al.,\n2021), Conceptual 12M (Changpinyo et al., 2021), SBU cap-\ntions (Ordonez et al., 2011)). We also experimented with an\nadditional web dataset, LAION (Schuhmann et al., 2021),\nwhich contains 115M images with more noisy texts1. More\ndetails about the datasets can be found in the appendix."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        466.7695007324219,
+        396.2565612792969,
+        476.7320861816406
+      ],
+      "text": "4.2. Effect of CapFilt"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        483.1962890625,
+        543.0936279296875,
+        529.0990600585938
+      ],
+      "text": "In Table 1, we compare models pre-trained on different\ndatasets to demonstrate the efﬁcacy of CapFilt on down-\nstream tasks, including image-text retrieval and image cap-\ntioning with ﬁnetuned and zero-shot settings."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        306.97198486328125,
+        537.1453857421875,
+        543.0911254882812,
+        594.85302734375
+      ],
+      "text": "When only the captioner or the ﬁlter is applied to the dataset\nwith 14M images, performance improvement can be ob-\nserved. When applied together, their effects compliment\neach other, leading to substantial improvements compared\nto using the original noisy web texts."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        602.8499755859375,
+        541.7929077148438,
+        660.6060180664062
+      ],
+      "text": "CapFilt can further boost performance with a larger dataset\nand a larger vision backbone, which veriﬁes its scalability\nin both the data size and the model size. Furthermore, by\nusing a large captioner and ﬁlter with ViT-L, performance\nof the base model can also be improved."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        668.8656616210938,
+        541.4437866210938,
+        699.2993774414062
+      ],
+      "text": "1We only download images whose shorter edge is larger than\n256 pixels from the original LAION400M. Due to the large size of\nLAION, we only use 1/5 of it each epoch during pre-training."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        59.4322509765625,
+        70.82596588134766,
+        90.8627700805664,
+        89.78982543945312
+      ],
+      "text": "Pre-train\ndataset"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        70.82596588134766,
+        192.71360778808594,
+        89.78982543945312
+      ],
+      "text": "Bootstrap\nVision\nbackbone"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        70.82596588134766,
+        535.224853515625,
+        89.78982543945312
+      ],
+      "text": "Retrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nC\nF\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        59.4322509765625,
+        100.7894058227539,
+        102.28880310058594,
+        129.73336791992188
+      ],
+      "text": "COCO+VG\n+CC+SBU\n(14M imgs)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        93.62897491455078,
+        141.20469665527344,
+        102.6116943359375
+      ],
+      "text": "\u0017\n\u0017"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        158.29183959960938,
+        110.7695083618164,
+        191.86029052734375,
+        119.75222778320312
+      ],
+      "text": "ViT-B/16"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        95.7992935180664,
+        521.7300415039062,
+        134.8602294921875
+      ],
+      "text": "78.4\n60.7\n93.9\n82.1\n38.0\n127.8\n102.2\n13.9\n\u0017\n\u0013B\n79.1\n61.5\n94.1\n82.8\n38.1\n128.2\n102.7\n14.0\n\u0013B\n\u0017\n79.7\n62.0\n94.4\n83.6\n38.4\n128.9\n103.4\n14.2\n\u0013B\n\u0013B\n80.6\n63.1\n94.8\n84.9\n38.6\n129.7\n105.1\n14.4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        59.4322509765625,
+        145.72300720214844,
+        106.59153747558594,
+        184.64810180664062
+      ],
+      "text": "COCO+VG\n+CC+SBU\n+LAION\n(129M imgs)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        138.56263732910156,
+        141.20469665527344,
+        147.54534912109375
+      ],
+      "text": "\u0017\n\u0017"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        158.29183959960938,
+        150.71409606933594,
+        191.86029052734375,
+        159.69680786132812
+      ],
+      "text": "ViT-B/16"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        140.7329559326172,
+        521.7300415039062,
+        169.81378173828125
+      ],
+      "text": "79.6\n62.0\n94.3\n83.6\n38.8\n130.1\n105.4\n14.2\n\u0013B\n\u0013B\n81.9\n64.3\n96.0\n85.0\n39.4\n131.4\n106.3\n14.3\n\u0013L\n\u0013L\n81.2\n64.1\n96.0\n85.5\n39.7\n133.3\n109.6\n14.7"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        114.97515106201172,
+        173.31678771972656,
+        521.7300415039062,
+        194.58673095703125
+      ],
+      "text": "\u0017\n\u0017\nViT-L/16\n80.6\n64.1\n95.1\n85.5\n40.3\n135.5\n112.5\n14.7\n\u0013L\n\u0013L\n82.4\n65.1\n96.7\n86.7\n40.4\n136.7\n113.2\n14.8"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.893001556396484,
+        204.83895874023438,
+        542.6866455078125,
+        235.723388671875
+      ],
+      "text": "Table 1. Evaluation of the effect of the captioner (C) and ﬁlter (F) for dataset bootstrapping. Downstream tasks include image-text retrieval\nand image captioning with ﬁnetuning (FT) and zero-shot (ZS) settings. TR / IR@1: recall@1 for text retrieval / image retrieval. \u0013B/L:\ncaptioner or ﬁlter uses ViT-B / ViT-L as vision backbone."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        148.4927978515625,
+        247.53115844726562,
+        204.99871826171875,
+        266.62310791015625
+      ],
+      "text": "𝑇!: “from bridge \nnear my house”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        148.4927978515625,
+        276.5045166015625,
+        213.31884765625,
+        305.43243408203125
+      ],
+      "text": "𝑇\": “a flock of birds \nflying over a lake at \nsunset”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        271.4507751464844,
+        247.53115844726562,
+        349.4894104003906,
+        276.4590759277344
+      ],
+      "text": "𝑇!: “in front of a house \ndoor in Reichenfels, \nAustria”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        271.4507751464844,
+        285.8059387207031,
+        355.3487854003906,
+        305.43243408203125
+      ],
+      "text": "𝑇\": “a potted plant sitting \non top of a pile of rocks”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        443.55517578125,
+        247.95880126953125,
+        538.3678588867188,
+        276.88671875
+      ],
+      "text": "𝑇!: “the current castle was \nbuilt in 1180, replacing a 9th \ncentury wooden castle”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        443.55517578125,
+        286.23358154296875,
+        541.8463745117188,
+        305.860107421875
+      ],
+      "text": "𝑇\": “a large building with a lot \nof windows on it”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.9379997253418,
+        313.8984680175781,
+        532.9911499023438,
+        324.0683898925781
+      ],
+      "text": "Figure 4. Examples of the web text Tw and the synthetic text Ts. Green texts are accepted by the ﬁlter, whereas red texts are rejected."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.01921081542969,
+        338.9806213378906,
+        147.5086669921875,
+        359.8034973144531
+      ],
+      "text": "Generation\nmethod\nNoise\nratio"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        159.244384765625,
+        338.9806213378906,
+        520.0037231445312,
+        359.80352783203125
+      ],
+      "text": "Retrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.01921081542969,
+        366.4482727050781,
+        505.765380859375,
+        398.6275939941406
+      ],
+      "text": "None\nN.A.\n78.4\n60.7\n93.9\n82.1\n38.0\n127.8\n102.2\n13.9\nBeam\n19%\n79.6\n61.9\n94.1\n83.1\n38.4\n128.9\n103.5\n14.2\nNucleus\n25%\n80.6\n63.1\n94.8\n84.9\n38.6\n129.7\n105.1\n14.4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.893001556396484,
+        407.9259948730469,
+        538.7469482421875,
+        416.89239501953125
+      ],
+      "text": "Table 2. Comparison between beam search and nucleus sampling for synthetic caption generation. Models are pre-trained on 14M images."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        70.82228088378906,
+        432.58349609375,
+        521.3241577148438,
+        452.32513427734375
+      ],
+      "text": "Layers shared\n#parameters\nRetrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        70.82228088378906,
+        458.6248474121094,
+        506.91973876953125,
+        499.9008483886719
+      ],
+      "text": "All\n224M\n77.3\n59.5\n93.1\n81.0\n37.2\n125.9\n100.9\n13.1\nAll except CA\n252M\n77.5\n59.9\n93.1\n81.3\n37.4\n126.1\n101.2\n13.1\nAll except SA\n252M\n78.4\n60.7\n93.9\n82.1\n38.0\n127.8\n102.2\n13.9\nNone\n361M\n78.3\n60.5\n93.6\n81.9\n37.8\n127.4\n101.8\n13.9"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        81.62000274658203,
+        509.0169982910156,
+        515.265869140625,
+        517.9833984375
+      ],
+      "text": "Table 3. Comparison between different parameter sharing strategies for the text encoder and decoder during pre-training."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.082000732421875,
+        531.0492553710938,
+        290.6867980957031,
+        600.863037109375
+      ],
+      "text": "In Figure 4, we show some example captions and their\ncorresponding images, which qualitatively demonstrate the\neffect of the captioner to generate new textual descriptions,\nand the ﬁlter to remove noisy captions from both the original\nweb texts and the synthetic texts. More examples can be\nfound in the appendix."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        613.7015380859375,
+        237.9348602294922,
+        623.6641235351562
+      ],
+      "text": "4.3. Diversity is Key for Synthetic Captions"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.13100051879883,
+        630.1272583007812,
+        290.68695068359375,
+        711.8960571289062
+      ],
+      "text": "In CapFilt, we employ nucleus sampling (Holtzman et al.,\n2020) to generate synthetic captions. Nucleus sampling is a\nstochastic decoding method, where each token is sampled\nfrom a set of tokens whose cumulative probability mass\nexceeds a threshold p (p = 0.9 in our experiments). In\nTable 2, we compare it with beam search, a deterministic\ndecoding method which aims to generate captions with the"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        531.0492553710938,
+        541.7927856445312,
+        624.7730102539062
+      ],
+      "text": "highest probability. Nucleus sampling leads to evidently\nbetter performance, despite being more noisy as suggested\nby a higher noise ratio from the ﬁlter. We hypothesis that the\nreason is that nucleus sampling generates more diverse and\nsurprising captions, which contain more new information\nthat the model could beneﬁt from. On the other hand, beam\nsearch tends to generate safe captions that are common in\nthe dataset, hence offering less extra knowledge."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        637.6115112304688,
+        475.59881591796875,
+        647.5740966796875
+      ],
+      "text": "4.4. Parameter Sharing and Decoupling"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        306.6929931640625,
+        654.098388671875,
+        542.6870727539062,
+        711.8718872070312
+      ],
+      "text": "During pre-training, the text encoder and decoder share all\nparameters except for the self-attention layers. In Table 3,\nwe evaluate models pre-trained with different parameter\nsharing strategies, where pre-training is performed on the\n14M images with web texts. As the result shows, sharing all"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        70.95675659179688,
+        71.13291931152344,
+        165.47581481933594,
+        91.42578125
+      ],
+      "text": "Captioner &\nFilter\nNoise\nratio"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        175.06805419921875,
+        71.13291931152344,
+        521.1265258789062,
+        91.42578125
+      ],
+      "text": "Retrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        70.95675659179688,
+        97.90165710449219,
+        506.3183288574219,
+        118.1954345703125
+      ],
+      "text": "Share parameters\n8%\n79.8\n62.2\n94.3\n83.7\n38.4\n129.0\n103.5\n14.2\nDecoupled\n25%\n80.6\n63.1\n94.8\n84.9\n38.6\n129.7\n105.1\n14.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        99.49400329589844,
+        127.40396118164062,
+        494.6112976074219,
+        136.370361328125
+      ],
+      "text": "Table 4. Effect of sharing parameters between the captioner and ﬁlter. Models are pre-trained on 14M images."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        59.377140045166016,
+        151.81423950195312,
+        501.9105529785156,
+        170.5162811279297
+      ],
+      "text": "Method\nPre-train\nCOCO (5K test set)\nFlickr30K (1K test set)\n# Images\nTR\nIR\nTR\nIR"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        59.37712860107422,
+        176.44284057617188,
+        535.3090209960938,
+        244.35960388183594
+      ],
+      "text": "R@1\nR@5\nR@10\nR@1\nR@5\nR@10\nR@1\nR@5\nR@10\nR@1\nR@5\nR@10\nUNITER (Chen et al., 2020)\n4M\n65.7\n88.6\n93.8\n52.9\n79.9\n88.0\n87.3\n98.0\n99.2\n75.6\n94.1\n96.8\nVILLA (Gan et al., 2020)\n4M\n-\n-\n-\n-\n-\n-\n87.9\n97.5\n98.8\n76.3\n94.2\n96.8\nOSCAR (Li et al., 2020)\n4M\n70.0\n91.1\n95.5\n54.0\n80.8\n88.5\n-\n-\n-\n-\n-\n-\nUNIMO (Li et al., 2021b)\n5.7M\n-\n-\n-\n-\n-\n-\n89.4\n98.9\n99.8\n78.0\n94.2\n97.1\nALIGN (Jia et al., 2021)\n1.8B\n77.0\n93.5\n96.9\n59.9\n83.3\n89.8\n95.3\n99.8\n100.0\n84.9\n97.4\n98.6\nALBEF (Li et al., 2021a)\n14M\n77.6\n94.3\n97.2\n60.7\n84.3\n90.5\n95.9\n99.8\n100.0\n85.6\n97.5\n98.9"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        59.37712860107422,
+        250.2042999267578,
+        531.6025390625,
+        279.1011657714844
+      ],
+      "text": "BLIP\n14M\n80.6\n95.2\n97.6\n63.1\n85.3\n91.1\n96.6\n99.8\n100.0\n87.2\n97.5\n98.8\nBLIP\n129M\n81.9\n95.4\n97.8\n64.3\n85.7\n91.5\n97.3\n99.9\n100.0\n87.3\n97.6\n98.9\nBLIPCapFilt-L\n129M\n81.2\n95.7\n97.9\n64.1\n85.8\n91.6\n97.2\n99.9\n100.0\n87.5\n97.7\n98.9"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        59.377140045166016,
+        284.75616455078125,
+        531.5977783203125,
+        293.8854675292969
+      ],
+      "text": "BLIPViT-L\n129M\n82.4\n95.4\n97.9\n65.1\n86.3\n91.8\n97.4\n99.8\n99.9\n87.6\n97.7\n99.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.893001556396484,
+        303.9579772949219,
+        541.4411010742188,
+        323.8833923339844
+      ],
+      "text": "Table 5. Comparison with state-of-the-art image-text retrieval methods, ﬁnetuned on COCO and Flickr30K datasets. BLIPCapFilt-L pre-trains\na model with ViT-B backbone using a dataset bootstrapped by captioner and ﬁlter with ViT-L."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        58.24517822265625,
+        339.0421447753906,
+        254.6746826171875,
+        356.807373046875
+      ],
+      "text": "Method\nPre-train\nFlickr30K (1K test set)\n# Images\nTR\nIR"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        58.24517059326172,
+        362.4361572265625,
+        284.5335388183594,
+        398.9009704589844
+      ],
+      "text": "R@1 R@5 R@10 R@1 R@5 R@10\nCLIP\n400M\n88.0\n98.7\n99.4\n68.7\n90.6\n95.2\nALIGN\n1.8B\n88.6\n98.7\n99.7\n75.7\n93.8\n96.8\nALBEF\n14M\n94.1\n99.5\n99.7\n82.8\n96.3\n98.1"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        58.245147705078125,
+        404.4538269042969,
+        281.0096130371094,
+        432.5809631347656
+      ],
+      "text": "BLIP\n14M\n94.8\n99.7\n100.0\n84.9\n96.7\n98.3\nBLIP\n129M\n96.0\n99.9\n100.0\n85.0\n96.8\n98.6\nBLIPCapFilt-L 129M\n96.0\n99.9\n100.0\n85.5\n96.8\n98.7"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        58.24517822265625,
+        437.27496337890625,
+        281.0082702636719,
+        445.94696044921875
+      ],
+      "text": "BLIPViT-L\n129M\n96.7\n100.0\n100.0\n86.7\n97.3\n98.7"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        62.847999572753906,
+        455.86798095703125,
+        279.7940368652344,
+        464.8343811035156
+      ],
+      "text": "Table 6. Zero-shot image-text retrieval results on Flickr30K."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        478.1750183105469,
+        290.68524169921875,
+        535.9510498046875
+      ],
+      "text": "layers except for SA leads to better performance compared\nto not sharing, while also reducing the model size thus\nimproveing training efﬁciency. If the SA layers are shared,\nthe model’s performance would degrade due to the conﬂict\nbetween the encoding task and the decoding task."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        543.8565063476562,
+        289.7901611328125,
+        637.5690307617188
+      ],
+      "text": "During CapFilt, the captioner and the ﬁlter are end-to-end\nﬁnetuned individually on COCO. In Table 4, we study the\neffect if the captioner and ﬁlter share parameters in the same\nway as pre-training. The performance on the downstream\ntasks decreases, which we mainly attribute to conﬁrmation\nbias. Due to parameter sharing, noisy captions produced by\nthe captioner are less likely to be ﬁltered out by the ﬁlter, as\nindicated by the lower noise ratio (8% compared to 25%)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        647.8271484375,
+        242.70623779296875,
+        659.7823486328125
+      ],
+      "text": "5. Comparison with State-of-the-arts"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        666.597412109375,
+        289.4411926269531,
+        688.4718627929688
+      ],
+      "text": "In this section, we compare BLIP to existing VLP methods\non a wide range of vision-language downstream tasks2. Next"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        696.7556762695312,
+        289.44219970703125,
+        717.2273559570312
+      ],
+      "text": "2we omit SNLI-VE from the benchmark because its test data\nhas been reported to be noisy (Do et al., 2020)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        337.9974060058594,
+        541.4415283203125,
+        359.8390808105469
+      ],
+      "text": "we brieﬂy introduce each task and ﬁnetuning strategy. More\ndetails can be found in the appendix."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        370.4355163574219,
+        414.7272033691406,
+        380.3981018066406
+      ],
+      "text": "5.1. Image-Text Retrieval"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        306.97198486328125,
+        386.975341796875,
+        543.1843872070312,
+        480.5860595703125
+      ],
+      "text": "We evaluate BLIP for both image-to-text retrieval (TR) and\ntext-to-image retrieval (IR) on COCO and Flickr30K (Plum-\nmer et al., 2015) datasets. We ﬁnetune the pre-trained model\nusing ITC and ITM losses. To enable faster inference speed,\nwe follow Li et al. (2021a) and ﬁrst select k candidates\nbased on the image-text feature similarity, and then rerank\nthe selected candidates based on their pairwise ITM scores.\nWe set k = 256 for COCO and k = 128 for Flickr30K."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        488.6324157714844,
+        543.1849365234375,
+        582.2050170898438
+      ],
+      "text": "As shown in Table 5, BLIP achieves substantial performance\nimprovement compared with existing methods. Using the\nsame 14M pre-training images, BLIP outperforms the pre-\nvious best model ALBEF by +2.7% in average recall@1\non COCO. We also perform zero-shot retrieval by directly\ntransferring the model ﬁnetuned on COCO to Flickr30K.\nThe result is shown in Table 6, where BLIP also outperforms\nexisting methods by a large margin."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        592.801513671875,
+        401.5367736816406,
+        602.7640991210938
+      ],
+      "text": "5.2. Image Captioning"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        306.97198486328125,
+        609.228271484375,
+        543.215576171875,
+        714.8986206054688
+      ],
+      "text": "We consider two datasets for image captioning:\nNo-\nCaps (Agrawal et al., 2019) and COCO, both evaluated\nusing the model ﬁnetuned on COCO with the LM loss. Sim-\nilar as Wang et al. (2021), we add a prompt “a picture of”\nat the beginning of each caption, which leads to slightly\nbetter results. As shown in Table 7, BLIP with 14M pre-\ntraining images substantially outperforms methods using\na similar amount of pre-training data. BLIP with 129M\nimages achieves competitive performance as LEMON with"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.201847076416016,
+        76.97830200195312,
+        236.18382263183594,
+        97.92741394042969
+      ],
+      "text": "Method\nPre-train\n#Images"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        250.32008361816406,
+        71.26443481445312,
+        534.3193359375,
+        103.64024353027344
+      ],
+      "text": "NoCaps validation\nCOCO Caption\nin-domain\nnear-domain\nout-domain\noverall\nKarpathy test\nC\nS\nC\nS\nC\nS\nC\nS\nB@4\nC"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.20184326171875,
+        110.32650756835938,
+        530.2388305664062,
+        154.7134246826172
+      ],
+      "text": "Enc-Dec (Changpinyo et al., 2021)\n15M\n92.6\n12.5\n88.3\n12.1\n94.5\n11.9\n90.2\n12.1\n-\n110.9\nVinVL† (Zhang et al., 2021)\n5.7M\n103.1\n14.2\n96.1\n13.8\n88.3\n12.1\n95.5\n13.5\n38.2\n129.3\nLEMONbase† (Hu et al., 2021)\n12M\n104.5\n14.6\n100.7\n14.0\n96.7\n12.4\n100.4\n13.8\n-\n-\nLEMONbase† (Hu et al., 2021)\n200M\n107.7\n14.7\n106.2\n14.3\n107.9\n13.1\n106.8\n14.1\n40.3\n133.3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.20184326171875,
+        160.81430053710938,
+        530.238525390625,
+        193.9287872314453
+      ],
+      "text": "BLIP\n14M\n111.3\n15.1\n104.5\n14.4\n102.4\n13.7\n105.1\n14.4\n38.6\n129.7\nBLIP\n129M\n109.1\n14.8\n105.8\n14.4\n105.7\n13.7\n106.3\n14.3\n39.4\n131.4\nBLIPCapFilt-L\n129M\n111.8\n14.9\n108.6\n14.8\n111.5\n14.2\n109.6\n14.7\n39.7\n133.3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        60.20184326171875,
+        202.25729370117188,
+        530.2345581054688,
+        235.37086486816406
+      ],
+      "text": "LEMONlarge† (Hu et al., 2021)\n200M\n116.9\n15.8\n113.3\n15.1\n111.3\n14.0\n113.4\n15.0\n40.6\n135.7\nSimVLMhuge (Wang et al., 2021)\n1.8B\n113.7\n-\n110.9\n-\n115.2\n-\n112.2\n-\n40.6\n143.3\nBLIPViT-L\n129M\n114.9\n15.2\n112.1\n14.9\n115.3\n14.4\n113.2\n14.8\n40.4\n136.7"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.893001556396484,
+        244.24969482421875,
+        542.9303588867188,
+        287.1976013183594
+      ],
+      "text": "Table 7. Comparison with state-of-the-art image captioning methods on NoCaps and COCO Caption. All methods optimize the cross-\nentropy loss during ﬁnetuning. C: CIDEr, S: SPICE, B@4: BLEU@4. BLIPCapFilt-L is pre-trained on a dataset bootstrapped by captioner\nand ﬁlter with ViT-L. VinVL† and LEMON† require an object detector pre-trained on 2.5M images with human-annotated bounding\nboxes and high resolution (800×1333) input images. SimVLMhuge uses 13× more training data and a larger vision backbone than ViT-L."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        101.9422378540039,
+        324.9232482910156,
+        128.93148803710938,
+        344.1943359375
+      ],
+      "text": "Image \nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        162.62103271484375,
+        324.9232482910156,
+        194.37100219726562,
+        334.8056640625
+      ],
+      "text": "Question"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        164.10037231445312,
+        334.3119201660156,
+        191.08963012695312,
+        344.1943359375
+      ],
+      "text": "Encoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        104.82005310058594,
+        355.2476501464844,
+        200.2906494140625,
+        365.13006591796875
+      ],
+      "text": "Image\n“[Encode] + Q ”"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        225.6588134765625,
+        324.8153381347656,
+        253.7003936767578,
+        344.1943359375
+      ],
+      "text": "Answer \nDecoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        221.22921752929688,
+        355.2476501464844,
+        261.60626220703125,
+        365.13006591796875
+      ],
+      "text": "“[Decode]”"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        58.73772430419922,
+        300.4883728027344,
+        250.91098022460938,
+        312.143310546875
+      ],
+      "text": "answer\n(a) VQA"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        132.77394104003906,
+        428.4927978515625,
+        163.74691772460938,
+        447.8718566894531
+      ],
+      "text": "Cross \nAttention"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        81.46942901611328,
+        457.84600830078125,
+        111.64274597167969,
+        467.7284240722656
+      ],
+      "text": "Image #1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        152.9892120361328,
+        400.6505126953125,
+        193.88668823242188,
+        410.5329284667969
+      ],
+      "text": "Merge Layer"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        182.19969177246094,
+        428.3848876953125,
+        213.17266845703125,
+        447.7639465332031
+      ],
+      "text": "Cross \nAttention"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        83.32463836669922,
+        427.9532470703125,
+        110.31388854980469,
+        447.3322448730469
+      ],
+      "text": "Image \nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        235.804443359375,
+        428.70867919921875,
+        262.793701171875,
+        448.0876770019531
+      ],
+      "text": "Image \nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        159.39834594726562,
+        370.75775146484375,
+        191.616943359375,
+        380.6401672363281
+      ],
+      "text": "true/false"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.61759948730469,
+        395.68634033203125,
+        118.62367248535156,
+        405.5687561035156
+      ],
+      "text": "N×"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        141.79779052734375,
+        476.83917236328125,
+        200.6219940185547,
+        486.7215881347656
+      ],
+      "text": "“[Encode] + Text ”"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        170.39476013183594,
+        457.630126953125,
+        264.39434814453125,
+        468.3758850097656
+      ],
+      "text": "Image #2\n…"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        170.318359375,
+        384.46307373046875,
+        175.90301513671875,
+        394.3454895019531
+      ],
+      "text": "…"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        58.68727493286133,
+        370.427734375,
+        94.84003448486328,
+        380.642822265625
+      ],
+      "text": "(b) NLVR!"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        87.5458984375,
+        518.0863037109375,
+        114.53514862060547,
+        537.357421875
+      ],
+      "text": "Image \nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        138.58462524414062,
+        518.0863037109375,
+        165.57388305664062,
+        537.357421875
+      ],
+      "text": "Caption\nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        90.42361450195312,
+        549.8135986328125,
+        176.4579620361328,
+        559.6959838867188
+      ],
+      "text": "Image\n“[Encode] + C ”"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        220.8357696533203,
+        518.7338256835938,
+        247.8250274658203,
+        538.11279296875
+      ],
+      "text": "Dialog \nEncoder"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        177.9795379638672,
+        549.8135986328125,
+        287.4743347167969,
+        559.6959838867188
+      ],
+      "text": "“[Encode] + QA + Dialog History”"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        57.46284484863281,
+        490.3060302734375,
+        250.5919189453125,
+        506.6013488769531
+      ],
+      "text": "true/false\n(c) VisDial"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.9379997253418,
+        568.1962890625,
+        290.9276428222656,
+        588.1883544921875
+      ],
+      "text": "Figure 5. Model architecture for the downstream tasks. Q: ques-\ntion; C: caption; QA: question-answer pair."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.11199951171875,
+        598.774169921875,
+        291.0893249511719,
+        656.4970092773438
+      ],
+      "text": "200M images. Note that LEMON requires a computational-\nheavy pre-trained object detector and higher resolution\n(800×1333) input images, leading to substantially slower\ninference time than the detector-free BLIP which uses lower\nresolution (384×384) input images."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.44000244140625,
+        667.093505859375,
+        220.01214599609375,
+        677.0560913085938
+      ],
+      "text": "5.3. Visual Question Answering (VQA)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.082000732421875,
+        683.67041015625,
+        291.0914001464844,
+        717.44384765625
+      ],
+      "text": "VQA (Antol et al., 2015) requires the model to predict an an-\nswer given an image and a question. Instead of formulating\nVQA as a multi-answer classiﬁcation task (Chen et al., 2020;"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        311.8990478515625,
+        305.5948791503906,
+        404.5946960449219,
+        325.2117614746094
+      ],
+      "text": "Method\nPre-train\n#Images"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        435.5537109375,
+        304.24273681640625,
+        523.3634033203125,
+        314.5116882324219
+      ],
+      "text": "VQA\nNLVR2"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        413.8680419921875,
+        316.2949523925781,
+        534.7623291015625,
+        325.2117614746094
+      ],
+      "text": "test-dev\ntest-std\ndev\ntest-P"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        311.8990478515625,
+        331.47198486328125,
+        534.6328125,
+        426.5376281738281
+      ],
+      "text": "LXMERT\n180K\n72.42\n72.54\n74.90\n74.50\nUNITER\n4M\n72.70\n72.91\n77.18\n77.85\nVL-T5/BART\n180K\n-\n71.3\n-\n73.6\nOSCAR\n4M\n73.16\n73.44\n78.07\n78.36\nSOHO\n219K\n73.25\n73.47\n76.37\n77.32\nVILLA\n4M\n73.59\n73.67\n78.39\n79.30\nUNIMO\n5.6M\n75.06\n75.27\n-\n-\nALBEF\n14M\n75.84\n76.04\n82.55\n83.14\nSimVLMbase†\n1.8B\n77.87\n78.14\n81.72\n81.77"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        311.8990478515625,
+        432.16912841796875,
+        534.6370849609375,
+        463.2593078613281
+      ],
+      "text": "BLIP\n14M\n77.54\n77.62\n82.67\n82.30\nBLIP\n129M\n78.24\n78.17\n82.48\n83.08\nBLIPCapFilt-L\n129M\n78.25\n78.32\n82.15\n82.24"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        306.89300537109375,
+        471.95733642578125,
+        543.0092163085938,
+        513.8683471679688
+      ],
+      "text": "Table 8. Comparison with state-of-the-art methods on VQA and\nNLVR2. ALBEF performs an extra pre-training step for NLVR2.\nSimVLM† uses 13× more training data and a larger vision back-\nbone (ResNet+ViT) than BLIP."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.0820007324219,
+        521.0803833007812,
+        543.1859130859375,
+        602.6980590820312
+      ],
+      "text": "Li et al., 2020), we follow Li et al. (2021a) and consider it as\nan answer generation task, which enables open-ended VQA.\nAs shown in Figure 5(a), during ﬁnetuning, we rearrange the\npre-trained model, where an image-question is ﬁrst encoded\ninto multimodal embeddings and then given to an answer\ndecoder. The VQA model is ﬁnetuned with the LM loss\nusing ground-truth answers as targets."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.1310119628906,
+        610.59326171875,
+        543.1527709960938,
+        668.4290771484375
+      ],
+      "text": "The results are shown in Table 8.\nUsing 14M images,\nBLIP outperforms ALBEF by +1.64% on the test set. Us-\ning 129M images, BLIP achieves better performance than\nSimVLM which uses 13× more pre-training data and a\nlarger vision backbone with an additional convolution stage."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        677.6287231445312,
+        519.5695190429688,
+        689.0111083984375
+      ],
+      "text": "5.4. Natural Language Visual Reasoning (NLVR2)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        692.0103759765625,
+        543.0980224609375,
+        717.44384765625
+      ],
+      "text": "NLVR2 (Suhr et al., 2019) asks the model to predict whether\na sentence describes a pair of images. In order to enable rea-"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        60.36570358276367,
+        70.45664978027344,
+        282.314697265625,
+        79.64177703857422
+      ],
+      "text": "Method\nMRR↑\nR@1↑\nR@5↑\nR@10↑\nMR↓"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        60.365699768066406,
+        85.57259368896484,
+        280.891845703125,
+        114.13750457763672
+      ],
+      "text": "VD-BERT\n67.44\n54.02\n83.96\n92.33\n3.53\nVD-ViLBERT†\n69.10\n55.88\n85.50\n93.29\n3.25\nBLIP\n69.41\n56.44\n85.90\n93.30\n3.20"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.893001556396484,
+        124.48300170898438,
+        289.44049072265625,
+        155.36737060546875
+      ],
+      "text": "Table 9. Comparison with state-of-the-art methods on VisDial v1.0\nvalidation set. VD-ViLBERT† (Murahari et al., 2020) pre-trains\nViLBERT (Lu et al., 2019) with additional VQA data."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        179.09124755859375,
+        291.185791015625,
+        392.2880859375
+      ],
+      "text": "soning over two images, we make a simple modiﬁcation to\nour pre-trained model which leads to a more computational-\nefﬁcient architecture than previous approaches (Li et al.,\n2021a; Wang et al., 2021). As shown in Figure 5(b), for\neach transformer block in the image-grounded text encoder,\nthere exist two cross-attention layers to process the two in-\nput images, and their outputs are merged and fed to the FFN.\nThe two CA layers are intialized from the same pre-trained\nweights. The merge layer performs simple average pooling\nin the ﬁrst 6 layers of the encoder, and performs concate-\nnation followed by a linear projection in layer 6-12. An\nMLP classiﬁer is applied on the output embedding of the\n[Encode] token. As shown in Table 8, BLIP outperforms\nall existing methods except for ALBEF which performs an\nextra step of customized pre-training. Interestingly, perfor-\nmance on NLVR2 does not beneﬁt much from additional\nweb images, possibly due to the domain gap between web\ndata and downstream data."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        402.884521484375,
+        170.10951232910156,
+        412.84710693359375
+      ],
+      "text": "5.5. Visual Dialog (VisDial)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        419.310302734375,
+        291.0979309082031,
+        584.7660522460938
+      ],
+      "text": "VisDial (Das et al., 2017) extends VQA in a natural con-\nversational setting, where the model needs to predict an\nanswer not only based on the image-question pair, but also\nconsidering the dialog history and the image’s caption. We\nfollow the discriminative setting where the model ranks a\npool of answer candidates (Gan et al., 2019; Wang et al.,\n2020; Murahari et al., 2020). As shown in Figure 5(c), we\nconcatenate image and caption embeddings, and pass them\nto the dialog encoder through cross-attention. The dialog\nencoder is trained with the ITM loss to discriminate whether\nthe answer is true or false for a question, given the entire dia-\nlog history and the image-caption embeddings. As shown in\nTable 9, our method achieves state-of-the-art performance\non VisDial v1.0 validation set."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        595.3624877929688,
+        263.2796936035156,
+        605.3250732421875
+      ],
+      "text": "5.6. Zero-shot Transfer to Video-Language Tasks"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.11199951171875,
+        611.9393920898438,
+        291.0988464355469,
+        717.468017578125
+      ],
+      "text": "Our image-language model has strong generalization ability\nto video-language tasks. In Table 10 and Table 11, we per-\nform zero-shot transfer to text-to-video retrieval and video\nquestion answering, where we directly evaluate the models\ntrained on COCO-retrieval and VQA, respectively. To pro-\ncess video input, we uniformly sample n frames per video\n(n = 8 for retrieval and n = 16 for QA), and concatenate\nthe frame features into a single sequence. Note that this\nsimple approach ignores all temporal information."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        315.5767517089844,
+        70.72513580322266,
+        535.5776977539062,
+        80.0916748046875
+      ],
+      "text": "Method\nR1↑\nR5↑\nR10↑\nMdR↓"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        315.5767517089844,
+        86.27828216552734,
+        348.8174133300781,
+        95.31844329833984
+      ],
+      "text": "zero-shot"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        315.5767517089844,
+        101.82543182373047,
+        531.934326171875,
+        165.10693359375
+      ],
+      "text": "ActBERT (Zhu & Yang, 2020)\n8.6\n23.4\n33.1\n36\nSupportSet (Patrick et al., 2021)\n8.7\n23.0\n31.1\n31\nMIL-NCE (Miech et al., 2020)\n9.9\n24.0\n32.4\n29.5\nVideoCLIP (Xu et al., 2021)\n10.4\n22.2\n30.0\n-\nFiT (Bain et al., 2021)\n18.7\n39.5\n51.6\n10\nBLIP\n43.3\n65.6\n74.7\n2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        315.5767517089844,
+        171.29452514648438,
+        351.73736572265625,
+        180.33468627929688
+      ],
+      "text": "ﬁnetuning"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        315.5767517089844,
+        186.841552734375,
+        526.2838745117188,
+        206.72979736328125
+      ],
+      "text": "ClipBERT (Lei et al., 2021)\n22.0\n46.8\n59.9\n6\nVideoCLIP (Xu et al., 2021)\n30.9\n55.4\n66.8\n-"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        306.89300537109375,
+        216.16429138183594,
+        542.9313354492188,
+        236.15740966796875
+      ],
+      "text": "Table 10. Comparisons with state-of-the-art methods for text-to-\nvideo retrieval on the 1k test split of the MSRVTT dataset."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        316.83734130859375,
+        250.46356201171875,
+        534.4036254882812,
+        259.8604736328125
+      ],
+      "text": "Method\nMSRVTT-QA\nMSVD-QA"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        316.83734130859375,
+        266.2912902832031,
+        351.3898010253906,
+        275.6882019042969
+      ],
+      "text": "zero-shot"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        316.83734130859375,
+        282.451904296875,
+        520.707763671875,
+        303.1250305175781
+      ],
+      "text": "VQA-T (Yang et al., 2021)\n2.9\n7.5\nBLIP\n19.2\n35.2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        316.83734130859375,
+        309.5567932128906,
+        354.4249572753906,
+        318.9537048339844
+      ],
+      "text": "ﬁnetuning"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        316.83734130859375,
+        325.7174072265625,
+        520.707763671875,
+        357.6667175292969
+      ],
+      "text": "HME (Fan et al., 2019)\n33.0\n33.7\nHCRN (Le et al., 2020)\n35.6\n36.1\nVQA-T (Yang et al., 2021)\n41.5\n46.3"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        306.89300537109375,
+        367.2191162109375,
+        543.0109252929688,
+        387.2078857421875
+      ],
+      "text": "Table 11. Comparisons with state-of-the-art methods for video\nquestion answering. We report top-1 test accuracy on two datasets."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.11199951171875,
+        398.7203063964844,
+        543.0971069335938,
+        504.3990783691406
+      ],
+      "text": "Despite the domain difference and lack of temporal mod-\neling, our models achieve state-of-the-art performance on\nboth video-language tasks. For text-to-video retrieval, zero-\nshot BLIP even outperforms models ﬁnetuned on the target\nvideo dataset by +12.4% in recall@1. Further performance\nimprovement can be achieved if the BLIP model is used to\ninitialize a video-language model with temporal modeling\n(e.g. replace our ViT with a TimeSformer (Bertasius et al.,\n2021)) and ﬁnetuned on video data."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        519.13916015625,
+        454.2618408203125,
+        531.0943603515625
+      ],
+      "text": "6. Additional Ablation Study"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        540.1173706054688,
+        541.4373779296875,
+        562.051025390625
+      ],
+      "text": "In this section, we provide additional ablation experiments\non CapFilt."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.0820007324219,
+        569.9295043945312,
+        543.1848754882812,
+        675.6250610351562
+      ],
+      "text": "Improvement with CapFilt is not due to longer training.\nSince the bootstrapped dataset contains more texts than the\noriginal dataset, training for the same number of epochs\ntakes longer with the bootstrapped dataset. To verify that\nthe effectiveness of CapFilt is not due to longer training,\nwe replicate the web text in the original dataset so that it\nhas the same number of training samples per epoch as the\nbootstrapped dataset. As shown in Table 12, longer training\nusing the noisy web texts does not improve performance."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.0820007324219,
+        683.5035400390625,
+        541.4421997070312,
+        717.4920043945312
+      ],
+      "text": "A new model should be trained on the bootstrapped\ndataset. The bootstrapped dataset is used to pre-train a\nnew model. We investigate the effect of continue training"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        87.14299774169922,
+        70.81997680664062,
+        507.4971618652344,
+        89.74835205078125
+      ],
+      "text": "CapFilt\n#Texts\nRetrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        87.14299774169922,
+        95.74697875976562,
+        496.01751708984375,
+        124.63836669921875
+      ],
+      "text": "No\n15.3M\n78.4\n60.7\n93.9\n82.1\n38.0\n127.8\n102.2\n13.9\nNo\n24.7M\n78.3\n60.5\n93.7\n82.2\n37.9\n127.7\n102.1\n14.0\nYes\n24.7M\n80.6\n63.1\n94.8\n84.9\n38.6\n129.7\n105.1\n14.4"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.893001556396484,
+        134.21298217773438,
+        541.75048828125,
+        154.13836669921875
+      ],
+      "text": "Table 12. The original web texts are replicated to have the same number of samples per epoch as the bootstrapped dataset. Results verify\nthat the improvement from CapFilt is not due to longer training time."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        101.96600341796875,
+        169.62698364257812,
+        492.6741638183594,
+        188.556396484375
+      ],
+      "text": "Continue\nRetrieval-FT (COCO)\nRetrieval-ZS (Flickr)\nCaption-FT (COCO)\nCaption-ZS (NoCaps)\nTR@1\nIR@1\nTR@1\nIR@1\nB@4\nCIDEr\nCIDEr\nSPICE"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        101.96600341796875,
+        194.55398559570312,
+        481.19451904296875,
+        213.4833984375
+      ],
+      "text": "Yes\n80.6\n63.0\n94.5\n84.6\n38.5\n129.9\n104.5\n14.2\nNo\n80.6\n63.1\n94.8\n84.9\n38.6\n129.7\n105.1\n14.4"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        62.5260009765625,
+        223.05795288085938,
+        531.5800170898438,
+        232.02435302734375
+      ],
+      "text": "Table 13. Continue training the pre-trained model offers less gain compared to training a new model with the bootstrapped dataset."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.13100051879883,
+        246.1374053955078,
+        291.1846923828125,
+        303.8450622558594
+      ],
+      "text": "from the previous pre-trained model, using the bootstrapped\ndataset. Table 13 hows that continue training does not help.\nThis observation agrees with the common practice in knowl-\nedge distillation, where the student model cannot be initial-\nized from the teacher."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        316.3431396484375,
+        124.52911376953125,
+        328.29833984375
+      ],
+      "text": "7. Conclusion"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.97200012207031,
+        335.0202941894531,
+        291.0933532714844,
+        440.6990661621094
+      ],
+      "text": "We propose BLIP, a new VLP framework with state-\nof-the-art performance on a wide range of downstream\nvision-language tasks, including understanding-based and\ngeneration-based tasks. BLIP pre-trains a multimodal mix-\nture of encoder-decoder model using a dataset bootstrapped\nfrom large-scale noisy image-text pairs by injecting di-\nverse synthetic captions and removing noisy captions. Our\nbootstrapped dataset are released to facilitate future vision-\nlanguage research."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.13100051879883,
+        448.74542236328125,
+        291.09674072265625,
+        554.2730102539062
+      ],
+      "text": "There are a few potential directions that can further enhance\nthe performance of BLIP: (1) Multiple rounds of dataset\nbootstrapping; (2) Generate multiple synthetic captions per\nimage to further enlarge the pre-training corpus; (3) Model\nensemble by training multiple different captioners and ﬁlters\nand combining their forces in CapFilt. We hope that our pa-\nper motivates future work to focus on making improvements\nin both the model aspect and the data aspect, the bread and\nbutter of vision-language research."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        571.2551879882812,
+        110.98384094238281,
+        583.2103881835938
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        590.737060546875,
+        291.1831359863281,
+        636.6370239257812
+      ],
+      "text": "Agrawal, H., Anderson, P., Desai, K., Wang, Y., Chen, X.,\nJain, R., Johnson, M., Batra, D., Parikh, D., and Lee, S.\nnocaps: novel object captioning at scale. In ICCV, pp.\n8947–8956, 2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        649.081298828125,
+        290.68695068359375,
+        694.9850463867188
+      ],
+      "text": "Anaby-Tavor, A., Carmeli, B., Goldbraich, E., Kantor, A.,\nKour, G., Shlomov, S., Tepper, N., and Zwerdling, N. Do\nnot have enough data? deep learning to the rescue! In\nAAAI, pp. 7383–7390, 2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        707.4302368164062,
+        290.68695068359375,
+        717.4920043945312
+      ],
+      "text": "Antol, S., Agrawal, A., Lu, J., Mitchell, M., Batra, D.,"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        317.40301513671875,
+        245.98629760742188,
+        541.44140625,
+        267.9790954589844
+      ],
+      "text": "Zitnick, C. L., and Parikh, D. VQA: visual question\nanswering. In ICCV, pp. 2425–2433, 2015."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        277.4681701660156,
+        541.4425659179688,
+        311.28106689453125
+      ],
+      "text": "Bain, M., Nagrani, A., Varol, G., and Zisserman, A. Frozen\nin time: A joint video and image encoder for end-to-end\nretrieval. In ICCV, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        320.6343078613281,
+        542.6858520507812,
+        354.5820617675781
+      ],
+      "text": "Bertasius, G., Wang, H., and Torresani, L. Is space-time\nattention all you need for video understanding? In ICML,\n2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        364.0293884277344,
+        543.0968627929688,
+        397.8830871582031
+      ],
+      "text": "Changpinyo, S., Sharma, P., Ding, N., and Soricut, R. Con-\nceptual 12M: Pushing web-scale image-text pre-training\nto recognize long-tail visual concepts. In CVPR, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        407.2362976074219,
+        543.1797485351562,
+        453.14007568359375
+      ],
+      "text": "Chen, Y., Li, L., Yu, L., Kholy, A. E., Ahmed, F., Gan, Z.,\nCheng, Y., and Liu, J. UNITER: universal image-text\nrepresentation learning. In ECCV, volume 12375, pp.\n104–120, 2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        462.4932861328125,
+        543.0934448242188,
+        496.4410705566406
+      ],
+      "text": "Cho, J., Lei, J., Tan, H., and Bansal, M. Unifying vision-\nand-language tasks via text generation. arXiv preprint\narXiv:2102.02779, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        505.92254638671875,
+        542.6858520507812,
+        539.7430419921875
+      ],
+      "text": "Das, A., Kottur, S., Gupta, K., Singh, A., Yadav, D., Moura,\nJ. M. F., Parikh, D., and Batra, D. Visual dialog. In CVPR,\npp. 1080–1089, 2017."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        549.0962524414062,
+        543.0980224609375,
+        594.9990234375
+      ],
+      "text": "Devlin, J., Chang, M., Lee, K., and Toutanova, K. BERT:\npre-training of deep bidirectional transformers for lan-\nguage understanding. In Burstein, J., Doran, C., and\nSolorio, T. (eds.), NAACL, pp. 4171–4186, 2019."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        604.419921875,
+        543.0977172851562,
+        650.2560424804688
+      ],
+      "text": "Do, V., Camburu, O.-M., Akata, Z., and Lukasiewicz, T. e-\nsnli-ve: Corrected visual-textual entailment with natural\nlanguage explanations. arXiv preprint arXiv:2004.03744,\n2020."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        659.6092529296875,
+        543.1876831054688,
+        717.468017578125
+      ],
+      "text": "Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn,\nD., Zhai, X., Unterthiner, T., Dehghani, M., Minderer,\nM., Heigold, G., Gelly, S., Uszkoreit, J., and Houlsby, N.\nAn image is worth 16x16 words: Transformers for image\nrecognition at scale. In ICLR, 2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        290.6856384277344,
+        115.29605102539062
+      ],
+      "text": "Fan, C., Zhang, X., Zhang, S., Wang, W., Zhang, C., and\nHuang, H. Heterogeneous memory enhanced multimodal\nattention model for video question answering. In CVPR,\npp. 1999–2007, 2019."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        126.40717315673828,
+        291.186767578125,
+        172.21206665039062
+      ],
+      "text": "Gan, Z., Cheng, Y., Kholy, A. E., Li, L., Liu, J., and Gao, J.\nMulti-step reasoning via recurrent dual attention for vi-\nsual dialog. In Korhonen, A., Traum, D. R., and M`arquez,\nL. (eds.), ACL, pp. 6463–6474, 2019."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        183.22531127929688,
+        291.1849060058594,
+        241.08407592773438
+      ],
+      "text": "Gan, Z., Chen, Y., Li, L., Zhu, C., Cheng, Y., and Liu, J.\nLarge-scale adversarial training for vision-and-language\nrepresentation learning. In Larochelle, H., Ranzato, M.,\nHadsell, R., Balcan, M., and Lin, H. (eds.), NeurIPS,\n2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        252.09732055664062,
+        291.1804504394531,
+        298.0010681152344
+      ],
+      "text": "Goyal, Y., Khot, T., Summers-Stay, D., Batra, D., and\nParikh, D. Making the V in VQA matter: Elevating the\nrole of image understanding in visual question answering.\nIn CVPR, pp. 6325–6334, 2017."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        309.0142822265625,
+        289.4380187988281,
+        342.9620666503906
+      ],
+      "text": "Hinton, G., Vinyals, O., and Dean, J.\nDistilling\nthe knowledge in a neural network.\narXiv preprint\narXiv:1503.02531, 2015."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        353.97528076171875,
+        291.1849365234375,
+        387.924072265625
+      ],
+      "text": "Holtzman, A., Buys, J., Du, L., Forbes, M., and Choi, Y.\nThe curious case of neural text degeneration. In ICLR,\n2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        398.9372863769531,
+        289.6136474609375,
+        432.88507080078125
+      ],
+      "text": "Hu, X., Gan, Z., Wang, J., Yang, Z., Liu, Z., Lu, Y., and\nWang, L. Scaling up vision-language pre-training for\nimage captioning, 2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        443.8982849121094,
+        290.68695068359375,
+        501.757080078125
+      ],
+      "text": "Jia, C., Yang, Y., Xia, Y., Chen, Y.-T., Parekh, Z., Pham,\nH., Le, Q. V., Sung, Y., Li, Z., and Duerig, T. Scaling up\nvisual and vision-language representation learning with\nnoisy text supervision. arXiv preprint arXiv:2102.05918,\n2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        512.92138671875,
+        290.68194580078125,
+        546.7180786132812
+      ],
+      "text": "Karpathy, A. and Li, F. Deep visual-semantic alignments for\ngenerating image descriptions. In CVPR, pp. 3128–3137,\n2015."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        557.795166015625,
+        291.1827697753906,
+        603.6350708007812
+      ],
+      "text": "Kim, J., Jun, J., and Zhang, B. Bilinear attention networks.\nIn Bengio, S., Wallach, H. M., Larochelle, H., Grauman,\nK., Cesa-Bianchi, N., and Garnett, R. (eds.), NIPS, pp.\n1571–1581, 2018."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        614.6482543945312,
+        291.1791687011719,
+        648.5960083007812
+      ],
+      "text": "Kim, W., Son, B., and Kim, I. Vilt: Vision-and-language\ntransformer without convolution or region supervision.\narXiv preprint arXiv:2102.03334, 2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        659.6092529296875,
+        290.82763671875,
+        717.468017578125
+      ],
+      "text": "Krishna, R., Zhu, Y., Groth, O., Johnson, J., Hata, K.,\nKravitz, J., Chen, S., Kalantidis, Y., Li, L., Shamma,\nD. A., Bernstein, M. S., and Fei-Fei, L. Visual genome:\nConnecting language and vision using crowdsourced\ndense image annotations. IJCV, 123(1):32–73, 2017."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        69.48260498046875,
+        541.444091796875,
+        103.34109497070312
+      ],
+      "text": "Kumar, V., Choudhary, A., and Cho, E. Data augmentation\nusing pre-trained transformer models. arXiv preprint\narXiv:2003.02245, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        112.19898986816406,
+        543.0917358398438,
+        146.12808227539062
+      ],
+      "text": "Le, T. M., Le, V., Venkatesh, S., and Tran, T. Hierarchical\nconditional relation networks for video question answer-\ning. In CVPR, pp. 9972–9981, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        154.96829223632812,
+        542.6869506835938,
+        200.87106323242188
+      ],
+      "text": "Lei, J., Li, L., Zhou, L., Gan, Z., Berg, T. L., Bansal, M.,\nand Liu, J. Less is more: Clipbert for video-and-language\nlearning via sparse sampling. In CVPR, pp. 7331–7341,\n2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        209.71127319335938,
+        542.6869506835938,
+        255.61404418945312
+      ],
+      "text": "Li, J., Selvaraju, R. R., Gotmare, A. D., Joty, S., Xiong,\nC., and Hoi, S. Align before fuse: Vision and language\nrepresentation learning with momentum distillation. In\nNeurIPS, 2021a."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        264.4543151855469,
+        543.1790771484375,
+        322.31207275390625
+      ],
+      "text": "Li, W., Gao, C., Niu, G., Xiao, X., Liu, H., Liu, J., Wu,\nH., and Wang, H. UNIMO: towards uniﬁed-modal un-\nderstanding and generation via cross-modal contrastive\nlearning. In Zong, C., Xia, F., Li, W., and Navigli, R.\n(eds.), ACL, pp. 2592–2607, 2021b."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        331.2085876464844,
+        542.828857421875,
+        377.0550842285156
+      ],
+      "text": "Li, X., Yin, X., Li, C., Zhang, P., Hu, X., Zhang, L., Wang,\nL., Hu, H., Dong, L., Wei, F., Choi, Y., and Gao, J. Oscar:\nObject-semantics aligned pre-training for vision-language\ntasks. In ECCV, pp. 121–137, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        385.8952941894531,
+        542.6869506835938,
+        443.7530822753906
+      ],
+      "text": "Lin, T., Maire, M., Belongie, S. J., Hays, J., Perona, P.,\nRamanan, D., Doll´ar, P., and Zitnick, C. L. Microsoft\nCOCO: common objects in context. In Fleet, D. J., Pajdla,\nT., Schiele, B., and Tuytelaars, T. (eds.), ECCV, volume\n8693, pp. 740–755, 2014."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        452.691162109375,
+        543.09765625,
+        474.5860595703125
+      ],
+      "text": "Loshchilov, I. and Hutter, F. Decoupled weight decay regu-\nlarization. arXiv preprint arXiv:1711.05101, 2017."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        483.576416015625,
+        543.0979614257812,
+        541.2840576171875
+      ],
+      "text": "Lu, J., Batra, D., Parikh, D., and Lee, S. Vilbert: Pretraining\ntask-agnostic visiolinguistic representations for vision-\nand-language tasks. In Wallach, H. M., Larochelle, H.,\nBeygelzimer, A., d’Alch´e-Buc, F., Fox, E. B., and Garnett,\nR. (eds.), NeurIPS, pp. 13–23, 2019."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        550.123291015625,
+        543.0979614257812,
+        596.0270385742188
+      ],
+      "text": "Miech, A., Alayrac, J.-B., Smaira, L., Laptev, I., Sivic, J.,\nand Zisserman, A. End-to-end learning of visual repre-\nsentations from uncurated instructional videos. In CVPR,\npp. 9879–9889, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        605.0173950195312,
+        542.6824951171875,
+        650.7700805664062
+      ],
+      "text": "Murahari, V., Batra, D., Parikh, D., and Das, A. Large-scale\npretraining for visual dialog: A simple state-of-the-art\nbaseline. In Vedaldi, A., Bischof, H., Brox, T., and Frahm,\nJ. (eds.), ECCV, pp. 336–352, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        659.7603759765625,
+        543.1831665039062,
+        717.468017578125
+      ],
+      "text": "Ordonez, V., Kulkarni, G., and Berg, T. L. Im2text: Describ-\ning images using 1 million captioned photographs. In\nShawe-Taylor, J., Zemel, R. S., Bartlett, P. L., Pereira, F.\nC. N., and Weinberger, K. Q. (eds.), NIPS, pp. 1143–1151,\n2011."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        290.68695068359375,
+        115.29605102539062
+      ],
+      "text": "Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J.,\nChanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga,\nL., et al. Pytorch: An imperative style, high-performance\ndeep learning library. NeurIPS, 32:8026–8037, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        127.36656951904297,
+        290.6836853027344,
+        173.12210083007812
+      ],
+      "text": "Patrick, M., Huang, P.-Y., Asano, Y., Metze, F., Hauptmann,\nA. G., Henriques, J. F., and Vedaldi, A. Support-set\nbottlenecks for video-text representation learning. In\nICLR, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        185.19642639160156,
+        290.8233947753906,
+        242.90304565429688
+      ],
+      "text": "Plummer, B. A., Wang, L., Cervantes, C. M., Caicedo, J. C.,\nHockenmaier, J., and Lazebnik, S. Flickr30k entities:\nCollecting region-to-phrase correspondences for richer\nimage-to-sentence models.\nIn ICCV, pp. 2641–2649,\n2015."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        254.8300018310547,
+        291.1791076660156,
+        300.72906494140625
+      ],
+      "text": "Puri, R., Spring, R., Shoeybi, M., Patwary, M., and Catan-\nzaro, B. Training question answering models from syn-\nthetic data. In Webber, B., Cohn, T., He, Y., and Liu, Y.\n(eds.), EMNLP, pp. 5811–5826, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.44000244140625,
+        312.7274475097656,
+        290.6890869140625,
+        370.5110778808594
+      ],
+      "text": "Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G.,\nAgarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J.,\net al. Learning transferable visual models from natural\nlanguage supervision. arXiv preprint arXiv:2103.00020,\n2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        382.43328857421875,
+        291.0978088378906,
+        440.2920837402344
+      ],
+      "text": "Schuhmann, C., Vencu, R., Beaumont, R., Kaczmarczyk,\nR., Mullis, C., Katta, A., Coombes, T., Jitsev, J., and\nKomatsuzaki, A. Laion-400m: Open dataset of clip-\nﬁltered 400 million image-text pairs.\narXiv preprint\narXiv:2111.02114, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        452.2153015136719,
+        291.1791076660156,
+        498.1180725097656
+      ],
+      "text": "Sharma, P., Ding, N., Goodman, S., and Soricut, R. Con-\nceptual captions: A cleaned, hypernymed, image alt-text\ndataset for automatic image captioning. In Gurevych, I.\nand Miyao, Y. (eds.), ACL, pp. 2556–2565, 2018."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        510.0412902832031,
+        290.68682861328125,
+        543.9890747070312
+      ],
+      "text": "Shorten, C. and Khoshgoftaar, T. M. A survey on image\ndata augmentation for deep learning. J. Big Data, 6:60,\n2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        555.9122314453125,
+        290.6824035644531,
+        601.8150634765625
+      ],
+      "text": "Suhr, A., Zhou, S., Zhang, A., Zhang, I., Bai, H., and\nArtzi, Y. A corpus for reasoning about natural language\ngrounded in photographs. In Korhonen, A., Traum, D. R.,\nand M`arquez, L. (eds.), ACL, pp. 6418–6428, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        613.82861328125,
+        291.095947265625,
+        659.6420288085938
+      ],
+      "text": "Touvron, H., Cord, M., Douze, M., Massa, F., Sablayrolles,\nA., and J´egou, H. Training data-efﬁcient image trans-\nformers & distillation through attention. arXiv preprint\narXiv:2012.12877, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        671.5642700195312,
+        290.6830139160156,
+        717.468017578125
+      ],
+      "text": "Wang, Y., Joty, S. R., Lyu, M. R., King, I., Xiong, C., and\nHoi, S. C. H. VD-BERT: A uniﬁed vision and dialog\ntransformer with BERT. In Webber, B., Cohn, T., He, Y.,\nand Liu, Y. (eds.), EMNLP, pp. 3325–3338, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        69.47882080078125,
+        542.6864013671875,
+        115.29605102539062
+      ],
+      "text": "Wang, Z., Yu, J., Yu, A. W., Dai, Z., Tsvetkov, Y., and Cao,\nY. Simvlm: Simple visual language model pretraining\nwith weak supervision. arXiv preprint arXiv:2108.10904,\n2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        125.33443450927734,
+        541.4381713867188,
+        159.13107299804688
+      ],
+      "text": "Xie, Q., Luong, M., Hovy, E. H., and Le, Q. V. Self-training\nwith noisy student improves imagenet classiﬁcation. In\nCVPR, pp. 10684–10695, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        169.17042541503906,
+        543.1859741210938,
+        214.92208862304688
+      ],
+      "text": "Xu, H., Ghosh, G., Huang, P.-Y., Okhonko, D., Aghajanyan,\nA., Metze, F., Zettlemoyer, L., and Feichtenhofer, C.\nVideoclip: Contrastive pre-training for zero-shot video-\ntext understanding. In EMNLP, pp. 6787–6800, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        224.81027221679688,
+        543.1849975585938,
+        258.7580871582031
+      ],
+      "text": "Yang, A., Miech, A., Sivic, J., Laptev, I., and Schmid, C.\nJust ask: Learning to answer questions from millions of\nnarrated videos. In ICCV, pp. 1686–1697, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        268.6452941894531,
+        543.184814453125,
+        326.5040588378906
+      ],
+      "text": "Yang, Y., Malaviya, C., Fernandez, J., Swayamdipta, S.,\nBras, R. L., Wang, J., Bhagavatula, C., Choi, Y., and\nDowney, D. G-daug: Generative data augmentation for\ncommonsense reasoning. In Cohn, T., He, Y., and Liu, Y.\n(eds.), EMNLP Findings, pp. 1008–1025, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        336.39129638671875,
+        543.0977172851562,
+        382.2950744628906
+      ],
+      "text": "Zhang, P., Li, X., Hu, X., Yang, J., Zhang, L., Wang, L.,\nChoi, Y., and Gao, J. Vinvl: Making visual representa-\ntions matter in vision-language models. arXiv preprint\narXiv:2101.00529, 2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        392.1822814941406,
+        541.4415893554688,
+        426.13006591796875
+      ],
+      "text": "Zhou, L., Palangi, H., Zhang, L., Hu, H., Corso, J. J., and\nGao, J. Uniﬁed vision-language pre-training for image\ncaptioning and VQA. In AAAI, pp. 13041–13049, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        436.10479736328125,
+        543.09375,
+        458.0110778808594
+      ],
+      "text": "Zhu, L. and Yang, Y. Actbert: Learning global-local video-\ntext representations. In CVPR, pp. 8746–8755, 2020."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        83.46900177001953,
+        47.22712326049805,
+        513.4168090820312,
+        56.19352340698242
+      ],
+      "text": "BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        67.84716033935547,
+        200.10986328125,
+        79.80236053466797
+      ],
+      "text": "A. Downstream Task Details"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.11199951171875,
+        88.76528930664062,
+        291.1838684082031,
+        170.53408813476562
+      ],
+      "text": "Table 14 shows the hyperparameters that we use for ﬁne-\ntuning on the downstream vision-language tasks. All tasks\nuses AdamW optimizer with a weight decay of 0.05 and a\ncosine learning rate schedule. We use an image resolution\nof 384 × 384, except for VQA where we follow Wang et al.\n(2021) and use 480 × 480 images. Next we delineate the\ndataset details."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        178.41351318359375,
+        291.0898132324219,
+        236.28805541992188
+      ],
+      "text": "Image-Text Retrieval. We use the Karpathy split (Karpa-\nthy & Li, 2015) for both COCO and Flickr30K. COCO\ncontains\n113/5k/5k\nimages\nfor\ntrain/validation/test,\nand\nFlickr30K\ncontains\n29k/1k/1k\nimages\nfor\ntrain/validation/test."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.082000732421875,
+        244.16748046875,
+        291.0934143066406,
+        302.04107666015625
+      ],
+      "text": "Image Captioning. We ﬁnetune on COCO’s Karpathy train\nsplit, and evaluate on COCO’s Karpathy test split and No-\nCaps validation split. During inference, we use beam search\nwith a beam size of 3, and set the maximum generation\nlength as 20."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.08199691772461,
+        309.9205322265625,
+        291.0961608886719,
+        391.705078125
+      ],
+      "text": "VQA. We experiment with the VQA2.0 dataset (Goyal\net al., 2017), which contains 83k/41k/81k images for train-\ning/validation/test. Following Li et al. (2021a), we use\nboth training and validation splits for training, and include\nadditional training samples from Visual Genome. During\ninference on VQA, we use the decoder to rank the 3,128\ncandidate answers (Li et al., 2021a; Kim et al., 2018)."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        398.1647644042969,
+        289.6051330566406,
+        421.59307861328125
+      ],
+      "text": "NLVR2. We conduct experiment on the ofﬁcial split (Suhr\net al., 2019)."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.08199691772461,
+        429.4725341796875,
+        289.44378662109375,
+        451.4810791015625
+      ],
+      "text": "VisDial. We ﬁnetune on the training split of VisDial v1.0\nand evaluate on its validation set."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        317.9649963378906,
+        71.45845031738281,
+        528.425537109375,
+        81.42105102539062
+      ],
+      "text": "Task\ninit LR (ViT-L)\nbatch size\n#epoch"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        317.9649353027344,
+        84.80043029785156,
+        519.01513671875,
+        146.19906616210938
+      ],
+      "text": "Retrieval\n1e−5 (5e−6)\n256\n6\nCaptioning\n1e−5 (2e−6)\n256\n5\nVQA\n2e−5\n256\n10\nNLVR2\n3e−5\n256\n15\nVisDial\n2e−5\n240\n20"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        314.04998779296875,
+        155.68197631835938,
+        532.0537719726562,
+        164.64837646484375
+      ],
+      "text": "Table 14. Finetuning hyperparameters for downstream tasks."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        178.44317626953125,
+        541.2598266601562,
+        190.39837646484375
+      ],
+      "text": "B. Additional Examples of Synthetic Captions"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        199.36129760742188,
+        543.0936279296875,
+        233.30905151367188
+      ],
+      "text": "In Figure 6, we show additional examples of images and\ntexts where the web captions are ﬁltered out, and the syn-\nthetic captions are kept as clean training samples."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        250.2911376953125,
+        464.6030578613281,
+        262.246337890625
+      ],
+      "text": "C. Pre-training Dataset Details"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.1310119628906,
+        271.284423828125,
+        531.5982666015625,
+        281.2470397949219
+      ],
+      "text": "Table 15 shows the statistics of the pre-training datasets."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        348.6045837402344,
+        296.72711181640625,
+        535.188720703125,
+        305.73126220703125
+      ],
+      "text": "COCO\nVG\nSBU\nCC3M\nCC12M\nLAION"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        311.4417724609375,
+        311.7541198730469,
+        531.9476318359375,
+        330.7632141113281
+      ],
+      "text": "# image\n113K\n100K\n860K\n3M\n10M\n115M\n# text\n567K\n769K\n860K\n3M\n10M\n115M"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        338.5639953613281,
+        341.1609802246094,
+        507.5393371582031,
+        350.12738037109375
+      ],
+      "text": "Table 15. Statistics of the pre-training datasets."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        114.613037109375,
+        567.9331665039062,
+        197.9529571533203,
+        597.2364501953125
+      ],
+      "text": "𝑇!: “a week spent at our \nrented beach house in \nSandbridge”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        114.613037109375,
+        606.70458984375,
+        197.78672790527344,
+        626.5857543945312
+      ],
+      "text": "𝑇\": “an outdoor walkway \non a grass covered hill”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        303.3643493652344,
+        567.9331665039062,
+        379.40380859375,
+        587.381103515625
+      ],
+      "text": "𝑇!: “that's what a sign \nsays over the door”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        303.3643493652344,
+        597.282470703125,
+        374.045654296875,
+        626.5857543945312
+      ],
+      "text": "𝑇\": “the car is driving \npast a small old \nbuilding”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        443.0104064941406,
+        567.9331665039062,
+        535.6661987304688,
+        597.2364501953125
+      ],
+      "text": "𝑇!: “hand held through the \nglass in my front bedroom \nwindow”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        443.0104064941406,
+        606.70458984375,
+        541.160400390625,
+        626.5857543945312
+      ],
+      "text": "𝑇\": “a moon against the night \nsky with a black background”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        149.94198608398438,
+        635.8372802734375,
+        225.65003967285156,
+        665.1405029296875
+      ],
+      "text": "𝑇!: “stunning sky over \nwalney island, lake \ndistrict, july 2009”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        149.94198608398438,
+        674.6087036132812,
+        233.11572265625,
+        694.4898071289062
+      ],
+      "text": "𝑇\": “an outdoor walkway \non a grass covered hill”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        300.554931640625,
+        635.8372802734375,
+        361.3567199707031,
+        655.2852172851562
+      ],
+      "text": "𝑇!: “living in my \nlittle white house”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        300.554931640625,
+        665.1865844726562,
+        360.17572021484375,
+        694.4898071289062
+      ],
+      "text": "𝑇\": “a tiny white \nflower with a bee \nin it”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        468.6428527832031,
+        635.8372802734375,
+        529.9561767578125,
+        655.2852172851562
+      ],
+      "text": "𝑇!: “the pink rock \nfrom below”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        468.6428527832031,
+        665.1865844726562,
+        543.0546875,
+        694.4898071289062
+      ],
+      "text": "𝑇\": “some colorful\ntrees that are on a hill \nin the mountains”"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.9379997253418,
+        706.1124877929688,
+        532.9911499023438,
+        716.2824096679688
+      ],
+      "text": "Figure 6. Examples of the web text Tw and the synthetic text Ts. Green texts are accepted by the ﬁlter, whereas red texts are rejected."
+    }
+  ],
+  "pictures": [],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "stream",
+      "nrows": 46,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 20,
+      "ncols": 19,
+      "csv_path": "output/BLIP/tables/BLIP_p2_table1_lattice.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "stream",
+      "nrows": 52,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 15,
+      "ncols": 21,
+      "csv_path": "output/BLIP/tables/BLIP_p4_table1_lattice.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 11,
+      "csv_path": "output/BLIP/tables/BLIP_p5_table1_lattice.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 3,
+      "ncols": 3,
+      "csv_path": "output/BLIP/tables/BLIP_p6_table1_lattice.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 6,
+      "ncols": 8,
+      "csv_path": "output/BLIP/tables/BLIP_p7_table1_lattice.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 4,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p8_table1_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 5,
+      "csv_path": "output/BLIP/tables/BLIP_p9_table1_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "stream",
+      "nrows": 52,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "stream",
+      "nrows": 49,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "engine": "camelot",
+      "flavor": "stream",
+      "nrows": 34,
+      "ncols": 2,
+      "csv_path": "output/BLIP/tables/BLIP_p12_table1_stream.csv"
+    }
+  ]
+}

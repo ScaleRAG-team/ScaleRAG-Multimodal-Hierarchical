@@ -1,0 +1,38 @@
+"A
+More Implementation Details"
+"In this section, our goal is to provide the details of system implementation (mentioned in Section 4.2)"
+"and experiment settings (mentioned in Section 5), as well as the pseudocode."
+"System Details.
+We implement H2O on top of FlexGen. FlexGen is a white-box implementation of"
+"OPT models, and we have done some surgery on handling the KV cache. Specifically, for the given"
+"parameter K, we always maintain a list of KV cache with the first K entries as heavy hitters, and the"
+"last K entries as most recent tokens. In order to avoid data movement in memory, the memory for"
+"KV cache is preallocated. We use a circular queue to update the last K entries efficiently."
+"Experiment Details.
+Our study involves the evaluation with varying sizes of KV cache that encom-"
+"pass 4%, 10%, 20%, and 60% of the prompt’s length. We select two tasks (XSUM and CNN/Daily"
+"Mail) from the HELM framework [16] and present
+the performance based on 1000 test samples."
+"Additionally, we employ the lm-eval-harness framework [15] for six other tasks (COPA, MathQA,"
+"OpenBookQA, PiQA, RTE, and Winogrande). For the tasks derived from the HELM framework, we"
+"report the performance for zero-shot inference, while for the tasks from lm-eval-harness, we default"
+"to conduct five-shot inference."
+"Pseudocode.
+We show a simplified pseudocode below to demonstrate our implementation skele-"
+"ton. The function generation_loop() is the base loop in FlexGen that controls prefetch and"
+"overlap the I/O streams and computation.
+the function
+Then in function compute_layer(),"
+"iterations,
+the function
+attention_forward() will be called for attention layers. During prefill"
+"compute_attention() will return K heavy hitters and K recent tokens if the prompt has a length"
+"greater than or equal to 2K, otherwise return all the KV cache. The function compute_attention()"
+"will return new KV cache and the indices for evicted entries during decoding iterations, which would"
+"be the place to implement a customized eviction strategy. (If the current number of stored KV cache is"
+"less than 2K, the eviction will be ignored.) During each decoding iteration, the oldest one among the"
+"last K tokens (if we have no less than K tokens’ KV cache stored) will be removed from the reserved"
+"last K entries, one heavy hitter will be evicted for each head, and the newest token will be added to"
+"the KV cache with a position in the last K entries. This happens in the function store_cache()."
+"def
+generation_loop (...) :"

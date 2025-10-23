@@ -1,0 +1,66 @@
+"The intersection point is sensitive to"
+"the precise power-law parameters"
+"Figure 15
+Far beyond the model sizes we study empirically, we ﬁnd a contradiction between our equations"
+"for L(Cmin) and L(D) due to the slow growth of data needed for compute-efﬁcient training. The intersection"
+"marks the point before which we expect our predictions to break down. The location of this point
+is highly"
+"sensitive to the precise exponents from our power-law ﬁts."
+"6.3
+Contradictions and a Conjecture"
+"We observe no signs of deviation from straight power-law trends at
+large values of compute, data, or model"
+"size. Our trends must eventually level off, though, since natural language has non-zero entropy."
+"Indeed, the trends for compute-efﬁcient training described in this section already contain an apparent contra-"
+"diction. At scales several orders of magnitude above those documented here,
+the performance predicted by"
+"the L(Cmin) scaling law decreases below what should be possible given the slow growth in training data with"
+"compute. This implies that our scaling laws must break down before this point, but we conjecture that
+the"
+"intersection point has a deeper meaning:
+it provides an estimate of the point at which Transformer language"
+"models reach maximal performance."
+"Since the amount of data used by compute-efﬁcient
+training grows slowly with the compute budget,
+the"
+"performance predicted by L(Cmin) eventually hits a lower bound set by the L(D) power law (see Figure 15)."
+"Let us work this out in more detail."
+"To keep overﬁtting under control, the results of Section 4 imply that we should scale the dataset size as"
+"D ∝ N 0.74 ∝ C 0.54
+(6.6)
+min"
+"where we have used the compute-efﬁcient N (Cmin) from Figure 14."
+"Let us compare this to the data requirements of compute-efﬁcient
+training.
+If we train at
+the critical batch"
+"size (i.e. C = 2Cmin) and never re-use data during training, we ﬁnd that data usage grows with compute as"
+"2Cmin"
+"(6.7)
+D(Cmin) =
+≈ (cid:0)4 × 1010 tokens(cid:1) (Cmin/PF-Day)0.26"
+"6N (Cmin)"
+"This is the maximum rate at which the dataset size can productively grow with compute, since it means that"
+"we are only training for a single epoch. But
+it grows the dataset much more slowly than in Equation (6.6)."
+"It appears to imply that compute-efﬁcient training will eventually run into a problem with overﬁtting, even if"
+"the training process never re-uses any data!"
+"According to Figure 1, we expect
+that when we are bottlenecked by the dataset size (ie by overﬁtting),
+the"
+"loss should scale as L(D) ∝ D−0.095. This implies that the loss would scale with compute as L(D(Cmin)) ∝"
+"C −0.03
+once we are data-limited. Once again, we have a contradiction, as this will eventually intersect with"
+"min"
+".
+our prediction for L(Cmin) from Figure 13, where we found a scaling L(Cmin) ∝ C −0.050"
+"The intersection point of L(D(Cmin)) and L(Cmin) occurs at"
+"C ∗ ∼ 104 PF-Days
+N ∗ ∼ 1012 parameters,
+D∗ ∼ 1012 tokens,
+L∗ ∼ 1.7 nats/token
+(6.8)"
+"though the numerical values are highly uncertain, varying by an order or magnitude in either direction de-"
+"pending on the precise values of the exponents from the power-law ﬁts. The most obvious interpretation is"
+"that our scaling laws break down at or before we reach this point, which is still many orders of magnitude"
+"away in both compute and model size."

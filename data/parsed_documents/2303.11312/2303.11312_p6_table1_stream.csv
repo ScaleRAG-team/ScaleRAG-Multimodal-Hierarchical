@@ -1,0 +1,138 @@
+"6
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"Ji and Gallo (2006) use these quantities
+to decompose the sum of
+squared diﬀerences
+into"
+"systematic and unsystematic components, which they refer to as the systematic and unsys-"
+"tematic sum of product diﬀerences (SPD). The unsystematic component of SPD is deﬁned"
+"as:"
+"(cid:1)(cid:3)
+(cid:1) (cid:0)(cid:12)
+(cid:2)(cid:0)(cid:12)"
+"nX i
+(cid:12)(cid:12)
+(cid:12)(cid:12)
+(11)
+SPDu =
+(cid:12)yi − y0
+(cid:12)ˆyi − ˆy0"
+"=1"
+"While
+the
+systematic
+component
+is
+from the
+sum of
+squared
+found by subtracting SPDu"
+"diﬀerences:"
+"!
+!
+  n
+  n"
+"(cid:1)(cid:3)
+(cid:1) (cid:0)(cid:12)
+(cid:2)(cid:0)(cid:12)"
+"X i
+X i
+(cid:12)(cid:12)
+(cid:12)(cid:12)
+(12)
+−
+SPDs =
+(ˆyi − yi)2
+(cid:12)yi − y0
+(cid:12)ˆyi − ˆy0"
+"=1
+=1"
+"Taking the arithmetic mean of these terms produces the unsystematic and systematic mean"
+"product diﬀerence (MPDu and MPDs, respectively):"
+"1 n
+(13)
+MPDu =
+(SPDu)"
+"1 n
+(14)
+MPDs =
+(SPDs)"
+"These quantities can be expressed as a ratio of MSE to represent the proportion of systematic"
+"and unsystematic disagreement between y and ˆy.
+The
+square
+roots of MPDu and MPDs"
+"respectively) are in units of y and may be useful ways
+to describe
+(RMPDu and RMPDs,"
+"systematic and unsystematic disagreement in absolute units."
+"sum to the sum of squared diﬀerences, the numerator of AC (Equation
+As SPDu and SPDs"
+"(4)) can then be decomposed into systematic and unsystematic components by replacing the"
+"numerator with the appropriate component of SPD:"
+"SPDu"
+"(15)
+ACu = 1 −"
+"(cid:16)(cid:12)
+(cid:17) (cid:16)(cid:12)
+(cid:17)"
+"Pn"
+"(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+y − ¯y
++
+y − ¯y
+yi − ¯ˆy
++ |yi − ¯y|"
+"i=1"
+"SPDs"
+"(16)
+ACs = 1 −"
+"(cid:17)
+(cid:17) (cid:16)(cid:12)
+(cid:16)(cid:12)"
+"Pn
+¯"
+"(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+(cid:12)(cid:12)
+(cid:12)(cid:12)(cid:12)
+¯
+y − ¯y
++
+y − ¯y
++ |yi − ¯y|
+yi − ¯ˆy"
+"i=1"
+"These metrics are all
+implemented in waywiser using the infrastructure provided by yardstick"
+"(Kuhn et al. 2023).
+to help with autocompletion inside
+Functions are preﬁxed with ww_,"
+"of
+code
+editors,
+and all
+share
+identical user
+interfaces.
+The main version of
+each metric"
+"function takes three primary arguments, namely data (an object inheriting the data.frame"
+"the
+the
+S3 class), truth (the name of
+column containing y), and estimate (the name of"
+"column containing ˆy). Both truth and estimate follow tidy evaluation rules, with the main"
+"user-noticeable eﬀect being that these arguments accept either quoted or unquoted column"
+"identiﬁers. These functions return a “tibble” (Müller and Wickham 2022) with a single row"
+"and three columns, .metric (containing the name of the metric), .estimator (containing the"
+"string “standard”,
+for compatibility with yardstick and the broader tidymodels ecosystem),"
+"and .estimate (containing the metric estimate)."

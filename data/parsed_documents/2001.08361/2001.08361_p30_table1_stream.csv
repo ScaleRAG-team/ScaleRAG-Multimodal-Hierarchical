@@ -1,0 +1,56 @@
+"[SLA+18]","Christopher J. Shallue, Jaehoon Lee, Joe Antognini, Jascha Sohl-Dickstein, Roy Frostig, and"
+"","George E. Dahl. Measuring the effects of data parallelism on neural network training, 2018,"
+"","arXiv:1811.03600. 12"
+"[SS18]","Noam Shazeer and Mitchell Stern. Adafactor: Adaptive learning rates with sublinear memory"
+"","cost. CoRR, abs/1804.04235, 2018, 1804.04235. URL http://arxiv.org/abs/1804.04235."
+"","7"
+"[THK18]","Stefan Thurner, Rudolf Hanel, and Peter Klimek. Introduction to the theory of complex systems."
+"","Oxford University Press, 2018. 18"
+"[TL19]","Mingxing Tan and Quoc V. Le. Efﬁcientnet: Rethinking model scaling for convolutional neural"
+"","networks. CoRR, abs/1905.11946, 2019, 1905.11946. URL http://arxiv.org/abs/1905."
+"","11946. 18"
+"[VSP+17]","Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez,"
+"","Ł ukasz Kaiser, and Illia Polosukhin. Attention is all you need.
+In I. Guyon, U. V. Luxburg,"
+"","S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, Advances in Neural"
+"","Information Processing Systems 30, pages 5998–6008. Curran Associates,
+Inc., 2017.
+URL"
+"","http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf. 2, 6"
+"[VWB16]","Andreas Veit, Michael Wilber, and Serge Belongie. Residual networks behave like ensembles"
+"","of relatively shallow networks, 2016, arXiv:1605.06431. 8, 18"
+"[Was06]","Larry Wasserman. All of nonparametric statistics. Springer Science & Business Media, 2006."
+"","18"
+"[WPN+19] Alex Wang, Yada Pruksachatkun, Nikita Nangia, Amanpreet Singh, Julian Michael, Felix Hill,",""
+"","Omer Levy, and Samuel R. Bowman.
+Superglue: A stickier benchmark for general-purpose"
+"","language understanding systems, 2019, 1905.00537. 2"
+"[WRH17]","Yu-Xiong Wang, Deva Ramanan, and Martial Hebert.
+Growing a brain:
+Fine-tuning by in-"
+"","creasing model capacity. 2017 IEEE Conference on Computer Vision and Pattern Recognition"
+"","(CVPR), Jul 2017. doi:10.1109/cvpr.2017.323. 19"
+"[WYL19]","Wei Wen, Feng Yan, and Hai Li. Autogrow: Automatic layer growing in deep convolutional"
+"","networks, 2019, 1906.02909. 19"
+"[YDY+19]","Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, and Quoc V."
+"","Le.
+Xlnet:
+Generalized
+autoregressive
+pretraining
+for
+language
+understanding,
+2019,"
+"","arXiv:1906.08237. 2"
+"[ZK16]","the British
+Sergey Zagoruyko and Nikos Komodakis. Wide residual networks. Procedings of"
+"","Machine Vision Conference 2016, 2016. doi:10.5244/c.30.87. 18"
+"[ZKZ+15]","Yukun Zhu, Ryan Kiros, Rich Zemel, Ruslan Salakhutdinov, Raquel Urtasun, Antonio Tor-"
+"","ralba, and Sanja Fidler. Aligning books and movies: Towards story-like visual explanations by"
+"","watching movies and reading books. 2015 IEEE International Conference on Computer Vision"
+"","(ICCV), Dec 2015. doi:10.1109/iccv.2015.11. 7"
+"[ZLN+19]","Guodong Zhang, Lala Li, Zachary Nado, James Martens, Sushant Sachdeva, George E. Dahl,"
+"","Christopher J. Shallue, and Roger B. Grosse. Which algorithmic choices matter at which batch"
+"","sizes? insights from a noisy quadratic model. CoRR, abs/1907.04164, 2019, 1907.04164. URL"
+"","http://arxiv.org/abs/1907.04164. 12, 18"

@@ -1,0 +1,54 @@
+"datapoints that we can only see once, and when we constrain the size of the hypothesis space to be"
+"𝑁-dimensional ? We are making steps toward minimizing the empirical risk within a ﬁnite-dimensional"
+"functional space H𝑁:"
+"ˆ"
+"setting
+(8)
+𝑓𝑁,𝐷 (cid:44) argmin
+𝐿𝐷 ( 𝑓 ).
+𝐿𝐷 ( 𝑓 ) (cid:44) ˆ𝔼𝐷 [log 𝑓 (𝑥) 𝑦],"
+"𝑓 ∈H𝑁"
+"We are never able to obtain ˆ𝑓𝑁,𝐷 as we typically perform a single epoch over the dataset of size 𝐷."
+"Instead, be obtain ¯𝑓𝑁,𝐷, which is the result of applying a certain number of gradient steps based on"
+"the 𝐷 datapoints—the number of steps to perform depends on the gradient batch size, for which we"
+"use well-tested heuristics."
+"Using the Bayes-classiﬁer
+𝑓 ★, the expected-risk minimizer
+𝑓𝑁 and the “single-epoch empirical-risk"
+"minimizer” ¯𝑓𝑁,𝐷, we can ﬁnally decompose the loss 𝐿(𝑁, 𝐷) into"
+"(9)
+𝐿(𝑁, 𝐷) (cid:44) 𝐿( ¯𝑓𝑁,𝐷) = 𝐿( 𝑓 ★) + (cid:0)𝐿( 𝑓𝑁) − 𝐿( 𝑓 ★)(cid:1) + (cid:0)𝐿( ¯𝑓𝑁,𝐷) − 𝐿( 𝑓𝑁)(cid:1) ."
+"The loss comprises three terms:
+the Bayes risk,
+i.e.
+the minimal
+loss achievable for next-token"
+"prediction on the full distribution 𝑃, a.k.a the “entropy of natural text.”; a functional approximation"
+"term that depends on the size of the hypothesis space; ﬁnally, a stochastic approximation term that"
+"captures the suboptimality of minimizing ˆ𝐿𝐷 instead of 𝐿, and of making a single epoch on the provided"
+"dataset."
+"In the decomposition (9), the second term depends entirely on"
+"Expected forms of the loss terms."
+"the number of parameters 𝑁 that deﬁnes the size of the functional approximation space. On the set"
+"1"
+""
+"of two-layer neural networks, it is expected to be proportional to"
+"𝑁1/2"
+"given that it corresponds to early stopping in stochastic ﬁrst order methods, the third term should"
+"1"
+"scale as the convergence rate of these methods, which is lower-bounded by
+(Robbins and Monro,"
+"𝐷1/2"
+"1951) (and may attain the bound). This convergence rate is expected to be dimension free (see e.g."
+"Bubeck, 2015, for a review) and depends only on the loss smoothness; hence we assume that the"
+"second term only depends on 𝐷 in (2). Empirically, we ﬁnd after ﬁtting (2) that"
+"𝐵
+𝐴"
+"(10)
+,
+𝐿(𝑁, 𝐷) = 𝐸 +"
+"𝑁 0.34 +
+𝐷0.28"
+"with 𝐸 = 1.69, 𝐴 = 406.4, 𝐵 = 410.7. We note that the parameter/data coeﬃcients are both lower"
+"than 1"
+"2 ; this is expected for the data-eﬃciency coeﬃcient (but far from the known lower-bound)."

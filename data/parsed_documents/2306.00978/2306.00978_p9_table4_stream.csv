@@ -1,0 +1,82 @@
+"","RTN
+10476
+193210
+7622
+17564
+8170"
+"2022)) on COCO captioning (Chen et al., 2015) dataset (Ta-",""
+"","GPTQ
+46.67
+28.15
+16.65
+16.74
+11.75"
+"ble 6). We measured the average performance of 5k samples",""
+"","35.71
+25.70
+15.71
+13.25
+11.38
+AWQ +GPTQ"
+"under different few-shot settings. We only quantize the lan-",""
+"guage part of the model since it dominates the model size.",""
+"","Table 9. Our method is orthogonal to GPTQ: it further closes the"
+"AWQ outperforms existing methods under zero-shot and",""
+"","performance gap under extreme low-bit quantization (INT2-g64)"
+"various few-shot settings, demonstrating the generability to",""
+"","when combined with GPTQ. Results are WikiText-2 perplexity of"
+"different modalities and in-context learning workloads.
+It",""
+"","OPT models."
+"reduces the quantization degradation (32-shot) from 4.57 to",""
+"1.17 under INT4-g128, providing 4× model size reduction",""
+"with negligible performance loss. To further demonstrate",""
+"","Results
+on
+programming
+and math
+tasks
+To
+fur-"
+"the generability of AWQ, we also evaluated AWQ on one of",""
+"","ther
+evaluate
+the
+performance
+of AWQ on
+tasks
+in-"
+"the SoTA multi-image visual language models: VILA. The",""
+"","volving complex generations, we
+also tested AWQ on"
+"result in Table 7 shows that AWQ achieves lossless quanti-",""
+"","MBPP (Austin et al., 2021) and GSM8K (Cobbe et al.,"
+"zation performance on 11 visual-language benchmarks. We",""
+"","2021). MBPP (Austin et al., 2021) consists of around 1,000"
+"further provide some qualitative captioning results in Fig-",""
+"","Python programming problems, designed to be solvable by"
+"ure 7 to show our advantage over RTN. Our method provides",""
+"","entry level programmers, covering programming fundamen-"
+"a push-the-button solution for LMM/VLM quantization. It",""
+"","tals, standard library functionality, etc. GSM8K (Cobbe"
+"is the first study of VLM low-bit quantization to the best of",""
+"","et al., 2021) was created to support the task of question an-"
+"our knowledge.",""
+"","swering on basic mathematical problems that require multi-"
+"","step reasoning. We quantize CodeLlama-7b-Instruct-hf and"
+"","Llama-2 to INT4-g128 and perform experiments on pro-"
+"Visual reasoning results.
+We further provide some qual-","gramming and math datasets (Table 8). AWQ outperforms"
+"itative visual reasoning examples of the LLaVA-13B (Liu","existing methods on both datasets, demonstrating the gener-"
+"et al., 2023a) model
+in Figure 6. AWQ improves the re-","ability to complex generation. AWQ under the INT4-g128"
+"sponses compared to round-to-nearest (RTN) for INT4-g128","configuration demonstrates comparable performance to the"
+"quantization,
+leading to more reasonable answers.
+In this","original FP16 model on both datasets."
+"first example, the AWQ model can understand the meme as",""
+"","Extreme low-bit quantization.
+We further quantize LLM"
+"it resembles the Earth when looking from space, while RTN",""
+"","to INT2 to accommodate limited device memory (Table 9)."
+"produces wrong descriptions (marked in red).",""
