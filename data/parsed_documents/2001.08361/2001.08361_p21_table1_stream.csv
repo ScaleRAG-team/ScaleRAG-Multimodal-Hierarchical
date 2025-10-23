@@ -1,0 +1,35 @@
+"the compute budget. We start with the Equation (1.6), repeated here for convenience:"
+""
+"(cid:19)αN
+(cid:19)αS
+(cid:18) Nc
+(cid:18) Sc"
+"L (N, S) =
++
+.
+(B.1)"
+"N
+S"
+"Here, S represents the number of parameter updates when training at
+the critical batch size [MKAT18],"
+"which was deﬁned in Equation (5.2)9:"
+"B∗"
+"B (L) =
+.
+(B.2)"
+"L1/αB"
+"We would like to determine optimal
+training parameters for a ﬁxed compute budget,
+so we replace S ="
+"C/ (6N B (L)), where C is the number of FLOPs used in the training run:"
+"(cid:18)
+(cid:19)αS"
+"N
+(cid:18) Nc"
+".
++
+L (N, C) =
+(B.3)
+6B∗Sc"
+"N
+L1/αB C"

@@ -1,0 +1,47 @@
+"26
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"Anselin L (2018). “A Local Indicator of Multivariate Spatial Association: Extending Geary’s"
+"c.” Geographical Analysis, 51(2), 133–150. doi:10.1111/gean.12164."
+"Baston D (2022).
+exactextractr: Fast Extraction from Raster Datasets using Polygons. R"
+"package version 0.9.1, URL https://CRAN.R-project.org/package=exactextractr."
+"Bivand R (2022). “R Packages for Analyzing Spatial Data: A Comparative Case Study with"
+"Areal Data.” Geographical Analysis, 54(3), 488–518. doi:10.1111/gean.12319."
+"Bivand RS, Pebesma EJ, Gómez-Rubio V (2008).
+Applied Spatial Data Analysis with R."
+"Springer New York, New York. doi:10.1007/978-0-387-78171-6."
+"Bivand RS, Wong DWS (2018). “Comparing Implementations of Global and Local Indicators"
+"of Spatial Association.” TEST, 27(3), 716–748. doi:10.1007/s11749-018-0599-x."
+"Blackard J, Finco M, Helmer E, Holden G, Hoppus M, Jacobs D, Lister A, Moisen G, Nelson"
+"M, Riemann R (2008). “Mapping U.S. Forest Biomass Using Nationwide Forest Inventory"
+"Data and Moderate Resolution Information.”
+Remote Sensing of Environment, 112(4),"
+"1658–1677. doi:10.1016/j.rse.2007.08.021."
+"Correndo AA, Moro Rosso LH, Schwalbert R, Hernandez C, Bastos LM, Nieto L, Holzworth"
+"D, Ciampitti IA (2022). metrica: Prediction Performance Metrics. R package version 2.0.1,"
+"URL https://CRAN.R-project.org/package=metrica."
+"Draper NR, Yang Y (1997). “Generalization of the Geometric Mean Functional Relationship.”"
+"Computational Statistics & Data Analysis, 23(3), 355–372. doi:10.1016/s0167-9473(96)"
+"00037-0."
+"Fick SE, Hijmans RJ (2017). “WorldClim 2: New 1-km Spatial Resolution Climate Surfaces"
+"for Global Land Areas.”
+International Journal of Climatology, 37(12), 4302–4315.
+doi:"
+"10.1002/joc.5086."
+"Frick H, Chow F, Kuhn M, Mahoney M, Silge J, Wickham H (2022).
+rsample: General"
+"Resampling Infrastructure. R package version 1.1.1, URL https://CRAN.R-project.org/"
+"package=rsample."
+"Geary RC (1954). “The Contiguity Ratio and Statistical Mapping.” The Incorporated Statis-"
+"tician, 5(3), 115. doi:10.2307/2986645."
+"Getis A, Ord JK (1992). “The Analysis of Spatial Association by Use of Distance Statistics.”"
+"Geographical Analysis, 24(3), 189–206. doi:10.1111/j.1538-4632.1992.tb00261.x."
+"Getis A, Ord JK (1996). Spatial Analysis: Modelling in a GIS Environment, chapter Local"
+"Spatial Statistics: An Overview, pp. 261–277. GeoInformation International, Cambridge,"
+"UK."
+"Gotti M, Kuhn M (2022).
+applicable: A Compilation of Applicability Domain Methods. R"
+"package version 0.1.0, URL https://CRAN.R-project.org/package=applicable."
+"Greenwell BM, Boehmke BC (2020).
+“Variable Importance Plots — An Introduction to the"
+"vip Package.” The R Journal, 12(1), 343–366. doi:10.32614/RJ-2020-013."

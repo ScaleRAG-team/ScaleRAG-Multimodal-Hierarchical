@@ -1,0 +1,12 @@
+"4.2.2
+Downstream Evaluations"
+"Table 3 shows the performance of Mamba on a range of popular downstream zero-shot evaluation tasks. We compare"
+"against the most well-known open source models at these sizes, most importantly Pythia (Biderman et al. 2023) and"
+"RWKV (B. Peng et al. 2023) which were trained with the same tokenizer, dataset, and training length (300B tokens) as our"
+"models.
+(Note that Mamba and Pythia are trained with context length 2048, while RWKV was trained with context length"
+"1024.)"
+"Table 3: (Zero-shot Evaluations.) Best results for each size in bold. We compare against open source LMs with various tokenizers,"
+"trained for up to 300B tokens. Pile refers to the validation split, comparing only against models trained on the same dataset and tokenizer"
+"(GPT-NeoX-20B). For each model size, Mamba is best-in-class on every single evaluation result, and generally matches baselines at twice"
+"the model size."

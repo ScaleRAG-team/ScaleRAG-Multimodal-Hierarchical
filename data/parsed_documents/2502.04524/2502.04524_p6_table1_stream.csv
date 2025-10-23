@@ -1,0 +1,35 @@
+"oxygen vacancies
+in the CMO layer
+radially spread outward, depleting
+the CMO"
+"defect
+sub-band within a half-spherical volume at
+the interface with the conductive"
+"filament,
+leading to a reset process (Fig. S3 in Supplementary Information shows the"
+"experimental array’s
+response). Conversely, a voltage sweep from 0 to 1.3 V enables"
+"the migration of oxygen vacancies in the CMO layer in the reverse direction, resulting"
+"in a set
+transition, controlled by the transistor gate. For each 1T1R cell within the"
+"8x4 array, Fig. 2d shows 5 quasi-static I-V cycling sweeps
+to experimentally assess"
+"the reproducibility of the optimized 8W switching polarity. The electronic transport"
+"in both the low-resistive state (LRS) and high-resistive state (HRS) is modelled as a"
+"trap-to-trap tunneling process, described by the Mott and Gurney analytical
+formu-"
+"lation. The physical parameters characterizing the transport
+in both LRS and HRS"
+"(Ne, ∆Ee, ae, σCMO and rCF) are shown in Fig. 2d. Refer to the ”Methods” section"
+"”Analytical ReRAM transport modelling” for details on the LRS and HRS modelling."
+"Fig. 2e
+illustrates
+the
+cumulative probability distribution of
+the
+experimental LRS"
+"and HRS within the array, demonstrating device-to-device uniformity and a resis-"
+"tance ratio HRS/LRS of approximately 15, with absolute switching voltages ≤ 1.5 V."
+"The excellent uniformity of the forming and the optimized 8W-cycling characteristics"
+"set the groundwork for AIMC-based inference and training AI-accelerators using the"
+"CMO/HfOx ReRAM technology."

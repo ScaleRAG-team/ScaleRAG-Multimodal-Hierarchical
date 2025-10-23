@@ -1,0 +1,68 @@
+"D.15
+Extended Related Work for Theoretical Attention Problems"
+"Rn"
+"d, the
+The static attention computation is asking the following question that given Q, K, V
+×"
+"∈"
+"goal
+[98] studied the static attention
+is to D−
+1 exp(QK ⊤)V where D = diag(exp(QK ⊤)1n)."
+"computation from both algorithm and hardness. On the positive, they provide an almost linear time"
+"algorithm to approximately compute the attention matrix. On the negative side, assuming a strong"
+"exponential time hypothesis (SETH), they prove a hardness result. Their hardness result is, unless"
+"SETH fails,
+there is no algorithm that runs in truly subquadratic time to approximately compute"
+"the attention matrix. Further, [100] considers the dynamic of attention computation problem. They"
+"also provide both algorithmic results and hardness results.
+In the work of
+[103],
+they consider"
+"the sparsification of attention matrix construction.
+In particular,
+they assume that situation that"
+"[103] provides two algorithms, one
+d
+n, and show how to sparsify the columns of matrix Q."
+"≫"
+"is a randomized algorithm, and the other
+is a deterministic algorithm. Differential privacy is a"
+"famous and textbook topic in graduate school,
+recently the work of
+[101] shows how to give a"
+"Rn"
+"differentially private algorithm for computing the attention matrix.
+d and
+For a given A
+×"
+"∈"
+""
+"vector b
+exp(Ax)
+b
+∈
+Rn, [104] formulates and studies exponential regression minx ∥
+−
+∥2. Then"
+"[105] considers the normalization factor in exponential regression and defines the softmax regression"
+"1 exp(Ax)"
+"b
+−
+problem minx ∥⟨
+exp(Ax), 1n⟩
+−
+∥2. [107] moves the scaling factor from exp(Ax) to"
+""
+"exp(Ax)
+b
+b and defines a rescaled softmax regression problem minx ∥
+− ⟨
+exp(Ax), 1n⟩ ·
+∥2."
+"D.16
+Sparsity Preserving"
+"Recall that in Figure 2, we observe that even when trained densely, the attention matrices of LLMs"
+"are over 95% sparse at inference time. Only 5% of the KV cache is sufficient for decoding the same"
+"output token at each generation step. Here, we provide some formal formulations for sparsity."
+"Definition D.33. Suppose the following conditions"

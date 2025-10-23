@@ -1,0 +1,69 @@
+"Reasoning ﬁne-tuning performance.
+As a preliminary assessment of
+the model"
+"quality, we use a Switch-XXL model partially pre-trained on 503B tokens, or approximately"
+"half
+the text used by the T5-XXL model. Using this checkpoint, we conduct multi-task"
+"training for eﬃciency, where all tasks are learned jointly, rather than individually ﬁne-tuned."
+"We ﬁnd that SQuAD accuracy on the validation set increases to 89.7 versus state-of-the-art"
+"of 91.3. Next, the average SuperGLUE test score is recorded at 87.5 versus the T5 version"
+"obtaining a score of 89.3 compared to the state-of-the-art of 90.0 (Wang et al., 2019). On"
+"ANLI (Nie et al., 2019), Switch XXL improves over the prior state-of-the-art to get a 65.7"
+"accuracy versus the prior best of 49.4 (Yang et al., 2020). We note that while the Switch-"
+"XXL has state-of-the-art Neg. Log Perp. on the upstream pre-training task,
+its gains have"
+"not yet
+fully translated to SOTA downstream performance. We study this
+issue more in"
+"Appendix E."
+"Knowledge-based ﬁne-tuning performance. Finally, we also conduct an early ex-"
+"amination of the model’s knowledge with three closed-book knowledge-based tasks: Natural"
+"Questions, WebQuestions and TriviaQA, without additional pre-training using Salient Span"
+"Masking (Guu et al., 2020).
+In all three cases, we observe improvements over the prior state-"
+"of-the-art T5-XXL model (without SSM). Natural Questions exact match increases to 34.4"
+"versus
+the prior best of 32.8, Web Questions
+increases
+to 41.0 over 37.2, and TriviaQA"
+"increases to 47.5 versus 42.9."
+"Summing up, despite training on less
+than half
+the data of other models, we already"
+"ﬁnd comparable,
+and sometimes
+state-of-the-art, model quality.
+Currently,
+the Switch"
+"Transformer
+translates
+substantial upstream gains better
+to knowledge-based tasks,
+than"
+"reasoning-tasks (see Appendix E). Extracting stronger ﬁne-tuning performance from large"
+"expert models is an active research question, and the pre-training perplexity indicates future"
+"improvements should be possible."
+"6. Related Work"
+"The importance of scale in neural networks is widely recognized and several approaches have"
+"been proposed. Recent works have scaled models to billions of parameters through using"
+"model parallelism (e.g.
+splitting weights and tensors across multiple cores) (Shazeer et al.,"
+"2018; Rajbhandari et al., 2019; Raﬀel et al., 2019; Brown et al., 2020; Shoeybi et al., 2019)."
+"Alternatively, Harlap et al. (2018); Huang et al. (2019) propose using pipeline based model"
+"parallelism, where diﬀerent layers are split across devices and micro-batches are pipelined to"
+"the diﬀerent layers. Finally, Product Key networks (Lample et al., 2019) were proposed to"
+"scale up the capacity of neural networks by doing a lookup for learnable embeddings based"
+"on the incoming token representations to a given layer."
+"Our work studies a speciﬁc model in a class of methods that do conditional computation,"
+"where computation decisions are made dynamically based on the input. Cho and Bengio"
+"(2014) proposed adaptively selecting weights based on certain bit patterns occuring in the"
+"model hidden-states.
+Eigen et al.
+(2013) built
+stacked expert
+layers with dense matrix"
+"multiplications and ReLU activations and showed promising results on jittered MNIST and"
+"monotone speech.
+In computer vision Puigcerver et al. (2020) manually route tokens based"
+"on semantic classes during upstream pre-training and then select the relevant experts to be"
+"used according to the downstream task."

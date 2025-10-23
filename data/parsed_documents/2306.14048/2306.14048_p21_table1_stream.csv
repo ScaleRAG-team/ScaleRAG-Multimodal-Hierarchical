@@ -1,0 +1,35 @@
+"","cache_write_buffer . store ( new_k_cache ,","","","","new_v_cache ,","","evict_ids )"
+"return
+h","","","","","","",""
+"def
+store_cache (...) :","","","","","","",""
+"if
+prefill :","","","","","","",""
+"#
+store
+cache","directly","","","","","",""
+"...","","","","","","",""
+"else :","","","","","","",""
+"k_new ,
+v_new ,","evict_ids","=","cache_write_buffer . pop ()","","","",""
+"#
+circular
+queue","for
+the","last","K","entries","","",""
+"#
+extract
+the
+index","for","the","oldest","token","at","i - th","iteration"
+"oldest
+=
+(( i
+-
+1)","%
+K )","-
+K","","","","",""
+"#
+update
+the
+KV","cache","( k_home","and","v_home )","","",""
+"cache_replace ( k_home ,","","evict_ids ,","","k_new ,","K ,","oldest )",""
+"cache_replace ( v_home ,","","evict_ids ,","","v_new ,","K ,","oldest )",""

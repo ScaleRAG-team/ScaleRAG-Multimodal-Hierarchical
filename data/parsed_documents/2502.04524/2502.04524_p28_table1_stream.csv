@@ -1,0 +1,46 @@
+"R., Estrada-Raygoza, I., Li, J., Gokmen, T., Li, N., Pujari, R., Carta, F., Miyazoe,"
+"H., Frank, M.M., Koty, D., Yang, Q., Clark, R., Tapily, K., Wajda, C., Mosden,"
+"A., Shearer, J., Metz, A., Teehan, S., Saulnier, N., Offrein, B.J., Tsunomura, T.,"
+"Leusink, G., Narayanan, V., Ando, T.: Deep learning acceleration in 14nm cmos"
+"compatible reram array: device, material and algorithm co-optimization. In: Tech-"
+"nical Digest - International Electron Devices Meeting, IEDM, vol. 2022-December"
+"(2022). https://doi.org/10.1109/IEDM45625.2022.10019569"
+"[23] Rasch, M.J., Carta, F., Fagbohungbe, O., Gokmen, T.: Fast and robust analog"
+"in-memory deep neural network training. Nature Communications 15(1), 7133"
+"(2024) https://doi.org/10.1038/s41467-024-51221-z"
+"[24] Stecconi, T., Bragaglia, V., Rasch, M.J., Carta, F., Horst, F., Falcone, D.F., Kate,"
+"S.C., Gong, N., Ando, T., Olziersky, A., Offrein, B.: Analog resistive switching"
+"devices for training deep neural networks with the novel tiki-taka algorithm. Nano"
+"Letters 24 (2024) https://doi.org/10.1021/acs.nanolett.3c03697"
+"[25] Lombardo, D.G.F., Ram, M.S., Stecconi, T., Choi, W., La Porta, A., Falcone,"
+"D.F., Offrein, B., Bragaglia, V.: Read noise analysis in analog conductive-metal-"
+"oxide/hfox reram devices.
+In: 2024 Device Research Conference (DRC), pp. 1–2"
+"(2024). https://doi.org/10.1109/DRC61706.2024.10643760"
+"[26] Falcone, D.F., Menzel,
+S.,
+Stecconi, T., Galetta, M., La Porta, A., Offrein,"
+"B.J., Bragaglia, V.: Analytical modelling of the transport in analog filamentary"
+"conductive-metal-oxide/hfox reram devices. Nanoscale Horiz. 9, 775–784 (2024)"
+"https://doi.org/10.1039/D4NH00072B"
+"[27] Padovani, A., Larcher, L., Pirrotta, O., Vandelli, L., Bersuker, G.: Microscopic"
+"modeling of hfox rram operations: From forming to switching. IEEE Transactions"
+"on Electron Devices 62 (2015) https://doi.org/10.1109/TED.2015.2418114"
+"[28] Kr¨oger, F.A., Vink, H.J.: Relations between the concentrations of
+imperfections"
+"in solids. Journal of Physics and Chemistry of Solids 5 (1958) https://doi.org/"
+"10.1016/0022-3697(58)90069-6"
+"[29] Padovani, A., Larcher, L., Padovani, P., Cagli, C., Salvo, B.D.: Understanding"
+"the role of the ti metal electrode on the forming of hfo 2-based rrams. 2012 4th"
+"IEEE International Memory Workshop,
+IMW 2012, 1–4 (2012) https://doi.org/"
+"10.1109/IMW.2012.6213667"
+"[30] Padovani, A., Larcher, L., Bersuker, G., Pavan, P.: Charge transport and degra-"
+"dation in hfo2 and hfox dielectrics.
+IEEE Electron Device Letters 34, 680–82"
+"(2013) https://doi.org/10.1109/LED.2013.2251602"
+"[31] Falcone, D.F., Menzel,
+S.,
+Stecconi, T.,
+La Porta, A., Carraria-Martinotti,"
+"L., Offrein, B.J., Bragaglia, V.: Physical modeling and design rules of analog"

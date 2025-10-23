@@ -1,0 +1,94 @@
+"Mirac Suzgun, Nathan Kim, Neel Guha, Niladri S. Chat-","[45] NVIDIA.
+Using
+multiple
+nccl
+com-"
+"terji, Omar Khattab, Peter Henderson, Qian Huang, Ryan","https://
+municators
+concurrently."
+"Chi, Sang Michael Xie, Shibani Santurkar, Surya Gan-","docs.nvidia.com/deeplearning/nccl/"
+"guli, Tatsunori Hashimoto, Thomas Icard, Tianyi Zhang,","user-guide/docs/usage/communicators.html#"
+"Vishrav Chaudhary, William Wang, Xuechen Li, Yifan","using-multiple-nccl-communicators-concurrently."
+"Mai, Yuhui Zhang, and Yuta Koreeda. Holistic evalua-",""
+"","https://github.com/
+[46] NVIDIA. Fastertransformer."
+"tion of language models. CoRR, abs/2211.09110, 2022.",""
+"","NVIDIA/FasterTransformer, 2023."
+"[37]
+Ji Lin, Jiaming Tang, Haotian Tang, Shang Yang, Wei-",""
+"","https://github.
+[47] NVIDIA. Triton inference server."
+"Ming Chen, Wei-Chen Wang, Guangxuan Xiao, Xingyu",""
+"Dang, Chuang Gan, and Song Han. Awq: Activation-","com/triton-inference-server/server, 2023."
+"aware weight quantization for llm compression and ac-",""
+"","https://openai.com/
+[48] OpenAI. Openai api, 2020."
+"celeration.
+In MLSys, 2024.",""
+"","blog/openai-api."
+"[38] Hao Liu, Matei Zaharia, and Pieter Abbeel. Ring at-",""
+"","[49] OpenAI. Gpt-4 technical report, 2023."
+"tention with blockwise transformers for near-infinite",""
+"context. CoRR, abs/2310.01889, 2023.",""
+"","https://help.openai.com/
+[50] OpenAI. Gpt-4 turbo."
+"","en/articles/8555510-gpt-4-turbo, 2023."
+"[39] Shuming Ma, Hongyu Wang, Lingxiao Ma, Lei Wang,",""
+"Wenhui Wang, Shaohan Huang, Li Dong, Ruiping Wang,",""
+"","[51] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida,"
+"Jilong Xue, and Furu Wei. The era of 1-bit
+llms: All",""
+"","Carroll L. Wainwright, Pamela Mishkin, Chong Zhang,"
+"large language models are in 1.58 bits, 2024.",""
+"","Sandhini Agarwal, Katarina Slama, Alex Ray, John"
+"[40]
+Jason Mars, Lingjia Tang, Robert Hundt, Kevin Skadron,","Schulman, Jacob Hilton, Fraser Kelton, Luke Miller,"
+"and Mary Lou Soffa. Bubble-up: Increasing utilization","Maddie Simens, Amanda Askell, Peter Welinder, Paul F."
+"in modern warehouse scale computers via sensible co-","Christiano, Jan Leike, and Ryan Lowe. Training lan-"
+"locations. In Proceedings of the 44th annual IEEE/ACM","guage models to follow instructions with human feed-"
+"International Symposium on Microarchitecture, pages","back.
+In NeurIPS, 2022."
+"248–259, 2011.",""
+"","[52] Reiner Pope, Sholto Douglas, Aakanksha Chowdh-"
+"[41] Xupeng Miao, Chunan Shi, Jiangfei Duan, Xiaoli Xi,","ery, Jacob Devlin, James Bradbury, Anselm Levskaya,"
+"Dahua Lin, Bin Cui, and Zhihao Jia. Spotserve: Serv-","Jonathan Heek, Kefan Xiao, Shivani Agrawal, and Jeff"
+"ing generative large language models on preemptible","Dean. Efficiently scaling transformer inference, 2022."
+"instances, 2023.",""
+"","[53] Francisco Romero, Qian Li, Neeraja J Yadwadkar, and"
+"[42] Philipp Moritz, Robert Nishihara, Stephanie Wang,","Christos Kozyrakis. {INFaaS}: Automated model-less"
+"Alexey Tumanov, Richard Liaw, Eric Liang, Melih Eli-","inference serving.
+In 2021 USENIX Annual Technical"
+"bol, Zongheng Yang, William Paul, Michael I. Jordan,","Conference (USENIX ATC 21), pages 397–411, 2021."
+"and Ion Stoica. Ray: A distributed framework for emerg-",""
+"","[54] Haichen Shen, Lequn Chen, Yuchen Jin, Liangyu Zhao,"
+"ing AI applications. In 13th USENIX Symposium on Op-",""
+"","Bingyu Kong, Matthai Philipose, Arvind Krishnamurthy,"
+"erating Systems Design and Implementation (OSDI 18),",""
+"","and Ravi Sundaram. Nexus: A gpu cluster engine for"
+"pages 561–577, Carlsbad, CA, October 2018. USENIX",""
+"","accelerating dnn-based video analysis.
+In Proceedings"
+"Association.",""
+"","of the 27th ACM Symposium on Operating Systems Prin-"
+"[43] Avanika Narayan, Ines Chami, Laurel J. Orr, and Christo-","ciples, SOSP ’19, page 322–337, New York, NY, USA,"
+"pher Ré. Can foundation models wrangle your data?","2019. Association for Computing Machinery."
+"Proc. VLDB Endow., 16(4):738–746, 2022.",""
+"","[55] Ying Sheng, Shiyi Cao, Dacheng Li, Banghua Zhu,"
+"[44] Deepak Narayanan, Mohammad Shoeybi, Jared Casper,",""
+"","Zhuohan Li, Danyang Zhuo, Joseph E. Gonzalez, and"
+"Patrick LeGresley, Mostofa Patwary, Vijay Korthikanti,",""
+"","Ion Stoica. Fairness in serving large language models,"
+"Dmitri Vainbrand, Prethvi Kashinkunti, Julie Bernauer,",""
+"","2023."
+"Bryan Catanzaro, Amar Phanishayee, and Matei Zaharia.",""
+"Efficient
+large-scale language model
+training on gpu","[56] Mohammad
+Shoeybi, Mostofa
+Patwary, Raul
+Puri,"
+"clusters using megatron-lm.
+In Proceedings of the Inter-","Patrick LeGresley, Jared Casper, and Bryan Catanzaro."
+"national Conference for High Performance Computing,","Megatron-LM: Training Multi-Billion Parameter Lan-"
+"Networking, Storage and Analysis, SC ’21, New York,","guage Models Using Model Parallelism. arXiv preprint"
+"NY, USA, 2021. Association for Computing Machinery.","arXiv:1909.08053, 2019."

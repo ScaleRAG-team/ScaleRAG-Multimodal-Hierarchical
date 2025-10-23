@@ -1,0 +1,62 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"cluding education, healthcare, and entertainment, po-","2021. URL https://openreview.net/forum?"
+"tentially leading to breakthroughs that benefit society","id=W1G1JZEIy5_."
+"at large.",""
+"","Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D.,"
+"• Environmental Impact: The acceleration for LLM",""
+"","Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G.,"
+"inference due to MEDUSA could lead to decreased",""
+"","Askell, A., et al. Language models are few-shot learners."
+"energy consumption and a smaller carbon footprint.",""
+"","Advances in neural information processing systems, 33:"
+"This aligns with the growing need for sustainable AI",""
+"","1877–1901, 2020."
+"practices, contributing to environmental conservation",""
+"efforts.","Chen, C., Borgeaud, S.,
+Irving, G., Lespiau, J.-B., Sifre,"
+"","L., and Jumper, J. Accelerating large language model"
+"• Economic Implications:
+The
+increased efficiency",""
+"","decoding with speculative sampling. February 2023. doi:"
+"brought about by MEDUSA may lower the cost barrier",""
+"","10.48550/ARXIV.2302.01318."
+"to deploying state-of-the-art AI models, enabling small",""
+"and medium-sized enterprises to leverage advanced AI",""
+"","Chen,
+L.
+Dissecting
+batching
+effects
+in
+gpt
+infer-"
+"capabilities. This could stimulate economic growth,",""
+"","https://le.qun.ch/en/blog/2023/
+ence."
+"foster competition, and drive technological innovation.",""
+"","05/13/transformer-batching/, 2023. Blog."
+"Ethical Considerations","Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang,"
+"","H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E.,"
+"• Bias and Fairness: While MEDUSA aims to improve",""
+"","Stoica,
+I., and Xing, E. P.
+Vicuna: An open-source"
+"LLM efficiency,
+it inherits the ethical considerations",""
+"","chatbot
+impressing gpt-4 with 90%* chatgpt quality,"
+"of
+its backbone models,
+including issues related to",""
+"","March 2023.
+URL https://lmsys.org/blog/"
+"bias and fairness. The method’s ability to maintain",""
+"","2023-03-30-vicuna/."
+"generation quality necessitates investigation to ensure",""
+"that the models do not perpetuate or amplify existing",""
+"","Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra,"
+"biases.",""
+"","G., Roberts, A., Barham, P., Chung, H. W., Sutton, C.,"
+"","Gehrmann, S., et al. Palm: Scaling language modeling"
+"• Transparency and Accountability: The complexity",""

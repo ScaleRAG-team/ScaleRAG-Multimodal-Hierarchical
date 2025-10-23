@@ -1,0 +1,25 @@
+"Noise Scale Measurement"
+"103"
+"6 × 100
+4 × 100
+3 × 100
+101"
+"WebText2 Train Loss"
+"Figure 10
+follows a power law in the loss as performance increase, and does
+The critical batch size Bcrit"
+"not depend directly on the model size. We ﬁnd that
+the critical batch size approximately doubles for every"
+"is measured empirically from the data shown in Figure 18, but it is also roughly
+13% decrease in loss. Bcrit"
+"predicted by the gradient noise scale, as in [MKAT18]."
+"deﬁning"
+"L(N, D)"
+"δL(N, D) ≡
+− 1
+(4.2)"
+"L(N, ∞)"
+"and studying it as a function of N, D. In fact, we see empirically that δL depends only a speciﬁc combination"
+"of N and D, as shown in Figure 16. This follows from the scaling law of Equation (1.5), which implies"
+"(cid:32)
+(cid:33)αD"

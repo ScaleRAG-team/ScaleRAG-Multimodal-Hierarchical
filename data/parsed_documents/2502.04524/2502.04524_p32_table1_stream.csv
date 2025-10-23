@@ -1,0 +1,33 @@
+"2"
+"0.0"
+"2
+3
+4
+0
+1
+2
+3
+4"
+"V ReRAM"
+"VDS [V]
+forming [V]"
+"forming
+Fig. S2: Experimental CMO/HfOx ReRAM array forming data. a The"
+"voltage distribution of
+the 1T1R cells within the array, defined as
+the voltage required to"
+"trigger
+the highest current
+increase during the quasi-static voltage sweep from 0 to 3.6 V"
+"in Fig. 2a of
+the manuscript. b The array forming current distribution corresponding to"
+"V = V 1T1R"
+"forming. c The experimental resistance of the transistor in the triode region at VG ="
+"1.2 V, extracted from a linear fit
+from 0 to 0.2 V of
+the transistor output characteristic. d"
+"The forming voltage distribution of the ReRAM array, shown in Fig. 2c of the manuscript,"
+"* I 1T1R"
+"forming.
+forming = V 1T1R
+forming - Rtriode"

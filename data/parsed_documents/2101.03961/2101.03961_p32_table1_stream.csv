@@ -1,0 +1,9 @@
+"E. Relation of Upstream to Downstream Model Performance",""
+"There is no guarantee that a model’s quality on a pre-training objective will","translate to"
+"downstream task results. Figure 13 presents the correlation of the upstream model quality,",""
+"for both dense and Switch models, on the C4 pre-training task with two downstream task",""
+"measures:
+average SuperGLUE performance and TriviaQA score. We","choose
+these
+two"
+"tasks as one probes the model’s reasoning and the other factual knowledge.",""

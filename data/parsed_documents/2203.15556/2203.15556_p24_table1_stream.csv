@@ -1,0 +1,43 @@
+"C4
+0.50
+0.50"
+"GitHub
+0.53
+0.47"
+"Kaplan et al. (2020)
+0.73
+0.27"
+"Table A2 | Estimated parameter and data scaling with increased training compute on two al-"
+"ternate datasets. The listed values are the exponents, 𝑎 and 𝑏, on the relationship 𝑁𝑜𝑝𝑡 ∝ 𝐶𝑎 and"
+"𝐷𝑜𝑝𝑡 ∝ 𝐶𝑏. Using IsoFLOP proﬁles, we estimate the scaling on two diﬀerent datasets."
+"D. Details on the scaling analyses"
+"D.1. Approach 1: Fixing model sizes and varying training sequences"
+"We use a maximum learning rate of 2 × 10−4 for the smallest models and 1.25 × 10−4 for the largest"
+"models. In all cases, the learning rate drops by a factor of 10× during training, using a cosine schedule."
+"We make the assumption that the cosine cycle length should be approximately matched to the number"
+"of training steps. We ﬁnd that when the cosine cycle overshoots the number of training steps by more"
+"than 25%, performance is noticeably degraded—see Figure A1.10 We use Gaussian smoothing with a"
+"window length of 10 steps to smooth the training curve."
+"D.2. Approach 3: Parametric ﬁtting of the loss"
+"In this section, we ﬁrst show how Equation (2) can be derived. We repeat the equation below for"
+"clarity,"
+"𝐴 𝑁
+𝐵 𝐷
+(5)
+,
+𝐿(𝑁, 𝐷) (cid:44) 𝐸 +"
+"𝛼 +
+𝛽"
+"based on a decomposition of
+the expected risk between a function approximation term and an"
+"optimisation suboptimality term. We then give details on the optimisation procedure for ﬁtting the"
+"parameters."
+"Formally, we consider the task of predicting the next token 𝑦 ∈ Y based on
+Loss decomposition."
+"the previous tokens in a sequence 𝑥 ∈ Y 𝑠, with 𝑠 varying from 0 to 𝑠max—the maximum sequence"
+"length. We consider a distribution 𝑃 ∈ D (X × Y) of tokens in Y and their past in X. A predictor"
+"𝑓
+: X → D (Y) computes the probability of each token given the past sequence. The Bayes classiﬁer,"
+"𝑓 ★, minimizes the cross-entropy of
+𝑓 (𝑥) with the observed tokens 𝑦, with expectation taken on the"
+"whole data distribution. We let 𝐿 be the expected risk"

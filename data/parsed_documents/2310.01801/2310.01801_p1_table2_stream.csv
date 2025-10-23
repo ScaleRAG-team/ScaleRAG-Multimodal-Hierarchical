@@ -1,0 +1,36 @@
+"ation quality loss."
+"1
+INTRODUCTION"
+"Based on the Transformer architecture, autoregressive language models have attracted extensive at-"
+"tention (OpenAI, 2023; Touvron et al., 2023b). Along with the increase of model size, these models"
+"present significant challenges in terms of computational complexity and GPU memory consump-"
+"tion (Shazeer et al., 2017). Since these models achieve remarkable success across diverse applica-"
+"tions, there is a pressing need for serving these models in an economically feasible manner."
+"The generative inference of LLMs usually involves using the KV Cache mechanism to improve the"
+"generation speed. KV cache stores previously computed Key/Value vectors in attention calculation"
+"and reuses those values for the current token generation. As such, it avoids recalculations of previous"
+"tokens at each token generation step at
+the cost of extra memory consumption. Despite being a"
+"prominent technique, the memory consumption of KV cache increases rapidly as the model size and"
+"generation length increase, drastically increasing the pressure of on-device memory."
+"When memory usage exceeds GPU capacity,
+the generative inference of LLMs typically resort
+to"
+"offloading (Aminabadi et al., 2022; Sheng et al., 2023). While these methods help mitigate the"
+"pressure on the scarce GPU memory from using KV cache, offloading KV cache to CPU/NVMe can"
+"still add non-trivial overhead to generative inference performance due to the limited PCIe bandwidth"
+"between the GPU and CPU on many devices. Therefore,
+it becomes a crucial
+task to reduce the"
+"memory footprint of KV cache without costly retraining or fine-tuning."
+"Our study starts from the observation (Figure 1) that
+there are abundant structures observed in at-"
+"tention modules (Michel et al., 2019; Voita et al., 2019; Clark et al., 2019; Wang et al., 2020; Child"
+"et al., 2019), and not all attention modules need to attend to all
+tokens (Liu et al., 2023b; Zhang"
+"et al., 2023; Liu et al., 2023a).
+Intuitively, harvesting such structures and compressing cached vec-"
+"tors could substantially reduce memory consumption and accelerate text generation."
+"Based on this intuition, we propose FastGen to accelerate the generative inference by adaptively"
+"compressing the KV cache on the fly. First, we employ an efficient profiling algorithm to recognize"
+"∗Authors contributed equally to this research. Code is available is at https://github.com/machilusZ/FastGen"

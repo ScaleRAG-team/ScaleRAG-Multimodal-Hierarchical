@@ -1,0 +1,31 @@
+"Fedus, Zoph and Shazeer"
+"beneﬁcial even with only a few computational cores. Further, our large sparse models can"
+"be distilled (Hinton et al., 2015) into small dense versions while preserving 30% of the sparse"
+"model quality gain. Our contributions are the following:"
+"• The Switch Transformer architecture, which simpliﬁes and improves over Mixture of"
+"Experts."
+"• Scaling properties and a benchmark against the strongly tuned T5 model (Raﬀel et al.,"
+"2019) where we measure 7x+ pre-training speedups while still using the same FLOPS"
+"per token. We further show the improvements hold even with limited computational"
+"resources, using as few as two experts."
+"• Successful distillation of
+sparse pre-trained and specialized ﬁne-tuned models
+into"
+"small dense models. We reduce the model size by up to 99% while preserving 30% of"
+"the quality gains of the large sparse teacher."
+"•"
+"Improved pre-training and ﬁne-tuning techniques: (1) selective precision training that"
+"enables training with lower bﬂoat16 precision (2) an initialization scheme that allows"
+"for scaling to a larger number of experts and (3) increased expert regularization that"
+"improves sparse model ﬁne-tuning and multi-task training."
+"• A measurement of
+the pre-training beneﬁts on multilingual data where we ﬁnd a"
+"universal
+improvement across all 101 languages and with 91% of
+languages beneﬁting"
+"from 4x+ speedups over the mT5 baseline (Xue et al., 2020)."
+"• An increase in the scale of neural
+language models achieved by eﬃciently combining"
+"data, model, and expert-parallelism to create models with up to a trillion parameters."
+"These models improve the pre-training speed of a strongly tuned T5-XXL baseline by"
+"4x."

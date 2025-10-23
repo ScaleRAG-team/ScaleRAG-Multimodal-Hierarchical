@@ -1,0 +1,184 @@
+"D
+Theoretical Analysis"
+"Recently, a number of works have studied the attention scheme in LLMs from a theoretical perspective"
+"[96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116,"
+"117, 118, 119, 120, 121, 122]. In this work, we provide a different and novel angle compared to the"
+"previous work. We present the concept of the submodular property and propose an eviction policy,"
+"known as greedy H2, which is a modification of dynamic submodular maximization. Furthermore,"
+"assuming the attention scheme to be submodular, we establish that constructing the set Si without"
+"any cache size limitation satisfies the near-optimal property in terms of submodularity. We provide"
+"theoretical guarantees for our robust and approximate greedy eviction policy algorithm (Algorithm"
+"2). Due to space limitation, we only give informal description of algorithm (Algorithm 2) in Section"
+"4.1 In Section D.6, we give an algorithm (Algorithm 2) which has full and complete implementation"
+"details for Algorithm 1. We also offer a mathematical formulation for sparsity preservation that is"
+"observed in Section 3 and proposed an algorithm (Algorithm 4) to solve the problem."
+"Specifically, in Section D.1, we provide several basic definitions and notations. In Section D.2, we"
+"briefly the definition of submodular function.
+In Section D.3, we define the dynamic submodular"
+"framework, which gives the formal version of Definition 4.1. In Section D.4, we briefly review the"
+"static attention computation problem.
+In Section D.5, we formulate the attention computation in"
+"recursive fashion.
+In Section D.6, we briefly review our eviction policy, which gives the formal"
+"version of Definition 4.3.
+In Section D.7, we discuss the diminishing return for submodular.
+In"
+"Section D.8, we discuss the high-level ideas for submodular. In Section D.9, we analyze the robust"
+"greedy algorithm error propagation.
+In Section D.10, we explain how to add items into sets via"
+"approximate function. In Section D.11, we provide several definitions related to dynamic properties."
+"In Section D.12, we prove an induction lemma for the exact function. In Section D.13, we prove an"
+"induction lemma for the approximation function. In Section D.14, we provide theoretical guarantees"
+"for both the full-knowledge version (formal version of Lemma
+3.1) and the limited-cache-size"
+"version (formal version of Theorem 4.4).
+In Section D.15, we provide a more detailed discussion"
+"of theoretical work about attention computation and regression-related problems. In Section D.16,"
+"we provide a mathematical formulation for sparsity preserving.
+In Section D.17, we provide the"
+"definition of loss function which can potentially generate sparse (heavy hitter type attention sore). In"
+"Section D.18, we explain how to compute the gradient of the loss function. In Section D.19, we show"
+"how to compute the Hessian of the loss function. In Section D.20, we show that Hessian is positive"
+"definite. In Section D.21, we prove the Lipschitz property for the Hessian matrix. In Section D.22,"
+"we show that using a gradient-type algorithm is sufficient to optimize that (heavy hitter type) loss"
+"function."
+"D.1
+Notations"
+".
+For a positive integer n, let [n]
+:=
+1, 2,
+, n"
+"{
+· · ·
+}"
+"For a vector x
+Rn, let √x
+Rn denote the vector with the i-th entry being √xi and diag(x)"
+"∈
+∈
+∈"
+"Rn"
+"×
+n denote the diagonal matrix with the i-th digonal entry being xi. For two matrices A, W"
+"∈
+(cid:80)n"
+"Rn"
+"n, let"
+""
+"A
+A denote the matrix where (W
+×
+A)i,j =
+i,j)1/2 and W
+j=1 Wi,jA2
+i=1
+∥
+∥W := ((cid:80)n
+◦
+◦"
+"Rn"
+"[n].
+×
+Wi,jAi,j. For matrix W
+:= diag(Wi,:) with i
+n, let DWi"
+"∈
+∈"
+""
+"let
+Rn and w"
+""
+"For two vectors x
+x
+its ℓ2 norm
+i )1/2. For a vector x,
+0,
+i=1 wix2
+≥
+∈
+∈
+∥
+∥w := ((cid:80)n"
+""
+""
+"is defined as
+p)1/p. For a
+x
+x
+i )1/2 and its ℓp norm is defined as
+i=1 x2
+i=1 |
+xi|
+∥
+∥2 := ((cid:80)n
+∥
+∥p := ((cid:80)n"
+"square matrix A, we denote tr[A] as the trace of matrix A."
+"Rn"
+"to denote its spectral norm,
+i.e.,
+For a matrix A
+k (suppose n
+k), we use
+A
+A
+=
+×"
+"∈
+≥
+∥
+∥
+∥
+∥"
+"(cid:80)k"
+"Ax
+x
+A
+A"
+""
+"i,j)1/2.
+j=1 A2
+i=1
+supx ∥
+∥2/
+∥
+∥2. We use
+∥
+∥F to denote its Frobenius norm
+∥
+∥F := ((cid:80)n"
+"Rn
+Rn"
+"k (this matrix has
+Suppose matrix A
+×
+k has SVD decomposition U ΣV ⊤ where U
+×"
+"∈
+∈
+Rk
+Rk"
+"orthonormal columns), Σ
+k is a diagonal matrix, and V
+k. We call columns of U
+×
+×"
+"∈
+∈
+Rk"
+"n to denote the Moore-Penrose pseudoinverse,
+singular vectors. We use A†
+×
+then A† ="
+"∈
+Rk"
+"×
+V Σ−
+1U ⊤. Suppose Σ
+k is sorted diagonal matrix, let σ1,
+, σk denote the diagonal entries"
+"∈
+· · ·"
+"of Σ. Then we call σi
+the i-th singular value of the matrix, and we write it as σi(A)."

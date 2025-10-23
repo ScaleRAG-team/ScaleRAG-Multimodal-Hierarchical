@@ -1,0 +1,64 @@
+"Published as a conference paper at ICLR 2024"
+"Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Al-"
+"berti, Danielle Epstein, Illia Polosukhin, Matthew Kelcey, Jacob Devlin, Kenton Lee, Kristina N."
+"Toutanova, Llion Jones, Ming-Wei Chang, Andrew Dai,
+Jakob Uszkoreit, Quoc Le, and Slav"
+"Transactions of
+the
+Petrov. Natural questions:
+a benchmark for question answering research."
+"Association of Computational Linguistics, 2019."
+"Xuechen Li, Tianyi Zhang, Yann Dubois, Rohan Taori,
+Ishaan Gulrajani, Carlos Guestrin, Percy"
+"Liang, and Tatsunori B. Hashimoto. Alpacaeval: An automatic evaluator of instruction-following"
+"models. https://github.com/tatsu-lab/alpaca_eval, 2023."
+"Zichang Liu, Aditya Desai, Fangshuo Liao, Weitao Wang, Victor Xie, Zhaozhuo Xu, Anastasios"
+"Kyrillidis, and Anshumali Shrivastava.
+Scissorhands: Exploiting the persistence of importance"
+"hypothesis for LLM KV cache compression at
+test
+time. CoRR, abs/2305.17118, 2023a.
+doi:"
+"10.48550/arXiv.2305.17118. URL https://doi.org/10.48550/arXiv.2305.17118."
+"Zichang Liu,
+Jue Wang, Tri Dao, Tianyi Zhou, Binhang Yuan, Zhao Song, Anshumali Shrivas-"
+"tava, Ce Zhang, Yuandong Tian, Christopher R´e, and Beidi Chen. Deja vu: Contextual spar-"
+"sity for
+efficient
+llms
+at
+inference
+time.
+In Andreas Krause, Emma Brunskill, Kyunghyun"
+"International Confer-
+Cho, Barbara Engelhardt, Sivan Sabato,
+and Jonathan Scarlett
+(eds.),"
+"ence on Machine Learning,
+ICML 2023, 23-29 July 2023, Honolulu, Hawaii, USA, volume"
+"202 of Proceedings of Machine Learning Research, pp. 22137–22176. PMLR, 2023b.
+URL"
+"https://proceedings.mlr.press/v202/liu23am.html."
+"Paul Michel, Omer Levy, and Graham Neubig.
+Are sixteen heads
+really better
+than one?
+In"
+"H. Wallach, H. Larochelle, A. Beygelzimer, F. d'Alch´e-Buc, E. Fox,
+and R. Garnett
+(eds.),"
+"Advances
+in Neural
+Information Processing
+Systems,
+volume
+32. Curran Associates,
+Inc.,"
+"2019.
+URL https://proceedings.neurips.cc/paper_files/paper/2019/"
+"file/2c601ad9d2ff9bc8b282670cdd54f69f-Paper.pdf."
+"Jesse Mu, Xiang Lisa Li, and Noah D. Goodman. Learning to compress prompts with gist
+tokens."
+"CoRR, abs/2304.08467, 2023.
+doi: 10.48550/arXiv.2304.08467. URL https://doi.org/"
+"10.48550/arXiv.2304.08467."

@@ -1,0 +1,68 @@
+"[38] Simeng Han, Xiang Lin, and Shafiq Joty. Resurrecting submodularity for neural text generation."
+"arXiv preprint arXiv:1911.03014, 2019."
+"[39] Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen,"
+"Christopher Dewan, Mona Diab, Xian Li, Xi Victoria Lin, et al. Opt: Open pre-trained"
+"transformer language models. arXiv preprint arXiv:2205.01068, 2022."
+"[40] Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timo-"
+"thée Lacroix, Baptiste Rozière, Naman Goyal, Eric Hambro, Faisal Azhar, et al. Llama: Open"
+"and efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023."
+"[41] Sid Black, Stella Biderman, Eric Hallahan, Quentin Anthony, Leo Gao, Laurence Golding, Ho-"
+"race He, Connor Leahy, Kyle McDonell, Jason Phang, Michael Pieler, USVSN Sai Prashanth,"
+"Shivanshu Purohit, Laria Reynolds, Jonathan Tow, Ben Wang, and Samuel Weinbach. GPT-"
+"the ACL
+NeoX-20B: An open-source autoregressive language model.
+In Proceedings of"
+"Workshop on Challenges & Perspectives in Creating Large Language Models, 2022."
+"[42] Melissa Roemmele, Cosmin Adrian Bejan, and Andrew S Gordon.
+Choice of plausible"
+"alternatives: An evaluation of commonsense causal reasoning.
+In AAAI spring symposium:"
+"logical formalizations of commonsense reasoning, pages 90–95, 2011."
+"[43] Aida Amini, Saadia Gabriel, Shanchuan Lin, Rik Koncel-Kedziorski, Yejin Choi, and Han-"
+"naneh Hajishirzi. MathQA: Towards interpretable math word problem solving with operation-"
+"based formalisms.
+In Proceedings of the 2019 Conference of the North American Chapter"
+"of the Association for Computational Linguistics: Human Language Technologies, Volume 1"
+"(Long and Short Papers), pages 2357–2367, Minneapolis, Minnesota, June 2019. Association"
+"for Computational Linguistics."
+"[44] Todor Mihaylov, Peter Clark, Tushar Khot, and Ashish Sabharwal. Can a suit of armor conduct"
+"electricity? a new dataset for open book question answering.
+In EMNLP, 2018."
+"[45] Yonatan Bisk, Rowan Zellers, Ronan Le Bras, Jianfeng Gao, and Yejin Choi. Piqa: Reasoning"
+"about physical commonsense in natural
+language.
+In Thirty-Fourth AAAI Conference on"
+"Artificial Intelligence, 2020."
+"[46] Alex Wang, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel R Bowman."
+"Glue: A multi-task benchmark and analysis platform for natural language understanding. arXiv"
+"preprint arXiv:1804.07461, 2018."
+"[47] Keisuke Sakaguchi, Ronan Le Bras, Chandra Bhagavatula, and Yejin Choi. Winogrande: An"
+"adversarial winograd schema challenge at scale. Communications of the ACM, 64(9):99–106,"
+"2021."
+"[48] Shashi Narayan, Shay B Cohen, and Mirella Lapata. Don’t give me the details,
+just
+the"
+"arXiv
+summary!
+topic-aware convolutional neural networks for extreme summarization."
+"preprint arXiv:1808.08745, 2018."
+"[49] Ramesh Nallapati, Bowen Zhou, Caglar Gulcehre, Bing Xiang, et al. Abstractive text sum-"
+"marization using sequence-to-sequence rnns and beyond. arXiv preprint arXiv:1602.06023,"
+"2016."
+"[50] Xuechen Li, Tianyi Zhang, Yann Dubois, Rohan Taori, Ishaan Gulrajani, Carlos Guestrin,"
+"Percy Liang, and Tatsunori B. Hashimoto. Alpacaeval: An automatic evaluator of instruction-"
+"following models. https://github.com/tatsu-lab/alpaca_eval, 2023."
+"[51] Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao"
+"Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric. P Xing, Hao Zhang, Joseph E. Gonzalez, and"
+"Ion Stoica. Judging llm-as-a-judge with mt-bench and chatbot arena, 2023."
+"[52] Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis. Efficient streaming"
+"language models with attention sinks. arXiv preprint arXiv:2309.17453, 2023."
+"[53] Chi Han, Qifan Wang, Wenhan Xiong, Yu Chen, Heng Ji,
+and Sinong Wang.
+Lm-"
+"infinite: Simple on-the-fly length generalization for large language models. arXiv preprint"
+"arXiv:2308.16137, 2023."
+"[54]
+Jack W Rae, Anna Potapenko, Siddhant M Jayakumar, and Timothy P Lillicrap. Compressive"
+"transformers for long-range sequence modelling. In The International Conference on Learning"
+"Representations (ICLR), 2020."

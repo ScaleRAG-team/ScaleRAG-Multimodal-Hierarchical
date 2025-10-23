@@ -1,0 +1,3437 @@
+{
+  "title": null,
+  "authors": [],
+  "source_path": "../data/pdf/2303.11313.pdf",
+  "page_count": 14,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "counts": {
+    "texts": 224,
+    "pictures": 82,
+    "tables": 15
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 47,
+      "layout_blocks": 15,
+      "xobjects_found": 2,
+      "xobjects_exported": 2,
+      "reused_exported": 0,
+      "rasterized": 15,
+      "tables_found": 2
+    },
+    {
+      "page": 2,
+      "text_blocks": 7,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 9,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 4,
+      "text_blocks": 60,
+      "layout_blocks": 11,
+      "xobjects_found": 3,
+      "xobjects_exported": 3,
+      "reused_exported": 0,
+      "rasterized": 11,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 15,
+      "layout_blocks": 2,
+      "xobjects_found": 2,
+      "xobjects_exported": 2,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 18,
+      "layout_blocks": 36,
+      "xobjects_found": 36,
+      "xobjects_exported": 36,
+      "reused_exported": 0,
+      "rasterized": 36,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 17,
+      "layout_blocks": 6,
+      "xobjects_found": 6,
+      "xobjects_exported": 6,
+      "reused_exported": 0,
+      "rasterized": 6,
+      "tables_found": 1
+    },
+    {
+      "page": 9,
+      "text_blocks": 5,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 10,
+      "text_blocks": 3,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 3,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 10,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 13,
+      "text_blocks": 11,
+      "layout_blocks": 12,
+      "xobjects_found": 10,
+      "xobjects_exported": 10,
+      "reused_exported": 0,
+      "rasterized": 12,
+      "tables_found": 1
+    },
+    {
+      "page": 14,
+      "text_blocks": 6,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        91.65899658203125,
+        105.9219970703125,
+        503.56719970703125,
+        138.201171875
+      ],
+      "text": "CLIP goes 3D: Leveraging Prompt Tuning for Language Grounded\n3D Recognition"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        151.24200439453125,
+        162.05282592773438,
+        443.98297119140625,
+        189.5595245361328
+      ],
+      "text": "Deepti Hegde∗, Jeya Maria Jose Valanarasu∗, Vishal M. Patel\nJohns Hopkins University"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        208.84500122070312,
+        193.35995483398438,
+        386.3800048828125,
+        202.32635498046875
+      ],
+      "text": "dhegde1,jvalana1,vpatel36@jhu.edu"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        90.02963256835938,
+        223.71607971191406,
+        509.917724609375,
+        232.91587829589844
+      ],
+      "text": "Scene Querying with Language\nFine-tuning\nCLIP goes 3D\nZero-shot Recognition"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        252.99647521972656,
+        238.9517822265625,
+        289.7933044433594,
+        244.1299285888672
+      ],
+      "text": "This is a “guitar”"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        504.8848876953125,
+        259.1007995605469,
+        511.7598876953125,
+        273.22894287109375
+      ],
+      "text": "MLP"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        525.8283081054688,
+        248.05674743652344,
+        532.0158081054688,
+        285.5901184082031
+      ],
+      "text": "{bed, sofa, …}"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        189.1823272705078,
+        318.7742919921875,
+        281.3829345703125,
+        336.451171875
+      ],
+      "text": "Retrieval\nQuery\nRetrieved 3D Data"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        342.4916076660156,
+        236.07330322265625,
+        393.581787109375,
+        242.26080322265625
+      ],
+      "text": "Input Indoor Scene"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        348.94403076171875,
+        316.01617431640625,
+        388.8153381347656,
+        322.20367431640625
+      ],
+      "text": "Query - “Sofa”"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        208.2770538330078,
+        243.53697204589844,
+        224.63438415527344,
+        266.423828125
+      ],
+      "text": "3D\nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        100.13414001464844,
+        260.2477722167969,
+        123.0210189819336,
+        275.3727722167969
+      ],
+      "text": "3D\nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        66.35505676269531,
+        380.2532043457031,
+        102.80493927001953,
+        385.0657043457031
+      ],
+      "text": "Learnable Prompts"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        57.60069274902344,
+        309.1914978027344,
+        72.37025451660156,
+        315.3789978027344
+      ],
+      "text": "CLIP"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        464.3697814941406,
+        255.59854125976562,
+        480.72711181640625,
+        278.48541259765625
+      ],
+      "text": "3D\nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        190.94891357421875,
+        378.0237121582031,
+        202.71066284179688,
+        382.8362121582031
+      ],
+      "text": "“Bed”"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        77.14723205566406,
+        326.35162353515625,
+        95.45672607421875,
+        338.4516296386719
+      ],
+      "text": "Visual \nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        75.6038818359375,
+        320.5286865234375,
+        147.1333465576172,
+        337.6025695800781
+      ],
+      "text": "Visual \nEncoder\nText \nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        125.1038818359375,
+        320.5286865234375,
+        147.99075317382812,
+        335.6536865234375
+      ],
+      "text": "Text \nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        259.8670654296875,
+        288.3609313964844,
+        278.17657470703125,
+        300.4609375
+      ],
+      "text": "Text \nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        256.1471252441406,
+        283.38702392578125,
+        279.03399658203125,
+        298.51202392578125
+      ],
+      "text": "Text \nEncoder"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        451.644775390625,
+        297.1969299316406,
+        528.4130859375,
+        303.3844299316406
+      ],
+      "text": "ScanObjectNN Classification"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.53851318359375,
+        377.48077392578125,
+        534.9151000976562,
+        383.76165771484375
+      ],
+      "text": "PointTransformer\nPointMLP"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.09820556640625,
+        363.36260986328125,
+        447.15618896484375,
+        366.11260986328125
+      ],
+      "text": "74"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.35601806640625,
+        349.69854736328125,
+        447.41400146484375,
+        352.44854736328125
+      ],
+      "text": "76"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.48492431640625,
+        335.26104736328125,
+        447.54290771484375,
+        338.01104736328125
+      ],
+      "text": "78"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.48492431640625,
+        320.95245361328125,
+        447.54290771484375,
+        323.70245361328125
+      ],
+      "text": "80"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        444.87164306640625,
+        306.90167236328125,
+        447.92962646484375,
+        309.65167236328125
+      ],
+      "text": "82"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        499.52789306640625,
+        363.36260986328125,
+        502.58587646484375,
+        366.11260986328125
+      ],
+      "text": "80"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        499.78570556640625,
+        349.69854736328125,
+        502.84368896484375,
+        352.44854736328125
+      ],
+      "text": "82"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        499.91461181640625,
+        335.26104736328125,
+        502.97259521484375,
+        338.01104736328125
+      ],
+      "text": "84"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        499.91461181640625,
+        320.95245361328125,
+        502.97259521484375,
+        323.70245361328125
+      ],
+      "text": "86"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        500.30133056640625,
+        306.90167236328125,
+        503.35931396484375,
+        309.65167236328125
+      ],
+      "text": "88"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        446.49871826171875,
+        366.96502685546875,
+        538.07373046875,
+        372.12127685546875
+      ],
+      "text": "Scratch\nCG3D\nScratch\nCG3D"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        196.118408203125,
+        301.6217346191406,
+        234.3313751220703,
+        306.7779846191406
+      ],
+      "text": "This is a [CLASS]"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        452.4287414550781,
+        326.4820861816406,
+        515.8076782226562,
+        335.9781799316406
+      ],
+      "text": "1.70\n5.39"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        115.69248962402344,
+        368.62054443359375,
+        159.36798095703125,
+        374.12054443359375
+      ],
+      "text": "There is a sofa in"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        124.09486389160156,
+        375.2205505371094,
+        149.4553680419922,
+        380.7205505371094
+      ],
+      "text": "the scene."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        50.11199951171875,
+        400.5734558105469,
+        545.11376953125,
+        446.40203857421875
+      ],
+      "text": "Figure 1: Overview of our proposed framework CLIP goes 3D (CG3D). We introduce a 3D Encoder in the CLIP framework\nand pre-train it using natural language supervision while also leveraging CLIP’s pre-trained visual encoder. CG3D solves var-\nious practical tasks like zero-shot 3D recognition, 3D point cloud retrieval, scene querying with natural language, Moreover,\nit can serve as a strong initial weight for standard ﬁne-tuning tasks."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        145.9949951171875,
+        458.33111572265625,
+        190.48028564453125,
+        470.28631591796875
+      ],
+      "text": "Abstract"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        50.11199188232422,
+        485.7629699707031,
+        286.3651428222656,
+        687.0075073242188
+      ],
+      "text": "Vision-Language models like CLIP have been widely\nadopted for various tasks due to their impressive zero-shot\ncapabilities.\nHowever, CLIP is not suitable for extract-\ning 3D geometric features as it was trained on only im-\nages and text by natural language supervision. We work\non addressing this limitation and propose a new frame-\nwork termed CG3D (CLIP Goes 3D) where a 3D encoder is\nlearned to exhibit zero-shot capabilities. CG3D is trained\nusing triplets of pointclouds, corresponding rendered 2D\nimages, and texts using natural language supervision. To\nalign the features in a multimodal embedding space, we\nutilize contrastive loss on 3D features obtained from the\n3D encoder, as well as visual and text features extracted\nfrom CLIP. We note that the natural images used to train\nCLIP and the rendered 2D images in CG3D have a dis-\ntribution shift. Attempting to train the visual and text en-\ncoder to account for this shift results in catastrophic for-"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        60.97100067138672,
+        703.6536865234375,
+        125.62850189208984,
+        712.9256591796875
+      ],
+      "text": "*Equal Contribution"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        308.86199951171875,
+        459.7750244140625,
+        545.1151123046875,
+        577.3335571289062
+      ],
+      "text": "getting and a notable decrease in performance. To solve\nthis, we employ prompt tuning and introduce trainable pa-\nrameters in the input space to shift CLIP towards the 3D\npre-training dataset utilized in CG3D. We extensively test\nour pre-trained CG3D framework and demonstrate its im-\npressive capabilities in zero-shot, open scene understand-\ning, and retrieval tasks. Further, it also serves as strong\nstarting weights for ﬁne-tuning in downstream 3D recog-\nnition tasks. Codes and pre-trained models can be found\nhere: https://github.com/deeptibhegde/CLIP-goes-3D."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        308.86199951171875,
+        608.8211059570312,
+        385.6980895996094,
+        620.7763061523438
+      ],
+      "text": "1. Introduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        308.86199951171875,
+        631.7134399414062,
+        545.1151123046875,
+        713.4070434570312
+      ],
+      "text": "For many tasks in 2D vision, the most efﬁcient and accu-\nrate results are now obtained by adapting foundation mod-\nels [47, 48, 2, 70] which are pre-trained on large-scale data.\nThere is currently a signiﬁcant amount of research focused\non efﬁciently adapting foundation models for speciﬁc 2D\nvision tasks [71, 52, 64, 18], rather than developing new su-\npervised methods from scratch. These approaches seeks to"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        295.1210021972656,
+        733.3324584960938,
+        300.102294921875,
+        743.2950439453125
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        210.0400390625,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2303.11313v3  [cs.CV]  18 Apr 2023"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.3651428222656,
+        335.25177001953125
+      ],
+      "text": "build on existing models and leverage their pre-trained fea-\ntures to achieve better performance on target tasks with less\ndata and computation requirements. These recent trends\nin vision is actually similar to trends that were observed\nin natural language processing (NLP) a few years ago. In\nNLP, foundation models have been dominating since 2018\nas models like BERT [10] and GPT-3 [4] showed excep-\ntional ability to accomplish various NLP tasks, such as\nquestion answering, sentence prediction, sentiment classi-\nﬁcation, etc. Also, foundation models pre-trained on mul-\ntimodal data like images and text have been useful by ex-\nhibiting impressive zero-shot capabilities.\nIn particular,\nContrastive Language Image Pre-training (CLIP) [46] has\nbeen applied to various 2D tasks, including image classiﬁ-\ncation [77], object detection [53, 16], image segmentation\n[29, 62, 75], image retrieval [21, 33], and visual question\nanswering [39, 8]. These advances in foundation models in\nvision and NLP are yet to disrupt the ﬁeld of 3D vision and\nunderstanding. In this work, we try to bridge this gap and\nfocus on answering the following question: How can we\nbuild a 3D network that can possess similar functionalities\nas that of a foundation model like CLIP?"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        50.11199951171875,
+        341.10565185546875,
+        286.36517333984375,
+        673.8570556640625
+      ],
+      "text": "3D visual understanding has many practical applications\nin robotics [19, 76], augmented reality [20, 60, 68], and\nautonomous driving [44, 43, 51, 38]. Comprehending the\nsemantics and characteristics of each point in a 3D space\nis crucial for addressing a wide range of issues in down-\nstream tasks. Thus, there lies several use-cases for a po-\ntential 3D foundational model similar to foundation models\nfor vision and NLP. A powerful 3D network with zero-shot\ncapabilities does not only help improve the performance\nof existing 3D backbones but also enables open 3D scene\nunderstanding and 3D retrieval tasks. However, the devel-\nopment of foundational models for 3D understanding faces\nseveral challenges, including the limited availability of 3D\ndata compared to images. While CLIP was able to lever-\nage the vast amount of images available on the internet to\ncreate a large pre-training dataset of image-caption pairs, a\nsimilar approach cannot be directly applied to pre-train a\n3D encoder with texts due to the scarcity of 3D data. There\nhave been some recent works like PointCLIP [72] which\ntried to utilize CLIP’s zero-shot capabilities for 3D zero-\nshot problems. PointCLIP directly uses the depth maps of\na 3D point cloud on 2D visual encoder of CLIP. While it\nprovides a quick and simple solution for 3D zero-shot prob-\nlems, it lacks the characteristics of a foundational model\nsince it cannot be used for 3D ﬁne-tuning tasks or for 3D\nopen scene understanding. Furthermore, it does not possess\nthe ability to extract any 3D geometric features relevant for\ndownstream tasks in 3D understanding."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        50.11199951171875,
+        679.5344848632812,
+        286.3651123046875,
+        713.4070434570312
+      ],
+      "text": "To this end, we propose a new pre-training framework\ntermed CG3D (CLIP Goes 3D) that trains a 3D encoder\nusing natural language supervision while also leveraging"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        308.86199951171875,
+        74.40748596191406,
+        545.115234375,
+        299.5632629394531
+      ],
+      "text": "CLIP’s knowledge.\nWe begin by creating a pre-training\ndataset consisting of triplets of 3D point clouds, images, and\ncorresponding text descriptions. We use point clouds from\nShapeNet [5] as our 3D data and curate its corresponding\nrendered 2D image and a caption. Since ShapeNet consists\nof textured CAD models, we render random views of each\nobject to use as the image pair. Despite their distinct proper-\nties, both a 3D point cloud and an image of the same object\nshare common semantic attributes. This is afﬁrmed by the\nsuccess of tasks such as single image point cloud recon-\nstruction [35, 12] as well as in the transfer of pre-trained\nweights from an image-based network to a 3D point cloud\nclassiﬁcation network, as seen in [65]. CG3D aims to en-\nsure that there is similarity between 3D features and 2D fea-\ntures, as well as between 3D features and text features for\nobjects of the same category, while being dissimilar for ob-\njects of different categories. This contrastive approach to\nlearning enables the 3D encoder to acquire zero-shot capa-\nbilities similar to those of CLIP."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        308.86199951171875,
+        305.24066162109375,
+        545.115234375,
+        697.7680053710938
+      ],
+      "text": "The process of training the 3D encoder with contrastive\nloss and comparing 3D features to the 2D features from\nCLIP’s visual encoder is a means of distilling CLIP’s se-\nmantic features to the 3D encoder. Although it would be\nefﬁcient to train CLIP’s visual encoder to align with the\ndata distribution of 3D objects and their related images,\nwe observed a signiﬁcant decrease in performance when\ntraining both CLIP’s visual and text encoders along with\nthe 3D encoder in CG3D. This can be explained as CLIP\nstarts to catastrophically forget its previous features while\nbeing trained to shift to the new distribution. However, it\nis not ideal to keep the visual encoder completely frozen.\nLarge-scale language models like CLIP are trained mostly\non natural images, which differ in distribution to the graph-\nically rendered views of 3D objects. To address this do-\nmain gap [58, 56, 57, 55], we propose using prompt tuning\ntechniques [22, 7] to shift the distribution in the input space\nbefore forwarding it to the visual encoder. We add visual\nprompts to the transformer backbone of CLIP’s visual en-\ncoder thus adding only a small amount of parameters in the\ninput space while keeping the weights of visual encoder of\nCLIP frozen. These parameters learn the shift in input dis-\ntribution to suit CLIP so that the 3D pre-training is effec-\ntive. To demonstrate the effectiveness of CG3D, we con-\nduct several experiments. First, we show its zero-shot capa-\nbilities on synthetic and real object datasets like ModelNet\n[61] and ScanObjectNN [54]. Additionally, we showcase\nthe 3D model’s ability in open-scene comprehension by uti-\nlizing text-based queries, as well as its ability to conduct\ncross-modal 3D data retrieval while utilizing image or text\nqueries. Further, the weights obtained from pre-training the\n3D encoder using CG3D can also serve as effective initial\nweights when ﬁne-tuning the model for other 3D tasks."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        320.8169860839844,
+        703.4454345703125,
+        539.984130859375,
+        713.4080200195312
+      ],
+      "text": "In summary, the following are our major contributions:"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        295.1209716796875,
+        733.3334350585938,
+        300.1022644042969,
+        743.2960205078125
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.3651428222656,
+        215.87722778320312
+      ],
+      "text": "• We propose CG3D, a contrastive pre-training framework\nfor training 3D networks using natural language supervi-\nsion while also leveraging the knowledge of CLIP.\n• We utilize prompt tuning to shift the input space of a pre-\ntrained visual encoder from rendered images of CAD ob-\njects to natural images, allowing for more effective use of\nCLIP for 3D shapes.\n• We conduct extensive experiments to demonstrate the ver-\nsatile capabilities of CG3D. It exhibits strong zero-shot,\n3D retrieval and 3D scene understanding capabilities with\nlanguage. CG3D also acts as strong starting weights for\nmultiple 3D recognition tasks."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        50.11199951171875,
+        228.40130615234375,
+        137.8751220703125,
+        240.35650634765625
+      ],
+      "text": "2. Related Works"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        50.11199951171875,
+        248.9256591796875,
+        286.36517333984375,
+        713.4069213867188
+      ],
+      "text": "Vision Language Models: The use of large-scale text-\npre-training on attention-based models [10, 73] has led to\nthe increasing popularity of vision-language models (VLM)\ndue to their impressive performance in visual understand-\ning tasks [26, 32, 46]. Recent advancements in contrastive\nlearning have enabled CLIP [46] to perform multimodal\nlearning with 400M noisy data crawled from the web. CLIP\nhas been extended for high efﬁciency model training and\ncycle consistency through various methods, such as AL-\nBEF [24] and Cyclip [15]. BLIP [23] includes text-to-image\ngeneration as an auxiliary task, which results in better per-\nformance by utilizing synthetic data as a bonus. Adopting\nVLM for 3D point cloud processing is still in its infancy.\nPointCLIP [72] was the ﬁrst method to adopt CLIP for 3D\ntasks. It directly uses the depth maps of 3D point clouds and\nuses it on the visual encoder of CLIP to perform zero-shot\nclassiﬁcation. Unlike this, we focus on using a 3D encoder\nin the CLIP so that it can directly take in a 3D point cloud.\n3D Point cloud processing methods: In general, point\ncloud processing methods either process the original point\ncloud sets directly [44, 45] or transform the original point\nclouds into intermediate representations such as voxels\n[36, 50] or images [67, 25]. PointNet [44] was a signiﬁcant\ncontribution to the ﬁeld of point cloud processing, as it en-\nabled the direct use of unordered point sets as input through\nshared MLPs. PointNet++ [45] was later proposed as an\nextension of PointNet, incorporating a hierarchical feature\nlearning approach that recursively captures local geometric\nstructures. This feature representation method has proven\nto be effective due to its ability to capture multi-scale infor-\nmation, and it has been widely used in various point cloud\napplications [59, 13, 66].\nRecently, methods like Point-\nTransformer [74] and PCT [17] have proposed transformer-\nbased methods showing a signiﬁcant improvements in per-\nformance. The current state of the art method is PointMLP\n[34] which effectively uses a deep residual MLP network\nfor point cloud analysis.\nThere have also been pre-training methods which show\n3D backbones can be pre-trained with unlabelled data to"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        308.86199951171875,
+        74.40736389160156,
+        545.1151123046875,
+        215.87710571289062
+      ],
+      "text": "obtain strong initial weights to boost ﬁne-tuning perfor-\nmance.\nPointContrast [63] performs contrastive training\n[6] by pushing together heavily augmented views of the\nsame sample and minimizing the similarity between views\nof other samples on point cloud scenes that have under-\ngone rigid transformations.\nCrossPoint [1] boosts point\ncloud classiﬁcation performance by maximising the agree-\nment between images and point cloud objects. PointBERT\n[69] and PointMAE [42] leverage masked modelling meth-\nods to perform pre-training. Unlike these backbone or pre-\ntraining works, we focus on enabling zero-shot capabilities\nto given 3D encoder in our proposed CG3D framework."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        308.86199951171875,
+        231.31121826171875,
+        360.66387939453125,
+        243.26641845703125
+      ],
+      "text": "3. Method"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        308.86199951171875,
+        252.8965606689453,
+        545.1151733398438,
+        418.2760314941406
+      ],
+      "text": "Our main objective is to train a 3D shape encoder to ac-\nquire shape characteristics that can effectively capture the\ngeometric properties of point clouds while also aligning\nwith CLIP’s feature representation for each object category.\nIn essence, we aspire to acquire features that are unique\nto each category yet unaffected by the mode of representa-\ntion. To this end, we use point cloud-image-caption triplets\nto train the framework. Each element within a triplet of\npoint cloud-image-caption is indicative of an object pos-\nsessing speciﬁc semantic traits that are shared among the\nother objects in the collection. In this section, we ﬁrst give\nan overview of the proposed CG3D framework, followed by\ndetails to effectively train the network. We then give details\non the potential use-cases of CG3D."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        308.86199951171875,
+        430.49078369140625,
+        415.8866271972656,
+        441.4496765136719
+      ],
+      "text": "3.1. CG3D Framework"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        308.86199951171875,
+        450.31439208984375,
+        545.1151733398438,
+        713.4078979492188
+      ],
+      "text": "The CG3D framework as illustrated in Fig 2 consists of\n3 networks - 3D shape encoder, visual encoder and text en-\ncoder from CLIP.\n3D Encoder takes in a 3D point cloud as the input. To\ncapture the essential shape characteristics of an object, we\nemploy a 3D encoder that is speciﬁcally designed to analyze\npoint clouds and generate a feature vector representing the\nobject. Our framework is agnostic with the choice of 3D\nencoder, and an added projection layer ensures the output\nfeature dimension remains consistent.\n2D Visual Encoder takes in the corresponding rendered\nimage of the 3D pointcloud as the input. Although shape\nfeatures are essential in representing point clouds, image\nbackbones from vision-language models trained on large\namounts of data offer powerful feature representations of\nimages that are semantically correlated with text. We em-\nploy CLIP’s visual encoder as it is robust and is pre-trained\non a massive amount of data. By utilizing the visual en-\ncoder, we can acquire highly effective and implied represen-\ntations of categories present in point cloud datasets, which\nare then use to align with the 3D features. Note that CLIP\nprovides both ResNet and ViT weights for visual encoder."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        295.1210021972656,
+        733.3323364257812,
+        300.102294921875,
+        743.294921875
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        212.1141357421875,
+        273.921142578125,
+        251.49612426757812,
+        279.6402587890625
+      ],
+      "text": "There is a sofa"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        215.60760498046875,
+        280.78411865234375,
+        246.4280548095703,
+        286.50323486328125
+      ],
+      "text": "in the scene"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        203.42254638671875,
+        151.54071044921875,
+        213.2921600341797,
+        155.6258087158203
+      ],
+      "text": "P1.T1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        213.69366455078125,
+        160.87808227539062,
+        223.5632781982422,
+        164.9631805419922
+      ],
+      "text": "P2.T2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        223.78970336914062,
+        170.2154541015625,
+        233.65931701660156,
+        174.30055236816406
+      ],
+      "text": "P3.T3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        233.8857421875,
+        179.4361114501953,
+        243.75535583496094,
+        183.52120971679688
+      ],
+      "text": "P4.T4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        243.98175048828125,
+        188.9485626220703,
+        253.8513641357422,
+        193.03366088867188
+      ],
+      "text": "P5.T5"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        146.28216552734375,
+        214.4078826904297,
+        155.2407989501953,
+        218.49298095703125
+      ],
+      "text": "I1.T1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        156.37820434570312,
+        224.0370330810547,
+        165.3368377685547,
+        228.12213134765625
+      ],
+      "text": "I2.T2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        166.76602172851562,
+        233.2576904296875,
+        175.7246551513672,
+        237.34278869628906
+      ],
+      "text": "I3.T3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        176.862060546875,
+        242.88685607910156,
+        185.82069396972656,
+        246.97195434570312
+      ],
+      "text": "I4.T4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        187.07479858398438,
+        251.8157196044922,
+        196.03343200683594,
+        255.90081787109375
+      ],
+      "text": "I5.T5"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        159.00877380371094,
+        124.9696273803711,
+        179.86102294921875,
+        138.75003051757812
+      ],
+      "text": "3D\nEncoder"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        96.48340606689453,
+        160.9073486328125,
+        105.221435546875,
+        164.99244689941406
+      ],
+      "text": "P2.I2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        106.75450897216797,
+        169.95294189453125,
+        115.49253845214844,
+        174.0380401611328
+      ],
+      "text": "P3.I3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        117.142333984375,
+        179.75717163085938,
+        125.88036346435547,
+        183.84226989746094
+      ],
+      "text": "P4.I4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        127.41344451904297,
+        188.97781372070312,
+        136.15147399902344,
+        193.0629119873047
+      ],
+      "text": "P5.I5"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.50408172607422,
+        151.51162719726562,
+        95.24211120605469,
+        155.5967254638672
+      ],
+      "text": "P1.I1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        213.46780395507812,
+        275.5554504394531,
+        252.84979248046875,
+        281.2745666503906
+      ],
+      "text": "There is a sofa"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        216.19924926757812,
+        277.18975830078125,
+        255.58123779296875,
+        288.13751220703125
+      ],
+      "text": "in the scene\nThere is a sofa"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        219.69271850585938,
+        284.052734375,
+        250.51316833496094,
+        289.7718505859375
+      ],
+      "text": "in the scene"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        110.56088256835938,
+        198.69528198242188,
+        112.25592803955078,
+        203.05271911621094
+      ],
+      "text": "I"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        138.41415405273438,
+        234.63095092773438,
+        142.77159118652344,
+        236.32598876953125
+      ],
+      "text": "I"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        226.87425231933594,
+        198.69522094726562,
+        229.77630615234375,
+        203.0526580810547
+      ],
+      "text": "T"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        171.1105194091797,
+        262.2699890136719,
+        174.0125732421875,
+        266.62744140625
+      ],
+      "text": "T"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        195.41290283203125,
+        170.8921661376953,
+        199.7718048095703,
+        173.5504608154297
+      ],
+      "text": "P"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        139.9075469970703,
+        170.8921661376953,
+        144.26644897460938,
+        173.5504608154297
+      ],
+      "text": "P"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        99.00743865966797,
+        229.36399841308594,
+        243.9004364013672,
+        246.03945922851562
+      ],
+      "text": "Visual\nEncoder\nText\nEncoder"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        109.01261901855469,
+        211.70059204101562,
+        234.68702697753906,
+        218.64364624023438
+      ],
+      "text": "I\nT"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        168.54844665527344,
+        151.83221435546875,
+        171.20692443847656,
+        156.19219970703125
+      ],
+      "text": "P"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        77.06099700927734,
+        287.0311584472656,
+        99.77742767333984,
+        291.93328857421875
+      ],
+      "text": "Learnable"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        79.0105972290039,
+        292.9136962890625,
+        96.61901092529297,
+        297.8158264160156
+      ],
+      "text": "prompts"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        231.47671508789062,
+        86.47737884521484,
+        257.5690612792969,
+        93.01354217529297
+      ],
+      "text": "Learnable"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        234.74478149414062,
+        101.1837387084961,
+        252.88262939453125,
+        107.71990203857422
+      ],
+      "text": "Frozen"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        147.10867309570312,
+        73.35147094726562,
+        186.41415405273438,
+        79.61528778076172
+      ],
+      "text": "3D Point Cloud"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.64920043945312,
+        300.12921142578125,
+        249.78138732910156,
+        306.7468566894531
+      ],
+      "text": "2D Rendered Image\nText Caption"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        50.11199951171875,
+        318.0754699707031,
+        286.36505126953125,
+        351.9490661621094
+      ],
+      "text": "Figure 2: Overview of the proposed learning strategy in\nCG3D. Note that only the 3D Encoder and learnable visual\nprompts are trained while everything else is frozen."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        50.111995697021484,
+        376.4375,
+        286.3651123046875,
+        470.1769714355469
+      ],
+      "text": "Text Encoder takes in the corresponding text caption of the\n3D point cloud as input. Adopting natural language super-\nvision for feature learning on images has been successful\nin training models to grasp visual concepts that can be de-\npicted in both images and text [46]. In CLIP, the text en-\ncoder is trained to correspond text descriptions with images,\nwhich we use out-of-the-box under the same conﬁguration\nas [46]."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        50.111995697021484,
+        480.8847351074219,
+        185.68455505371094,
+        491.8436279296875
+      ],
+      "text": "3.2. Training the 3D Encoder"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        50.1119384765625,
+        500.20635986328125,
+        286.3655700683594,
+        714.9864501953125
+      ],
+      "text": "Our main training objective is to align the 3D point\nclouds with their corresponding category level images and\ntexts.\nThis alignment happens in a common embedding\nspace to which data from each modality is projected from\nthe modality-speciﬁc encoder and a projection head. Our\ntraining strategy relies on contrastive learning, which incen-\ntivizes cross-modal features of the same pair to be in close\nproximity to one another in the embedding space while\nkeeping apart samples belonging to other pairs. We for-\nmulate the proposed losses below.\nConsider a set of N\npointcloud-image-text triplets {x3D\ni\n, x2D\ni\n, xtext\ni\n}N\ni=1, where\nx3D\ni\nrepresents a pointcloud, x2D\ni\nis the corresponding ren-\ndered image, and xtext\ni\nis the corresponding text. Let the\nencoder for each modality be represented as φ3D, φ2D, and\nφtext. We obtain the feature representation of each sample\nin a common embedding space by projecting the encoded\nfeature to a common dimension represented by:\nf 3D\ni\n= ψ3D(φ3D(x3D\ni\n))\n(1)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        378.1658935546875,
+        84.35469055175781,
+        545.1123046875,
+        97.90447235107422
+      ],
+      "text": "f 2D\ni\n= ψ2D(φ2D(x2D\ni\n))\n(2)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        308.86181640625,
+        108.26466369628906,
+        545.1148071289062,
+        204.84506225585938
+      ],
+      "text": "f text\ni\n= ψtext(φtext(xtext\ni\n))\n(3)\nwhere i ranges from 1 to the number of samples N and\nψ is the projection operation for each modality. Through\nnormalization, we constrain the output of each projection\nnetwork to reside within a unit hypersphere, enabling us to\nmeasure feature similarity using the inner product. The con-\ntrastive losses (InfoNCE objective [41]) between 3D-image\nfeatures; and 3D-text features are deﬁned by:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        334.82781982421875,
+        204.22593688964844,
+        391.65008544921875,
+        222.7275390625
+      ],
+      "text": "L(3D,2D) = 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        386.66900634765625,
+        217.79893493652344,
+        391.6502990722656,
+        227.76153564453125
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        411.7270202636719,
+        208.6643829345703,
+        426.12298583984375,
+        218.62698364257812
+      ],
+      "text": "X"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        394.5060119628906,
+        209.1878204345703,
+        519.1494140625,
+        232.81158447265625
+      ],
+      "text": "(f 3D,f 2D)∈B\nNCE(f 3D, f 2D)+"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        452.7490539550781,
+        237.32777404785156,
+        519.1474609375,
+        249.29910278320312
+      ],
+      "text": "NCE(f 2D, f 3D)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        533.4960327148438,
+        222.96949768066406,
+        545.1124877929688,
+        232.93209838867188
+      ],
+      "text": "(4)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        323.4830322265625,
+        251.10496520996094,
+        383.9223327636719,
+        269.6065673828125
+      ],
+      "text": "L(3D,text) = 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        378.9410095214844,
+        264.678955078125,
+        383.92230224609375,
+        274.64154052734375
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        405.91900634765625,
+        255.54335021972656,
+        420.3149719238281,
+        265.5059509277344
+      ],
+      "text": "X"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        386.77801513671875,
+        256.06671142578125,
+        518.8783569335938,
+        279.6905517578125
+      ],
+      "text": "(f 3D,f text)∈B\nNCE(f 3D, f text)+"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        448.8600158691406,
+        284.20672607421875,
+        518.87646484375,
+        296.1780700683594
+      ],
+      "text": "NCE(f text, f 3D)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        533.4960327148438,
+        269.84942626953125,
+        545.1124877929688,
+        279.8120422363281
+      ],
+      "text": "(5)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        308.862060546875,
+        296.4874267578125,
+        545.1153564453125,
+        333.97601318359375
+      ],
+      "text": "where f 3D, f 2D, and f text are the projected 3D, image\nand text features respectively. B corresponds to the batch.\nNCE loss is deﬁned as:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        314.42205810546875,
+        332.01971435546875,
+        545.1124267578125,
+        361.883544921875
+      ],
+      "text": "NCE(f A, f B) = −log\nexp(⟨f A, f B\n+ ⟩/τ)\nP\nf∈(f B\n+ ,f B\n−) exp(⟨f A, f⟩/τ) (6)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        308.8619689941406,
+        359.3964538574219,
+        545.116943359375,
+        482.139404296875
+      ],
+      "text": "where A, B are two different modalities and f A, f B are\ntheir corresponding features. τ is the temperature hyper-\nparameter, f B\n+ are the positive embeddings from modality\nB overlapping with modality A, and f B\n−are the negatively\nembeddings formed while pairing with modality A. For ex-\nample, in L(3D,2D) the positive pairs between 3D and 2D\nare formed by matching the features corresponding to same\nclass while the rest are termed as negative pairs. The total\nloss L3D used to train the 3D encoder is deﬁned by:\nL3D = L(3D,2D) + L(3D,text)\n(7)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        308.8620300292969,
+        492.44970703125,
+        490.5495910644531,
+        503.4085998535156
+      ],
+      "text": "3.3. Prompt Tuning for Visual Encoder"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        308.8620300292969,
+        512.1613159179688,
+        545.1151733398438,
+        713.4069213867188
+      ],
+      "text": "The visual encoder in the CG3D framework takes in the\nrendered image of the 3D point cloud as its input. While\nthe CLIP visual encoder has been trained on vast amounts\nof internet data and is highly resilient, during pre-training of\nCG3D, it only deals with rendered images. As a result, ﬁne-\ntuning the CLIP visual encoder to handle rendered images\ncould improve the training process for the 3D encoder. One\npossible approach is to train the visual encoder by optimiz-\ning its weights using the CLIP loss function that computes\nthe similarity between image and text features. However,\nwhen we tried this method, we noticed a substantial de-\ncrease in performance. This phenomenon can be explained\nby the fact that training the visual encoder of CLIP causes\ncatastrophic forgetting. That is, the encoder loses all of its\nprior knowledge while attempting to adapt to the new data\ndistribution. Typically, this issue can be avoided by increas-\ning the amount of new data available for ﬁne-tuning. How-"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        295.12103271484375,
+        733.3323364257812,
+        300.1023254394531,
+        743.294921875
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        50.111968994140625,
+        74.40748596191406,
+        286.36517333984375,
+        422.5066223144531
+      ],
+      "text": "ever, it’s not feasible to obtain a large enough 3D dataset\nthat matches the scale of the massive image-text data used to\ntrain CLIP. Therefore, we concentrate on developing meth-\nods to effectively ﬁne-tune the model with new pre-training\ndata while keeping the visual encoder frozen.\nVisual prompt tuning, as described in [18], is a method\nthat involves adding a small number of trainable parameters\nin the input space to ﬁne-tune a base model for a speciﬁc\ntask. In our proposed method for pre-training CG3D, we\nadopt this approach and modify the input space to better\nalign with the visual encoder of the original CLIP model.\nThis, in turn, allows the visual encoder to produce higher-\nquality features, which can enhance the training of the 3D\nencoder. We use deep prompting where we introduce learn-\nable prompts as learnable tokens at every layer in the trans-\nformer layer in ViT (visual encoder). For an ith transformer\nlayer Li, we deﬁne the collection of learnable tokens at that\nlayer as Pi = {pk\ni , 1 ≤k ≤n} where p corresponds to indi-\nvidual tokens and n is the total number of learnable tokens.\nThe deep prompted visual encoder at ith can be represented\nas :\n[yi] = Li([yi−1, Pi−1])\n(8)\nwhere yi is the output and yi−1 is the input to the current\nlayer. Prompt tokens P are trained along with the 3D en-\ncoder in our CG3D framework. We use the original CLIP\nloss which is a contrastive loss between the image and text\nfeatures to train these prompts. We formulate the loss used\nto train the prompts LP as:\nLP = −\nX"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        111.91996765136719,
+        409.2718505859375,
+        260.7633361816406,
+        432.89569091796875
+      ],
+      "text": "(f 2D,f text)∈B\n(log NCE(f text, f 2D)+"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        172.34295654296875,
+        437.411865234375,
+        260.76287841796875,
+        449.3832092285156
+      ],
+      "text": "log NCE(f 2D, f text))"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        274.7459716796875,
+        424.4035949707031,
+        286.3623352050781,
+        434.3662109375
+      ],
+      "text": "(9)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        50.111968994140625,
+        449.2386169433594,
+        286.3612976074219,
+        474.7712097167969
+      ],
+      "text": "where where f 2D and f text are the image and text fea-\ntures respectively. B corresponds to the batch."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        50.111961364746094,
+        485.2869567871094,
+        128.65440368652344,
+        496.245849609375
+      ],
+      "text": "3.4. Using CG3D"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        50.111961364746094,
+        504.45465087890625,
+        189.3990478515625,
+        514.417236328125
+      ],
+      "text": "3.4.1\nZero-shot 3D Recognition"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        50.111961364746094,
+        524.1175537109375,
+        286.36688232421875,
+        713.4071655273438
+      ],
+      "text": "Zero-shot 3D classiﬁcation refers to the method of classi-\nfying 3D objects without requiring any previous training\non those speciﬁc objects. It has a number of use-cases in\nrobotics and autonomous systems where objects need to be\nrecognized quickly and accurately, without the need for ex-\ntensive training on new objects. CG3D enables zero-shot\n3D recognition directly with a 3D encoder which extracts\nshape features from the input point clouds. For zero-shot in-\nference, we only use the 3D and text encoder from our pro-\nposed CG3D framework. The model takes as input a point\ncloud test sample, denoted as xtest, and a set of prompts\nT = {ti, 1 ≤i ≤N} where ti represents individual\ntext prompts and N is the total number of text prompts.\nEach prompt ti is denoted in the format of ”This is a OB-\nJECT”, where OBJECT represents the name of a test class.\nThe model’s inference procedure is similar to that of CLIP,"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        308.86199951171875,
+        74.40760803222656,
+        545.1163330078125,
+        180.01132202148438
+      ],
+      "text": "where it calculates the similarity score between each prompt\nand the test sample and selects the prompt that yields the\nhighest score as the ﬁnal prediction. This is formulated as:\nypred = max(softmax(⟨f 3D, Ftext⟩))\n(10)\nwhere f 3D and Ftext are the feature vectors of the point\ncloud and text inputs respectively, ypred is the class pre-\ndiction. Note that Ftext is actually a collection of feature\nvectors collected from forwarding the text queries T to the\ntext encoder. This process has been summarized in Fig 1."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        308.86212158203125,
+        199.625732421875,
+        471.8702392578125,
+        209.5883331298828
+      ],
+      "text": "3.4.2\nScene Querying with Language"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        336.7249450683594,
+        231.88668823242188,
+        404.7889404296875,
+        240.7711639404297
+      ],
+      "text": "Input Indoor Scene"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        339.1479797363281,
+        338.50048828125,
+        413.1152038574219,
+        347.38494873046875
+      ],
+      "text": "Query - “Bookshelf”"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        308.86199951171875,
+        473.0224609375,
+        545.1150512695312,
+        494.9410705566406
+      ],
+      "text": "Figure 3: Example of scene querying with text for a random\nindoor scene from S3DIS [3] dataset."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        308.86199951171875,
+        511.5904541015625,
+        545.1151123046875,
+        713.4070434570312
+      ],
+      "text": "3D scene understanding is an important task in computer\nvision. It is crucial for enabling human-robot interaction\nand facilitating intuitive human-machine interfaces. In par-\nticular, querying a scene with language queries to under-\nstand the key details of a scene is a practically useful task.\nOne aspect of this is answering queries such as ”What is the\nlocation of the sofa?” or ”Where can the chair be found?”,\nwhich can help an individual in comprehending the envi-\nronment or allow a robot to interact with it intelligently. By\naccurately identifying objects and their locations within a\nscene, robots can perform a wide range of tasks such as ma-\nnipulation, navigation, and object recognition. Meanwhile,\nindividuals can use interactive query and visualization tools\nto better understand and analyze complex 3D scenes.\nCG3D enables zero-shot scene understanding with lan-\nguage queries. Without training the model on indoor scenes\nor using direct supervision, we show that a pre-trained"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        295.1210021972656,
+        733.3324584960938,
+        300.102294921875,
+        743.2950439453125
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.3668212890625,
+        348.3440856933594
+      ],
+      "text": "CG3D framework can be used to understand scenes with\ntext queries. Given an input scene, ﬁrst we use k-means\nclustering to divide the scene into meaningful segments.\nNext, we feed forward all these clusters to the 3D en-\ncoder in our CG3D framework and get a set of 3D features\nF3D = {f 3D\ni\n, 1 ≤i ≤k}. Here, k is the total number of\nclusters obtained from the scene and f 3D\ni\nis the 3D feature\nvector from 3D encoder of CG3D for the ith cluster. We\nalso pass the text query to the text encoder to obtain f text.\nNow, we match these 3D features with the text feature we\nobtain by forwarding the input query to the text encoder\nwhich can be denoted as:\nypred = max(softmax(⟨f text, F3D⟩))\n(11)\nwhere ypred is the predicted class. To demonstrate an ex-\nample for scene understanding with language using CG3D,\nwe pick a random indoor scene as seen in Fig 3 from the\nS3DIS [3] dataset and use the query ”Bookshelf”. It can be\nobserved that the model correctly classiﬁes which cluster is\nthe bookshelf in the scene. More analysis can be found in\nthe supplementary material. Although CG3D is not explic-\nitly designed to provide a complete solution for open world\n3D scene understanding, it facilitates scene querying using\nnatural language."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        50.112003326416016,
+        370.09552001953125,
+        119.03326416015625,
+        380.05810546875
+      ],
+      "text": "3.4.3\nRetrieval"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        50.11199951171875,
+        390.6904602050781,
+        286.3651428222656,
+        713.4069213867188
+      ],
+      "text": "3D point cloud retrieval is the process of searching and re-\ntrieving 3D point cloud data that is similar to a given query.\nThe query here can be of different modality like an image or\na text. This has several practical applications like matching\na real-world object with its corresponding 3D point cloud\nin a virtual environment to help create more realistic and\naccurate augmented and virtual reality experiences.\nTo retrieve data using CG3D, we utilize the pre-trained\nencoders to obtain feature representations for both the query\nand the 3D point clouds. Speciﬁcally, we feed the image or\ntext query into the corresponding encoder to obtain its fea-\nture vector, and we do the same for the 3D point clouds us-\ning the 3D encoder. The point clouds being forwarded to the\n3D encoder constitute the complete database from which we\nare retrieving the relevant shapes. Next, we obtain the simi-\nlarity score between these query feature and the 3D features\nand select the point clouds with the highest similarity scores\nas the output.\nIn Fig 4, we demonstrate the effectiveness of CG3D in\nretrieving relevant 3D point clouds. We randomly select\nsome images from the internet as query images, and Mod-\nelNet40 serves as our 3D database for retrieval. We pick the\ntop four 3D points that are of the highest similarity to the\ninput query and display them in Fig 4. Similarly, we also\nuse some random text queries and display the best matches.\nIt can be observed that all the retrieved point clouds are of\nvery high similarity to the input query proving the effective-"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        310.6097717285156,
+        73.48583984375,
+        411.0021667480469,
+        80.52408599853516
+      ],
+      "text": "Image query\nRetrieved point cloud"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        431.03955078125,
+        91.83036041259766,
+        443.60760498046875,
+        97.98883056640625
+      ],
+      "text": "\"bed\""
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        428.8002014160156,
+        112.64470672607422,
+        445.84490966796875,
+        118.80317687988281
+      ],
+      "text": "\"chair\""
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        427.025146484375,
+        132.50572204589844,
+        447.62335205078125,
+        138.6641845703125
+      ],
+      "text": "\"cabinet\""
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        429.1750793457031,
+        157.6100616455078,
+        444.8350830078125,
+        163.76852416992188
+      ],
+      "text": "\"plant\""
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        487.04510498046875,
+        127.77593994140625,
+        488.1051940917969,
+        129.90603637695312
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        424.644287109375,
+        73.48583984375,
+        528.579345703125,
+        80.52408599853516
+      ],
+      "text": "Text query\nRetrieved point cloud"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        180.6034698486328,
+        545.1150512695312,
+        202.52108764648438
+      ],
+      "text": "Figure 4: Retrieving point clouds from a 3D database (Mod-\nelNet40) using random image and text queries."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        215.39247131347656,
+        367.8007507324219,
+        225.35507202148438
+      ],
+      "text": "ness of CG3D."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        241.67449951171875,
+        479.4715881347656,
+        251.63710021972656
+      ],
+      "text": "3.4.4\nFine-tuning for Supervised Tasks"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        260.4454345703125,
+        545.1151733398438,
+        461.6908874511719
+      ],
+      "text": "Pre-training techniques are an effective strategy for enhanc-\ning the performance of ﬁne-tuning in 3D computer vision\ntasks. Pre-training models on large datasets of unlabeled\nimages can help them learn generic and transferable fea-\ntures, making them more robust to variations in data and\nenabling them to generalize well to new tasks and datasets.\nAlthough the main objective of CG3D is its zero-shot\ncapabilities, it also has the potential to serve as a valuable\nstarting point for ﬁne-tuning 3D models for downstream\ntasks. This is due to the excellent feature representation ca-\npabilities of the 3D encoder, which has been pre-trained us-\ning natural language supervision in the CG3D framework.\nAdditionally, CG3D is model-agnostic, meaning that any\n3D backbone can be pre-trained using CG3D, and the re-\nsulting weights can be used as a starting point for down-\nstream tasks. We present multiple experiments that demon-\nstrate the effectiveness of using CG3D for ﬁne-tuning tasks."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        473.6799621582031,
+        448.34332275390625,
+        485.6351623535156
+      ],
+      "text": "4. Experiments and Results"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.86199951171875,
+        493.3736267089844,
+        367.6017150878906,
+        504.33251953125
+      ],
+      "text": "4.1. Datasets"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        308.8619689941406,
+        512.0703125,
+        545.115234375,
+        713.4068603515625
+      ],
+      "text": "Pre-training dataset: We choose ShapeNet [5] as the pre-\ntraining dataset due to its large number of classes and sam-\nples. ShapeNet consists of textured CAD models of 55 ob-\nject categories and 52,460 total samples. We sample point\nclouds of a ﬁxed size from each object mesh and normal-\nize them to ﬁt into a unit sphere. We render the colored\nCAD model views in Blender to obtain a image pair for\neach point cloud, following [14]. The text captions of each\npoint cloud-image pair are framed as a descriptive sentences\nobtained from a set of standard templates such as “A photo\nof a {OBJECT}”. Each input point cloud is augmented with\nstandard techniques such as object scaling, rotation, random\ndrop, and perturbations.\nFine-tuning datasets: We perform zero shot (ZS) clas-\nsiﬁcation and downstream ﬁne-tuning on the popular 3D\ndatastes ModelNet40 [61] and ScanObjectNN [54]. As is\nstandard, we evaluate on the full dataset (ModelNet40) as"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        295.1209716796875,
+        733.332275390625,
+        300.1022644042969,
+        743.2948608398438
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.3651428222656,
+        144.14614868164062
+      ],
+      "text": "well as a 10-class subset (ModelNet10) for ZS classiﬁca-\ntion. ModelNet40 consists of 12,311 synthetic meshes of\ncommon objects from 40 categories. Each mesh is down-\nsampled and normalized to ﬁt a unit sphere. ScanObjectNN\nis a real-world point cloud dataset of objects from laser-\nscanned indoor scenes."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        50.11199951171875,
+        154.26791381835938,
+        179.17495727539062,
+        165.226806640625
+      ],
+      "text": "4.2. Implementation Details"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        50.111907958984375,
+        173.39454650878906,
+        286.3652648925781,
+        590.5099487304688
+      ],
+      "text": "There exist several vision-language models that can be\nconsidered variants of CLIP that give superior zero-shot\nperformance on images [24, 40, 28]. We leverage the pre-\ntrained visual and text encoder weights from SLIP [40] to\ntrain CG3D, due to its performance and ﬂexibility.\nWe\nspeciﬁcally choose ViT-Base [11] as the image backbone.\nPre-training:\nDuring pre-training, the visual prompt pa-\nrameters and the parameters of the 3D encoder are tuned\nunder different optimizers in alternate iterations. This is\ndue to the fact that they are each supervised by disjoint loss\nfunctions and require different learning rates. We append 5\nlearnable prompt tokens at the input of every encoder layer\nin ViT, and initialize them randomly. The visual prompts\nare tuned using the SGD [49] optimizer under a cosine\nannealing [30] scheduler, with learning rate of 2 × 10−3,\nweight decay 10−4 and an minimum learning rate of 10−6.\nWe follow the training convention of each 3D backbone for\ntraining the individual backbone. In case of PointTrans-\nformer [74] the network is tuned using the AdmaW [31]\noptimizer under a cosine annealing [30] scheduler with a\nlearning rate of 5×10−5 and a weight decay of 0.05, with a\nminimum learning rate of 10−6. The PointMLP backbone is\ntuned under the same otimizer-scheduler scheme with learn-\ning rate 10−4 and weight decay 0.01. The entire framework\nis pre-trained for 100 epochs with a batch size of 32.\nFine-tuning: PointMLP is ﬁnetuned using the SGD opti-\nmizer and cosine scheduler with a learning rate of 0.02, a\nweight decay of 2 × 10−4, and a minimum learning rate of\n5×10−3. PointTransformer is ﬁne-tuned using the AdamW\noptimizer and cosine scheduler, with learning rate 2×10−4,\na weight decay of 0.05 and a minimum learning rate of\n10−6. Each network is ﬁne-tuned for 300 epochs with a\nbatch size of 32 for PointMLP and 64 for PointTransformer.\nOur method is prototyped in PyTorch and all our experi-\nments are performed in a 8 GPU NVIDIA A100 cluster."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        50.11191940307617,
+        600.6317749023438,
+        177.1475067138672,
+        611.5906982421875
+      ],
+      "text": "4.3. Zero-shot Experiments"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        50.111915588378906,
+        619.7584228515625,
+        286.3651123046875,
+        713.406982421875
+      ],
+      "text": "We present the results of zero-shot experiments con-\nducted on test distributions of ModelNet10, ModelNet40,\nand ScanObjectNN in Table 1. We experiment with two\nbackbones: PointTransformer and PointMLP pre-trained\nwith CG3D. Note that the previous method PointCLIP uses\na 2D depth map and CLIP’s visual encoder to get the predic-\ntion. We directly use the 3D encoder and extract relevant 3D\nshape features to perform the zero-shot classiﬁcation. This"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.7737731933594,
+        78.9060287475586,
+        538.1583862304688,
+        126.7103500366211
+      ],
+      "text": "Method\nZero-shot performance\nMN10\nMN40\nScanObjectNN\nPointCLIP [72]\n30.2\n20.2\n15.4\nPointTransformer [74]+ CG3D\n67.3\n50.6\n25.6\nPointMLP [34] + CG3D\n64.1\n50.4\n25.0"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.86199951171875,
+        144.69349670410156,
+        545.1151733398438,
+        178.56613159179688
+      ],
+      "text": "Table 1:\nComparison of zero-shot classiﬁcation perfor-\nmance of CG3D against that of PointCLIP for the Model-\nNet10, ModelNet40, and ScanObjectNN datasets."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        313.9137878417969,
+        193.49000549316406,
+        537.9522094726562,
+        314.0501403808594
+      ],
+      "text": "Method\nOverall accuracy\nModelNet40\nScanObjectNN\nPointnet [44]\n89.2\n68.0\nPointnet++ [45]\n90.5\n77.9\nPointCNN [27]\n92.2\n78.5\nDGCNN [59]\n92.9\n78.1\nPoint-BERT [69]\n93.2\n83.07\nPoint-MAE [42]\n93.8\n85.18\nPointTransformer [74]\n91.62 ± 0.29\n75.56 ± 0.24\nPointTransformer [74] + CG3D\n92.93 ± 0.06\n80.95 ± 0.54\nPointMLP [34]\n92.61 ± 0.13\n84.08 ± 0.55\nPointMLP [34] + CG3D\n93.35 ± 0.18\n85.78 ± 0.75"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.86199951171875,
+        332.2394714355469,
+        545.1150512695312,
+        366.112060546875
+      ],
+      "text": "Table 2: Comparison of ﬁne-tuning performance of CG3D\nwith initial weights on ModelNet40 and ScanObjectNN\n(hardest variation: PB-T50-RS) against previous methods."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.86199951171875,
+        378.9954528808594,
+        545.114990234375,
+        412.8680419921875
+      ],
+      "text": "gives a signiﬁcant improvement over PointCLIP with an in-\ncrease of 37.1% on ModelNet10, 30.4% on ModelNet40,\nand 10.2% on ScanObjectNN."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.86199951171875,
+        421.6427917480469,
+        445.2454833984375,
+        432.6016845703125
+      ],
+      "text": "4.4. Fine-tuning Experiments"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.8619689941406,
+        440.430419921875,
+        545.1151733398438,
+        713.4069213867188
+      ],
+      "text": "We present the results of our ﬁne-tuning experiments in\nTable 2 on both synthetic (ModelNet40) and real (ScanOb-\njectNN) datasets. For ScanObjectNN, we pick the hard-\nest variant PB-T50-RS for our experiments.\nWe com-\npare against leading backbones as well as pre-training\nmethods like Point-BERT and Point-MAE. We show ﬁne-\ntuning performance on two backbones PointTransformer\nand PointMLP. It should be noted that our framework was\nnot primarily developed to be a pre-training strategy, but\nrather to enable zero-shot capabilities for a 3D encoder.\nEven then, our framework demonstrates competitive perfor-\nmance as a pre-training strategy as observed in Table 2. In\nparticular, we obtain a boost of 5.39% , 1.31% while us-\ning CG3D starting weights than random weights for Point-\nTransformer on ScanObjectNN and ModelNet40 respec-\ntively. Also, we obtain a boost of 1.7% , 0.74% while using\nCG3D starting weights than random weights for PointMLP\non ScanObjectNN and ModelNet40 respectively.\nThese\nobservations show the versatility of our proposed frame-\nwork. We re-run the from-scratch expriments for the Point-\nTransformer and PointMLP networks. To account for vari-\nability, we conducted the ﬁnetuning experiments for Point-\nTransformer and PointMLP three times each, starting from"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        295.1209716796875,
+        733.3323364257812,
+        300.1022644042969,
+        743.294921875
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.36505126953125,
+        108.28012084960938
+      ],
+      "text": "scratch and also starting with CG3D weights. To account\nfor this, we have reported the mean and standard deviation\nof the results obtained from these experiments."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        122.73918914794922,
+        115.8775634765625,
+        134.69439697265625
+      ],
+      "text": "5. Discussion"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        143.90753173828125,
+        286.3651123046875,
+        298.9181823730469
+      ],
+      "text": "Ablation Study: We conduct an ablation study to analyze\nthe role that each component of CG3D has on zero-shot per-\nformance. In Table 3, we report the overall zero-shot accu-\nracy of the PointTransformer 3D encoder pre-trained under\ndifferent loss conﬁgurations for the PB-T50-RS variant of\nScanObjectNN. We start with the conﬁguration of training\nthe 3D encoder with L(3D,2D) and L(3D,text) individually.\nWe note that training with L(3D,text) gives a slight improve-\nment over just training with L(3D,2D). Next, we pre-train\nCG3D with both these losses which obtains better perfor-\nmance over individual conﬁgurations. After this, we incor-\nporated visual prompts into the CG3D model and trained it\nusing LP . This further improved the model’s performance."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        81.447998046875,
+        311.1493835449219,
+        255.02633666992188,
+        364.29107666015625
+      ],
+      "text": "L(3D,2D)\nL(3D,text)\nvisual prompt\nZS\n✓\n×\n×\n19.1\n×\n✓\n×\n19.7\n✓\n✓\n×\n23.9\n✓\n✓\n✓\n25.6\nTable 3: Ablation Study on ScanObjectNN."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199188232422,
+        371.0365295410156,
+        286.3651123046875,
+        488.68597412109375
+      ],
+      "text": "Analysis on Less Data: Pre-trained models are partic-\nularly useful when dealing with tasks that have limited\naccess to data.\nTo prove the effectiveness of CG3D\nin such scenarios, we conduct experiments on Model-\nNet40 with both PointMLP and PointTransformer as back-\nbones. We ﬁne-tune each 3D backbone on different sub-sets\n10%, 20%, 30%, 50% of the data and present the results in\nFig. 5. It can be observed that the model trained with start-\ning weights of CG3D always obtains better performance\nthan starting with random weights across all conﬁgurations."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        569.9471435546875,
+        286.3651123046875,
+        602.9600219726562
+      ],
+      "text": "PointTransformer\nPointMLP\nFigure 5: Experiments on data scarce setups on Model-\nNet40 with PointTransformer and PointMLP backbones."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        619.6675415039062,
+        286.3651123046875,
+        713.4070434570312
+      ],
+      "text": "Visualization of 3D Feature Representations: For anal-\nysis of the quality of features learned by our method, we\nvisualize the UMAP [37] embeddings of 3D and image fea-\ntures extracted by CG3D while using ModelNet10. In Fig.\n6, we plot the 3D feature learned by PointTransformer be-\nfore and after pre-training with CG3D. Most features lack\nclass separability before pre-training as can be seen in Fig.\n6a. After pre-training, the 3D encoder is able to produce"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        74.40748596191406,
+        545.114990234375,
+        96.32510375976562
+      ],
+      "text": "class discriminative features even for unseen categories in\nModelNet10 as seen in Fig. 6b."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        323.5639953613281,
+        210.42713928222656,
+        388.6589050292969,
+        219.47540283203125
+      ],
+      "text": "(a) Before CG3D."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        210.42713928222656,
+        545.1150512695312,
+        255.28311157226562
+      ],
+      "text": "(b) After CG3D.\nFigure 6: Comparison of UMAP embeddings of point cloud\nfeatures from 3D encoder of CG3D while using Model-\nNet10 3D point clouds."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        260.32257080078125,
+        545.1151733398438,
+        401.8830261230469
+      ],
+      "text": "Effect of Prompt Tuning: We visualize the image fea-\ntures learned by the visual encoder with and without the\nlearned prompts in CG3D. Since textured CAD models are\nnot available for all samples, we consider depth maps of\nthe points projected in the 2D plane. Figure 7a shows the\ndepth map image features learned by the CLIP visual en-\ncoder. Since these images are visually dissimilar from natu-\nral images, the encoder fails to produce discriminative fea-\ntures. However, as seen in Figure 7b, the visual encoder\ntrained with visual prompts after CG3D pre-training pro-\nduces features with improved class separability proving the\neffectiveness prompt tuning."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        323.77398681640625,
+        515.2621459960938,
+        388.4486389160156,
+        524.3104248046875
+      ],
+      "text": "(a) Without VPT."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        515.2621459960938,
+        545.1150512695312,
+        548.1630249023438
+      ],
+      "text": "(b) After contrastive VPT.\nFigure 7: Comparison of UMAP embeddings of visual en-\ncoder features of CG3D with ModelNet10 depth maps."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        553.2025146484375,
+        545.1157836914062,
+        646.9420776367188
+      ],
+      "text": "Limitations: We note that our pre-training dataset is still\nsmall in size, and consists of only simulated point cloud ob-\njects, thus limiting the potential of CG3D. To build a pow-\nerful foundation model for 3D, we need to work on data\ncuration of 3D pointclouds, with corresponding images and\ntext captions. We also focused on pre-training on objects\nand not scenes. Pre-training on scenes could open up inter-\nesting full scene understanding capabilities in CG3D."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        658.9851684570312,
+        377.95111083984375,
+        670.9403686523438
+      ],
+      "text": "6. Conclusion"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        308.86199951171875,
+        679.5344848632812,
+        545.1151733398438,
+        713.4070434570312
+      ],
+      "text": "In this paper, we proposed a new framework CG3D\n(CLIP goes 3D), where a 3D Encoder is introduced into the\nCLIP framework. This 3D Encoder is trained such that the"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        295.1210021972656,
+        733.3324584960938,
+        300.102294921875,
+        743.2950439453125
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        50.11199951171875,
+        74.40748596191406,
+        286.36517333984375,
+        191.96621704101562
+      ],
+      "text": "extracted 3D features align with the image and text features\nof the same category. We also proposed using learnable vi-\nsual prompts to shift the rendered image distribution to that\nof the CLIP to get better representative image features from\nthe visual encoder. Through extensive analysis, we demon-\nstrate the zero-shot capabilities of CG3D, which enables\nzero-shot 3D classiﬁcation, scene querying with natural lan-\nguage, and cross-modal retrieval. Furthermore, CG3D pro-\nvides strong initial weights when training 3D networks for\ndownstream tasks."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        50.11199951171875,
+        207.13232421875,
+        105.65585327148438,
+        219.0875244140625
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.59498977661133,
+        228.38717651367188,
+        286.3636169433594,
+        713.16650390625
+      ],
+      "text": "[1] Mohamed Afham, Isuru Dissanayake, Dinithi Dissanayake,\nAmaya Dharmasiri, Kanchana Thilakarathna, and Ranga Ro-\ndrigo. Crosspoint: Self-supervised cross-modal contrastive\nlearning for 3d point cloud understanding. In Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 9902–9912, 2022.\n[2] Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine\nMiech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch,\nKatie Millican, Malcolm Reynolds, et al. Flamingo: a vi-\nsual language model for few-shot learning. arXiv preprint\narXiv:2204.14198, 2022.\n[3] I. Armeni, A. Sax, A. R. Zamir, and S. Savarese. Joint 2D-\n3D-Semantic Data for Indoor Scene Understanding. ArXiv\ne-prints, Feb. 2017.\n[4] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Sub-\nbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakan-\ntan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Lan-\nguage models are few-shot learners. Advances in neural in-\nformation processing systems, 33:1877–1901, 2020.\n[5] Angel X. Chang, Thomas Funkhouser, Leonidas Guibas, Pat\nHanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Mano-\nlis Savva, Shuran Song, Hao Su, Jianxiong Xiao, Li Yi,\nand Fisher Yu. ShapeNet: An Information-Rich 3D Model\nRepository.\nTechnical Report arXiv:1512.03012 [cs.GR],\nStanford University — Princeton University — Toyota Tech-\nnological Institute at Chicago, 2015.\n[6] Ting Chen, Simon Kornblith, Mohammad Norouzi, and Ge-\noffrey Hinton. A simple framework for contrastive learning\nof visual representations. In International conference on ma-\nchine learning, pages 1597–1607. PMLR, 2020.\n[7] Yulong Chen, Yang Liu, Li Dong, Shuohang Wang, Chen-\nguang Zhu, Michael Zeng, and Yue Zhang.\nAdaprompt:\nAdaptive model training for prompt-based nlp.\narXiv\npreprint arXiv:2202.04824, 2022.\n[8] Jaemin Cho, Seunghyun Yoon, Ajinkya Kale, Franck Der-\nnoncourt, Trung Bui, and Mohit Bansal.\nFine-grained\nimage captioning with clip reward.\narXiv preprint\narXiv:2205.13115, 2022.\n[9] Angela Dai, Angel X. Chang, Manolis Savva, Maciej Hal-\nber, Thomas Funkhouser, and Matthias Nießner. Scannet:\nRichly-annotated 3d reconstructions of indoor scenes.\nIn\nProc. Computer Vision and Pattern Recognition (CVPR),\nIEEE, 2017."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        308.86199951171875,
+        75.16311645507812,
+        545.1166381835938,
+        713.1661987304688
+      ],
+      "text": "[10] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina\nToutanova.\nBert:\nPre-training of deep bidirectional\ntransformers for language understanding.\narXiv preprint\narXiv:1810.04805, 2018.\n[11] Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov,\nDirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner,\nMostafa Dehghani, Matthias Minderer, Georg Heigold, Syl-\nvain Gelly, et al. An image is worth 16x16 words: Trans-\nformers for image recognition at scale.\narXiv preprint\narXiv:2010.11929, 2020.\n[12] Haoqiang Fan, Hao Su, and Leonidas J Guibas. A point set\ngeneration network for 3d object reconstruction from a single\nimage. In Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 605–613, 2017.\n[13] Siqi Fan, Qiulei Dong, Fenghua Zhu, Yisheng Lv, Peijun Ye,\nand Fei-Yue Wang. Scf-net: Learning spatial contextual fea-\ntures for large-scale point cloud segmentation. In Proceed-\nings of the IEEE/CVF Conference on Computer Vision and\nPattern Recognition, pages 14504–14513, 2021.\n[14] Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen,\nKangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja\nFidler. Get3d: A generative model of high quality 3d tex-\ntured shapes learned from images. In Advances In Neural\nInformation Processing Systems, 2022.\n[15] Shashank Goel, Hritik Bansal, Sumit Bhatia, Ryan A\nRossi, Vishwa Vinay, and Aditya Grover. Cyclip: Cyclic\ncontrastive language-image pretraining.\narXiv preprint\narXiv:2205.14459, 2022.\n[16] X Gu, T Lin, W Kuo, and Y Cui.\nZero-shot detec-\ntion via vision and language knowledge distillation. corr\nabs/2104.13921 (2021).\n[17] Meng-Hao Guo, Jun-Xiong Cai, Zheng-Ning Liu, Tai-Jiang\nMu, Ralph R Martin, and Shi-Min Hu.\nPct: Point cloud\ntransformer. Computational Visual Media, 7:187–199, 2021.\n[18] Menglin Jia, Luming Tang, Bor-Chun Chen, Claire Cardie,\nSerge Belongie, Bharath Hariharan, and Ser-Nam Lim. Vi-\nsual prompt tuning. In Computer Vision–ECCV 2022: 17th\nEuropean Conference, Tel Aviv, Israel, October 23–27, 2022,\nProceedings, Part XXXIII, pages 709–727. Springer, 2022.\n[19] Linh K¨astner, Vlad Catalin Frasineanu, and Jens Lam-\nbrecht.\nA 3d-deep-learning-based augmented reality cali-\nbration method for robotic environments using depth sensor\ndata. In 2020 IEEE International Conference on Robotics\nand Automation (ICRA), pages 1135–1141. IEEE, 2020.\n[20] Konrad Koniarski and Andrzej My´sli´nski.\nFeature point\ncloud based registration in augmented reality. In Advances in\nSystems Engineering: Proceedings of the 28th International\nConference on Systems Engineering, ICSEng 2021, Decem-\nber 14-16, Wrocław, Poland 28, pages 418–427. Springer,\n2022.\n[21] Jie Lei, Linjie Li, Luowei Zhou, Zhe Gan, Tamara L Berg,\nMohit Bansal, and Jingjing Liu. Less is more: Clipbert for\nvideo-and-language learning via sparse sampling. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 7331–7341, 2021.\n[22] Brian Lester, Rami Al-Rfou, and Noah Constant. The power\nof scale for parameter-efﬁcient prompt tuning. arXiv preprint\narXiv:2104.08691, 2021."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        295.1211242675781,
+        733.332275390625,
+        300.1024169921875,
+        743.2948608398438
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        50.111968994140625,
+        75.16299438476562,
+        286.3642272949219,
+        713.1659545898438
+      ],
+      "text": "[23] Junnan Li, Dongxu Li, Caiming Xiong, and Steven Hoi.\nBlip: Bootstrapping language-image pre-training for uni-\nﬁed vision-language understanding and generation.\narXiv\npreprint arXiv:2201.12086, 2022.\n[24] Junnan Li, Ramprasaath Selvaraju, Akhilesh Gotmare,\nShaﬁq Joty, Caiming Xiong, and Steven Chu Hong Hoi.\nAlign before fuse: Vision and language representation learn-\ning with momentum distillation. Advances in neural infor-\nmation processing systems, 34:9694–9705, 2021.\n[25] Lei Li, Siyu Zhu, Hongbo Fu, Ping Tan, and Chiew-Lan\nTai. End-to-end learning local multi-view descriptors for 3d\npoint clouds. In Proceedings of the IEEE/CVF conference on\ncomputer vision and pattern recognition, pages 1919–1928,\n2020.\n[26] Liunian Harold Li, Mark Yatskar, Da Yin, Cho-Jui Hsieh,\nand Kai-Wei Chang.\nVisualbert:\nA simple and perfor-\nmant baseline for vision and language.\narXiv preprint\narXiv:1908.03557, 2019.\n[27] Yangyan Li, Rui Bu, Mingchao Sun, Wei Wu, Xinhan Di,\nand Baoquan Chen. Pointcnn: Convolution on x-transformed\npoints. Advances in neural information processing systems,\n31, 2018.\n[28] Yangguang Li, Feng Liang, Lichen Zhao, Yufeng Cui, Wanli\nOuyang, Jing Shao, Fengwei Yu, and Junjie Yan.\nSu-\npervision exists everywhere: A data efﬁcient contrastive\nlanguage-image pre-training paradigm.\narXiv preprint\narXiv:2110.05208, 2021.\n[29] Feng Liang, Bichen Wu, Xiaoliang Dai, Kunpeng Li, Yinan\nZhao, Hang Zhang, Peizhao Zhang, Peter Vajda, and Diana\nMarculescu. Open-vocabulary semantic segmentation with\nmask-adapted clip. arXiv preprint arXiv:2210.04150, 2022.\n[30] Ilya Loshchilov and Frank Hutter.\nSgdr:\nStochas-\ntic gradient descent with warm restarts.\narXiv preprint\narXiv:1608.03983, 2016.\n[31] Ilya Loshchilov and Frank Hutter. Decoupled weight decay\nregularization. arXiv preprint arXiv:1711.05101, 2017.\n[32] Jiasen Lu, Dhruv Batra, Devi Parikh, and Stefan Lee. Vilbert:\nPretraining task-agnostic visiolinguistic representations for\nvision-and-language tasks. Advances in neural information\nprocessing systems, 32, 2019.\n[33] Huaishao Luo, Lei Ji, Ming Zhong, Yang Chen, Wen Lei,\nNan Duan, and Tianrui Li. Clip4clip: An empirical study of\nclip for end to end video clip retrieval and captioning. Neu-\nrocomputing, 508:293–304, 2022.\n[34] Xu Ma, Can Qin, Haoxuan You, Haoxi Ran, and Yun\nFu. Rethinking network design and local geometry in point\ncloud: A simple residual mlp framework.\narXiv preprint\narXiv:2202.07123, 2022.\n[35] Priyanka Mandikal, KL Navaneet, Mayank Agarwal, and\nR Venkatesh Babu. 3d-lmnet: Latent embedding matching\nfor accurate and diverse 3d point cloud reconstruction from\na single image. arXiv preprint arXiv:1807.07796, 2018.\n[36] Daniel Maturana and Sebastian Scherer. Voxnet: A 3d con-\nvolutional neural network for real-time object recognition.\nIn 2015 IEEE/RSJ international conference on intelligent\nrobots and systems (IROS), pages 922–928. IEEE, 2015."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        308.8619384765625,
+        75.16256713867188,
+        545.1167602539062,
+        713.1657104492188
+      ],
+      "text": "[37] Leland McInnes, John Healy, and James Melville. Umap:\nUniform manifold approximation and projection for dimen-\nsion reduction. arXiv preprint arXiv:1802.03426, 2018.\n[38] Andres Milioto, Ignacio Vizzo, Jens Behley, and Cyrill\nStachniss.\nRangenet++: Fast and accurate lidar semantic\nsegmentation. In 2019 IEEE/RSJ international conference\non intelligent robots and systems (IROS), pages 4213–4220.\nIEEE, 2019.\n[39] Ron Mokady, Amir Hertz, and Amit H Bermano.\nClip-\ncap:\nClip preﬁx for image captioning.\narXiv preprint\narXiv:2111.09734, 2021.\n[40] Norman Mu, Alexander Kirillov, David Wagner, and Sain-\ning Xie. Slip: Self-supervision meets language-image pre-\ntraining. In Computer Vision–ECCV 2022: 17th European\nConference, Tel Aviv, Israel, October 23–27, 2022, Proceed-\nings, Part XXVI, pages 529–544. Springer, 2022.\n[41] Aaron van den Oord, Yazhe Li, and Oriol Vinyals. Repre-\nsentation learning with contrastive predictive coding. arXiv\npreprint arXiv:1807.03748, 2018.\n[42] Yatian Pang, Wenxiao Wang, Francis EH Tay, Wei Liu,\nYonghong Tian, and Li Yuan.\nMasked autoencoders\nfor point cloud self-supervised learning.\narXiv preprint\narXiv:2203.06604, 2022.\n[43] Charles R Qi, Wei Liu, Chenxia Wu, Hao Su, and Leonidas J\nGuibas. Frustum pointnets for 3d object detection from rgb-\nd data. In Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 918–927, 2018.\n[44] Charles R Qi, Hao Su, Kaichun Mo, and Leonidas J Guibas.\nPointnet: Deep learning on point sets for 3d classiﬁcation\nand segmentation. In Proceedings of the IEEE conference\non computer vision and pattern recognition, pages 652–660,\n2017.\n[45] Charles Ruizhongtai Qi, Li Yi, Hao Su, and Leonidas J\nGuibas. Pointnet++: Deep hierarchical feature learning on\npoint sets in a metric space. Advances in neural information\nprocessing systems, 30, 2017.\n[46] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya\nRamesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,\nAmanda Askell, Pamela Mishkin, Jack Clark, et al. Learn-\ning transferable visual models from natural language super-\nvision. In International Conference on Machine Learning,\npages 8748–8763. PMLR, 2021.\n[47] Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey Chu,\nand Mark Chen. Hierarchical text-conditional image gen-\neration with clip latents. arXiv preprint arXiv:2204.06125,\n2022.\n[48] Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray,\nChelsea Voss, Alec Radford, Mark Chen, and Ilya Sutskever.\nZero-shot text-to-image generation. In International Confer-\nence on Machine Learning, pages 8821–8831. PMLR, 2021.\n[49] Sebastian Ruder. An overview of gradient descent optimiza-\ntion algorithms. arXiv preprint arXiv:1609.04747, 2016.\n[50] Shaoshuai Shi, Chaoxu Guo, Li Jiang, Zhe Wang, Jianping\nShi, Xiaogang Wang, and Hongsheng Li. Pv-rcnn: Point-\nvoxel feature set abstraction for 3d object detection. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 10529–10538, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        292.62994384765625,
+        733.331787109375,
+        302.592529296875,
+        743.2943725585938
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        50.11193084716797,
+        75.16299438476562,
+        286.3663330078125,
+        713.1659545898438
+      ],
+      "text": "[51] Shaoshuai Shi, Xiaogang Wang, and Hongsheng Li. Pointr-\ncnn: 3d object proposal generation and detection from point\ncloud. In Proceedings of the IEEE/CVF conference on com-\nputer vision and pattern recognition, pages 770–779, 2019.\n[52] Kihyuk Sohn, Yuan Hao, Jos´e Lezama, Luisa Polania, Hui-\nwen Chang, Han Zhang, Irfan Essa, and Lu Jiang.\nVi-\nsual prompt tuning for generative transfer learning. arXiv\npreprint arXiv:2210.00990, 2022.\n[53] Guy Tevet, Brian Gordon, Amir Hertz, Amit H Bermano,\nand Daniel Cohen-Or.\nMotionclip: Exposing human mo-\ntion generation to clip space.\nIn Computer Vision–ECCV\n2022: 17th European Conference, Tel Aviv, Israel, Octo-\nber 23–27, 2022, Proceedings, Part XXII, pages 358–374.\nSpringer, 2022.\n[54] Mikaela Angelina Uy, Quang-Hieu Pham, Binh-Son Hua,\nDuc Thanh Nguyen, and Sai-Kit Yeung.\nRevisiting point\ncloud classiﬁcation: A new benchmark dataset and classiﬁ-\ncation model on real-world data. In International Conference\non Computer Vision (ICCV), 2019.\n[55] Vibashan VS, Vikram Gupta, Poojan Oza, Vishwanath A.\nSindagi, and Vishal M. Patel. Mega-cda: Memory guided\nattention for category-aware unsupervised domain adaptive\nobject detection. In Proceedings of the IEEE/CVF Confer-\nence on Computer Vision and Pattern Recognition (CVPR),\npages 4516–4526, June 2021.\n[56] Vibashan VS, Domenick Poster, Suya You, Shuowen Hu,\nand Vishal M. Patel. Meta-uda: Unsupervised domain adap-\ntive thermal object detection using meta-learning. In Pro-\nceedings of the IEEE/CVF Winter Conference on Applica-\ntions of Computer Vision (WACV), pages 1412–1423, Jan-\nuary 2022.\n[57] Vibashan VS, Jeya Maria Jose Valanarasu, and Vishal M Pa-\ntel. Target and task speciﬁc source-free domain adaptive im-\nage segmentation. arXiv preprint arXiv:2203.15792, 2022.\n[58] Mei Wang and Weihong Deng. Deep visual domain adapta-\ntion: A survey. Neurocomputing, 312:135–153, 2018.\n[59] Yue Wang, Yongbin Sun, Ziwei Liu, Sanjay E Sarma,\nMichael M Bronstein, and Justin M Solomon.\nDynamic\ngraph cnn for learning on point clouds. Acm Transactions\nOn Graphics (tog), 38(5):1–12, 2019.\n[60] Zeyu Wang, Cuong Nguyen, Paul Asente, and Julie Dorsey.\nPointshopar: Supporting environmental design prototyping\nusing point cloud in augmented reality. 2023.\n[61] Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Yu, Lin-\nguang Zhang, Xiaoou Tang, and Jianxiong Xiao.\n3d\nshapenets: A deep representation for volumetric shapes. In\nProceedings of the IEEE conference on computer vision and\npattern recognition, pages 1912–1920, 2015.\n[62] Jinheng Xie, Xianxu Hou, Kai Ye, and Linlin Shen. Clims:\ncross language image matching for weakly supervised se-\nmantic segmentation. In Proceedings of the IEEE/CVF Con-\nference on Computer Vision and Pattern Recognition, pages\n4483–4492, 2022.\n[63] Saining Xie, Jiatao Gu, Demi Guo, Charles R Qi, Leonidas\nGuibas, and Or Litany.\nPointcontrast: Unsupervised pre-\ntraining for 3d point cloud understanding. In European con-\nference on computer vision, pages 574–591. Springer, 2020."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        308.8619384765625,
+        75.16256713867188,
+        545.1153564453125,
+        713.165771484375
+      ],
+      "text": "[64] Yinghui Xing, Qirui Wu, De Cheng, Shizhou Zhang, Guo-\nqiang Liang, and Yanning Zhang. Class-aware visual prompt\ntuning for vision-language pre-trained model. arXiv preprint\narXiv:2208.08340, 2022.\n[65] Chenfeng Xu, Shijia Yang, Bohan Zhai, Bichen Wu,\nXiangyu Yue,\nWei Zhan,\nP´eter Vajda,\nKurt Keutzer,\nand Masayoshi Tomizuka.\nImage2point:\n3d point-\ncloud understanding with pretrained 2d convnets.\nArXiv,\nabs/2106.04180, 2021.\n[66] Mutian Xu, Runyu Ding, Hengshuang Zhao, and Xiao-\njuan Qi.\nPaconv: Position adaptive convolution with dy-\nnamic kernel assembling on point clouds. In Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 3173–3182, 2021.\n[67] Haoxuan You, Yifan Feng, Rongrong Ji, and Yue Gao. Pvnet:\nA joint convolutional network of point cloud and multi-view\nfor 3d shape recognition. In Proceedings of the 26th ACM\ninternational conference on Multimedia, pages 1310–1318,\n2018.\n[68] Hengxu You, Fang Xu, and Eric Du.\nRobot-based real-\ntime point cloud digital twin modeling in augmented reality.\nTransforming Construction with Reality Capture Technolo-\ngies, 2022.\n[69] Xumin Yu, Lulu Tang, Yongming Rao, Tiejun Huang, Jie\nZhou, and Jiwen Lu. Point-bert: Pre-training 3d point cloud\ntransformers with masked point modeling. In Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 19313–19322, 2022.\n[70] Lu Yuan, Dongdong Chen, Yi-Ling Chen, Noel Codella,\nXiyang Dai, Jianfeng Gao, Houdong Hu, Xuedong Huang,\nBoxin Li,\nChunyuan Li,\net al.\nFlorence:\nA new\nfoundation model for computer vision.\narXiv preprint\narXiv:2111.11432, 2021.\n[71] Yuhang Zang, Wei Li, Kaiyang Zhou, Chen Huang, and\nChen Change Loy.\nUniﬁed vision and language prompt\nlearning. arXiv preprint arXiv:2210.07225, 2022.\n[72] Renrui Zhang, Ziyu Guo, Wei Zhang, Kunchang Li, Xu-\npeng Miao, Bin Cui, Yu Qiao, Peng Gao, and Hongsheng Li.\nPointclip: Point cloud understanding by clip. arXiv preprint\narXiv:2112.02413, 2021.\n[73] Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe,\nMoya Chen, Shuohui Chen, Christopher Dewan, Mona Diab,\nXian Li, Xi Victoria Lin, et al. Opt: Open pre-trained trans-\nformer language models. arXiv preprint arXiv:2205.01068,\n2022.\n[74] Hengshuang Zhao, Li Jiang, Jiaya Jia, Philip HS Torr, and\nVladlen Koltun.\nPoint transformer.\nIn Proceedings of\nthe IEEE/CVF international conference on computer vision,\npages 16259–16268, 2021.\n[75] Chong Zhou, Chen Change Loy, and Bo Dai.\nDense-\nclip: Extract free dense labels from clip.\narXiv preprint\narXiv:2112.01071, 2021.\n[76] Peng Zhou, Rui Peng, Maggie Xu, Victor Wu, and David\nNavarro-Alarcon. Path planning with automatic seam extrac-\ntion over point cloud models for robotic arc welding. IEEE\nRobotics and Automation Letters, 6(3):5002–5009, 2021.\n[77] Xingyi Zhou,\nRohit Girdhar,\nArmand Joulin,\nPhilipp\nKr¨ahenb¨uhl, and Ishan Misra.\nDetecting twenty-thousand"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        292.6300354003906,
+        733.3318481445312,
+        302.5926208496094,
+        743.29443359375
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        70.03099822998047,
+        75.0041732788086,
+        286.3636169433594,
+        117.00537109375
+      ],
+      "text": "classes using image-level supervision. In Computer Vision–\nECCV 2022: 17th European Conference, Tel Aviv, Israel,\nOctober 23–27, 2022, Proceedings, Part IX, pages 350–368.\nSpringer, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        72.78716278076172,
+        475.9120178222656,
+        84.74236297607422
+      ],
+      "text": "A. Scene querying with language"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        94.28950500488281,
+        545.1151123046875,
+        272.5782775878906
+      ],
+      "text": "We provide further qualitative results that demonstrate\nthe language-based querying capabilities of our proposed\nframework on point clouds of indoor scenes. Note that in\nthe main paper, we pre-trained on ShapeNet which is not\na real-world dataset. In order to imporve performance on\nscene-querying on real-world datasets, we perform addi-\ntional pre-training on the ScanObjectNN dataset for query-\ning on a collection of meshed indoor scenes from the S3DIS\n[3] and ScanNet [9] datasets.\nDuring standard CG3D pre-training, we render the tex-\ntured CAD models of ShapeNet to use as inputs to our vi-\nsual encoder. Such rendering is not possible with ScanOb-\njectNN, so we project each point cloud to a depth map in\na random view. The text caption is curated in the standard\nprocedure."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        284.5450439453125,
+        448.90570068359375,
+        295.5039367675781
+      ],
+      "text": "A.1. Scene querying on S3DIS"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        304.2866516113281,
+        545.1151733398438,
+        433.8011474609375
+      ],
+      "text": "We perform language-based scene querying on the in-\ndoor scene dataset S3DIS [3]. Each scene (disregarding the\nﬂoor and ceiling regions, as is standard in semantic seg-\nmentation tasks) is clustered into regions, each of which is\npassed to CG3D along with a query containing the object to\nbe localized. Some qualitative results may be seen in Figure\n8. Each row shows an input indoor scene, the result of clus-\ntering, and the ﬁnal result of the language query. We query\nthe same scene for two different objects. In the second row,\nit can be observed that several instances of the queried cat-\negory “chair” are correctly identiﬁed."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        445.7679138183594,
+        458.0235290527344,
+        456.726806640625
+      ],
+      "text": "A.2. Scene querying on ScanNet"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        465.509521484375,
+        545.115234375,
+        547.2030639648438
+      ],
+      "text": "We also demonstrate the performance of the 3D encoder\npre-trained on real data on indoor scene samples from the\nScanNet [9] dataset. Figure 9 shows the result of query-\ning on two samples. The quality of the results depends on\nthe clustering accuracy, which can cause spurious results.\nHowever, both instances of the queried object are correctly\nidentiﬁed in both examples."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        562.3901977539062,
+        514.9337768554688,
+        574.3453979492188
+      ],
+      "text": "B. Leveraging prompt-tuning for images"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        308.86199951171875,
+        583.8934326171875,
+        545.1151123046875,
+        713.4070434570312
+      ],
+      "text": "In the main paper, we showed how we can train a 3D en-\ncoder in the CLIP framework and illustrated its beneﬁts. We\nalso introduced prompt tuning in the 2D encoder of CG3D\nto tune it towards rendered 3D shapes and objects. Per-\nforming contrastive visual prompt tuning not only aids in\npre-training the 3D encoder, but also allows us to leverage\nCLIP’s visual encoder for 3D shapes. Using visual prompts\nallows us to train the visual encoder without forgetting the\nalready existing weights of CLIP. Thus, this helps us obtain\na new visual encoder that has a capability of performing bet-\nter than normal CLIP encoder on image-based 3D tasks. By"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        292.6310119628906,
+        733.3324584960938,
+        302.5935974121094,
+        743.2950439453125
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        110.9411392211914,
+        72.6357421875,
+        455.67047119140625,
+        86.26493072509766
+      ],
+      "text": "Input indoor scene\nClustered indoor scene\nResult of query"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        415.0794372558594,
+        217.5170135498047,
+        483.6127014160156,
+        229.52035522460938
+      ],
+      "text": "Query = \"table\""
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        414.7802429199219,
+        369.262939453125,
+        483.91192626953125,
+        381.26629638671875
+      ],
+      "text": "Query = \"chair\""
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        131.21800231933594,
+        392.8914489746094,
+        464.00872802734375,
+        402.85406494140625
+      ],
+      "text": "Figure 8: Qualitative results of scene-querying samples from the S3DIS [3] dataset."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        409.61822509765625,
+        518.823974609375,
+        471.0957946777344,
+        529.7828979492188
+      ],
+      "text": "Query = \"desk\""
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        410.72119140625,
+        606.23779296875,
+        473.2914733886719,
+        617.1967163085938
+      ],
+      "text": "Query = \"table\""
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        129.7471160888672,
+        416.5662841796875,
+        444.4818115234375,
+        429.00958251953125
+      ],
+      "text": "Input indoor scene\nClustered indoor scene\nResult of query"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        127.6259994506836,
+        628.781494140625,
+        467.5997619628906,
+        638.7440795898438
+      ],
+      "text": "Figure 9: Qualitative results of scene-querying samples from the ScanNet [9] dataset."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        50.11199951171875,
+        662.2554931640625,
+        286.3651123046875,
+        708.0840454101562
+      ],
+      "text": "image-based 3D tasks, we mean applications such as Point-\nCLIP [72] where zero-shot classiﬁcation is performed by\nforwarding depth maps of each point cloud directly to the\nvisual encoder."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        308.86199951171875,
+        662.2554931640625,
+        545.1151733398438,
+        708.0840454101562
+      ],
+      "text": "We examine the effectiveness of tuning the visual en-\ncoder using our method by comparing the classiﬁcation and\nzero-shot classiﬁcation performance on the ShapeNet and\nModelNet datasets respectively. In column 3 of Table 4, we"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        292.6310119628906,
+        733.3324584960938,
+        302.5935974121094,
+        743.2950439453125
+      ],
+      "text": "13"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        54.54002380371094,
+        72.89736938476562,
+        280.09375,
+        115.99365997314453
+      ],
+      "text": "Method\nBackbone\nOverall Acc\nShapeNet [5]\nModelNet40 [61] (ZS)\nPointCLIP [72]\nViT-B\n33.6\n10.1\nCG3D-render\nViT-B + prompt\n77.8\n24.8\nCG3D-depth\nViT-B + prompt\n37.0\n34.4"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        50.11199951171875,
+        127.93849182128906,
+        286.3651123046875,
+        161.81112670898438
+      ],
+      "text": "Table 4: Comparison of classiﬁcation performance of CLIP\nvisual encoder and CG3D visual encoder on the ShapeNet\nand ModelNet datasets. CG3D is pretrained on ShapeNet."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.58503723144531,
+        176.05564880371094,
+        278.6215515136719,
+        229.32264709472656
+      ],
+      "text": "Method\nBackbone\nLinear probe acc\nShapeNet\nModelNet40\nPointCLIP\nViT-B\n70.31\n43.31\nCG3D-render\nViT-B + prompt\n82.47\n46.15\nCG3D-depth\nViT-B + prompt\n70.38\n68.80"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        50.11199951171875,
+        241.54249572753906,
+        286.3650817871094,
+        275.4161071777344
+      ],
+      "text": "Table 5: Comparison of linear probe classiﬁcation perfor-\nmance of CLIP visual encoder and CG3D visual encoder\non the ShapeNet and ModelNet datasets."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        50.11199951171875,
+        298.927490234375,
+        286.3651428222656,
+        679.5008544921875
+      ],
+      "text": "compare the overall classiﬁcation accuracy of single-view\nPointCLIP [72] against the prompt-tuned visual encoder on\nrendered images of ShapeNet objects. Column 4 compares\nzero-shot classﬁcation performance on the 40-class split of\nModelNet. CG3D-render denotes that the framework uses\nrendered images of ShapeNet objects during pre-training.\nCG3D-depth denotes that depth projections are used as in-\nputs to the visual encoder during pre-training.\nWe observe that performing visual prompt tuning of the\n2D encoder signiﬁcantly improves the performance of CLIP\nvisual encoder in CG3D for 3D shape datasets. Classiﬁca-\ntion performance on rendered ShapeNet images improves\nby 44.2% points and and zero-shot performance on Mod-\nelNet depth images improves by 24.3% points. The best\nperformance is observed when the modality of the pre-\ntraining image dataset aligns with the modality during eval-\nuation. Nonetheless, we observe improvements even when\nthe modalities do not match.\nAs a further demonstration of the quality of image fea-\ntures obtained after visual prompt tuning, we perform linear\nprobing as done in [46] by performing logistic regression\non the learned image features from the visual encoder. In\nTable 5, we compare the linear probe performance using\nimage features from the out-of-the-box vision encoder of\nCLIP (as used in [72]) with the visual encoder with tuned\nprompt tokens. A trend similar to Table 4 can be observed,\nwhere prompt tuning results in improved classiﬁcation per-\nformance, with the best performance occurring when the\nmodalities of the train and test data match. This means that\nthe visual encoder is able to effectively learn image features\nspeciﬁc to 3D shapes. This opens up numerous possibilities\nin multi-modal learning between 3D shapes and images."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        292.6309814453125,
+        733.332275390625,
+        302.59356689453125,
+        743.2948608398438
+      ],
+      "text": "14"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 1,
+      "bbox": [
+        314.93701171875,
+        243.60800170898438,
+        421.36199951171875,
+        311.4162292480469
+      ],
+      "xref": 8,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk1_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        315.4320068359375,
+        320.992919921875,
+        421.85699462890625,
+        388.80792236328125
+      ],
+      "xref": 9,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk2_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        180.45738220214844,
+        234.67239379882812,
+        199.36932373046875,
+        272.6986999511719
+      ],
+      "xref": 16,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk3_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        434.48760986328125,
+        246.73394775390625,
+        453.3995666503906,
+        284.76025390625
+      ],
+      "xref": 18,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk4_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        220.1012725830078,
+        338.51904296875,
+        242.6009063720703,
+        368.9239807128906
+      ],
+      "xref": 19,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk5_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        244.89051818847656,
+        339.2288818359375,
+        269.6730041503906,
+        368.0147705078125
+      ],
+      "xref": 20,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk6_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        272.24163818359375,
+        340.5815124511719,
+        292.2914733886719,
+        367.1341857910156
+      ],
+      "xref": 21,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk7_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        216.4586944580078,
+        367.3649597167969,
+        243.01136779785156,
+        390.403076171875
+      ],
+      "xref": 22,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk8_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        243.74354553222656,
+        368.9834899902344,
+        270.29620361328125,
+        388.9889221191406
+      ],
+      "xref": 23,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk9_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        271.7354736328125,
+        366.82427978515625,
+        298.2854309082031,
+        390.9437561035156
+      ],
+      "xref": 24,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk10_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        181.47879028320312,
+        338.51904296875,
+        211.2632598876953,
+        368.92401123046875
+      ],
+      "xref": 25,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk11_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        98.00743865966797,
+        231.17642211914062,
+        129.4077606201172,
+        250.73715209960938
+      ],
+      "xref": 32,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk12_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        443.1319580078125,
+        299.0480041503906,
+        486.4444580078125,
+        373.2980041503906
+      ],
+      "xref": 33,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk13_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        498.5683898925781,
+        299.0480041503906,
+        541.880859375,
+        373.2980041503906
+      ],
+      "xref": 34,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk14_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        76.47315216064453,
+        349.37896728515625,
+        103.02581024169922,
+        375.931640625
+      ],
+      "xref": 52,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p1_blk15_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        208.78616333007812,
+        132.32806396484375,
+        251.23678588867188,
+        155.23223876953125
+      ],
+      "xref": 0,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk1_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        141.5860595703125,
+        94.50112915039062,
+        166.4633331298828,
+        109.99835205078125
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk2_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        156.275146484375,
+        80.62786865234375,
+        186.09127807617188,
+        95.45700073242188
+      ],
+      "xref": 2,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk3_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        172.31192016601562,
+        82.72161865234375,
+        194.72682189941406,
+        101.43157958984375
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk4_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        138.4983367919922,
+        80.62781524658203,
+        154.60581970214844,
+        99.33724975585938
+      ],
+      "xref": 6,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk5_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        167.78453063964844,
+        94.50112915039062,
+        192.66183471679688,
+        107.08615112304688
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk6_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        157.0018310546875,
+        199.07318115234375,
+        181.87911987304688,
+        211.66351318359375
+      ],
+      "xref": 38,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk7_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        99.79228210449219,
+        136.33534240722656,
+        124.66957092285156,
+        148.77398681640625
+      ],
+      "xref": 39,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk8_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        114.1796646118164,
+        267.6199951171875,
+        134.93478393554688,
+        286.7158203125
+      ],
+      "xref": 44,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk9_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        115.52672576904297,
+        269.3987121582031,
+        134.22698974609375,
+        290.48968505859375
+      ],
+      "xref": 45,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk10_crop.png"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        117.64036560058594,
+        272.03106689453125,
+        136.3406219482422,
+        291.12689208984375
+      ],
+      "xref": 46,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p4_blk11_crop.png"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        341.2099304199219,
+        229.6351776123047,
+        515.6688232421875,
+        345.94110107421875
+      ],
+      "xref": 10,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p5_blk1_crop.png"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        341.2099304199219,
+        342.5847473144531,
+        515.6688232421875,
+        458.8906555175781
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p5_blk2_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        316.011962890625,
+        83.59820556640625,
+        336.66741943359375,
+        104.253662109375
+      ],
+      "xref": 3,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk1_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        346.04180908203125,
+        86.45818328857422,
+        360.0573425292969,
+        103.93588256835938
+      ],
+      "xref": 4,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk2_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        364.94952392578125,
+        87.25262451171875,
+        378.5773620605469,
+        103.14144134521484
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk3_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        384.17498779296875,
+        87.25262451171875,
+        399.5362854003906,
+        102.34700012207031
+      ],
+      "xref": 6,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk4_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        404.8304443359375,
+        86.45818328857422,
+        417.70196533203125,
+        103.93588256835938
+      ],
+      "xref": 7,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk5_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        343.95721435546875,
+        110.29141235351562,
+        362.1435546875,
+        121.41358184814453
+      ],
+      "xref": 8,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk6_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        315.5353088378906,
+        108.70252990722656,
+        338.4151916503906,
+        123.0024642944336
+      ],
+      "xref": 9,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk7_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        362.87921142578125,
+        109.4969711303711,
+        380.6476745605469,
+        122.20802307128906
+      ],
+      "xref": 10,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk8_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        380.9972229003906,
+        109.4969711303711,
+        400.2115783691406,
+        122.20802307128906
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk9_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        401.81317138671875,
+        109.4969711303711,
+        417.7019958496094,
+        122.20802307128906
+      ],
+      "xref": 12,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk10_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        316.011962890625,
+        128.23782348632812,
+        337.93853759765625,
+        142.8618927001953
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk11_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        348.29962158203125,
+        125.17446899414062,
+        357.8011474609375,
+        141.8116455078125
+      ],
+      "xref": 14,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk12_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        366.53839111328125,
+        124.91547393798828,
+        374.574951171875,
+        140.80429077148438
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk13_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        382.5860900878906,
+        124.75341033935547,
+        394.45025634765625,
+        142.23110961914062
+      ],
+      "xref": 16,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk14_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        401.81317138671875,
+        124.75341033935547,
+        414.4892578125,
+        142.8618927001953
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk15_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        343.95721435546875,
+        144.36973571777344,
+        362.9125671386719,
+        163.43630981445312
+      ],
+      "xref": 18,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk16_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        364.94952392578125,
+        142.9429168701172,
+        379.0985107421875,
+        163.43630981445312
+      ],
+      "xref": 19,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk17_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        382.5860900878906,
+        143.93121337890625,
+        396.81451416015625,
+        163.87484741210938
+      ],
+      "xref": 20,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk18_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        400.2115478515625,
+        144.36973571777344,
+        417.450927734375,
+        165.0251922607422
+      ],
+      "xref": 21,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk19_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        317.43243408203125,
+        146.83567810058594,
+        336.8374328613281,
+        166.6982879638672
+      ],
+      "xref": 22,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk20_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        454.08575439453125,
+        88.64767456054688,
+        478.13824462890625,
+        104.0518798828125
+      ],
+      "xref": 28,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk21_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        482.5235595703125,
+        88.04707336425781,
+        500.7718505859375,
+        103.41790771484375
+      ],
+      "xref": 29,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk22_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        503.2060546875,
+        89.31499481201172,
+        523.0257568359375,
+        103.41790771484375
+      ],
+      "xref": 30,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk23_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        525.1802978515625,
+        88.04707336425781,
+        544.2770385742188,
+        105.16091918945312
+      ],
+      "xref": 31,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk24_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        457.0982971191406,
+        110.02449035644531,
+        475.2417297363281,
+        125.23643493652344
+      ],
+      "xref": 32,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk25_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        481.230224609375,
+        108.10352325439453,
+        493.9237976074219,
+        126.64259338378906
+      ],
+      "xref": 33,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk26_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        505.7911376953125,
+        108.1829605102539,
+        516.8894653320312,
+        126.56472778320312
+      ],
+      "xref": 35,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk27_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        527.765380859375,
+        108.88207244873047,
+        540.3397827148438,
+        125.86563110351562
+      ],
+      "xref": 36,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk28_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        457.762451171875,
+        150.41067504882812,
+        476.25384521484375,
+        166.98110961914062
+      ],
+      "xref": 37,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk29_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        476.6177062988281,
+        150.50123596191406,
+        501.49163818359375,
+        165.32867431640625
+      ],
+      "xref": 38,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk30_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        508.17449951171875,
+        151.7691650390625,
+        516.1824951171875,
+        169.1197509765625
+      ],
+      "xref": 39,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk31_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        525.79833984375,
+        151.49110412597656,
+        539.1608276367188,
+        166.53781127929688
+      ],
+      "xref": 40,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk32_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        455.3791198730469,
+        129.3182830810547,
+        472.60894775390625,
+        147.86846923828125
+      ],
+      "xref": 41,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk33_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        478.99945068359375,
+        129.191162109375,
+        492.6272888183594,
+        147.8875274658203
+      ],
+      "xref": 42,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk34_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        503.2060546875,
+        128.07260131835938,
+        518.1065673828125,
+        148.35626220703125
+      ],
+      "xref": 43,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk35_crop.png"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        526.783447265625,
+        129.73773193359375,
+        541.28515625,
+        148.3562469482422
+      ],
+      "xref": 44,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p6_blk36_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        50.11199951171875,
+        478.8726806640625,
+        168.23880004882812,
+        567.5261840820312
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk1_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        166.46495056152344,
+        478.8726501464844,
+        284.5917663574219,
+        567.5230712890625
+      ],
+      "xref": 6,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk2_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        294.9193115234375,
+        96.44075012207031,
+        413.32598876953125,
+        214.847412109375
+      ],
+      "xref": 10,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk3_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        435.16009521484375,
+        97.64617156982422,
+        552.128173828125,
+        214.61526489257812
+      ],
+      "xref": 12,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk4_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        296.3221740722656,
+        401.4971618652344,
+        412.68023681640625,
+        517.855224609375
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk5_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        435.0625,
+        400.6283264160156,
+        552.638916015625,
+        518.2047119140625
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p8_blk6_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        231.66610717773438,
+        226.09188842773438,
+        356.1592102050781,
+        361.579345703125
+      ],
+      "xref": 0,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk1_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        103.40464782714844,
+        227.8983612060547,
+        224.02279663085938,
+        354.35333251953125
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk2_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        363.54058837890625,
+        226.0918731689453,
+        487.28582763671875,
+        367.3601379394531
+      ],
+      "xref": 2,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk3_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        355.68231201171875,
+        75.61045837402344,
+        495.1440734863281,
+        226.0918731689453
+      ],
+      "xref": 3,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk4_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        228.05313110351562,
+        81.02996826171875,
+        352.5462341308594,
+        216.51742553710938
+      ],
+      "xref": 4,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk5_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        99.7916488647461,
+        82.83647155761719,
+        220.40980529785156,
+        209.29144287109375
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk6_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        229.69100952148438,
+        429.343017578125,
+        356.3123779296875,
+        525.00341796875
+      ],
+      "xref": 10,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk7_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        99.77593231201172,
+        426.374267578125,
+        224.2581787109375,
+        525.00341796875
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk8_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        358.71875,
+        430.9923400878906,
+        475.501953125,
+        525.00341796875
+      ],
+      "xref": 12,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk9_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        229.69100952148438,
+        538.1978759765625,
+        355.6394958496094,
+        607.46923828125
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk10_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        99.77593231201172,
+        536.5486450195312,
+        228.88284301757812,
+        605.8199462890625
+      ],
+      "xref": 14,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk11_crop.png"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        365.3160095214844,
+        538.197998046875,
+        495.26239013671875,
+        604.170654296875
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2303.11313/images/2303.11313_p13_blk12_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 18,
+      "ncols": 8,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 44,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p1_table2_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 58,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 70,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 77,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 31,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 68,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 87,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 25,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 88,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 85,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 89,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 49,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p13_table1_stream.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 51,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2303.11313/2303.11313_p14_table1_stream.csv"
+    }
+  ]
+}

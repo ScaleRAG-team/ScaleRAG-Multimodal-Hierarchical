@@ -1,0 +1,176 @@
+"[51]
+Shaoshuai Shi, Xiaogang Wang, and Hongsheng Li. Pointr-","[64] Yinghui Xing, Qirui Wu, De Cheng, Shizhou Zhang, Guo-"
+"cnn: 3d object proposal generation and detection from point","qiang Liang, and Yanning Zhang. Class-aware visual prompt"
+"cloud.
+In Proceedings of the IEEE/CVF conference on com-","tuning for vision-language pre-trained model. arXiv preprint"
+"puter vision and pattern recognition, pages 770–779, 2019.","arXiv:2208.08340, 2022."
+"[52] Kihyuk Sohn, Yuan Hao, Jos´e Lezama, Luisa Polania, Hui-","[65] Chenfeng Xu,
+Shijia Yang,
+Bohan
+Zhai,
+Bichen Wu,"
+"wen Chang, Han Zhang,
+Irfan Essa,
+and Lu Jiang.
+Vi-","Xiangyu Yue, Wei
+Zhan,
+P´eter Vajda,
+Kurt Keutzer,"
+"arXiv
+sual prompt
+tuning for generative transfer
+learning.","and Masayoshi
+Tomizuka.
+Image2point:
+3d
+point-"
+"preprint arXiv:2210.00990, 2022.","cloud understanding with pretrained 2d convnets.
+ArXiv,"
+"","abs/2106.04180, 2021."
+"[53] Guy Tevet, Brian Gordon, Amir Hertz, Amit H Bermano,",""
+"and Daniel Cohen-Or. Motionclip: Exposing human mo-","[66] Mutian Xu, Runyu Ding, Hengshuang Zhao,
+and Xiao-"
+"tion generation to clip space.
+In Computer Vision–ECCV","juan Qi.
+Paconv:
+Position adaptive convolution with dy-"
+"2022:
+17th European Conference, Tel Aviv,
+Israel, Octo-","namic kernel assembling on point clouds.
+In Proceedings of"
+"","the IEEE/CVF Conference on Computer Vision and Pattern"
+"ber 23–27, 2022, Proceedings, Part XXII, pages 358–374.",""
+"Springer, 2022.","Recognition, pages 3173–3182, 2021."
+"","[67] Haoxuan You, Yifan Feng, Rongrong Ji, and Yue Gao. Pvnet:"
+"[54] Mikaela Angelina Uy, Quang-Hieu Pham, Binh-Son Hua,",""
+"","A joint convolutional network of point cloud and multi-view"
+"Duc Thanh Nguyen, and Sai-Kit Yeung.
+Revisiting point",""
+"","the 26th ACM
+for 3d shape recognition.
+In Proceedings of"
+"cloud classiﬁcation: A new benchmark dataset and classiﬁ-",""
+"","international conference on Multimedia, pages 1310–1318,"
+"cation model on real-world data. In International Conference",""
+"","2018."
+"on Computer Vision (ICCV), 2019.",""
+"","[68] Hengxu You, Fang Xu,
+and Eric Du.
+Robot-based real-"
+"[55] Vibashan VS, Vikram Gupta, Poojan Oza, Vishwanath A.",""
+"","time point cloud digital twin modeling in augmented reality."
+"Sindagi, and Vishal M. Patel. Mega-cda: Memory guided",""
+"","Transforming Construction with Reality Capture Technolo-"
+"attention for category-aware unsupervised domain adaptive",""
+"","gies, 2022."
+"the IEEE/CVF Confer-
+object detection.
+In Proceedings of",""
+"","[69] Xumin Yu, Lulu Tang, Yongming Rao, Tiejun Huang,
+Jie"
+"ence on Computer Vision and Pattern Recognition (CVPR),",""
+"","Zhou, and Jiwen Lu. Point-bert: Pre-training 3d point cloud"
+"pages 4516–4526, June 2021.",""
+"","transformers with masked point modeling. In Proceedings of"
+"[56] Vibashan VS, Domenick Poster, Suya You, Shuowen Hu,",""
+"","the IEEE/CVF Conference on Computer Vision and Pattern"
+"and Vishal M. Patel. Meta-uda: Unsupervised domain adap-",""
+"","Recognition, pages 19313–19322, 2022."
+"tive thermal object detection using meta-learning.
+In Pro-",""
+"","[70] Lu Yuan, Dongdong Chen, Yi-Ling Chen, Noel Codella,"
+"ceedings of
+the IEEE/CVF Winter Conference on Applica-",""
+"","Xiyang Dai, Jianfeng Gao, Houdong Hu, Xuedong Huang,"
+"tions of Computer Vision (WACV), pages 1412–1423,
+Jan-",""
+"","Boxin
+Li,
+Chunyuan
+Li,
+et
+al.
+Florence:
+A new"
+"uary 2022.",""
+"","arXiv
+preprint
+foundation model
+for
+computer
+vision."
+"[57] Vibashan VS, Jeya Maria Jose Valanarasu, and Vishal M Pa-",""
+"","arXiv:2111.11432, 2021."
+"tel. Target and task speciﬁc source-free domain adaptive im-",""
+"","[71] Yuhang Zang, Wei Li, Kaiyang Zhou, Chen Huang,
+and"
+"age segmentation. arXiv preprint arXiv:2203.15792, 2022.",""
+"","Chen Change Loy.
+Uniﬁed vision and language prompt"
+"[58] Mei Wang and Weihong Deng. Deep visual domain adapta-",""
+"","learning. arXiv preprint arXiv:2210.07225, 2022."
+"tion: A survey. Neurocomputing, 312:135–153, 2018.",""
+"","[72] Renrui Zhang, Ziyu Guo, Wei Zhang, Kunchang Li, Xu-"
+"[59] Yue Wang, Yongbin
+Sun,
+Ziwei Liu,
+Sanjay E Sarma,",""
+"","peng Miao, Bin Cui, Yu Qiao, Peng Gao, and Hongsheng Li."
+"Michael M Bronstein,
+and Justin M Solomon.
+Dynamic",""
+"","Pointclip: Point cloud understanding by clip. arXiv preprint"
+"Acm Transactions
+graph cnn for
+learning on point clouds.",""
+"","arXiv:2112.02413, 2021."
+"On Graphics (tog), 38(5):1–12, 2019.",""
+"","[73]
+Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe,"
+"[60] Zeyu Wang, Cuong Nguyen, Paul Asente, and Julie Dorsey.",""
+"","Moya Chen, Shuohui Chen, Christopher Dewan, Mona Diab,"
+"Pointshopar: Supporting environmental design prototyping",""
+"","Xian Li, Xi Victoria Lin, et al. Opt: Open pre-trained trans-"
+"using point cloud in augmented reality. 2023.",""
+"","former language models. arXiv preprint arXiv:2205.01068,"
+"[61] Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Yu, Lin-","2022."
+"guang Zhang, Xiaoou Tang,
+and
+Jianxiong Xiao.
+3d","[74] Hengshuang Zhao, Li Jiang, Jiaya Jia, Philip HS Torr, and"
+"shapenets: A deep representation for volumetric shapes.
+In","of
+Vladlen Koltun.
+Point
+transformer.
+In Proceedings"
+"Proceedings of the IEEE conference on computer vision and","the IEEE/CVF international conference on computer vision,"
+"pattern recognition, pages 1912–1920, 2015.","pages 16259–16268, 2021."
+"[62]
+Jinheng Xie, Xianxu Hou, Kai Ye, and Linlin Shen. Clims:","[75] Chong Zhou, Chen Change Loy,
+and Bo Dai.
+Dense-"
+"cross
+language image matching for weakly supervised se-","arXiv preprint
+clip:
+Extract
+free dense labels
+from clip."
+"mantic segmentation. In Proceedings of the IEEE/CVF Con-","arXiv:2112.01071, 2021."
+"ference on Computer Vision and Pattern Recognition, pages","[76]
+Peng Zhou, Rui Peng, Maggie Xu, Victor Wu, and David"
+"4483–4492, 2022.","Navarro-Alarcon. Path planning with automatic seam extrac-"
+"[63]
+Saining Xie, Jiatao Gu, Demi Guo, Charles R Qi, Leonidas","IEEE
+tion over point cloud models for robotic arc welding."
+"Guibas, and Or Litany.
+Pointcontrast: Unsupervised pre-","Robotics and Automation Letters, 6(3):5002–5009, 2021."
+"training for 3d point cloud understanding.
+In European con-","[77] Xingyi
+Zhou,
+Rohit Girdhar,
+Armand
+Joulin,
+Philipp"
+"ference on computer vision, pages 574–591. Springer, 2020.","Kr¨ahenb¨uhl, and Ishan Misra.
+Detecting twenty-thousand"

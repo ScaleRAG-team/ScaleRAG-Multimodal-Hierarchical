@@ -1,0 +1,16 @@
+"4"
+"Area-of-applicability
+threshold:"
+"0.1791143"
+"In this way, waywiser
+functions are designed to integrate naturally with packages
+in the"
+"tidymodels ecosystem, extending the consistent user-friendly interfaces of those packages for"
+"spatial model assessment tasks. However, as emphasized at the start of this section, waywiser"
+"functions are designed to be framework-agnostic and also accept standard data frames and"
+"vectors as
+inputs, while
+returning standard data frames and vectors as outputs wherever"
+"possible.
+In this way, waywiser aims to be maximally interoperable with as many modeling"
+"workﬂows as possible."

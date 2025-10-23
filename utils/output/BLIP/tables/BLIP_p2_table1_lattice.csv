@@ -1,0 +1,102 @@
+"BLIP: Bootstrapping Language-Image Pre-training for Uniﬁed Vision-Language Understanding and Generation
+ITC
+N×
+Image
+Encoder
+Figure 2. Pre-training model architecture and objectives of BLIP (same parameters have the same color). We propose multimodal mixture
+of encoder-decoder, a uniﬁed vision-language model which can operate in one of the three functionalities:
+(1) Unimodal encoder is
+trained with an image-text contrastive (ITC) loss to align the vision and language representations. (2) Image-grounded text encoder uses
+additional cross-attention layers to model vision-language interactions, and is trained with a image-text matching (ITM) loss to distinguish
+between positive and negative image-text pairs. (3) Image-grounded text decoder replaces the bi-directional self-attention layers with
+causal self-attention layers, and shares the same cross-attention layers and feed forward networks as the encoder. The decoder is trained
+with a language modeling (LM) loss to generate captions given images.
+trieval, image captioning, visual question answering, vi-
+encoder-based models (Li et al., 2021a;b; Radford et al.,
+sual reasoning, and visual dialog. We also achieve state-of-
+2021) nor encoder-decoder models (Cho et al., 2021; Wang
+the-art zero-shot performance when directly transferring
+et al., 2021) can excel at both types of tasks, whereas a single
+our models to two video-language tasks:
+text-to-video
+uniﬁed encoder-decoder (Zhou et al., 2020) also limits the
+retrieval and videoQA.
+model’s capability. Our proposed multimodal mixture of
+encoder-decoder model offers more ﬂexibility and better
+performance on a wide range of downstream tasks, in the
+2. Related Work
+meantime keeping the pre-training simple and efﬁcient.
+2.1. Vision-language Pre-training
+2.2. Knowledge Distillation
+Vision-language pre-training (VLP) aims to improve per-
+formance of downstream vision and language tasks by pre-
+Knowledge distillation (KD) (Hinton et al., 2015) aims to
+training the model on large-scale image-text pairs. Due to
+improve the performance of a student model by distilling
+the prohibitive expense of acquiring human-annotated texts,
+knowledge from a teacher model. Self-distillation is a spe-
+most methods (Chen et al., 2020; Li et al., 2020; 2021a;
+cial case of KD where the teacher and student have equal
+Wang et al., 2021; Radford et al., 2021) use image and
+sizes.
+It has been shown to be effective for image classi-
+alt-text pairs crawled from the web (Sharma et al., 2018;
+ﬁcation (Xie et al., 2020), and recently for VLP (Li et al.,
+Changpinyo et al., 2021; Jia et al., 2021), Despite the use of
+2021a). Different from mostly existing KD methods which
+simple rule-based ﬁlters, noise is still prevalent in the web
+simply enforce the student
+to have the same class predic-
+texts. However, the negative impact of the noise has been
+tions as the teacher, our proposed CapFilt can be interpreted
+largely overlooked, shadowed by the performance gain ob-
+as a more effective way to perform KD in the context of
+tained from scaling up the dataset. Our paper shows that the
+VLP, where the captioner distills its knowledge through
+noisy web texts are suboptimal for vision-language learning,
+semantically-rich synthetic captions, and the ﬁlter distills
+and proposes CapFilt
+that utilizes web datasets in a more
+its knowledge by removing noisy captions.
+effective way.
+2.3. Data Augmentation
+There have been many attempts
+to unify various vision
+While data augmentation (DA) has been widely adopted in
+and language tasks into a single framework (Zhou et al.,
+computer vision (Shorten & Khoshgoftaar, 2019), DA for
+2020; Cho et al., 2021; Wang et al., 2021). The biggest
+language tasks is less straightforward. Recently, generative
+challenge is to design model architectures that can perform
+language models have been used to synthesize examples
+both understanding-based tasks (e.g. image-text retrieval)
+for various NLP tasks (Kumar et al., 2020; Anaby-Tavor
+and generation-based tasks (e.g. image captioning). Neither","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","ITM","","","","","","LM",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","Feed Forward","","","","","Feed Forward","","","","Feed Forward","","","","","","Feed Forward","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","N×
+Self Attention","","","","","Cross Attention","","Cross Attention","","","","","","Cross Attention","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","Bi Self-Att","","","","Bi Self-Att","","","","","","Causal Self-Att","",""
+"","","","","","Text
+Image-grounded 
+Encoder
+Text encoder
+“[CLS] +           ”  
+“[Encode] +           ”  
+“a little girl holding a kitten next to a blue fence”","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","Image-grounded 
+Text decoder
+“[Decode] +           ”","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""
+"","","","","","","","","","","","","","","","","","",""

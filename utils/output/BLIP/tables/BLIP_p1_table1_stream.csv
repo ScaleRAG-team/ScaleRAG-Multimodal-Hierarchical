@@ -1,0 +1,102 @@
+"","BLIP: Bootstrapping Language-Image Pre-training for"
+"","Uniﬁed Vision-Language Understanding and Generation"
+"","Junnan Li Dongxu Li Caiming Xiong
+Steven Hoi"
+"","Salesforce Research"
+"","https://github.com/salesforce/BLIP"
+"","“blue sky bakery in 
+Abstract
+Filt"
+"","sunset park ”"
+"","Vision-Language
+Pre-training
+(VLP)
+has
+ad-
+“chocolate cake"
+"","with cream frosting 
+vanced the performance for many vision-language"
+"","and chocolate 
+Cap
+Filt
+tasks. However, most existing pre-trained mod-"
+"","sprinkles on top”
+els only excel in either understanding-based tasks"
+"","Figure 1. We use a Captioner (Cap) to generate synthetic captions
+or generation-based tasks. Furthermore, perfor-"
+"","for web images, and a Filter (Filt) to remove noisy captions.
+mance improvement has been largely achieved"
+"","by scaling up the dataset with noisy image-text
+collected from the web. Despite the performance gain ob-"
+"","pairs collected from the web, which is a subop-
+tained by scaling up the dataset, our paper shows that the"
+"","timal source of supervision.
+In this paper, we
+noisy web text is suboptimal for vision-language learning."
+"","propose BLIP, a new VLP framework which trans-"
+"","fers ﬂexibly to both vision-language understand-
+To this end, we propose BLIP: Bootstrapping Language-"
+"","ing and generation tasks. BLIP effectively uti-
+Image Pre-training for uniﬁed vision-language understand-"
+"arXiv:2201.12086v2  [cs.CV]  15 Feb 2022","lizes
+the noisy web data by bootstrapping the
+ing and generation. BLIP is a new VLP framework which"
+"","captions, where a captioner generates synthetic
+enables a wider range of downstream tasks than existing"
+"","captions and a ﬁlter removes the noisy ones. We
+methods.
+It
+introduces two contributions from the model"
+"","achieve state-of-the-art results on a wide range of
+and data perspective, respectively:"
+"","vision-language tasks, such as image-text retrieval
+(a) Multimodal mixture of Encoder-Decoder (MED): a new"
+"","(+2.7% in average recall@1),
+image captioning
+model architecture for effective multi-task pre-training and"
+"","(+2.8% in CIDEr), and VQA (+1.6% in VQA
+ﬂexible transfer learning. An MED can operate either as"
+"","score). BLIP also demonstrates strong general-
+a unimodal encoder, or an image-grounded text encoder,"
+"","ization ability when directly transferred to video-
+or an image-grounded text decoder. The model
+is jointly"
+"","language tasks in a zero-shot manner. Code, mod-
+pre-trained with three vision-language objectives:
+image-"
+"","els, and datasets are released.
+text contrastive learning, image-text matching, and image-"
+"","conditioned language modeling."
+"","1. Introduction
+(b) Captioning and Filtering (CapFilt): a new dataset boos-"
+"","trapping method for learning from noisy image-text pairs.
+Vision-language pre-training has recently received tremen-"
+"","We ﬁnetune a pre-trained MED into two modules: a cap-
+dous
+success on various multimodal downstream tasks."
+"","tioner to produce synthetic captions given web images, and
+However, existing methods have two major limitations:"
+"","a ﬁlter to remove noisy captions from both the original web"
+"","(1) Model perspective:
+most methods
+either
+adopt
+an
+texts and the synthetic texts."
+"","encoder-based model (Radford et al., 2021; Li et al., 2021a),"
+"","We perform extensive experiments and analysis, and make
+or an encoder-decoder (Cho et al., 2021; Wang et al., 2021)"
+"","the following key observations.
+model. However, encoder-based models are less straightfor-"
+"","ward to directly transfer to text generation tasks (e.g. image
+• We show that the captioner and the ﬁlter work together to"
+"","captioning), whereas encoder-decoder models have not been
+achieve substantial performance improvement on various"
+"","successfully adopted for image-text retrieval tasks.
+downstream tasks by bootstrapping the captions. We also"
+"","ﬁnd that more diverse captions yield larger gains.
+(2) Data perspective: most state-of-the-art methods (e.g.,"
+"","CLIP (Radford et al., 2021), ALBEF (Li et al., 2021a),
+• BLIP achieves state-of-the-art performance on a wide"
+"","SimVLM (Wang et al., 2021)) pre-train on image-text pairs
+range of vision-language tasks, including image-text re-"

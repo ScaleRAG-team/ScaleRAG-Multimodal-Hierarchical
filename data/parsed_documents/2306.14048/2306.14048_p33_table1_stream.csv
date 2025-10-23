@@ -1,0 +1,62 @@
+"Rk"
+"For any symmetric matrix B
+×
+k, we denote its eigenvalue decomposition as U ΛU ⊤, where Λ"
+"∈
+Rk"
+"is the
+×
+is a diagonal matrix. Let λ1,
+, λk denote the entries on diagonal of Λ
+k. We say λi"
+"· · ·
+∈"
+"i-th eigenvalue. Usually, we write it as λi(B)."
+"The connection between eigenvalues and singular values is"
+"σ2
+i (A) = λi(A⊤A)"
+"We use the notation A
+0 to denote that matrix A is positive semidefinite (psd). Mathematically,"
+"⪰"
+"A
+0.
+0 means for all vectors x, we have x⊤Ax"
+"⪰
+≥"
+"Similarly, for two squarer matrices A and B, we use A
+B to denote the case where for all vectors"
+"⪰"
+"x, x⊤Ax
+x⊤Bx."
+"≥"
+"Let Pr[] and E[] denote the probability and expectation. We define the maximum between a and b as"
+"max
+a, b
+. We denote min
+a, b
+(resp. max
+a, b
+) as the minimum (reps. maximum) between a"
+"{
+}
+{
+}
+{
+}"
+"and b."
+"Throughout,
+for non-negative real numbers a and b, we use the notation a = (1
+ϵ)b if a"
+"±
+∈"
+"[(1
+ϵ)b, (1 + ϵ)b]."
+"−"
+"D.2
+Submodular"
+"We provide the standard definition of the submodular function."
+"Definition D.1 (Submodular function [123]). For a finite set Ω, a submodular function is defined as"
+"f : 2Ω
+R, where 2Ω denotes the power set of Ω. It is characterized by the fulfillment of any of the"
+"→"
+"following equivalent criteria:"

@@ -1,0 +1,70 @@
+"lion tokens,
+achieving a better performance
+(lower perplexity)
+than the original StreamLLM"
+"method [52] across various cache size.
+Further comparisons are reported in Appendix C.4."
+"Q2: Does the number of shots during inference effects"
+"the effectiveness of H2O? A2: Effective across zero-shot"
+"to ten-shots inference. We further examine H2O under"
+"different numbers of shots during inference, and the re-"
+"sults are reported in Table 10 and Figure 8. With different"
+"shots inference, our H2O achieves matching performance"
+"(difference less than 1.00%) as the full model across dif-"
+"ferent downstream tasks. The ""Local"" strategy encounters"
+"significant performance degradation (up to 37.00%. Such"
+"results demonstrate the effectiveness of our H2O under"
+"different inference scenarios. More details about zero-shot"
+"and one-shot inference are reported in Appendix C.3."
+"Q3: Compatible with Quatization? A3: Yes. To pur-"
+"sue further efficiency, we show the compatibility of H2O"
+"with another orthogonal approach, i.e., quantization in Ta-"
+"Figure 5:
+(Upper) streaming with H2O to"
+"ble 6. We use OPT-30B as our base model and COPA,"
+"handle inputs with sequence lengths of four"
+"OpenBookWA, and PiQA as evaluation tasks. Intuitively"
+"million tokens. (Bottom) Perplexity compari-"
+"sparsity and quantization are highly related so combin-"
+"son between the original StreamLLM method"
+"ing them might introduce larger errors. Surprisingly the"
+"and our H2O, results are collected on the first"
+"combination almost always achieves better accuracy than
+text sample of PG-19 [54]."
+"H2O or quantization alone. Experiments about throughput"
+"improvement are detailed in Appendix C.2."
+"Q4: When does H2O match the baseline with full KV"
+"embeddings? A4: With both H2 and the recent tokens. We investigate the separate effects of"
+"KV embeddings of H2 and the local tokens. We conduct experiments on 4 tasks with OPT-13B and"
+"OPT-30B. For each task, we compare the performance of three KV cache eviction policies, including"
+"only the KV embeddings of H2, only the ones of local
+tokens, and our H2O that keep both. As"
+"tokens can’t maintain a similar
+shown in Table 9, only retaining the embeddings of H2 or local"
+"performance as the model using full embeddings, with a performance degradation from 2.85% to"
+"22.75%. Incorporating both components, our H2O successfully retains the baseline performance with"
+"full embeddings. Besides, the model with only H2 shows a consistent improvement against the one"
+"with only local tokens, which indicates H2 might contribute more to maintaining the performance."
+"Q5: Extra benefits from H2O? A5: Increased diversity of generated text. Besides all the benefits"
+"of our H2O, we also observe an bonus introduced by H2O, i.e., the improved diversity of generated"
+"content.
+The results are reported in Appendix C.1. Given the same prompts, we visualize the"
+"generated text of the models with different KV cache budgets. Compared with the model of full KV"
+"cache, our H2O can generate sentences with fewer repeated words and more creativity."
+"6
+Conclusion and Discussion"
+"In this paper, we study one of
+the key bottlenecks of LLM deployment, KV cache, particularly"
+"for
+long-content and large-batch generation applications. We propose H2O, a simple KV cache"
+"eviction policy for significantly reducing its memory footprint. The main insight of our approach"
+"is the recognition of a subset of tokens, known as Heavy Hitters, which contribute the most value"
+"when computing attention scores. We formulate the KV cache eviction as a dynamic submodular"
+"problem and provide the theoretical guarantees for our algorithm. Through extensive evaluations,"
+"we demonstrate that H2O can significantly improve end-to-end throughput and decrease latency in"
+"wall-clock time, without compromising the generation quality of LLMs across a variety of tasks."
+"7
+Acknowledgement"
+"Ying Sheng and Clark Barrett are partly supported by NSF-2110397 and the Stanford Center for"
+"Automated Reasoning. Z. Wang is in part supported by a Google Research Scholar Award and the"
+"NSF AI Institute for Foundations of Machine Learning (IFML)."

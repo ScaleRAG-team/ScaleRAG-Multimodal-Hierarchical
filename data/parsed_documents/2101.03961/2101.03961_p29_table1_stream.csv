@@ -1,0 +1,79 @@
+"Switch Transformers"
+"B. Preventing Token Dropping with No-Token-Left-Behind"
+"Due to software constraints on TPU accelerators, the shapes of our Tensors must be stat-"
+"ically sized.
+As a result,
+each expert has a ﬁnite and ﬁxed capacity to process
+token"
+"representations. This, however, presents an issue for our model which dynamically routes"
+"tokens at run-time that may result in an uneven distribution over experts.
+If the number of"
+"tokens sent to an expert is less than the expert capacity, then the computation may simply"
+"be padded – an ineﬃcient use of the hardware, but mathematically correct. However, when"
+"the number of tokens sent to an expert is larger than its capacity (expert overﬂow), a proto-"
+"col
+is needed to handle this. Lepikhin et al. (2020) adapts a Mixture-of-Expert model and"
+"addresses expert overﬂow by passing its representation to the next layer without processing"
+"through a residual connection which we also follow."
+"We suspected that having no computation applied to tokens could be very wasteful,"
+"especially since if there is overﬂow on one expert, that means another expert will have extra"
+"capacity. With this
+intuition we create No-Token-Left-Behind, which iteratively reroutes"
+"any tokens
+that are at ﬁrst
+routed to an expert
+that
+is overﬂowing.
+Figure
+11 shows a"
+"graphical description of
+this method, which will allow us
+to guarantee almost no tokens"
+"will be dropped during training and inference. We hypothesised that
+this could improve"
+"performance and further stabilize training, but we found no empirical beneﬁts. We suspect"
+"that once the network learns associations between diﬀerent tokens and experts,
+if this as-"
+"sociation is changed (e.g.
+sending a token to its second highest expert) then performance"
+"could be degraded."
+"C. Encouraging Exploration Across Experts"
+"At each expert-layer,
+the router determines to which expert
+to send the token. This is a"
+"discrete decision over the available experts, conditioned on information about the token’s"
+"representation.
+Based on the
+incoming token representation,
+the
+router determines
+the"
+"best expert, however,
+it
+receives no counterfactual
+information about how well
+it would"
+"have done selecting an alternate expert. As in reinforcement learning, a classic exploration-"
+"exploitation dilemma arises
+(Sutton and Barto, 2018).
+These issues have been similarly"
+"noted and addressed diﬀerently by Rosenbaum et al.
+(2017) which demonstrated success"
+"in multi-task learning. This particular
+setting most closely matches
+that of a contextual"
+"bandit
+(Robbins, 1952). Deterministically selecting the top expert always amounts to an"
+"exploitative strategy – we consider balancing exploration to seek better expert assignment."
+"To introduce exploration, we consider several approaches: 1) deterministic or argmax 2)"
+"sampling from the softmax distribution 3) input dropout on the incoming representation 4)"
+"multiplicative jitter noise on the incoming representation. The resulting impact on model"
+"quality is reported in Table 11. Throughout this work, we use input jitter to inject noise as"
+"we have found it to empirically perform the best."
+"D. Switch Transformers in Lower Compute Regimes"
+"Switch Transformer
+is also an eﬀective architecture at
+small
+scales as well as
+in regimes"
+"with thousands of cores and trillions of parameters. Many of our prior experiments were"

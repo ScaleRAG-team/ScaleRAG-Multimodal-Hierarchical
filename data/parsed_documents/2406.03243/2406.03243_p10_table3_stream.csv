@@ -1,0 +1,110 @@
+"",""
+"3500
+Migration(7B)
+60","LLaMA-7B and LLaMA-30B, showing the negligible migra-"
+"Migration(30B)",""
+"",""
+"3000
+Blocking copy(7B)","tion overhead. Also note that such overhead exists only when"
+"50",""
+"Blocking copy(30B)
+2500",""
+"Recompute(7B)
+40","there are requests being migrated (in or out) on an instance."
+"2000",""
+"Downtime (ms)
+Decode Latency (ms)
+Recompute(30B)
+30","We find that in all the serving experiments in the following"
+"1500",""
+"Migration(7B)","sections, the average fraction of time span with ongoing mi-"
+"20",""
+"1000
+Migration(30B)",""
+"Normal(7B)
+10","gration for each instance is only roughly 10%. This implies"
+"500",""
+"Normal(30B)",""
+"0
+0","an effective overhead that
+is even much smaller, which is"
+"256
+512
+1k
+2k
+4k
+8k
+256
+512
+1k
+2k
+4k
+8k",""
+"Sequence Length
+Sequence Length","worthwhile for the great scheduling benefits of migration."
+"Figure 10: Downtime and overhead of migration.",""
+"","6.3
+Serving Performance"
+"","We evaluate the scheduling performance of Llumnix in on-"
+"memory load as it is the dominant resource in LLM serving.",""
+"","line serving using 16 LLaMA-7B instances (auto-scaling is"
+"This load also counts in the memory required by queuing",""
+"","disabled except in experiments in §6.5)."
+"requests on each instance to reflect the queue pressure.",""
+"","Real datasets.
+We first compare Llumnix with round-robin"
+"• Llumnix-base: a base version of Llumnix that is priority-",""
+"","and INFaaS++ using the ShareGPT and BurstGPT traces (the"
+"agnostic (i.e., treats all requests as the same priority) but",""
+"","top two rows in Figure 11). Llumnix outperforms the base-"
+"enables all the other features including migration.",""
+"","lines in end-to-end request
+latency by up to 2× and 2.9×"
+"Key metrics.","for mean and P99, respectively.
+In particular, we observe"
+"We focus on request latency, in terms of end-",""
+"","that round-robin always performs much worse than both IN-"
+"to-end, prefill (that of the first generated token), and decode",""
+"","FaaS++ and Llumnix: since the sequence lengths have high"
+"(that since first generated token to the last, averaged over all",""
+"","variance, simply distributing requests evenly can still
+lead"
+"generated tokens). We report both mean and P99 values.",""
+"","to unbalanced load, impacting both prefill and decode laten-"
+"","cies. Llumnix achieves significant gains in prefill latency over"
+"6.2
+Migration Efficiency",""
+"","round-robin, by up to 26.6× for mean and 34.4× for P99. This"
+"We first examine the performance of Llumnix’s migration","is because round-robin can possibly dispatch new requests to"
+"mechanism, in terms of the downtimes introduced to the mi-","overloaded instances, leading to long queuing delays. Llum-"
+"grated requests and the performance overheads for the running","nix also improves P99 decode latency by up to 2×, by load"
+"requests. We test both the 1-GPU LLaMA-7B and the 4-GPU","balancing to reduce preemptions. This margin seems smaller"
+"LLaMA-30B models. For each model, we deploy two in-","as the latency penalty caused by preemptions is averaged"
+"stances on two different machines. We use different sequence","over all generated tokens. However, whenever preemption"
+"lengths, for each of which we run a batch of requests with the","occurs, it results in a sudden service stall, which impacts user"
+"same total
+length of 8k on both instances. We migrate one","experience. Figure 11 (the rightmost column) reports the pre-"
+"of the requests from one instance to another and measure its","emption loss in terms of the extra queuing and recomputing"
+"downtime and the decode speeds of the running batches on","times (mean value of all requests). Llumnix reduces preemp-"
+"both instances during migration.","tion loss by 84% on average compared to round-robin. These"
+"We compare the downtime during migration with two sim-","results highlight
+the importance of load balancing in LLM"
+"ple approaches: recomputing, and blocking copying of the","serving. In the following experiments using generated distri-"
+"KV cache using Gloo (non-blocking for other requests). As","butions with higher variance, round-robin showed up to two"
+"shown in Figure 10 (left), the downtime of migration is nearly","orders of magnitude worse latencies. Therefore, we omit it"
+"constant with increasing sequence lengths (roughly 20-30 ms),","for the other traces for clarity of the figures and focus on the"
+"even shorter than a single decode step. In comparison,
+the","comparison between INFaaS++ and Llumnix."
+"downtimes of baselines increase with the sequence lengths,","Llumnix outperforms INFaaS++ in mean and P99 prefill"
+"reaching up to 111× that of migration. For example, recom-","latencies by up to 2.2× and 5.5×, and P99 decode latencies"
+"puting an 8k sequence for LLaMA-30B takes 3.5s, which","by up to 1.3×, respectively, showing the extra benefits of"
+"translates to a service stall similar to 54 decode steps. We","migration, beyond dispatch-time load balancing. Next we use"
+"also notice that for all sequence lengths, the migration only","more traces with different characteristics to further evaluate"
+"takes two stages, which is the minimum. This is because the","them for a deeper understanding of the improvements."
+"data copying is sufficiently fast and the number of new tokens","Generated distributions.
+We compare Llumnix and IN-"
+"generated during the first stage is small.","FaaS++ using multiple generated distributions (bottom five"
+"Figure 10 (right) also compares the per-step decode times","rows in Figure 11). Llumnix outperforms INFaaS++ across all"
+"during migration on the source instance with that during nor-","traces in end-to-end request latency by up to 1.5× and 1.6×"
+"mal execution (results on the destination are mostly simi-","for mean and P99, respectively. For prefill, the improvements"
+"lar). We observe up to 1% performance differences for both","are up to 7.7× for mean and 14.8× for P99. Despite dispatch-"

@@ -1,0 +1,42 @@
+"Leo Gao, John Schulman, and Jacob Hilton. Scaling laws for reward model overoptimization.
+In"
+"International Conference on Machine Learning, pp. 10835–10866. PMLR, 2023."
+"Sachin Goyal, Ziwei Ji, Ankit Singh Rawat, Aditya Krishna Menon, Sanjiv Kumar, and Vaishnavh"
+"Nagarajan. Think before you speak: Training language models with pause tokens. In The Twelfth"
+"International Conference on Learning Representations, 2024a. URL https://openreview."
+"net/forum?id=ph04CRkPdC."
+"Sachin Goyal, Pratyush Maini, Zachary C Lipton, Aditi Raghunathan, and J Zico Kolter.
+Scaling"
+"laws for data filtering–data curation cannot be compute agnostic. In Proceedings of the IEEE/CVF"
+"Conference on Computer Vision and Pattern Recognition, pp. 22702–22711, 2024b."
+"arXiv
+preprint
+Alex Graves.
+Sequence
+transduction with
+recurrent
+neural
+networks."
+"arXiv:1211.3711, 2012."
+"Dan Hendrycks, Steven Basart, Saurav Kadavath, Mantas Mazeika, Akul Arora, Ethan Guo, Collin"
+"Burns, Samir Puranik, Horace He, Dawn Song, and Jacob Steinhardt. Measuring coding chal-"
+"lenge competence with APPS.
+In Thirty-fifth Conference on Neural Information Processing Sys-"
+"tems Datasets and Benchmarks Track (Round 2), 2021a. URL https://openreview.net/"
+"forum?id=sD93GOzH3i5."
+"Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric Tang, Dawn"
+"Song, and Jacob Steinhardt. Measuring mathematical problem solving with the MATH dataset."
+"In Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks"
+"Track (Round 2), 2021b. URL https://openreview.net/forum?id=7Bywt2mQsCe."
+"Tom Henighan, Jared Kaplan, Mor Katz, Mark Chen, Christopher Hesse, Jacob Jackson, Heewoo"
+"Jun, Tom B. Brown, Prafulla Dhariwal, Scott Gray, et al. Scaling laws for autoregressive genera-"
+"tive modeling. arXiv preprint arXiv:2010.14701, 2020."
+"Joel Hestness, Sharan Narang, Newsha Ardalani, Gregory Diamos, Heewoo Jun, Hassan Kianinejad,"
+"Md Patwary, Mostofa Ali, Yang Yang, and Yanqi Zhou. Deep learning scaling is predictable,"
+"empirically. arXiv preprint arXiv:1712.00409, 2017."
+"Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor Cai, Eliza"
+"Rutherford, Diego de Las Casas, Lisa Anne Hendricks, Johannes Welbl, Aidan Clark, et al. Train-"
+"ing compute-optimal large language models. arXiv preprint arXiv:2203.15556, 2022."
+"Albert Q Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh Chaplot,"
+"Diego de las Casas, Florian Bressand, Gianna Lengyel, Guillaume Lample, Lucile Saulnier, et al."
+"Mistral 7b. arXiv preprint arXiv:2310.06825, 2023."

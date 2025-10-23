@@ -1,0 +1,70 @@
+"3"
+"which corresponds to the fact that we are discussing a dipole of deﬁnite size which develops the parton cascade. Since"
+"Pn (Y ; {ri}) is the probability to ﬁnd dipoles {ri}, we have the following sum rule"
+"(cid:90)"
+"∞(cid:88) n
+n(cid:89) i
+(5)
+d2ri d2bi Pn (Y ; {ri bi}) = 1,"
+"=1
+=1"
+"i.e.
+the sum of all probabilities is equal to 1."
+"This QCD cascade leads to Balitsky-Kovchegov (BK) equation [24, 25]
+for the amplitude and gives the theoretical"
+"description of the DIS. We introduce the generating functional[27]"
+"(cid:90)"
+"∞(cid:88) n
+n(cid:89) i
+(6)
+Z (Y, r, b; [ui]) =
+Pn (Y, r, b; {ri bi})
+u (ri bi) d2ri d2bi"
+"=1
+=1"
+"is an arbitrary function. The initial conditions of Eq. (4) and the sum rules of Eq. (5) take the
+where u (ri bi) ≡ ui"
+"following form for the functional Z:"
+"=
+u (r, b) ;
+(7a)
+Z (Y = 0, r, b; [ui])"
+"=
+1;
+(7b)
+Z (Y, r, [ui = 1])"
+"(3) by (cid:81)n"
+"i=1 u (ri bi) and integrating over ri and bi we obtain the following linear"
+"functional equation[29];"
+""
+"(cid:18)
+(cid:19)
+(cid:18)
+(cid:19) (cid:33)
+(cid:90)"
+"δ Z
+∂Z (Y, r, b; [ui])"
+"1 2
+1 2
+=
+d2r(cid:48) K (r(cid:48), r − r(cid:48)|r)
+− u (r, b) + u
+r(cid:48), b +
+(r − r(cid:48))
+u
+r − r(cid:48), b +
+r(cid:48)
+;(8a)"
+"∂ y
+δ u (r, b)"
+"(cid:90)"
+"1
+r2"
+"K (r(cid:48), r − r(cid:48)|r) =
+d2r(cid:48)K (r(cid:48), r − r(cid:48)|r) ;
+(8b)"
+"2 π
+r(cid:48)2 (r − r(cid:48))2 ;"
+"where y = ¯αS Y ."
+"Searching for the solution of the form Z ([u(ri, bi, Y )]) for the initial conditions of Eq. (7a), Eq. (8a) can be re-written"
+"as the non-linear equation [27]:"

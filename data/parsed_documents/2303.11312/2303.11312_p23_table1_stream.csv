@@ -1,0 +1,10 @@
+"+","","fit_resamples(worldclim_resamples,","","","",""
+"+","","metrics","=","metric_set(rmse, mae,","","waywiser::ww_willmott_d1))"
+"+","collect_metrics()","","","","",""
+"#","A
+tibble: 3","x 6","","","",""
+"",".metric",".estimator","mean","n","std_err",".config"
+"","<chr>","<chr>","<dbl>","<int>","<dbl>","<chr>"
+"1","mae","standard","0.0968","10","0.00875","Preprocessor1_Model1"
+"2","rmse","standard","0.120","10","0.0106","Preprocessor1_Model1"
+"3","willmott_d1","standard","0.642","10","0.0465","Preprocessor1_Model1"

@@ -1,0 +1,18 @@
+"","Table 2: Fine-tuning Hyper-parameters: LR refers to the learning rate, BS refers to the batch size.","","","","",""
+"","Pythia, Llemma-7B and LLemma-34B are the generators we use in our experiments, RM is short","","","","",""
+"","for Reward Model. We only use problems from GSM8K to train the Pythia models.","","","","",""
+"Model","# Epoch","Dataset","BS","LR","Max Seq Length","Dtype"
+"Pythia-410M","1","MetaMath (GSM8K)","128","8E-5","768","FP32"
+"Pythia-1.4B","1","MetaMath (GSM8K)","128","4E-5","768","FP32"
+"Pythia-2.8B","1","MetaMath (GSM8K)","128","3E-5","768","FP32"
+"Pythia-6.9B","1","MetaMath (GSM8K)","128","2E-5","768","FP32"
+"Pythia-12B","1","MetaMath (GSM8K)","128","1E-5","768","FP32"
+"Llemma-7B","1","MetaMath","128","8E-6","1024","FP32"
+"Llemma-34B","1","MetaMath","128","8E-6","768","FP32"
+"Llemma-34B RM","2","Math-Shepherd","128","1E-5","768","BF16"
+"Inference.","For all the inference strategies, the temperature for LLM token generation is set to 1.0.","","","","",""
+"Max tokens for","the output","is 1024 and max tokens for one step is 256.","","","For REBASE, we set","the"
+"balance temperature (i.e.,","","in Eq.
+(1))
+the parameter Tb","to 0.1.","","For MCTS, we set C in the UCT",""
+"value to 1 and we expand 4, 8, 16 children for the root, 2 children for other selected nodes with total","","","","","",""

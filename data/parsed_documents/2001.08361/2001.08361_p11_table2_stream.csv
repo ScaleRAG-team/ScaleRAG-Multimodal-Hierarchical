@@ -1,0 +1,52 @@
+"22.0B
+22.0B
+0.1"
+"2.5"
+"0.0"
+"10 4
+10 3
+10 2
+10 1
+107
+106
+108
+109"
+"N N/
+Params (non-embed)
+D/D"
+"Figure 9
+The early-stopped test loss L(N, D) depends predictably on the dataset size D and model size N"
+"according to Equation (1.5). Left: For large D, performance is a straight power law in N . For a smaller ﬁxed"
+"D, performance stops improving as N increases and the model begins to overﬁt.
+(The reverse is also true,"
+"αN"
+"see Figure 4.) Right: The extent of overﬁtting depends predominantly on the ratio N
+αD /D, as predicted in"
+"equation (4.3). The line is our ﬁt to that equation."
+"Since we stop training early when the test loss ceases to improve and optimize all models in the same way, we"
+"expect that larger models should always perform better than smaller models. But with ﬁxed ﬁnite D, we also"
+"do not expect any model to be capable of approaching the best possible loss (ie the entropy of text). Similarly,"
+"a model with ﬁxed size will be capacity-limited. These considerations motivate our second principle. Note"
+"that knowledge of L(N ) at inﬁnite D and L(D) at inﬁnite N fully determines all the parameters in L(N, D)."
+"The third principle is more speculative. There is a simple and general reason one might expect overﬁtting"
+"to scale ∝ 1/D at very large D. Overﬁtting should be related to the variance or
+the signal-to-noise ratio"
+"of the dataset [AS17], and this scales as 1/D. This expectation should hold for any smooth loss function,"
+"since we expect to be able to expand the loss about the D → ∞ limit. However, this argument assumes that"
+"1/D corrections dominate over other sources of variance, such as the ﬁnite batch size and other limits on the"
+"efﬁcacy of optimization. Without empirical conﬁrmation, we would not be very conﬁdent of its applicability."
+"Our third principle explains the asymmetry between the roles of N and D in Equation (1.5). Very similar"
+"symmetric expressions4 are possible, but
+they would not have a 1/D expansion with integer powers, and"
+"would require the introduction of an additional parameter."
+"In any case, we will see that our equation for L(N, D) ﬁts the data well, which is the most important justiﬁ-"
+"cation for our L(N, D) ansatz."
+"4.2
+Results"
+"We regularize all our models with 10% dropout, and by tracking test
+loss and stopping once it
+is no longer"
+"decreasing. The results are displayed in Figure 9,
+including a ﬁt
+to the four parameters αN , αD, Nc, Dc in"
+"Equation (1.5):"

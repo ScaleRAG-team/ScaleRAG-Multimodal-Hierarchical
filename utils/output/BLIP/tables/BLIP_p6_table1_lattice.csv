@@ -1,0 +1,92 @@
+"Table 4. Effect of sharing parameters between the captioner and ﬁlter. Models are pre-trained on 14M images.
+Pre-train
+Method
+# Images
+R@1
+R@5
+R@10
+R@1
+R@5
+R@10
+R@1
+R@5
+R@10
+R@1
+R@5
+R@10
+UNITER (Chen et al., 2020)
+4M
+65.7
+88.6
+93.8
+52.9
+79.9
+88.0
+87.3
+98.0
+99.2
+75.6
+94.1
+96.8
+VILLA (Gan et al., 2020)
+4M
+-
+-
+-
+-
+-
+-
+87.9
+97.5
+98.8
+76.3
+94.2
+96.8
+OSCAR (Li et al., 2020)
+4M
+70.0
+91.1
+95.5
+54.0
+80.8
+88.5
+-
+-
+-
+-
+-
+-
+UNIMO (Li et al., 2021b)
+5.7M
+-
+-
+-
+-
+-
+-
+89.4
+98.9
+99.8
+78.0
+94.2
+97.1
+ALIGN (Jia et al., 2021)
+1.8B
+77.0
+93.5
+96.9
+59.9
+83.3
+89.8
+95.3
+99.8
+100.0
+84.9
+97.4
+98.6","COCO (5K test set)
+TR
+IR","Flickr30K (1K test set)
+TR
+IR"
+"","",""
+"","",""

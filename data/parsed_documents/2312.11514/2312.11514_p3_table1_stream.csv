@@ -1,0 +1,105 @@
+"jointly. The first involves reading larger chunks of","2. Optimizing Data Chunk Size: Enhancing flash"
+"data. For smaller blocks, a substantial part of the","throughput by increasing the size of data chunks"
+"overall read time is spent waiting for data transfer","loaded, thereby mitigating latency."
+"to begin.
+This
+is often referred to as
+latency","of
+Loaded
+3. Efficient Management
+Data:"
+"to first byte.
+This
+latency reduces
+the overall","Streamlining the management of data once it"
+"throughput of each read operation considerably","is loaded into memory to minimize overhead."
+"because the overall measured throughput has to","It
+is important
+to note that our focus is not on"
+"take into account not
+just
+the speed of
+transfer","optimizing the compute, as it is orthogonal to the"
+"once it begins, but the latency before it begins as","core concerns of our work. Instead, we concentrate"
+"well, which penalizes small
+reads.
+This means","on
+optimizing
+flash memory
+interactions
+and"
+"that if we coalesce the reads for rows and columns","memory management to achieve efficient inference"
+"of the FFN matrices, we can pay the latency cost","on memory-constrained devices. We will elaborate"
+"only once for any given row/column pair in both","on the implementation details of these strategies"
+"matrices and higher
+throughput can be realized.","in the experimental setup section."
+"This principle is depicted in Figure
+2b. Perhaps",""
+"","3.1
+Reducing Data Transfer"
+"a counterintuitive yet
+interesting observation is",""
+"that
+in some scenarios,
+it will be worthwhile to","Our method leverages the inherent activation spar-"
+"read more than needed (but in larger chunks) and","sity found in Feed-Forward Network (FFN) mod-"
+"then discard, rather than only reading strictly the","els, as documented in preceding research. The OPT"
+"necessary parts but in smaller chunks. The second","6.7B model, for instance, exhibits a notable 97%"
+"strategy
+leverages
+parallelized
+reads,
+utilizing","sparsity within its FFN layer. Similarly, the Falcon"
+"the
+inherent
+parallelism within
+storage
+stacks","7B model has been adapted through fine-tuning,"
+"and flash controllers.
+Our
+results
+indicate that","which involves swapping their activation functions"
+"throughputs appropriate for sparse LLM inference","to ReLU,
+resulting in 95% sparsity while being"
+"are achievable on modern hardware using 32KiB","similar in accuracy (Mirzadeh et al., 2023). Replac-"
+"or larger random reads across multiple threads.","ing activations of Llama 2 model (Touvron et al.,"
+"Motivated by the challenges described in this sec-","2023b) by FATReLU and finetuning can achieve"
+"tion, in Section 3, we propose methods to optimize","90% sparsity(Song et al., 2024).
+In light of this"
+"data transfer volume and enhance read throughput","information, our approach involves the iterative"
+"to significantly enhance inference speeds.","transfer of only the essential, dynamic subset of the"
+"","weights from flash memory to DRAM for process-"
+"3
+Load From Flash","ing during inference."
+"","Selective Persistence Strategy. We opt
+to re-"
+"This section addresses the challenge of conducting",""
+"","tain the embeddings and matrices within the at-"
+"inference on devices where the available DRAM",""
+"","tention mechanism of the transformer constantly"
+"is substantially smaller than the size of the model.",""
+"","in DRAM. For the Feed-Forward Network (FFN)"
+"This necessitates storing the full model weights in",""
+"","portions, only the non-sparse segments are dynam-"
+"flash memory. Our primary metric for evaluating",""
+"","ically loaded into DRAM as needed. Keeping at-"
+"various flash loading strategies is latency, dissected",""
+"","tention weights, which constitute approximately"
+"into three distinct components:
+the I/O cost of load-",""
+"","one-third of the model’s size,
+in memory, allows"
+"ing from flash, the overhead of managing memory",""
+"","for more efficient computation and quicker access,"
+"with newly loaded data, and the compute cost for",""
+"","thereby enhancing inference performance without"
+"inference operations.",""
+"","the need for full model loading."
+"Our proposed solutions for reducing latency un-",""
+"","Anticipating ReLU Sparsity.
+The ReLU"
+"der memory constraints are categorized into areas:",""
+"","activation function naturally induces over 90%"
+"1. Reducing Data Load: Aiming to decrease la-",""
+"","sparsity in the FFN’s intermediate outputs, which"
+"tency associated with flash I/O operations by",""

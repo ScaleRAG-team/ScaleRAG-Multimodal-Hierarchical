@@ -1,0 +1,123 @@
+"Fault tolerance.
+Llumnix provides fault tolerance for each","Distribution
+Mean
+P50
+P80
+P95
+P99"
+"component
+to ensure high service availability. When the",""
+"","In
+306
+74
+348
+1484
+3388"
+"","ShareGPT"
+"global scheduler fails, Llumnix temporarily falls back to a","Out
+500
+487
+781
+988
+1234"
+"","Real"
+"scheduler-bypassing mode, thus not affecting the service avail-",""
+"","In
+830
+582
+1427
+2345
+3549"
+"","BurstGPT"
+"ability: that is, the request frontends directly dispatch requests","Out
+271
+243
+434
+669
+964"
+"to certain instances using simple rules, and migration is dis-",""
+"","Short (S)
+128
+38
+113
+413
+1464"
+"abled. When an instance (or the co-located llumlet) fails, the","Gen
+Medium (M)
+256
+32
+173
+1288
+4208"
+"","Long (L)
+512
+55
+582
+3113
+5166"
+"requests running on it will be aborted. In particular, ongoing",""
+"migration on failed instances will also be aborted (the request",""
+"being migrated is not necessarily aborted, depending on if its","Table 1: Real and generated distributions of sequence lengths"
+"source instance is healthy), which is handled by the handshake","(numbers of tokens) used in our evaluation. The real distribu-"
+"process. These failed actors will be automatically restarted by","tions include those of both inputs (“In”) and outputs (“Out”)."
+"Ray, after which the service could go back to normal state.",""
+"","We use Poisson and Gamma distributions with different re-"
+"6
+Evaluation",""
+"","quest rates (requests per second) to generate request arrivals."
+"","For Gamma, we also use varying coefficients of variance"
+"We evaluate Llumnix on a 16-GPU cluster using realistic mod-",""
+"","(CVs) to adjust the burstiness of the requests. Each trace has"
+"els and various workloads. Overall, our key findings include:",""
+"","10,000 requests. We choose an appropriate range of request"
+"","rates or CVs for the traces to maintain the loads within a rea-"
+"• Llumnix introduces near-zero downtime to requests being",""
+"","sonable range: nearly no queuing delays and preemptions for"
+"migrated and near-zero overhead to other running requests.",""
+"","P50 requests, and queuing delays within a few tens of seconds"
+"• Llumnix improves prefill
+latencies by up to 15×/7.7×","for P99 requests when using Llumnix."
+"(P99/mean) over INFaaS on 16 LLaMA-7B instances via",""
+"","For the input/output lengths of requests, we use two public"
+"de-fragmentation. Llumnix also improves P99 decode la-",""
+"","ChatGPT-4 conversation datasets, ShareGPT (GPT4) [10] and"
+"tency by up to 2× by reducing preemptions.",""
+"","BurstGPT (GPT4-Conversation) [62], for an evaluation on"
+"• Llumnix improves high-priority request latencies by up to","real workloads. Considering that Llumnix targets more diver-"
+"1.5× by reducing their queuing delays and accelerating","sified applications, we also use generated power-law length"
+"their execution, while preserving similar performance of","distributions to emulate long-tail workloads that mix both fre-"
+"the normal requests.","quent, short sequences (e.g., for interactive applications like"
+"","chatbots and personal assistants) and seldom, long sequences"
+"• Llumnix achieves up to 36% cost saving while preserving",""
+"","(e.g., summarizing or writing articles). We generate multiple"
+"similar P99 latencies with efficient auto-scaling.",""
+"","distributions with different long-tail degrees and mean lengths"
+"","(128, 256, 512), as shown by the Short (S), Medium (M), and"
+"6.1
+Experimental Setup","Long (L) distributions in Table 1. These distributions have"
+"","a maximum length of 6k, thus the total sequence length of a"
+"Testbed.
+We use a 16-GPU cluster with 4 GPU VMs on Al-",""
+"","request (input plus output) will not exceed the capacity of an"
+"ibaba Cloud (type ecs.gn7i-c32g1.32xlarge), each with",""
+"","A10 GPU when running LLaMA-7B (13,616 tokens). To ob-"
+"4 NVIDIA A10 (24 GB) GPUs connected via PCI-e 4.0, 128",""
+"","serve the performance with different workload characteristics,"
+"vCPUs, 752 GB memory, and 64 Gb/s network bandwidth.",""
+"","we construct the traces by picking different combinations of"
+"Models.
+We conduct experiments using a popular model",""
+"","the length distributions for inputs and outputs as follows: S-S,"
+"family, LLaMA [57]. We test
+two different specifications:",""
+"","M-M, L-L, S-L, and L-S."
+"LLaMA-7B, which runs on a single GPU, and LLaMA-30B,",""
+"","Baselines.
+We compare Llumnix with the following sched-"
+"which runs on 4 GPUs of a machine using tensor parallelism.",""
+"","ulers. All the baselines and Llumnix use vLLM as the under-"
+"The models adopt the commonly used 16-bit precision. The",""
+"","lying inference engine to focus the comparison on the request"
+"version of vLLM that we based on only supports the orig-",""
+"","scheduling across instances."
+"inal LLaMA with a maximum sequence length of 2k, but",""

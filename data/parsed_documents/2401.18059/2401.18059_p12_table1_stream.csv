@@ -1,0 +1,91 @@
+"Mandy Guo, Joshua Ainslie, David Uthus, Santiago Ontanon, Jianmo Ni, Yun-Hsuan Sung, and"
+"the
+Yinfei Yang. LongT5: Efficient
+text-to-text
+transformer for long sequences.
+In Findings of"
+"Association for Computational Linguistics: NAACL 2022, pp. 724–736, Seattle, United States,"
+"July 2022. Association for Computational Linguistics. doi: 10.18653/v1/2022.findings-naacl.55."
+"URL https://aclanthology.org/2022.findings-naacl.55."
+"Kelvin Guu, Kenton Lee, Zora Tung, Panupong Pasupat, and Mingwei Chang. Retrieval Augmented"
+"Language Model Pre-Training. In International conference on machine learning, pp. 3929–3938."
+"PMLR, 2020. URL https://doi.org/10.48550/arXiv.2002.08909."
+"Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor Cai, Eliza"
+"Rutherford, Diego de Las Casas, Lisa Anne Hendricks,
+Johannes Welbl, Aidan Clark,
+et al."
+"Training compute-optimal large language models. arXiv preprint arXiv:2203.15556, 2022. URL"
+"https://arxiv.org/abs/2203.15556."
+"Gautier
+Izacard and Edouard Grave.
+Distilling Knowledge from Reader
+to Retriever
+for Ques-"
+"tion Answering, 2022.
+URL https://arxiv.org/abs/2012.04584.
+arXiv preprint"
+"arXiv:2012.04584."
+"Gautier
+Izacard, Patrick Lewis, Maria Lomeli, Lucas Hosseini, Fabio Petroni, Timo Schick, Jane"
+"Dwivedi-Yu, Armand Joulin, Sebastian Riedel, and Edouard Grave. Few-shot
+learning with re-"
+"trieval augmented language models.
+arXiv preprint arXiv:2208.03299, 2022.
+URL https:"
+"//arxiv.org/abs/2208.03299."
+"Zhengbao Jiang, Frank F Xu, Jun Araki, and Graham Neubig. How can we know what
+language"
+"models know? Transactions of the Association for Computational Linguistics, 8:423–438, 2020."
+"URL https://arxiv.org/abs/1911.12543."
+"IEEE
+Jeff Johnson, Matthijs Douze, and Herv´e J´egou. Billion-Scale Similarity Search with GPUs."
+"Transactions on Big Data, 7(3):535–547, 2019. URL https://arxiv.org/abs/1702."
+"08734."
+"Nikhil Kandpal, Haikang Deng, Adam Roberts, Eric Wallace, and Colin Raffel. Large Language"
+"Models struggle to learn Long-Tail Knowledge.
+In International Conference on Machine Learn-"
+"ing, pp. 15696–15707. PMLR, 2023. URL https://proceedings.mlr.press/v202/"
+"kandpal23a/kandpal23a.pdf."
+"Vladimir Karpukhin, Barlas Oguz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi"
+"Chen, and Wen-tau Yih. Dense Passage Retrieval
+for Open-Domain Question Answering.
+In"
+"Proceedings of
+the 2020 Conference on Empirical Methods
+in Natural Language Processing"
+"(EMNLP), pp. 6769–6781, Online, November 2020. Association for Computational Linguis-"
+"tics. doi: 10.18653/v1/2020.emnlp-main.550. URL https://aclanthology.org/2020."
+"emnlp-main.550."
+"Daniel Khashabi, Sewon Min, Tushar Khot, Ashish Sabharwal, Oyvind Tafjord, Peter Clark, and"
+"Hannaneh Hajishirzi.
+UNIFIEDQA: Crossing format boundaries with a
+single QA system."
+"In Findings of
+the Association for Computational Linguistics: EMNLP 2020, pp. 1896–1907,"
+"Online, November 2020. Association for Computational Linguistics.
+doi:
+10.18653/v1/2020."
+"findings-emnlp.171.
+URL https://aclanthology.org/2020.findings-emnlp."
+"171."
+"Omar Khattab and Matei Zaharia.
+ColBERT: Efficient
+and effective passage
+search via
+con-"
+"the 43rd International ACM SIGIR
+textualized late interaction over bert.
+In Proceedings of"
+"conference on research and development
+in Information Retrieval,
+pp. 39–48,
+2020.
+URL"
+"https://arxiv.org/abs/2004.12832."
+"Tom´aˇs Koˇcisk`y, Jonathan Schwarz, Phil Blunsom, Chris Dyer, Karl Moritz Hermann, G´abor Melis,"
+"Transactions
+and Edward Grefenstette.
+The NarrativeQA Reading Comprehension Challenge."
+"of
+the Association for Computational Linguistics, 6:317–328, 2018. URL https://arxiv."
+"org/abs/1712.07040."

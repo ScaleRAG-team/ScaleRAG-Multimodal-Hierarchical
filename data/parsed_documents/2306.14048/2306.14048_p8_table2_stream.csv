@@ -1,0 +1,155 @@
+"KV cache with fewer shots (0/1-shot) prompts are considered as the baseline, which has a similar"
+"sequence length of the 5-shot tasks with 20% KV cache budget."
+"Main Results.
+We evaluate LLMs with KV"
+"Table 1: Quantatively comparison between H2O with"
+"cache budget ranging from 4% to 100% on 5-"
+"Full methods of different number of shots."
+"shot downstream tasks. Results are summarized"
+"Methods
+PiQA
+COPA
+OpenbookQA
+Winogrande
+in Figure 4 and Table 1& 2. The following ob-"
+"servations can be drawn: (1) With different KV
+Full
+80.09
+81.00
+44.80
+71.51"
+""
+"78.89
+76.00
+41.40
+70.00
+0-shot Full
+cache budgets, our H2O demonstrates consistent"
+"79.11
+76.00
+43.60
+70.24
+1-shot Full"
+"and significant
+improvements against
+the ""Lo-"
+"Local
+57.94
+56.00
+28.40
+51.30"
+"cal"" strategy across various model sizes, model
+79.22
+85.00
+43.80
+71.67
+H2O"
+"types, and downstream tasks. We can draw sim-"
+"ilar conclusions comparing H2O with other baselines like Sparse Transformer; (2) Meanwhile, with"
+"less than 20% KV cache budget(i.e., more than 5
+memory reduction), H2O achieves comparable"
+"×"
+"performance as the model with full KV embeddings; (3) H2O with 20% KV cache budget approxi-"
+"mately uses 1.2 samples per input and show consistent improvement over zero-shot and one-shot full"
+"model that use 1 and 2 samples, respectively. (4) Our H2O shows consistent effectiveness in the more"
+"challenging long sequence generation tasks, XSUM, and CNN/Daily Mail."
+"Analysis.
+Since the evicted KV"
+"Table 2: Results of different
+sparsification methods w.
+or w.o.
+H2."
+"will not be
+seen in the
+future"
+"Experiments are conducted with OPT-30B with 20% KV cache budget."
+"steps, dropping certain critical"
+"KV embeddings can cause a se-
+Models
+COPA
+OpenBookQA
+PiQA
+Winogrande"
+"vere functional collapse,
+result-"
+"Full
+85.00
+43.20
+78.51
+70.24"
+"ing in significant performance"
+"48.00
+25.20
+55.82
+49.17
+Local w.o. H2"
+"84.00
+43.00
+78.45
+69.06
+Local w. H2
+degradation,
+e.g.,
+in
+LLaMA-"
+"{"
+"50.00
+24.60
+56.20
+47.59
+Sparse Transformer (strided) w.o. H2
+13B, XSUM
+LLaMA-7B, CN-"
+"} {
+83.00
+42.60
+78.24
+69.61
+Sparse Transformer (strided) w. H2"
+"N/Daily Mail
+, the ""Local"" strat-"
+"}
+61.00
+23.80
+58.60
+49.88
+Sparse Transformer (fixed) w.o. H2"
+"egy collapses
+at 60% budgets"
+"76.00
+41.40
+77.80
+64.96
+Sparse Transformer (fixed) w. H2"
+"while our H2O can still match"
+"the full cache performance with"
+"In some tasks, our methods even surpass the baseline models, which demonstrates
+20% budgets."
+",
+and
+OPT-66B, RTE
+OPT-30B, MathQA
+a regularization effect of our H2O. For example, in"
+"{
+}
+{
+}"
+"GPT-NeoX-20B, XSUM
+, our H2O achieves an extra performance improvement of 0.73%, 0.64%"
+"{
+}"
+"and 0.18 with 20% KV cache budget, respectively. These consistent results validate the effectiveness"
+"of our H2O framework."
+"Enhancing Baseline Techniques.
+Importantly, we observe other sparsification baselines fail under"
+"an extremely low cache budget while combining the most recent KV embeddings with the ones of"
+"heavy hitters successfully achieves comparable performance as using full KV embeddings. From"
+"Table 2, we can observe that both ""strided"" and ""fixed"" sparse attention fail under 20% KV cache"
+"budgets, encountering a significant performance drop (up to 35% compared with the full cache)."
+"After combining with H2, both approaches reach a similar performance as using full KV embeddings."
+"5.2
+Heavy Hitter for High-Throughput Generative Inference"
+"Table 3: Generation throughput (token/s) on a T4 GPU with different systems. In the sequence length row, we"
+"use “512 + 32” to denote a prompt length of 512 and a generation length of 32. “OOM” means out-of-memory."
+"The gray text in the bracket denotes the effective batch size and the lowest level of the memory hierarchy that"
+"the system needs for offloading, where “C” means CPU and “G” means GPU."

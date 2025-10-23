@@ -1,0 +1,36 @@
+"compute:"
+"𝑚 = max(rowmax(S(1) ), rowmax(S(2) )) ∈ R𝐵𝑟"
+"ℓ = rowsum(𝑒S(1) −𝑚) + rowsum(𝑒S(2) −𝑚) ∈ R𝐵𝑟"
+"𝑒S(1) −𝑚
+𝑒S(2) −𝑚(cid:105)
+∈ R𝐵𝑟 ×2𝐵𝑐
+P = (cid:2)P(1)
+P(2) (cid:3) = diag(ℓ) −1 (cid:104)"
+""
+"(cid:20)V(1)"
+"= diag(ℓ) −1𝑒S(1) −𝑚V(1) + 𝑒S(2) −𝑚V(2) ∈ R𝐵𝑟 ×𝑑.
+O = (cid:2)P(1)
+P(2) (cid:3)"
+"V(2)"
+"Online softmax instead computes “local”
+softmax with respect to each block and rescale to get the right"
+"output at the end:"
+"𝑚 (1) = rowmax(S(1) ) ∈ R𝐵𝑟"
+") ∈ R𝐵𝑟
+ℓ (1) = rowsum(𝑒S(1) −𝑚(1)"
+"∈ R𝐵𝑟 ×𝐵𝑐
+P(1) = diag(ℓ (1) ) −1𝑒S(1) −𝑚(1)"
+"O(1) = ˜P(1) V(1) = diag(ℓ (1) ) −1𝑒S(1) −𝑚(1)
+V(1) ∈ R𝐵𝑟 ×𝑑"
+"𝑚 (2) = max(𝑚 (1) , rowmax(S(2) )) = 𝑚"
+"ℓ (2) = 𝑒𝑚(1) −𝑚(2) ℓ (1) + rowsum(𝑒S(2) −𝑚(2)
+) = rowsum(𝑒S(1) −𝑚) + rowsum(𝑒S(2) −𝑚) = ℓ"
+"P(2) = diag(ℓ (2) ) −1𝑒S(2) −𝑚(2)"
+"O(2) = diag(ℓ (1) /ℓ (2) ) −1O(1) + ˜P(2) V(2) = diag(ℓ (2) ) −1𝑒𝑠 (1) −𝑚V(1) + diag(ℓ (2) ) −1𝑒𝑠 (2) −𝑚V(2) = O."
+"We show how FlashAttention uses online softmax to enable tiling (Fig. 1) to reduce memory reads/writes."
+"Figure 1: Diagram of how FlashAttention forward pass is performed, when the key K is partitioned into"
+"two blocks and the value V is also partitioned into two blocks. By computing attention with respect to"
+"each block and rescaling the output, we get the right answer at the end, while avoiding expensive memory"
+"reads/writes of the intermediate matrices S and P. We simplify the diagram, omitting the step in softmax"
+"that subtracts each element by the row-wise max."
+"4"

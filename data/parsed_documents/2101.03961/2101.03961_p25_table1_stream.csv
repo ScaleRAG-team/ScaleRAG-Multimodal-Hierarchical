@@ -1,0 +1,68 @@
+"Mixture of Experts (MoE),
+in the context of modern deep learning architectures, was"
+"proven eﬀective in Shazeer et al. (2017). That work added an MoE layer which was stacked"
+"between LSTM (Hochreiter and Schmidhuber, 1997)
+layers,
+and tokens were
+separately"
+"routed to combinations of
+experts.
+This
+resulted in state-of-the-art
+results
+in language"
+"modeling and machine translation benchmarks. The MoE layer was reintroduced into the"
+"Transformer architecture by the Mesh Tensorﬂow library (Shazeer et al., 2018) where MoE"
+"layers were introduced as a substitute of
+the FFN layers, however,
+there were no accom-"
+"panying NLP results. More recently, through advances in machine learning infrastructure,"
+"GShard (Lepikhin et al., 2020), which extended the XLA compiler, used the MoE Trans-"
+"former to dramatically improve machine translation across 100 languages. Finally Fan et al."
+"(2021) chooses a diﬀerent deterministic MoE strategy to split
+the model parameters
+into"
+"non-overlapping groups of
+languages."
+"Sparsity along the sequence length dimension (L) in the Transformer attention patterns"
+"has been a successful technique to reduce the attention complexity from O(L2) (Child et al.,"
+"2019; Correia et al., 2019; Sukhbaatar et al., 2019; Kitaev et al., 2020; Zaheer et al., 2020;"
+"Beltagy et al., 2020). This has enabled learning longer
+sequences
+than previously possi-"
+"ble. This version of the Switch Transformer does not employ attention sparsity, but these"
+"techniques are complimentary, and, as future work, these could be combined to potentially"
+"improve learning on tasks requiring long contexts."
+"7. Discussion"
+"We pose and discuss questions about
+the Switch Transformer, and sparse expert models"
+"generally, where sparsity refers to weights, not on attention patterns."
+"Isn’t Switch Transformer better due to sheer parameter count? Yes, and by"
+"design! Parameters,
+independent of the total FLOPs used, are a useful axis to scale neural"
+"language models. Large models have been exhaustively shown to perform better (Kaplan"
+"et al., 2020). But in this case, our model
+is more sample eﬃcient and faster while using the"
+"same computational resources."
+"I don’t have access to a supercomputer—is this still useful
+for me? Though"
+"this work has focused on extremely large models, we also ﬁnd that models with as few as two"
+"experts improves performance while easily ﬁtting within memory constraints of commonly"
+"available GPUs or TPUs (details in Appendix D). We therefore believe our techniques are"
+"useful
+in small-scale settings."
+"Do sparse models outperform dense models on the speed-accuracy Pareto"
+"curve?
+Yes.
+Across a wide variety of diﬀerent models
+sizes,
+sparse models outperform"
+"dense models per step and on wall clock time. Our controlled experiments show for a ﬁxed"
+"amount of computation and time, sparse models outperform dense models."
+"I can’t deploy a trillion parameter model—can we shrink these models? We"
+"cannot fully preserve the model quality, but compression rates of 10 to 100x are achievable"
+"by distilling our sparse models into dense models while achieving ≈30% of the quality gain"
+"of the expert model."
+"Why use Switch Transformer instead of a model-parallel dense model? On a"
+"time basis, Switch Transformers can be far more eﬃcient than dense-models with sharded"
+"parameters (Figure 6). Also, we point out that this decision is not mutually exclusive—we"

@@ -1,0 +1,91 @@
+"+0
++2
++3
+−4
++0.1 −3.8 +2.4 +3.4
+X
+*","+0","+2
++3
+−4
+X
+*"
+"+1
+−2
+−2
++3
++0.9 +3.3 −1.9 −2.3","+1","−2
+−2
++3"
+"(a) RTN quantization (PPL 43.2)","(b) Keep 1% salient weights in FP16 (PPL 13.0)","(c) Scale the weights before quantization (PPL 13.0)"
+"","Figure 2. We observe that we can find 1% of the salient weights in LLMs based on the activation distribution (middle). Keeping the salient",""
+"","weights in FP16 can significantly improve the quantized performance (PPL from 43.2 (left) to 13.0 (middle)), but the mixed-precision",""
+"","format is not hardware-efficient. We follow the activation-awareness principle and propose AWQ (right). AWQ performs per-channel",""
+"","scaling to protect the salient weights and reduce quantization error. We measure the perplexity of OPT-6.7B under INT3-g128 quantization.",""
+"ference costs. There are some system supports to achieve","","to the quantization loss without any training or regression"
+"a practical speed-up. GPTQ (Frantar et al., 2022) provides","","(Figure 2(b)). To verify the idea, we benchmark the per-"
+"INT3 kernels for OPT models and GPTQ-for-LLaMA ex-","","formance of quantized LLMs when skipping part of
+the"
+"tends kernel support for INT4 reordered quantization with","","weight channels in Table 1. We measured the performance"
+"the help of Triton (Tillet et al., 2019). FlexGen (Sheng et al.,","","of
+INT3 quantized models while keeping some ratios of"
+"2023), llama.cpp* and exllama† perform group-wise","","weight channels in FP16. A widely used method to deter-"
+"INT4 quantization to reduce I/O costs and offloading. Faster-","","mine the importance of weights is to look at its magnitude"
+"Transformer implements FP16×INT4 GEMM for weight-","","or L2-norm (Han et al., 2015; Frankle & Carbin, 2018)."
+"only per-tensor quantization but does not support group","","But we find skipping the weight channels with large norm"
+"quantization. LUT-GEMM (Park et al., 2022) performs bit-","","(i.e., FP16% (based on W)) does not significantly improve"
+"wise computation on GPU CUDA cores with the help of","","the quantized performance,
+leading to a similar marginal"
+"lookup tables. Our concurrent work, MLC-LLM (MLC-","","improvement as random selection. Interestingly, selecting"
+"Team, 2023) offers strong results on multiple edge CPU and","","weights based on activation magnitude can significantly im-"
+"GPU platforms thanks to the powerful TVM (Chen et al.,","","prove the performance despite keeping only 0.1%-1% of"
+"2018; Feng et al., 2023) backend.","","channels in FP16. We hypothesize that
+the input features"
+"","","with larger magnitudes are generally more important. Keep-"
+"3
+AWQ: ACTIVATION-AWARE WEIGHT","","ing the corresponding weights in FP16 can preserve those"
+"","","features, which contributes to better model performance."
+"QUANTIZATION","",""
+"","","Limitations:
+Despite keeping 0.1% of weights in FP16"
+"Quantization maps a floating-point number into lower-bit","",""
+"","","can improve the quantized performance without a noticeable"
+"integers.
+It
+is an effective method to reduce the model","",""
+"","","increase in model size (measured in total bits), such a mixed-"
+"size and inference costs of LLMs (Dettmers et al., 2022;","",""
+"","","precision data type will make the system implementation"
+"Frantar et al., 2022; Yao et al., 2022; Xiao et al., 2022). In","",""
+"","","difficult. We need to come up with a method to protect the"
+"this section, we first propose a weight-only quantization","",""
+"","","important weights without actually keeping them as FP16."
+"method to improve accuracy without training/regression by","",""
+"protecting more “important” weights. And then develop a","",""
+"data-driven method to search for the optimal scaling that","",""
+"","","3.2
+Protecting Salient Weights by Activation-aware"
+"reduces quantization errors (Figure 2).","",""
+"","","Scaling"
+"3.1
+Improving LLM Quantization by Preserving 1%","",""
+"Salient Weights","",""
+"","","We propose an alternative method to reduce the quantization"
+"","","error of the salient weight by per-channel scaling, which"
+"We observe that
+the weights of LLMs are not equally im-","",""
+"","","does not suffer from the hardware inefficiency issue."
+"portant:
+there is a small
+fraction of salient weights that","",""
+"are much more important
+for LLMs’ performance com-","","Analyzing the quantization error."
+"pared to others. Skipping the quantization of these salient","",""
+"","","We start by analyzing the error from weight-only quanti-"
+"weights can help bridge the performance degradation due","",""
+"","","zation.
+Consider a group/block of weight w;
+the linear"
+"*https://github.com/ggerganov/llama.cpp","","operation can be written as y = wx, and the quantized"
+"†https://github.com/turboderp/exllama","","counterpart
+is y = Q(w)x. Specifically,
+the quantization"

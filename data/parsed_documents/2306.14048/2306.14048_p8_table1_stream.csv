@@ -1,0 +1,31 @@
+"Analysis.
+Since the evicted KV","","","","",""
+"","Table 2: Results of different","sparsification methods w.","","","or w.o.
+H2."
+"will not be
+seen in the
+future","","","","",""
+"","","Experiments are conducted with OPT-30B with 20% KV cache budget.","","",""
+"steps, dropping certain critical","","","","",""
+"KV embeddings can cause a se-","Models","COPA","OpenBookQA","PiQA","Winogrande"
+"vere functional collapse,
+result-","","","","",""
+"","Full","85.00","43.20","78.51","70.24"
+"ing in significant performance","","","","",""
+"","Local w.o. H2","48.00","25.20","55.82","49.17"
+"degradation,
+e.g.,
+in
+LLaMA-","Local w. H2","84.00","43.00","78.45","69.06"
+"{","","","","",""
+"13B, XSUM
+LLaMA-7B, CN-","Sparse Transformer (strided) w.o. H2","50.00","24.60","56.20","47.59"
+"} {","Sparse Transformer (strided) w. H2","83.00","42.60","78.24","69.61"
+"N/Daily Mail
+, the ""Local"" strat-","","","","",""
+"}","Sparse Transformer (fixed) w.o. H2","61.00","23.80","58.60","49.88"
+"egy collapses
+at 60% budgets","","","","",""
+"","Sparse Transformer (fixed) w. H2","76.00","41.40","77.80","64.96"
+"while our H2O can still match","","","","",""
+"the full cache performance with","","","","",""

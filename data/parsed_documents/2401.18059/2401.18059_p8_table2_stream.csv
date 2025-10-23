@@ -1,0 +1,8 @@
+"RAPTOR outperforms the established baselines BM25 and DPR across all tested language models.","","",""
+"Specifically, RAPTOR’s F-1 scores are at least 1.8% points higher than DPR and at least 5.3% points","","",""
+"higher than BM25.","","",""
+"Retriever","GPT-3 F-1 Match","GPT-4 F-1 Match","UnifiedQA F-1 Match"
+"Title + Abstract","25.2","22.2","17.5"
+"BM25","46.6","50.2","26.4"
+"DPR","51.3","53.0","32.1"
+"RAPTOR","53.1","55.7","36.6"

@@ -1,0 +1,33 @@
+"scratch and also starting with CG3D weights. To account","class discriminative features even for unseen categories in"
+"for this, we have reported the mean and standard deviation","ModelNet10 as seen in Fig. 6b."
+"of the results obtained from these experiments.",""
+"5. Discussion",""
+"Ablation Study: We conduct an ablation study to analyze",""
+"the role that each component of CG3D has on zero-shot per-",""
+"formance.
+In Table 3, we report the overall zero-shot accu-",""
+"racy of the PointTransformer 3D encoder pre-trained under",""
+"different
+loss conﬁgurations for the PB-T50-RS variant of",""
+"ScanObjectNN. We start with the conﬁguration of training",""
+"","(a) Before CG3D.
+(b) After CG3D."
+"individually.
+the 3D encoder with L(3D,2D) and L(3D,text)",""
+"","Figure 6: Comparison of UMAP embeddings of point cloud"
+"We note that training with L(3D,text) gives a slight improve-",""
+"","features
+from 3D encoder of CG3D while using Model-"
+"ment over just
+training with L(3D,2D). Next, we pre-train",""
+"","Net10 3D point clouds."
+"CG3D with both these losses which obtains better perfor-",""
+"","Effect of Prompt Tuning: We visualize the image fea-"
+"mance over individual conﬁgurations. After this, we incor-",""
+"","tures
+learned by the visual encoder with and without
+the"
+"porated visual prompts into the CG3D model and trained it",""
+"","learned prompts in CG3D. Since textured CAD models are"
+"using LP . This further improved the model’s performance.",""
+"","not available for all samples, we consider depth maps of"

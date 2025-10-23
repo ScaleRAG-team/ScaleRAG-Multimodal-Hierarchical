@@ -1,0 +1,105 @@
+"",""
+"CG3D framework can be used to understand scenes with","Image query
+Retrieved point cloud
+Text query
+Retrieved point cloud"
+"text queries. Given an input scene, ﬁrst we use k-means","""bed"""
+"clustering to divide the scene into meaningful
+segments.",""
+"Next, we
+feed forward all
+these
+clusters
+to the 3D en-","""chair"""
+"",""
+"coder in our CG3D framework and get a set of 3D features","0"
+"",""
+"F3D = {f 3D
+, 1 ≤ i ≤ k}. Here, k is the total number of
+i","""cabinet"""
+"clusters obtained from the scene and f 3D
+is the 3D feature
+i",""
+"",""
+"vector
+from 3D encoder of CG3D for
+the ith cluster. We","""plant"""
+"also pass the text query to the text encoder to obtain f text.",""
+"Now, we match these 3D features with the text feature we","Figure 4: Retrieving point clouds from a 3D database (Mod-"
+"obtain by forwarding the input query to the text encoder","elNet40) using random image and text queries."
+"which can be denoted as:",""
+"","ness of CG3D."
+"(11)
+ypred = max(softmax((cid:104)f text, F3D(cid:105)))",""
+"where ypred is the predicted class. To demonstrate an ex-",""
+"ample for scene understanding with language using CG3D,","3.4.4
+Fine-tuning for Supervised Tasks"
+"we pick a random indoor scene as seen in Fig 3 from the",""
+"","Pre-training techniques are an effective strategy for enhanc-"
+"S3DIS [3] dataset and use the query ”Bookshelf”. It can be",""
+"","ing the performance of ﬁne-tuning in 3D computer vision"
+"observed that the model correctly classiﬁes which cluster is",""
+"","tasks.
+Pre-training models on large datasets of unlabeled"
+"the bookshelf in the scene. More analysis can be found in",""
+"","images can help them learn generic and transferable fea-"
+"the supplementary material. Although CG3D is not explic-",""
+"","tures, making them more robust
+to variations in data and"
+"itly designed to provide a complete solution for open world",""
+"","enabling them to generalize well to new tasks and datasets."
+"3D scene understanding,
+it facilitates scene querying using",""
+"","Although the main objective of CG3D is
+its zero-shot"
+"natural language.",""
+"","capabilities,
+it also has the potential
+to serve as a valuable"
+"","starting point
+for ﬁne-tuning 3D models
+for downstream"
+"","tasks. This is due to the excellent feature representation ca-"
+"3.4.3
+Retrieval",""
+"","pabilities of the 3D encoder, which has been pre-trained us-"
+"3D point cloud retrieval
+is the process of searching and re-","ing natural
+language supervision in the CG3D framework."
+"trieving 3D point cloud data that is similar to a given query.","Additionally, CG3D is model-agnostic, meaning that any"
+"The query here can be of different modality like an image or","3D backbone can be pre-trained using CG3D, and the re-"
+"a text. This has several practical applications like matching","sulting weights can be used as a starting point
+for down-"
+"a real-world object with its corresponding 3D point cloud","stream tasks. We present multiple experiments that demon-"
+"in a virtual environment
+to help create more realistic and","strate the effectiveness of using CG3D for ﬁne-tuning tasks."
+"accurate augmented and virtual reality experiences.",""
+"To retrieve data using CG3D, we utilize the pre-trained","4. Experiments and Results"
+"encoders to obtain feature representations for both the query",""
+"","4.1. Datasets"
+"and the 3D point clouds. Speciﬁcally, we feed the image or",""
+"text query into the corresponding encoder to obtain its fea-","Pre-training dataset: We choose ShapeNet [5] as the pre-"
+"ture vector, and we do the same for the 3D point clouds us-","training dataset due to its large number of classes and sam-"
+"ing the 3D encoder. The point clouds being forwarded to the","ples. ShapeNet consists of textured CAD models of 55 ob-"
+"3D encoder constitute the complete database from which we","ject categories and 52,460 total samples. We sample point"
+"are retrieving the relevant shapes. Next, we obtain the simi-","clouds of a ﬁxed size from each object mesh and normal-"
+"larity score between these query feature and the 3D features","ize them to ﬁt
+into a unit sphere. We render
+the colored"
+"and select the point clouds with the highest similarity scores","CAD model views
+in Blender
+to obtain a image pair
+for"
+"as the output.","each point cloud, following [14]. The text captions of each"
+"In Fig 4, we demonstrate the effectiveness of CG3D in","point cloud-image pair are framed as a descriptive sentences"
+"retrieving relevant 3D point clouds. We randomly select","obtained from a set of standard templates such as “A photo"
+"some images from the internet as query images, and Mod-","of a {OBJECT}”. Each input point cloud is augmented with"
+"elNet40 serves as our 3D database for retrieval. We pick the","standard techniques such as object scaling, rotation, random"
+"top four 3D points that are of the highest similarity to the","drop, and perturbations."
+"input query and display them in Fig 4. Similarly, we also","Fine-tuning datasets: We perform zero shot
+(ZS) clas-"
+"use some random text queries and display the best matches.","siﬁcation and downstream ﬁne-tuning on the popular 3D"
+"It can be observed that all
+the retrieved point clouds are of","datastes ModelNet40 [61] and ScanObjectNN [54]. As is"
+"very high similarity to the input query proving the effective-","standard, we evaluate on the full dataset
+(ModelNet40) as"

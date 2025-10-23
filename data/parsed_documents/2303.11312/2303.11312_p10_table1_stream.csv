@@ -1,0 +1,62 @@
+"10
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"Figure 2: Automatically calculated spatial neighbors for points from the WorldClim simula-"
+"tion data. Lines between points indicate a neighbor relationship."
+"around the nb2listw() function from spdep, by default producing a row-standardized spatial"
+"weights matrix."
+"R>
+waywiser::ww_build_weights(guerry)"
+"Characteristics
+of weights
+list
+object:"
+"Neighbour list object:"
+"Number
+of regions: 85"
+"Number
+of nonzero links:
+420"
+"Percentage nonzero weights:
+5.813149"
+"Average number of links:
+4.941176"
+"Weights style: W"
+"Weights constants summary:"
+"n
+nn S0
+S1
+S2"
+"W
+85
+7225 85 37.2761 347.6683"
+"Measures of
+spatial autocorrelation use
+this matrix in computations
+to estimate
+the
+rela-"
+"tionship between variables at neighboring locations. For waywiser, this variable is typically"
+"assumed to be the model residual, which we will refer to as x, so that for a given observation"
+"yi, xi = yi − ˆyi. By far the most popular spatial autocorrelation metric is Moran’s I (Moran"
+"1950), deﬁned as:"
+"P n
+P n"
+"i=1
+j=1wij (xi − ¯x) (xj − ¯x)"
+"n W
+I =
+(17)"
+"P n"
+"i=1 (xi − ¯x)2"
+"Where n is
+6= j.
+I
+is generally
+the number of observations, W the sum of all wij, and i"
+"bounded [−1, 1] when using row-standardized weights matrices, with positive values signiﬁ-"
+"1"
+"indicating positive autocorrelation.
+cantly greater than the expected value E(I) = −"
+"n − 1"
+"Anselin (1995) later expanded upon I, presenting a method to estimate “local” I values at"
+"each observation rather than relying upon a single autocorrelation statistic to represent the"

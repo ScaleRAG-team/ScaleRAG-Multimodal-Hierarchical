@@ -1,0 +1,7 @@
+"Table 12: (Scaling Law Model Sizes.) Our model sizes and hyperparameters for scaling experiments. (Model dimension and number of","","","","","","",""
+"","heads applies only to Transformer models.)","","","","","",""
+"Params","n_layers","d_model","n_heads / d_head","Training steps","Learning Rate","Batch Size","Tokens"
+"125M","12","768","12 / 64","4800","6e-4","0.5M tokens","2.5B"
+"350M","24","1024","16 / 64","13500","3e-4","0.5M tokens","7B"
+"760M","24","1536","16 / 96","29000","2.5e-4","0.5M tokens","15B"
+"1.3B","24","2048","32 / 64","50000","2e-4","0.5M tokens","26B"

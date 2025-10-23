@@ -1,0 +1,50 @@
+"Winogrande
+RTE"
+"(a)
+(b)
+(c)
+(d)"
+"Figure 2: (a) Attention Sparsity in pre-trained LLMs. (b) The distribution of accumulated attention scores with"
+"respect to the corresponding word (red scatter) and the co-occurrence times of words in the data (gray curve)."
+"The x-axis represents the word index in the vocabulary. (c) The performance comparison between the baseline"
+"model with full KV and the model w.o. heavy hitter. (d) Comparison between the baseline model with full KV,"
+"H2O with the local statistic, H2O with the global statistic, and the model with only the most recent KV (Local)."
+"Apart from the baseline model, each model is evaluated with 20% KV cache budget."
+"2.1
+Problem Formulation"
+"We formally define the generative process with limited KV cache size. Denote attention query matrix"
+"Rn
+Rn"
+"represents
+as Q
+d and key matrix as K
+represents the i-th row of Q and K
+×
+×
+d. Qi,
+i,"
+"∗
+≤
+∗
+∈
+∈"
+"Ri"
+"(
+d)
+×
+the first i rows of K. Let k denote the budget of space and k < n. For simplicity, KSi,"
+"∗
+∈"
+"denotes a sub-matrix of K which selects Si rows from K. (For the non-selected rows [i]
+Si, we put"
+"\"
+"all zeros in that row) Eviction policy is defined as:"
+"Definition 2.1 (Eviction Policy, informal). Let Si
+1 denote the source set. Let Si denote the target"
+"−"
+"set. We defined the eviction policy g : Si
+Si such that"
+"−
+1 →"
+"•
+= k (KV cache size is not changing over the time)"

@@ -1,0 +1,68 @@
+"28
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"Moran PAP (1950). “Notes on Continuous Stochastic Phenomena.” Biometrika, 37(1/2), 17."
+"doi:10.2307/2332142."
+"Müller K, Wickham H (2022).
+tibble:
+Simple Data Frames. R package version 3.1.8, URL"
+"https://CRAN.R-project.org/package=tibble."
+"Nelson MD, McRoberts RE, Holden GR, Bauer ME (2009). “Eﬀects of Satellite Image Spatial"
+"Aggregation and Resolution on Estimates of Forest Land Area.”
+International Journal of"
+"Remote Sensing, 30(8), 1913–1940. doi:10.1080/01431160802545631."
+"Netzeva TI, Worth AP, Aldenberg T, Benigni R, Cronin MT, Gramatica P, Jaworska JS, Kahn"
+"S, Klopman G, Marchant CA, Myatt G, Nikolova-Jeliazkova N, Patlewicz GY, Perkins"
+"R, Roberts DW, Schultz TW, Stanton DT, van de Sandt JJ, Tong W, Veith G, Yang C"
+"(2005). “Current Status of Methods for Deﬁning the Applicability Domain of (Quantitative)"
+"Structure-Activity Relationships.”
+Alternatives
+to Laboratory Animals, 33(2),
+155–173."
+"doi:10.1177/026119290503300209."
+"Ord JK, Getis A (1995).
+“Local Spatial Autocorrelation Statistics: Distributional
+Issues"
+"and an Application.” Geographical Analysis, 27(4), 286–306. doi:10.1111/j.1538-4632."
+"1995.tb00912.x."
+"Pebesma E (2018).
+“Simple Features for R: Standardized Support for Spatial Vector Data.”"
+"The R Journal, 10(1), 439–446. doi:10.32614/RJ-2018-009."
+"Pedersen TL (2022).
+patchwork: The Composer of Plots.
+R package version 1.1.2, URL"
+"https://CRAN.R-project.org/package=patchwork."
+"Reich Y, Barai S (1999).
+“Evaluating Machine Learning Models for Engineering Problems.”"
+"Artiﬁcial
+Intelligence
+in Engineering,
+13(3),
+257–272.
+doi:10.1016/s0954-1810(98)"
+"00021-1."
+"Riemann R, Wilson BT, Lister A, Parks S (2010).
+“An Eﬀective Assessment Protocol
+for"
+"Continuous Geospatial Datasets of Forest Characteristics Using USFS Forest
+Inventory"
+"and Analysis
+(FIA) Data.” Remote Sensing of Environment, 114(10), 2337–2352.
+doi:"
+"10.1016/j.rse.2010.05.010."
+"Roehm T, Tiarks R, Koschke R, Maalej W (2012).
+“How do Professional Developers"
+"Comprehend Software?”
+2012 34th International Conference on Software Engineering"
+"(ICSE).
+doi:10.1109/icse.2012.6227188.
+URL http://dx.doi.org/10.1109/ICSE."
+"2012.6227188."
+"van den Hoogen J, Geisen S, Routh D, Ferris H, Traunspurger W, Wardle DA, de Goede"
+"RGM, Adams BJ, Ahmad W, Andriuzzi WS, Bardgett RD, Bonkowski M, Campos-Herrera"
+"R, Cares JE, Caruso T, de Brito Caixeta L, Chen X, Costa SR, Creamer R, Mauro da"
+"Cunha Castro J, Dam M, Djigal D, Escuer M, Griﬃths BS, Gutiérrez C, Hohberg K,"
+"Kalinkina D, Kardol P, Kergunteuil A, Korthals G, Krashevska V, Kudrin AA, Li Q, Liang"
+"W, Magilton M, Marais M, Martín J, Matveeva E, Mayad EH, Mulder C, Mullin P, Neilson"
+"R, Nguyen TAD, Nielsen UN, Okada H, Rius JEP, Pan K, Peneva V, Pellissier L, Carlos"
+"Pereira da Silva J, Pitteloud C, Powers TO, Powers K, Quist CW, Rasmann S, Moreno"
+"S, Scheu S, Setälä H, Sushchuk A, Tiunov AV, Trap J, van der Putten W, Vestergård M,"

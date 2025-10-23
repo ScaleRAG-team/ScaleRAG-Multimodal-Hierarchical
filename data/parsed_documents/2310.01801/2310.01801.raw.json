@@ -1,0 +1,5166 @@
+{
+  "title": null,
+  "authors": [],
+  "source_path": "../data/pdf/2310.01801.pdf",
+  "page_count": 14,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "counts": {
+    "texts": 484,
+    "pictures": 0,
+    "tables": 19
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 15,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 2,
+      "text_blocks": 94,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 4,
+      "text_blocks": 15,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 16,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 85,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 122,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 8,
+      "text_blocks": 17,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 3
+    },
+    {
+      "page": 9,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 10,
+      "text_blocks": 14,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 13,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 14,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 13,
+      "text_blocks": 12,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 14,
+      "text_blocks": 41,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        108.43000030517578,
+        80.25402069091797,
+        470.7904357910156,
+        117.3944091796875
+      ],
+      "text": "MODEL TELLS YOU WHAT TO DISCARD:\nADAPTIVE KV CACHE COMPRESSION FOR LLMS"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        113.97802734375,
+        135.17831420898438,
+        479.1600341796875,
+        146.6510772705078
+      ],
+      "text": "Suyu Ge1∗, Yunan Zhang2∗, Liyuan Liu2∗, Minjia Zhang2, Jiawei Han1, Jianfeng Gao2"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        113.97795104980469,
+        146.66566467285156,
+        392.930908203125,
+        179.69729614257812
+      ],
+      "text": "1University of Illinois Urbana-Champaign, 2Microsoft\n{suyuge2,hanj}@illinois.edu\n{yunanzhang,lucliu,minjiaz,jfgao}@microsoft.com"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        278.2879333496094,
+        209.8291778564453,
+        333.7220764160156,
+        221.7843780517578
+      ],
+      "text": "ABSTRACT"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        143.86595153808594,
+        233.53736877441406,
+        468.138671875,
+        385.9657897949219
+      ],
+      "text": "In this study, we introduce adaptive KV cache compression, a plug-and-play\nmethod that reduces the memory footprint of generative inference for Large Lan-\nguage Models (LLMs). Different from the conventional KV cache that retains key\nand value vectors for all context tokens, we conduct targeted profiling to discern\nthe intrinsic structure of attention modules. Based on the recognized structure, we\npropose FastGen, which constructs the KV cache in an adaptive manner: evict-\ning long-range contexts on attention heads emphasizing local contexts, discarding\nnon-special tokens on attention heads centered on special tokens, and only em-\nploying the standard KV cache for attention heads that broadly attend to all tokens.\nMoreover, with the lightweight attention profiling used to guide the construction\nof the adaptive KV cache, FastGen can be deployed without resource-intensive\nfine-tuning or re-training. In our experiments across various asks, FastGen demon-\nstrates substantial reduction on GPU memory consumption with negligible gener-\nation quality loss."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        108.2989501953125,
+        405.696044921875,
+        205.98876953125,
+        417.6512451171875
+      ],
+      "text": "1\nINTRODUCTION"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        107.99993896484375,
+        430.16217041015625,
+        504.00335693359375,
+        483.9607238769531
+      ],
+      "text": "Based on the Transformer architecture, autoregressive language models have attracted extensive at-\ntention (OpenAI, 2023; Touvron et al., 2023b). Along with the increase of model size, these models\npresent significant challenges in terms of computational complexity and GPU memory consump-\ntion (Shazeer et al., 2017). Since these models achieve remarkable success across diverse applica-\ntions, there is a pressing need for serving these models in an economically feasible manner."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        107.99993896484375,
+        490.7576599121094,
+        504.0032958984375,
+        555.6917114257812
+      ],
+      "text": "The generative inference of LLMs usually involves using the KV Cache mechanism to improve the\ngeneration speed. KV cache stores previously computed Key/Value vectors in attention calculation\nand reuses those values for the current token generation. As such, it avoids recalculations of previous\ntokens at each token generation step at the cost of extra memory consumption. Despite being a\nprominent technique, the memory consumption of KV cache increases rapidly as the model size and\ngeneration length increase, drastically increasing the pressure of on-device memory."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        107.99993896484375,
+        562.6651000976562,
+        504.0032958984375,
+        627.4226684570312
+      ],
+      "text": "When memory usage exceeds GPU capacity, the generative inference of LLMs typically resort to\noffloading (Aminabadi et al., 2022; Sheng et al., 2023). While these methods help mitigate the\npressure on the scarce GPU memory from using KV cache, offloading KV cache to CPU/NVMe can\nstill add non-trivial overhead to generative inference performance due to the limited PCIe bandwidth\nbetween the GPU and CPU on many devices. Therefore, it becomes a crucial task to reduce the\nmemory footprint of KV cache without costly retraining or fine-tuning."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        107.99993896484375,
+        634.3961181640625,
+        504.0032043457031,
+        688.1947021484375
+      ],
+      "text": "Our study starts from the observation (Figure 1) that there are abundant structures observed in at-\ntention modules (Michel et al., 2019; Voita et al., 2019; Clark et al., 2019; Wang et al., 2020; Child\net al., 2019), and not all attention modules need to attend to all tokens (Liu et al., 2023b; Zhang\net al., 2023; Liu et al., 2023a). Intuitively, harvesting such structures and compressing cached vec-\ntors could substantially reduce memory consumption and accelerate text generation."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        107.99993896484375,
+        694.9916381835938,
+        504.0017395019531,
+        716.0896606445312
+      ],
+      "text": "Based on this intuition, we propose FastGen to accelerate the generative inference by adaptively\ncompressing the KV cache on the fly. First, we employ an efficient profiling algorithm to recognize"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        119.8219985961914,
+        721.3038330078125,
+        504.00030517578125,
+        732.0283813476562
+      ],
+      "text": "∗Authors contributed equally to this research. Code is available is at https://github.com/machilusZ/FastGen"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        303.5090026855469,
+        752.1944580078125,
+        308.49029541015625,
+        762.1570434570312
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        214.47998046875,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2310.01801v4  [cs.CL]  29 Oct 2024"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0033264160156,
+        116.14901733398438
+      ],
+      "text": "the structural patterns for attention modules. Under the guidance of this profiling, we then con-\nstruct the KV cache for various modules adaptively. With this diagnose-before-compress approach,\nFastGen effectively reduces the memory footprint of KV cache while preserving the model quality."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        135.67449951171875,
+        276.0989685058594,
+        170.43405151367188
+      ],
+      "text": "Algorithm 1: FastGen–Prompt Encoding.\nInput: Feasible Policy Set (C), Prompt\nOutput: Adaptive KV Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.02999877929688,
+        171.1998748779297,
+        243.17349243164062,
+        182.71058654785156
+      ],
+      "text": "1 for Attention Head Hi in LLM do"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.4280014038086,
+        178.97279357910156,
+        234.65643310546875,
+        193.52154541015625
+      ],
+      "text": "2\nKi, Qi, V i ←Hi(Prompt)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.427978515625,
+        191.7668914794922,
+        222.60142517089844,
+        207.72708129882812
+      ],
+      "text": "3\nAi ←softmax(QiKiT )"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.42797088623047,
+        206.30274963378906,
+        242.9993896484375,
+        220.24105834960938
+      ],
+      "text": "4\nCi ←apply Equation 1 to Ai"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        123.34197998046875,
+        221.2816925048828,
+        287.0975341796875,
+        233.9879608154297
+      ],
+      "text": "/* Ci:\noptimal policy\n*/"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.42796325683594,
+        233.79566955566406,
+        241.79737854003906,
+        247.67645263671875
+      ],
+      "text": "5\nKi\nCi, V i\nCi ←f(Ki, V i, Ci)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.42791748046875,
+        245.0827178955078,
+        206.096923828125,
+        261.427490234375
+      ],
+      "text": "6\nˆ\nKi, ˆV i ←Ki\nCiV i\nCi"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        100.02999877929688,
+        262.86688232421875,
+        195.10031127929688,
+        275.51507568359375
+      ],
+      "text": "7 return {Ci, ˆ\nKi, ˆV i}"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.4670104980469,
+        135.67449951171875,
+        476.8611145019531,
+        145.72805786132812
+      ],
+      "text": "Algorithm 2: FastGen–Token Generation."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.46697998046875,
+        149.2628631591797,
+        482.2475280761719,
+        172.96102905273438
+      ],
+      "text": "Input: Adaptive KV cache ({Ci, ˆ\nKi, ˆV i})\nOutput: Generated Text"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        299.4969787597656,
+        173.5977325439453,
+        402.32550048828125,
+        185.05435180664062
+      ],
+      "text": "1 z0 ←last prompt token"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        299.4969787597656,
+        184.5567169189453,
+        478.31646728515625,
+        194.7880401611328
+      ],
+      "text": "2 for j ∈{1, · · · , Max Generate Length} do"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        299.89599609375,
+        195.6449432373047,
+        457.9835205078125,
+        207.15565490722656
+      ],
+      "text": "3\nfor Attention Head Hi in LLM do"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        300.29400634765625,
+        204.6527862548828,
+        475.2105407714844,
+        219.2005615234375
+      ],
+      "text": "4\nKi, Qi, V i ←Hi(zj−1, ˆ\nKi, ˆV i)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        300.2940673828125,
+        219.63172912597656,
+        456.6075439453125,
+        233.5115966796875
+      ],
+      "text": "5\nKi\nCi, V i\nCi ←f(Ki, V i, Ci)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        300.2940673828125,
+        230.91786193847656,
+        424.3861083984375,
+        247.29632568359375
+      ],
+      "text": "6\nˆ\nKi, ˆV i ←Ki\nCi, V i\nCi"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        299.89599609375,
+        249.79481506347656,
+        464.25067138671875,
+        261.2514343261719
+      ],
+      "text": "7\nzj ←sample from LLM prediction"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        299.49700927734375,
+        264.5838317871094,
+        356.98529052734375,
+        275.5166015625
+      ],
+      "text": "8 return {zj}"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        127.58667755126953,
+        403.31732177734375,
+        132.64804077148438,
+        409.8833923339844
+      ],
+      "text": "<s>"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        132.5771026611328,
+        403.3270263671875,
+        137.63845825195312,
+        406.382080078125
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        137.5675048828125,
+        403.3274841308594,
+        142.6288604736328,
+        404.571044921875
+      ],
+      "text": ":"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        142.55859375,
+        403.3168029785156,
+        147.6199493408203,
+        413.9079284667969
+      ],
+      "text": "There"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        147.54901123046875,
+        403.3127746582031,
+        152.61036682128906,
+        409.40045166015625
+      ],
+      "text": "are"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        152.53941345214844,
+        403.3233642578125,
+        157.60076904296875,
+        405.53692626953125
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        157.5298309326172,
+        403.3268737792969,
+        162.5911865234375,
+        416.1616516113281
+      ],
+      "text": "llamas"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        162.52023315429688,
+        402.4821472167969,
+        167.5815887451172,
+        410.44683837890625
+      ],
+      "text": "and"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        167.51065063476562,
+        403.3233642578125,
+        172.57200622558594,
+        405.53692626953125
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        172.49349975585938,
+        403.3297424316406,
+        177.564697265625,
+        418.05316162109375
+      ],
+      "text": "vicunas"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        177.49818420410156,
+        403.3274841308594,
+        182.55953979492188,
+        404.571044921875
+      ],
+      "text": "."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        182.48858642578125,
+        402.48419189453125,
+        187.54994201660156,
+        411.815185546875
+      ],
+      "text": "How"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        187.47900390625,
+        403.3320007324219,
+        192.5403594970703,
+        413.78717041015625
+      ],
+      "text": "many"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        192.46942138671875,
+        403.3267517089844,
+        197.53077697753906,
+        418.4958801269531
+      ],
+      "text": "animals"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        197.4598388671875,
+        403.3127746582031,
+        202.5211944580078,
+        409.40045166015625
+      ],
+      "text": "are"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        202.4502410888672,
+        403.3132629394531,
+        207.5115966796875,
+        413.3042297363281
+      ],
+      "text": "there"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        207.44064331054688,
+        403.3380432128906,
+        212.5019989013672,
+        406.8650207519531
+      ],
+      "text": "in"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        212.43106079101562,
+        403.3189697265625,
+        217.49241638183594,
+        412.1773681640625
+      ],
+      "text": "total"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        217.42147827148438,
+        403.3091735839844,
+        222.4828338623047,
+        405.4564208984375
+      ],
+      "text": "?"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        222.41189575195312,
+        403.3233642578125,
+        227.47325134277344,
+        411.2919921875
+      ],
+      "text": "</s>"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        120.93482208251953,
+        303.37255859375,
+        127.50092315673828,
+        308.4339294433594
+      ],
+      "text": "<s>"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        124.43616485595703,
+        308.3629455566406,
+        127.49122619628906,
+        313.42431640625
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        116.9103012084961,
+        313.35333251953125,
+        127.50955200195312,
+        323.4073791503906
+      ],
+      "text": ":\nThere"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        121.41777038574219,
+        323.3408508300781,
+        127.5054931640625,
+        328.4022216796875
+      ],
+      "text": "are"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        114.65656280517578,
+        328.33123779296875,
+        127.49488067626953,
+        338.3830261230469
+      ],
+      "text": "2\nllamas"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        120.37139129638672,
+        338.3120422363281,
+        128.33609008789062,
+        343.3734130859375
+      ],
+      "text": "and"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        112.7650375366211,
+        343.3024597167969,
+        127.49488067626953,
+        353.3542175292969
+      ],
+      "text": "3\nvicunas"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        112.32234191894531,
+        353.28326416015625,
+        128.33969116210938,
+        373.3258972167969
+      ],
+      "text": ".\nHow \nmany\nanimals"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        117.51397705078125,
+        373.2549133300781,
+        127.5054931640625,
+        383.30670166015625
+      ],
+      "text": "are\nthere"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        118.6408462524414,
+        383.2357177734375,
+        127.499267578125,
+        393.2875061035156
+      ],
+      "text": "in\ntotal"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        119.5262451171875,
+        393.2165222167969,
+        127.50904846191406,
+        403.2705383300781
+      ],
+      "text": "?\n</s>"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        432.4334716796875,
+        504.0032653808594,
+        464.3140563964844
+      ],
+      "text": "Figure 1: Different attention heads usually have different structures. Left: Four common attention\nstructures (more details are elaborated in Section 3 and Section 4). Right: Attention map composi-\ntions of three attention heads that are in the same layer."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        123.00440216064453,
+        578.3178100585938,
+        204.42190551757812,
+        591.7344970703125
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        118.04672241210938,
+        574.9657592773438,
+        125.50127410888672,
+        582.9373168945312
+      ],
+      "text": "0%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        115.05662536621094,
+        561.7882690429688,
+        125.50051879882812,
+        569.7598266601562
+      ],
+      "text": "10%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        115.05662536621094,
+        548.6107177734375,
+        125.50051879882812,
+        556.582275390625
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        115.05662536621094,
+        535.4332275390625,
+        125.50051879882812,
+        543.40478515625
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        115.05662536621094,
+        522.2557373046875,
+        125.50051879882812,
+        530.227294921875
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        115.05662536621094,
+        509.0781555175781,
+        125.50051879882812,
+        517.0497436523438
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        107.38675689697266,
+        514.166748046875,
+        115.35832977294922,
+        573.923095703125
+      ],
+      "text": "Win-Rate Over Full Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        135.58917236328125,
+        501.4447326660156,
+        189.17999267578125,
+        510.1755065917969
+      ],
+      "text": "Fine-tuned LLaMa 7b"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        222.82449340820312,
+        578.3178100585938,
+        304.24200439453125,
+        591.7344970703125
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        217.86680603027344,
+        574.9657592773438,
+        225.32135009765625,
+        582.9373168945312
+      ],
+      "text": "0%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        214.876708984375,
+        561.7882690429688,
+        225.3206024169922,
+        569.7598266601562
+      ],
+      "text": "10%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        214.876708984375,
+        548.6107177734375,
+        225.3206024169922,
+        556.582275390625
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        214.876708984375,
+        535.4332275390625,
+        225.3206024169922,
+        543.40478515625
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        214.876708984375,
+        522.2557373046875,
+        225.3206024169922,
+        530.227294921875
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        214.876708984375,
+        509.0781555175781,
+        225.3206024169922,
+        517.0497436523438
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        207.20684814453125,
+        514.166748046875,
+        215.1784210205078,
+        573.923095703125
+      ],
+      "text": "Win-Rate Over Full Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        233.7708282470703,
+        501.4447326660156,
+        290.63568115234375,
+        510.1755065917969
+      ],
+      "text": "Fine-tuned LLaMa 13b"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        322.87164306640625,
+        578.3178100585938,
+        395.6425476074219,
+        591.7344970703125
+      ],
+      "text": "40%\n55%\n70%\n85%\nKV Cache Budget"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        317.6868896484375,
+        574.9657592773438,
+        325.1414489746094,
+        582.9373168945312
+      ],
+      "text": "0%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        314.69677734375,
+        561.7882690429688,
+        325.1406555175781,
+        569.7598266601562
+      ],
+      "text": "10%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        314.69677734375,
+        548.6107177734375,
+        325.1406555175781,
+        556.582275390625
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        314.69677734375,
+        535.4332275390625,
+        325.1406555175781,
+        543.40478515625
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        314.69677734375,
+        522.2557373046875,
+        325.1406555175781,
+        530.227294921875
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        314.69677734375,
+        509.0781555175781,
+        325.1406555175781,
+        517.0497436523438
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.02691650390625,
+        514.166748046875,
+        314.9985046386719,
+        573.923095703125
+      ],
+      "text": "Win-Rate Over Full Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        333.59088134765625,
+        501.4447326660156,
+        390.45574951171875,
+        510.1755065917969
+      ],
+      "text": "Fine-tuned LLaMa 30b"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        423.0295104980469,
+        578.3178100585938,
+        502.3878479003906,
+        591.7344970703125
+      ],
+      "text": "40%\n50%\n60%\n70%\n80%\nKV Cache Budget"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        417.5069580078125,
+        574.9657592773438,
+        424.9615173339844,
+        582.9373168945312
+      ],
+      "text": "0%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        414.5168762207031,
+        561.7882690429688,
+        424.96075439453125,
+        569.7598266601562
+      ],
+      "text": "10%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        414.5168762207031,
+        548.6107177734375,
+        424.96075439453125,
+        556.582275390625
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        414.5168762207031,
+        535.4332275390625,
+        424.96075439453125,
+        543.40478515625
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        414.5168762207031,
+        522.2557373046875,
+        424.96075439453125,
+        530.227294921875
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        414.5168762207031,
+        509.0781555175781,
+        424.96075439453125,
+        517.0497436523438
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        406.8470153808594,
+        514.166748046875,
+        414.818603515625,
+        573.923095703125
+      ],
+      "text": "Win-Rate Over Full Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        433.4109802246094,
+        501.4447326660156,
+        490.2758483886719,
+        510.1755065917969
+      ],
+      "text": "Fine-tuned LLaMa 65b"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        207.4864501953125,
+        491.1846618652344,
+        417.717041015625,
+        499.15625
+      ],
+      "text": "FastGen\nFrequency+Local\nFrequency\nLocal\nFull Cache"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        602.2274780273438,
+        504.00341796875,
+        623.1490478515625
+      ],
+      "text": "Figure 2: Performance of Adaptive KV Cache (FastGen) and Fixed KV Cache (Frequency, Local,\nand Frequency+Local; Zhang et al., 2023 and Liu et al., 2023a) on AlpacaEval."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        639.616455078125,
+        504.0033264160156,
+        704.373046875
+      ],
+      "text": "In our study, FastGen recognizes five fundamental attention structures and applies them correspond-\ningly. Specifically, some attention modules mostly attend to local contexts, for which we construct\na KV cache that evicts long-range contexts; some primarily attend to specific tokens/punctuations,\nfor which we create a KV cache that retains only special tokens/punctuations; some have attention\nmaps that are column-wise sparse, for which we discard the least frequently attended tokens; and\nsome broadly attend to all tokens, for which we employ the standard KV cache and store all tokens."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        108.0,
+        711.3474731445312,
+        504.00311279296875,
+        732.26904296875
+      ],
+      "text": "In this way, FastGen is able to compress the KV cache while retaining the original functionality of\nattention modules. Remarkably, FastGen does not require any fine-tuning and can be applied in a"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        303.5090026855469,
+        752.1944580078125,
+        308.49029541015625,
+        762.1570434570312
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0032653808594,
+        105.19003295898438
+      ],
+      "text": "plug-and-play manner. This is a big advantage of FastGen, because the training cost on extra-large\nmodels (Brown et al., 2020), can hardly be afforded by many research labs or practitioners."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.0,
+        112.16444396972656,
+        504.00335693359375,
+        165.96200561523438
+      ],
+      "text": "We evaluate FastGen on Llama 1 (Touvron et al., 2023b) with a suite of major benchmarks cover-\ning generative tasks in math, code, knowledge, and common sense reasoning. FastGen effectively\nperforms KV cache compression with negligible generation quality loss (i.e., recover over 95% of\nattention scores with 35% cache compressed). Notably, as to the 30b model in Figure 2, FastGen\n(50% cache compressed) surpasses all fixed KV compression methods (15% cache compressed)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.29900360107422,
+        184.08021545410156,
+        211.19577026367188,
+        196.03541564941406
+      ],
+      "text": "2\nRELATED WORK"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.00000762939453,
+        209.5814208984375,
+        504.0041198730469,
+        329.2238464355469
+      ],
+      "text": "Token Dropping and KV Cache Compression. Many efforts have been made to improve the\nmodel efficiency for LLMs. For recurrent neural networks, one method is to skip multiple tokens at\na given time step (Campos et al., 2017; Seo et al., 2017; Hansen et al., 2019). Since Transformer\nmodels quickly attracted lots of attention, Goyal et al. (2020) proposes to eliminate redundant words\nin BERT (Devlin et al., 2019) based on their attention scores, while Dai et al. (2020) compresses the\ninput sequence by adding pooling layers to the encoding modules of the transformer architecture.\nRecently, Huang et al. (2022) adds a token selection task to the original BERT model that learns\nto select performance-crucial tokens, and Kim et al. (2022) designs a learnable threshold to detect\nunimportant tokens to prune. Meanwhile, many efforts have been made to explore the possibility\nof compressing the hidden state of tokens rather than explicitly reducing the sequence length (Guan\net al., 2022; Sun et al., 2022; Zhou et al., 2020)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.00001525878906,
+        336.1972351074219,
+        504.00341796875,
+        444.7897644042969
+      ],
+      "text": "Nevertheless, these methods can only be applied to non-autoregressive models and typically require\nan additional re-training phrase, making them less suitable for auto-regressive LLMs like ChatGPT\nand Llama. Recognizing this gap, researchers started examining the potential of pruning tokens\nwithin the KV cache of auto-regressive LLMs. Mu et al. (2023) learns to compress the prompts\ninto a few special tokens to reduce memory pressure during caching. However, the token prediction\nrequires model re-training and could be an expensive overhead during inference. Meanwhile, sev-\neral concurrent methods propose to leverage accumulated attention score as the criteria to identify\nimportant tokens in the KV cache (e.g., Sheng et al., 2023; Zhang et al., 2023; Liu et al., 2023a). In-\nstead of investigating a specific eviction policy, this study aims to synergistically coordinate diverse\neviction policies to better align with model-specific attributes."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.00001525878906,
+        451.6732177734375,
+        504.0033874511719,
+        571.315673828125
+      ],
+      "text": "Underlying Structure of Attention. Inspired by the success of Transformer, extensive studies have\nbeen conducted to explore the underlying mechanism of different self-attention heads. Voita et al.\n(2019) analyzed the self-attention heads in BERT using LRF (Bach et al., 2015) and characterized\nthem into interpretable roles, one of which is attending adjacent tokens all the time. Michel et al.\n(2019) demonstrated that heads in the same layer could have different impact on the performance\nwhile the importance of each head changes across tasks. Clark et al. (2019) and Kovaleva et al.\n(2019) identified such patterns as some heads primarily attend to separator tokens, adjacent tokens\nand a combination of these. While most previous studies mainly considered encoder models, Fast-\nGen is motivated by consistent patterns we have observed in decoder-only models. Like previous\nstudies, FastGen also explores the structure of the attention mechanism to improve inference effi-\nciency, but focusing on characterizing the KV cache of different attention heads."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.29901885986328,
+        589.4329223632812,
+        319.1770935058594,
+        601.3881225585938
+      ],
+      "text": "3\nADAPTIVE KV CACHE COMPRESSION"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.00003051757812,
+        615.0250854492188,
+        504.00323486328125,
+        635.9466552734375
+      ],
+      "text": "In this section we first introduce the problem formulation, and then present attention profiling and\nadaptive KV cache compression."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.24903106689453,
+        651.6900634765625,
+        363.2073669433594,
+        661.6526489257812
+      ],
+      "text": "3.1\nGENERATIVE INFERENCE OF AUTOREGRESSIVE LLMS"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.0,
+        672.4931030273438,
+        492.6857604980469,
+        682.4556884765625
+      ],
+      "text": "A typical generative model inference involves two steps: prompt encoding and token generation."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        107.99996948242188,
+        689.1985473632812,
+        504.003173828125,
+        732.2686767578125
+      ],
+      "text": "Prompt Encoding.\nWhen an autoregressive transformer-based LLM generates the i-th token, the\nattention module needs to refer to all the preceding i −1 tokens, i.e., the key and value vectors\n(KV vectors) of these tokens. To circumvent redundant KV vector computations when generating\nsucceeding tokens, all KV vectors are stored in the KV cache once they are generated."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        303.50897216796875,
+        752.194091796875,
+        308.4902648925781,
+        762.1566772460938
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.0,
+        84.17748260498047,
+        504.00323486328125,
+        127.10800170898438
+      ],
+      "text": "Token Generation.\nOnce prompt encoding is finished, the LLM generates the output token by\ntoken. At each generation step, the LLM needs to encode the new token(s) generated in the previous\nstep. After a new token is generated, its associated KV vectors are appended to the current KV\ncache. Thus, the size of KV cache increases linearly with the number of tokens being generated."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.24900817871094,
+        142.09742736816406,
+        172.86831665039062,
+        152.06002807617188
+      ],
+      "text": "3.2\nFASTGEN"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.0,
+        162.6204376220703,
+        504.0032958984375,
+        205.45999145507812
+      ],
+      "text": "As described in Section 2, many previous studies of compressing KV cache for improving inference\nefficiency do not leverage the intricate attention structure in LLMs. As to be detailed in Section 4, at-\ntention heads in LLMs often function distinctively, indicating the need for tailoring the compression\nstrategy to each individual attention head."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.0,
+        212.43336486816406,
+        504.0033874511719,
+        266.2319030761719
+      ],
+      "text": "With these insights, we introduce FastGen: a dual-phase algorithm for crafting an adaptive KV\ncache. During the prompt encoding phase, model profiling is conducted to discern the behavior of\nvarious attention heads, so that we can choose the most appropriate compression strategy for each\nhead. Then, in the token generation phase, instead of indiscriminately appending new KV vectors for\neach newly generated token, we manage the KV cache based on the selected compression strategies."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.2490005493164,
+        281.2212829589844,
+        213.07359313964844,
+        291.18389892578125
+      ],
+      "text": "3.3\nMODEL PROFILING"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.0,
+        301.7442932128906,
+        504.0032653808594,
+        344.5838928222656
+      ],
+      "text": "Model profiling is conducted based on the result of prompt encoding. Specifically, for a compression\npolicy C, we mark the corresponding KV cache compression as KC, VC = f(K, V , C), where\nKC and VC are the compressed KV cache. Then, for attention map A = softmax(QKT ), we pick\nthe optimal policy that can recover A with a recover ratio T with the minimum memory cost:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        142.31396484375,
+        360.4181823730469,
+        504.00030517578125,
+        379.9783630371094
+      ],
+      "text": "poC∗= arg min\nC∈C\nCacheMemoryCost(C)\ns.t.\n|A −softmax(QKT\nC)| ≤1 −T,\n(1)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        107.99993896484375,
+        384.3365783691406,
+        504.0035705566406,
+        438.4938049316406
+      ],
+      "text": "where C is the set of all feasible compression policies, CacheMemoryCost(C) is the target KV cache\nbudget of the compression policy C, and T is a predefined hyper-parameter representing how much\nwe want the policy to recover A. As to be discussed in Section 5, FastGen is able to recover +95%\nof the attention map with +40% compression ratio for a 65B model. The final prompt encoding\nalgorithm that includes model profiling is presented in Algorithm 1."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        107.99993896484375,
+        445.46820068359375,
+        504.00323486328125,
+        499.2657775878906
+      ],
+      "text": "Intrinsically, our method assumes that the structure of the attention map for a head is stable through\nthe generation process. So, it is sufficient to use only the encoded prompt to select a proper com-\npression policy. It is worth noting that existing literature has provided theoretical justifications for\nusing solely encoded prompts to capture attention structures for the full contexts (Zhang et al., 2023;\nLiu et al., 2023a). In our study, we also empirically verified this, as to be elaborated in Section 4."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.24893951416016,
+        514.2561645507812,
+        287.5792541503906,
+        524.21875
+      ],
+      "text": "3.4\nKV CACHE COMPRESSION POLICIES"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        107.99993896484375,
+        534.7791748046875,
+        504.0032653808594,
+        588.5767211914062
+      ],
+      "text": "In our experiments we observe that a large number of attention heads closely follow certain patterns,\nas to be detailed in Section 4. Thus, in addition to the conventional full KV cache policy, we\nalso consider four fundamental KV cache compression policies. While we mainly use these four\nfundamental KV cache compression policies for evaluation in this study, it is easy for FastGen to\nuse numerous other strategies. The four KV cache compression policies are:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        107.99993896484375,
+        599.3251953125,
+        503.99578857421875,
+        622.7800903320312
+      ],
+      "text": "• Special Tokens. We keep in KV cache only special tokens, such as the begin-of-the-sentence\ntoken <s>, the instruction token [INST], and so on. This policy is referred to as Cspecial."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        107.99990844726562,
+        626.6932373046875,
+        504.0035705566406,
+        732.2687377929688
+      ],
+      "text": "• Punctuation. We keep in the KV cache only punctuation tokens like ”.”, ”:”, ”?”. This policy is\nreferred to as Cpunct..\n• Locality This policy evicts long-range contexts. Once the relative distance between the context\ntoken and the current token exceeds a threshold, the KV cache of the context token will be evicted.\nThe threshold is determined by a pre-defined ratio rl of the length budget of local context over the\ninput sequence length. This policy is referred to as Clocal.\n• Frequency (Heavy Hitter) This policy has been used in multiple previous studies (e.g., Sheng\net al., 2023; Zhang et al., 2023; Liu et al., 2023a). We monitor for each token its cumulative\nsum of attention score, then treat these scores as token frequency and only keep the most frequent"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        303.5090026855469,
+        752.1942138671875,
+        308.49029541015625,
+        762.1567993164062
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        116.46800231933594,
+        84.26844787597656,
+        504.0029296875,
+        107.63336181640625
+      ],
+      "text": "tokens in the KV cache. The length budget of frequent tokens over the current sequence length is\ncontrolled by a ratio rf. This policy is referred to Cfrequent."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.0,
+        120.01244354248047,
+        504.00494384765625,
+        151.98397827148438
+      ],
+      "text": "Hybrid Policies.\nIn practice, it is often necessary to use hybrid policies that combines the afore-\nmentioned compression policies. Since the total number of hybrid policies is hugh, in our study we\nuse a greedy method to construct a small set of hybrid-policies as follows"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.0,
+        157.8656768798828,
+        506.7303771972656,
+        170.6302490234375
+      ],
+      "text": "C = {Cspecial, Cspecial+punct., Cspecial+punct.+frequent, Cspecial+punct.+frequent+local, Cfull},\n(2)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.0,
+        175.8843536376953,
+        504.0032043457031,
+        199.48995971679688
+      ],
+      "text": "where the sum of two compression strategies is to compute the union of their compressed KV cache,\nand Cfull refers to full KV cache without compression."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        107.99999237060547,
+        203.54978942871094,
+        504.0032958984375,
+        285.4029235839844
+      ],
+      "text": "We use Cspecial as a component in all hybrid policies for two reasons: 1) We observe that high\nattention scores are usually allocated towards Cspecial, as to be detailed in Section 4, indicating that\nCspecial are crucial for attention map recovery; 2) the compressed cache of Cspecial is memory-\nefficient since there are usually less than 5 special tokens in a sentence. In other words, it brings\nlittle-to-no extra memory cost by always including Cspecial. Similarly, Cpunct. is often used as a\ncomponent to form hybrid policies due to its memory-efficiency, i.e., the number of punctuations in\na sentence is small. The final algorithm for token generation is presented in Algorithm 2."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.29903411865234,
+        302.5101623535156,
+        417.761474609375,
+        314.4653625488281
+      ],
+      "text": "4\nDIVERSITY AND STABILITY OF ATTENTION STRUCTURES"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.00001525878906,
+        327.3713073730469,
+        504.0033874511719,
+        381.1689147949219
+      ],
+      "text": "In this section we present an empirical study to show the effectiveness of adaptive KV cache com-\npression. First, we demonstrate that different attention heads typically possess distinct structures.\nThen, we show that these attention head structures remain relatively consistent across different at-\ntention heads at different positions. We do so by analyzing the attention scores of Llama 1 65B using\nrandom samples from GSM8k (Cobbe et al., 2021)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.24901580810547,
+        395.90130615234375,
+        322.8714599609375,
+        405.8639221191406
+      ],
+      "text": "4.1\nHEAD DISTINCTIVE ATTENTION STRUCTURE"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        130.39735412597656,
+        417.9459533691406,
+        470.7175598144531,
+        426.5345153808594
+      ],
+      "text": "Layer 1\nLayer 10\nLayer 20\nLayer 30\nLayer 40"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        128.7861785888672,
+        513.3805541992188,
+        390.77728271484375,
+        521.9690551757812
+      ],
+      "text": "Layer 50\nLayer 60\nLayer 70\nLayer 80"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        433.2133483886719,
+        530.3595581054688,
+        500.7483825683594,
+        571.4793701171875
+      ],
+      "text": "Cfull\nCspecial + punct. + frequent + local\nCspecial + punct. + frequent\nCspecial + frequent\nCspecial"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        166.3209991455078,
+        596.4254760742188,
+        445.68212890625,
+        606.3880615234375
+      ],
+      "text": "Figure 3: Attention profiling result distribution across different layers."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.0,
+        622.012939453125,
+        504.00433349609375,
+        643.1650390625
+      ],
+      "text": "Setting.\nWe perform model profiling with a recover threshold of 0.95 and compute the distribution\nof profiling results for {1, 10, 20, 30, 40, 50, 60, 70, 80} layers. The result is shown in Figure 3."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        108.00004577636719,
+        656.4615478515625,
+        504.0033264160156,
+        732.26904296875
+      ],
+      "text": "Observation.\nFigure 3 shows that attention heads in different layers have vastly different struc-\ntures. Specifically, for the initial and final layers, they have more attention heads assigned to the full\nKV cache, indicating attention heads in these layers are likely to attend to all tokens. Meanwhile,\nfor middle layers, the attention map focuses on special tokens, indicating that most attention heads\nof these layers primarily attend to special tokens (i.e., the accumulated attention score on special to-\nkens is higher than 0.95 for these attention heads). Figure 1 shows the structure of different attention\nheads in the same layer. We see that attention structures differ across different layers and heads."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        303.5090637207031,
+        752.1944580078125,
+        308.4903564453125,
+        762.1570434570312
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0033874511719,
+        116.14901733398438
+      ],
+      "text": "These results indicate that it is suboptimal to apply the same KV cache to all layers without adapta-\ntion, and that it is beneficial to detect the structure of each attention head so as to select the optimal\ncompression policy to construct the KV cache."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.2490005493164,
+        131.6324005126953,
+        368.7277526855469,
+        141.59500122070312
+      ],
+      "text": "4.2\nPROFILE TENDS TO BE CONSISTENT IN ONE SEQUENCE"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.00001525878906,
+        152.3303985595703,
+        504.00341796875,
+        195.16995239257812
+      ],
+      "text": "The previous section demonstrates the great potential for constructing adaptive KV cache in accor-\ndance with the structure of different attention heads. Here, we show for each instance, it is sufficient\nto conduct one-shot model profiling, as outlined in Section 3.3. Specifically, for a given prompt, we\nshow that the attention structure of each head remains consistent through the decoding process."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        122.17485046386719,
+        307.624267578125,
+        202.33584594726562,
+        317.2057800292969
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        298.8258972167969,
+        118.64525604248047,
+        302.97125244140625
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        286.50714111328125,
+        118.64525604248047,
+        290.6524963378906
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        274.1883544921875,
+        118.64525604248047,
+        278.3337097167969
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        261.8695983886719,
+        118.64525604248047,
+        266.01495361328125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        249.5508270263672,
+        118.64525604248047,
+        253.69619750976562
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        237.2320556640625,
+        118.64525604248047,
+        241.37742614746094
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        107.7948989868164,
+        238.72145080566406,
+        114.8420181274414,
+        301.5302734375
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        143.68405151367188,
+        226.26718139648438,
+        180.04641723632812,
+        233.7288360595703
+      ],
+      "text": "Layer 33 Head 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        221.7961883544922,
+        307.624267578125,
+        301.95721435546875,
+        317.2057800292969
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        298.8258972167969,
+        218.26658630371094,
+        302.97125244140625
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        286.50714111328125,
+        218.26658630371094,
+        290.6524963378906
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        274.1883544921875,
+        218.26658630371094,
+        278.3337097167969
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        261.8695983886719,
+        218.26658630371094,
+        266.01495361328125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        249.5508270263672,
+        218.26658630371094,
+        253.69619750976562
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        237.2320556640625,
+        218.26658630371094,
+        241.37742614746094
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        207.41622924804688,
+        238.72145080566406,
+        214.46334838867188,
+        301.5302734375
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        243.30540466308594,
+        226.26718139648438,
+        279.66778564453125,
+        233.7288360595703
+      ],
+      "text": "Layer 33 Head 2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        321.41754150390625,
+        307.624267578125,
+        401.57855224609375,
+        317.2057800292969
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        298.8258972167969,
+        317.8879089355469,
+        302.97125244140625
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        286.50714111328125,
+        317.8879089355469,
+        290.6524963378906
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        274.1883544921875,
+        317.8879089355469,
+        278.3337097167969
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        261.8695983886719,
+        317.8879089355469,
+        266.01495361328125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        249.5508270263672,
+        317.8879089355469,
+        253.69619750976562
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        237.2320556640625,
+        317.8879089355469,
+        241.37742614746094
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.03759765625,
+        238.72145080566406,
+        314.084716796875,
+        301.5302734375
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        342.9267578125,
+        226.26718139648438,
+        379.28912353515625,
+        233.7288360595703
+      ],
+      "text": "Layer 33 Head 3"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        421.0389099121094,
+        307.624267578125,
+        501.19989013671875,
+        317.2057800292969
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        298.8258972167969,
+        417.50927734375,
+        302.97125244140625
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        286.50714111328125,
+        417.50927734375,
+        290.6524963378906
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        274.1883544921875,
+        417.50927734375,
+        278.3337097167969
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        261.8695983886719,
+        417.50927734375,
+        266.01495361328125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        249.5508270263672,
+        417.50927734375,
+        253.69619750976562
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        237.2320556640625,
+        417.50927734375,
+        241.37742614746094
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        406.658935546875,
+        238.72145080566406,
+        413.7060546875,
+        301.5302734375
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        442.548095703125,
+        226.26718139648438,
+        478.91046142578125,
+        233.7288360595703
+      ],
+      "text": "Layer 33 Head 5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        122.17485046386719,
+        396.31939697265625,
+        202.33584594726562,
+        405.9009094238281
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        387.5210266113281,
+        118.64525604248047,
+        391.6663818359375
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        375.2022705078125,
+        118.64525604248047,
+        379.3476257324219
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        362.8835144042969,
+        118.64525604248047,
+        367.02886962890625
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        350.5647277832031,
+        118.64525604248047,
+        354.7100830078125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        338.2459716796875,
+        118.64525604248047,
+        342.3913269042969
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        114.75897979736328,
+        325.92718505859375,
+        118.64525604248047,
+        330.0725402832031
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        107.7948989868164,
+        327.41656494140625,
+        114.8420181274414,
+        390.22540283203125
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        143.68405151367188,
+        314.9623107910156,
+        180.04641723632812,
+        322.4239501953125
+      ],
+      "text": "Layer 23 Head 0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        221.7961883544922,
+        396.31939697265625,
+        301.95721435546875,
+        405.9009094238281
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        387.5210266113281,
+        218.26658630371094,
+        391.6663818359375
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        375.2022705078125,
+        218.26658630371094,
+        379.3476257324219
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        362.8835144042969,
+        218.26658630371094,
+        367.02886962890625
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        350.5647277832031,
+        218.26658630371094,
+        354.7100830078125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        338.2459716796875,
+        218.26658630371094,
+        342.3913269042969
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        214.38031005859375,
+        325.92718505859375,
+        218.26658630371094,
+        330.0725402832031
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        207.41622924804688,
+        327.41656494140625,
+        214.46334838867188,
+        390.22540283203125
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        243.30540466308594,
+        314.9623107910156,
+        279.66778564453125,
+        322.4239501953125
+      ],
+      "text": "Layer 23 Head 2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        321.41754150390625,
+        396.31939697265625,
+        401.57855224609375,
+        405.9009094238281
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        387.5210266113281,
+        317.8879089355469,
+        391.6663818359375
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        375.2022705078125,
+        317.8879089355469,
+        379.3476257324219
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        362.8835144042969,
+        317.8879089355469,
+        367.02886962890625
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        350.5647277832031,
+        317.8879089355469,
+        354.7100830078125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        338.2459716796875,
+        317.8879089355469,
+        342.3913269042969
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        314.00164794921875,
+        325.92718505859375,
+        317.8879089355469,
+        330.0725402832031
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.03759765625,
+        327.41656494140625,
+        314.084716796875,
+        390.22540283203125
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        342.9267578125,
+        314.9623107910156,
+        379.28912353515625,
+        322.4239501953125
+      ],
+      "text": "Layer 23 Head 3"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        421.0389099121094,
+        396.31939697265625,
+        501.19989013671875,
+        405.9009094238281
+      ],
+      "text": "0\n10\n20\n30\nDecoding Step"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        387.5210266113281,
+        417.50927734375,
+        391.6663818359375
+      ],
+      "text": "0.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        375.2022705078125,
+        417.50927734375,
+        379.3476257324219
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        362.8835144042969,
+        417.50927734375,
+        367.02886962890625
+      ],
+      "text": "0.4"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        350.5647277832031,
+        417.50927734375,
+        354.7100830078125
+      ],
+      "text": "0.6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        338.2459716796875,
+        417.50927734375,
+        342.3913269042969
+      ],
+      "text": "0.8"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        413.6230163574219,
+        325.92718505859375,
+        417.50927734375,
+        330.0725402832031
+      ],
+      "text": "1.0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        406.658935546875,
+        327.41656494140625,
+        413.7060546875,
+        390.22540283203125
+      ],
+      "text": "Accumulated Attention Scores"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        442.548095703125,
+        314.9623107910156,
+        478.91046142578125,
+        322.4239501953125
+      ],
+      "text": "Layer 23 Head 7"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        235.48220825195312,
+        210.1334686279297,
+        388.8310241699219,
+        217.59512329101562
+      ],
+      "text": "Special Tokens\nPunctuation\nLocality\nOthers"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        112.97100067138672,
+        416.678466796875,
+        499.0316467285156,
+        426.6410827636719
+      ],
+      "text": "Figure 4: Accumulated attention score at 1st (prompt encoding), 10th, 20th, 30th decoding steps."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.0,
+        447.8175354003906,
+        504.0032958984375,
+        479.7890930175781
+      ],
+      "text": "Setting.\nFollowing Figure 1, we compute the accumulated attention score for attention heads in\ndifferent layers of Llama 1 65B at multiple decoding steps (i.e., 1st, 10th, 20th, 30th). We visualized\nthe resulting accumulated score in Figure 4."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.0,
+        493.8355407714844,
+        504.0033874511719,
+        550.1673583984375
+      ],
+      "text": "Observation.\nDespite some fluctuations of accumulated attention scores across time steps, the\npattern of the attention maps remains relatively stable. For example, Layer 33 Head 0 and Layer 23\nHead 2 almost only attend to the special token, while the locality and punctuation plays an important\nrole in Layer 23 Head 0. As to Layer 23 Head 3, more than 10% of the attention score is allocated\nto the others portion, making it suitable for a uncompressed KV cache Cfull."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.00003051757812,
+        554.698486328125,
+        504.0033264160156,
+        575.6200561523438
+      ],
+      "text": "In addition, we observe that a large portion of attention scores are on special tokens in all cases. This\njustifies the greed method we used to construct hybrid policies, as described in Section 3.4."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.29903411865234,
+        593.477294921875,
+        194.1824493408203,
+        605.4324951171875
+      ],
+      "text": "5\nEXPERIMENT"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.00003814697266,
+        618.9124755859375,
+        504.0034484863281,
+        683.6700439453125
+      ],
+      "text": "We conduct comprehensive experiments to demonstrate the effectiveness of FastGen on memory\nfootprint reduction and generation quality preserving. First, we report the trade-off between mem-\nory reduction and end-to-end generation quality in Section 5.1, and discuss the compression ratio\nof FastGen in Section 5.2. To demonstrate the superiority of FastGen on real-world systems, we\ndemonstrate the end-to-end latency change in Section 5.3 and the profiling overhead in Section 5.4.\nFinally, we present ablation studies and discussions in Section A.1."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        108.00003051757812,
+        699.1524658203125,
+        504.0034484863281,
+        732.26904296875
+      ],
+      "text": "5.1\nTRADE-OFF BETWEEN PERFORMANCE AND MEMORY REDUCTION\nBackbones.\nWe conduct experiments with both Llama 1 (Touvron et al., 2023a) and its fine-tuned\nvariants, with model sizes ranging from 7B to 65B. For fined-tuned variants, we do not choose"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        303.509033203125,
+        752.1944580078125,
+        308.4903259277344,
+        762.1570434570312
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        130.4495086669922,
+        157.9014129638672,
+        200.45089721679688,
+        171.3277130126953
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        152.42706298828125,
+        121.04537963867188,
+        160.4043426513672
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        137.3159942626953,
+        121.04537963867188,
+        145.29327392578125
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        122.20494079589844,
+        121.04537963867188,
+        130.18222045898438
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        107.09388732910156,
+        121.04462432861328,
+        115.07115936279297
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.38632202148438,
+        126.92557525634766,
+        115.36359405517578,
+        132.62161254882812
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        137.7197265625,
+        93.29008483886719,
+        182.01266479492188,
+        102.027099609375
+      ],
+      "text": "GSM8k LLaMa 7b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        231.08932495117188,
+        157.9014129638672,
+        301.0907287597656,
+        171.3277130126953
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        150.00062561035156,
+        221.68441772460938,
+        157.9779052734375
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        135.5615997314453,
+        221.68441772460938,
+        143.53887939453125
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        121.12257385253906,
+        221.68441772460938,
+        129.099853515625
+      ],
+      "text": "14"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        106.68351745605469,
+        221.68441772460938,
+        114.6607894897461
+      ],
+      "text": "16"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        208.02613830566406,
+        126.92557525634766,
+        216.00341796875,
+        132.62161254882812
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        236.7199249267578,
+        93.29008483886719,
+        284.28924560546875,
+        102.027099609375
+      ],
+      "text": "GSM8k LLaMa 13b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.7291259765625,
+        157.9014129638672,
+        401.73052978515625,
+        171.3277130126953
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        151.79563903808594,
+        322.32427978515625,
+        159.77291870117188
+      ],
+      "text": "26"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        138.4326934814453,
+        322.32427978515625,
+        146.40997314453125
+      ],
+      "text": "28"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        125.06968688964844,
+        322.32427978515625,
+        133.04696655273438
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        111.70674133300781,
+        322.32427978515625,
+        119.68401336669922
+      ],
+      "text": "32"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        98.34376525878906,
+        322.32427978515625,
+        106.32103729248047
+      ],
+      "text": "34"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.66595458984375,
+        126.92557525634766,
+        316.6432189941406,
+        132.62161254882812
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        337.3597412109375,
+        93.29008483886719,
+        384.9290771484375,
+        102.027099609375
+      ],
+      "text": "GSM8k LLaMa 30b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        432.3689270019531,
+        157.9014129638672,
+        502.3703308105469,
+        171.3277130126953
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        146.8007049560547,
+        422.9640808105469,
+        154.77798461914062
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        134.6953582763672,
+        422.9640808105469,
+        142.67263793945312
+      ],
+      "text": "35"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        122.59004211425781,
+        422.9640808105469,
+        130.56732177734375
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        110.48469543457031,
+        422.9640808105469,
+        118.46196746826172
+      ],
+      "text": "45"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        98.37934875488281,
+        422.9640808105469,
+        106.35662078857422
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        409.3057861328125,
+        126.92557525634766,
+        417.2830505371094,
+        132.62161254882812
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        437.9995422363281,
+        93.29008483886719,
+        485.5688781738281,
+        102.027099609375
+      ],
+      "text": "GSM8k LLaMa 65b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        130.4495086669922,
+        237.2642364501953,
+        200.45089721679688,
+        250.69053649902344
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        233.37635803222656,
+        121.04537963867188,
+        241.3536376953125
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        216.41259765625,
+        121.04537963867188,
+        224.38987731933594
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        118.05390167236328,
+        199.44883728027344,
+        121.04537963867188,
+        207.42611694335938
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        182.48509216308594,
+        121.04462432861328,
+        190.46237182617188
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.38632202148438,
+        200.0766143798828,
+        115.36359405517578,
+        218.182373046875
+      ],
+      "text": "Pass@1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        130.68185424804688,
+        172.6529083251953,
+        189.05909729003906,
+        181.38992309570312
+      ],
+      "text": "Human_Eval LLaMa 7b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        231.08932495117188,
+        237.2642364501953,
+        301.0907287597656,
+        250.69053649902344
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        218.69371032714844,
+        225.08358764648438,
+        221.6851806640625,
+        233.0608673095703
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        213.96446228027344,
+        221.68441772460938,
+        221.94174194335938
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        202.84535217285156,
+        221.68441772460938,
+        210.8226318359375
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        191.72622680664062,
+        221.68441772460938,
+        199.70350646972656
+      ],
+      "text": "14"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        180.6071014404297,
+        221.68441772460938,
+        188.58438110351562
+      ],
+      "text": "16"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        208.02613830566406,
+        200.0766143798828,
+        216.00341796875,
+        218.182373046875
+      ],
+      "text": "Pass@1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        229.6820526123047,
+        172.6529083251953,
+        291.335693359375,
+        181.38992309570312
+      ],
+      "text": "Human_Eval LLaMa 13b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.7291259765625,
+        237.2642364501953,
+        401.73052978515625,
+        250.69053649902344
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        226.6200408935547,
+        322.32427978515625,
+        234.59732055664062
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        207.96250915527344,
+        322.32427978515625,
+        215.93978881835938
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        189.30499267578125,
+        322.32427978515625,
+        197.2822723388672
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.66595458984375,
+        200.0766143798828,
+        316.6432189941406,
+        218.182373046875
+      ],
+      "text": "Pass@1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        330.3218688964844,
+        172.6529083251953,
+        391.97552490234375,
+        181.38992309570312
+      ],
+      "text": "Human_Eval LLaMa 30b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        432.3689270019531,
+        237.2642364501953,
+        502.3703308105469,
+        250.69053649902344
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        215.77862548828125,
+        422.9640808105469,
+        223.7559051513672
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        196.97445678710938,
+        422.9640808105469,
+        204.9517364501953
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        178.17027282714844,
+        422.9640808105469,
+        186.14755249023438
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        409.3057861328125,
+        200.0766143798828,
+        417.2830505371094,
+        218.182373046875
+      ],
+      "text": "Pass@1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        430.961669921875,
+        172.6529083251953,
+        492.61529541015625,
+        181.38992309570312
+      ],
+      "text": "Human_Eval LLaMa 65b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        130.4495086669922,
+        316.6270751953125,
+        200.45089721679688,
+        330.0533752441406
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        308.9642333984375,
+        121.04462432861328,
+        316.9414978027344
+      ],
+      "text": "24"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        298.5640869140625,
+        121.04462432861328,
+        306.5413513183594
+      ],
+      "text": "25"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        288.1639709472656,
+        121.04462432861328,
+        296.1412353515625
+      ],
+      "text": "26"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        277.7638244628906,
+        121.04462432861328,
+        285.7410888671875
+      ],
+      "text": "27"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        267.36370849609375,
+        121.04462432861328,
+        275.3409729003906
+      ],
+      "text": "28"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        256.96356201171875,
+        121.04462432861328,
+        264.9408264160156
+      ],
+      "text": "29"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.38632202148438,
+        285.6512145996094,
+        115.36359405517578,
+        291.3472595214844
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        142.75051879882812,
+        252.01576232910156,
+        176.9824981689453,
+        260.7527770996094
+      ],
+      "text": "NQ LLaMa 7b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        231.08932495117188,
+        316.6270751953125,
+        301.0907287597656,
+        330.0533752441406
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        296.9535217285156,
+        221.68441772460938,
+        304.9307861328125
+      ],
+      "text": "32"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        279.3860168457031,
+        221.68441772460938,
+        287.36328125
+      ],
+      "text": "33"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        261.8185119628906,
+        221.68441772460938,
+        269.7957763671875
+      ],
+      "text": "34"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        208.02613830566406,
+        285.6512145996094,
+        216.00341796875,
+        291.3472595214844
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        241.750732421875,
+        252.01576232910156,
+        279.25909423828125,
+        260.7527770996094
+      ],
+      "text": "NQ LLaMa 13b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.7291259765625,
+        316.6270751953125,
+        401.73052978515625,
+        330.0533752441406
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        310.48193359375,
+        322.32427978515625,
+        318.4591979980469
+      ],
+      "text": "38"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        298.7757263183594,
+        322.32427978515625,
+        306.75299072265625
+      ],
+      "text": "39"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        287.06951904296875,
+        322.32427978515625,
+        295.0467834472656
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        275.36334228515625,
+        322.32427978515625,
+        283.3406066894531
+      ],
+      "text": "41"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        263.6571350097656,
+        322.32427978515625,
+        271.6343994140625
+      ],
+      "text": "42"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.66595458984375,
+        285.6512145996094,
+        316.6432189941406,
+        291.3472595214844
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        342.3905029296875,
+        252.01576232910156,
+        379.89886474609375,
+        260.7527770996094
+      ],
+      "text": "NQ LLaMa 30b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        419.69061279296875,
+        316.6270751953125,
+        502.3703308105469,
+        330.0533752441406
+      ],
+      "text": "20%\n40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        307.62554931640625,
+        422.9640808105469,
+        315.6028137207031
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        291.1339111328125,
+        422.9640808105469,
+        299.1111755371094
+      ],
+      "text": "42"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        274.64227294921875,
+        422.9640808105469,
+        282.6195373535156
+      ],
+      "text": "44"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        258.1506652832031,
+        422.9640808105469,
+        266.1279296875
+      ],
+      "text": "46"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        409.3057861328125,
+        285.6512145996094,
+        417.2830505371094,
+        291.3472595214844
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        443.0303649902344,
+        252.01576232910156,
+        480.5387268066406,
+        260.7527770996094
+      ],
+      "text": "NQ LLaMa 65b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        130.4495086669922,
+        395.9898986816406,
+        200.45089721679688,
+        409.41619873046875
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        389.4346618652344,
+        121.04462432861328,
+        397.41192626953125
+      ],
+      "text": "54"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        372.524658203125,
+        121.04462432861328,
+        380.5019226074219
+      ],
+      "text": "56"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        355.6146545410156,
+        121.04462432861328,
+        363.5919189453125
+      ],
+      "text": "58"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        115.0616683959961,
+        338.70465087890625,
+        121.04462432861328,
+        346.6819152832031
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.38632202148438,
+        365.0140380859375,
+        115.36359405517578,
+        370.7100830078125
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        141.34188842773438,
+        331.37860107421875,
+        178.3917694091797,
+        340.1156005859375
+      ],
+      "text": "TQA LLaMa 7b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        231.08932495117188,
+        395.9898986816406,
+        301.0907287597656,
+        409.41619873046875
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        384.3218994140625,
+        221.68441772460938,
+        392.2991638183594
+      ],
+      "text": "64"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        371.8702087402344,
+        221.68441772460938,
+        379.84747314453125
+      ],
+      "text": "65"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        359.4184875488281,
+        221.68441772460938,
+        367.395751953125
+      ],
+      "text": "66"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        215.70147705078125,
+        346.966796875,
+        221.68441772460938,
+        354.9440612792969
+      ],
+      "text": "67"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        208.02613830566406,
+        365.0140380859375,
+        216.00341796875,
+        370.7100830078125
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        240.34210205078125,
+        331.37860107421875,
+        280.6683654785156,
+        340.1156005859375
+      ],
+      "text": "TQA LLaMa 13b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.7291259765625,
+        395.9898986816406,
+        401.73052978515625,
+        409.41619873046875
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        391.6707763671875,
+        322.32427978515625,
+        399.6480407714844
+      ],
+      "text": "72"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        373.24334716796875,
+        322.32427978515625,
+        381.2206115722656
+      ],
+      "text": "73"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        354.81591796875,
+        322.32427978515625,
+        362.7931823730469
+      ],
+      "text": "74"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        316.34130859375,
+        336.38848876953125,
+        322.32427978515625,
+        344.3657531738281
+      ],
+      "text": "75"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        308.66595458984375,
+        365.0140380859375,
+        316.6432189941406,
+        370.7100830078125
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        340.9819030761719,
+        331.37860107421875,
+        381.30816650390625,
+        340.1156005859375
+      ],
+      "text": "TQA LLaMa 30b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        435.3826599121094,
+        395.9898986816406,
+        502.3703308105469,
+        409.41619873046875
+      ],
+      "text": "40%\n60%\n80%\n100%\nKV Cache Budget"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        381.31390380859375,
+        422.9640808105469,
+        389.2911682128906
+      ],
+      "text": "72"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        364.2354431152344,
+        422.9640808105469,
+        372.21270751953125
+      ],
+      "text": "74"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        416.9811096191406,
+        347.1569519042969,
+        422.9640808105469,
+        355.13421630859375
+      ],
+      "text": "76"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        409.3057861328125,
+        365.0140380859375,
+        417.2830505371094,
+        370.7100830078125
+      ],
+      "text": "F1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        441.6217346191406,
+        331.37860107421875,
+        481.947998046875,
+        340.1156005859375
+      ],
+      "text": "TQA LLaMa 65b"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        245.63087463378906,
+        83.11956787109375,
+        380.48272705078125,
+        91.47671508789062
+      ],
+      "text": "FastGen\nFrequency+Local\nFull Cache"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        108.0,
+        419.908447265625,
+        504.0033264160156,
+        440.8300476074219
+      ],
+      "text": "Figure 5: Performance of Adaptive KV Cache (FastGen) and Fixed KV Cache (Frequency+Local;\nZhang et al., 2023 and Liu et al., 2023a) of Llama 1 on GSM8k, HumanEval, NQ, and TQA."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        108.0,
+        465.1314392089844,
+        504.00323486328125,
+        529.8889770507812
+      ],
+      "text": "the open-sourced Llama 2-chat (Touvron et al., 2023b) model due to its grouped-query attention\ntechniques. Instead, we use the original multi-head attention architecture in this study and leave\nthe integration of grouped-query attention to future work. To prepare a comparable instruction-\nfollowing model for analysis, we fine-tuned the Llama 1 model with open-sourced instruction-tuning\ndatasets. Specifically, the fine-tuned variants are trained on LIMA1 data (Zhou et al., 2023) and Open\nAssistant2 (K¨opf et al., 2023) data."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.99998474121094,
+        544.721435546875,
+        504.00335693359375,
+        631.4869995117188
+      ],
+      "text": "Tasks.\nWe use standard generation tasks to evaluate Llama 1 and our fine-tuned Llama 1 models.\nFor Llama 1, we choose 4 different tasks, including HumanEval (Chen et al., 2021), GSM8k (Cobbe\net al., 2021), NQ (Kwiatkowski et al., 2019) and TQA (Kembhavi et al., 2017) to evaluate models’\nabilities on different domains (code, math, question answering and reading comprehension). Note\nthat in the four tasks, each testing sample is in a generative format, where answers are extracted after\nmodel generation finishes. This is crucial for a fair comparison on model’s generation quality. We\nevaluate the instruction finetuned LLaMa model on the instruction tuning benchmark AlpacaEval\n(Li et al., 2023), which consists of 805 question prompts from diverse domains."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        107.99998474121094,
+        646.3194580078125,
+        504.00341796875,
+        700.2079467773438
+      ],
+      "text": "Experiment Setup.\nThe evaluation of the Llama 1 model follows the default setting and evalu-\nation metrics on each benchmark. We calculate F1 scores for GSM8k, NQ and TQA, and use the\ncode execution Pass@1 rate for HumanEval. While evaluating an instruction-tuning model remains\nchallenging, we follow previous work (Zhou et al., 2023; Touvron et al., 2023b) to use GPT4 as\nan evaluator for pair-wise comparison between two different model generations. For each prompt,"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        120.65299987792969,
+        710.6446533203125,
+        316.8178405761719,
+        732.0283813476562
+      ],
+      "text": "1https://huggingface.co/datasets/GAIR/lima.\n2https://huggingface.co/datasets/OpenAssistant/oasst1."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        303.5090026855469,
+        752.1944580078125,
+        308.49029541015625,
+        762.1570434570312
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0033874511719,
+        195.81491088867188
+      ],
+      "text": "we input the FastGen generation and the generation from the same model with Full KV Cache as\na pair, and ask GPT4 to judge which one is better.We then calculate the win rate of FastGen over\nFull Cache. Hypothetically, the win rate of a lossless method should be around 50%. Aside from\nfull-cache models, we also include non-adaptive KV cache methods for comparison. Specifically,\nwe apply Clocal, Cfrequent, and Clocal+frequent to all attention head without any adaptation, as\nbaselines. It is worth mentioning that Clocal+frequent is a very strong baseline as it is identical to the\nH2O method (Zhang et al., 2023) and the Scissorhands method (Liu et al., 2023a). We set rl = 0.3,\nrf = 0.3 in FastGen, and only change the recovery ratio T to control the pruned KV cache ratio.\nFor generation, we use nucleus sampling (Holtzman et al., 2019) with temperature T = 0.6, p = 0.9.\nExperiments are conducted on 8 NVIDIA A100 80GB GPUs."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.0,
+        209.71136474609375,
+        504.0041809082031,
+        296.4768371582031
+      ],
+      "text": "Main Results.\nIn Figure 2 and Figure 5, we present the model quality as a function of KV cache\nbudget increasing from 30% to 100%. For 30B models, FastGen (50% cache compressed) surpasses\nall non-adaptive KV compression methods (15% cache compressed) . Also, we can see FastGen\nachieves more KV cache reduction ratio as the model size increases, while preserving the same\nmodel quality. For example, achieving a 45% win rate, FastGen can get as much as 44.9% pruned\nratio on Llama 1-65B, compared to 16.9% pruned ratio on Llama 1-7B. In all settings, FastGen\nshows consistent and significant improvement over non-adaptive compression methods. The results\nvalidate the effectiveness of adaptive KV cache compression using FastGen, despite its simplicity."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        185.25050354003906,
+        312.0790710449219,
+        426.7494201660156,
+        330.41314697265625
+      ],
+      "text": "Model Size\nKV Cache\nWin rate\nFull\nFastGen\nPruned ratio\nT"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        185.25050354003906,
+        336.2231140136719,
+        423.0675354003906,
+        364.2058410644531
+      ],
+      "text": "7B\n4.3Gb\n1.9Gb\n56.6%\n91%\n30.8%\n2.6Gb\n39.8%\n95%\n37.7%\n3.6Gb\n16.9%\n98%\n47.4%"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        185.25050354003906,
+        370.01580810546875,
+        423.0675354003906,
+        397.9985656738281
+      ],
+      "text": "13B\n6.7Gb\n3.1Gb\n53.4%\n91%\n32.0%\n4.1Gb\n39.0%\n95%\n39.9%\n5.5Gb\n18.3%\n98%\n48.7%"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        185.25050354003906,
+        403.80853271484375,
+        423.0675354003906,
+        431.791259765625
+      ],
+      "text": "30B\n13.1Gb\n5.7Gb\n56.7%\n93%\n37.0%\n6.7Gb\n48.8%\n95%\n42.5%\n9.5Gb\n27.4%\n98%\n47.5%"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        185.25050354003906,
+        437.6012268066406,
+        423.0675354003906,
+        465.583984375
+      ],
+      "text": "65B\n21.5Gb\n9.4Gb\n56.3%\n93%\n40.9%\n11.8Gb\n44.9%\n95%\n44.2%\n13.8Gb\n36.0%\n98%\n49.8%"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.0,
+        478.8924560546875,
+        504.00323486328125,
+        499.8140563964844
+      ],
+      "text": "Table 1: Memory footprint reduction by FastGen. We compared the memory consumption between\nmodels with full KV cache, and models compressed by FastGen on fine-tuned Llama 1."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.2490005493164,
+        522.5104370117188,
+        323.78472900390625,
+        532.4730224609375
+      ],
+      "text": "5.2\nMEMORY FOOTPRINT REDUCTION ANALYSIS"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.0,
+        543.1494140625,
+        504.0033264160156,
+        607.906005859375
+      ],
+      "text": "We report the KV cache memory footprint reduction in Table 1. For all the evaluated 7B-65B\nmodels, we evaluate the memory consumption with a fixed batch size of 16, sequence length of 512,\nand model weights in fp16 format. We observe that FastGen substantially reduces the KV cache\nmemory footprint across all model sizes, with more significant reductions for larger models. Taking\na win rate over 45% as little-to-no quality regression, FastGen can achieve ∼40% memory reduction\nin Llama 1-65B, ∼30% in Llama 1-30B, ∼20% in Llama 1-13B and Llama 1-7B."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        108.24897766113281,
+        623.2384033203125,
+        297.4557189941406,
+        633.2009887695312
+      ],
+      "text": "5.3\nEND-TO-END LATENCY IMPROVEMENT"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        193.28399658203125,
+        646.9474487304688,
+        418.7176818847656,
+        656.9100341796875
+      ],
+      "text": "Table 2: End-to-end latency comparison on Llama 1-7B."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        113.67972564697266,
+        670.2351684570312,
+        489.8890380859375,
+        676.9161987304688
+      ],
+      "text": "Batch size\n1\n2\n8\n16"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        113.67972564697266,
+        680.8052978515625,
+        498.32183837890625,
+        687.486328125
+      ],
+      "text": "[prompt len, gen len]\n[32,512]\n[32,2048]\n[32,8192]\n[32,16384]\n[512,32]\n[512,512]\n[4096,4096]\n[512,512]\n[4096,4096]\n[512,512]"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        113.67971801757812,
+        691.5089111328125,
+        494.3419494628906,
+        727.5861206054688
+      ],
+      "text": "HF\n13.35\n57.37\n299\n799.14\n1.12\n19.16\n167.64\n23.44\nOOM\nOOM\nDS\n11.58\n47.12\n201.23\n435.74\n0.79\n10.45\n91.04\n12.93\n127.94\nOOM\nFastGen\n11.21\n44.6\n179.43\n359.83\n0.73\n9.71\n76.93\n10.57\n82.16\nOOM\nSpeed-up(%) over HF\n16.03%\n22.30%\n40.00%\n55.00%\n34.80%\n49.30%\n54.10%\n54.90%\n-\nOOM\nSpeed-up(%) over DS\n3.20%\n5.35%\n10.83%\n17.42%\n7.59%\n7.08%\n15.50%\n18.25%\n35.78%\nOOM"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        303.5090026855469,
+        752.1944580078125,
+        308.49029541015625,
+        762.1570434570312
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.00341796875,
+        181.90292358398438
+      ],
+      "text": "To analyze the end-to-end speedup of FastGen, we present the end-to-end latency improvement over\nfull-cache setting and a strong model acceleration baseline in Table 2. In the experiment, we record\nthe total duration in seconds, measured from the start of prompt encoding, until the end of generation\nas the end-to-end latency. For the full-cache baseline, we adopt the widely used Hugging Face\nAccelerate (HF) (Gugger et al., 2022), denoted as HF in Table 2. For FastGen, we implemented a\ncustomized kernel to handle the KV cache pruning operation. Specifically, we adapt the kernel from\nDeepspeed (DS) (Aminabadi et al., 2022) by adding the KV cache sparsity operation. We include\nthe Deepspeed performance for fair comparison, denoted as DS in Table 2. All methods are tested\non the same Nvidia V100 GPUs."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.0,
+        188.8762969970703,
+        504.0033264160156,
+        308.4277648925781
+      ],
+      "text": "As shown in Table 2, we can observe that FastGen achieves significant end-to-end speed-up across\nall the generation settings. For the least significant case, FastGen can have a decent 16.04% latency\nimprovement over the HF baseline on a short generation length of 512. In the best cases, we can\nachieve up to 55.0% latency reduction over HF with FastGen at a generation length of 16k. We can\nalso observe that the relative speedup is greater with longer generation length. For example, given\nbatch size = 1, FastGen’s relative speed-up rises from 16.04% to 55.0%, as the generation length\ngrows from 512 to 16k. When comparing FastGen to DeepSpeed, we can still observe significant\nspeed-up that gets bigger with batch size and generation length. Considering DeepSpeed is a full-\nstack optimized inference system, where not only attention computation is optimized, there is still\nmuch room to further improve FastGen by polishing the sparsity kernel. We leave this unique\nresearch and engineering challenge to future works."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.24909210205078,
+        323.4711608886719,
+        204.17494201660156,
+        333.43377685546875
+      ],
+      "text": "5.4\nPROFILING COST"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.0000991821289,
+        346.8091735839844,
+        504.00341796875,
+        378.6897888183594
+      ],
+      "text": "Table 3: Profiling time of Llama 1-65B. The Overall Generation Duration is measured from the start\nof decoding to the end of the generation length. The Profiling Duration is measured from the start\nof the decoding until Fastgen finishes the policy search."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        137.47657775878906,
+        394.3893127441406,
+        474.52374267578125,
+        413.1193542480469
+      ],
+      "text": "Generation\nLength\nOverall Generation\nDuration (s)\nProfiling\nDuration (s)\nDecoding Time\nPer Token (s)\nProfiling/Overall (%)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        137.47657775878906,
+        420.6367492675781,
+        474.52203369140625,
+        459.3428039550781
+      ],
+      "text": "128\n30.98\n0.11\n0.10\n0.35%\n256\n50.1\n0.11\n0.10\n0.21%\n512\n94.98\n0.11\n0.10\n0.12%\n1024\n157.43\n0.11\n0.10\n0.07%"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.0,
+        478.6114501953125,
+        504.0032958984375,
+        499.5320739746094
+      ],
+      "text": "To better understand the overhead of the profiling step, we compare the profiling time with the total\ngeneration time across different generation lengths. We present the result in Table 3."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        107.99999237060547,
+        506.5064697265625,
+        504.00323486328125,
+        538.3870239257812
+      ],
+      "text": "We can observe that the profiling time only accounts for a very small percentage of the total genera-\ntion duration, up to 0.35% in our tested cases. Also, the overhead decreases as the generation length\nincreases, dropping to 0.07% when the generation length comes to 1024."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        107.99993896484375,
+        545.3604736328125,
+        504.0033264160156,
+        633.4920654296875
+      ],
+      "text": "In terms of extra memory usage, it’s mainly introduced by one of the compression strate-\ngies,\nCfrequent,\nwhich needs to store an extra cumulative sum of attention scores for\neach attention head.\nTo provide a detailed analysis, for each layer, the dimension of\nthe\nKV\ncache\nis\n(batch size, num of head, sequence len, hidden dimension),\nwhile\nthe\ndimension\nof\nextra\nmemory\nfor\nthe\ncumulative\nattention\nscores\nis\n(batch size, num of head, sequence len).\nConsidering\nhidden dimension\n=\n128 for all model sizes, the memory overhead is 1/128=0.78% compared to storing KV cache only,\nwhich is a negligible cost."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        108.29894256591797,
+        650.9102783203125,
+        195.37741088867188,
+        662.865478515625
+      ],
+      "text": "6\nCONCLUSION"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        107.99993896484375,
+        676.0824584960938,
+        504.00323486328125,
+        729.8800659179688
+      ],
+      "text": "We have presented FastGen, a novel method that significantly improves the inference efficiency\nof LLMs, with no visible quality loss, using lightweight model profiling and adaptive key-value\ncaching. Areas for future explorations include combining FastGen with other model compression\ntechniques, such as quantization and distillation, and other efficient attention architectures, such as\ngrouped-query attention."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        303.5089416503906,
+        752.1944580078125,
+        308.490234375,
+        762.1570434570312
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.29900360107422,
+        82.75727844238281,
+        218.48696899414062,
+        94.71247863769531
+      ],
+      "text": "ACKNOWLEDGMENTS"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00000762939453,
+        107.92646789550781,
+        504.0033264160156,
+        183.64297485351562
+      ],
+      "text": "Research was supported in part by US DARPA KAIROS Program No. FA8750-19-2-1004 and IN-\nCAS Program No. HR001121C0165, National Science Foundation IIS-19-56151, and the Molecule\nMaker Lab Institute: An AI Research Institutes program supported by NSF under Award No.\n2019897, and the Institute for Geospatial Understanding through an Integrative Discovery Envi-\nronment (I-GUIDE) by NSF under Award No. 2118329. Any opinions, findings, and conclusions\nor recommendations expressed herein are those of the authors and do not necessarily represent the\nviews, either expressed or implied, of DARPA or the U.S. Government."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.29901123046875,
+        201.0572052001953,
+        175.25979614257812,
+        213.0124053955078
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00000762939453,
+        220.2483673095703,
+        504.0036926269531,
+        274.0469055175781
+      ],
+      "text": "Reza Yazdani Aminabadi, Samyam Rajbhandari, Minjia Zhang, Ammar Ahmad Awan, Cheng Li,\nDu Li, Elton Zheng, Jeff Rasley, Shaden Smith, Olatunji Ruwase, and Yuxiong He. Deepspeed-\ninference: Enabling efficient inference of transformer models at unprecedented scale. SC22:\nInternational Conference for High Performance Computing, Networking, Storage and Analysis,\npp. 1–15, 2022."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00001525878906,
+        282.9562683105469,
+        504.0036315917969,
+        325.8448791503906
+      ],
+      "text": "Sebastian Bach, Alexander Binder, Gr´egoire Montavon, Frederick Klauschen, Klaus-Robert M¨uller,\nand Wojciech Samek. On pixel-wise explanations for non-linear classifier decisions by layer-wise\nrelevance propagation. PLoS ONE, 10, 2015. URL https://api.semanticscholar.\norg/CorpusID:9327892."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00006103515625,
+        334.80426025390625,
+        504.0038757324219,
+        432.4377746582031
+      ],
+      "text": "Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhari-\nwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal,\nAriel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M.\nZiegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin,\nScott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford,\nIlya Sutskever, and Dario Amodei. Language models are few-shot learners. In Hugo Larochelle,\nMarc’Aurelio Ranzato, Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien Lin (eds.), Advances\nin Neural Information Processing Systems 33: Annual Conference on Neural Information Pro-\ncessing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual, 2020."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00009155273438,
+        441.3471374511719,
+        504.0012512207031,
+        473.2767639160156
+      ],
+      "text": "V´ıctor Campos, Brendan Jou, Xavier Gir´o i Nieto, Jordi Torres, and Shih-Fu Chang. Skip rnn:\nLearning to skip state updates in recurrent neural networks. ArXiv, abs/1708.06834, 2017. URL\nhttps://api.semanticscholar.org/CorpusID:1859294."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00009155273438,
+        482.23614501953125,
+        504.00384521484375,
+        514.11669921875
+      ],
+      "text": "Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared\nKaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, et al. Evaluating large\nlanguage models trained on code. arXiv preprint arXiv:2107.03374, 2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00009155273438,
+        523.0750732421875,
+        504.0033874511719,
+        543.9967041015625
+      ],
+      "text": "Rewon Child, Scott Gray, Alec Radford, and Ilya Sutskever. Generating long sequences with sparse\ntransformers. CoRR, abs/1904.10509, 2019. URL http://arxiv.org/abs/1904.10509."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00009155273438,
+        552.9561157226562,
+        504.0036315917969,
+        606.7537231445312
+      ],
+      "text": "Kevin Clark, Urvashi Khandelwal, Omer Levy, and Christopher D. Manning. What does BERT\nlook at? an analysis of BERT’s attention. In Proceedings of the 2019 ACL Workshop Black-\nboxNLP: Analyzing and Interpreting Neural Networks for NLP, pp. 276–286, Florence, Italy,\nAugust 2019. Association for Computational Linguistics. doi: 10.18653/v1/W19-4828. URL\nhttps://aclanthology.org/W19-4828."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00007629394531,
+        615.713134765625,
+        504.0037841796875,
+        647.5936889648438
+      ],
+      "text": "Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser,\nMatthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, et al. Training verifiers to\nsolve math word problems. arXiv preprint arXiv:2110.14168, 2021."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        108.00006103515625,
+        656.5521240234375,
+        504.0037841796875,
+        732.2686767578125
+      ],
+      "text": "Zihang Dai,\nGuokun Lai,\nYiming Yang,\nand Quoc Le.\nFunnel-transformer:\nFilter-\ning out sequential redundancy for efficient language processing.\nIn Hugo Larochelle,\nMarc’Aurelio Ranzato, Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien Lin (eds.),\nAdvances in Neural Information Processing Systems 33:\nAnnual Conference on Neu-\nral Information Processing Systems 2020,\nNeurIPS 2020,\nDecember 6-12,\n2020,\nvir-\ntual,\n2020.\nURL\nhttps://proceedings.neurips.cc/paper/2020/hash/\n2cd2915e69546904e4e5d4a2ac9e1652-Abstract.html."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        301.01904296875,
+        752.194091796875,
+        310.98162841796875,
+        762.1566772460938
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0036315917969,
+        159.98495483398438
+      ],
+      "text": "Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep\nbidirectional transformers for language understanding.\nIn Jill Burstein, Christy Doran, and\nThamar Solorio (eds.), Proceedings of the 2019 Conference of the North American Chapter of\nthe Association for Computational Linguistics: Human Language Technologies, NAACL-HLT\n2019, Minneapolis, MN, USA, June 2-7, 2019, Volume 1 (Long and Short Papers), pp. 4171–\n4186. Association for Computational Linguistics, 2019.\ndoi: 10.18653/v1/n19-1423.\nURL\nhttps://doi.org/10.18653/v1/n19-1423."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        107.99998474121094,
+        167.79835510253906,
+        504.0035705566406,
+        210.63790893554688
+      ],
+      "text": "Saurabh Goyal, Anamitra R. Choudhury, Saurabh Raje, Venkatesan T. Chakaravarthy, Yogish Sab-\nharwal, and Ashish Verma.\nPower-bert: Accelerating bert inference via progressive word-\nvector elimination. In International Conference on Machine Learning, 2020. URL https:\n//api.semanticscholar.org/CorpusID:219792793."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        107.99996948242188,
+        218.45130920410156,
+        504.0036926269531,
+        283.2088317871094
+      ],
+      "text": "Yue Guan, Zhengyi Li, Jingwen Leng, Zhouhan Lin, and Minyi Guo. Transkimmer: Transformer\nlearns to layer-wise skim. In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio (eds.),\nProceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume\n1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022, pp. 7275–7286. Association for\nComputational Linguistics, 2022. doi: 10.18653/v1/2022.acl-long.502. URL https://doi.\norg/10.18653/v1/2022.acl-long.502."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        107.99998474121094,
+        291.022216796875,
+        504.00372314453125,
+        322.9028015136719
+      ],
+      "text": "Sylvain Gugger, Lysandre Debut, Thomas Wolf, Philipp Schmid, Zachary Mueller, Sourab Man-\ngrulkar, Marc Sun, and Benjamin Bossan. Accelerate: Training and inference at scale made sim-\nple, efficient and adaptable. https://github.com/huggingface/accelerate, 2022."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.0,
+        330.7161865234375,
+        504.0032653808594,
+        362.5967712402344
+      ],
+      "text": "Christian Hansen, Casper Hansen, Stephen Alstrup, Jakob Grue Simonsen, and Christina Lioma.\nNeural speed reading with structural-jump-lstm. ArXiv, abs/1904.00761, 2019. URL https:\n//api.semanticscholar.org/CorpusID:90258012."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00003051757812,
+        370.41015625,
+        504.0032958984375,
+        391.3317565917969
+      ],
+      "text": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, and Yejin Choi. The curious case of neural text\ndegeneration. arXiv preprint arXiv:1904.09751, 2019."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00003051757812,
+        399.1461486816406,
+        504.0037841796875,
+        463.9027404785156
+      ],
+      "text": "Xin Huang, Ashish Khetan, Rene Bidart, and Zohar Karnin. Pyramid-bert: Reducing complexity via\nsuccessive core-set based token selection. In Smaranda Muresan, Preslav Nakov, and Aline Villav-\nicencio (eds.), Proceedings of the 60th Annual Meeting of the Association for Computational Lin-\nguistics (Volume 1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022, pp. 8798–8817.\nAssociation for Computational Linguistics, 2022. doi: 10.18653/v1/2022.acl-long.602. URL\nhttps://doi.org/10.18653/v1/2022.acl-long.602."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00003051757812,
+        471.71612548828125,
+        504.00360107421875,
+        525.5146484375
+      ],
+      "text": "Aniruddha Kembhavi, Minjoon Seo, Dustin Schwenk, Jonghyun Choi, Ali Farhadi, and Han-\nnaneh Hajishirzi. Are you smarter than a sixth grader? textbook question answering for multi-\nmodal machine comprehension. 2017 IEEE Conference on Computer Vision and Pattern Recog-\nnition (CVPR), pp. 5376–5384, 2017.\nURL https://api.semanticscholar.org/\nCorpusID:1310550."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00003814697266,
+        533.3280639648438,
+        504.0039978027344,
+        587.1266479492188
+      ],
+      "text": "Sehoon Kim, Sheng Shen, David Thorsley, Amir Gholami, Woosuk Kwon, Joseph Hassoun, and\nKurt Keutzer. Learned token pruning for transformers. In Aidong Zhang and Huzefa Rangwala\n(eds.), KDD ’22: The 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining,\nWashington, DC, USA, August 14 - 18, 2022, pp. 784–794. ACM, 2022. doi: 10.1145/3534678.\n3539260. URL https://doi.org/10.1145/3534678.3539260."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00006103515625,
+        594.8900756835938,
+        504.00372314453125,
+        659.6976318359375
+      ],
+      "text": "Andreas K¨opf, Yannic Kilcher, Dimitri von R¨utte, Sotiris Anagnostidis, Zhi-Rui Tam, Keith Stevens,\nAbdullah Barhoum, Nguyen Minh Duc, Oliver Stanley, Rich´ard Nagyfi, Shahul ES, Sameer Suri,\nDavid Glushkov, Arnav Dantuluri, Andrew Maguire, Christoph Schuhmann, Huu Nguyen, and\nAlexander Mattick. Openassistant conversations - democratizing large language model alignment.\nCoRR, abs/2304.07327, 2023. doi: 10.48550/arXiv.2304.07327. URL https://doi.org/\n10.48550/arXiv.2304.07327."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        108.00007629394531,
+        667.5110473632812,
+        504.0037841796875,
+        732.2686157226562
+      ],
+      "text": "Olga Kovaleva, Alexey Romanov, Anna Rogers, and Anna Rumshisky. Revealing the dark secrets of\nBERT. In Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan (eds.), Proceedings of the 2019\nConference on Empirical Methods in Natural Language Processing and the 9th International\nJoint Conference on Natural Language Processing, EMNLP-IJCNLP 2019, Hong Kong, China,\nNovember 3-7, 2019, pp. 4364–4373. Association for Computational Linguistics, 2019.\ndoi:\n10.18653/v1/D19-1445. URL https://doi.org/10.18653/v1/D19-1445."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        301.01910400390625,
+        752.1930541992188,
+        310.981689453125,
+        762.1556396484375
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0037841796875,
+        138.06698608398438
+      ],
+      "text": "Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Al-\nberti, Danielle Epstein, Illia Polosukhin, Matthew Kelcey, Jacob Devlin, Kenton Lee, Kristina N.\nToutanova, Llion Jones, Ming-Wei Chang, Andrew Dai, Jakob Uszkoreit, Quoc Le, and Slav\nPetrov. Natural questions: a benchmark for question answering research. Transactions of the\nAssociation of Computational Linguistics, 2019."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00001525878906,
+        148.24940490722656,
+        504.0035705566406,
+        180.12997436523438
+      ],
+      "text": "Xuechen Li, Tianyi Zhang, Yann Dubois, Rohan Taori, Ishaan Gulrajani, Carlos Guestrin, Percy\nLiang, and Tatsunori B. Hashimoto. Alpacaeval: An automatic evaluator of instruction-following\nmodels. https://github.com/tatsu-lab/alpaca_eval, 2023."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003051757812,
+        190.31239318847656,
+        504.003662109375,
+        233.15194702148438
+      ],
+      "text": "Zichang Liu, Aditya Desai, Fangshuo Liao, Weitao Wang, Victor Xie, Zhaozhuo Xu, Anastasios\nKyrillidis, and Anshumali Shrivastava. Scissorhands: Exploiting the persistence of importance\nhypothesis for LLM KV cache compression at test time. CoRR, abs/2305.17118, 2023a. doi:\n10.48550/arXiv.2305.17118. URL https://doi.org/10.48550/arXiv.2305.17118."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003051757812,
+        243.33534240722656,
+        504.0037536621094,
+        319.0508728027344
+      ],
+      "text": "Zichang Liu, Jue Wang, Tri Dao, Tianyi Zhou, Binhang Yuan, Zhao Song, Anshumali Shrivas-\ntava, Ce Zhang, Yuandong Tian, Christopher R´e, and Beidi Chen. Deja vu: Contextual spar-\nsity for efficient llms at inference time.\nIn Andreas Krause, Emma Brunskill, Kyunghyun\nCho, Barbara Engelhardt, Sivan Sabato, and Jonathan Scarlett (eds.), International Confer-\nence on Machine Learning, ICML 2023, 23-29 July 2023, Honolulu, Hawaii, USA, volume\n202 of Proceedings of Machine Learning Research, pp. 22137–22176. PMLR, 2023b.\nURL\nhttps://proceedings.mlr.press/v202/liu23am.html."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003051757812,
+        329.2332458496094,
+        504.00384521484375,
+        383.0318298339844
+      ],
+      "text": "Paul Michel, Omer Levy, and Graham Neubig.\nAre sixteen heads really better than one?\nIn\nH. Wallach, H. Larochelle, A. Beygelzimer, F. d'Alch´e-Buc, E. Fox, and R. Garnett (eds.),\nAdvances in Neural Information Processing Systems, volume 32. Curran Associates, Inc.,\n2019.\nURL https://proceedings.neurips.cc/paper_files/paper/2019/\nfile/2c601ad9d2ff9bc8b282670cdd54f69f-Paper.pdf."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003051757812,
+        393.2142028808594,
+        504.00323486328125,
+        425.0948181152344
+      ],
+      "text": "Jesse Mu, Xiang Lisa Li, and Noah D. Goodman. Learning to compress prompts with gist tokens.\nCoRR, abs/2304.08467, 2023. doi: 10.48550/arXiv.2304.08467. URL https://doi.org/\n10.48550/arXiv.2304.08467."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00004577636719,
+        435.2771911621094,
+        261.54364013671875,
+        445.23980712890625
+      ],
+      "text": "OpenAI. Gpt-4 technical report, 2023."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00004577636719,
+        455.4231872558594,
+        504.0032653808594,
+        487.3038024902344
+      ],
+      "text": "Minjoon Seo, Sewon Min, Ali Farhadi, and Hannaneh Hajishirzi.\nNeural speed reading via\nskim-rnn. ArXiv, abs/1711.02085, 2017. URL https://api.semanticscholar.org/\nCorpusID:3140413."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003814697266,
+        497.4861755371094,
+        504.00360107421875,
+        540.3257446289062
+      ],
+      "text": "Noam M. Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc V. Le, Geoffrey E.\nHinton, and Jeff Dean.\nOutrageously large neural networks: The sparsely-gated mixture-of-\nexperts layer.\nArXiv, abs/1701.06538, 2017.\nURL https://api.semanticscholar.\norg/CorpusID:12462234."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00006103515625,
+        550.5081787109375,
+        504.0036926269531,
+        604.3067626953125
+      ],
+      "text": "Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan Li, Max Ryabinin, Daniel Y. Fu, Zhiqiang\nXie, Beidi Chen, Clark W. Barrett, Joseph Gonzalez, Percy Liang, Christopher R´e, Ioan Cristian\nStoica, and Ce Zhang. High-throughput generative inference of large language models with a\nsingle gpu. In International Conference on Machine Learning, 2023. URL https://api.\nsemanticscholar.org/CorpusID:257495837."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.00003051757812,
+        614.4891967773438,
+        504.0042419433594,
+        690.2047729492188
+      ],
+      "text": "Tianxiang Sun, Xiangyang Liu, Wei Zhu, Zhichao Geng, Lingling Wu, Yilong He, Yuan Ni, Guo-\ntong Xie, Xuanjing Huang, and Xipeng Qiu. A simple hash-based early exiting approach for\nlanguage understanding and generation. In Smaranda Muresan, Preslav Nakov, and Aline Villav-\nicencio (eds.), Findings of the Association for Computational Linguistics: ACL 2022, Dublin,\nIreland, May 22-27, 2022, pp. 2409–2421. Association for Computational Linguistics, 2022.\ndoi: 10.18653/v1/2022.findings-acl.189. URL https://doi.org/10.18653/v1/2022.\nfindings-acl.189."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        108.0000228881836,
+        700.3381958007812,
+        504.00018310546875,
+        732.2687377929688
+      ],
+      "text": "Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth´ee\nLacroix, Baptiste Rozi`ere, Naman Goyal, Eric Hambro, Faisal Azhar, et al. Llama: Open and\nefficient foundation language models. arXiv preprint arXiv:2302.13971, 2023a."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        301.0190124511719,
+        752.1942138671875,
+        310.9815979003906,
+        762.1567993164062
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.0,
+        84.26844787597656,
+        504.0037536621094,
+        225.73788452148438
+      ],
+      "text": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Niko-\nlay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Dan Bikel, Lukas Blecher,\nCristian Canton Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernandes, Jeremy\nFu, Wenyin Fu, Brian Fuller, Cynthia Gao, Vedanuj Goswami, Naman Goyal, Anthony Hartshorn,\nSaghar Hosseini, Rui Hou, Hakan Inan, Marcin Kardas, Viktor Kerkez, Madian Khabsa, Isabel\nKloumann, Artem Korenev, Punit Singh Koura, Marie-Anne Lachaux, Thibaut Lavril, Jenya Lee,\nDiana Liskovich, Yinghai Lu, Yuning Mao, Xavier Martinet, Todor Mihaylov, Pushkar Mishra,\nIgor Molybog, Yixin Nie, Andrew Poulton, Jeremy Reizenstein, Rashi Rungta, Kalyan Saladi,\nAlan Schelten, Ruan Silva, Eric Michael Smith, Ranjan Subramanian, Xiaoqing Ellen Tan, Binh\nTang, Ross Taylor, Adina Williams, Jian Xiang Kuan, Puxin Xu, Zheng Yan, Iliyan Zarov, Yuchen\nZhang, Angela Fan, Melanie Kambadur, Sharan Narang, Aurelien Rodriguez, Robert Stojnic,\nSergey Edunov, and Thomas Scialom. Llama 2: Open foundation and fine-tuned chat models,\n2023b."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.0,
+        237.1162872314453,
+        504.0037536621094,
+        268.9968566894531
+      ],
+      "text": "Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov. Analyzing multi-head\nself-attention: Specialized heads do the heavy lifting, the rest can be pruned, July 2019. URL\nhttps://aclanthology.org/P19-1580."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.00001525878906,
+        280.375244140625,
+        504.00372314453125,
+        334.1728210449219
+      ],
+      "text": "Ziheng Wang, Jeremy Wohlwend, and Tao Lei. Structured pruning of large language models. In\nBonnie Webber, Trevor Cohn, Yulan He, and Yang Liu (eds.), Proceedings of the 2020 Conference\non Empirical Methods in Natural Language Processing, EMNLP 2020, Online, November 16-20,\n2020, pp. 6151–6162. Association for Computational Linguistics, 2020. doi: 10.18653/v1/2020.\nemnlp-main.496. URL https://doi.org/10.18653/v1/2020.emnlp-main.496."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.00003051757812,
+        345.55120849609375,
+        504.0032653808594,
+        399.3497619628906
+      ],
+      "text": "Zhenyu Zhang, Ying Sheng, Tianyi Zhou, Tianlong Chen, Lianmin Zheng, Ruisi Cai, Zhao\nSong, Yuandong Tian, Christopher R´e, Clark W. Barrett, Zhangyang Wang, and Beidi Chen.\nH2o: Heavy-hitter oracle for efficient generative inference of large language models. CoRR,\nabs/2306.14048, 2023.\ndoi: 10.48550/arXiv.2306.14048.\nURL https://doi.org/10.\n48550/arXiv.2306.14048."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.00001525878906,
+        410.7281494140625,
+        504.0036926269531,
+        453.5667419433594
+      ],
+      "text": "Chunting Zhou, Pengfei Liu, Puxin Xu, Srini Iyer, Jiao Sun, Yuning Mao, Xuezhe Ma, Avia Efrat,\nPing Yu, Lili Yu, Susan Zhang, Gargi Ghosh, Mike Lewis, Luke Zettlemoyer, and Omer Levy.\nLIMA: less is more for alignment. CoRR, abs/2305.11206, 2023. doi: 10.48550/arXiv.2305.\n11206. URL https://doi.org/10.48550/arXiv.2305.11206."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.00003051757812,
+        464.94512939453125,
+        504.0038146972656,
+        540.66162109375
+      ],
+      "text": "Wangchunshu\nZhou,\nCanwen\nXu,\nTao\nGe,\nJulian\nJ.\nMcAuley,\nKe\nXu,\nand\nFuru\nWei.\nBERT loses patience:\nFast and robust inference with early exit.\nIn Hugo\nLarochelle, Marc’Aurelio Ranzato, Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien\nLin (eds.), Advances in Neural Information Processing Systems 33:\nAnnual Conference\non Neural Information Processing Systems 2020, NeurIPS 2020, December 6-12, 2020,\nvirtual,\n2020.\nURL https://proceedings.neurips.cc/paper/2020/hash/\nd4dd111a4fd973394238aca5c05bebe3-Abstract.html."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.29901123046875,
+        565.3218994140625,
+        182.63134765625,
+        577.277099609375
+      ],
+      "text": "A\nAPPENDIX"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.24900817871094,
+        591.3080444335938,
+        184.02456665039062,
+        601.2706298828125
+      ],
+      "text": "A.1\nABLATIONS"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.00001525878906,
+        612.1434936523438,
+        382.8006896972656,
+        622.3366088867188
+      ],
+      "text": "For all the ablations, we use a fixed targeted recovery ratio T = 0.98."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        108.0,
+        637.3001098632812,
+        504.00335693359375,
+        738.6156616210938
+      ],
+      "text": "How one policy affect all the other policies?\nWe study the complementary effects of each policy\non the combination of all other policies in our framework. We examine changes in pruned KV\ncache and win rate while fixing the targeted recovery ratio T. We take the full policy set as our\ncontrol set C. For each ablation, we remove one of the policies from all policy combination in C.\nWe summarized the results in Table 4, which suggests the Cfrequent, and the Cspecial are the most\nimportant policies. Removing them will incur a 3.67% and a 2.11% win rate drop respectively. We\ncan also observe from the pruned cache ratio that Cfrequent and Clocal reduce more KV caches than\nthe others. However, their standalone non-adaptive deployment yields suboptimal performance, as\ndepicted in Figure 2, further verifying the importance of adapting different compression policies."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        301.01904296875,
+        752.1940307617188,
+        310.98162841796875,
+        762.1566162109375
+      ],
+      "text": "13"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        108.0,
+        27.81348991394043,
+        293.0951843261719,
+        37.77608871459961
+      ],
+      "text": "Published as a conference paper at ICLR 2024"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        85.33617401123047,
+        476.4364013671875,
+        93.80924224853516
+      ],
+      "text": "Feasible Policy Set\nPruned KV Ratio\nWin Rate"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        99.24923706054688,
+        472.27850341796875,
+        108.02820587158203
+      ],
+      "text": "C\n36.04%\n49.75%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        113.39083862304688,
+        472.278564453125,
+        125.02930450439453
+      ],
+      "text": "{Cpunct., Cpunct.+frequent, Cpunct.+frequent+local, Cfull}\n31.16%\n47.64%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        129.40170288085938,
+        472.27850341796875,
+        141.04107666015625
+      ],
+      "text": "{Cspecial, Cspecial+frequent, Cspecial+frequent+local, Cfull}\n34.23%\n49.56%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        145.41342163085938,
+        472.278564453125,
+        157.0518798828125
+      ],
+      "text": "{Cspecial, Cspecial+punct., Cspecial+punct.+frequent, Cfull}\n30.18%\n49.06%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        135.56478881835938,
+        161.42422485351562,
+        472.27850341796875,
+        173.0635986328125
+      ],
+      "text": "{Cspecial, Cspecial+punct., Cspecial+punct.+local, Cfull}\n21.26%\n46.08%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        108.0,
+        185.30348205566406,
+        504.00323486328125,
+        206.22506713867188
+      ],
+      "text": "Table 4: Complementary effects of each policy. We display the win rate of each method over full\ncache setting. We evaluate the fine-tuned Llama 1-65B on AlpacaEval with the same parameters."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        165.27398681640625,
+        222.53982543945312,
+        446.72235107421875,
+        231.02293395996094
+      ],
+      "text": "Cache Order\nPruned KV Ratio\nWin Rate"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        165.27398681640625,
+        236.4684295654297,
+        442.56109619140625,
+        248.1216278076172
+      ],
+      "text": "Cspecial →Cpunct. →Cfrequent →Clocal\n36.04%\n49.75%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        165.27398681640625,
+        252.49913024902344,
+        442.56109619140625,
+        264.15234375
+      ],
+      "text": "Cspecial →Cfrequent →Clocal →Cpunct.\n36.40%\n47.64%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        155.63499450683594,
+        276.39447021484375,
+        456.3659973144531,
+        286.3570861816406
+      ],
+      "text": "Table 5: Policy order ablation on fine-tuned Llama 1-65B with AlpacaEval."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        129.82058715820312,
+        341.2884216308594,
+        205.7267608642578,
+        355.5746154785156
+      ],
+      "text": "0.1\n0.2\n0.3\n0.4\nLocality Ratio rl"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        117.42545318603516,
+        337.4835205078125,
+        128.4243621826172,
+        345.87872314453125
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        117.42545318603516,
+        326.35467529296875,
+        128.4243621826172,
+        334.7498779296875
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        117.42545318603516,
+        315.2257995605469,
+        128.4243621826172,
+        323.6210021972656
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        117.42545318603516,
+        304.0969543457031,
+        128.4243621826172,
+        312.4921569824219
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        109.19085693359375,
+        300.934326171875,
+        117.58605194091797,
+        343.5074768066406
+      ],
+      "text": "Pruned KV Cache"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        227.92959594726562,
+        341.2884216308594,
+        303.83575439453125,
+        355.5746154785156
+      ],
+      "text": "0.1\n0.2\n0.3\n0.4\nLocality Ratio rl"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        215.53445434570312,
+        337.4835205078125,
+        226.53335571289062,
+        345.87872314453125
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        215.53445434570312,
+        326.35467529296875,
+        226.53335571289062,
+        334.7498779296875
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        215.53445434570312,
+        315.2257995605469,
+        226.53335571289062,
+        323.6210021972656
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        215.53445434570312,
+        304.0969543457031,
+        226.53335571289062,
+        312.4921569824219
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        207.2998504638672,
+        311.1212158203125,
+        215.69505310058594,
+        333.34967041015625
+      ],
+      "text": "Win Rate"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        326.0386047363281,
+        341.2884216308594,
+        401.9447326660156,
+        355.5746154785156
+      ],
+      "text": "0.1\n0.2\n0.3\n0.4\nFrequency Ratio rf"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        313.6434631347656,
+        337.4835205078125,
+        324.6423645019531,
+        345.87872314453125
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        313.6434631347656,
+        326.35467529296875,
+        324.6423645019531,
+        334.7498779296875
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        313.6434631347656,
+        315.2257995605469,
+        324.6423645019531,
+        323.6210021972656
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        313.6434631347656,
+        304.0969543457031,
+        324.6423645019531,
+        312.4921569824219
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        305.4088439941406,
+        300.934326171875,
+        313.8040466308594,
+        343.5074768066406
+      ],
+      "text": "Pruned KV Cache"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        424.1475830078125,
+        341.2884216308594,
+        500.0537414550781,
+        355.5746154785156
+      ],
+      "text": "0.1\n0.2\n0.3\n0.4\nFrequency Ratio rf"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        411.75244140625,
+        337.4835205078125,
+        422.7513427734375,
+        345.87872314453125
+      ],
+      "text": "20%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        411.75244140625,
+        326.35467529296875,
+        422.7513427734375,
+        334.7498779296875
+      ],
+      "text": "30%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        411.75244140625,
+        315.2257995605469,
+        422.7513427734375,
+        323.6210021972656
+      ],
+      "text": "40%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        411.75244140625,
+        304.0969543457031,
+        422.7513427734375,
+        312.4921569824219
+      ],
+      "text": "50%"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        403.517822265625,
+        311.1212158203125,
+        411.91302490234375,
+        333.34967041015625
+      ],
+      "text": "Win Rate"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        144.06399536132812,
+        368.6694641113281,
+        467.9381408691406,
+        378.632080078125
+      ],
+      "text": "Figure 6: Hyper-parameter ablation on fine-tuned Llama 1-65B with AlpacaEval."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        107.99995422363281,
+        401.7545166015625,
+        504.00335693359375,
+        513.3510131835938
+      ],
+      "text": "Which policy should we add first (and last)?\nAs in Section 3.4, we use a greed method to\nconstruct adaptive KV cache. Here, we examine how the order of introducing each policy affects\nthe performance. Similar to the previous study, we fix the targeted recovery ratio to 0.98, and\nkeep allocating cache budget until the constructed cache hit the recovery ratio. For simplicity, we\nmake every examined order opt-in the Cspecial first, as it’s typically the most important tokens\nand of super-low memory cost, as suggested in Figure 1. We summarize the results in Table 5.\nOur current order (as in Equation 2) achieves the highest win-rates and the highest pruned ratios.\nMeanwhile, using alternative orders leads to a different trade-off between KV cache compression\nand generation quality. For example, using Cfrequent →Clocal →Cpunct. leads to an improved\nKV cache compression ratio at the cost of generation quality."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        108.24897003173828,
+        528.3944091796875,
+        223.1166229248047,
+        538.3569946289062
+      ],
+      "text": "A.2\nSENSITIVITY STUDY."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        107.9999771118164,
+        548.9174194335938,
+        504.0032958984375,
+        615.1690063476562
+      ],
+      "text": "We analyze the sensitivity of selecting different hyper-parameters for FastGen, as illustrated in Fig-\nure 6. We observe that altering these hyper-parameters does not have a visible impact on the gen-\neration quality, as the model maintains a winrate over 45% in all situations. Meanwhile, it leads to\na relative large change on the compression ratio. For example, changing the ratio for the frequency\npolicy from 0.3 to 0.1 leads to more KV cache. In our experiments, we set the ratio to 0.3 for both\nrl and rf."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        301.01898193359375,
+        752.1943969726562,
+        310.9815673828125,
+        762.156982421875
+      ],
+      "text": "14"
+    }
+  ],
+  "pictures": [],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 15,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 27,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p1_table2_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 13,
+      "ncols": 11,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p2_table1_lattice.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 14,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 19,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 18,
+      "ncols": 15,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 56,
+      "ncols": 20,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 26,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p7_table2_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 19,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 17,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p8_table2_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 9,
+      "ncols": 11,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p8_table3_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 20,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p9_table2_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 42,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 54,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 28,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 38,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p13_table1_stream.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2310.01801/2310.01801_p14_table1_stream.csv"
+    }
+  ]
+}

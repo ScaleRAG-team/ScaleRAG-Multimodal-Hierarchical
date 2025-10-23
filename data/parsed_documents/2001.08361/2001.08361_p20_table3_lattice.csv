@@ -1,0 +1,11 @@
+"Nopt = Ne · C pN
+min","pN = 0.73","Ne = 1.3 · 109 params"
+"B∗
+B (cid:28) Bcrit =
+= BeC pB
+min
+L1/αB","pB = 0.24","Be = 2.0 · 106 tokens"
+"Smin = Se · C pS
+min (lower bound)","pS = 0.03","Se = 5.4 · 103 steps"
+"Dopt = De · C pD
+min (1 epoch)","pD = 0.27","De = 2 · 1010 tokens"

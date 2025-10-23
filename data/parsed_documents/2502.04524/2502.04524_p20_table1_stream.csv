@@ -1,0 +1,49 @@
+"","the magnitude of read noise is much smaller than that of the relaxation process and","","","","",""
+"of
+the
+effect of","","reduced input/output quantization, which dominate","","","","the RMSE on"
+"different","timescales. Furthermore,","","simulation results demonstrate","","the","suitability of"
+"","CMO/HfOx ReRAM technology for large 512x512 array, with the IR-drop expected","","","","",""
+"","to become the primary accuracy bottleneck in this case.","","","","",""
+"Finally,
+the","electrical","response of","the CMO/HfOx ReRAM array to an open-loop","","",""
+"scheme with identical pulses demonstrates","","","the viability of","this","technology for on-",""
+"chip training applications. A realistic device model, accounting for both inter- and","","","","","",""
+"intra-device","variability,
+is","derived","from experimental","data. Table","1","benchmarks"
+"the","representative device model used in this work on the MNIST dataset against","","","","",""
+"other approaches, highlighting its high fidelity in reproducing experimental device","","","","","",""
+"responses.","","","","","",""
+"Table 1: Device model benchmarking:","","","from simplified approaches","","to realistic non-ideality",""
+"modeling","","","","","",""
+"ReRAM","Device","Analog States","Experimental","Algorithm Model","","MNIST"
+"","Asymmetry","","Data Origin","","Fidelity","Accuracy"
+"Ti/HfOx [41]","Not-included","exp. states2","BEOL array","TTv2","Medium","90.5 %"
+"Ta/TaOx [41]","Not-included","exp. states2","BEOL array","TTv2","Medium","96.4 %"
+"TaOx/HfOx [24]","included","material states3","Single ReRAMs","TTv2","Medium","97.4 %"
+"","","","","","",""
+"CMOx/HfOx","included","exp. states2","BEOL array","AGAD","High","96.9 %"
+"1This work.","","","","","",""
+"","2Measured number of analog states during open-loop device characterization.","","","","",""
+"","3The asymptotic number of states under an infinite number of pulses.","","","","",""
+"","The impact of the device’s number of states, asymmetry and noise-to-signal ratio on","","","","",""
+"","training accuracy using the AGAD algorithm on MNIST is evaluated. This analysis","","","","",""
+"","demonstrates that, with the current device’s experimental properties, AGAD analog","","","","",""
+"","training achieves 96.9% accuracy, comparable to the ideal FP-baseline of 98.3%. To","","","","",""
+"further
+improve","analog","training performance","and bring","results","closer
+to","the
+soft-"
+"ware equivalent,","","the key metric to enhance in the device is","","","the symmetry. Finally,",""
+"","the on-chip analog training capabilities of","","","the CMO/HfOx ReRAM technology are","",""
+"","demonstrated on a more complex 2-layer LSTM network,","","","","showing comparable per-",""
+"","formance to its floating-point equivalent.","","","","",""
+"In conclusion,","","the novel CMO/HfOx ReRAM all-in-one","","","technology platform pre-",""
+"sented
+in","this work
+lays","the
+foundation","for
+efficient","and
+versatile","analog","chips"
+"","capable of combining both training and inference capabilities, enabling autonomous,","","","","",""
+"","energy-efficient, and adaptable AI systems.","","","","",""

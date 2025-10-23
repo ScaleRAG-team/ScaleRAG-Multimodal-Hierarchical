@@ -1,0 +1,15 @@
+"C.3
+Effectiveness on Zero-shot and One-shot Inference"
+"When facing zero-shot and one-shot
+inference tasks, H2O can successfully mitigate the memory"
+"under both one/zero-shot inference across different tasks,
+requirements of the KV cache by up to 5"
+"×"
+"achieving matching performance as the model with full KV cache while the local method fails."
+"However, unlike 5-shot, we also found that some tasks are more difficult, and the model requires"
+"more information to generate the correct content, resulting in a higher KV cache budget (30-40%)."
+"This might be expected since 0/1 shots in our benchmarks have shorter sequence lengths ranging"
+"from 100 to 300."
+"PiQA, LLaMA-7B
+COPA, LLaMA-7B
+OpenBookQA, LLaMA-7B"

@@ -1,0 +1,10 @@
+"2.2
+Standard Attention Implementation",""
+"","Given input sequences Q, K, V ∈ R𝑁 ×𝑑 where 𝑁 is the sequence length and 𝑑 is the head dimension, we want"
+"to compute the attention output O ∈ R𝑁 ×𝑑:",""
+"S = QK⊤ ∈ R𝑁 × 𝑁 ,
+P = softmax(S) ∈ R𝑁 × 𝑁 ,","O = PV ∈ R𝑁 ×𝑑,"
+"where softmax is applied row-wise.2 For multi-head attention (MHA), this same computation is performed in",""
+"parallel across many heads, and parallel over the batch dimension (number of","input sequences in a batch)."
+"","The backward pass of attention proceeds as follows. Let dO ∈ R𝑁 ×𝑑 be the gradient of O with respect to"
+"some loss function. Then by the chain rule (aka backpropagation):",""

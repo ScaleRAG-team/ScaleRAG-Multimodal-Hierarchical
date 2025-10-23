@@ -1,0 +1,15 @@
+"ZeRO++: Extremely Efficient Collective Communication for Giant Model Training","ABC, 2023, USA"
+"achieves similar throughput in low-bandwidth setting. In addition,","19, 22, 28]. Despite being highly efficient, 3D parallelism is severely"
+"we show the impact of each of the three optimizations in ZeRO++","limited by the fact that it requires complete rewrite of model and"
+"and how they compose together. Furthermore, we also show the","training pipeline to make them compatible with 3D parallelism [33]."
+"impact of our optimized kernel
+implementations on end-to-end",""
+"system throughput. Finally, we conduct convergence evaluation in-",""
+"","Algorithm 1: ZeRO algorithm"
+"dicating that ZeRO++ has negligible impact on model convergence",""
+"","Input
+:𝑚𝑜𝑑𝑒𝑙,𝑤𝑜𝑟𝑙𝑑𝑆𝑖𝑧𝑒"
+"and maintains similar model training accuracy as ZeRO baseline.",""
+"","Output :𝑚𝑜𝑑𝑒𝑙"
+"The main contributions of this paper are as follows:",""
+"","1 while 𝑚𝑜𝑑𝑒𝑙 not converged do"

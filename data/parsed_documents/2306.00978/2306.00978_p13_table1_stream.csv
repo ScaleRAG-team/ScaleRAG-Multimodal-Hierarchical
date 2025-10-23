@@ -1,0 +1,99 @@
+"AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration",""
+"Han, S., Pool, J., Tran, J., and Dally, W.
+Learning both","Li, R., Allal, L. B., Zi, Y., Muennighoff, N., Kocetkov, D.,"
+"weights and connections
+for efficient neural network.","Mou, C., Marone, M., Akiki, C., Li, J., Chim, J., et al."
+"Advances in neural information processing systems, 28,","Starcoder: may the source be with you! arXiv preprint"
+"2015.","arXiv:2305.06161, 2023c."
+"Han, S., Mao, H., and Dally, W. J. Deep Compression: Com-","Li, Y., Gong, R., Tan, X., Yang, Y., Hu, P., Zhang, Q., Yu,"
+"pressing Deep Neural Networks with Pruning, Trained","F., Wang, W., and Gu, S. Brecq: Pushing the limit of"
+"Quantization and Huffman Coding.
+In ICLR, 2016.","post-training quantization by block reconstruction. arXiv"
+"","preprint arXiv:2102.05426, 2021."
+"Hudson, D. A. and Manning, C. D. Gqa: A new dataset for",""
+"real-world visual reasoning and compositional question","Li, Y., Du, Y., Zhou, K., Wang, J., Zhao, W. X., and Wen,"
+"answering.
+In CVPR, 2019.","J.-R.
+Evaluating object hallucination in large vision-"
+"","language models.
+arXiv preprint arXiv:2305.10355,"
+"Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard,",""
+"","2023d."
+"A., Adam, H.,
+and Kalenichenko, D.
+Quantization",""
+"and training of neural networks
+for
+efficient
+integer-","Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet:"
+"the IEEE
+arithmetic-only inference.
+In Proceedings of","Tiny deep learning on iot devices. Advances in Neural"
+"Conference on Computer Vision and Pattern Recognition,","Information Processing Systems, 33:11711–11722, 2020."
+"pp. 2704–2713, 2018.",""
+"","Lin, J., Yin, H., Ping, W., Lu, Y., Molchanov, P., Tao, A.,"
+"Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C.,","Mao, H., Kautz, J., Shoeybi, M., and Han, S. Vila: On"
+"Chaplot, D. S., Casas, D. d. l., Bressand, F., Lengyel, G.,","pre-training for visual language models.
+In CVPR, 2024."
+"Lample, G., Saulnier, L., et al. Mistral 7b. arXiv preprint",""
+"","Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual
+instruction"
+"arXiv:2310.06825, 2023.",""
+"","tuning. 2023a."
+"Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary,",""
+"","Liu, Y., Duan, H., Zhang, Y., Li, B., Zhang, S., Zhao, W.,"
+"B., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna,",""
+"","Yuan, Y., Wang, J., He, C., Liu, Z., et al. Mmbench:
+Is"
+"E. B., Bressand, F., Lengyel, G., Bour, G., Lample, G.,",""
+"","arXiv
+your multi-modal model an all-around player?"
+"Lavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P.,",""
+"","preprint arXiv:2307.06281, 2023b."
+"Subramanian, S., Yang, S., Antoniak, S., Scao, T. L.,",""
+"Gervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed,",""
+"","Lu, P., Mishra, S., Xia, T., Qiu, L., Chang, K.-W., Zhu,"
+"W. E. Mixtral of experts, 2024.",""
+"","S.-C., Tafjord, O., Clark, P., and Kalyan, A. Learn to"
+"","explain: Multimodal
+reasoning via thought chains for"
+"Kim, Y.
+J., Henry, R., Fahim, R., and Awadalla, H. H.",""
+"","science question answering. Advances in Neural Infor-"
+"Who says
+elephants
+can’t
+run:
+Bringing large
+scale",""
+"","mation Processing Systems, 35:2507–2521, 2022."
+"moe models into cloud scale production. arXiv preprint",""
+"arXiv:2211.10017, 2022.","Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer"
+"","sentinel mixture models, 2016."
+"Klimt, B. and Yang, Y. The enron corpus: A new dataset",""
+"for email classification research.
+In Machine Learning:","MLC-Team. MLC-LLM, 2023. URL https://github."
+"ECML 2004:
+15th European Conference on Machine","com/mlc-ai/mlc-llm."
+"Learning, Pisa, Italy, September 20-24, 2004. Proceed-",""
+"","Nagel, M., Baalen, M. v., Blankevoort, T., and Welling,"
+"ings 15, pp. 217–226. Springer, 2004.",""
+"","M. Data-free quantization through weight equalization"
+"Koh, J. Y., Salakhutdinov, R., and Fried, D. Grounding","the IEEE/CVF
+and bias correction.
+In Proceedings of"
+"language models to images for multimodal generation.","International Conference on Computer Vision, pp. 1325–"
+"arXiv preprint arXiv:2301.13823, 2023.","1334, 2019."
+"Li, B., Wang, R., Wang, G., Ge, Y., Ge, Y., and Shan, Y.","Nagel, M., Amjad, R. A., Van Baalen, M., Louizos, C.,"
+"Seed-bench: Benchmarking multimodal llms with gener-","and Blankevoort, T. Up or down? adaptive rounding for"
+"ative comprehension. arXiv preprint arXiv:2307.16125,","post-training quantization.
+In International Conference"
+"2023a.","on Machine Learning, pp. 7197–7206. PMLR, 2020."
+"Li,
+J., Li, D., Savarese, S., and Hoi, S.
+Blip-2: Boot-","Nagel, M., Fournarakis, M., Amjad, R. A., Bondarenko,"
+"strapping language-image pre-training with frozen im-","Y
+., Van Baalen, M., and Blankevoort, T. A white pa-"
+"age encoders and large language models. arXiv preprint","arXiv preprint
+per on neural network quantization."
+"arXiv:2301.12597, 2023b.","arXiv:2106.08295, 2021."

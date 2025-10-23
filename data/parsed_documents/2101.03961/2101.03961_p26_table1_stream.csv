@@ -1,0 +1,19 @@
+"","Fedus, Zoph and Shazeer"
+"can, and do, use model-parallelism in Switch Transformers, increasing the FLOPs per token,",""
+"but incurring the slowdown of conventional model-parallelism.",""
+"Why aren’t","sparse models widely used already? The motivation to try sparse"
+"models has been stymied by the massive success of","scaling dense models
+(the success of"
+"which is partially driven by co-adaptation with deep learning hardware as argued in Hooker",""
+"(2020)). Further,","sparse models have been subject to multiple issues including (1) model"
+"complexity,
+(2)","training diﬃculties,
+and (3)
+communication costs.
+Switch Transformer"
+"makes strides to alleviate these issues.",""
+"8. Future Work",""
+"This paper","lays out a simpliﬁed architecture,
+improved training procedures, and a study"
+"of how sparse models scale. However, there remain many open future directions which we",""
+"brieﬂy describe here:",""

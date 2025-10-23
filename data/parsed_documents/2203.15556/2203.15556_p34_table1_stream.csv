@@ -1,0 +1,27 @@
+"Intersectional Results","We did not investigate intersectional biases."
+"","Ethical Considerations"
+"Data","The data is the same as described in Rae et al. (2021)."
+"Human Life","The model
+is not intended to inform decisions about matters"
+"","central to human life or ﬂourishing."
+"Mitigations","We considered ﬁltering the dataset to remove toxic content"
+"","but decided against it due to the observation that this can"
+"","introduce new biases as studied by Welbl et al. (2021). More"
+"","work is needed on mitigation approaches to toxic content and"
+"","other types of risks associated with language models, such"
+"","as those discussed in Weidinger et al. (2021)."
+"Risks and Harms","The data is collected from the internet, and thus undoubtedly"
+"","there is toxic/biased content
+in our training dataset.
+Fur-"
+"","thermore, it is likely that personal information is also in the"
+"","dataset that has been used to train our models. We defer to"
+"","the more detailed discussion in Weidinger et al. (2021)."
+"Use Cases","Especially fraught use cases include the generation of
+fac-"
+"","tually incorrect information with the intent of distributing"
+"","it or using the model to generate racist, sexist or otherwise"
+"","toxic text with harmful
+intent. Many more use cases that"
+"","could cause harm exist. Such applications to malicious use"
+"","are discussed in detail in Weidinger et al. (2021)."

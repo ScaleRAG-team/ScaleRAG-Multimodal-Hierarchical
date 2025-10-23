@@ -1,0 +1,66 @@
+"import
+mesh tensorflow
+as mtf",""
+"def load balance loss(router probs,
+expert mask):",""
+"""""""Calculate load−balancing
+loss to
+ensure diverse
+expert routing.""""""",""
+"# router probs is the probability assigned
+for each expert per token.",""
+"# router probs shape: [num cores,
+tokens per core,
+num experts]",""
+"# expert index contains the
+expert with","the highest router probability in one−hot format."
+"# expert mask shape: [num cores,
+tokens per core, num experts]",""
+"# For
+each core,
+get the fraction of tokens routed to each expert.",""
+"# density 1 shape: [num cores,
+num experts]",""
+"density 1 =
+mtf.reduce mean(expert mask, reduced dim=tokens per core)",""
+"# For
+each core,
+get fraction
+of probability mass assigned to each","expert"
+"# from
+the router
+across all
+tokens.",""
+"# density 1 proxy shape: [num cores,
+num experts]",""
+"density 1 proxy =
+mtf.reduce mean(router probs,
+reduced dim=tokens per core)",""
+"# density l for
+a single
+core: vector
+of length
+num experts
+that sums to","1."
+"# density l proxy for a single
+core: vector
+of length
+num experts","that sums to 1."
+"# Want
+both vectors
+to have
+uniform allocation (1/num experts)","across all
+num expert
+elements."
+"# The
+two vectors
+will be pushed towards
+uniform allocation when the","dot product
+is minimized."
+"loss =
+mtf.reduce mean(density 1 proxy
+∗ density 1)
+∗ (num experts
+ˆ 2)",""
+"return
+loss",""

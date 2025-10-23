@@ -1,0 +1,18 @@
+"","","","","","","","","",""
+"","• Set Condition. Si+1 ⊆","[i]","","","","","","",""
+"• Budget Condition.","","","","","","","","",""
+"","|","Si+1| ≤","","","","","","",""
+"","• Value Condition. fSi,i(Si+1)","","","(1","1/e)","(1","θ)i+1(1","γ)i+1opti+1",""
+"","","","≥","−","","·
+−","−","",""
+"","Proof. Proof of Set Condition.","","","","","","","",""
+"","","","","","","","","",""
+"[i
+Note that Si ⊆
+−","1], by using the way we construct Si+1, then it is obvious that Si+1 ⊆","","","","","","","",""
+"Proof of Budget Condition.","","","","","","","","",""
+"Note that","k, by using the way we construct Si+1, then it is straightforward that","","","","","","","","k."
+"|
+Si| ≤","","","","","","","","|","Si+1| ≤"
+"Proof of Value Condition.","","","","","","","","",""
+"We can show that","","","","","","","","",""

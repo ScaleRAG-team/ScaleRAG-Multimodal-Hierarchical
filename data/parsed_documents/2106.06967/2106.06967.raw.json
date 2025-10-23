@@ -1,0 +1,6539 @@
+{
+  "title": null,
+  "authors": [],
+  "source_path": "../data/pdf/2106.06967.pdf",
+  "page_count": 15,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "counts": {
+    "texts": 621,
+    "pictures": 0,
+    "tables": 18
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 19,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 3
+    },
+    {
+      "page": 2,
+      "text_blocks": 25,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 45,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 4,
+      "text_blocks": 51,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 38,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 33,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 55,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 8,
+      "text_blocks": 62,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 9,
+      "text_blocks": 43,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 10,
+      "text_blocks": 69,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 56,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 12,
+      "text_blocks": 69,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 13,
+      "text_blocks": 48,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 14,
+      "text_blocks": 6,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 15,
+      "text_blocks": 2,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        64.61900329589844,
+        52.705440521240234,
+        551.3870239257812,
+        64.66063690185547
+      ],
+      "text": "Multiplicity distribution of dipoles in QCD from Le, Mueller and Munier equation"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        261.39801025390625,
+        77.2893295288086,
+        354.1956787109375,
+        88.63481903076172
+      ],
+      "text": "Eugene\nLevin1, 2, ∗"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        102.48600006103516,
+        91.91327667236328,
+        513.6582641601562,
+        144.20697021484375
+      ],
+      "text": "1Department of Particle Physics, School of Physics and Astronomy,\nRaymond and Beverly Sackler Faculty of Exact Science, Tel Aviv University, Tel Aviv, 69978, Israel\n2 Departamento de Física, Universidad T´ecnica Federico Santa María and\nCentro Cientíﬁco-Tecnol´ogico de Valparaíso, Casilla 110-V, Valparaiso, Chile\n(Dated: September 3, 2021)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        108.79398345947266,
+        152.67459106445312,
+        507.3308410644531,
+        219.3572998046875
+      ],
+      "text": "In this paper we derived in QCD the BFKL linear, inhomogeneous equation for the factorial\nmoments of multiplicity distribution (Mk) from LMM equation. In particular, the equation for the\naverage multiplicity of the color-singlet dipoles (N) turns out to be the homogeneous BFKL while\nMk\n∝N k at small x. Second, using the diﬀusion approximation for the BFKL kernel we show\nthat the factorial moments are equal to: Mk = k! N (N −1)k−1 which leads to the multiplicity\ndistribution:\nσn\nσin\n=\n1\nN\n\u0000 N −1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        108.79498291015625,
+        203.85491943359375,
+        507.3338623046875,
+        227.41107177734375
+      ],
+      "text": "N\n\u0001n−1. We also suggest a procedure for ﬁnding corrections to this\nmultiplicity distribution which will be useful for descriptions of the experimental data."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        108.79498291015625,
+        239.14706420898438,
+        241.09861755371094,
+        247.11715698242188
+      ],
+      "text": "PACS numbers: 13.60.Hb, 12.38.Cy"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        287.31597900390625,
+        274.8924255371094,
+        328.776611328125,
+        283.85882568359375
+      ],
+      "text": "Contents"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        71.98397827148438,
+        300.24383544921875,
+        562.0963134765625,
+        310.20892333984375
+      ],
+      "text": "I. Introduction\n1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        67.32199096679688,
+        322.1588439941406,
+        562.0963134765625,
+        332.1239318847656
+      ],
+      "text": "II. General features of the cascade of color-singlet dipoles in QCD\n2"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        62.660003662109375,
+        344.0748291015625,
+        562.0963134765625,
+        354.0399169921875
+      ],
+      "text": "III. Derivation of Le, Mueller and Munier (LMM) equation\n3"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        63.324005126953125,
+        365.9898376464844,
+        562.0963134765625,
+        375.9549255371094
+      ],
+      "text": "IV. Average number of color-singlet dipoles\n4"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        67.66799926757812,
+        387.90484619140625,
+        567.0756225585938,
+        481.55584716796875
+      ],
+      "text": "V. Equations for moments of the multiplicity distribution\n5\nA. The second moment\n5\n1. Equation\n5\n2. General solution\n6\n3. Semi-classical solution\n7\n4. Diﬀusion approximation\n8\nB. The third moment\n9\nC. General approach\n11"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        63.323974609375,
+        493.50677490234375,
+        567.0756225585938,
+        503.47186279296875
+      ],
+      "text": "VI. Finding corrections and comparison with experiments\n12"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        58.6619873046875,
+        515.4217529296875,
+        567.0756225585938,
+        525.3868408203125
+      ],
+      "text": "VII. Conclusions\n13"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.999969482421875,
+        537.3377685546875,
+        567.0756225585938,
+        547.3028564453125
+      ],
+      "text": "VIII. Acknowledgements\n14"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        83.99197387695312,
+        559.2528076171875,
+        567.0756225585938,
+        569.2178955078125
+      ],
+      "text": "References\n14"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        255.84197998046875,
+        592.7953491210938,
+        360.2467041015625,
+        601.76171875
+      ],
+      "text": "I.\nINTRODUCTION"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        53.999969482421875,
+        618.1492919921875,
+        562.0875854492188,
+        723.7528686523438
+      ],
+      "text": "During the past several years a robust relation between the principle features of high energy scattering and entangle-\nment properties of the hadronic wave function have been in focus of the high energy and nuclear physics communities\n[1–19]. In this paper, we continue to explore the relation between the entropy in the parton approach[20–23] and\nthe entropy of entanglement in a proton wave function[5]. In Ref.[5], it is proposed that parton distributions can\nbe deﬁned in terms of the entropy of entanglement between the spatial region probed by deep inelastic scattering\n(DIS) and the rest of the proton. This approach leads to a simple relation S = ln N between the average number\nof color-singlet dipoles and the entropy of the produced hadronic state S. This simple relation shows that a proton\nbecomes a maximally entangled state in the region of small Bjorken x. All these conclusions were made from esti-\nmates in the simple, even naive model for QCD cascade of color-singlet dipoles. However, it has been demonstrated"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        215.03997802734375,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2106.06967v2  [hep-ph]  2 Sep 2021"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.0,
+        54.26322555541992,
+        562.1322021484375,
+        88.13683319091797
+      ],
+      "text": "in Refs.[6, 10, 11, 16, 19] that these ideas are in qualitative and, partly, in quantitative agreement with the avail-\nable experimental data. Actually, it is shown in Ref.[5] that the simple cascade of color-singlet dipoles leads to the\nmultiplicity distribution:"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        252.30599975585938,
+        109.11088562011719,
+        295.4779052734375,
+        133.488525390625
+      ],
+      "text": "σn\nσin\n=\n1\nN"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        301.0749816894531,
+        108.96632385253906,
+        339.17425537109375,
+        119.073486328125
+      ],
+      "text": "\u0012N −1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        319.843994140625,
+        122.68388366699219,
+        327.8539123535156,
+        132.646484375
+      ],
+      "text": "N"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        340.3699951171875,
+        106.11238861083984,
+        562.1001586914062,
+        125.82482147216797
+      ],
+      "text": "\u0013n−1\n(1)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.999969482421875,
+        141.4329071044922,
+        562.1124267578125,
+        306.824951171875
+      ],
+      "text": "where N is the average number of dipoles.\nThe goal of this paper is to study the multiplicity distribution and the entanglement entropy in the eﬀective theory\nfor QCD at high energies (see Ref.[24] for a general review). We have approached this problem in Refs.[5, 18] and\nhave demonstrated that Eq. (1) arises in QCD cascades. In this paper we analyze the multiplicity distribution for\nBalitsky-Kovchegov (BK) cascade[25] in which one dipole at low energy generates a large number color-singlet dipoles\nat high energy. The equation for such a cascade are known (see Refs.[24, 27–29] ) and the ﬁrst try to solve them have\nbeen undertaken in Ref.[18]. However, in this paper we return to this problem and study the multiplicity distribution\nusing the new equation (Le, Mueller and Munier (LMM) equation) for the probability generating function that has\nbeen derived in Ref.[30].\nIn the next section we derive LMM equation from the equation for the BK parton cascade. In the rest of the\npaper we discuss the equations for the factorial moments that follow from the LMM equation. We show that every\nfactorial moment satisﬁes the linear but inhomogeneous equation with the Balitsky, Fadin, Kuraev and Lipatov\n(BFKL) kernel[31, 32]. We attempt to solve these equations and demonstrate that in the diﬀusion approximation to\nthe BFKL kernel factorial moments are equal to:"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        249.6869659423828,
+        325.14947509765625,
+        562.1001586914062,
+        343.3556213378906
+      ],
+      "text": "Mk = k! N\n\u0010\nN −1\n\u0011k−1\n(2)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.999969482421875,
+        355.1133117675781,
+        562.0750122070312,
+        424.85186767578125
+      ],
+      "text": "We show that Eq. (2) leads to Eq. (1).\nIn section VI we suggest an approach to go beyond diﬀusion approximation, which cannot give a reliable description\nof the experimental data even in the leading order of perturbative QCD. In this approach we propose to solve\nexactly the equations for the factorial moments and using the diﬀerence between the exact solution and Eq. (2)\n(∆Mk = Mk (exact) −Mk (Eq. (2))) we develop the way how to estimate the multiplicity distributions beyond\ndiﬀusion approximation. In conclusion section we summarize our results."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        86.72196960449219,
+        448.50836181640625,
+        529.3753051757812,
+        457.4747619628906
+      ],
+      "text": "II.\nGENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.999969482421875,
+        473.7208251953125,
+        562.1106567382812,
+        495.77984619140625
+      ],
+      "text": "In QCD at large number of colors Nc (Nc ≫1) the color-singlet dipoles play the role of partons (see Ref.[24] for\nreview). As discussed in Refs.[24, 27–29] for them we can write the following equations:"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        79.82396697998047,
+        507.263916015625,
+        275.5203857421875,
+        518.720458984375
+      ],
+      "text": "∂Pn (Y, r, b; r1, b1, r2, b2 . . . ri, bi, . . . rn, bn)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        169.92100524902344,
+        513.8737182617188,
+        301.0699157714844,
+        530.7994995117188
+      ],
+      "text": "∂Y\n= −"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        304.3890075683594,
+        503.8857116699219,
+        318.78497314453125,
+        521.6649169921875
+      ],
+      "text": "n\nX"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        305.1310119628906,
+        514.0028686523438,
+        562.10009765625,
+        535.0675048828125
+      ],
+      "text": "i=1\nωG(ri) Pn (Y, r, b; r1, b1, r2, b2 . . . ri, bi, . . . rn, bn)\n(3)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        230.24493408203125,
+        548.6829223632812,
+        254.79754638671875,
+        559.4865112304688
+      ],
+      "text": "+ ¯αS"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        258.9939270019531,
+        538.475341796875,
+        274.1199951171875,
+        556.3449096679688
+      ],
+      "text": "n−1\nX"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        260.1019287109375,
+        562.773681640625,
+        273.01202392578125,
+        569.7474975585938
+      ],
+      "text": "i=1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        278.6329345703125,
+        540.6636962890625,
+        325.7649841308594,
+        553.4004516601562
+      ],
+      "text": "(ri + rn)2"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        280.9930114746094,
+        548.6829223632812,
+        549.42236328125,
+        568.2564697265625
+      ],
+      "text": "(2 π) r2\ni r2n\nPn−1 (Y, r, b; r1, b1, . . . (ri + rn), bin, . . . rn−1, bn)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        53.999908447265625,
+        575.21826171875,
+        561.5938720703125,
+        602.2325439453125
+      ],
+      "text": "where Pn (Y ; {ri, bi}) is the probability to have n-dipoles of size ri, at impact parameter bi and at rapidity Y 1 . bin\nin Eq. (3) is equal to bin = bi + 1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        203.49600219726562,
+        589.188720703125,
+        265.4490661621094,
+        603.5215454101562
+      ],
+      "text": "2ri = bn −1"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        54.0,
+        590.7759399414062,
+        562.092529296875,
+        648.5718383789062
+      ],
+      "text": "2ri. ωG (r) is deﬁned below in Eq. (8b).\nEq. (3) is a typical cascade equation in which the ﬁrst term describes the reduction of the probability to ﬁnd n\ndipoles due to the possibility that one of n dipoles can decay into two dipoles of arbitrary sizes, while the second term\ndescribes the growth due to the splitting of (n −1) dipoles into n dipoles.\nThe initial condition for the DIS scattering is"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        127.17298126220703,
+        654.6979370117188,
+        562.0999755859375,
+        670.2684936523438
+      ],
+      "text": "P1 (Y = 0, r, b; r1, b1) = δ(2) (r −r1) δ(2) (b −b1) ;\nPn>1 (Y = 0; {ri}) = 0\n(4)"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.49399948120117,
+        703.0679321289062,
+        562.080078125,
+        726.048095703125
+      ],
+      "text": "1 In the lab. frame rapidity Y is equal to Y = ydipole r −ydipoles ri, where ydipole r is the rapidity of the incoming fast dipole and\nydipole ri is the rapidity of dipoles ri. Note, that all rapidities of dipoles ri are the same in Eq. (3)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.0,
+        54.26322555541992,
+        561.9927368164062,
+        77.66351318359375
+      ],
+      "text": "which corresponds to the fact that we are discussing a dipole of deﬁnite size which develops the parton cascade. Since\nPn (Y ; {ri}) is the probability to ﬁnd dipoles {ri}, we have the following sum rule"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        222.73097229003906,
+        93.9343490600586,
+        237.12692260742188,
+        111.80392456054688
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        222.4199676513672,
+        118.11274719238281,
+        237.43606567382812,
+        125.08654022216797
+      ],
+      "text": "n=1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        240.7529754638672,
+        94.02473449707031,
+        265.1961669921875,
+        111.80392456054688
+      ],
+      "text": "Z\nn\nY"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        252.3759765625,
+        102.36470031738281,
+        562.10009765625,
+        125.20653533935547
+      ],
+      "text": "i=1\nd2ri d2bi Pn (Y ; {ri bi}) = 1,\n(5)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.999908447265625,
+        133.2961883544922,
+        562.1026000976562,
+        167.1688232421875
+      ],
+      "text": "i.e. the sum of all probabilities is equal to 1.\nThis QCD cascade leads to Balitsky-Kovchegov (BK) equation [24, 25] for the amplitude and gives the theoretical\ndescription of the DIS. We introduce the generating functional[27]"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        167.62191772460938,
+        195.12986755371094,
+        243.33602905273438,
+        205.93353271484375
+      ],
+      "text": "Z (Y, r, b; [ui]) ="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        249.73092651367188,
+        184.92233276367188,
+        264.12689208984375,
+        202.79190063476562
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        249.419921875,
+        209.09974670410156,
+        264.4360046386719,
+        216.07354736328125
+      ],
+      "text": "n=1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        266.0929260253906,
+        188.73329162597656,
+        358.371337890625,
+        206.58648681640625
+      ],
+      "text": "Z\nPn (Y, r, b; {ri bi})"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.1188659667969,
+        185.01271057128906,
+        372.85107421875,
+        202.79086303710938
+      ],
+      "text": "n\nY"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        360.0308532714844,
+        193.35267639160156,
+        562.0999755859375,
+        216.1944580078125
+      ],
+      "text": "i=1\nu (ri bi) d2ri d2bi\n(6)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.999786376953125,
+        224.7516632080078,
+        562.1060791015625,
+        246.81170654296875
+      ],
+      "text": "where u (ri bi) ≡ui is an arbitrary function. The initial conditions of Eq. (4) and the sum rules of Eq. (5) take the\nfollowing form for the functional Z:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        235.7738037109375,
+        257.32379150390625,
+        562.101318359375,
+        268.12841796875
+      ],
+      "text": "Z (Y = 0, r, b; [ui])\n=\nu (r, b) ;\n(7a)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        248.4188232421875,
+        272.2677917480469,
+        562.0952758789062,
+        283.7253723144531
+      ],
+      "text": "Z (Y, r, [ui = 1])\n=\n1;\n(7b)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.99981689453125,
+        290.0826416015625,
+        562.1049194335938,
+        314.6856994628906
+      ],
+      "text": "Multiplying both parts of Eq. (3) by Qn\ni=1 u (ri bi) and integrating over ri and bi we obtain the following linear\nfunctional equation[29];"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        64.22981262207031,
+        327.4247741699219,
+        131.94888305664062,
+        338.2283935546875
+      ],
+      "text": "∂Z (Y, r, b; [ui])"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        91.71499633789062,
+        327.767333984375,
+        243.2234649658203,
+        350.96051025390625
+      ],
+      "text": "∂y\n=\nZ\nd2r′ K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        254.9840087890625,
+        327.28033447265625,
+        362.8463134765625,
+        344.12750244140625
+      ],
+      "text": "−u (r, b) + u\n\u0012\nr′, b + 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        357.864990234375,
+        327.28033447265625,
+        477.3973388671875,
+        350.96051025390625
+      ],
+      "text": "2(r −r′)\n\u0013\nu\n\u0012\nr −r′, b + 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        472.4159851074219,
+        324.29132080078125,
+        562.1015014648438,
+        350.96051025390625
+      ],
+      "text": "2r′\n\u0013 !\nδ Z\nδ u (r, b);(8a)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        82.87701416015625,
+        358.712890625,
+        174.13931274414062,
+        375.41448974609375
+      ],
+      "text": "K (r′, r −r′|r) = 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        165.30999755859375,
+        357.4327392578125,
+        210.28506469726562,
+        382.2485046386719
+      ],
+      "text": "2 π\nr2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        180.37899780273438,
+        359.05535888671875,
+        562.0953979492188,
+        382.2485046386719
+      ],
+      "text": "r′2 (r −r′)2 ;\nωG (r) =\nZ\nd2r′K (r′, r −r′|r) ;\n(8b)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.99992370605469,
+        391.16693115234375,
+        562.1117553710938,
+        425.05181884765625
+      ],
+      "text": "where y = ¯αS Y .\nSearching for the solution of the form Z ([u(ri, bi, Y )]) for the initial conditions of Eq. (7a), Eq. (8a) can be re-written\nas the non-linear equation [27]:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        56.44392395019531,
+        437.7908935546875,
+        124.16197967529297,
+        448.59552001953125
+      ],
+      "text": "∂Z (Y, r, b; [ui])"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        83.92900085449219,
+        438.13433837890625,
+        237.0974578857422,
+        461.3275146484375
+      ],
+      "text": "∂y\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        238.7570037841797,
+        434.6583251953125,
+        246.786865234375,
+        444.62091064453125
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        246.7830047607422,
+        437.6473388671875,
+        298.8263244628906,
+        454.4934997558594
+      ],
+      "text": "Z\n\u0012\nr′, b + 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        293.8450012207031,
+        437.6473388671875,
+        434.57733154296875,
+        461.3275146484375
+      ],
+      "text": "2(r −r′); [ui]\n\u0013\nZ\n\u0012\nr −r′, b + 1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        429.59600830078125,
+        437.6473388671875,
+        551.1640625,
+        461.3275146484375
+      ],
+      "text": "2r′; [ui]\n\u0013\n−Z (Y, r, b; [ui])"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        552.821044921875,
+        434.6583251953125,
+        560.8508911132812,
+        444.62091064453125
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.000030517578125,
+        465.46319580078125,
+        562.1002197265625,
+        487.38079833984375
+      ],
+      "text": "(9)\nTherefore, the QCD parton cascade of Eq. (3) takes into account non-linear evolution."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        125.24002838134766,
+        511.0853271484375,
+        490.84490966796875,
+        520.0516967773438
+      ],
+      "text": "III.\nDERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.00002670288086,
+        536.438232421875,
+        562.0530395507812,
+        558.3558349609375
+      ],
+      "text": "In this section we derive the LMM equation which is proposed in Ref.[30]. First, we introduce the same notations\nas in Ref.[30]:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        212.35302734375,
+        566.7346801757812,
+        301.2762451171875,
+        588.3094482421875
+      ],
+      "text": "˜wn (r, b, y) =\nZ\nn\nY"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        288.4560241699219,
+        575.07470703125,
+        562.1014404296875,
+        597.91650390625
+      ],
+      "text": "i=1\nd2ri d2bi Pn (Y ; {ri bi})\n(10)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        53.99993896484375,
+        606.6038818359375,
+        562.0762329101562,
+        628.5338134765625
+      ],
+      "text": "One can see that ˜wn (r, b, y) is the probability that the dipole with size r produces n dipoles with all possible sizes.\nEq. (7b) reads as"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        266.1209716796875,
+        636.8223266601562,
+        280.5169372558594,
+        654.69091796875
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        265.8099670410156,
+        647.0299072265625,
+        562.1014404296875,
+        667.9735107421875
+      ],
+      "text": "n=1\n˜wn (r, b, y) = 1\n(11)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        63.96295166015625,
+        676.660888671875,
+        408.4908142089844,
+        688.1184692382812
+      ],
+      "text": "Taking all ui (ri, bi) = λ one can see that we can re-write Eq. (6) in the form:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        186.11793518066406,
+        705.0037231445312,
+        345.82647705078125,
+        716.5894775390625
+      ],
+      "text": "Z (Y, r, b; [ui = λ]) ≡˜wλ (r, b, y) ="
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        352.22296142578125,
+        694.92431640625,
+        366.6189270019531,
+        712.7939453125
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        351.9119567871094,
+        701.0188598632812,
+        562.1014404296875,
+        726.0765380859375
+      ],
+      "text": "n=1\nλn ˜wn (r, b, y)\n(12)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        63.962982177734375,
+        54.26322555541992,
+        382.1683654785156,
+        64.22582244873047
+      ],
+      "text": "Plugging Eq. (17) into Eq. (9) we obtain the LMM equation in the form:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        60.17698287963867,
+        77.51188659667969,
+        112.65743255615234,
+        88.969482421875
+      ],
+      "text": "∂˜wλ (r, b, y)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        79.21399688720703,
+        77.85536193847656,
+        225.59544372558594,
+        101.04852294921875
+      ],
+      "text": "∂y\n=\nZ\nd2 r′ K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        227.25498962402344,
+        74.37934875488281,
+        235.28485107421875,
+        84.34194946289062
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        235.27999877929688,
+        84.25193786621094,
+        247.1412353515625,
+        95.05559539794922
+      ],
+      "text": "˜wλ"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        249.2969970703125,
+        77.36836242675781,
+        292.9813232421875,
+        94.21453857421875
+      ],
+      "text": "\u0012\nr′, b + 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        288.0,
+        77.36836242675781,
+        368.55419921875,
+        101.04852294921875
+      ],
+      "text": "2 (r −r′) , y\n\u0013\n˜wλ"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        370.7099609375,
+        77.36836242675781,
+        437.8842468261719,
+        94.21453857421875
+      ],
+      "text": "\u0012\nr −r′, b + 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        432.90301513671875,
+        77.36836242675781,
+        529.721435546875,
+        101.04852294921875
+      ],
+      "text": "2r′, y\n\u0013\n−˜wλ (r, b, y)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        531.3809814453125,
+        74.37934875488281,
+        539.4108276367188,
+        84.34194946289062
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        544.3880004882812,
+        84.26426696777344,
+        562.1015014648438,
+        94.22686004638672
+      ],
+      "text": "(13)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.999969482421875,
+        112.11976623535156,
+        562.0985107421875,
+        147.75390625
+      ],
+      "text": "In addition, discussing multiplicity distribution Pn =\nσn\nσtot , where σn is the cross section for production of n color-\nsinglet dipoles, we need to integrate wn (r, b, y) over b. In this case the initial condition for the dipole cascade takes\nthe form:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        169.14198303222656,
+        154.69993591308594,
+        562.1013793945312,
+        170.27056884765625
+      ],
+      "text": "P1 (Y = 0, r; r1) = δ(2) (r −r1)\nPn>1 (Y = 0; {ri}) = 0\n(14)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.9998779296875,
+        179.8489227294922,
+        562.0941772460938,
+        213.73388671875
+      ],
+      "text": "which leads to the probabilities, that do not depend on impact parameters. Since in Eq. (3) b enters as a parameter,\nPn (Y ; ri), which does not depend on bi, is also a solution to Eq. (3), which satisﬁes Eq. (14).\nEq. (13) reduces to"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        140.29190063476562,
+        227.0199432373047,
+        183.15635681152344,
+        238.4765625
+      ],
+      "text": "∂˜wλ (r, y)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        154.52099609375,
+        227.3633575439453,
+        296.0944519042969,
+        250.5565185546875
+      ],
+      "text": "∂y\n=\nZ\nd2 r′ K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        297.75299072265625,
+        223.88734436035156,
+        305.7828369140625,
+        233.84994506835938
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        305.77899169921875,
+        231.89138793945312,
+        467.31341552734375,
+        245.216552734375
+      ],
+      "text": "˜wλ (r′, y) ˜wλ (r −r′, y) −˜wλ (r, y)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        468.97296142578125,
+        223.88734436035156,
+        477.0028076171875,
+        233.84994506835938
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        544.387939453125,
+        233.7722625732422,
+        562.1014404296875,
+        243.73486328125
+      ],
+      "text": "(15)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.99995040893555,
+        263.7712707519531,
+        562.0830078125,
+        285.68988037109375
+      ],
+      "text": "Eq. (15) is a particular case of the general equation that has been derived in Ref.[30]. In this paper instead of\nEq. (10) the more general form of this equation is proposed, viz.:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        172.99795532226562,
+        294.61578369140625,
+        275.70416259765625,
+        316.1895446777344
+      ],
+      "text": "wn (r, b, y, y0) =\nZ\nn\nY"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        262.8839416503906,
+        318.8227844238281,
+        275.7940368652344,
+        325.7966003417969
+      ],
+      "text": "i=1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        277.449951171875,
+        300.83740234375,
+        562.101318359375,
+        316.1895446777344
+      ],
+      "text": "\u0010\nd2ri d2bi S (ri, bi, y0)\n\u0011\nPn (Y ; {ri bi})\n(16)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.99981689453125,
+        335.031982421875,
+        562.0962524414062,
+        382.3545227050781
+      ],
+      "text": "where S (ri, bi, y0) is the scattering S-matrix for elastic interaction of the dipole with size ri at rapidity Y0(y0 = ¯αS Y0)\nand at impact parameter bi with the target at Y = 0. Since S is a unitarity matrix, wn (r, b, y; y0) is the probability\nthat the dipole with size r produces n dipoles with all possible sizes, which interact with the target. Bearing this in\nmind, we see that Eq. (11) holds for wλ (r, b, y; y0), which is deﬁned as"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        146.65283203125,
+        409.2518310546875,
+        371.50933837890625,
+        420.8375244140625
+      ],
+      "text": "Z (Y, r, b; [ui = λ S (ri, bi, y0)]) ≡wλ (r, b, y, y0) ="
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        377.90582275390625,
+        399.1723937988281,
+        392.3017883300781,
+        417.0419616699219
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        377.5948181152344,
+        405.2669372558594,
+        562.1012573242188,
+        430.3245849609375
+      ],
+      "text": "n=1\nλn wn (r, b, y, y0)\n(17)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.999755859375,
+        439.5589599609375,
+        562.0767211914062,
+        461.4888610839844
+      ],
+      "text": "For the case of Pn which do not depend on bi, inserting in Eq. (9) ui (ri, bi, ) = λS (ri, bi, y0) we see that we obtain\nthe LMM equation in its original form (see Ref.[30]):"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.37675476074219,
+        484.2399597167969,
+        173.7261962890625,
+        495.6975402832031
+      ],
+      "text": "∂wλ (r, b, y, y0)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        133.84800720214844,
+        484.58233642578125,
+        286.66448974609375,
+        507.7765197753906
+      ],
+      "text": "∂y\n=\nZ\nd2 r′ K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        288.32403564453125,
+        481.1073303222656,
+        296.3538818359375,
+        491.0699157714844
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        296.3490295410156,
+        489.1113586425781,
+        499.2284240722656,
+        502.4364929199219
+      ],
+      "text": "wλ (r′, y, y0) wλ (r −r′, y, y0) −wλ (r, y, y0)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        500.8879699707031,
+        481.1073303222656,
+        508.9178161621094,
+        491.0699157714844
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        544.387939453125,
+        490.9922180175781,
+        562.1014404296875,
+        500.954833984375
+      ],
+      "text": "(18)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        162.41494750976562,
+        533.9302978515625,
+        453.69744873046875,
+        542.8966674804688
+      ],
+      "text": "IV.\nAVERAGE NUMBER OF COLOR-SINGLET DIPOLES"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        63.96294403076172,
+        559.2832641601562,
+        401.3960266113281,
+        569.245849609375
+      ],
+      "text": "The average number of dipoles can be calculated using the following formula:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        170.91293334960938,
+        587.6067504882812,
+        268.1568298339844,
+        598.53955078125
+      ],
+      "text": "N (r, y, y0) = ⟨|n|⟩="
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        271.2319030761719,
+        577.5283203125,
+        285.62786865234375,
+        595.39697265625
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        270.9219055175781,
+        580.9959106445312,
+        422.6343688964844,
+        608.6795654296875
+      ],
+      "text": "n=1\nn wn (r, y, y0) = ∂wλ (r, y, y0)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        385.1629943847656,
+        594.5699462890625,
+        400.13677978515625,
+        604.5325317382812
+      ],
+      "text": "∂λ"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        423.8289794921875,
+        583.4423217773438,
+        562.1015014648438,
+        605.3599853515625
+      ],
+      "text": "λ = 1\n(19)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        63.9630126953125,
+        617.9119262695312,
+        311.4190673828125,
+        627.8868408203125
+      ],
+      "text": "Diﬀerentiating Eq. (13) with respect to λ we obtain that"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        112.34001159667969,
+        641.1729125976562,
+        165.72146606445312,
+        651.9775390625
+      ],
+      "text": "∂N (r, y, y0)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        131.8280029296875,
+        641.516357421875,
+        281.97943115234375,
+        664.7095336914062
+      ],
+      "text": "∂y\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        283.63897705078125,
+        638.0403442382812,
+        291.6688232421875,
+        648.0029907226562
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        291.66497802734375,
+        646.0453491210938,
+        495.264404296875,
+        658.716552734375
+      ],
+      "text": "N (r′, y, y0) + N (r −r′, y, y0) −N (r, y, y0)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        496.9239501953125,
+        638.0403442382812,
+        504.95379638671875,
+        648.0029907226562
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        544.387939453125,
+        647.9252319335938,
+        562.1014404296875,
+        657.8878173828125
+      ],
+      "text": "(20)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        53.99994659423828,
+        677.9252319335938,
+        562.0805053710938,
+        723.7528686523438
+      ],
+      "text": "Eq. (20) shows that the average number of dipoles satisﬁes the linear BFKL [31, 32] equation and increases in the\nregion of small x (large y). Therefore, we see that the general QCD cascade reproduces the main observation of Ref.[5]\nwhich was made in the oversimpliﬁed model for the QCD cascade. In this model the dependence on the size of the\ndipoles were neglected."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        63.962982177734375,
+        54.26322555541992,
+        264.17138671875,
+        64.22582244873047
+      ],
+      "text": "The general solution takes the following form:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        205.64698791503906,
+        97.63987731933594,
+        268.6862487792969,
+        108.44353485107422
+      ],
+      "text": "N (r, y, y0) ="
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        278.698974609375,
+        84.33235931396484,
+        302.9790954589844,
+        101.20590209960938
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        274.2159423828125,
+        114.73934173583984,
+        298.6060791015625,
+        121.80352020263672
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        297.03399658203125,
+        90.89988708496094,
+        562.1015014648438,
+        114.4365234375
+      ],
+      "text": "dγ\n2 π i eχ(γ) y + γ ξ nin (γ, y0)\n(21)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.0,
+        127.32478332519531,
+        129.15806579589844,
+        143.03387451171875
+      ],
+      "text": "where ξ = ln\n\u0000 1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        123.26799774169922,
+        132.15235900878906,
+        269.3570861816406,
+        145.8035888671875
+      ],
+      "text": "r2\n\u0001\nand χ(γ) is the BFKL kernel:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.88600158691406,
+        184.0198516845703,
+        219.3509521484375,
+        194.111572265625
+      ],
+      "text": "χ (γ) = 2ψ (1) −ψ (γ) −ψ (1 −γ) ="
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        222.1129913330078,
+        164.91139221191406,
+        230.96974182128906,
+        189.81802368164062
+      ],
+      "text": "\n\n\n"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        222.1129913330078,
+        197.7884063720703,
+        230.96974182128906,
+        213.72799682617188
+      ],
+      "text": "\n\n"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        240.13400268554688,
+        162.1138458251953,
+        459.2296142578125,
+        177.11083984375
+      ],
+      "text": "1\nγ for γ →0 ←double log approximation(DLA);"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        233.95802307128906,
+        190.9469451904297,
+        302.70318603515625,
+        216.3455810546875
+      ],
+      "text": "4 ln 2\n| {z }\nω0\n+ 14ζ (3)\n| {z }\nD"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        304.3619689941406,
+        189.3598175048828,
+        331.9870300292969,
+        200.9095458984375
+      ],
+      "text": "\u0000\nγ −1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        328.0119934082031,
+        184.1613006591797,
+        562.1015014648438,
+        204.21542358398438
+      ],
+      "text": "2\n\u00012 for γ →\n1\n2 ←diﬀusion approximation(DA);(22)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        63.9630126953125,
+        225.7739715576172,
+        555.4462890625,
+        249.18658447265625
+      ],
+      "text": "where ψ(z) is the Euler ψ-function (see Ref.[36] formula 8.36).\nnin (γ) has to be found from the initial condition N (r, b, y = 0, y0 = 0) = 1 (see Eq. (4) and Eq. (7a)). It gives"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        279.363037109375,
+        256.90997314453125,
+        335.1713562011719,
+        275.1075439453125
+      ],
+      "text": "nin (γ) = 1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        329.82501220703125,
+        263.6622619628906,
+        562.1015014648438,
+        280.446533203125
+      ],
+      "text": "γ\n(23)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        63.9630126953125,
+        289.56427001953125,
+        316.9632568359375,
+        299.5268859863281
+      ],
+      "text": "Introducing multiplicity in the momentum representation:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        229.27101135253906,
+        309.23095703125,
+        382.86248779296875,
+        327.42755126953125
+      ],
+      "text": "N (kT , y) =\nZ\nd2r e−ikT · r N (r, y)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        362.0469970703125,
+        315.970947265625,
+        562.1015014648438,
+        332.7665100097656
+      ],
+      "text": "r2\n,\n(24)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.0,
+        342.30224609375,
+        214.9757080078125,
+        352.2648620605469
+      ],
+      "text": "we can re-write Eq. (20) in the form:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        193.427001953125,
+        372.62396240234375,
+        255.35745239257812,
+        384.0805358886719
+      ],
+      "text": "∂N (kT , y, y0)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        218.0189971923828,
+        371.3447570800781,
+        562.1015014648438,
+        396.1605224609375
+      ],
+      "text": "∂y\n=\nZ\nd2kT\n(2π)2 K\n\u0000\nkT , k′\nT\n\u0001\nN\n\u0000\nk′\nT , y, y0\n\u0001\n(25)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        63.9630126953125,
+        405.2164611816406,
+        361.27874755859375,
+        419.1986389160156
+      ],
+      "text": "where K\n\u0000\nkT , k′\nT\n\u0001\nis the BFKL kernel in momentum representation:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        68.00001525878906,
+        436.48175048828125,
+        562.1015625,
+        467.0996398925781
+      ],
+      "text": "K\n\u0000\nkT , k′\nT\n\u0001\nN\n\u0000\nk′\nT , y, y0\n\u0001\n=\n1\n\u0000\nkT −k′\nT\n\u00012 N\n\u0000\nk′\nT , y, y0\n\u0001\n−\nk2\nT\n\u0000\nkT −k′\nT\n\u00012 \u0010\u0000\nkT −k′\nT\n\u00012 + k′2\nT\n\u0011 N (kT , y, y0)\n(26)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        63.96307373046875,
+        476.1020202636719,
+        518.1658935546875,
+        492.4359436035156
+      ],
+      "text": "Solution to this equation has the same form of Eq. (21) but with the replacement of ξ →ξ′ = ln k2\nT and"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        265.7301025390625,
+        500.946044921875,
+        562.1016235351562,
+        512.4026489257812
+      ],
+      "text": "nin (γ) = χ (γ) /γ\n(27)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.0001220703125,
+        520.8948364257812,
+        562.0977172851562,
+        558.8040161132812
+      ],
+      "text": "Eq. (27) reproduces the value of N (kT , y = 0, y0 = 0), since Eq. (24) at y = 0 leads to N (kT , y) = ln k2\nT + O\n\u0000\n1/k2\nT\n\u0001\n.\nIt is worth mentioning that (1) in the double log approximation nin (γ) = 1/γ2 , which leads to N (kT , y) = ln k2\nT\nand (2) in semi-classical approximation, which we will use below, we can neglect all corrections of the order of 1/k2\nT ."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        116.53012084960938,
+        579.8914794921875,
+        499.56573486328125,
+        588.8578491210938
+      ],
+      "text": "V.\nEQUATIONS FOR MOMENTS OF THE MULTIPLICITY DISTRIBUTION"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        250.4481201171875,
+        604.5255126953125,
+        365.6663818359375,
+        613.4918823242188
+      ],
+      "text": "A.\nThe second moment"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        281.64410400390625,
+        629.1617431640625,
+        334.4651794433594,
+        638.128173828125
+      ],
+      "text": "1.\nEquation"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        54.00010299682617,
+        654.513427734375,
+        562.1029052734375,
+        676.4310302734375
+      ],
+      "text": "We start a derivation of the evolution equation for the moments of the multiplicity distributions considering the\nsecond moment, which has the following form:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        128.6280975341797,
+        705.0039672851562,
+        266.78399658203125,
+        716.5897216796875
+      ],
+      "text": "M2 (r, y, y0) = ⟨|n(n −1)|⟩="
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        269.85906982421875,
+        694.925537109375,
+        284.2550354003906,
+        712.7941284179688
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        269.549072265625,
+        694.778076171875,
+        464.91851806640625,
+        726.0767211914062
+      ],
+      "text": "n=1\nn (n −1) wn (r, y, y0) = ∂2 wλ (r, y, y0)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        421.3179931640625,
+        711.4247436523438,
+        440.26806640625,
+        721.9295043945312
+      ],
+      "text": "∂λ2"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        466.1130065917969,
+        700.8392944335938,
+        562.1015014648438,
+        722.7569580078125
+      ],
+      "text": "λ = 1\n(28)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.0,
+        54.25090026855469,
+        494.2844543457031,
+        65.70849609375
+      ],
+      "text": "Taking the second derivative with respect to λ from Eq. (18) we obtain the equation for M2 (r, y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        136.26400756835938,
+        78.01890563964844,
+        196.34947204589844,
+        89.47650146484375
+      ],
+      "text": "∂M2 (r, y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        159.9340057373047,
+        78.36238098144531,
+        322.34942626953125,
+        101.5555419921875
+      ],
+      "text": "∂y\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        324.0079650878906,
+        74.88636779785156,
+        332.0378112792969,
+        84.84896850585938
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        332.0339660644531,
+        82.89144134521484,
+        479.3664245605469,
+        96.215576171875
+      ],
+      "text": "M2 (r′, y, y0) + M2 (r −r′, y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        210.1629638671875,
+        116.7644271850586,
+        426.9983825683594,
+        130.08953857421875
+      ],
+      "text": "+\n2 N (r′, y, y0) N (r −r′, y, y0) −M2 (r, y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        428.6579284667969,
+        108.75935363769531,
+        436.6877746582031,
+        118.72195434570312
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        544.387939453125,
+        118.64427185058594,
+        562.1014404296875,
+        128.60687255859375
+      ],
+      "text": "(29)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.99995040893555,
+        149.15025329589844,
+        562.0328369140625,
+        183.02288818359375
+      ],
+      "text": "Eq. (29) is a linear but inhomogeneous equation with the inhomogeneous term, which is determined by the multi-\nplicity of the dipoles.\nThe initial conditions (see Eq. (4) and Eq. (7a)) for this equation is"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        256.324951171875,
+        194.58995056152344,
+        562.1014404296875,
+        206.04656982421875
+      ],
+      "text": "M2 (r, y = y0, y0) = 0\n(30)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.96295166015625,
+        216.13096618652344,
+        390.91253662109375,
+        239.5426025390625
+      ],
+      "text": "First, lets us start to solve Eq. (29) making ﬁrst iteration at small y = ∆y.\nFor y = 0 N (r, y = 0) = 1 and M2 (r, y = 0) = 0, and hence"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        264.55694580078125,
+        248.72486877441406,
+        562.1014404296875,
+        263.5306396484375
+      ],
+      "text": "M (1)\n2\n= 2 ∆y ωG (r)\n(31)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        53.99987030029297,
+        271.8258056640625,
+        562.1001586914062,
+        330.9008483886719
+      ],
+      "text": "where ω is given by Eq. (8b).\nThe ﬁrst iteration of Eq. (20) leads to N (1)\n=\n1 +\n∆y ωG (r).\nCompar-\ning these two estimates one can see that the ﬁrst iteration can be written as the expansion of the solution\nM2 (r, y) = 2\n\u0000\nN 2 (r, y) −N (r, y)\n\u0001\nwith respect to ∆y. Hence, we see, that at small ∆y we obtain the simple\nexpression for M2, which turns out to be the same as for the multiplicity distribution of Eq. (1) for the simple toy\nmodel [5]. We will try to prove this equation below, but we have succeeded only in the semi-classical approximation."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        266.5668640136719,
+        354.78857421875,
+        349.5509338378906,
+        363.7549743652344
+      ],
+      "text": "2.\nGeneral solution"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.962860107421875,
+        380.1402282714844,
+        427.2689208984375,
+        390.10284423828125
+      ],
+      "text": "The general solution to Eq. (29) we can obtain going to momentum representation:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        221.29986572265625,
+        409.4957580566406,
+        393.6004943847656,
+        434.3115234375
+      ],
+      "text": "m2 (kT , y) =\nZ\nd2r\n(2π)2 e−ikT · r M2 (r, y)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        370.26300048828125,
+        417.5272521972656,
+        562.1015014648438,
+        434.3115234375
+      ],
+      "text": "r2\n(32)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.9630126953125,
+        444.9042663574219,
+        168.77951049804688,
+        454.86688232421875
+      ],
+      "text": "Eq. (29) takes the form:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        147.12301635742188,
+        466.073974609375,
+        213.17947387695312,
+        477.5305480957031
+      ],
+      "text": "∂m2 (kT , y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        173.7790069580078,
+        464.79376220703125,
+        562.1015625,
+        489.6095275878906
+      ],
+      "text": "∂y\n=\nZ\nd2kT\n(2π)2 K\n\u0000\nkT , k′\nT\n\u0001\nm2\n\u0000\nk′\nT , y, y0\n\u0001\n+ 2 N 2 (kT , y, y0)\n(33)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        63.96307373046875,
+        499.5942687988281,
+        190.24896240234375,
+        509.556884765625
+      ],
+      "text": "Taking the Mellin transform:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        163.34307861328125,
+        533.2649536132812,
+        235.7345733642578,
+        544.7215576171875
+      ],
+      "text": "m2 (kT , y, y0) ="
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        244.08908081054688,
+        519.9573974609375,
+        264.2872314453125,
+        536.8300170898438
+      ],
+      "text": "ϵ+i∞\nZ"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        239.60609436035156,
+        550.3643798828125,
+        259.9152526855469,
+        557.4285888671875
+      ],
+      "text": "ϵ−i∞"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        258.3429870605469,
+        526.5249633789062,
+        562.1015014648438,
+        550.3909912109375
+      ],
+      "text": "dγ\n2 π ieγ ξ′ em2 (γ, y, y0)\nwhere\nξ′ = ln k2\nT\n(34)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.0,
+        568.01025390625,
+        218.28329467773438,
+        577.9728393554688
+      ],
+      "text": "from both part of Eq. (33) we obtain:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        212.2530059814453,
+        588.5419311523438,
+        271.5454406738281,
+        605.66796875
+      ],
+      "text": "∂em2 (γ, y, y0)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        235.5260009765625,
+        594.73974609375,
+        562.1015625,
+        612.407958984375
+      ],
+      "text": "∂y\n= χ (γ) em2 (γ, y, y0) + 2 f\nn2\n(35)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.00006103515625,
+        621.5748901367188,
+        425.4576416015625,
+        647.119873046875
+      ],
+      "text": "where χ (γ) is given by Eq. (8b) and f\nn2 denotes the Mellin image of N 2 (kT , b, y, y0).\nEq. (35) has the following solution which satisﬁes the initial condition of Eq. (30):"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        174.02703857421875,
+        662.5577392578125,
+        289.368896484375,
+        690.908935546875
+      ],
+      "text": "em2 (γ, y, y0) = e χ(γ) y\nZ y"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        280.9030456542969,
+        666.6629028320312,
+        562.1016235351562,
+        692.1695556640625
+      ],
+      "text": "0\ndy′ 2 f\nn2e −χ(γ) y′ + emBFKL\n2\n(γ, y, y0)\n(36)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        54.00012969970703,
+        700.5437622070312,
+        562.1036376953125,
+        723.7528686523438
+      ],
+      "text": "where emBFKL\n2\n(γ, y, y0) is a solution to the homogeneous linear BFKL equation with the initial condition of Eq. (30).\nIn the following, we neglect the contribution of this term."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        254.427978515625,
+        55.04055404663086,
+        361.69305419921875,
+        64.0069580078125
+      ],
+      "text": "3.\nSemi-classical solution"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.99998474121094,
+        80.37992858886719,
+        562.0652465820312,
+        102.30986785888672
+      ],
+      "text": "For large y and ξ we can use the semi-classical approximation( SCA, see Refs.[24, 33] and references therein) to\ntake the integral over y′ in Eq. (36). In this approximation we are searching for"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        242.70797729492188,
+        112.29594421386719,
+        562.1014404296875,
+        125.83397674560547
+      ],
+      "text": "N = eSN = eω(ξ′,y) y+γ(y,ξ′)ξ′\n(37)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.99993896484375,
+        133.2010955810547,
+        562.1068725585938,
+        182.65704345703125
+      ],
+      "text": "where ω (ξ′, y) and γ (y, ξ′) are smooth functions of y and ξ′:\n∂ω′ (ξ′, y) /∂y\n≪ω2 (ξ′, y) , ∂ω (ξ′, y) /∂ξ′\n≪\nω (ξ′, y) γ (y, ξ′) , ∂γ (ξ′, y) /∂ξ′ ≪γ2 (ξ′, y) , ∂γ (ξ′, y) /∂ξ′ ≪ω (ξ′, y) γ (y, ξ′). Such form of N stems from Eq. (21)\nif we use the method of steepest descent for calculating the integral over γ. Indeed, using this method one can see\nthat"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        135.49700927734375,
+        193.37510681152344,
+        436.3304748535156,
+        210.91973876953125
+      ],
+      "text": "ω (ξ′, y) = χ (γSP) ;\nγ (ξ′, y) = γSP;\nequation for γSP: dχ (γ)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        417.6109924316406,
+        206.9488983154297,
+        427.9621276855469,
+        216.9114990234375
+      ],
+      "text": "dγ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        437.5249938964844,
+        189.8433380126953,
+        562.1015014648438,
+        223.71701049804688
+      ],
+      "text": "γ=γSP\ny = ξ′;\n(38)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        63.9630126953125,
+        228.92832946777344,
+        333.0289001464844,
+        242.50592041015625
+      ],
+      "text": "In the SCA the Mellin image of N 2 can be written as follows:"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        136.75900268554688,
+        268.3321533203125,
+        348.8559265136719,
+        286.4526672363281
+      ],
+      "text": "N 2 (ξ′, y, y0) = e2 SN = e2 ω(ξ′,y) y+2 γ(y,ξ′)ξ′ ="
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        357.2120056152344,
+        262.3415832519531,
+        377.41015625,
+        279.2141418457031
+      ],
+      "text": "ϵ+i∞\nZ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        352.72802734375,
+        292.74859619140625,
+        373.03717041015625,
+        299.8127746582031
+      ],
+      "text": "ϵ−i∞"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        371.4649963378906,
+        268.90911865234375,
+        415.2022399902344,
+        292.4455261230469
+      ],
+      "text": "dγ\n2 π ie 2χ( 1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        411.80999755859375,
+        272.0859375,
+        562.1015014648438,
+        285.6238708496094
+      ],
+      "text": "2 γ) y + γ ξ′H (γ)\n(39)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.0,
+        309.2012634277344,
+        562.0426025390625,
+        335.4308776855469
+      ],
+      "text": "Indeed, taking the integral by the method of steepest descent we obtain the following equation for the saddle point\n(γ(2)\nSP ):"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        254.3909912109375,
+        339.7827453613281,
+        285.0450439453125,
+        362.8515319824219
+      ],
+      "text": "2d χ\n\u0000 1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        281.07000732421875,
+        344.6103515625,
+        296.5108642578125,
+        358.2615661621094
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        273.0929870605469,
+        359.7229309082031,
+        283.4441223144531,
+        369.6855163574219
+      ],
+      "text": "dγ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        297.7099914550781,
+        342.6173400878906,
+        325.166015625,
+        377.0542297363281
+      ],
+      "text": "γ=γ(2)\nSP"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        326.15704345703125,
+        351.0213623046875,
+        562.1015625,
+        362.86383056640625
+      ],
+      "text": "y = ξ′;\n(40)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.00006103515625,
+        385.7447509765625,
+        543.5276489257812,
+        401.4745178222656
+      ],
+      "text": "with the solution γ(2)\nSP = 2 γSP , where γSP is given by Eq. (38). Plugging this solution into Eq. (39) we see that"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        146.48707580566406,
+        409.36639404296875,
+        337.2271728515625,
+        433.4775390625
+      ],
+      "text": "N 2 (ξ′, y, y0)\n=\ne\n2χ\n\u0010\n1\n2 γ(2)\nSP\n\u0011\ny + γ(2)\nSP ξ′\nϵ+i∞\nZ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        312.5460510253906,
+        439.7734069824219,
+        332.85418701171875,
+        446.83758544921875
+      ],
+      "text": "ϵ−i∞"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.28204345703125,
+        415.9339599609375,
+        349.9306640625,
+        425.89654541015625
+      ],
+      "text": "d∆γ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        331.9960021972656,
+        422.6739196777344,
+        356.319580078125,
+        439.47052001953125
+      ],
+      "text": "2 π i e"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        360.23199462890625,
+        413.48992919921875,
+        380.57427978515625,
+        423.4525146484375
+      ],
+      "text": "d2χ( 1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        376.0429992675781,
+        413.1769714355469,
+        467.9456481933594,
+        434.9115905761719
+      ],
+      "text": "2 γ(2)\nSP)\ndγ\ny(∆γ)2H\n\u0010\nγ(2)\nSP\n\u0011"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        209.8179931640625,
+        451.1964111328125,
+        330.0191650390625,
+        474.4655456542969
+      ],
+      "text": "= e 2χ(γSP ) y + 2 γSP ξ′\nϵ+i∞\nZ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        305.3370361328125,
+        481.6034240722656,
+        325.6462097167969,
+        488.6676025390625
+      ],
+      "text": "ϵ−i∞"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        324.0740661621094,
+        457.76397705078125,
+        342.7216796875,
+        467.7265625
+      ],
+      "text": "d∆γ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        324.7879943847656,
+        464.5028991699219,
+        349.1105651855469,
+        481.29949951171875
+      ],
+      "text": "2 π i e"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        353.02398681640625,
+        457.4519348144531,
+        385.0893249511719,
+        466.5665283203125
+      ],
+      "text": "d2χ(γSP )"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        365.1820068359375,
+        460.9479675292969,
+        562.1014404296875,
+        475.96051025390625
+      ],
+      "text": "dγ\ny(∆γ)2H (2γSP )\n(41)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        53.999908447265625,
+        498.0439453125,
+        562.095703125,
+        543.8848266601562
+      ],
+      "text": "The integral over ∆γ leads to a smooth function, which in the SCA can be considered as a constant. Therefore,\ncomparing Eq. (39) and Eq. (41) one can see that Eq. (39) is correct. We can derive Eq. (39) using a more general\nconsideration. Actually, the expression for the Mellin transform of N 2 (ξ′, y, y0) is the convolution in γ of Mellin\nimages of N, which has the following form:"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        184.8489227294922,
+        564.1309204101562,
+        209.13682556152344,
+        581.052001953125
+      ],
+      "text": "f\nn2 ="
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        219.15292358398438,
+        553.7013549804688,
+        240.7120819091797,
+        570.574951171875
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        214.66893005371094,
+        584.1083374023438,
+        236.33909606933594,
+        591.1725463867188
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        239.29693603515625,
+        558.8993530273438,
+        254.14833068847656,
+        570.2315063476562
+      ],
+      "text": "d γ′"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        238.08799743652344,
+        563.4459228515625,
+        562.1016235351562,
+        583.8055419921875
+      ],
+      "text": "2 π inin (γ′) nin (γ −γ′) e(χ(γ′) + χ(γ −γ′)) y\n(42)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        54.00011444091797,
+        597.5752563476562,
+        562.0169067382812,
+        623.1078491210938
+      ],
+      "text": "Taking the integral over γ′ using the method of steepest descent one can see that the equation for the saddle point\nhas the following form:"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        245.05111694335938,
+        631.1883544921875,
+        293.9346008300781,
+        642.5205078125
+      ],
+      "text": "d χ (γ −γ′)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        261.8160095214844,
+        631.1883544921875,
+        346.13848876953125,
+        656.094482421875
+      ],
+      "text": "d γ′\n+ d χ (γ′)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        322.9639892578125,
+        639.2979125976562,
+        562.1015014648438,
+        656.094482421875
+      ],
+      "text": "d γ′\n= 0\n(43)"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        63.9630126953125,
+        664.8977661132812,
+        177.01409912109375,
+        679.1915283203125
+      ],
+      "text": "with the solution γ′\nSP = 1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        173.03900146484375,
+        666.4849243164062,
+        408.43402099609375,
+        679.2295532226562
+      ],
+      "text": "2γ. Plugging this solution in Eq. (42) we reduce it to:"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        188.87599182128906,
+        697.5199584960938,
+        242.9602508544922,
+        715.1259765625
+      ],
+      "text": "f\nn2 = e2χ( 1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        239.5679931640625,
+        697.5199584960938,
+        258.04083251953125,
+        708.4825439453125
+      ],
+      "text": "2 γ) y"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        262.7209777832031,
+        687.7753295898438,
+        284.2801208496094,
+        704.64794921875
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        258.23797607421875,
+        718.182373046875,
+        279.9071044921875,
+        725.24658203125
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        281.65594482421875,
+        692.9723510742188,
+        304.809326171875,
+        704.3055419921875
+      ],
+      "text": "d ∆γ′"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        284.5979919433594,
+        699.3047485351562,
+        323.54791259765625,
+        717.8785400390625
+      ],
+      "text": "2 π i n2\nin"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.7090148925781,
+        694.1983032226562,
+        339.21929931640625,
+        704.3055419921875
+      ],
+      "text": "\u00121"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        334.2380065917969,
+        694.1983032226562,
+        359.7625732421875,
+        717.8785400390625
+      ],
+      "text": "2γ\n\u0013\ne"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        360.9549865722656,
+        690.8694458007812,
+        393.02032470703125,
+        700.7215576171875
+      ],
+      "text": "d2χ(γ′\nSP )"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        368.1659851074219,
+        693.294921875,
+        562.1015625,
+        711.057861328125
+      ],
+      "text": "dγ′2\nSP\ny (∆γ′)\n2\n(44)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.0,
+        54.26322555541992,
+        276.24566650390625,
+        85.89889526367188
+      ],
+      "text": "which reproduces the Mellin transform of Eq. (39).\nPlugging in Eq. (36) f\nn2 = e2χ( 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.4029998779297,
+        65.16917419433594,
+        524.8709716796875,
+        78.74779510498047
+      ],
+      "text": "2 γ) yH (γ) we can take the integral over y′ and the solution has the form:"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        71.0749740600586,
+        94.58473205566406,
+        213.64981079101562,
+        117.2655029296875
+      ],
+      "text": "˜m2 (γ, y, y0) = e χ(γ) yH (γ)\nZ y"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        205.18399047851562,
+        98.68888854980469,
+        342.0402526855469,
+        124.19554901123047
+      ],
+      "text": "0\ndy′ 2 f\nn2 e −χ(γ) y′ =\n2\n2χ\n\u0000 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        321.05999755859375,
+        112.27436828613281,
+        376.678466796875,
+        125.92656707763672
+      ],
+      "text": "2γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        377.87200927734375,
+        95.93635559082031,
+        385.90185546875,
+        105.89895629882812
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        385.89801025390625,
+        102.24595642089844,
+        407.94830322265625,
+        115.77154541015625
+      ],
+      "text": "e2χ( 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        404.5559997558594,
+        102.24589538574219,
+        517.62744140625,
+        115.771484375
+      ],
+      "text": "2 γ) yH (γ) −eχ(γ) yH (γ)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        519.2869873046875,
+        95.93629455566406,
+        527.3168334960938,
+        105.89889526367188
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        544.3880004882812,
+        105.82121276855469,
+        562.1015014648438,
+        115.78380584716797
+      ],
+      "text": "(45)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.99993896484375,
+        133.0097198486328,
+        562.087158203125,
+        182.8739013671875
+      ],
+      "text": "Note, that in Eq. (45) we neglected the contribution of emBFKL\n2\n(γ, y, y0) in Eq. (36).\nBefore ﬁxing H (γ) we need to go back to coordinate representation. Indeed, in this representation we have simple\ninitial conditions for M2 of Eq. (30). Since all solutions are solutions of the linear equations and γSP ≪1, we can\nreplace ξ′ = ln k2\nT by ξ = ln 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        179.83599853515625,
+        170.1672821044922,
+        463.8803405761719,
+        182.90057373046875
+      ],
+      "text": "r2 . Bearing this in mind, we can reduce the solution to the form:"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        149.38299560546875,
+        210.9199676513672,
+        215.03448486328125,
+        222.3775634765625
+      ],
+      "text": "M2 (ξ, y, y0) ="
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        223.38998413085938,
+        197.61343383789062,
+        244.9491424560547,
+        214.48599243164062
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        218.906982421875,
+        228.02041625976562,
+        240.57615661621094,
+        235.0845947265625
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        240.66400146484375,
+        204.18089294433594,
+        314.44244384765625,
+        228.2554931640625
+      ],
+      "text": "d γ\n2 π i\n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        282.78399658203125,
+        217.3863067626953,
+        338.4014587402344,
+        231.03753662109375
+      ],
+      "text": "2γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        339.59600830078125,
+        201.0473175048828,
+        347.6258544921875,
+        211.00991821289062
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        347.62200927734375,
+        207.35691833496094,
+        369.6712646484375,
+        220.88250732421875
+      ],
+      "text": "e2χ( 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        366.27899169921875,
+        201.04737854003906,
+        562.1015014648438,
+        227.71649169921875
+      ],
+      "text": "2 γ) y −eχ(γ) y\n)\n1\nγ eγ ξ\n(46)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.00001525878906,
+        242.71788024902344,
+        562.0943603515625,
+        288.5578308105469
+      ],
+      "text": "First, we note, that taking the integral over γ using the method of steepest descent, we reproduce Eq. (45) with\nthe particular choice of H (γ) = χ (γ) /γ, which has been discussed in Eq. (27). Second, one can see that at y →0\nthis solution coincides with Eq. (31).\nIn DLA this solution takes the form (see Eq. (22):"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        110.19602966308594,
+        308.01531982421875,
+        195.76947021484375,
+        321.655517578125
+      ],
+      "text": "M DLA\n2\n(ξ′, y, y0)\n="
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        207.3380126953125,
+        296.5753173828125,
+        228.89617919921875,
+        313.4488830566406
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        202.85401916503906,
+        326.9823303222656,
+        224.52418518066406,
+        334.0465087890625
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        226.27200317382812,
+        303.14288330078125,
+        254.73629760742188,
+        326.67950439453125
+      ],
+      "text": "d γ\n2 π i\n2\n3"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        255.9320068359375,
+        300.0103454589844,
+        263.96185302734375,
+        309.9729309082031
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        263.9570007324219,
+        300.0103454589844,
+        562.102783203125,
+        326.67950439453125
+      ],
+      "text": "e\n4\nγ y −e\n1\nγ y\n)\n1\nγ eγ ξ′\n(47a)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        188.02096557617188,
+        341.2439270019531,
+        207.92425537109375,
+        357.9465026855469
+      ],
+      "text": "= 2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        202.9429931640625,
+        354.81793212890625,
+        207.92428588867188,
+        364.780517578125
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        209.1199951171875,
+        338.1103515625,
+        217.1498565673828,
+        348.07293701171875
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        217.14498901367188,
+        346.2057189941406,
+        359.0634460449219,
+        360.40948486328125
+      ],
+      "text": "N 2\nSCA (r, y, y0) −NSCA (r, y, y0)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        360.7229919433594,
+        338.1103210449219,
+        368.7528381347656,
+        348.0729064941406
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        374.83599853515625,
+        347.8547668457031,
+        562.0907592773438,
+        357.95880126953125
+      ],
+      "text": "←with semiclassical accuracy\n(47b)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.0,
+        375.55389404296875,
+        562.0967407226562,
+        397.4837951660156
+      ],
+      "text": "However, it turns out that Eq. (47a) reproduces at least two terms of the expansion at small values of y of the\nfollowing relation:"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        119.92400360107422,
+        414.5268859863281,
+        210.17440795898438,
+        425.98345947265625
+      ],
+      "text": "M2 (Eq. (47a)) = 2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        218.0590057373047,
+        410.4128723144531,
+        333.68646240234375,
+        425.33050537109375
+      ],
+      "text": "N 2 (r, y, y0) −N (r, y, y0)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        335.34600830078125,
+        404.6533203125,
+        343.23638916015625,
+        414.61590576171875
+      ],
+      "text": "!"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        349.3210144042969,
+        407.7868957519531,
+        408.1742858886719,
+        424.4894714355469
+      ],
+      "text": "=\n2 yξ + 3"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        403.1929931640625,
+        409.5179138183594,
+        562.1014404296875,
+        431.3235168457031
+      ],
+      "text": "2 (y ξ)2 + O\n\u0010\n(y ξ)3\u0011\n(48)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.99995040893555,
+        442.1092224121094,
+        562.0330200195312,
+        464.0268249511719
+      ],
+      "text": "Concluding, we see that Eq. (2) does not hold in the DLA, but Eq. (48) gives us some hope to ﬁnd an approach in\nwhich it will be correct."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        250.8889617919922,
+        487.4095458984375,
+        365.264404296875,
+        496.3759460449219
+      ],
+      "text": "4.\nDiﬀusion approximation"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        53.99996566772461,
+        512.7601928710938,
+        562.0529174804688,
+        538.1904907226562
+      ],
+      "text": "Actually, the most adequate approach at high energies is the diﬀusion one (see Eq. (22)). Plugging in Eq. (46) the\nBFKL kernel in the form χ (γ) = ω0 + D\n\u0000\nγ −1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.0,
+        520.7402954101562,
+        562.05126953125,
+        548.6638793945312
+      ],
+      "text": "2\n\u00012 and taking the integral using the method of steepest descent\nwe obtain the saddle point"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        125.5270004272461,
+        556.3819580078125,
+        168.7032928466797,
+        574.5784912109375
+      ],
+      "text": "γSP = 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        163.7220001220703,
+        556.2373046875,
+        259.0433044433594,
+        579.91748046875
+      ],
+      "text": "2 + i\nξ\n2 D y ;\n2 χ\n\u00121"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        254.06199645996094,
+        563.1209106445312,
+        275.7460632324219,
+        579.91748046875
+      ],
+      "text": "2γSP"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        277.31298828125,
+        555.1017456054688,
+        353.7600402832031,
+        574.4494018554688
+      ],
+      "text": "\u0013\n= 2 ω0 −\nξ2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        338.5769958496094,
+        555.1017456054688,
+        479.718994140625,
+        579.91748046875
+      ],
+      "text": "2 D y ;\nχ (γSP ) = ω0 −\nξ2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        464.5350036621094,
+        563.1209106445312,
+        562.1015014648438,
+        579.91748046875
+      ],
+      "text": "4 D y ;\n(49)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.0,
+        587.7987670898438,
+        401.19232177734375,
+        605.8364868164062
+      ],
+      "text": "Considering\nξ\n2 D y ≪1 we can neglect their contributions in the factor\n2 χ(γ)\n2 χ( 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        378.0299987792969,
+        590.3072509765625,
+        562.0997924804688,
+        606.8365478515625
+      ],
+      "text": "2 γ) −χ(γ) reducing it to 2. Hence, Eq. (46)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.000030517578125,
+        606.2342529296875,
+        76.76456451416016,
+        616.1968383789062
+      ],
+      "text": "reads"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        199.06703186035156,
+        629.5257568359375,
+        283.9679870605469,
+        643.0755615234375
+      ],
+      "text": "M DA\n2\n(r, y, y0) = 2"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        291.85302734375,
+        627.18994140625,
+        407.4804992675781,
+        642.1075439453125
+      ],
+      "text": "N 2 (r, y, y0) −N (r, y, y0)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        409.1400451660156,
+        621.4302978515625,
+        417.0304260253906,
+        631.3929443359375
+      ],
+      "text": "!"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        544.3880615234375,
+        631.3152465820312,
+        562.1015625,
+        641.27783203125
+      ],
+      "text": "(50)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        54.000091552734375,
+        658.8729248046875,
+        562.1015014648438,
+        706.6505737304688
+      ],
+      "text": "We can obtain the solution of Eq. (50) directly from the equation for M2 (see Eq. (29)), if we note that the BFKL\nkernel has maxima at r′ →0 and |r −r′| →0. In Fig. 1 we plot the term of Eq. (29) , which is proportional to N 2:\nZ\nd2r′K (r′, r −r′|r) 2 N (r′, y, y0) N (r −r′, y, y0) ∝\nZ\nd2r′K (r′, r −r′|r) (\n\u0010\nr′2 (r −r′)2\u0011 1"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        474.8089904785156,
+        687.7373657226562,
+        558.7333374023438,
+        705.8095092773438
+      ],
+      "text": "2 =\nZ\ndr′I\n\u0012\nτ = r′"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        553.0659790039062,
+        702.680908203125,
+        557.55908203125,
+        712.6434936523438
+      ],
+      "text": "r"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        560.4299926757812,
+        688.9633178710938,
+        567.762451171875,
+        698.9259643554688
+      ],
+      "text": "\u0013"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        544.3880004882812,
+        713.7902221679688,
+        562.1015014648438,
+        723.7528076171875
+      ],
+      "text": "(51)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        557.114990234375,
+        28.360210418701172,
+        562.0963134765625,
+        38.322811126708984
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.0,
+        52.66474533081055,
+        524.5580444335938,
+        64.22582244873047
+      ],
+      "text": "We can see from Fig. 1, that I(τ) has a maximum at τ = 1. Note, that in Eq. (51) we introduce γ = 1"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.0,
+        54.26328659057617,
+        562.0909423828125,
+        76.18187713623047
+      ],
+      "text": "2 , which\ncorresponds to the DA, to estimates the value of this contribution."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        190.58729553222656,
+        245.8202667236328,
+        449.51275634765625,
+        257.8678283691406
+      ],
+      "text": "\u0001\u0002\u0001\n\u0001\u0002\u0003\n\u0004\u0002\u0001\n\u0004\u0002\u0003\n\u0005\u0002\u0001"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        190.0557861328125,
+        220.86187744140625,
+        196.7542266845703,
+        232.90943908691406
+      ],
+      "text": "\u0006"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        190.0557861328125,
+        187.59910583496094,
+        196.7542266845703,
+        199.64666748046875
+      ],
+      "text": "\u0007"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        190.0557861328125,
+        154.33631896972656,
+        196.7542266845703,
+        166.38388061523438
+      ],
+      "text": "\b"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        183.3233184814453,
+        121.07354736328125,
+        196.72019958496094,
+        133.12110900878906
+      ],
+      "text": "\u0004\u0001"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        183.3233184814453,
+        87.81076049804688,
+        196.72019958496094,
+        99.85831451416016
+      ],
+      "text": "\u0004\u0005"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        316.7140808105469,
+        261.00164794921875,
+        322.6925048828125,
+        274.78973388671875
+      ],
+      "text": "τ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        165.8323974609375,
+        161.2701416015625,
+        179.6774139404297,
+        180.61924743652344
+      ],
+      "text": "\u0001(τ)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        223.98300170898438,
+        287.5488586425781,
+        388.0134582519531,
+        298.07696533203125
+      ],
+      "text": "FIG. 1: I(τ) of Eq. (51) versus τ = r′/r."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        63.963043212890625,
+        314.5412292480469,
+        416.1507568359375,
+        324.50384521484375
+      ],
+      "text": "Bearing this observation in mind, we can re-write Eq. (29) in the following form:"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        75.5930404663086,
+        335.4499206542969,
+        135.67849731445312,
+        346.906494140625
+      ],
+      "text": "∂M2 (r, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        99.26300048828125,
+        335.7923278808594,
+        175.47119140625,
+        358.98651123046875
+      ],
+      "text": "∂y\n=\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        164.3249969482422,
+        359.0253601074219,
+        180.85671997070312,
+        366.49853515625
+      ],
+      "text": "r′<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        184.947998046875,
+        335.7923278808594,
+        343.8132019042969,
+        353.646484375
+      ],
+      "text": "d2r′K (r′, r −r′|r) M2 (r, y, y0) +\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        332.6669921875,
+        359.0253601074219,
+        349.1986999511719,
+        366.49853515625
+      ],
+      "text": "r′<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        353.2900085449219,
+        338.0758972167969,
+        562.1015014648438,
+        353.646484375
+      ],
+      "text": "d2r′ K (r′, r −r′|r) M2 (r′, y, y0)\n(52)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        147.83099365234375,
+        369.861328125,
+        180.1461944580078,
+        386.22149658203125
+      ],
+      "text": "+\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        161.00399780273438,
+        393.5643615722656,
+        193.52774047851562,
+        401.0385437011719
+      ],
+      "text": "|r−r′|<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        189.3170166015625,
+        369.861328125,
+        381.7152099609375,
+        387.7154846191406
+      ],
+      "text": "d2r′ K (r′, r −r′|r) M2 (r −r′, y, y0) +\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        362.5740051269531,
+        393.5643615722656,
+        395.0967102050781,
+        401.0385437011719
+      ],
+      "text": "|r−r′|<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        390.8860168457031,
+        372.1448974609375,
+        530.303466796875,
+        387.7154846191406
+      ],
+      "text": "d2r′ K (r′, r −r′|r) M2 (r, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        149.49203491210938,
+        405.6163330078125,
+        191.7692413330078,
+        421.97650146484375
+      ],
+      "text": "+\n2\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        172.62704467773438,
+        429.3193664550781,
+        205.15078735351562,
+        436.7935485839844
+      ],
+      "text": "|r−r′|<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        200.9400634765625,
+        407.89990234375,
+        410.04949951171875,
+        422.8175354003906
+      ],
+      "text": "d2r′ K (r′, r −r′|r) N (r, y, y0) N (r −r′, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        147.83203125,
+        441.371337890625,
+        178.792236328125,
+        457.73150634765625
+      ],
+      "text": "+ 2\nZ"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        167.6460418701172,
+        464.6043701171875,
+        184.17776489257812,
+        472.0775451660156
+      ],
+      "text": "r′<r"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        188.26904296875,
+        441.371337890625,
+        541.6984252929688,
+        459.2254943847656
+      ],
+      "text": "d2r′ K (r′, r −r′|r) N (r, y, y0) N ( r′, y, y0) −\nZ\nd2r K (r′, r −r′|r) M2 (r, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.0,
+        482.7229309082031,
+        562.0777587890625,
+        504.65283203125
+      ],
+      "text": "One can see (1) that in Eq. (52) the terms, which are proportional to M2 (r, y, y0), cancel each other out, and (2)\nthis equation can be presented in the form:"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        118.94499969482422,
+        518.2689208984375,
+        179.0304718017578,
+        529.7254638671875
+      ],
+      "text": "∂M2 (r, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        142.61399841308594,
+        518.611328125,
+        295.2884521484375,
+        541.8045043945312
+      ],
+      "text": "∂y\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        296.947998046875,
+        515.1353759765625,
+        304.97784423828125,
+        525.0980224609375
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        304.9729919433594,
+        523.140380859375,
+        488.6604309082031,
+        536.4655151367188
+      ],
+      "text": "M2 (r′, y, y0) + 2 N (r, y, y0) N ( r′, y, y0)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        490.3189697265625,
+        515.1353759765625,
+        498.34881591796875,
+        525.0980224609375
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        544.386962890625,
+        525.0213012695312,
+        562.1004638671875,
+        534.98388671875
+      ],
+      "text": "(53)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        63.96295166015625,
+        555.9032592773438,
+        397.4210510253906,
+        565.8658447265625
+      ],
+      "text": "Substituting Eq. (50) into Eq. (53) we reduce it in the SCA to the equation:"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        121.7259521484375,
+        574.0637817382812,
+        179.82684326171875,
+        587.7705078125
+      ],
+      "text": "∂2\n\u0000\nN 2 −N\n\u0001"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        144.406005859375,
+        580.9378051757812,
+        562.1015014648438,
+        601.9775390625
+      ],
+      "text": "∂y\n= 2 χ (γSP )\n\u0000\n2N 2 −N\n\u0001\n= 2\n\u0010\n(χ (2γSP ) + χ (γSP )) N 2 −χ (γSP ) N\n\u0011\n(54)"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        53.99993896484375,
+        612.0897827148438,
+        562.1425170898438,
+        661.3408203125
+      ],
+      "text": "Hence, one can see, that in the limit of small\nξ\n2 D y\n≪1, χ (2γSP ) = χ (γSP ) and Eq. (50) satisﬁes Eq. (53) and\nEq. (54).\nIt is worth noting that Eq. (48) follows from the multiplicity distribution, which is given by Eq. (1). We will\nconcentrate our eﬀorts on DA in our presentation below."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        254.491943359375,
+        685.2913208007812,
+        361.613525390625,
+        694.2576904296875
+      ],
+      "text": "B.\nThe third moment"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        63.96293640136719,
+        710.6329345703125,
+        490.24310302734375,
+        722.0894775390625
+      ],
+      "text": "The third moment can be found from the generating function ˜wλ (r, b, y, y0) in the following way:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        98.57196044921875,
+        81.1567611694336,
+        272.5948791503906,
+        92.74249267578125
+      ],
+      "text": "M3 (r, y, y0) = ⟨|n(n −1) (n −2)|⟩="
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        275.67095947265625,
+        71.07833099365234,
+        290.0669250488281,
+        88.94790649414062
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        275.3599548339844,
+        70.93095397949219,
+        494.9753723144531,
+        102.22954559326172
+      ],
+      "text": "n=1\nn (n −1) (n −2)wn (r, y, y0) = ∂3 wλ (r, y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        453.0350036621094,
+        87.57777404785156,
+        471.9850769042969,
+        98.08251953125
+      ],
+      "text": "∂λ3"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        496.1700134277344,
+        76.99232482910156,
+        562.1015014648438,
+        98.90994262695312
+      ],
+      "text": "λ = 1\n(55)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        63.9630126953125,
+        111.97093200683594,
+        367.88861083984375,
+        123.42755126953125
+      ],
+      "text": "Using Eq. (55) we obtain the equation for M3 (r, y, y0) from Eq. (18):"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        136.2639923095703,
+        145.2039031982422,
+        196.34945678710938,
+        156.6605224609375
+      ],
+      "text": "∂M3 (r, y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        159.9340057373047,
+        145.5463409423828,
+        322.34942626953125,
+        168.739501953125
+      ],
+      "text": "∂y\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.0079650878906,
+        142.07032775878906,
+        332.0378112792969,
+        152.03292846679688
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        332.0339660644531,
+        150.07540893554688,
+        479.3664245605469,
+        163.4005126953125
+      ],
+      "text": "M3 (r′, y, y0) + M3 (r −r′, y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        210.1629638671875,
+        183.94839477539062,
+        432.0413818359375,
+        197.2735595703125
+      ],
+      "text": "+\n6 M2 (r′, y, y0) N (r −r′, y, y0) −M3 (r, y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        433.700927734375,
+        175.94337463378906,
+        441.73077392578125,
+        185.90597534179688
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        53.99993896484375,
+        216.3352508544922,
+        486.59588623046875,
+        226.2978515625
+      ],
+      "text": "Rewriting Eq. (56) in momentum representation(see Eq. (32)) we reduce this eqaution to the form:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        119.97693634033203,
+        237.5049285888672,
+        186.03338623046875,
+        248.9615478515625
+      ],
+      "text": "∂m3 (kT , y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        146.6320037841797,
+        236.13540649414062,
+        562.1015014648438,
+        261.04150390625
+      ],
+      "text": "∂y\n=\nZ\nd2k′\nT\n(2π)2 K\n\u0000\nkT , k′\nT\n\u0001\nm3\n\u0000\nk′\nT , y, y0\n\u0001\n+ 6 m2 (kT , y, y0) n (kT , y, y0)\n(56)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.0,
+        271.0252380371094,
+        426.72076416015625,
+        292.94384765625
+      ],
+      "text": "where we use lowcase letters denoting the moments in the momentum representation.\nThe Mellin image of Eq. (56) has the form:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        208.43199157714844,
+        303.512939453125,
+        267.7254638671875,
+        320.6389465332031
+      ],
+      "text": "∂em3 (γ, y, y0)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        231.70599365234375,
+        307.3749084472656,
+        562.1015014648438,
+        327.37890625
+      ],
+      "text": "∂y\n= χ (γ) em3 (γ, y, y0) + 6 g\nn2 n\n(57)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.0,
+        337.28289794921875,
+        442.5646667480469,
+        357.2868957519531
+      ],
+      "text": "where g\nn2 n is the Mellin image of m2 (kT , y, y0) N (kT , y, y0) which has the general form:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        206.83399963378906,
+        380.9848937988281,
+        263.5534973144531,
+        397.9058837890625
+      ],
+      "text": "g\nn2 n (γ, y) ="
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        273.5690002441406,
+        370.5553283691406,
+        295.1281433105469,
+        387.4278869628906
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        269.08599853515625,
+        400.96234130859375,
+        290.755126953125,
+        408.0265197753906
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        297.03399658203125,
+        375.75335693359375,
+        311.8853759765625,
+        387.0854797363281
+      ],
+      "text": "d γ′"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        295.82501220703125,
+        380.9849548339844,
+        562.1016235351562,
+        400.98895263671875
+      ],
+      "text": "2 π i\nf\nn2 (γ′, y) en (γ −γ′, y)\n(58)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.0001220703125,
+        418.8029479980469,
+        256.9222717285156,
+        438.80694580078125
+      ],
+      "text": "where f\nn2 (γ, y) is determined by (see Eq. (46))"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        199.1481170654297,
+        445.4489440917969,
+        282.673583984375,
+        469.52349853515625
+      ],
+      "text": "f\nn2 =\n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        251.01499938964844,
+        458.6543273925781,
+        306.6324768066406,
+        472.3065490722656
+      ],
+      "text": "2γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.8270263671875,
+        442.3153381347656,
+        315.85687255859375,
+        452.2779235839844
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        315.85302734375,
+        448.6258850097656,
+        337.9033203125,
+        462.1514892578125
+      ],
+      "text": "e2χ( 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        334.510986328125,
+        442.3153381347656,
+        562.1015014648438,
+        468.9855041503906
+      ],
+      "text": "2 γ) y −eχ(γ) y\n)\n1\nγ\n(59)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.0,
+        482.9009094238281,
+        562.1012573242188,
+        519.664794921875
+      ],
+      "text": "Plugging Eq. (21) and Eq. (59) into Eq. (58) one can see that g\nn2 n (γ, y) is a sun of two terms. Taking the integral\nover γ′ in each of them in the saddle point approximation (see Eq. (42) - Eq. (44)) we obtain two equations for the\nsaddle points:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        78.39703369140625,
+        524.9436645507812,
+        109.05010223388672,
+        548.012451171875
+      ],
+      "text": "2d χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        105.07499694824219,
+        529.307373046875,
+        123.31086730957031,
+        543.4225463867188
+      ],
+      "text": "2γ′\u0001"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        97.0979995727539,
+        529.9403076171875,
+        186.76646423339844,
+        554.8464965820312
+      ],
+      "text": "dγ′\n+ d χ (γ −γ′)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        155.47799682617188,
+        531.3099365234375,
+        282.04730224609375,
+        554.8464965820312
+      ],
+      "text": "dγ′\n= 0\nwith\nγ′\nSP = 2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        277.0660095214844,
+        529.9403076171875,
+        360.06146240234375,
+        554.8464965820312
+      ],
+      "text": "3γ;\nd χ (γ −γ′)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        327.9429931640625,
+        529.9403076171875,
+        412.2654724121094,
+        554.8464965820312
+      ],
+      "text": "d γ′\n+ d χ (γ′)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        389.09100341796875,
+        531.3099365234375,
+        510.3163146972656,
+        554.8464965820312
+      ],
+      "text": "d γ′\n= 0;\nwith γ′\nSP = 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        505.3349914550781,
+        538.0499267578125,
+        562.1015014648438,
+        554.8464965820312
+      ],
+      "text": "2γ;\n(60)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        63.9630126953125,
+        565.0798950195312,
+        208.196533203125,
+        585.083984375
+      ],
+      "text": "Hence, g\nn2 n (γ, y) takes the form:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        164.69300842285156,
+        591.7258911132812,
+        286.1834716796875,
+        615.800537109375
+      ],
+      "text": "g\nn2 n (γ, y) =\n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        250.65199279785156,
+        600.104736328125,
+        302.5450744628906,
+        618.5835571289062
+      ],
+      "text": "3γ\n\u0001\n−χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        298.57000732421875,
+        604.9323120117188,
+        314.0108642578125,
+        618.5835571289062
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        315.2099914550781,
+        588.5933227539062,
+        323.2398376464844,
+        598.5559692382812
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        323.2349853515625,
+        594.9028930664062,
+        345.2852783203125,
+        608.428466796875
+      ],
+      "text": "e3χ( 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        341.89300537109375,
+        594.0267944335938,
+        398.0132751464844,
+        608.4285278320312
+      ],
+      "text": "3 γ) y −eχ( 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        394.6210021972656,
+        588.5933227539062,
+        421.87384033203125,
+        605.8655395507812
+      ],
+      "text": "2 γ) y\n)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        423.5299987792969,
+        598.4659423828125,
+        562.1015014648438,
+        609.9224853515625
+      ],
+      "text": "H2 (γ)\n(61)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.0,
+        628.9739379882812,
+        412.6877136230469,
+        650.90380859375
+      ],
+      "text": "The solution does not depend on the form of H2 (γ) , which we will specify below.\nPlugging this equation in Eq. (57) we obtain the solution:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        103.5630111694336,
+        671.4359130859375,
+        186.68482971191406,
+        688.5619506835938
+      ],
+      "text": "em3 (γ, y, y0)\n=\n6"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        188.33900451660156,
+        661.5633544921875,
+        237.86929321289062,
+        688.771484375
+      ],
+      "text": "1\n3 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        217.718994140625,
+        677.90234375,
+        273.3364562988281,
+        691.5535888671875
+      ],
+      "text": "3γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        274.531005859375,
+        661.5633544921875,
+        350.6504821777344,
+        688.771484375
+      ],
+      "text": "!  \n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        315.1189880371094,
+        673.0747680664062,
+        367.0120544433594,
+        691.5535888671875
+      ],
+      "text": "3γ\n\u0001\n−χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        363.0369873046875,
+        677.90234375,
+        378.47784423828125,
+        691.5535888671875
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        379.6769714355469,
+        661.5633544921875,
+        397.2609558105469,
+        671.5260009765625
+      ],
+      "text": "! ("
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        397.2499694824219,
+        667.8729248046875,
+        420.6602478027344,
+        681.3984985351562
+      ],
+      "text": "e3 χ( 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        417.26800537109375,
+        661.5633544921875,
+        491.3068542480469,
+        681.3984985351562
+      ],
+      "text": "3 γ) y −e χ(γ) y\n)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        164.64999389648438,
+        705.1807861328125,
+        172.40089416503906,
+        715.1434326171875
+      ],
+      "text": "−"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        181.69699096679688,
+        695.4363403320312,
+        235.10028076171875,
+        722.64453125
+      ],
+      "text": "1\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        211.07699584960938,
+        706.94775390625,
+        262.9700622558594,
+        725.4275512695312
+      ],
+      "text": "3γ\n\u0001\n−χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        258.9949951171875,
+        711.7753295898438,
+        274.43585205078125,
+        725.4275512695312
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        275.6349792480469,
+        695.4363403320312,
+        346.221435546875,
+        722.64453125
+      ],
+      "text": "!  \n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        314.56298828125,
+        711.7753295898438,
+        370.1804504394531,
+        725.4275512695312
+      ],
+      "text": "2γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        371.375,
+        695.4363403320312,
+        388.958984375,
+        705.3989868164062
+      ],
+      "text": "! ("
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        388.947998046875,
+        701.7469482421875,
+        412.3582763671875,
+        715.2725219726562
+      ],
+      "text": "e2 χ( 1"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        408.96600341796875,
+        695.436279296875,
+        483.0048522949219,
+        715.2725219726562
+      ],
+      "text": "2 γ) y −e χ(γ) y\n)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        484.6610107421875,
+        705.3099365234375,
+        562.1015014648438,
+        716.7664794921875
+      ],
+      "text": "H2 (γ)\n(62)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.999969482421875,
+        54.25090026855469,
+        562.0711669921875,
+        76.18181610107422
+      ],
+      "text": "Going to the coordinate representation as was discussed above and choosing H2 (γ) = χ (γ) /γ, which reproduces the\ncorrect initial conditions we obtain"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        87.71597290039062,
+        98.32890319824219,
+        170.8607940673828,
+        109.7864990234375
+      ],
+      "text": "M3 (ξ, y, y0)\n=\n6"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        176.44497680664062,
+        85.0213851928711,
+        198.00413513183594,
+        101.89492797851562
+      ],
+      "text": "ϵ+i ∞\nZ"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        171.96197509765625,
+        115.4283676147461,
+        193.6311492919922,
+        122.49254608154297
+      ],
+      "text": "ϵ−i ∞"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        198.6999969482422,
+        91.58891296386719,
+        220.4365997314453,
+        115.12548828125
+      ],
+      "text": "d γ\n2 π i,"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        222.093994140625,
+        88.45631408691406,
+        279.8124694824219,
+        115.66448974609375
+      ],
+      "text": "χ (γ)\n3 χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        251.47500610351562,
+        104.79530334472656,
+        307.09246826171875,
+        118.44652557373047
+      ],
+      "text": "3γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        308.2870178222656,
+        88.45631408691406,
+        384.406494140625,
+        115.66448974609375
+      ],
+      "text": "!  \n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        348.875,
+        99.96772766113281,
+        400.76806640625,
+        118.44652557373047
+      ],
+      "text": "3γ\n\u0001\n−χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        396.7929992675781,
+        104.79530334472656,
+        412.2338562011719,
+        118.44652557373047
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        413.4329833984375,
+        88.45631408691406,
+        431.0169677734375,
+        98.41891479492188
+      ],
+      "text": "! ("
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        431.0059814453125,
+        94.76591491699219,
+        454.416259765625,
+        108.29150390625
+      ],
+      "text": "e3 χ( 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        451.02398681640625,
+        88.45637512207031,
+        525.0628662109375,
+        108.29150390625
+      ],
+      "text": "3 γ) y −e χ(γ) y\n)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        148.82601928710938,
+        136.3008575439453,
+        156.57691955566406,
+        146.26345825195312
+      ],
+      "text": "−"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        165.87301635742188,
+        126.55641174316406,
+        227.46446228027344,
+        153.7645263671875
+      ],
+      "text": "χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        195.2530059814453,
+        138.06776428222656,
+        247.1460723876953,
+        156.54656982421875
+      ],
+      "text": "3γ\n\u0001\n−χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        243.17100524902344,
+        142.8953399658203,
+        258.6128845214844,
+        156.54656982421875
+      ],
+      "text": "2γ\n\u0001"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        259.8110046386719,
+        126.55635070800781,
+        330.3974609375,
+        153.7645263671875
+      ],
+      "text": "!  \n2 χ (γ)\n2 χ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        298.739013671875,
+        142.8953399658203,
+        354.3564758300781,
+        156.54656982421875
+      ],
+      "text": "2γ\n\u0001\n−χ (γ)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        355.551025390625,
+        126.55635070800781,
+        373.135009765625,
+        136.51895141601562
+      ],
+      "text": "! ("
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        373.1240234375,
+        132.86692810058594,
+        396.5353088378906,
+        146.39251708984375
+      ],
+      "text": "e2 χ( 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        393.14300537109375,
+        126.55635070800781,
+        562.1015014648438,
+        153.22552490234375
+      ],
+      "text": "2 γ) y −e χ(γ) y\n)\n1\nγ eγ ξ\n(63)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        63.9630126953125,
+        166.4374237060547,
+        426.4297790527344,
+        180.03485107421875
+      ],
+      "text": "Using the method of steepest descent and neglecting contributions of the order of\nξ′"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.0,
+        170.07225036621094,
+        562.1038208007812,
+        191.9898681640625
+      ],
+      "text": "2 D y in all pre-exponential factors,\nwe see that"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        200.20599365234375,
+        198.92393493652344,
+        562.1014404296875,
+        215.3905029296875
+      ],
+      "text": "M3 (ξ, y, y0) = 6 N (ξ, y, y0) (N (ξ, y, y0) −1)2 ,\n(64)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.99993896484375,
+        225.8632049560547,
+        331.9265441894531,
+        235.8258056640625
+      ],
+      "text": "which is the same as for the multiplicity distribution of Eq. (1)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        256.4049377441406,
+        259.77630615234375,
+        359.6978454589844,
+        268.7427062988281
+      ],
+      "text": "C.\nGeneral approach"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        63.96293640136719,
+        285.1291809082031,
+        218.12417602539062,
+        295.091796875
+      ],
+      "text": "The equation for a general moment"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        58.98093795776367,
+        314.33575439453125,
+        248.69483947753906,
+        325.9224548339844
+      ],
+      "text": "Mk (r, y, y0) = ⟨|n(n −1) . . . (n −k + 1)|⟩="
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        251.77093505859375,
+        304.25732421875,
+        266.1669006347656,
+        322.12689208984375
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        251.45993041992188,
+        304.10986328125,
+        516.8592529296875,
+        335.4095153808594
+      ],
+      "text": "n=1\n(n (n −1) . . . (n −k + 1)) wn (r, y, y0) = ∂k wλ (r, y, y0)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        474.4859924316406,
+        320.7567443847656,
+        493.694091796875,
+        331.2615051269531
+      ],
+      "text": "∂λk"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        518.052978515625,
+        310.1713562011719,
+        562.1014404296875,
+        332.08892822265625
+      ],
+      "text": "λ = 1 (65)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.99993896484375,
+        345.5249328613281,
+        562.0675048828125,
+        367.454833984375
+      ],
+      "text": "we can obtain by diﬀerentiating Eq. (18) with respect to λ. It has the simple form in the momentum representation\n(see Eq. (32)):"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        72.55699920654297,
+        381.2017517089844,
+        329.62493896484375,
+        406.01751708984375
+      ],
+      "text": "∂\n∂y mk (kT , y, y0) =\nZ\nd2kT\n(2π)2 K\n\u0000\nkT , k′\nT\n\u0001\nmk\n\u0000\nk′\nT , y, y0\n\u0001\n+"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        335.1570129394531,
+        379.0133972167969,
+        349.7620849609375,
+        396.8829650878906
+      ],
+      "text": "k−1\nX"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        336.0050354003906,
+        403.311767578125,
+        348.9151306152344,
+        410.28558349609375
+      ],
+      "text": "i=1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        354.2749938964844,
+        382.4819641113281,
+        562.1015625,
+        406.01751708984375
+      ],
+      "text": "k!\n(k −i)! i!mk−i (kT , y, y0) mi (kT , y, y0)\n(66)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.00006103515625,
+        420.40191650390625,
+        562.0957641601562,
+        442.3318176269531
+      ],
+      "text": "As we have discussed, we can go back to coordinate representation in Eq. (66), since mk are solution to the linear\nequations, and, therefore, have the Mellin image"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        162.237060546875,
+        476.4349060058594,
+        222.9423065185547,
+        487.8914794921875
+      ],
+      "text": "mk (kT , y) ="
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        232.95504760742188,
+        463.1273498535156,
+        257.2351989746094,
+        479.9999084472656
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        228.4720458984375,
+        493.53436279296875,
+        252.86221313476562,
+        500.5985412597656
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        254.61099243164062,
+        469.31390380859375,
+        562.1015014648438,
+        493.2304992675781
+      ],
+      "text": "dγ\n2 π i eω(γ) y + γ ξ′ mk0 (γ)\nwith\nξ′ = ln k2\nT\n(67)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.0,
+        510.9471740722656,
+        214.86611938476562,
+        520.9097900390625
+      ],
+      "text": "In coordinate representation we have"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        147.08099365234375,
+        544.994873046875,
+        200.4482421875,
+        556.4514770507812
+      ],
+      "text": "Mk (r, y) ="
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        210.45999145507812,
+        531.6873168945312,
+        234.7401580810547,
+        548.5599365234375
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        205.9770050048828,
+        562.0942993164062,
+        230.3681640625,
+        569.1585083007812
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        232.11599731445312,
+        530.9469604492188,
+        458.3543395996094,
+        561.79150390625
+      ],
+      "text": "dγ\n2 π i eω(γ) y + γ ξ mk0 (γ) Hk(γ)\nwith\nξ = ln\n\u0012 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        451.2439880371094,
+        551.2867431640625,
+        459.99005126953125,
+        561.79150390625
+      ],
+      "text": "r2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        461.67999267578125,
+        538.1103515625,
+        562.1015014648438,
+        554.9698486328125
+      ],
+      "text": "\u0013\n(68)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.99993896484375,
+        577.12890625,
+        562.0975341796875,
+        615.8748779296875
+      ],
+      "text": "The coordinate image of mk−i (kT , y, y0) mk (kT , y, y0) is\nR\nd2r′ K (r′, r −r′|r) Mk−i (r′, y, y0) Mi (r −r′, y, y0).\nOn the other hand,\nin SCA\nmk−i (kT , y, y0) mi (kT , y, y0) has the\nimage in\nγ-representation,\nwhich is\nequal to Const exp\n\u0000\nkχ\n\u0000 1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        169.19500732421875,
+        600.165771484375,
+        240.5002899169922,
+        618.64453125
+      ],
+      "text": "kγ\n\u0001\ny\n\u0001\nmk−i,0\n\u0000 γ"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        236.42100524902344,
+        600.165771484375,
+        280.020263671875,
+        618.64453125
+      ],
+      "text": "k\n\u0001\nmi,0\n\u0000 γ"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        53.99993896484375,
+        604.62841796875,
+        562.0990600585938,
+        652.98486328125
+      ],
+      "text": "k\n\u0001 eHk (γ) (see Eq. (45) and Eq. (61))2.\nUsing this im-\nage, one can see, that the coordinate representation for mk−i (kT , y, y0) mk (kT , y, y0) can be reduced to\nR\nd2r′K (r′, r −r′|r) Mk−i (r′, y, y0) Mi (r′, y, y0), which means, that eHk (γ) = χ (γ) as we expect from Eq. (46)\nand Eq. (63)."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.49399948120117,
+        687.2659301757812,
+        562.052001953125,
+        699.455078125
+      ],
+      "text": "2 Actually, the γ image of mk is a sum of the terms with diﬀerent k (see Eq. (45) and Eq. (61)), but this does not change the conclusion."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        63.962982177734375,
+        54.26322555541992,
+        401.7348937988281,
+        64.22582244873047
+      ],
+      "text": "Finally we can re-write Eq. (66) in the coordinate representation in the form:"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        100.25399780273438,
+        77.14891052246094,
+        287.3244323730469,
+        100.68548583984375
+      ],
+      "text": "∂\n∂y Mk (r, y, y0)\n=\nZ\nd2r′K (r′, r −r′|r)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        290.64398193359375,
+        74.01631164550781,
+        298.673828125,
+        83.97891235351562
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        298.66998291015625,
+        82.0213851928711,
+        515.37744140625,
+        95.34649658203125
+      ],
+      "text": "Mk (r′, y, y0) + Mk (r −r′, y, y0) −Mk (r, y, y0)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        175.13796997070312,
+        118.61991882324219,
+        182.8888702392578,
+        128.58251953125
+      ],
+      "text": "+"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        193.844970703125,
+        108.4123764038086,
+        208.4510498046875,
+        126.28195190429688
+      ],
+      "text": "k−1\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        194.6929931640625,
+        132.7107696533203,
+        207.60308837890625,
+        139.6845703125
+      ],
+      "text": "i=1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        212.96299743652344,
+        111.87992858886719,
+        374.4144592285156,
+        135.41650390625
+      ],
+      "text": "k!\n(k −i)! i!Mk−i (r′, y, y0) Mi (r′, y, y0)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        376.0740051269531,
+        108.74732971191406,
+        384.1038513183594,
+        118.70993041992188
+      ],
+      "text": ")"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        544.3880004882812,
+        118.63224792480469,
+        562.1015014648438,
+        128.5948486328125
+      ],
+      "text": "(69)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.0,
+        142.1482391357422,
+        203.07728576660156,
+        164.06585693359375
+      ],
+      "text": ".\nAssuming that for all i ≤k −1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        198.20999145507812,
+        169.7539520263672,
+        562.1015014648438,
+        186.21954345703125
+      ],
+      "text": "Mi (r, y, y0) = i! N (r, y, y0) (N (r, y, y0) −1)i−1 ,\n(70)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.0,
+        195.43492126464844,
+        562.1041259765625,
+        239.78396606445312
+      ],
+      "text": "which follows from Eq. (1), we will prove that for i = k we have the same expression.\nPlugging Eq. (70) in Eq. (69) we get the inhomogeneous term in the form k! (k −1) N 2 (N −1)k−2. In the following\nwe will use that the Mellin image of N i (r, y, y0) ( eni) is equal to"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        73.0479736328125,
+        252.4629364013672,
+        124.52823638916016,
+        269.9489440917969
+      ],
+      "text": "eni = ei χ( 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        121.50199890136719,
+        249.28587341308594,
+        146.90029907226562,
+        263.425537109375
+      ],
+      "text": "i γ) y 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        141.5540008544922,
+        256.02593994140625,
+        162.29989624023438,
+        272.822509765625
+      ],
+      "text": "γ ="
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        172.3159942626953,
+        242.71841430664062,
+        196.59616088867188,
+        259.5909729003906
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        167.83299255371094,
+        273.1253967285156,
+        192.22315979003906,
+        280.1895751953125
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        197.29299926757812,
+        249.2859344482422,
+        283.2730407714844,
+        273.36053466796875
+      ],
+      "text": "dω\n2 π i eω y\n1\nω −i χ\n\u0000 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        279.8739929199219,
+        249.2859344482422,
+        302.4792785644531,
+        276.7965087890625
+      ],
+      "text": "i γ\n\u0001 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        297.13299560546875,
+        249.2859344482422,
+        501.8050231933594,
+        273.36053466796875
+      ],
+      "text": "γ ;\ndouble Mellin image eeni =\n1\nω −i χ\n\u0000 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        498.406005859375,
+        249.2859344482422,
+        521.0123291015625,
+        276.7965087890625
+      ],
+      "text": "i γ\n\u0001 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        515.6649780273438,
+        256.02593994140625,
+        562.1014404296875,
+        272.822509765625
+      ],
+      "text": "γ ;\n(71)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        53.99993896484375,
+        289.88995361328125,
+        562.10498046875,
+        323.77484130859375
+      ],
+      "text": "which can be derived using the method of steepest descent in the estimates of the integrals over γ’s (see Eq. (42) for\nexample).\nIn the double Mellin transform Eq. (69) takes the form:"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        141.42893981933594,
+        344.16680908203125,
+        293.7514343261719,
+        361.42193603515625
+      ],
+      "text": "(ω −χ (γ)) g\ng\nMk = k! (k −1)χ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        295.4109802246094,
+        334.08740234375,
+        310.0160217285156,
+        351.95697021484375
+      ],
+      "text": "k−2\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        296.3879699707031,
+        358.6147766113281,
+        309.0390625,
+        365.5885925292969
+      ],
+      "text": "l=0"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        312.86798095703125,
+        336.2757873535156,
+        422.8193054199219,
+        361.0915222167969
+      ],
+      "text": "(−1)l(k −2)!\n(k −2 −l)! l!\n1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        373.6310119628906,
+        337.5559387207031,
+        474.7652587890625,
+        367.40155029296875
+      ],
+      "text": "ω −(k −l) χ\n\u0010\n1\nk−lγ\n\u0011 1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        469.41900634765625,
+        344.3082275390625,
+        562.1015014648438,
+        361.0915222167969
+      ],
+      "text": "γ\n(72)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        63.9630126953125,
+        378.3282165527344,
+        193.33737182617188,
+        388.29083251953125
+      ],
+      "text": "Hence from Eq. (72) we have:"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        91.07101440429688,
+        408.6817932128906,
+        204.63775634765625,
+        420.26849365234375
+      ],
+      "text": "Mk (r, y, y0) = k! (k −1)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        206.29701232910156,
+        398.6033630371094,
+        220.90208435058594,
+        416.4729309082031
+      ],
+      "text": "k−2\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        207.27401733398438,
+        423.1297302246094,
+        219.92510986328125,
+        430.1035461425781
+      ],
+      "text": "l=0"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        223.75401306152344,
+        400.7917175292969,
+        562.1015625,
+        425.6075134277344
+      ],
+      "text": "(−1)l(k −2)!\n(k −2 −l)! l!\n(73)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        91.07107543945312,
+        446.8097839355469,
+        98.82197570800781,
+        456.7723693847656
+      ],
+      "text": "×"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        106.07007598876953,
+        433.6323547363281,
+        130.35023498535156,
+        450.5049133300781
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        101.58707427978516,
+        464.03936767578125,
+        125.97823333740234,
+        471.1035461425781
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        131.0469970703125,
+        440.1999206542969,
+        148.8271942138672,
+        463.7355041503906
+      ],
+      "text": "dω\n2 π i"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        155.60299682617188,
+        433.63238525390625,
+        179.8841552734375,
+        450.50494384765625
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        151.1199951171875,
+        464.0393981933594,
+        175.5111541748047,
+        471.10357666015625
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        180.5800018310547,
+        440.1999206542969,
+        306.7344665527344,
+        463.7355041503906
+      ],
+      "text": "dγ\n2 π i eω y + γ ξ′\nχ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        242.55099487304688,
+        453.4053649902344,
+        349.5634765625,
+        470.0455627441406
+      ],
+      "text": "(n −l)χ\n\u0010\n1\nk−lγ\n\u0011\n−χ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        350.7580261230469,
+        437.06634521484375,
+        409.1683044433594,
+        450.1625061035156
+      ],
+      "text": "(\n1"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        359.97900390625,
+        440.1999206542969,
+        519.6564331054688,
+        470.0455627441406
+      ],
+      "text": "ω −(k −l) χ\n\u0010\n1\nk−lγ\n\u0011 −\n1\nω −χ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        520.8510131835938,
+        437.06634521484375,
+        535.4183349609375,
+        463.7355041503906
+      ],
+      "text": ")\n1\nγ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        91.07101440429688,
+        488.7958068847656,
+        143.582763671875,
+        498.88751220703125
+      ],
+      "text": "= k! (k −1)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        145.24301147460938,
+        478.7173767089844,
+        160.36907958984375,
+        496.5869445800781
+      ],
+      "text": "n−2\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        146.48001098632812,
+        503.2437438964844,
+        159.131103515625,
+        510.2175598144531
+      ],
+      "text": "l=0"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        163.22100830078125,
+        480.90576171875,
+        219.93536376953125,
+        505.7215270996094
+      ],
+      "text": "(−1)l(k −2)!\n(k −2 −l)! l!"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        225.05699157714844,
+        475.6174011230469,
+        249.33815002441406,
+        492.490966796875
+      ],
+      "text": "ϵ + i ∞\nZ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        220.57398986816406,
+        506.0244140625,
+        244.96514892578125,
+        513.0885620117188
+      ],
+      "text": "ϵ −i ∞"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        250.03399658203125,
+        482.1849365234375,
+        356.1914367675781,
+        505.7215270996094
+      ],
+      "text": "dγ\n2 π i e γ ξ′\nχ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        292.24700927734375,
+        495.3913269042969,
+        398.78045654296875,
+        512.0315551757812
+      ],
+      "text": "(k −l)χ\n\u0010\n1\nk−lγ\n\u0011\n−χ (γ)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        399.9750061035156,
+        479.0523376464844,
+        408.0048522949219,
+        489.0149230957031
+      ],
+      "text": "("
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        408.0,
+        479.0523376464844,
+        532.2333374023438,
+        505.7215270996094
+      ],
+      "text": "e(k−l)χ(\n1\nk−1 γ) y −eχ(γ) y\n)\n1\nγ"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.0,
+        522.9449462890625,
+        562.0227661132812,
+        556.8308715820312
+      ],
+      "text": "In Eq. (73) we calculate the integrals over ω closing the contour of integration on poles. Taking the integral over γ\nusing the method of steepest descent in the diﬀusion approximation and neglecting the corrections of the order of\nξ′/Dy (see discussions above) we reduce Eq. (73) to the following expression:"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        112.88700103759766,
+        577.3519287109375,
+        199.14759826660156,
+        588.8085327148438
+      ],
+      "text": "Mk (r, y, y0)\n=\nk!"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        202.4669952392578,
+        567.1443481445312,
+        217.0720672607422,
+        585.0130004882812
+      ],
+      "text": "k−2\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        203.44400024414062,
+        591.6707763671875,
+        216.0950927734375,
+        598.6445922851562
+      ],
+      "text": "l=0"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        219.9239959716797,
+        569.332763671875,
+        422.16888427734375,
+        594.1484985351562
+      ],
+      "text": "(−1)l(k −1)!\n(k −1 −l)! l!\n\u0000\nN k−l (r, y, y0) −N (r, b, y, y0)\n\u0001"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        173.83102416992188,
+        612.6089477539062,
+        195.82763671875,
+        622.571533203125
+      ],
+      "text": "= k!"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        199.14602661132812,
+        602.4003295898438,
+        213.7510986328125,
+        620.2699584960938
+      ],
+      "text": "k−1\nX"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        200.12303161621094,
+        626.927734375,
+        212.7741241455078,
+        633.9015502929688
+      ],
+      "text": "l=0"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        216.60302734375,
+        604.5897216796875,
+        562.1015014648438,
+        629.405517578125
+      ],
+      "text": "(−1)l(k −1)!\n(k −1 −l)! l!N k−l (r, y, y0) = k! N (r, y, y0) (N (r, y, y0) −1)k−1\n(74)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        63.9630126953125,
+        642.7709350585938,
+        477.38262939453125,
+        652.745849609375
+      ],
+      "text": "Since we have obtained Eq. (70) for i = 2 and i = 3 , we prove this equation for any value of i."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        118.30303955078125,
+        676.4823608398438,
+        497.7789306640625,
+        685.44873046875
+      ],
+      "text": "VI.\nFINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        54.000038146972656,
+        701.8352661132812,
+        562.10302734375,
+        723.7528686523438
+      ],
+      "text": "Eq. (70) generates the multiplicity distribution of Eq. (1).\nHowever, several questions arise, when we wish to\ncompare this distribution with the experimental data, let say with DIS. The average multiplicity of the color-singlet"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "13"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        53.999969482421875,
+        52.97175216674805,
+        562.10888671875,
+        90.7393569946289
+      ],
+      "text": "dipoles is equal to the sea quark structure function xΣsea\n\u0000\nx, Q2\u0001\n[19]. On the other hand, in Eq. (70) the multiplicity\nenters in the coordinate representation. In diﬀraction approximation the momentum and coordinate representations\nare related by the replacement ln k2\nT →−ln r2. Therefore, my suggestion is to use Eq. (1) with N = xΣsea\n\u0000\nx, Q2\u0001"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        53.9998779296875,
+        90.12919616699219,
+        562.0723266601562,
+        112.04680633544922
+      ],
+      "text": "but to calculate the corrections to this distribution. The multiplicity distribution can generally be written, using the\ncumulant generating function f (λ) as follows [34, 35]:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        263.9129943847656,
+        122.79579162597656,
+        351.3973388671875,
+        148.45355224609375
+      ],
+      "text": "σn\nσin\n=\nI\ndλ\n2 π i\nef(λ)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        330.8599853515625,
+        130.82725524902344,
+        562.1015014648438,
+        147.61151123046875
+      ],
+      "text": "λn+1\n(75)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.0,
+        157.53294372558594,
+        562.0795288085938,
+        179.462890625
+      ],
+      "text": "where the contour of integration is the circle around the point λ = 0 and f (λ) is the cumulant generating function,\nwhich is deﬁned as"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        253.48500061035156,
+        196.6079559326172,
+        288.49554443359375,
+        206.570556640625
+      ],
+      "text": "f (λ) ="
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        294.89202880859375,
+        186.39944458007812,
+        309.2879943847656,
+        204.26901245117188
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        294.5810241699219,
+        210.5778350830078,
+        309.59710693359375,
+        217.5516357421875
+      ],
+      "text": "n=1"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        312.4490051269531,
+        189.8679656982422,
+        323.11248779296875,
+        200.671630859375
+      ],
+      "text": "κn"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        313.6570129394531,
+        193.93482971191406,
+        562.1015625,
+        213.404541015625
+      ],
+      "text": "n! (λ −1)n\n(76)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.00006103515625,
+        226.76695251464844,
+        474.967041015625,
+        238.23590087890625
+      ],
+      "text": "where κn are cumulants. Generally speaking, we have the following deﬁnition for the cumulants:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        58.98106384277344,
+        244.14979553222656,
+        562.1015625,
+        260.81854248046875
+      ],
+      "text": "κ1 = N;\nκ2 = M2 −N 2;\nκ3 = M3 −3 M2 N + 2 N 2;\nκ4 = M4 −4 M3 N −3 M 2\n2 + 12 M2 N 2 −6 N 4; (77)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.00006103515625,
+        270.0189208984375,
+        562.0897216796875,
+        315.8587951660156
+      ],
+      "text": "where Mk are the factorial moments, that we have discussed above (see Eq. (70)).\nIn our case we can view f (λ) as a sum of f (λ) = f Eq. (1) (λ) + ∆f (λ). f Eq. (1) (λ) generates the multiplicity\ndistributions of Eq. (1), which includes the most dominant contributions and ,in particular, the average number of\ncolor-singlet dipoles is taken into account exactly. We suggest to introduce function ∆f (λ) in the following way:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        245.18313598632812,
+        335.493896484375,
+        288.49566650390625,
+        345.45648193359375
+      ],
+      "text": "∆f (λ) ="
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        294.89215087890625,
+        325.2863464355469,
+        309.2881164550781,
+        343.1559143066406
+      ],
+      "text": "∞\nX"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        294.5811462402344,
+        349.4637145996094,
+        309.59722900390625,
+        356.4375305175781
+      ],
+      "text": "n=1"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        312.4491271972656,
+        328.75390625,
+        331.41461181640625,
+        339.55853271484375
+      ],
+      "text": "∆κn"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        317.8080139160156,
+        332.82073974609375,
+        562.1015625,
+        352.29052734375
+      ],
+      "text": "n!\n(λ −1)n\n(78)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.00006103515625,
+        365.66522216796875,
+        73.36735534667969,
+        375.6278381347656
+      ],
+      "text": "with"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.97006225585938,
+        382.14080810546875,
+        562.1015625,
+        398.7355041503906
+      ],
+      "text": "∆κ1 = 0;\n∆κ2 = M2 (kT , y) −2 N (N −1) ;\n∆κ3 = M3 (kT , y) −6 N (N −1)2 −3 ∆κ2 N ;\n(79)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.00006103515625,
+        408.9049377441406,
+        465.3777770996094,
+        430.8348388671875
+      ],
+      "text": "where M2 (kT , y) and M3 (kT , y) are the exact solutions to Eq. (33) and Eq. (56), respectively.\nIntroducing two multiplicity distributions:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        169.25006103515625,
+        441.09295654296875,
+        299.67034912109375,
+        467.3575134277344
+      ],
+      "text": "Pn (N) =\nI\ndλ\n2 π i\nef Eq. (1)(λ)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        267.322998046875,
+        442.541748046875,
+        442.3803405761719,
+        467.3575134277344
+      ],
+      "text": "λn+1\n;\nePn (N) =\nI\ndλ\n2 π i\ne∆f(λ)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        418.57000732421875,
+        450.5609436035156,
+        562.1015014648438,
+        467.3575134277344
+      ],
+      "text": "λn+1 ;\n(80)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.0,
+        476.6812438964844,
+        356.9726257324219,
+        486.64385986328125
+      ],
+      "text": "one can see that the resulting multiplicity distribution takes the form"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        221.64500427246094,
+        509.00396728515625,
+        249.5269012451172,
+        533.381591796875
+      ],
+      "text": "σn\nσin\n="
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        255.66299438476562,
+        505.625732421875,
+        270.0589599609375,
+        523.4049682617188
+      ],
+      "text": "n\nX"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        255.6129913330078,
+        530.0617065429688,
+        270.1070861816406,
+        537.0355224609375
+      ],
+      "text": "k=0"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        274.6199951171875,
+        509.00390625,
+        562.1015014648438,
+        532.8689575195312
+      ],
+      "text": "n!\n(n −k)! k! Pn−k (N) ePk (N)\n(81)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.00006103515625,
+        548.9737548828125,
+        562.0675659179688,
+        571.0328369140625
+      ],
+      "text": "In the case of ∆κ2 ̸= 0 but ∆κn = 0 for n > 2 the distribution ePn (N) has been found in Ref.[34] and it has the\nfollowing form in our notations:"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        204.2750701904297,
+        612.0159301757812,
+        268.5816345214844,
+        626.6239624023438
+      ],
+      "text": "ePn (∆κ2) = e"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        269.7740478515625,
+        608.0499267578125,
+        282.75433349609375,
+        614.5252685546875
+      ],
+      "text": "∆κ2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        274.8169860839844,
+        614.1959228515625,
+        278.2092590332031,
+        619.17724609375
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        286.13897705078125,
+        591.7823486328125,
+        314.6165771484375,
+        608.6285400390625
+      ],
+      "text": "\u0012\n−i\nq"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        315.81201171875,
+        596.917724609375,
+        330.4132995605469,
+        604.4522705078125
+      ],
+      "text": "∆κ2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        321.375,
+        604.437744140625,
+        325.3500671386719,
+        611.4115600585938
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        332.1050109863281,
+        589.0187377929688,
+        344.3625183105469,
+        601.7449951171875
+      ],
+      "text": "\u0013n"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        311.12701416015625,
+        612.0159301757812,
+        359.5904846191406,
+        628.8125
+      ],
+      "text": "n!\nHn"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        369.635009765625,
+        612.0159301757812,
+        373.0721130371094,
+        621.978515625
+      ],
+      "text": "i"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        373.0680236816406,
+        603.331298828125,
+        383.0306091308594,
+        613.2939453125
+      ],
+      "text": "r"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        384.22601318359375,
+        605.2759399414062,
+        402.2430725097656,
+        616.08056640625
+      ],
+      "text": "∆κ2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        390.9909973144531,
+        618.8499145507812,
+        395.9722900390625,
+        628.8125
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        403.9329833984375,
+        602.143310546875,
+        411.8233642578125,
+        612.10595703125
+      ],
+      "text": "!"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        544.3880004882812,
+        612.0282592773438,
+        562.1015014648438,
+        621.9908447265625
+      ],
+      "text": "(82)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.0,
+        642.60693359375,
+        330.5232238769531,
+        654.0758666992188
+      ],
+      "text": "where Hn is Hermite polynomial (see formula 8.95 in Ref.[36])."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        254.05300903320312,
+        676.4823608398438,
+        362.035400390625,
+        685.44873046875
+      ],
+      "text": "VII.\nCONCLUSIONS"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        54.0000114440918,
+        701.8352661132812,
+        562.1216430664062,
+        724.5825805664062
+      ],
+      "text": "This paper has two main results. First, we derived the BFKL linear, inhomogeneous equation for the factorial\nmoments of multiplicity distribution (Mk) from LMM equation. In particular, the equation for the average multiplicity"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "14"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        53.999969482421875,
+        54.25090026855469,
+        562.0892944335938,
+        207.68798828125
+      ],
+      "text": "of the color-singlet (N) turns out to be the homogeneous BFKL equation which leads to the power-like growth in the\nregion of small x. From these equations it follows that Mk ∝N k at small x.\nSecond, using the diﬀusion approximation for the BFKL kernel, which is generally considered to be responsible\nfor the small x behaviour, we show that the factorial moments satisfy Eq. (2), which reproduces the multiplicity\ndistribution of Eq. (1). This result is in agreement with the attempts [18] to ﬁnd solutions to the equations for the\ncascade of color-singlet dipoles (see Eq. (3).\nWe also suggest a procedure for ﬁnding corrections to this multiplicity distribution, which, we believe, will be useful\nfor descriptions of the experimental data.\nIn general, the multiplicity distribution, that has been discussed in the paper, conﬁrms the result of Ref.[5], that\nthe entropy of color-singlet dipoles is equal S = ln N in the region of small x, and gives the regular procedure to\nestimate corrections to this formula.\nIt is worthwhile mentioning that both SCA and DA have been developed before and many technical issues that\nmatter, have been discussed3(see, for example, Refs.[24, 37–41] and references therein)."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        228.01699829101562,
+        231.63848876953125,
+        388.0671691894531,
+        240.60488891601562
+      ],
+      "text": "VIII.\nACKNOWLEDGEMENTS"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        53.999996185302734,
+        256.9924011230469,
+        562.1124877929688,
+        290.8650207519531
+      ],
+      "text": "We thank our colleagues at Tel Aviv university and UTFSM for encouraging discussions. Our special thanks go to\nMichael Lublinsky for fruitful discussion of Ref.[30]. This research was supported by ANID PIA/APOYO AFB180002\n(Chile) and Fondecyt (Chile) grants 1180118."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        54.0,
+        335.4108581542969,
+        562.197509765625,
+        659.7619018554688
+      ],
+      "text": "∗Electronic address: leving@tauex.tau.ac.il, eugeny.levin@usm.cl\n[1] K. Kutak, “Gluon saturation and entropy production in proton?proton collisions,” Phys. Lett. B 705 (2011), 217-221,\n[arXiv:1103.3654 [hep-ph]].\n[2] R. Peschanski, “Dynamical entropy of dense QCD states,” Phys. Rev. D 87 (2013) no.3, 034042, [arXiv:1211.6911 [hep-ph]].\n[3] A. Kovner and M. Lublinsky, “Entanglement entropy and entropy production in the Color Glass Condensate framework,”\nPhys. Rev. D 92 (2015) no.3, 034016, [arXiv:1506.05394 [hep-ph]].\n[4] R. Peschanski and S. Seki, “Entanglement Entropy of Scattering Particles,”\nPhys. Lett. B 758 (2016), 89-92,\n[arXiv:1602.00720 [hep-th]].\n[5] D. E. Kharzeev and E. M. Levin, “Deep inelastic scattering as a probe of entanglement,” Phys. Rev. D 95 (2017) no.11,\n114008, [arXiv:1702.03489 [hep-ph]].\n[6] O. Baker and D. Kharzeev, “Thermal radiation and entanglement in proton-proton collisions at energies available at the\nCERN Large Hadron Collider,” Phys. Rev. D 98 (2018) no.5, 054007, [arXiv:1712.04558 [hep-ph]].\n[7] J. Berges, S. Floerchinger and R. Venugopalan, “Dynamics of entanglement in expanding quantum ﬁelds,” JHEP 04 (2018),\n145, [arXiv:1712.09362 [hep-th]].\n[8] Y. Hagiwara, Y. Hatta, B. W. Xiao and F. Yuan, “Classical and quantum entropy of parton distributions,” Phys. Rev. D\n97 (2018) no.9, 094029, [arXiv:1801.00087 [hep-ph]].\n[9] N. Armesto, F. Dominguez, A. Kovner, M. Lublinsky and V. Skokov, “The Color Glass Condensate density matrix: Lindblad\nevolution, entanglement entropy and Wigner functional,” JHEP 05 (2019), 025, [arXiv:1901.08080 [hep-ph]].\n[10] E. Gotsman and E. Levin, “Thermal radiation and inclusive production in the CGC/saturation approach at high energies,”\nEur. Phys. J. C 79 (2019) no.5, 415, [arXiv:1902.07923 [hep-ph]].\n[11] E. Gotsman and E. Levin, “Thermal radiation and inclusive production in the Kharzeev-Levin-Nardi model for ion-ion\ncollisions,” Phys. Rev. D 100 (2019) no.3, 034013, [arXiv:1905.05167 [hep-ph]].\n[12] A. Kovner, M. Lublinsky and M. Serino, “Entanglement entropy, entropy production and time evolution in high energy\nQCD,” Phys. Lett. B 792 (2019), 4-15, [arXiv:1806.01089 [hep-ph]].\n[13] D. Neill and W. J. Waalewijn, “Entropy of a Jet,” Phys. Rev. Lett. 123 (2019) no.14, 142001, [arXiv:1811.01021 [hep-ph]].\n[14] Y. Liu and I. Zahed, “Entanglement in Regge scattering using the AdS/CFT correspondence,” Phys. Rev. D 100 (2019)\nno.4, 046005, [arXiv:1803.09157 [hep-ph]].\n[15] X. Feal, C. Pajares and R. Vazquez, “Thermal behavior and entanglement in Pb-Pb and p-p collisions,” Phys. Rev. C 99\n(2019) no.1, 015205, [arXiv:1805.12444 [hep-ph]].\n[16] Z. Tu, D. E. Kharzeev and T. Ullrich, “Einstein-Podolsky-Rosen Paradox and Quantum Entanglement at Subnucleonic\nScales,” Phys. Rev. Lett. 124 (2020) no.6, 062001, [arXiv:1904.11974 [hep-ph]]."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.49399948120117,
+        694.261962890625,
+        517.2557983398438,
+        705.0451049804688
+      ],
+      "text": "3 We thank our referee who drew our attention to Ref.[40], where some technical details of our approach have been clariﬁed."
+    },
+    {
+      "page_no": 15,
+      "bbox": [
+        552.1339721679688,
+        28.360210418701172,
+        562.0966186523438,
+        38.322811126708984
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 15,
+      "bbox": [
+        53.99989318847656,
+        55.04055404663086,
+        562.1790771484375,
+        607.9679565429688
+      ],
+      "text": "[17] H. Duan, C. Akkaya, A. Kovner and V. V. Skokov,“Entanglement, partial set of measurements, and diagonality of the\ndensity matrix in the parton model,” Phys. Rev. D 101 (2020) no.3, 036017, [arXiv:2001.01726 [hep-ph]].\n[18] E. Gotsman and E. Levin, “High energy QCD: multiplicity distribution and entanglement entropy,” Phys. Rev. D 102\n(2020) no.7, 074008 [arXiv:2006.11793 [hep-ph]].\n[19] D. E. Kharzeev and E. Levin, “Deep inelastic scattering as a probe of entanglement: confronting experimental data,”\n[arXiv:2102.09773 [hep-ph]].\n[20] J. D. Bjorken, “Asymptotic Sum Rules at Inﬁnite Momentum,” Phys. Rev. 179, 1547 (1969).\n[21] R.P. Feynman, “Very high-energy collisions of hadrons,” Phys. Rev. Lett. 23, 1415 (1969).\n“Photon-hadron interactions,”\nReading 1972. Photon-Hadron Interactions, Reading, 1972.\n[22] J.D. Bjorken and E.A. Paschos,“Inelastic Electron-Proton and γ -Proton Scattering and the Structure of the Nucleon,\"\nPhys. Rev. 185, 1975(1969).\n[23] V.N. Gribov, “Inelastic processes at super high-energies and the problem of nuclear cross-sections,” Sov. J. Nucl. Phys. 9,\n369 (1969) [Yad. Fiz. 9, 640 (1969)];\n“Space-time description of hadron interactions at high-energies,” Proc. ITEP School\non Elementary particle physics, v.1, p.65 (1973); hep-ph/0006158.\n[24] Yuri V. Kovchegov and Eugene Levin, “ Quantum Chromodynamics at High Energies\", Cambridge Monographs on Particle\nPhysics, Nuclear Physics and Cosmology, Cambridge University Press, 2012 .\n[25] I. Balitsky, “Operator expansion for high-energy scattering\", [arXiv:hep-ph/9509348]; “Factorization and high-energy eﬀec-\ntive action\", Phys. Rev. D60, 014020 (1999) [arXiv:hep-ph/9812311];\nY. V. Kovchegov, “ Small-x F2 structure function\nof a nucleus including multiple Pomeron exchanges\"’ Phys. Rev. D60, 034008 (1999), [arXiv:hep-ph/9901281].\n[26] L. McLerran and R. Venugopalan, “Computing quark and gluon distribution functions for very large nuclei\", Phys. Rev.\nD49 (1994) 2233, “Gluon distribution functions for very large nuclei at small transverse momentum\", Phys. Rev. D49\n(1994), 3352; ‘Green?s function in the color ﬁeld of a large nucleus\", D50 (1994) 2225; “ Fock space distributions, structure\nfunctions, higher twists, and small x\" , D59 (1999) 09400.\n[27] A. H. Mueller, “Soft Gluons In The Inﬁnite Momentum Wave Function And The BFKL Pomeron,” Nucl. Phys. B 415,\n373 (1994); “Unitarity and the BFKL pomeron,” Nucl. Phys. B 437 (1995) 107 [arXiv:hep-ph/9408245].\n[28] E. Levin and M. Lublinsky, “Towards a symmetric approach to high energy evolution: Generating functional with Pomeron\nloops,” Nucl. Phys. A 763 (2005) 172 [arXiv:hep-ph/0501173].\n[29] E. Levin and M. Lublinsky, “Balitsky’s hierarchy from Mueller’s dipole model and more about target correlations,” Phys.\nLett. B 607 (2005) 131 [arXiv:hep-ph/0411121]; “A linear evolution for non-linear dynamics and correlations in realistic\nnuclei,” Nucl. Phys. A 730 (2004) 191 [arXiv:hep-ph/0308279].\n[30] A. D. Le, A. H. Mueller and S. Munier, “Analytical asymptotics for hard diﬀraction,” [arXiv:2103.10088 [hep-ph]].\n[31] V. S. Fadin, E. A. Kuraev and L. N. Lipatov, “On the pomeranchuk singularity in asymptotically free theories\", Phys.\nLett. B60, 50 (1975);\nE. A. Kuraev, L. N. Lipatov and V. S. Fadin, “The Pomeranchuk Singularity in Nonabelian Gauge\nTheories\" Sov. Phys. JETP 45, 199 (1977), [Zh. Eksp. Teor. Fiz.72,377(1977)]; “The Pomeranchuk Singularity in Quantum\nChromodynamics,” I. I. Balitsky and L. N. Lipatov, Sov. J. Nucl. Phys. 28, 822 (1978), [Yad. Fiz.28,1597(1978)].\n[32] L. N. Lipatov, “The Bare Pomeron in Quantum Chromodynamics,” Sov. Phys. JETP 63, 904 (1986) [Zh. Eksp. Teor. Fiz.\n90, 1536 (1986)].\n[33] S. Bondarenko, M. Kozlov and E. Levin, “QCD saturation in the semi-classical approach,” Nucl. Phys. A 727 (2003),\n139-178, [arXiv:hep-ph/0305150 [hep-ph]].\n[34] A. H. Mueller, “Multiplicity Distributions in Regge Pole Dominated Inclusive Reactions,” Phys. Rev. D 4 (1971), 150-155.\n[35] Beran J., Ghosh S. (2011)“ Moment Generating Function\". In: Lovric M. (eds) International Encyclopedia of Statistical\nScience. Springer, Berlin, Heidelberg.https : //doi.org/10.1007/978 −3 −642 −04898 −2375.\n[36] I. Gradstein and I. Ryzhik, Table of Integrals, Series, and Products, Fifth Edition, Academic Press, London, 1994.\n[37] E. M. Levin, M. G. Ryskin and A. G. Shuvaev, “Anomalous dimension of the twist four gluon operator and pomeron cuts\nin deep inelastic scattering,” Nucl. Phys. B 387 (1992), 589-616.\n[38] E. Laenen, E. Levin and A. G. Shuvaev, “Anomalous dimensions of high twist operators in QCD at N →1 and large Q2,”\nNucl. Phys. B 419 (1994), 39-58, [arXiv:hep-ph/9308294 [hep-ph]].\n[39] M. A. Braun, “Double scattering on the nucleus in the perturbative QCD,” Eur. Phys. J. C 6 (1999), 343-348, [arXiv:hep-\nph/9801277 [hep-ph]].\n[40] B. W. Xiao, “On the anomalous dimensions of the multiple pomeron exchanges,” Nucl. Phys. A 798 (2008), 132-164,\n[arXiv:0710.1922 [hep-ph]].\n[41] E. Levin and J. Miller, “The BFKL Pomeron calculus: summing enhanced diagrams,” Nucl. Phys. A 884-885 (2012), 51-83,\n[arXiv:1111.3678 [hep-ph]]."
+    }
+  ],
+  "pictures": [],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 9,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p1_table2_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p1_table3_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 30,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 31,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 14,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 56,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 54,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 67,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 46,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 65,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 60,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 77,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 17,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p13_table1_stream.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 14,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p14_table1_stream.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 31,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p14_table2_stream.csv"
+    },
+    {
+      "page_no": 15,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 54,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2106.06967/2106.06967_p15_table1_stream.csv"
+    }
+  ]
+}

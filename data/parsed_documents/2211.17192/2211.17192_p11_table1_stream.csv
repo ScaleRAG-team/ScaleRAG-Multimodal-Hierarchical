@@ -1,0 +1,11 @@
+"","Fast Inference from Transformers via Speculative Decoding",""
+"A. Appendix","",""
+"A.1. Correctness of Speculative Sampling","",""
+"We will now show that for any distributions p(x) and q(x), the tokens sampled via speculative sampling from p(x) and q(x)","",""
+"","are distributed identically to those sampled from p(x) alone. Let β be the acceptance probability (Deﬁnition 3.1).",""
+"","",""
+"Note that as p(cid:48)(x) = norm(max(0, p(x) − q(x))) =","(cid:80)
+x(cid:48) (p(x(cid:48))−min(q(x(cid:48)),p(x(cid:48)))) = p(x)−min(q(x),p(x))",", the normalizing"
+"","constant for the adjusted distribution p(cid:48)(x) is 1 − β, where the last equation follows immediately from Lemma 3.3 and",""
+"Theorem 3.5.","",""
+"Now:","",""

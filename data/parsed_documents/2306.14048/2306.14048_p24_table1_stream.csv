@@ -1,0 +1,8 @@
+"Figure 7: Visualization of one generation example with LLaMA-7B. Results are compared between the baseline","","",""
+"model with full cache, our H2O, and the ""Local"" strategy that utilizes the most recent KV embeddings.","","",""
+"","Table 6: Compatibility with Quantization.","",""
+"Models","COPA","OpenBookQA","PiQA"
+"Full","85.00","43.20","78.51"
+"H2O","84.00","43.00","78.45"
+"Quant-4bit","84.00","43.28","78.67"
+"H2O w. Quant-4bit","84.00","43.20","78.80"

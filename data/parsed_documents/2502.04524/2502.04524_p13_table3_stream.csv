@@ -1,0 +1,83 @@
+"0"
+"0
+10
+20
+10 2"
+"0
+10
+20
+5.0
+Log(Time[s])"
+"Log(Time[s])
+0.00"
+"3"
+"10
+20
+30
+40
+50
+60
+70
+80
+90
+5.0
+2.5
+0.0
+2.5
+5.0
+40
+45
+50
+55
+60"
+"Programmed Conductance [µS]
+Expected inner product output
+Programmed Conductance [µS]"
+"Fig. 4: Conductance
+relaxation and MVM accuracy. a Probability density distri-"
+"butions of 35 conductance states approximately 10 minutes after programming. The black"
+"areas between adjacent Gaussian distributions represent the overlap of their tails. On aver-"
+"age, an overlap of 9.6% is observed after 10 minutes. b The standard deviations of
+the 35"
+"conductance states during programming (in purple) and 10 minutes after
+it
+(light blue). c"
+"Relaxation of 400 conductance states, with one device per G-state, measured 1 second and"
+"1 hour after programming. d Relaxation error 1 hour after programming. A negative and"
+"nearly G-independent average error
+(dashed line)
+indicates
+that
+relaxation in CMO/HfOx"
+"ReRAMs
+tends
+toward a slight
+conductance decrease and is
+state-independent. e Experi-"
+"mental array relaxation of a representative 50 µS state, up to 1 week after programming"
+"with 0.2% G target acceptance range. Each probability density distribution is normalized to"
+"its maximum for graphical representation. The experimental data used to extract the distri-"
+"butions are represented as points aligned to the y=0 horizontal axis.
+Insets
+show the time"
+"dependence of the mean and standard deviation. Dashed blue lines represent the conditions"
+"is
+reached, while a linear fit
+(green
+during programming, once the convergence to G target"
+"dashed line) extrapolates the distribution 10 years after programming (dashed black line). f"
+"Analog MVM accuracy simulations using a 64x64 CMO/HfOx ReRAM array as a function of"
+"time after programming (indicated by different colors). The inset shows the expected RMSE"
+"compared to the ideal FP result. Experimental programming noise, conductance relaxation,"
+"limited input/output quantization and IR-drop are considered in this assessment."
+"2.3 Analog training with CMO/HfOx ReRAM core"
+"To efficiently tackle deep learning workloads, the analog AI accelerator must not only"
+"perform forward and backward passes (MVMs), but most importantly, allow for weight"
+"updates
+[38]. During backpropagation,
+the synaptic weights are modified according"
+"to the gradient of
+the corresponding layer. Therefore,
+the device conductance must"
+"be gradually modified in both positive and negative directions
+to represent analog"

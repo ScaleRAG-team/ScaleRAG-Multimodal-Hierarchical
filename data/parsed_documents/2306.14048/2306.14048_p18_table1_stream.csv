@@ -1,0 +1,39 @@
+"[137] Zhao Song and Zheng Yu. Oblivious sketching-based central path method for linear pro-"
+"gramming.
+In International Conference on Machine Learning, pages 9835–9847. PMLR,"
+"2021."
+"[138] Shunhua Jiang, Zhao Song, Omri Weinstein, and Hengjie Zhang. A faster algorithm for"
+"solving general lps.
+In Proceedings of the 53rd Annual ACM SIGACT Symposium on Theory"
+"of Computing, pages 823–832, 2021."
+"[139] Baihe Huang, Shunhua Jiang, Zhao Song, Runzhou Tao, and Ruizhe Zhang. Solving sdp faster:"
+"A robust ipm framework and efficient implementation.
+In 2022 IEEE 63rd Annual Symposium"
+"on Foundations of Computer Science (FOCS), pages 233–244. IEEE, 2022."
+"arXiv
+preprint
+[140] Yuzhou Gu
+and Zhao Song.
+A faster
+small
+treewidth
+sdp
+solver."
+"arXiv:2211.06033, 2022."
+"[141] Yuzhou Gu, Zhao Song, and Lichen Zhang. A nearly-linear time algorithm for structured"
+"support vector machines. arXiv preprint arXiv:2307.07735, 2023."
+"[142] Lianke Qin, Zhao Song, Lichen Zhang, and Danyang Zhuo. An online and unified algorithm"
+"for projection matrix vector multiplication with application to empirical risk minimization.
+In"
+"AISTATS, 2023."
+"[143] Zhao Song, Mingquan Ye, and Lichen Zhang.
+Streaming semidefinite programs: O(√n)"
+"passes, small space and fast runtime. arXiv preprint arXiv:2309.05135, 2023."
+"[144] Haotian Jiang, Yin Tat Lee, Zhao Song, and Lichen Zhang. Convex minimization with integer"
+"In ACM-SIAM Symposium on Discrete Algorithms (SODA), 2024.
+minima in (cid:101)O(n4) time."
+"[145] S Cliff Liu, Zhao Song, Hengjie Zhang, Lichen Zhang, and Tianyi Zhou.
+Space-efficient"
+"interior point method, with applications to linear programming and maximum weight bipartite"
+"matching.
+In ICALP. arXiv preprint arXiv:2009.06106, 2020."

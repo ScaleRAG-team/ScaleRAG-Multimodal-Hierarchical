@@ -1,0 +1,28 @@
+"Figure 1: Automatically calculated spatial neighbors","for departments of France.
+Lines be-"
+"tween department centroids indicate a neighbor relationship.",""
+"ww_build_neighbors() uses","the default behavior of
+the poly2nb() function from spdep,"
+"deﬁning neighbors as any polygons","sharing at
+least one boundary point. We can visualize"
+"this using the standard “moral statistics” data set from Guerry (1833):",""
+"R>","data(""guerry"",
+package
+=
+""waywiser"")"
+"R>","plot(sf::st_geometry(guerry))"
+"R>","plot(waywiser::ww_build_neighbors(guerry),"
+"+","sf::st_geometry(guerry),
+add
+=
+TRUE)"
+"When working with point geometries, waywiser instead uses the knearneigh() and knn2nb()",""
+"functions from spdep with k = 1, returning a list of each point’s nearest neighbor.",""
+"R>","plot(waywiser::ww_build_neighbors(worldclim_testing),"
+"+","sf::st_geometry(worldclim_testing))"
+"R>","plot(sf::st_geometry(worldclim_testing),
+add
+=
+TRUE)"
+"For calculations, this neighbor list object must be transformed into a matrix of spatial weights,",""
+"w.","Another utility function in waywiser, ww_build_weights(), provides a thin wrapper"

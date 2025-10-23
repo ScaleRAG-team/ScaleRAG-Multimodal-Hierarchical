@@ -1,0 +1,189 @@
+"[23]
+Junnan Li, Dongxu Li, Caiming Xiong,
+and Steven Hoi.","[37] Leland McInnes, John Healy, and James Melville. Umap:"
+"Blip:
+Bootstrapping language-image pre-training for uni-","Uniform manifold approximation and projection for dimen-"
+"arXiv
+ﬁed vision-language understanding and generation.","sion reduction. arXiv preprint arXiv:1802.03426, 2018."
+"preprint arXiv:2201.12086, 2022.","[38] Andres Milioto,
+Ignacio Vizzo,
+Jens Behley,
+and Cyrill"
+"[24]
+Junnan
+Li,
+Ramprasaath
+Selvaraju,
+Akhilesh Gotmare,","Stachniss.
+Rangenet++:
+Fast and accurate lidar
+semantic"
+"Shaﬁq Joty, Caiming Xiong,
+and Steven Chu Hong Hoi.","segmentation.
+In 2019 IEEE/RSJ international conference"
+"Align before fuse: Vision and language representation learn-","on intelligent robots and systems (IROS), pages 4213–4220."
+"infor-
+ing with momentum distillation. Advances in neural","IEEE, 2019."
+"mation processing systems, 34:9694–9705, 2021.","[39] Ron Mokady, Amir Hertz,
+and Amit H Bermano.
+Clip-"
+"[25] Lei Li, Siyu Zhu, Hongbo Fu, Ping Tan,
+and Chiew-Lan","arXiv
+preprint
+cap:
+Clip
+preﬁx
+for
+image
+captioning."
+"Tai. End-to-end learning local multi-view descriptors for 3d","arXiv:2111.09734, 2021."
+"point clouds. In Proceedings of the IEEE/CVF conference on","[40] Norman Mu, Alexander Kirillov, David Wagner, and Sain-"
+"computer vision and pattern recognition, pages 1919–1928,","ing Xie.
+Slip: Self-supervision meets language-image pre-"
+"2020.","training.
+In Computer Vision–ECCV 2022: 17th European"
+"","Conference, Tel Aviv, Israel, October 23–27, 2022, Proceed-"
+"[26] Liunian Harold Li, Mark Yatskar, Da Yin, Cho-Jui Hsieh,",""
+"","ings, Part XXVI, pages 529–544. Springer, 2022."
+"and Kai-Wei Chang.
+Visualbert:
+A simple
+and
+perfor-",""
+"arXiv
+preprint
+mant
+baseline
+for
+vision
+and
+language.","[41] Aaron van den Oord, Yazhe Li, and Oriol Vinyals. Repre-"
+"arXiv:1908.03557, 2019.","sentation learning with contrastive predictive coding. arXiv"
+"","preprint arXiv:1807.03748, 2018."
+"[27] Yangyan Li, Rui Bu, Mingchao Sun, Wei Wu, Xinhan Di,",""
+"","[42] Yatian Pang, Wenxiao Wang, Francis EH Tay, Wei Liu,"
+"and Baoquan Chen. Pointcnn: Convolution on x-transformed",""
+"","Yonghong
+Tian,
+and
+Li Yuan.
+Masked
+autoencoders"
+"points. Advances in neural
+information processing systems,",""
+"","arXiv preprint
+for point
+cloud self-supervised learning."
+"31, 2018.",""
+"","arXiv:2203.06604, 2022."
+"[28] Yangguang Li, Feng Liang, Lichen Zhao, Yufeng Cui, Wanli",""
+"","[43] Charles R Qi, Wei Liu, Chenxia Wu, Hao Su, and Leonidas J"
+"Ouyang,
+Jing Shao,
+Fengwei Yu,
+and
+Junjie Yan.
+Su-",""
+"","Guibas. Frustum pointnets for 3d object detection from rgb-"
+"pervision exists
+everywhere:
+A data
+efﬁcient
+contrastive",""
+"","d data.
+In Proceedings of the IEEE conference on computer"
+"arXiv
+preprint
+language-image
+pre-training
+paradigm.",""
+"","vision and pattern recognition, pages 918–927, 2018."
+"arXiv:2110.05208, 2021.",""
+"","[44] Charles R Qi, Hao Su, Kaichun Mo, and Leonidas J Guibas."
+"[29]
+Feng Liang, Bichen Wu, Xiaoliang Dai, Kunpeng Li, Yinan",""
+"","Pointnet: Deep learning on point sets for 3d classiﬁcation"
+"Zhao, Hang Zhang, Peizhao Zhang, Peter Vajda, and Diana",""
+"","the IEEE conference
+and segmentation.
+In Proceedings of"
+"Marculescu. Open-vocabulary semantic segmentation with",""
+"","on computer vision and pattern recognition, pages 652–660,"
+"mask-adapted clip. arXiv preprint arXiv:2210.04150, 2022.",""
+"","2017."
+"[30]
+Ilya
+Loshchilov
+and
+Frank Hutter.
+Sgdr:
+Stochas-",""
+"","[45] Charles Ruizhongtai Qi, Li Yi, Hao Su,
+and Leonidas
+J"
+"arXiv
+preprint
+tic
+gradient
+descent with warm restarts.",""
+"","Guibas.
+Pointnet++: Deep hierarchical feature learning on"
+"arXiv:1608.03983, 2016.",""
+"","point sets in a metric space. Advances in neural information"
+"[31]
+Ilya Loshchilov and Frank Hutter. Decoupled weight decay",""
+"","processing systems, 30, 2017."
+"regularization. arXiv preprint arXiv:1711.05101, 2017.",""
+"","[46] Alec Radford,
+Jong Wook Kim, Chris Hallacy, Aditya"
+"[32]
+Jiasen Lu, Dhruv Batra, Devi Parikh, and Stefan Lee. Vilbert:",""
+"","Ramesh, Gabriel Goh,
+Sandhini Agarwal, Girish Sastry,"
+"Pretraining task-agnostic visiolinguistic representations for",""
+"","Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learn-"
+"information
+vision-and-language tasks. Advances in neural",""
+"","ing transferable visual models from natural
+language super-"
+"processing systems, 32, 2019.",""
+"","vision.
+In International Conference on Machine Learning,"
+"[33] Huaishao Luo, Lei Ji, Ming Zhong, Yang Chen, Wen Lei,","pages 8748–8763. PMLR, 2021."
+"Nan Duan, and Tianrui Li. Clip4clip: An empirical study of",""
+"","[47] Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey Chu,"
+"clip for end to end video clip retrieval and captioning. Neu-",""
+"","and Mark Chen.
+Hierarchical
+text-conditional
+image gen-"
+"rocomputing, 508:293–304, 2022.",""
+"","eration with clip latents.
+arXiv preprint arXiv:2204.06125,"
+"[34] Xu Ma, Can Qin, Haoxuan You, Haoxi Ran,
+and Yun","2022."
+"Fu. Rethinking network design and local geometry in point","[48] Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray,"
+"arXiv preprint
+cloud: A simple residual mlp framework.","Chelsea Voss, Alec Radford, Mark Chen, and Ilya Sutskever."
+"arXiv:2202.07123, 2022.","Zero-shot text-to-image generation. In International Confer-"
+"[35]
+Priyanka Mandikal, KL Navaneet, Mayank Agarwal,
+and","ence on Machine Learning, pages 8821–8831. PMLR, 2021."
+"R Venkatesh Babu.
+3d-lmnet: Latent embedding matching","[49]
+Sebastian Ruder. An overview of gradient descent optimiza-"
+"for accurate and diverse 3d point cloud reconstruction from","tion algorithms. arXiv preprint arXiv:1609.04747, 2016."
+"a single image. arXiv preprint arXiv:1807.07796, 2018.",""
+"","[50]
+Shaoshuai Shi, Chaoxu Guo, Li Jiang, Zhe Wang, Jianping"
+"[36] Daniel Maturana and Sebastian Scherer. Voxnet: A 3d con-","Shi, Xiaogang Wang, and Hongsheng Li.
+Pv-rcnn: Point-"
+"volutional neural network for
+real-time object
+recognition.","voxel feature set abstraction for 3d object detection.
+In Pro-"
+"international
+conference on intelligent
+In 2015 IEEE/RSJ","ceedings of
+the IEEE/CVF Conference on Computer Vision"
+"robots and systems (IROS), pages 922–928. IEEE, 2015.","and Pattern Recognition, pages 10529–10538, 2020."

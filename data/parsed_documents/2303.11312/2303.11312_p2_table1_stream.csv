@@ -1,0 +1,66 @@
+"2
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"reduce some of the cognitive load associated with switching between diﬀerent tasks (Roehm"
+"et al. 2012). User interfaces should also make it easy to follow scientiﬁc and statistical best"
+"practices, and similarly make it diﬃcult
+to commit methodological errors
+(Kuhn and Silge"
+"2022)."
+"Many excellent R packages aim to help reduce this complexity and promote best practices"
+"by addressing individual aspects of model
+evaluation.
+Among many others, packages
+like"
+"yardstick (Kuhn et al. 2023), metrica (Correndo et al. 2022), and hydroGOF (Zambrano-"
+"Bigiarini 2020) provide suites of metrics for model assessment, providing standard interfaces"
+"for calculating model accuracy and agreement given vectors of observed and predicted values."
+"Packages like spdep (Bivand and Wong 2018) and rgeoda (Li and Anselin 2023), meanwhile,"
+"provide measures of spatial autocorrelation, helping modelers assess the spatial distribution of"
+"model errors. Finally, several packages implement additional evaluation approaches beyond"
+"standard error assessments; for instance, CAST (Meyer et al. 2023) and applicable (Gotti and"
+"Kuhn 2022) implement approaches for calculating model applicability domains."
+"The new waywiser package implements elements of each of these approaches, while provid-"
+"ing a consistent, ergonomic user interface for each aspect of model assessment. Functions in"
+"waywiser provide new implementations of several popular assessment metrics from the spatial"
+"modeling literature, and provide a wrapper around functions for calculating spatial autocor-"
+"relation metrics. Additional
+functions provide an approach for assessing model predictions"
+"aggregated to multiple spatial
+scales, and a new implementation of
+the dissimilarity index"
+"and area of applicability from Meyer and Pebesma (2021). These functions share a consistent"
+"interface, with standardized argument names and deﬁnitions, making it easy for users to learn"
+"how to use the package, and to switch between evaluation approaches as desired."
+"Outputs from waywiser are both type-stable and size-stable, making waywiser functions both"
+"predictable and easy to program with. Functions in waywiser additionally accept inputs and"
+"return outputs using standard classes, using objects
+from the popular
+sf
+(Pebesma 2018)"
+"package for spatial data and simple data frames and vectors otherwise. This predictability"
+"and reliance on well-established classes makes it easy to use waywiser with the majority of"
+"modeling tools in R. Additional
+features make it particularly easy to combine waywiser with"
+"packages in the tidymodels modeling framework (Kuhn and Silge 2022). For instance, while"
+"waywiser does not
+itself provide any functions
+for performing cross-validation or hyperpa-"
+"rameter selection,
+functions from waywiser integrate naturally with the tune package (Kuhn"
+"2022b), allowing for cross-validated model assessment using data splits from rsample (Frick"
+"et al. 2022) and spatialsample (Mahoney and Silge 2023) and automated hyperparameter"
+"selection using dials (Kuhn and Frick 2022)."
+"The rest of
+this article walks
+through features
+in waywiser,
+starting with functions
+imple-"
+"menting (or wrapping implementations of) model assessment metrics (Section 3),
+followed by"
+"methods for assessing model performance when aggregating predictions across multiple spa-"
+"tial scales (Section 4), then by functions for calculating the applicability domain of a model"
+"(Section 5). An additional
+section discusses how waywiser
+integrates with the tidymodels"
+"modeling framework (Section 6)."

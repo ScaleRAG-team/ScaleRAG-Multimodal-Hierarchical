@@ -1,0 +1,29 @@
+"degree of overﬁtting (as compared to the inﬁnite data limit) is signiﬁcantly overestimated by Ltest − Ltrain"
+"(denoted by a black bar for each run)."
+"• We are not especially conﬁdent
+in the prediction of Bcrit(L) for values of the loss far outside the"
+"impact on trade-offs between
+range we have explored. Changes in Bcrit could have a signiﬁcant"
+"data parallelism and the number of serial training steps required, which would have a major impact"
+"on training time."
+"• We did not
+thoroughly investigate the small data regime, and our ﬁts for L(N, D) were poor
+for"
+"the smallest values of D (where an epoch corresponded to only 40 steps).
+Furthermore, we did"
+"not experiment with regularization and data augmentation.
+Improvements in these could alter our"
+"results, quantitatively or qualitatively."
+"• We used the estimated training compute C ≈ 6N BS, which did not
+include contributions propor-"
+"tional to nctx (see Section 2.1). So our scalings with compute may be confounded in practice in the"
+"regime of very large nctx, speciﬁcally where nctx (cid:38) 12dmodel."
+"• We tuned learning rates, and we experimented with learning rate schedules.
+But we may have"
+"neglected to tune some hyperparameter (e.g.
+intialization scale or momentum) that have an important"
+"effect on scaling."
+"• The optimal choice of learning rate is sensitive to the target loss. When training close to convergence,"
+"it may be necessary to use a smaller learning rate to avoid divergences. But when conducting a short"
+"training run (eg due to compute limitations), it may be possible to use a larger learning rate. We did"
+"not experiment with higher learning rates for training runs that did not proceed to convergence."

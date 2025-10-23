@@ -1,0 +1,104 @@
+"Michael J Mahoney
+7"
+"R>
+waywiser::ww_willmott_d(data
+=
+worldclim_testing,"
+"+
+truth
+=
+response,"
+"+
+estimate
+=
+predictions)"
+"#
+A
+tibble: 1
+x 3"
+".metric
+.estimator .estimate"
+"<chr>
+<chr>
+<dbl>"
+"1
+willmott_d standard
+0.919"
+"When data is a grouped data frame,
+as produced by the group_by() function in dplyr"
+"(Wickham et al. 2023a), waywiser will calculate metrics
+independently for each group.
+In"
+"these cases, the resulting tibble will have one row per group and include the columns used to"
+"group the data alongside the standard .metric, .estimator, and .estimate columns:"
+"R>
+worldclim_testing$group
+<-
+sample(1:2,
+nrow(worldclim_testing),"
+"+
+replace
+=
+TRUE)"
+"R>
+waywiser::ww_willmott_d(data
+=
+dplyr::group_by(worldclim_testing,
+group),"
+"+
+truth
+=
+response,"
+"+
+estimate
+=
+predictions)"
+"#
+A
+tibble: 2
+x 4"
+"group
+.metric
+.estimator
+.estimate"
+"<int>
+<chr>
+<chr>
+<dbl>"
+"1
+1 willmott_d standard
+0.924"
+"2
+2 willmott_d standard
+0.914"
+"These functions additionally each have a variant, suﬃxed with _vec, which directly accepts"
+"numeric vectors to truth and estimate. These functions return a numeric vector with metric"
+"estimates."
+"R>
+waywiser::ww_willmott_d_vec(truth
+=
+worldclim_testing$response,"
+"+
+estimate
+=
+worldclim_testing$predictions)"
+"[1]
+0.9187938"
+"Internally, data frame-based functions call
+to calculate metrics,
+ensur-
+their _vec variants"
+"ing that
+identical calculations are performed (and therefore,
+identical
+results are returned)"
+"regardless of which interface is used."
+"As these functions leverage infrastructure from the yardstick package, the data frame variants"
+"can be
+This
+function accepts any
+combined using the yardstick function metric_set()."
+"number of metric functions as an input and returns a new function to calculate all metrics"
+"in a single call. The returned function has the same user interface as the data frame metric"
+"functions, accepting the arguments data, truth, and estimate and returning a tibble with"
+"the columns .metric, .estimator, and .estimate."

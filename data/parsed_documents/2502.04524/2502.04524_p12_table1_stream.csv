@@ -1,0 +1,42 @@
+"CMO/HfOx ReRAM cells, projected for up to 10 years from programming, compared"
+"to the expected floating-point
+(FP)
+result. The results are generated using a single"
+"64×64 normally distributed random weight matrix
+and 100 normally distributed"
+"input vectors within the range [-1, 1] (see ”Methods” section ”HW-aware simulation"
+"of analog MVM” for details). Considering the input and output quantization of 6-bit"
+"and 8-bit respectively, the inset illustrates the time evolution of the root-mean-square"
+"error
+(RMSE) of
+the simulated analog MVM compared to the FP expected result."
+"These results show that the CMO/HfOx ReRAM core enables accurate MVM oper-"
+"ations, achieving an RMSE ranging from 0.03 at 1 second to 0.2 at 10 years after"
+"programming, compared to the ideal FP case. Fig. S6 in the Supplementary Informa-"
+"tion illustrates
+the impact of
+IR-drop and input/output quantization on the RMSE"
+"of an MVM performed on a 64×64 array. Over short time scales (within 1 hour), the"
+"primary accuracy bottleneck is the limited input/output quantization of 6-bit and 8-"
+"bit, respectively. Over longer periods, relaxation effects become the dominant source"
+"of non-ideality.
+In a larger 512×512 array,
+IR-drop emerges as
+the main accuracy"
+"bottleneck for analog MVM. Compared to the analog ReRAMs
+studied by Wan et"
+"al.
+[9], who report an experimentally determined RMSE of approximately 0.58 under"
+"conditions similar to those of this work, CMO/HfOx ReRAMs demonstrate a poten-"
+"tial
+improvement
+in MVM accuracy by a factor of 20 and 3, 1 second and 10 years"
+"after programming,
+respectively. The
+excellent MVM accuracy results demonstrate"
+"the suitability of CMO/HfOx ReRAM devices for long-term AI inference applications,"
+"and lay the
+foundation for AI
+training acceleration, where
+short-term forward and"
+"backward MVMs are key steps."

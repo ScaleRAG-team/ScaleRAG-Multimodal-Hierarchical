@@ -1,0 +1,25 @@
+"",""
+"600
+650
+700
+750
+800
+850
+900
+950
+1000
+Time (s)","satisfy two queuing requests if no fragmentation. This metric"
+"","suggests the memory space wasted due to fragmentation. We"
+"Figure 12: Memory fragmentation over time.","report
+the proportion of fragmented memory in the cluster"
+"","total memory. In the example, if the total memory is 16 GB,"
+"","then the proportion is 37.5% (6/16). Figure 12 shows the frag-"
+"ing requests to instances with the lowest load, INFaaS++ can","mentation proportion of the experiment during a busy period."
+"still exhibit long queuing delays due to fragmentation, espe-","We observe that INFaaS++ often shows higher than 10% frag-"
+"cially for the long-tail requests with long inputs. Llumnix","mentation, wasting a significant amount of cluster memory."
+"uses migration for de-fragmentation to reduce such queuing","In comparison, the fragmentation is often 0 in Llumnix. The"
+"delays, showing more gains in traces with more long inputs.","average values during this period are 0.7% and 7.9% for Llum-"
+"To take a closer look at
+the memory fragmentation, we","nix and INFaaS++ respectively (92% reduction), highlighting"
+"further present a case study on the experiment of the M-M","the effect of de-fragmentation using migration."
+"trace with the request rate of 7.5. We define the fragmented","Llumnix also improves the P99 decode latency by up to"

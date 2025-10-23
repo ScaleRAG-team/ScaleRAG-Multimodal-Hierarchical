@@ -1,0 +1,9 @@
+"","Evaluation LM loss"
+"Baseline","2.121762"
+"ZeRO++
+(hpZ&qwZ&qgZ on)","2.165584"
+"ZeRO++
+(hpZ&qwZ on;
+qgZ on for first 50%)","2.134013"
+"ZeRO++
+(hpZ&qwZ on; qgZ off)","2.121653"

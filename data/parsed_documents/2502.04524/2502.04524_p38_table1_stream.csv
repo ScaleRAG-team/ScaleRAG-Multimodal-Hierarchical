@@ -1,0 +1,50 @@
+"Device modelling"
+"up down parameter"
+"The up down parameter is defined for the generalized soft bounds model
+in the sim-"
+"ulation environment of the ‘aihwkit’ as the directional bias between the up and down"
+"update size (∆G+ and ∆G−).
+In addition, the minimum step in each direction d is"
+"described by the following expression [44]."
+"(7)
+∆Gd = ∆GSP (1 + dβ + σd−to−d)"
+"where d is -1 or 1 depending on the update direction. In contrast, the symmetry point"
+"is defined for each device as follows [23]:"
+"(8)
+SP = [∆G+ − ∆G−]/[∆G+/(bmax − ∆G+/bmin)]"
+"Where ∆G+, ∆G− define the minimum step size in the up and down direction respec-"
+"tively, and bmax and bmin represent the upper and lower bounds of the conductance."
+"Therefore, considering an independent definition of each device (i.e. zero d-to-d vari-"
+"ability) and a normalized conductance range between -1 and 1, the symmetry point"
+"device-level characteristic and the up down analytical parameter are equivalent."
+"Training setup"
+"For
+result
+replicability,
+the
+experimental
+parameters
+are
+incorporated
+into
+the"
+"simulation environment, where
+the Noise-to-Signal Ratio
+(NSR)
+is
+represented by"
+"’dw min std’, normalized SP by ‘up down’, normalized maximum and minimum con-"
+"ductances by ‘w max’ and ‘w min’ and min conductance step by ‘dw min’."
+"From this device model, analog training simulations were performed using AGAD"
+"considering a learning rate to update the weights of 1e-2,
+‘fast lr’ of 0.1 to update"
+"matrix,
+‘transfer every’
+3
+iterations
+and
+batch
+size
+of
+32. The FP baseline was"
+"obtained with SGD training using a learning rate of 1e-3 and batch size of 32."

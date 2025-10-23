@@ -1,0 +1,72 @@
+"Michael J Mahoney
+19"
+"importance scores, the DI for an observation k is calculated as:"
+"qX p"
+""
+"d (a, b) =
+i=1 (ai − bi)2"
+"d(k, z)
+dk = arg min"
+"(23)"
+"z"
+"dk"
+"DIk ="
+"¯"
+"d"
+"Where p is the number of predictors used in ﬁtting a model, ai and bi the scaled and weighted"
+"predictor values for observations a and b, z observations in the data used to train the model,"
+"and ¯d the mean d for all pairs of observations in the data used to train the model."
+"These DI values are useful in their own right to characterize the similarity of new observations"
+"to those used to train a model, and increasing DI often correlates with increasing prediction"
+"error
+(Meyer and Pebesma 2021). Meyer and Pebesma (2021) also propose a thresholding"
+"method to calculate a boolean “area of applicability” (AOA), deﬁning points with a DIk"
+"greater
+than the 75th percentile DI value plus 1.5 times
+the IQR of DI values
+in training"
+"data as beyond the model’s AOA, and therefore likely to have greater prediction error than"
+"reported for test set observations."
+"Functions
+to calculate DI and AOA were ﬁrst
+implemented in CAST (Meyer et al. 2023),"
+"with a focus on supporting models ﬁt using the caret modeling framework (Kuhn 2022a).
+In"
+"waywiser, the ww_area_of_applicability() function provides a framework-agnostic inter-"
+"face for calculating DI and AOA, with additional support for workﬂows using the tidymodels"
+"framework (Section 6) (Kuhn and Silge 2022). The interface of ww_area_of_applicability()"
+"is
+inspired by the applicable package (Gotti and Kuhn 2022), and mimics common model-"
+"ﬁtting functions
+involves providing the model
+formula used,
+such as lm(). A standard call"
+"training and testing data sets, and variable importance scores:"
+"R>
+(aoa <- waywiser::ww_area_of_applicability("
+"+
+formula(worldclim_model),"
+"+
+worldclim_training,"
+"+
+testing =
+worldclim_testing,"
+"+
+importance = vip::vi_model(worldclim_model)))"
+"#
+Predictors:"
+"4"
+"Area-of-applicability
+threshold:"
+"0.103787"
+"An equivalent call removes the formula argument, and instead passes the training and testing"
+"data, subset to include only the variables used to ﬁt the model:"
+"R>
+waywiser::ww_area_of_applicability("
+"+
+as.data.frame(worldclim_training)[1:4],"
+"+
+testing =
+as.data.frame(worldclim_testing)[1:4],"
+"+
+importance = vip::vi_model(worldclim_model))"

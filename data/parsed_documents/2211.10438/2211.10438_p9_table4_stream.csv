@@ -1,0 +1,22 @@
+"INT8
+8
+1689ms
+570GB","SmoothQuant-O3
+112.1
+223.1
+227.6
+458.4"
+"","neck for LLMs (Dettmers et al., 2022)."
+"et al., 2021; Smith et al., 2022; Du et al., 2022; Chowdh-",""
+"ery et al., 2022) continue to push the frontier of scaling,","Quantization of LLMs.
+GPTQ (Frantar et al., 2022)"
+"going beyond 500B parameters. However, as the language","applies quantization only to weights but not activations"
+"model gets larger, serving such models for
+inference be-","(please find a
+short discussion in Appendix A). Zero-"
+"comes expensive and challenging.
+In this work, we show","Quant (Yao et al., 2022) and nuQmm (Park et al., 2022)"
+"that our proposed method can quantize the three largest,","use a per-token and group-wise quantization scheme for"
+"openly available LLMs: OPT-175B (Zhang et al., 2022),","LLMs, which requires customized CUDA kernels. Their"
+"BLOOM-176B (Scao et al., 2022) and GLM-130B (Zeng","largest evaluated models are 20B and 2.7B,
+respectively"

@@ -1,0 +1,10 @@
+"","Optimized
+Quantization
+Kernel","Optimized
+Fusion
+Kernel","TFLOPs"
+"Baseline","N/A","N/A","15"
+"ZeRO++","No","No","19.73"
+"ZeRO++","No","Yes","21.6"
+"ZeRO++","Yes","No","31.40"
+"ZeRO++","Yes","Yes","36.16"

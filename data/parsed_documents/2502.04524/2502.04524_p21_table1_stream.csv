@@ -1,0 +1,44 @@
+"4 Methods"
+"4.1 Device fabrication"
+"The CMO/HfOx ReRAM array is based on 1T1R unit cells. In this configuration, the"
+"bottom electrode of the ReRAM device is connected in series to the drain of an n-type"
+"metal–oxide–semiconductor (NMOS) selector transistor. The transistor blocks sneak"
+"paths and ensures current compliance during electro-forming and programming of the"
+"ReRAM device. The NMOS transistors, rated for 3.3 V operation, are fabricated using"
+"a standard 130 nm foundry process with copper BEOL interconnects. The ReRAM"
+"devices are integrated on metal-8 layer. To prevent the oxidation of the copper vias"
+"during the ReRAM stack deposition,
+the 70 nm thick silicon nitride (SiNx) passiva-"
+"tion layer from the foundry is used as a protective layer. On top of that, a 20 nm thick"
+"titanium nitride (TiN) bottom electrode and a 4 nm thick hafnium oxide (HfOx) lay-"
+"ers are deposited by Plasma-Enhanced Atomic Layer Deposition (PEALD) process at"
+"300 °C, while maintaining vacuum conditions to avoid oxidation of the TiN layer. Sub-"
+"sequently, a stack of layers consisting of a 20 nm thick conductive metal-oxide (CMO),"
+"a 20 nm thick titanium nitride (TiN), and a 50 nm thick tungsten (W)
+is deposited"
+"by sputtering and patterned through a lithography step. A 100 nm thick silicon oxide"
+"layer
+is
+sputtered as passivation. The passivation layer
+is
+then patterned to
+(SiOx)"
+"expose the W top electrode and the copper via in the metal-8 layer beneath the bottom"
+"electrode. The ReRAM fabrication is completed using a titanium/gold lift-off process."
+"In this approach, the TiN bottom electrode is connected to the metal-8 via through"
+"its vertical sidewalls using gold. The ReRAM BEOL patterning steps are performed"
+"through mask-based photolithography performed on a 6×6 mm2 die issued from a"
+"Multi Project Wafer (MPW). The area of the CMO/HfOx ReRAM devices presented"
+"in this work is 12×12 µm2. Previous
+studies on CMO/HfOx ReRAM devices have"
+"demonstrated scalability down to 200×200 nm2
+[24–26]. Due to their filament-type"
+"nature, the performance of the ReRAM devices presented in this work is expected to"
+"remain similar for smaller areas."
+"4.2 ReRAM forming modelling"
+"A 3D FEM of
+the forming event,
+is used to
+the CMO/HfOx ReRAM device, after"
+"simulate electronic transport by solving the continuity (4) and the Joule-heating (5)"
+"equations in steady state:"

@@ -1,0 +1,28 @@
+"Solution","Induction Heads"
+"Perfectly solved by LTI (e.g. convolutional) models that do not need to look at the actual inputs",""
+"","?"
+"Figure 2: (Left) The standard version of the Copying task involves constant spacing between input and output elements and is easily",""
+"solved by time-invariant models such as linear recurrences and global convolutions. (Right Top) The Selective Copying task has random",""
+"","spacing in between inputs and requires time-varying models that can selectively remember or ignore inputs depending on their content."
+"(Right Bottom) The Induction Heads task is an example of associative recall that requires retrieving an answer based on context, a key",""
+"ability for LLMs.",""
+"Algorithm 1 SSM (S4)","Algorithm 2 SSM + Selection (S6)"
+"𝑥 : (B, L, D)
+Input:","𝑥 : (B, L, D)
+Input:"
+"𝑦 : (B, L, D)
+Output:","𝑦 : (B, L, D)
+Output:"
+"1: 𝑨 : (D, N) ← Parameter","1: 𝑨 : (D, N) ← Parameter"
+"⊲ Represents structured 𝑁 × 𝑁 matrix","⊲ Represents structured 𝑁 × 𝑁 matrix"
+"2: 𝑩 : (D, N) ← Parameter","2: 𝑩 : (B, L, N) ← 𝑠𝐵 (𝑥)"
+"3: 𝑪 : (D, N) ← Parameter","3: 𝑪 : (B, L, N) ← 𝑠𝐶 (𝑥)"
+"4: Δ : (D) ← 𝜏Δ (Parameter)","4: Δ : (B, L, D) ← 𝜏Δ (Parameter+𝑠Δ (𝑥))"
+"5: 𝑨, 𝑩 : (D, N) ← discretize(Δ, 𝑨, 𝑩)","5: 𝑨, 𝑩 : (B, L, D, N) ← discretize(Δ, 𝑨, 𝑩)"
+"6: 𝑦 ← SSM(𝑨, 𝑩, 𝑪)(𝑥)","6: 𝑦 ← SSM(𝑨, 𝑩, 𝑪)(𝑥)"
+"",""
+"","⊲ Time-varying: recurrence (scan) only"
+"",""
+"7:
+return 𝑦","7:
+return 𝑦"

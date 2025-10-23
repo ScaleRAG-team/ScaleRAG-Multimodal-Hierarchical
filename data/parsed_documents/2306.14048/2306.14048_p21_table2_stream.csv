@@ -1,0 +1,47 @@
+"B
+Extended Related Works, Discussions, and Limitations"
+"The goal of
+this section is to first
+introduce more background and related works for Section 2,"
+"then describe some previous attempts in our experiments as well as discuss the social impact and"
+"limitations of this work."
+"B.1
+Extended Related Works"
+"Quantization, Pruning, Distillation for Inference.
+Previously, model compression algorithms"
+"have been extensively investigated as a viable approach for mitigating the computational resource"
+"requirements of model inference. These algorithms can be broadly categorized into three groups:"
+"(1) quantization [55, 56, 57, 58], which involves mapping model parameters or activations from"
+"high-precision data types to low-precision counterparts, such as using 8-bit integers instead of the"
+"commonly employed 32-bit floating point format; (2) pruning or sparsity [59, 60, 61, 62], which aims"
+"to eliminate unnecessary neurons or weights within the models; (3) and distillation [63, 64, 65, 66]"
+"where predictions from larger models are utilized as supervised information to train smaller models."
+"Transformer in NLP.
+Transformers [67] as a popular option have been frequently adopted by"
+"plenty of natural language processing (NLP) applications with prevailing successes [68, 69, 70, 71, 72,"
+"46, 73, 13, 74, 75]. Roughly, modern transformer-based networks can be categorized into two groups:"
+"(1) Encoder-Decoder or Encoder-only (i.e., BERT-style models [76]). This type of transformers"
+"commonly leverages the Masked Language Modeling task which encourages models to capture"
+"the intrinsic relationship between words and their context. Notable examples include BERT [76],"
+"RoBBERTa [69] and T5 [77]. (2) Decoder-only (i.e., GPT-style models [78]). Usually, this group of"
+"transformers adopts the Casual Language Modeling task, which is optimized to generate the next"
+"word/token in a sequence based on the preceding words/tokens. Such an autoregressive manner"
+"is highly preferred by downstream tasks like text generation and question answering. GPT-3 [79],"
+"OPT [39], PaLM [13], and BLOOM [80] are representative architectures within this huge family."
+"Training of Transformer.
+Training a gigantic transformer-based model is not trivial. It notoriously"
+"suffers from various issues such as overfitting, instability, etc. [81, 82, 83] analyze these bottlenecks"
+"from the optimization perspective. To address the issues, a great amount of pioneering effort
+is"
+"devoted, including data augmentations [84, 85], a better initialization [86, 83, 87, 88], customized"
+"optimizers [89], improved normalization [90, 91], weight decay [92], and early stopping. However,"
+"there is still a long way to go before we can fully clarify the mystery of transformer training."
+"B.2
+Discussions and Limitations"
+"Previous Attempts.
+During our experiments, we find several noteworthy observations.
+In H2O,"
+"employing the accumulated attention score to evict KV embeddings can lead to a potential bias"
+"favoring the least recent tokens. This bias arises because most previous tokens have a higher number"
+"of attention scores, resulting in a higher accumulated attention score and, consequently, a greater"
+"likelihood of being retained. To address this concern, we conducted an additional experiment utilizing"

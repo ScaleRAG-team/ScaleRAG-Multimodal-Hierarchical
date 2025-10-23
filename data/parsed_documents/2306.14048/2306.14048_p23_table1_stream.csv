@@ -1,0 +1,12 @@
+"C
+Extended Experiments"
+"In this section, our goal
+is to demonstrate that H2O can improve the diversity of generated text"
+"(mentioned in Section 5.3), throughput is further improved when combined with quantization (men-"
+"tioned in Section 5.3), and superior performance to handle extremely long length inputs (up to four"
+"middle tokens, mentioned in Section 5.3). Moreover, additional investigations about H2 are reported,"
+"including experiments under zero-shot/one-shot inference regime; H2O can also enhance the ""Top-K"""
+"baseline; extra results of H2 in attention blocks; the emergence of H2 in MLP blocks as well as its"
+"properties."
+"C.1
+Increased Diversity of Generated Text"

@@ -1,0 +1,26 @@
+"References"
+"M. Artetxe, S. Bhosale, N. Goyal, T. Mihaylov, M. Ott, S. Shleifer, X. V. Lin, J. Du, S. Iyer, R. Pasunuru,"
+"G. Anantharaman, X. Li, S. Chen, H. Akin, M. Baines, L. Martin, X. Zhou, P. S. Koura, B. O’Horo,"
+"J. Wang, L. Zettlemoyer, M. Diab, Z. Kozareva, and V. Stoyanov. Eﬃcient Large Scale Language"
+"Modeling with Mixtures of Experts. arXiv:2112.10684, 2021."
+"E. M. Bender, T. Gebru, A. McMillan-Major, and S. Shmitchell. On the dangers of stochastic parrots:"
+"Can language models be too big?
+In Proceedings of
+the 2021 ACM Conference on Fairness,"
+"Accountability, and Transparency, pages 610–623, 2021."
+"BIG-bench collaboration. Beyond the imitation game: Measuring and extrapolating the capabilities of"
+""
+"In preparation, 2021. URL https://github.com/google/BIG-bench/."
+"Y. Bisk, R. Zellers, J. Gao, Y. Choi, et al. PIQA: Reasoning about physical commonsense in natural"
+"language.
+In Proceedings of
+the AAAI Conference on Artiﬁcial
+Intelligence, volume 34, pages"
+"7432–7439, 2020."
+"S. Borgeaud, A. Mensch, J. Hoﬀmann, T. Cai, E. Rutherford, K. Millican, G. van den Driessche, J.-B."
+"Lespiau, B. Damoc, A. Clark, D. de Las Casas, A. Guy, J. Menick, R. Ring, T. Hennigan, S. Huang,"
+"L. Maggiore, C. Jones, A. Cassirer, A. Brock, M. Paganini, G.
+Irving, O. Vinyals, S. Osindero,"
+"K. Simonyan, J. W. Rae, E. Elsen, and L. Sifre.
+Improving language models by retrieving from"
+"trillions of tokens. arXiv 2112.04426, 2021."

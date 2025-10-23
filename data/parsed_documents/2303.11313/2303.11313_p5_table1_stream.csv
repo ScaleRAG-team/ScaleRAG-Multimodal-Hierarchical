@@ -1,0 +1,56 @@
+"ever,
+it’s not
+feasible to obtain a large enough 3D dataset","where it calculates the similarity score between each prompt"
+"that matches the scale of the massive image-text data used to","and the test sample and selects the prompt
+that yields the"
+"train CLIP. Therefore, we concentrate on developing meth-","highest score as the ﬁnal prediction. This is formulated as:"
+"ods to effectively ﬁne-tune the model with new pre-training","(10)
+ypred = max(softmax((cid:104)f 3D, Ftext(cid:105)))"
+"data while keeping the visual encoder frozen.","where f 3D and Ftext are the feature vectors of
+the point"
+"Visual prompt
+tuning, as described in [18],
+is a method","cloud and text
+inputs
+is
+the class pre-
+respectively, ypred"
+"that involves adding a small number of trainable parameters","diction. Note that Ftext
+is actually a collection of
+feature"
+"in the input space to ﬁne-tune a base model
+for a speciﬁc","vectors collected from forwarding the text queries T to the"
+"task.
+In our proposed method for pre-training CG3D, we","text encoder. This process has been summarized in Fig 1."
+"adopt
+this approach and modify the input space to better",""
+"align with the visual encoder of
+the original CLIP model.",""
+"","3.4.2
+Scene Querying with Language"
+"This,
+in turn, allows the visual encoder to produce higher-",""
+"quality features, which can enhance the training of the 3D",""
+"encoder. We use deep prompting where we introduce learn-","Input Indoor Scene"
+"able prompts as learnable tokens at every layer in the trans-",""
+"former layer in ViT (visual encoder). For an ith transformer",""
+"layer Li, we deﬁne the collection of learnable tokens at that",""
+"layer as Pi = {pk
+i , 1 ≤ k ≤ n} where p corresponds to indi-",""
+"vidual tokens and n is the total number of learnable tokens.",""
+"The deep prompted visual encoder at ith can be represented",""
+"as :",""
+"(8)
+[yi] = Li([yi−1, Pi−1])",""
+"to the current
+where yi
+is the output and yi−1 is the input","Query - “Bookshelf”"
+"layer. Prompt
+tokens P are trained along with the 3D en-",""
+"coder in our CG3D framework. We use the original CLIP",""
+"loss which is a contrastive loss between the image and text",""
+"features to train these prompts. We formulate the loss used",""
+"to train the prompts LP as:",""
+"(cid:88)",""
+"(log NCE(f text, f 2D)+
+LP = −",""

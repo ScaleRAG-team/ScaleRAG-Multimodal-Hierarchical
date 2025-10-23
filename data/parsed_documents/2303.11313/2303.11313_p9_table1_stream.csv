@@ -1,0 +1,176 @@
+"extracted 3D features align with the image and text features","[10]
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina"
+"of the same category. We also proposed using learnable vi-","Toutanova.
+Bert:
+Pre-training
+of
+deep
+bidirectional"
+"","arXiv preprint
+transformers
+for
+language understanding."
+"sual prompts to shift the rendered image distribution to that",""
+"","arXiv:1810.04805, 2018."
+"of the CLIP to get better representative image features from",""
+"","[11] Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov,"
+"the visual encoder. Through extensive analysis, we demon-",""
+"","Dirk Weissenborn,
+Xiaohua
+Zhai,
+Thomas Unterthiner,"
+"strate the zero-shot capabilities of CG3D, which enables",""
+"","Mostafa Dehghani, Matthias Minderer, Georg Heigold, Syl-"
+"zero-shot 3D classiﬁcation, scene querying with natural lan-",""
+"","vain Gelly, et al. An image is worth 16x16 words: Trans-"
+"guage, and cross-modal retrieval. Furthermore, CG3D pro-",""
+"","arXiv
+preprint
+formers
+for
+image
+recognition
+at
+scale."
+"vides strong initial weights when training 3D networks for",""
+"","arXiv:2010.11929, 2020."
+"downstream tasks.",""
+"","[12] Haoqiang Fan, Hao Su, and Leonidas J Guibas. A point set"
+"","generation network for 3d object reconstruction from a single"
+"",""
+"References","image.
+In Proceedings of the IEEE conference on computer"
+"","vision and pattern recognition, pages 605–613, 2017."
+"[1] Mohamed Afham, Isuru Dissanayake, Dinithi Dissanayake,","[13]
+Siqi Fan, Qiulei Dong, Fenghua Zhu, Yisheng Lv, Peijun Ye,"
+"Amaya Dharmasiri, Kanchana Thilakarathna, and Ranga Ro-","and Fei-Yue Wang. Scf-net: Learning spatial contextual fea-"
+"drigo. Crosspoint: Self-supervised cross-modal contrastive","tures for large-scale point cloud segmentation.
+In Proceed-"
+"learning for 3d point cloud understanding. In Proceedings of","ings of
+the IEEE/CVF Conference on Computer Vision and"
+"the IEEE/CVF Conference on Computer Vision and Pattern","Pattern Recognition, pages 14504–14513, 2021."
+"Recognition, pages 9902–9912, 2022.","[14]
+Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen,"
+"[2]
+Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine","Kangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja"
+"Miech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch,","Fidler. Get3d: A generative model of high quality 3d tex-"
+"Katie Millican, Malcolm Reynolds, et al.
+Flamingo:
+a vi-","tured shapes learned from images.
+In Advances In Neural"
+"arXiv preprint
+sual
+language model
+for
+few-shot
+learning.","Information Processing Systems, 2022."
+"arXiv:2204.14198, 2022.","[15]
+Shashank Goel, Hritik Bansal,
+Sumit Bhatia,
+Ryan A"
+"[3]
+I. Armeni, A. Sax, A. R. Zamir, and S. Savarese.
+Joint 2D-","Rossi, Vishwa Vinay, and Aditya Grover.
+Cyclip: Cyclic"
+"ArXiv","arXiv
+preprint
+contrastive
+language-image
+pretraining."
+"3D-Semantic Data for Indoor Scene Understanding.",""
+"e-prints, Feb. 2017.","arXiv:2205.14459, 2022."
+"","[16] X Gu,
+T Lin, W Kuo,
+and Y Cui.
+Zero-shot
+detec-"
+"[4] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Sub-",""
+"","tion via vision and language knowledge distillation.
+corr"
+"biah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakan-",""
+"","abs/2104.13921 (2021)."
+"tan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Lan-",""
+"","[17] Meng-Hao Guo, Jun-Xiong Cai, Zheng-Ning Liu, Tai-Jiang"
+"in-
+guage models are few-shot
+learners. Advances in neural",""
+"","Mu, Ralph R Martin, and Shi-Min Hu.
+Pct:
+Point cloud"
+"formation processing systems, 33:1877–1901, 2020.",""
+"","transformer. Computational Visual Media, 7:187–199, 2021."
+"[5] Angel X. Chang, Thomas Funkhouser, Leonidas Guibas, Pat",""
+"","[18] Menglin Jia, Luming Tang, Bor-Chun Chen, Claire Cardie,"
+"Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Mano-",""
+"","Serge Belongie, Bharath Hariharan, and Ser-Nam Lim. Vi-"
+"lis Savva, Shuran Song, Hao Su,
+Jianxiong Xiao, Li Yi,",""
+"","sual prompt
+tuning.
+In Computer Vision–ECCV 2022: 17th"
+"and Fisher Yu.
+ShapeNet: An Information-Rich 3D Model",""
+"","European Conference, Tel Aviv, Israel, October 23–27, 2022,"
+"Repository.
+Technical Report arXiv:1512.03012 [cs.GR],",""
+"","Proceedings, Part XXXIII, pages 709–727. Springer, 2022."
+"Stanford University — Princeton University — Toyota Tech-",""
+"","[19] Linh K¨astner, Vlad Catalin
+Frasineanu,
+and
+Jens Lam-"
+"nological Institute at Chicago, 2015.",""
+"","brecht.
+A 3d-deep-learning-based augmented reality cali-"
+"[6] Ting Chen, Simon Kornblith, Mohammad Norouzi, and Ge-",""
+"","bration method for robotic environments using depth sensor"
+"offrey Hinton. A simple framework for contrastive learning",""
+"","data.
+In 2020 IEEE International Conference on Robotics"
+"of visual representations. In International conference on ma-",""
+"","and Automation (ICRA), pages 1135–1141. IEEE, 2020."
+"chine learning, pages 1597–1607. PMLR, 2020.",""
+"","[20] Konrad Koniarski
+and Andrzej My´sli´nski.
+Feature point"
+"[7] Yulong Chen, Yang Liu, Li Dong, Shuohang Wang, Chen-",""
+"","cloud based registration in augmented reality. In Advances in"
+"guang Zhu, Michael Zeng,
+and Yue Zhang.
+Adaprompt:",""
+"","Systems Engineering: Proceedings of the 28th International"
+"arXiv
+Adaptive model
+training
+for
+prompt-based
+nlp.",""
+"","Conference on Systems Engineering, ICSEng 2021, Decem-"
+"preprint arXiv:2202.04824, 2022.",""
+"","ber 14-16, Wrocław, Poland 28, pages 418–427. Springer,"
+"[8]
+Jaemin Cho, Seunghyun Yoon, Ajinkya Kale, Franck Der-","2022."
+"noncourt,
+Trung Bui,
+and Mohit Bansal.
+Fine-grained","[21]
+Jie Lei, Linjie Li, Luowei Zhou, Zhe Gan, Tamara L Berg,"
+"arXiv
+preprint
+image
+captioning
+with
+clip
+reward.","Mohit Bansal, and Jingjing Liu. Less is more: Clipbert for"
+"arXiv:2205.13115, 2022.","video-and-language learning via sparse sampling.
+In Pro-"
+"[9] Angela Dai, Angel X. Chang, Manolis Savva, Maciej Hal-","ceedings of
+the IEEE/CVF Conference on Computer Vision"
+"ber, Thomas Funkhouser, and Matthias Nießner.
+Scannet:","and Pattern Recognition, pages 7331–7341, 2021."
+"Richly-annotated 3d reconstructions of
+indoor
+scenes.
+In","[22] Brian Lester, Rami Al-Rfou, and Noah Constant. The power"
+"Proc. Computer Vision and Pattern Recognition (CVPR),","of scale for parameter-efﬁcient prompt tuning. arXiv preprint"
+"IEEE, 2017.","arXiv:2104.08691, 2021."

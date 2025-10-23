@@ -1,0 +1,46 @@
+"D.3
+Dynamic Submodular"
+"to real. Here we need a more general definition
+The standard submodular function is mapping 2[n]"
+"to real.
+that maps 2[n]
+2[n]"
+"×"
+"R,
+then for any set
+Definition D.3 (Strong submodular). We define function F : 2[n]
+2[n]"
+"×
+→"
+"R is a submodular function.
+Z
+[n], we assume that F (Z,
+) : 2[n]"
+"⊂
+·
+→"
+"In fact, the above definition is stronger than we want, what we really need can be written as follows."
+"We remark that in Definition 4.1 we provide an informal definition. Here we provide a more detailed"
+"version of the definition."
+"Definition D.4 (Dynamic submodular framework, formal version of Definition 4.1). Define function"
+"F : 2[n]
+[n]
+2[n]
+R."
+"×
+×
+→"
+"Then for any index i
+[n], any set Z
+[i
+1], we assume that"
+"∈
+⊆
+−"
+"R"
+"F (Z, i,
+) : 2[n]"
+"·
+→"
+"is a submodular function w.r.t.
+to Z, i.e.,"

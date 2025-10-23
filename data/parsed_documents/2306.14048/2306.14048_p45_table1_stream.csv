@@ -1,0 +1,7 @@
+"• Lsparse(x) = α(x)",""
+"","Proof. The proof is trivially following from the definition of u(x) (see Definition D.35) and α(x)"
+"(see Definition D.36).",""
+"The final loss function can be defined as follows. Intuitively, we can write attention D−","1 exp(QK ⊤)"
+"into n subproblems where each subproblem can be viewed as one softmax problem.",""
+"If the following conditions hold
+Definition D.43.",""

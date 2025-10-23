@@ -1,0 +1,25 @@
+"Figure 9: Data and weight partitioning strategies. Each 4×4 dotted-line grid represents 16"
+"cores and the shaded squares are the data contained on that core (either model"
+"weights or batch of tokens). We illustrate both how the model weights and the"
+"data tensors are split
+for each strategy. First Row:
+illustration of how model"
+"weights are split across the cores. Shapes of diﬀerent sizes in this row represent"
+"larger weight matrices in the Feed Forward Network (FFN) layers (e.g larger df f"
+"sizes). Each color of the shaded squares identiﬁes a unique weight matrix. The"
+"number of parameters per
+core
+is ﬁxed, but
+larger weight matrices will apply"
+"more computation to each token.
+Second Row:
+illustration of how the data"
+"batch
+is
+split across cores.
+Each core holds
+the same number of
+tokens which"
+"maintains a ﬁxed memory usage across all strategies. The partitioning strategies"
+"have diﬀerent properties of allowing each core to either have the same tokens or"
+"diﬀerent tokens across cores, which is what the diﬀerent colors symbolize."

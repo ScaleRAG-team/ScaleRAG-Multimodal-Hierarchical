@@ -1,0 +1,5609 @@
+{
+  "title": null,
+  "authors": [],
+  "source_path": "../data/pdf/2307.08691.pdf",
+  "page_count": 14,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "counts": {
+    "texts": 515,
+    "pictures": 4,
+    "tables": 30
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 11,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 2,
+      "text_blocks": 10,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 19,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 4,
+      "text_blocks": 19,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 1
+    },
+    {
+      "page": 5,
+      "text_blocks": 15,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 6,
+      "text_blocks": 27,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 7,
+      "text_blocks": 21,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 8,
+      "text_blocks": 6,
+      "layout_blocks": 1,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 1,
+      "tables_found": 2
+    },
+    {
+      "page": 9,
+      "text_blocks": 12,
+      "layout_blocks": 2,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 1
+    },
+    {
+      "page": 10,
+      "text_blocks": 94,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 11,
+      "text_blocks": 95,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 12,
+      "text_blocks": 93,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 13,
+      "text_blocks": 74,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 4
+    },
+    {
+      "page": 14,
+      "text_blocks": 19,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        79.72601318359375,
+        107.44762420654297,
+        532.3019409179688,
+        150.36233520507812
+      ],
+      "text": "FlashAttention-2:\nFaster Attention with Better Parallelism and Work Partitioning"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        280.06903076171875,
+        164.13259887695312,
+        331.6639099121094,
+        178.09463500976562
+      ],
+      "text": "Tri Dao1,2"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        161.5040283203125,
+        188.04061889648438,
+        450.5559387207031,
+        230.4581756591797
+      ],
+      "text": "1Department of Computer Science, Princeton University\n2Department of Computer Science, Stanford University\ntrid@cs.stanford.edu"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        271.9420166015625,
+        249.82144165039062,
+        340.08673095703125,
+        261.7766418457031
+      ],
+      "text": "July 18, 2023"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        285.85400390625,
+        288.01336669921875,
+        326.4359436035156,
+        296.9797668457031
+      ],
+      "text": "Abstract"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        96.56600189208984,
+        303.6046447753906,
+        516.4190673828125,
+        498.9009704589844
+      ],
+      "text": "Scaling Transformers to longer sequence lengths has been a major problem in the last several years,\npromising to improve performance in language modeling and high-resolution image understanding, as\nwell as to unlock new applications in code, audio, and video generation. The attention layer is the\nmain bottleneck in scaling to longer sequences, as its runtime and memory increase quadratically in\nthe sequence length. FlashAttention [5] exploits the asymmetric GPU memory hierarchy to bring\nsignificant memory saving (linear instead of quadratic) and runtime speedup (2-4× compared to optimized\nbaselines), with no approximation. However, FlashAttention is still not nearly as fast as optimized\nmatrix-multiply (GEMM) operations, reaching only 25-40% of the theoretical maximum FLOPs/s. We\nobserve that the inefficiency is due to suboptimal work partitioning between different thread blocks and\nwarps on the GPU, causing either low-occupancy or unnecessary shared memory reads/writes. We propose\nFlashAttention-2, with better work partitioning to address these issues. In particular, we (1) tweak\nthe algorithm to reduce the number of non-matmul FLOPs (2) parallelize the attention computation, even\nfor a single head, across different thread blocks to increase occupancy, and (3) within each thread block,\ndistribute the work between warps to reduce communication through shared memory. These yield around\n2× speedup compared to FlashAttention, reaching 50-73% of the theoretical maximum FLOPs/s on\nA100 and getting close to the efficiency of GEMM operations. We empirically validate that when used\nend-to-end to train GPT-style models, FlashAttention-2 reaches training speed of up to 225 TFLOPs/s\nper A100 GPU (72% model FLOPs utilization).1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        72.00001525878906,
+        518.6751708984375,
+        182.40838623046875,
+        533.0213623046875
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        71.62100219726562,
+        543.721923828125,
+        541.3915405273438,
+        697.146484375
+      ],
+      "text": "Scaling up the context length of Transformers [18] is a challenge, since the attention layer at their heart\nhas runtime and memory requirements quadratic in the input sequence length. Ideally, we would like to go\nbeyond the standard 2k sequence length limit to train models to understand books, high resolution images,\nand long-form videos. Just within the last year, there have been several language models with much longer\ncontext than before: GPT-4 [12] with context length 32k, MosaicML’s MPT with context length 65k, and\nAnthropic’s Claude with context length 100k. Emerging use cases such as long document querying and story\nwriting have demonstrated a need for models with such long context.\nTo reduce the computational requirement of attention on such long context, there have been numerous\nmethods proposed to approximate attention [2, 3, 4, 8, 9, 14, 19, 20]. Though these methods have seen\nsome use cases, as far as we know, most large-scale training runs still use standard attention. Motivated by\nthis, Dao et al. [5] proposed to reorder the attention computation and leverages classical techniques (tiling,\nrecomputation) to significantly speed it up and reduce memory usage from quadratic to linear in sequence\nlength. This yields 2-4× wall-clock time speedup over optimized baselines, up to 10-20× memory saving,"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        83.08899688720703,
+        704.8139038085938,
+        405.73236083984375,
+        714.9080810546875
+      ],
+      "text": "1FlashAttention-2 is available at https://github.com/Dao-AILab/flash-attention"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        218.91998291015625,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2307.08691v1  [cs.LG]  17 Jul 2023"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        71.64099884033203,
+        72.94139862060547,
+        540.4004516601562,
+        216.32351684570312
+      ],
+      "text": "with no approximation, and as a result FlashAttention has seen wide adoption in large-scale training and\ninference of Transformers.\nHowever, context length increases even more, FlashAttention is still not nearly as efficient as other\nprimitives such as matrix-multiply (GEMM). In particular, while FlashAttention is already 2-4× faster\nthan a standard attention implementation, the forward pass only reaches 30-50% of the theoretical maximum\nFLOPs/s of the device (Fig. 5), while the backward pass is even more challenging, reaching only 25-35%\nof maximum throughput on A100 GPU (Fig. 6). In contrast, optimized GEMM can reach up to 80-90% of\nthe theoretical maximum device throughput. Through careful profiling, we observe that FlashAttention\nstill has suboptimal work partitioning between different thread blocks and warps on the GPU, causing either\nlow-occupancy or unnecessary shared memory reads/writes.\nBuilding on FlashAttention, we propose FlashAttention-2 with better parallelism and work\npartitioning to address these challenges."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        84.1780014038086,
+        226.2869415283203,
+        540.38037109375,
+        284.06951904296875
+      ],
+      "text": "1. In Section 3.1, we tweak the algorithms to reduce the number of non-matmul FLOPs while not changing\nthe output. While the non-matmul FLOPs only account for a small fraction of the total FLOPs, they\ntake longer to perform as GPUs have specialized units for matrix multiply, and as a result the matmul\nthroughput can be up to 16× higher than non-matmul throughput. It is thus important to reduce\nnon-matmul FLOPs and spend as much time as possible doing matmul FLOPs."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        84.17799377441406,
+        294.0318908691406,
+        541.3248901367188,
+        327.905517578125
+      ],
+      "text": "2. We propose to parallelize both the forward pass and backward pass along the sequence length dimension,\nin addition to the batch and number of heads dimension. This increases occupancy (utilization of GPU\nresources) in the case where the sequences are long (and hence batch size is often small)."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        84.17799377441406,
+        337.8678894042969,
+        539.9776000976562,
+        359.7855224609375
+      ],
+      "text": "3. Even within one block of attention computation, we partition the work between different warps of a\nthread block to reduce communication and shared memory reads/writes."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        72.0,
+        367.6572570800781,
+        540.2482299804688,
+        439.48651123046875
+      ],
+      "text": "In Section 4, we empirically validate that FlashAttention-2 yields significant speedup compared to\neven FlashAttention. Benchmarks on different settings (with or without causal mask, different head\ndimensions) show that FlashAttention-2 achieves around 2× speedup over FlashAttention, reaching\nup to 73% of the theoretical max throughput in the forward pass, and up to 63% of the theoretical max\nthroughput in the backward pass. When used end-to-end to train GPT-style models, we reach training speed\nof up to 225 TFLOPs/s per A100 GPU."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        72.0,
+        459.2391662597656,
+        178.14755249023438,
+        473.5853576660156
+      ],
+      "text": "2\nBackground"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        71.49199676513672,
+        484.284912109375,
+        539.9638061523438,
+        506.2025146484375
+      ],
+      "text": "We provide some background on the performance characteristics and execution model of GPUs. We also\ndescribe the standard implementation of attention, as well as FlashAttention."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        72.0,
+        522.763427734375,
+        248.33921813964844,
+        534.7186279296875
+      ],
+      "text": "2.1\nHardware characteristics"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        71.49199676513672,
+        542.512939453125,
+        541.9381103515625,
+        707.8925170898438
+      ],
+      "text": "GPU performance characteristics. The GPU consists of compute elements (e.g., floating point arithmetic\nunits) and a memory hierarchy. Most modern GPUs contain specialized units to accelerate matrix multiply in\nlow-precision (e.g., Tensor Cores on Nvidia GPUs for FP16/BF16 matrix multiply). The memory hierarchy\ncomprise of high bandwidth memory (HBM), and on-chip SRAM (aka shared memory). As an example, the\nA100 GPU has 40-80GB of high bandwidth memory (HBM) with bandwidth 1.5-2.0TB/s and 192KB of\non-chip SRAM per each of 108 streaming multiprocessors with bandwidth estimated around 19TB/s [6, 7].\nAs the L2 cache is not directly controllable by the programmer, we focus on the HBM and SRAM for the\npurpose of this discussion.\nExecution Model. GPUs have a massive number of threads to execute an operation (called a kernel).\nThreads are organized into thread blocks, which are scheduled to run on streaming multiprocessors (SMs).\nWithin each thread blocks, threads are grouped into warps (a group of 32 threads). Threads within a warp\ncan communicate by fast shuffle instructions or cooperate to perform matrix multiply. Warps within a thread\nblock can communicate by reading from / writing to shared memory. Each kernel loads inputs from HBM to\nregisters and SRAM, computes, then writes outputs to HBM."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        73.49242401123047,
+        314.7503662109375,
+        85.44762420654297
+      ],
+      "text": "2.2\nStandard Attention Implementation"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        90.46968078613281,
+        540.23779296875,
+        115.343505859375
+      ],
+      "text": "Given input sequences Q, K, V ∈R𝑁×𝑑where 𝑁is the sequence length and 𝑑is the head dimension, we want\nto compute the attention output O ∈R𝑁×𝑑:"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        166.77801513671875,
+        123.84468078613281,
+        445.1126708984375,
+        137.261474609375
+      ],
+      "text": "S = QK⊤∈R𝑁×𝑁,\nP = softmax(S) ∈R𝑁×𝑁,\nO = PV ∈R𝑁×𝑑,"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        71.64099884033203,
+        145.4169464111328,
+        539.9925537109375,
+        194.86154174804688
+      ],
+      "text": "where softmax is applied row-wise.2 For multi-head attention (MHA), this same computation is performed in\nparallel across many heads, and parallel over the batch dimension (number of input sequences in a batch).\nThe backward pass of attention proceeds as follows. Let dO ∈R𝑁×𝑑be the gradient of O with respect to\nsome loss function. Then by the chain rule (aka backpropagation):"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        244.93600463867188,
+        203.5457305908203,
+        329.4726257324219,
+        216.9625244140625
+      ],
+      "text": "dV = P⊤dO ∈R𝑁×𝑑"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        245.79400634765625,
+        219.9846954345703,
+        331.9525146484375,
+        233.4014892578125
+      ],
+      "text": "dP = dOV⊤∈R𝑁×𝑁"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        247.06700134277344,
+        236.4236602783203,
+        365.8824768066406,
+        249.8404541015625
+      ],
+      "text": "dS = dsoftmax(dP) ∈R𝑁×𝑁"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        245.1299591064453,
+        253.0186309814453,
+        322.8555908203125,
+        266.4354248046875
+      ],
+      "text": "dQ = dSK ∈R𝑁×𝑑"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        244.7979736328125,
+        269.61358642578125,
+        331.49761962890625,
+        283.0314025878906
+      ],
+      "text": "dK = QdS⊤∈R𝑁×𝑑,"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        71.64099884033203,
+        293.010986328125,
+        541.9352416992188,
+        400.5686340332031
+      ],
+      "text": "where dsoftmax is the gradient (backward pass) of softmax applied row-wise. One can work out that if 𝑝=\nsoftmax(𝑠) for some vector 𝑠and 𝑝, then with output gradient 𝑑𝑝, the input gradient 𝑑𝑠= (diag(𝑝) −𝑝𝑝⊤)𝑑𝑝.\nStandard attention implementations materialize the matrices S and P to HBM, which takes 𝑂(𝑁2)\nmemory. Often 𝑁≫𝑑(typically 𝑁is on the order of 1k–8k and 𝑑is around 64–128). The standard attention\nimplementation (1) calls the matrix multiply (GEMM) subroutine to multiply S = QK⊤, writes the result to\nHBM, then (2) loads § from HBM to compute softmax and write the result P to HBM, and finally (3) calls\nGEMM to get O = PV. As most of the operations are bounded by memory bandwidth, the large number of\nmemory accesses translates to slow wall-clock time. Moreover, the required memory is 𝑂(𝑁2) due to having\nto materialize S and P. Moreover, one has to save P ∈R𝑁×𝑁for the backward pass to compute the gradients."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        414.34381103515625,
+        208.46739196777344,
+        428.92266845703125
+      ],
+      "text": "2.3\nFlashAttention"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        71.64099884033203,
+        436.7169189453125,
+        540.3534545898438,
+        458.634521484375
+      ],
+      "text": "To speed up attention on hardware accelerators such as GPU, [5] proposes an algorithm to reduce the memory\nreads/writes while maintaining the same output (without approximation)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        474.75775146484375,
+        173.1004638671875,
+        484.7203674316406
+      ],
+      "text": "2.3.1\nForward pass"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        71.64099884033203,
+        490.88494873046875,
+        541.3873901367188,
+        610.511474609375
+      ],
+      "text": "FlashAttention applies the classical technique of tiling to reduce memory IOs, by (1) loading blocks of\ninputs from HBM to SRAM, (2) computing attention with respect to that block, and then (3) updating the\noutput without writing the large intermediate matrices S and P to HBM. As the softmax couples entire rows\nor blocks of row, online softmax [11, 13] can split the attention computation into blocks, and rescale the\noutput of each block to finally get the right result (with no approximation). By significantly reducing the\namount of memory reads/writes, FlashAttention yields 2-4× wall-clock speedup over optimized baseline\nattention implementations.\nWe describe the online softmax technique [11] and how it is used in attention [13]. For simplicity, consider\njust one row block of the attention matrix S, of the form\n\u0002\nS(1)\nS(2)\u0003\nfor some matrices S(1), S(2) ∈R𝐵𝑟×𝐵𝑐,\nwhere 𝐵𝑟and 𝐵𝑐are the row and column block sizes. We want to compute softmax of this row block and"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        610.6112060546875,
+        255.7448272705078,
+        628.3534545898438
+      ],
+      "text": "multiply with the value, of the form\n\u0014V(1)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        237.95501708984375,
+        622.960205078125,
+        255.74484252929688,
+        634.738525390625
+      ],
+      "text": "V(2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        257.0240173339844,
+        611.4657592773438,
+        539.9999389648438,
+        628.5462036132812
+      ],
+      "text": "\u0015\nfor some matrices V(1), V(2) ∈R𝐵𝑐×𝑑. Standard softmax would"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        72.0,
+        643.8662109375,
+        540.1563110351562,
+        663.05810546875
+      ],
+      "text": "2For clarity of exposition, we omit the scaling of QK⊤(typically by 1/d), and optionally elementwise masking on S and/or\ndropout applied to P"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        72.0,
+        74.85389709472656,
+        111.8304672241211,
+        84.81649780273438
+      ],
+      "text": "compute:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        154.59201049804688,
+        93.50166320800781,
+        348.77166748046875,
+        106.91845703125
+      ],
+      "text": "𝑚= max(rowmax(S(1)), rowmax(S(2))) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        157.72006225585938,
+        110.20512390136719,
+        352.1566162109375,
+        125.1214599609375
+      ],
+      "text": "ℓ= rowsum(𝑒S(1) −𝑚) + rowsum(𝑒S(2) −𝑚) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        155.39501953125,
+        130.2397003173828,
+        405.2729187011719,
+        147.09628295898438
+      ],
+      "text": "P =\n\u0002\nP(1)\nP(2)\u0003\n= diag(ℓ)−1 h\n𝑒S(1) −𝑚\n𝑒S(2) −𝑚\ni\n∈R𝐵𝑟×2𝐵𝑐"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        154.73095703125,
+        151.6739959716797,
+        252.5107879638672,
+        169.6263427734375
+      ],
+      "text": "O =\n\u0002\nP(1)\nP(2)\u0003 \u0014V(1)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        234.72097778320312,
+        164.0220184326172,
+        252.51080322265625,
+        175.80133056640625
+      ],
+      "text": "V(2)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        253.7899932861328,
+        152.52760314941406,
+        457.3086242675781,
+        169.59930419921875
+      ],
+      "text": "\u0015\n= diag(ℓ)−1𝑒S(1) −𝑚V(1) + 𝑒S(2) −𝑚V(2) ∈R𝐵𝑟×𝑑."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        72.0,
+        187.06190490722656,
+        540.2381591796875,
+        208.97952270507812
+      ],
+      "text": "Online softmax instead computes “local” softmax with respect to each block and rescale to get the right\noutput at the end:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        100.53700256347656,
+        216.87075805664062,
+        215.9766082763672,
+        231.08154296875
+      ],
+      "text": "𝑚(1) = rowmax(S(1)) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        103.66602325439453,
+        232.15330505371094,
+        237.0246124267578,
+        249.2835693359375
+      ],
+      "text": "ℓ(1) = rowsum(𝑒S(1) −𝑚(1) ) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        101.34102630615234,
+        250.35630798339844,
+        262.12396240234375,
+        267.486572265625
+      ],
+      "text": "˜P(1) = diag(ℓ(1))−1𝑒S(1) −𝑚(1) ∈R𝐵𝑟×𝐵𝑐"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        100.677001953125,
+        268.97296142578125,
+        324.9645690917969,
+        285.6895751953125
+      ],
+      "text": "O(1) = ˜P(1)V(1) = diag(ℓ(1))−1𝑒S(1) −𝑚(1) V(1) ∈R𝐵𝑟×𝑑"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        100.53695678710938,
+        288.3107604980469,
+        258.3099365234375,
+        302.52154541015625
+      ],
+      "text": "𝑚(2) = max(𝑚(1), rowmax(S(2))) = 𝑚"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        103.66593933105469,
+        302.031005859375,
+        456.89227294921875,
+        320.72454833984375
+      ],
+      "text": "ℓ(2) = 𝑒𝑚(1) −𝑚(2) ℓ(1) + rowsum(𝑒S(2) −𝑚(2) ) = rowsum(𝑒S(1) −𝑚) + rowsum(𝑒S(2) −𝑚) = ℓ"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        101.3408432006836,
+        324.0102233886719,
+        219.5594940185547,
+        338.92755126953125
+      ],
+      "text": "˜P(2) = diag(ℓ(2))−1𝑒S(2) −𝑚(2)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        100.67681884765625,
+        342.2132263183594,
+        511.3634338378906,
+        357.13055419921875
+      ],
+      "text": "O(2) = diag(ℓ(1)/ℓ(2))−1O(1) + ˜P(2)V(2) = diag(ℓ(2))−1𝑒𝑠(1) −𝑚V(1) + diag(ℓ(2))−1𝑒𝑠(2) −𝑚V(2) = O."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.94400024414062,
+        367.008544921875,
+        541.9310302734375,
+        378.863525390625
+      ],
+      "text": "We show how FlashAttention uses online softmax to enable tiling (Fig. 1) to reduce memory reads/writes."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        72.0,
+        626.6782836914062,
+        540.3164672851562,
+        686.4244995117188
+      ],
+      "text": "Figure 1: Diagram of how FlashAttention forward pass is performed, when the key K is partitioned into\ntwo blocks and the value V is also partitioned into two blocks. By computing attention with respect to\neach block and rescaling the output, we get the right answer at the end, while avoiding expensive memory\nreads/writes of the intermediate matrices S and P. We simplify the diagram, omitting the step in softmax\nthat subtracts each element by the row-wise max."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.0,
+        75.04773712158203,
+        180.9410400390625,
+        85.01033782958984
+      ],
+      "text": "2.3.2\nBackward pass"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.0,
+        93.24189758300781,
+        540.3787841796875,
+        198.84652709960938
+      ],
+      "text": "In the backward pass, by re-computing the values of the attention matrices S and P once blocks of inputs\nQ, K, V are already loaded to SRAM, FlashAttention avoids having to store large intermediate values. By\nnot having to save the large matrices S and P of size 𝑁× 𝑁, FlashAttention yields 10-20× memory saving\ndepending on sequence length (memory required in linear in sequence length 𝑁instead of quadratic). The\nbackward pass also achieves 2-4× wall-clock speedup due to reduce memory reads/writes.\nThe backward pass applies tiling to the equations in Section 2.2. Though the backward pass is simpler\nthan the forward pass conceptually (there is no softmax rescaling), the implementation is significantly more\ninvolved. This is because there are more values to be kept in SRAM to perform 5 matrix multiples in the\nbackward pass, compared to just 2 matrix multiples in the forward pass."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.0,
+        215.59400939941406,
+        542.7112426757812,
+        250.87738037109375
+      ],
+      "text": "3\nFlashAttention-2: Algorithm, Parallelism, and Work Partition-\ning"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        71.49199676513672,
+        259.6845397949219,
+        540.000244140625,
+        319.3605041503906
+      ],
+      "text": "We describe the FlashAttention-2 algorithm, which includes several tweaks to FlashAttention to reduce\nthe number of non-matmul FLOPs. We then describe how to parallelize the computation on different thread\nblocks to make full use the GPU resources. Finally we describe we partition the work between different warps\nwithin one thread block to reduce the amount of shared memory access. These improvements lead to 2-3×\nspeedup as validated in Section 4."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.0,
+        335.92144775390625,
+        163.05084228515625,
+        347.87664794921875
+      ],
+      "text": "3.1\nAlgorithm"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        71.49199676513672,
+        353.5792541503906,
+        541.3800048828125,
+        437.3645324707031
+      ],
+      "text": "We tweak the algorithm from FlashAttention to reduce the number of non-matmul FLOPs. This is\nbecause modern GPUs have specialized compute units (e.g., Tensor Cores on Nvidia GPUs) that makes\nmatmul much faster. As an example, the A100 GPU has a max theoretical throughput of 312 TFLOPs/s of\nFP16/BF16 matmul, but only 19.5 TFLOPs/s of non-matmul FP32. Another way to think about this is that\neach non-matmul FLOP is 16× more expensive than a matmul FLOP. To maintain high throughput (e.g.,\nmore than 50% of the maximum theoretical TFLOPs/s), we want to spend as much time on matmul FLOPs\nas possible."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        72.0,
+        453.4877624511719,
+        173.1004638671875,
+        463.45037841796875
+      ],
+      "text": "3.1.1\nForward pass"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        71.49199676513672,
+        471.6819152832031,
+        539.9865112304688,
+        493.5995178222656
+      ],
+      "text": "We revisit the online softmax trick as shown in Section 2.3 and make two minor tweaks to reduce non-matmul\nFLOPs:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        84.1780014038086,
+        501.76995849609375,
+        426.6565856933594,
+        513.70849609375
+      ],
+      "text": "1. We do not have to rescale both terms of the output update by diag(ℓ(2))−1:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        197.04100036621094,
+        520.5398559570312,
+        439.6965637207031,
+        537.2564697265625
+      ],
+      "text": "O(2) = diag(ℓ(1)/ℓ(2))−1O(1) + diag(ℓ(2))−1𝑒S(2) −𝑚(2) V(2)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        96.39889526367188,
+        545.411865234375,
+        493.2764892578125,
+        559.1744384765625
+      ],
+      "text": "We can instead maintain an “un-scaled” version of O(2) and keep around the statistics ℓ(2):"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        233.03390502929688,
+        565.98388671875,
+        403.7035217285156,
+        582.7014770507812
+      ],
+      "text": "˜O(2) = diag(ℓ(1))−1O(1) + 𝑒S(2) −𝑚(2) V(2)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        96.90699768066406,
+        590.8558959960938,
+        541.9346313476562,
+        604.6195068359375
+      ],
+      "text": "Only at the every end of the loop do we scale the final ˜O(last) by diag(ℓ(last))−1 to get the right output."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        84.1780014038086,
+        610.7819213867188,
+        540.000244140625,
+        636.49951171875
+      ],
+      "text": "2. We do not have to save both the max 𝑚( 𝑗) and the sum of exponentials ℓ( 𝑗) for the backward pass. We\nonly need to store the logsumexp 𝐿( 𝑗) = 𝑚( 𝑗) + log(ℓ( 𝑗))."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        86.94400024414062,
+        74.85389709472656,
+        451.04705810546875,
+        84.81649780273438
+      ],
+      "text": "In the simple case of 2 blocks in Section 2.3, the online softmax trick now becomes:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        127.69300079345703,
+        92.7086410522461,
+        243.13258361816406,
+        106.91845703125
+      ],
+      "text": "𝑚(1) = rowmax(S(1)) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        130.8209991455078,
+        107.99119567871094,
+        264.18060302734375,
+        125.1214599609375
+      ],
+      "text": "ℓ(1) = rowsum(𝑒S(1) −𝑚(1) ) ∈R𝐵𝑟"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        127.83299255371094,
+        126.60685729980469,
+        252.04962158203125,
+        143.324462890625
+      ],
+      "text": "˜\nO(1) = 𝑒S(1) −𝑚(1) V(1) ∈R𝐵𝑟×𝑑"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        127.69300842285156,
+        145.94570922851562,
+        285.4659729003906,
+        160.156494140625
+      ],
+      "text": "𝑚(2) = max(𝑚(1), rowmax(S(2))) = 𝑚"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        130.82098388671875,
+        159.6659698486328,
+        484.0483703613281,
+        178.3594970703125
+      ],
+      "text": "ℓ(2) = 𝑒𝑚(1) −𝑚(2) ℓ(1) + rowsum(𝑒S(2) −𝑚(2) ) = rowsum(𝑒S(1) −𝑚) + rowsum(𝑒S(2) −𝑚) = ℓ"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        128.4969482421875,
+        181.6451873779297,
+        246.7146453857422,
+        196.5615234375
+      ],
+      "text": "˜P(2) = diag(ℓ(2))−1𝑒S(2) −𝑚(2)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        127.83296966552734,
+        197.63426208496094,
+        437.87469482421875,
+        214.7645263671875
+      ],
+      "text": "˜O(2) = diag(𝑒𝑚(1) −𝑚(2) )−1 ˜O(1) + 𝑒S(2) −𝑚(2) V(2) = 𝑒𝑠(1) −𝑚V(1) + 𝑒𝑠(2) −𝑚V(2)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        127.8328857421875,
+        217.38571166992188,
+        249.92852783203125,
+        231.59649658203125
+      ],
+      "text": "O(2) = diag(ℓ(2))−1 ˜O(2) = O."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        86.94387817382812,
+        241.3754119873047,
+        396.34844970703125,
+        253.33053588867188
+      ],
+      "text": "We describe the full FlashAttention-2 forward pass in Algorithm 1."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        71.56500244140625,
+        266.9245910644531,
+        272.9265441894531,
+        278.0773620605469
+      ],
+      "text": "Algorithm 1 FlashAttention-2 forward pass"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        72.0,
+        281.9857177734375,
+        351.7945556640625,
+        294.9153747558594
+      ],
+      "text": "Require: Matrices Q, K, V ∈R𝑁×𝑑in HBM, block sizes 𝐵𝑐, 𝐵𝑟."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.36697387695312,
+        295.38482666015625,
+        187.72158813476562,
+        311.8673095703125
+      ],
+      "text": "1: Divide Q into 𝑇𝑟=\nl\n𝑁\n𝐵𝑟"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        189.88600158691406,
+        295.38482666015625,
+        503.4609375,
+        311.8673095703125
+      ],
+      "text": "m\nblocks Q1, . . . , Q𝑇𝑟of size 𝐵𝑟× 𝑑each, and divide K, V in to 𝑇𝑐=\nl\n𝑁\n𝐵𝑐"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.36701965332031,
+        295.38482666015625,
+        539.9968872070312,
+        371.52947998046875
+      ],
+      "text": "m\nblocks\nK1, . . . , K𝑇𝑐and V1, . . . , V𝑇𝑐, of size 𝐵𝑐× 𝑑each.\n2: Divide the output O ∈R𝑁×𝑑into 𝑇𝑟blocks O𝑖, . . . , O𝑇𝑟of size 𝐵𝑟× 𝑑each, and divide the logsumexp 𝐿\ninto 𝑇𝑟blocks 𝐿𝑖, . . . , 𝐿𝑇𝑟of size 𝐵𝑟each.\n3: for 1 ≤𝑖≤𝑇𝑟do\n4:\nLoad Q𝑖from HBM to on-chip SRAM."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.36701965332031,
+        371.4461669921875,
+        458.148681640625,
+        408.46246337890625
+      ],
+      "text": "5:\nOn chip, initialize O(0)\n𝑖\n= (0)𝐵𝑟×𝑑∈R𝐵𝑟×𝑑, ℓ(0)\n𝑖\n= (0)𝐵𝑟∈R𝐵𝑟, 𝑚(0)\n𝑖\n= (−∞)𝐵𝑟∈R𝐵𝑟.\n6:\nfor 1 ≤𝑗≤𝑇𝑐do\n7:\nLoad K 𝑗, V𝑗from HBM to on-chip SRAM."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.36709594726562,
+        408.3226623535156,
+        286.8376770019531,
+        423.9623718261719
+      ],
+      "text": "8:\nOn chip, compute S( 𝑗)\n𝑖\n= Q𝑖K𝑇\n𝑗∈R𝐵𝑟×𝐵𝑐."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        77.36708068847656,
+        424.2567138671875,
+        538.8369750976562,
+        439.8954162597656
+      ],
+      "text": "9:\nOn chip, compute 𝑚( 𝑗)\n𝑖\n= max(𝑚( 𝑗−1)\n𝑖\n, rowmax(S( 𝑗)\n𝑖\n)) ∈R𝐵𝑟, ˜P( 𝑗)\n𝑖\n= exp(S( 𝑗)\n𝑖\n−𝑚( 𝑗)\n𝑖\n) ∈R𝐵𝑟×𝐵𝑐"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        107.68704223632812,
+        439.3067932128906,
+        356.1556701660156,
+        455.5404052734375
+      ],
+      "text": "(pointwise), ℓ( 𝑗)\n𝑖\n= 𝑒𝑚𝑗−1\n𝑖\n−𝑚( 𝑗)\n𝑖ℓ( 𝑗−1)\n𝑖\n+ rowsum(˜P( 𝑗)\n𝑖\n) ∈R𝐵𝑟."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        73.13400268554688,
+        454.9518127441406,
+        373.7945861816406,
+        481.8553466796875
+      ],
+      "text": "10:\nOn chip, compute O( 𝑗)\n𝑖\n= diag(𝑒𝑚( 𝑗−1)\n𝑖\n−𝑚( 𝑗)\n𝑖)−1O( 𝑗−1)\n𝑖\n+ ˜P( 𝑗)\n𝑖\nV𝑗.\n11:\nend for"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        73.13400268554688,
+        479.5546875,
+        282.9295654296875,
+        495.09539794921875
+      ],
+      "text": "12:\nOn chip, compute O𝑖= diag(ℓ(𝑇𝑐)\n𝑖\n)−1O(𝑇𝑐)\n𝑖\n."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        73.13397216796875,
+        494.0186767578125,
+        276.9786071777344,
+        544.1402587890625
+      ],
+      "text": "13:\nOn chip, compute 𝐿𝑖= 𝑚(𝑇𝑐)\n𝑖\n+ log(ℓ(𝑇𝑐)\n𝑖\n).\n14:\nWrite O𝑖to HBM as the 𝑖-th block of O.\n15:\nWrite 𝐿𝑖to HBM as the 𝑖-th block of 𝐿.\n16: end for"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        73.13401794433594,
+        544.1478881835938,
+        278.2575988769531,
+        556.08642578125
+      ],
+      "text": "17: Return the output O and the logsumexp 𝐿."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        72.0,
+        578.1519165039062,
+        539.9537963867188,
+        600.2535400390625
+      ],
+      "text": "Causal masking.\nOne common use case of attention is in auto-regressive language modeling, where we\nneed to apply a causal mask to the attention matrix S (i.e., any entry S𝑖𝑗with 𝑗> 𝑖is set to −∞)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        84.17800903320312,
+        607.9403076171875,
+        540.0072631835938,
+        655.8604736328125
+      ],
+      "text": "1. As FlashAttention and FlashAttention-2 already operate by blocks, for any blocks where all\nthe column indices are more than the row indices (approximately half of the blocks for large sequence\nlength), we can skip the computation of that block. This leads to around 1.7-1.8× speedup compared\nto attention without the causal mask."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        84.17799377441406,
+        665.8228759765625,
+        540.2076416015625,
+        699.6954956054688
+      ],
+      "text": "2. We do not need to apply the causal mask for blocks whose row indices are guaranteed to be strictly less\nthan the column indices. This means that for each row, we only need apply causal mask to 1 block\n(assuming square block)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        72.0,
+        72.82656860351562,
+        540.0150756835938,
+        120.68252563476562
+      ],
+      "text": "Correctness, runtime, and memory requirement.\nAs with FlashAttention, Algorithm 1 returns\nthe correct output O = softmax(QK⊤)V (with no approximation), using 𝑂(𝑁2𝑑) FLOPs and requires 𝑂(𝑁)\nadditional memory beyond inputs and output (to store the logsumexp 𝐿). The proof is almost the same as\nthe proof of Dao et al. [5, Theorem 1], so we omit it here."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        72.0,
+        136.8057861328125,
+        180.9410400390625,
+        146.7683868408203
+      ],
+      "text": "3.1.2\nBackward pass"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        71.64099884033203,
+        152.90823364257812,
+        540.0014038085938,
+        188.87350463867188
+      ],
+      "text": "The backward pass of FlashAttention-2 is almost the same as that of FlashAttention. We make a\nminor tweak to only use the row-wise logsumexp 𝐿instead of both the row-wise max and row-wise sum of\nexponentials in the softmax. We include the backward pass description in Algorithm 2 for completeness."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        71.56500244140625,
+        201.47061157226562,
+        282.628173828125,
+        212.6233673095703
+      ],
+      "text": "Algorithm 2 FlashAttention-2 Backward Pass"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        72.0,
+        216.53273010253906,
+        487.1636047363281,
+        229.4613800048828
+      ],
+      "text": "Require: Matrices Q, K, V, O, dO ∈R𝑁×𝑑in HBM, vector 𝐿∈R𝑁in HBM, block sizes 𝐵𝑐, 𝐵𝑟."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        77.36700439453125,
+        229.9308624267578,
+        187.72158813476562,
+        246.41329956054688
+      ],
+      "text": "1: Divide Q into 𝑇𝑟=\nl\n𝑁\n𝐵𝑟"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        189.88600158691406,
+        229.93080139160156,
+        503.4609375,
+        246.41329956054688
+      ],
+      "text": "m\nblocks Q1, . . . , Q𝑇𝑟of size 𝐵𝑟× 𝑑each, and divide K, V in to 𝑇𝑐=\nl\n𝑁\n𝐵𝑐"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        77.36701965332031,
+        229.93080139160156,
+        539.9973754882812,
+        306.91754150390625
+      ],
+      "text": "m\nblocks\nK1, . . . , K𝑇𝑐and V1, . . . , V𝑇𝑐, of size 𝐵𝑐× 𝑑each.\n2: Divide O into 𝑇𝑟blocks O𝑖, . . . , O𝑇𝑟of size 𝐵𝑟× 𝑑each, divide dO into 𝑇𝑟blocks dO𝑖, . . . , dO𝑇𝑟of size\n𝐵𝑟× 𝑑each, and divide 𝐿into 𝑇𝑟blocks 𝐿𝑖, . . . , 𝐿𝑇𝑟of size 𝐵𝑟each.\n3: Initialize dQ = (0)𝑁×𝑑in HBM and divide it into 𝑇𝑟blocks dQ1, . . . , dQ𝑇𝑟of size 𝐵𝑟× 𝑑each. Divide\ndK, dV ∈R𝑁×𝑑in to 𝑇𝑐blocks dK1, . . . , dK𝑇𝑐and dV1, . . . , dV𝑇𝑐, of size 𝐵𝑐× 𝑑each."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        77.366943359375,
+        305.1117248535156,
+        539.9965209960938,
+        377.8163146972656
+      ],
+      "text": "4: Compute 𝐷= rowsum(dO ◦O) ∈R𝑑(pointwise multiply), write 𝐷to HBM and divide it into 𝑇𝑟blocks\n𝐷1, . . . , 𝐷𝑇𝑟of size 𝐵𝑟each.\n5: for 1 ≤𝑗≤𝑇𝑐do\n6:\nLoad K 𝑗, V𝑗from HBM to on-chip SRAM.\n7:\nInitialize dK𝑗= (0)𝐵𝑐×𝑑, dV 𝑗= (0)𝐵𝑐×𝑑on SRAM.\n8:\nfor 1 ≤𝑖≤𝑇𝑟do"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        77.36698150634766,
+        377.82391357421875,
+        362.878662109375,
+        390.0323486328125
+      ],
+      "text": "9:\nLoad Q𝑖, O𝑖, dO𝑖, dQ𝑖, 𝐿𝑖, 𝐷𝑖from HBM to on-chip SRAM."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13398742675781,
+        388.9566650390625,
+        286.8385925292969,
+        404.5953674316406
+      ],
+      "text": "10:\nOn chip, compute S( 𝑗)\n𝑖\n= Q𝑖K𝑇\n𝑗∈R𝐵𝑟×𝐵𝑐."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13400268554688,
+        404.8896789550781,
+        320.1585693359375,
+        420.52838134765625
+      ],
+      "text": "11:\nOn chip, compute P( 𝑗)\n𝑖\n= exp(S𝑖𝑗−𝐿𝑖) ∈R𝐵𝑟×𝐵𝑐."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13397216796875,
+        419.4526672363281,
+        339.0665588378906,
+        435.09136962890625
+      ],
+      "text": "12:\nOn chip, compute dV 𝑗←dV 𝑗+ (P( 𝑗)\n𝑖\n)⊤dO𝑖∈R𝐵𝑐×𝑑."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13397216796875,
+        434.0146789550781,
+        299.195556640625,
+        449.65338134765625
+      ],
+      "text": "13:\nOn chip, compute dP( 𝑗)\n𝑖\n= dO𝑖V⊤\n𝑗∈R𝐵𝑟×𝐵𝑐."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13395690917969,
+        449.9477233886719,
+        349.2165222167969,
+        465.5874328613281
+      ],
+      "text": "14:\nOn chip, compute dS( 𝑗)\n𝑖\n= P( 𝑗)\n𝑖\n◦(dP( 𝑗)\n𝑖\n−𝐷𝑖) ∈R𝐵𝑟×𝐵𝑐."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13394165039062,
+        464.5107116699219,
+        540.2609252929688,
+        526.6754760742188
+      ],
+      "text": "15:\nLoad dQ𝑖from HBM to SRAM, then on chip, update dQ𝑖←dQ𝑖+ dS( 𝑗)\n𝑖\nK 𝑗∈R𝐵𝑟×𝑑, and write back\nto HBM.\n16:\nOn chip, compute dK𝑗←dK𝑗+ dS( 𝑗)\n𝑖\n⊤Q𝑖∈R𝐵𝑐×𝑑.\n17:\nend for\n18:\nWrite dK𝑗, dV 𝑗to HBM."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        73.13394165039062,
+        528.6787109375,
+        173.68955993652344,
+        550.5864868164062
+      ],
+      "text": "19: end for\n20: Return dQ, dK, dV."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        72.0,
+        582.6708984375,
+        541.6437377929688,
+        652.4094848632812
+      ],
+      "text": "Multi-query attention and grouped-query attention.\nMulti-query attention (MQA) [15] and grouped-\nquery attention (GQA) [1] are variants of attention where multiple heads of query attend to the same head of\nkey and value, in order to reduce the size of KV cache during inference. Instead of having to duplicate the\nkey and value heads for the computation, we implicitly manipulate the indices into the head to perform the\nsame computation. In the backward pass, we need to sum the gradients dK and dV across different heads\nthat were implicitly duplicated."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        72.0,
+        668.970458984375,
+        167.55792236328125,
+        680.9256591796875
+      ],
+      "text": "3.2\nParallelism"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        71.64099884033203,
+        686.6282958984375,
+        539.9833984375,
+        722.5924682617188
+      ],
+      "text": "The first version of FlashAttention parallelizes over batch size and number of heads. We use 1 thread\nblock to process one attention head, and there are overall batch size · number of heads thread blocks. Each\nthread block is scheduled to run on a streaming multiprocessor (SM), and there are 108 of these SMs on"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "7"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        72.0,
+        74.62425231933594,
+        539.9878540039062,
+        132.63754272460938
+      ],
+      "text": "an A100 GPU for example. This scheduling is efficient when this number is large (say ≥80), since we can\neffectively use almost all of the compute resources on the GPU.\nIn the case of long sequences (which usually means small batch sizes or small number of heads), to make\nbetter use of the multiprocessors on the GPU, we now additionally parallelize over the sequence length\ndimension. This results in significant speedup for this regime."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        72.0,
+        148.5679473876953,
+        540.0066528320312,
+        254.17153930664062
+      ],
+      "text": "Forward pass.\nWe see that the outer loop (over sequence length) is embarrassingly parallel, and we\nschedule them on different thread blocks that do not need to communicate with each other. We also parallelize\nover the batch dimension and number of heads dimension, as done in FlashAttention. The increased\nparallelism over sequence length helps improve occupancy (fraction of GPU resources being used) when the\nbatch size and number of heads are small, leading to speedup in this case.\nThese ideas of swapping the order of the loop (outer loop over row blocks and inner loop over column\nblocks, instead of the other way round in the original FlashAttention paper), as well as parallelizing\nover the sequence length dimension were first suggested and implemented by Phil Tillet in the Triton [17]\nimplementation.3"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        72.0,
+        270.1019287109375,
+        541.38720703125,
+        341.0055236816406
+      ],
+      "text": "Backward pass.\nNotice that the only shared computation between different column blocks is in update dQ\nin Algorithm 2, where we need to load dQ𝑖from HBM to SRAM, then on chip, update dQ𝑖←dQ𝑖+ dS( 𝑗)\n𝑖\nK 𝑗,\nand write back to HBM. We thus parallelize over the sequence length dimension as well, and schedule 1\nthread block for each column block of the backward pass. We use atomic adds to communicate between\ndifferent thread blocks to update dQ.\nWe describe the parallelization scheme in Fig. 2."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        72.0,
+        608.5899047851562,
+        540.0326538085938,
+        642.4635009765625
+      ],
+      "text": "Figure 2: In the forward pass (left), we parallelize the workers (thread blocks) where each worker takes care\nof a block of rows of the attention matrix. In the backward pass (right), each worker takes care of a block of\ncolumns of the attention matrix."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        83.08899688720703,
+        664.142333984375,
+        431.0527038574219,
+        673.8311157226562
+      ],
+      "text": "3https://github.com/openai/triton/blob/main/python/tutorials/06-fused-attention.py"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "8"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        72.0,
+        73.49242401123047,
+        306.19049072265625,
+        85.44762420654297
+      ],
+      "text": "3.3\nWork Partitioning Between Warps"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        71.62100219726562,
+        93.24189758300781,
+        539.9825439453125,
+        127.11550903320312
+      ],
+      "text": "As Section 3.2 describe how we schedule thread blocks, even within each thread block, we also have to decide\nhow to partition the work between different warps. We typically use 4 or 8 warps per thread block, and the\npartitioning is described in Fig. 3."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        71.62100219726562,
+        141.1525421142578,
+        541.9208374023438,
+        248.64852905273438
+      ],
+      "text": "Forward pass.\nFor each block, FlashAttention splits K and V across 4 warps while keeping Q accessible\nby all warps. Each warp multiplies to get a slice of QK⊤, then they need to multiply with a slice of V and\ncommunicate to add up the result. This is referred to as the “split-K” scheme. However, this is inefficient\nsince all warps need to write their intermediate results out to shared memory, synchronize, then add up the\nintermediate results. These shared memory reads/writes slow down the forward pass in FlashAttention.\nIn FlashAttention-2, we instead split Q across 4 warps while keeping K and V accessible by all warps.\nAfter each warp performs matrix multiply to get a slice of QK⊤, they just need to multiply with their shared\nslice of V to get their corresponding slice of the output. There is no need for communication between warps.\nThe reduction in shared memory reads/writes yields speedup (Section 4)."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        151.10800170898438,
+        413.1325988769531,
+        239.88790893554688,
+        424.0689697265625
+      ],
+      "text": "(a) FlashAttention"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        380.52899169921875,
+        413.1325988769531,
+        478.4645690917969,
+        424.0689697265625
+      ],
+      "text": "(b) FlashAttention-2"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        148.32400512695312,
+        435.7478942871094,
+        463.679931640625,
+        445.71051025390625
+      ],
+      "text": "Figure 3: Work partitioning between different warps in the forward pass"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        72.0,
+        474.69189453125,
+        541.1588134765625,
+        520.5205078125
+      ],
+      "text": "Backward pass.\nSimilarly for the backward pass, we choose to partition the warps to avoid the “split-K”\nscheme. However, it still requires some synchronization due to the more complicated dependency between all\nthe different inputs and gradients Q, K, V, O, dO, dQ, dK, dV. Nevertheless, avoiding “split-K” reduces shared\nmemory reads/writes and again yields speedup (Section 4)."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        72.0,
+        536.4498901367188,
+        541.3870239257812,
+        618.1434936523438
+      ],
+      "text": "Tuning block sizes\nIncreasing block sizes generally reduces shared memory loads/stores, but increases\nthe number of registers required and the total amount of shared memory. Past a certain block size, register\nspilling causes significant slowdown, or the amount of shared memory required is larger than what the GPU\nhas available, and the kernel cannot run at all. Typically we choose blocks of size {64, 128} × {64, 128},\ndepending on the head dimension 𝑑and the device shared memory size.\nWe manually tune for each head dimensions since there are essentially only 4 choices for block sizes, but\nthis could benefit from auto-tuning to avoid this manual labor. We leave this to future work."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        72.0,
+        637.8952026367188,
+        238.76023864746094,
+        652.2413940429688
+      ],
+      "text": "4\nEmpirical Validation"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        71.49199676513672,
+        660.9494018554688,
+        435.25946044921875,
+        672.9044799804688
+      ],
+      "text": "We evaluate the impact of using FlashAttention-2 to train Transformer models."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        72.0,
+        672.8299560546875,
+        541.9256591796875,
+        720.7255249023438
+      ],
+      "text": "• Benchmarking attention. We measure the runtime of FlashAttention-2 across different sequence\nlengths and compare it to a standard implementation in PyTorch, FlashAttention, and FlashAttention\nin Triton. We confirm that FlashAttention-2 is 1.7-3.0× faster than FlashAttention, 1.3-2.5×\nfaster than FlashAttention in Triton, and 3-10× faster than a standard attention implementation."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        303.510009765625,
+        742.7799072265625,
+        308.4913024902344,
+        752.7424926757812
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        81.96099853515625,
+        72.87134552001953,
+        540.2523803710938,
+        96.77255249023438
+      ],
+      "text": "FlashAttention-2 reaches up to 230 TFLOPs/s, 73% of the theoretical maximum TFLOPs/s on A100\nGPUs."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        72.0,
+        102.84889221191406,
+        541.88525390625,
+        148.67752075195312
+      ],
+      "text": "• End-to-end training speed When used end-to-end to train GPT-style models of size 1.3B and 2.7B on\nsequence lengths either 2k or 8k, FlashAttention-2 yields up to 1.3× speedup compared to FlashAt-\ntention and 2.8× speedup compared to a baseline without FlashAttention. FlashAttention-2\nreaches up to 225 TFLOPs/s (72% model FLOPs utilization) per A100 GPU."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        72.0,
+        165.23846435546875,
+        248.19580078125,
+        177.19366455078125
+      ],
+      "text": "4.1\nBenchmarking Attention"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        70.83499908447266,
+        184.98793029785156,
+        541.8816528320312,
+        290.5915222167969
+      ],
+      "text": "We measure the runtime of different attention methods on an A100 80GB SXM4 GPU for different settings\n(without / with causal mask, head dimension 64 or 128). We report the results in Fig. 4, Fig. 5 and Fig. 6,\nshowing that FlashAttention-2 is around 2× faster than FlashAttention and FlashAttention in\nxformers (the “cutlass” implementation). FlashAttention-2 is around 1.3-1.5× faster than FlashAtten-\ntion in Triton in the forward pass and around 2× faster in the backward pass. Compared to a standard\nattention implementation in PyTorch, FlashAttention-2 can be up to 10× faster.\nBenchmark setting: we vary the sequence length from 512, 1k, ..., 16k, and set batch size so that the total\nnumber of tokens is 16k. We set hidden dimension to 2048, and head dimension to be either 64 or 128 (i.e.,\n32 heads or 16 heads). To calculate the FLOPs of the forward pass, we use:"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        206.22799682617188,
+        298.2023010253906,
+        405.6026611328125,
+        312.6935119628906
+      ],
+      "text": "4 · seqlen2 · head dimension · number of heads."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        70.83499908447266,
+        324.46490478515625,
+        541.6845092773438,
+        358.3375244140625
+      ],
+      "text": "With causal mask, we divide this number by 2 to account for the fact that approximately only half of the\nentries are calculated. To get the FLOPs of the backward pass, we multiply the forward pass FLOPs by 2.5\n(since there are 2 matmuls in the forward pass and 5 matmuls in the backward pass, due to recomputation)."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        121.18110656738281,
+        496.89215087890625,
+        279.509033203125,
+        515.4935302734375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        94.13505554199219,
+        467.6502685546875,
+        100.79435729980469,
+        476.52935791015625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        444.0608825683594,
+        100.79468536376953,
+        452.9399719238281
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        420.47149658203125,
+        100.79468536376953,
+        429.3505859375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        396.8821105957031,
+        100.79468536376953,
+        405.7611999511719
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        78.15292358398438,
+        407.2347412109375,
+        90.58362579345703,
+        470.946044921875
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        113.11405181884766,
+        466.2779846191406,
+        237.23361206054688,
+        478.4447326660156
+      ],
+      "text": "36\n40\n43\n45\n46"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        259.1664733886719,
+        488.0970764160156,
+        269.3731994628906,
+        495.2003173828125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        118.31120300292969,
+        444.722900390625,
+        153.33668518066406,
+        452.1825256347656
+      ],
+      "text": "91\n92"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        176.37388610839844,
+        435.9774475097656,
+        273.4591369628906,
+        446.3297119140625
+      ],
+      "text": "104\n108\n110\n110"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        123.50836181640625,
+        451.94390869140625,
+        277.325927734375,
+        463.240966796875
+      ],
+      "text": "68\n73\n76\n77\n75\n75"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        128.7055206298828,
+        445.5813293457031,
+        134.03297424316406,
+        452.6845703125
+      ],
+      "text": "90"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        157.07017517089844,
+        439.8857421875,
+        283.85345458984375,
+        448.8750915527344
+      ],
+      "text": "102\n98\n98\n100\n100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        132.56930541992188,
+        425.6080322265625,
+        140.5604705810547,
+        432.7112731933594
+      ],
+      "text": "132"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        162.267333984375,
+        416.0881042480469,
+        170.2584991455078,
+        423.19134521484375
+      ],
+      "text": "153"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        191.96536254882812,
+        411.6737365722656,
+        199.95652770996094,
+        418.7769775390625
+      ],
+      "text": "162"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        221.66339111328125,
+        405.1338806152344,
+        289.05059814453125,
+        414.6505126953125
+      ],
+      "text": "171\n175\n176"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        111.54275512695312,
+        371.59063720703125,
+        289.3160705566406,
+        382.2455139160156
+      ],
+      "text": "Attention forward + backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        123.82902526855469,
+        384.71014404296875,
+        177.9931182861328,
+        424.31390380859375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        98.04100036621094,
+        524.0425415039062,
+        278.89324951171875,
+        533.0089721679688
+      ],
+      "text": "(a) Without causal mask, head dimension 64"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        355.1811218261719,
+        496.89215087890625,
+        513.509033203125,
+        515.4935302734375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        328.13507080078125,
+        467.6502685546875,
+        334.79437255859375,
+        476.52935791015625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        444.0608825683594,
+        334.794677734375,
+        452.9399719238281
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        420.47149658203125,
+        334.794677734375,
+        429.3505859375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        396.8821105957031,
+        334.794677734375,
+        405.7611999511719
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        312.1529541015625,
+        407.2347412109375,
+        324.5836486816406,
+        470.946044921875
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        347.11407470703125,
+        463.0672912597656,
+        352.4415283203125,
+        470.1705322265625
+      ],
+      "text": "53"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        376.81207275390625,
+        456.46099853515625,
+        382.1395263671875,
+        463.5642395019531
+      ],
+      "text": "67"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        406.5101013183594,
+        447.3382873535156,
+        471.2336120605469,
+        459.18939208984375
+      ],
+      "text": "76\n79\n86"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        493.16650390625,
+        488.0970764160156,
+        503.37322998046875,
+        495.2003173828125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        352.31121826171875,
+        448.781005859375,
+        506.1287841796875,
+        461.25750732421875
+      ],
+      "text": "76\n72\n76\n80\n82\n83\n83"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        387.2063903808594,
+        441.9486083984375,
+        511.325927734375,
+        452.0743103027344
+      ],
+      "text": "91\n95\n96\n97\n98"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        362.7055358886719,
+        443.3793029785156,
+        516.5230102539062,
+        458.27978515625
+      ],
+      "text": "78\n85\n90\n93\n95\n95"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        366.5693054199219,
+        416.71551513671875,
+        374.56048583984375,
+        423.8187561035156
+      ],
+      "text": "151"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        396.267333984375,
+        406.42864990234375,
+        404.2585144042969,
+        413.5318908691406
+      ],
+      "text": "173"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        425.9653625488281,
+        399.7717590332031,
+        433.95654296875,
+        406.875
+      ],
+      "text": "187"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        455.66339111328125,
+        392.4660949707031,
+        523.0505981445312,
+        402.77777099609375
+      ],
+      "text": "196\n201\n203"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        345.5427551269531,
+        371.59063720703125,
+        523.3161010742188,
+        382.2455139160156
+      ],
+      "text": "Attention forward + backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        357.82904052734375,
+        384.71014404296875,
+        411.9931335449219,
+        424.31390380859375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        329.48199462890625,
+        524.0425415039062,
+        515.4539794921875,
+        533.0089721679688
+      ],
+      "text": "(b) Without causal mask, head dimension 128"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        121.18110656738281,
+        661.4241333007812,
+        279.509033203125,
+        680.0255126953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        94.13505554199219,
+        632.1822509765625,
+        100.79435729980469,
+        641.0613403320312
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        608.5928955078125,
+        100.79468536376953,
+        617.4719848632812
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        585.0034790039062,
+        100.79468536376953,
+        593.882568359375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        90.80573272705078,
+        561.4141235351562,
+        100.79468536376953,
+        570.293212890625
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        78.15292358398438,
+        571.7667236328125,
+        90.58362579345703,
+        635.47802734375
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        113.11405181884766,
+        644.150146484375,
+        237.23361206054688,
+        652.658203125
+      ],
+      "text": "15\n16\n17\n18\n18"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        259.1664733886719,
+        652.6290283203125,
+        269.3731994628906,
+        659.7322998046875
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        118.31120300292969,
+        625.4574584960938,
+        123.63864135742188,
+        632.5607299804688
+      ],
+      "text": "58"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        148.0092315673828,
+        619.7335815429688,
+        153.33668518066406,
+        626.8368530273438
+      ],
+      "text": "70"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        177.70724487304688,
+        616.069091796875,
+        183.03469848632812,
+        623.17236328125
+      ],
+      "text": "77"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        207.4052734375,
+        606.884765625,
+        272.1287841796875,
+        618.9198608398438
+      ],
+      "text": "87\n92\n97"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        123.50836181640625,
+        628.4332885742188,
+        128.83580017089844,
+        635.5365600585938
+      ],
+      "text": "51"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        128.7055206298828,
+        620.1533203125,
+        277.325927734375,
+        632.0001220703125
+      ],
+      "text": "60\n66\n68\n69\n67\n59"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        133.90267944335938,
+        610.9419555664062,
+        282.5230712890625,
+        624.3698120117188
+      ],
+      "text": "75\n79\n76\n79\n80\n88"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        162.267333984375,
+        596.47216796875,
+        170.2584991455078,
+        603.575439453125
+      ],
+      "text": "119"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        191.96536254882812,
+        586.6298217773438,
+        199.95652770996094,
+        593.7330932617188
+      ],
+      "text": "140"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        221.66339111328125,
+        578.918212890625,
+        229.65455627441406,
+        586.021484375
+      ],
+      "text": "156"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        251.36138916015625,
+        572.0394897460938,
+        289.05059814453125,
+        581.7301025390625
+      ],
+      "text": "165\n171"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        111.54275512695312,
+        536.1226196289062,
+        289.3160705566406,
+        546.7775268554688
+      ],
+      "text": "Attention forward + backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        123.82902526855469,
+        549.2421264648438,
+        177.9931182861328,
+        588.8458862304688
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        104.95099639892578,
+        688.5755615234375,
+        271.97705078125,
+        697.5419921875
+      ],
+      "text": "(c) With causal mask, head dimension 64"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        355.1811218261719,
+        661.4241333007812,
+        513.509033203125,
+        680.0255126953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        328.13507080078125,
+        632.1822509765625,
+        334.79437255859375,
+        641.0613403320312
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        608.5928955078125,
+        334.794677734375,
+        617.4719848632812
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        585.0034790039062,
+        334.794677734375,
+        593.882568359375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        324.80572509765625,
+        561.4141235351562,
+        334.794677734375,
+        570.293212890625
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        312.1529541015625,
+        571.7667236328125,
+        324.5836486816406,
+        635.47802734375
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        347.11407470703125,
+        636.55810546875,
+        471.2336120605469,
+        648.7361450195312
+      ],
+      "text": "23\n28\n32\n32\n34"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        493.16650390625,
+        652.6290283203125,
+        503.37322998046875,
+        659.7322998046875
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        352.31121826171875,
+        623.54541015625,
+        387.3367004394531,
+        633.5780029296875
+      ],
+      "text": "55\n62"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        411.707275390625,
+        613.4049682617188,
+        506.1287841796875,
+        626.9580688476562
+      ],
+      "text": "69\n76\n80\n83"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        357.50836181640625,
+        625.1469116210938,
+        362.8358154296875,
+        632.2501831054688
+      ],
+      "text": "58"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        387.2063903808594,
+        618.7244262695312,
+        392.5338439941406,
+        625.8276977539062
+      ],
+      "text": "72"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        416.9044189453125,
+        609.3632202148438,
+        511.325927734375,
+        621.0855102539062
+      ],
+      "text": "82\n87\n91\n92"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        362.7055358886719,
+        628.9020385742188,
+        368.0329895019531,
+        636.0053100585938
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        392.4035339355469,
+        623.8727416992188,
+        397.7309875488281,
+        630.9760131835938
+      ],
+      "text": "61"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        422.1015625,
+        614.9786987304688,
+        516.5230102539062,
+        627.4253540039062
+      ],
+      "text": "68\n74\n78\n80"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        367.9026794433594,
+        606.046875,
+        373.2301330566406,
+        613.150146484375
+      ],
+      "text": "99"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        396.267333984375,
+        590.1167602539062,
+        404.2585144042969,
+        597.2200317382812
+      ],
+      "text": "133"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        425.9653625488281,
+        579.510498046875,
+        433.95654296875,
+        586.61376953125
+      ],
+      "text": "155"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        455.66339111328125,
+        571.0140380859375,
+        463.6545715332031,
+        578.1173095703125
+      ],
+      "text": "173"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        485.36138916015625,
+        563.4334106445312,
+        523.0505981445312,
+        573.65087890625
+      ],
+      "text": "182\n189"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        345.5427551269531,
+        536.1226196289062,
+        523.3161010742188,
+        546.7775268554688
+      ],
+      "text": "Attention forward + backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        357.82904052734375,
+        549.2421264648438,
+        411.9931335449219,
+        588.8458862304688
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        336.135986328125,
+        688.5755615234375,
+        508.7928771972656,
+        697.5419921875
+      ],
+      "text": "(d) With causal mask, head dimension 128"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        171.00498962402344,
+        709.2208862304688,
+        441.0013427734375,
+        719.1834716796875
+      ],
+      "text": "Figure 4: Attention forward + backward speed on A100 GPU"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        301.0199890136719,
+        742.7799072265625,
+        310.9825744628906,
+        752.7424926757812
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        121.18110656738281,
+        198.96316528320312,
+        279.509033203125,
+        217.5645751953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        94.13505554199219,
+        169.72128295898438,
+        100.79435729980469,
+        178.60035705566406
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        146.1318817138672,
+        100.79468536376953,
+        155.01095581054688
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        122.54249572753906,
+        100.79468536376953,
+        131.42156982421875
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        98.95310974121094,
+        100.79468536376953,
+        107.8321762084961
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        78.15292358398438,
+        109.30570983886719,
+        90.58362579345703,
+        173.0170135498047
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        113.11405181884766,
+        172.56942749023438,
+        237.23361206054688,
+        183.37692260742188
+      ],
+      "text": "29\n34\n35\n37\n37"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        259.1664733886719,
+        190.16806030273438,
+        269.3731994628906,
+        197.27130126953125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        118.31120300292969,
+        140.90863037109375,
+        273.4591369628906,
+        154.29684448242188
+      ],
+      "text": "91\n96\n99\n104\n104\n104"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        123.50836181640625,
+        143.69036865234375,
+        277.325927734375,
+        155.26611328125
+      ],
+      "text": "89\n94\n97\n99\n98\n98"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        127.37214660644531,
+        129.7469482421875,
+        135.36331176757812,
+        136.85018920898438
+      ],
+      "text": "128"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        157.07017517089844,
+        123.8277816772461,
+        165.06134033203125,
+        130.9310302734375
+      ],
+      "text": "141"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        186.7681884765625,
+        116.96666717529297,
+        283.85345458984375,
+        126.97531127929688
+      ],
+      "text": "149\n152\n152\n155"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        132.56930541992188,
+        106.20240783691406,
+        140.5604705810547,
+        113.3056640625
+      ],
+      "text": "178"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        162.267333984375,
+        99.18499755859375,
+        289.05059814453125,
+        107.12169647216797
+      ],
+      "text": "191\n193\n192\n192\n192"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        131.3591766357422,
+        73.66161346435547,
+        269.48406982421875,
+        84.31649017333984
+      ],
+      "text": "Attention forward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        123.82902526855469,
+        86.7811508178711,
+        177.9931182861328,
+        126.3848876953125
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        98.04100036621094,
+        226.11459350585938,
+        278.89324951171875,
+        235.08099365234375
+      ],
+      "text": "(a) Without causal mask, head dimension 64"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        355.1811218261719,
+        198.96316528320312,
+        513.509033203125,
+        217.5645751953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        328.13507080078125,
+        169.72128295898438,
+        334.79437255859375,
+        178.60035705566406
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        146.1318817138672,
+        334.794677734375,
+        155.01095581054688
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        122.54249572753906,
+        334.794677734375,
+        131.42156982421875
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        98.95310974121094,
+        334.794677734375,
+        107.8321762084961
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        312.1529541015625,
+        109.30570983886719,
+        324.5836486816406,
+        173.0170135498047
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        347.11407470703125,
+        170.3435516357422,
+        352.4415283203125,
+        177.44679260253906
+      ],
+      "text": "42"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        376.81207275390625,
+        158.33786010742188,
+        471.2336120605469,
+        171.0738525390625
+      ],
+      "text": "56\n60\n63\n67"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        493.16650390625,
+        190.16806030273438,
+        503.37322998046875,
+        197.27130126953125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        352.31121826171875,
+        155.6432342529297,
+        506.1287841796875,
+        166.1321258544922
+      ],
+      "text": "69\n66\n71\n71\n72\n73"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        356.17498779296875,
+        139.66403198242188,
+        364.1661682128906,
+        146.76727294921875
+      ],
+      "text": "107"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        361.3721618652344,
+        130.42276000976562,
+        512.6563110351562,
+        142.88873291015625
+      ],
+      "text": "115\n120\n122\n122\n122\n127"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        391.0701904296875,
+        124.0294418334961,
+        399.0613708496094,
+        131.1326904296875
+      ],
+      "text": "140"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        420.7681884765625,
+        113.36450958251953,
+        517.8533935546875,
+        125.40119171142578
+      ],
+      "text": "152\n157\n160\n163"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        366.5693054199219,
+        91.56543731689453,
+        374.56048583984375,
+        98.66869354248047
+      ],
+      "text": "209"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        365.35919189453125,
+        73.66161346435547,
+        523.0505981445312,
+        92.6407699584961
+      ],
+      "text": "224\n227\n222\n224\n223\nAttention forward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        357.82904052734375,
+        86.7811508178711,
+        411.9931335449219,
+        126.3848876953125
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        329.48199462890625,
+        226.11459350585938,
+        515.4539794921875,
+        235.08099365234375
+      ],
+      "text": "(b) Without causal mask, head dimension 128"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        121.18110656738281,
+        363.49615478515625,
+        279.509033203125,
+        382.09759521484375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        94.13505554199219,
+        334.2542724609375,
+        100.79435729980469,
+        343.13336181640625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        310.6648864746094,
+        100.79468536376953,
+        319.5439758300781
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        287.07550048828125,
+        100.79468536376953,
+        295.95458984375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        90.80573272705078,
+        263.4861145019531,
+        100.79468536376953,
+        272.3652038574219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        78.15292358398438,
+        273.8387451171875,
+        90.58362579345703,
+        337.550048828125
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        113.11405181884766,
+        349.80828857421875,
+        237.23361206054688,
+        357.2749328613281
+      ],
+      "text": "10\n10\n10\n10\n10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        259.1664733886719,
+        354.7010803222656,
+        269.3731994628906,
+        361.8043212890625
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        118.31120300292969,
+        328.4510192871094,
+        123.63864135742188,
+        335.55426025390625
+      ],
+      "text": "56"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        148.0092315673828,
+        321.8546142578125,
+        153.33668518066406,
+        328.9578552246094
+      ],
+      "text": "70"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        177.70724487304688,
+        316.56829833984375,
+        183.03469848632812,
+        323.6715393066406
+      ],
+      "text": "81"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        207.4052734375,
+        310.5110168457031,
+        272.1287841796875,
+        319.6405029296875
+      ],
+      "text": "89\n91\n94"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        123.50836181640625,
+        321.3609313964844,
+        128.83580017089844,
+        328.46417236328125
+      ],
+      "text": "71"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        153.20639038085938,
+        310.0389099121094,
+        277.325927734375,
+        323.2905578613281
+      ],
+      "text": "82\n89\n92\n94\n95"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        128.7055206298828,
+        317.8507385253906,
+        134.03297424316406,
+        324.9539794921875
+      ],
+      "text": "78"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        158.40353393554688,
+        308.02899169921875,
+        163.73098754882812,
+        315.1322326660156
+      ],
+      "text": "99"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        186.7681884765625,
+        302.0076599121094,
+        194.7593536376953,
+        309.11090087890625
+      ],
+      "text": "112"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        216.46621704101562,
+        287.0429992675781,
+        283.85345458984375,
+        299.9588928222656
+      ],
+      "text": "131\n137\n143"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        132.56930541992188,
+        300.5550231933594,
+        140.5604705810547,
+        307.65826416015625
+      ],
+      "text": "115"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        162.267333984375,
+        285.59210205078125,
+        170.2584991455078,
+        292.6953430175781
+      ],
+      "text": "146"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        191.96536254882812,
+        275.9933166503906,
+        199.95652770996094,
+        283.0965576171875
+      ],
+      "text": "167"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        221.66339111328125,
+        268.3464050292969,
+        289.05059814453125,
+        278.1973876953125
+      ],
+      "text": "177\n181\n183"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        131.3591766357422,
+        238.1946258544922,
+        269.48406982421875,
+        248.84951782226562
+      ],
+      "text": "Attention forward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        123.82902526855469,
+        251.3141632080078,
+        177.9931182861328,
+        290.91790771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        104.95099639892578,
+        390.6475830078125,
+        271.97705078125,
+        399.6139831542969
+      ],
+      "text": "(c) With causal mask, head dimension 64"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        355.1811218261719,
+        363.49615478515625,
+        513.509033203125,
+        382.09759521484375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        328.13507080078125,
+        334.2542724609375,
+        334.79437255859375,
+        343.13336181640625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        310.6648864746094,
+        334.794677734375,
+        319.5439758300781
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        287.07550048828125,
+        334.794677734375,
+        295.95458984375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        324.80572509765625,
+        263.4861145019531,
+        334.794677734375,
+        272.3652038574219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        312.1529541015625,
+        273.8387451171875,
+        324.5836486816406,
+        337.550048828125
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        347.11407470703125,
+        345.5659484863281,
+        471.2336120605469,
+        354.6754455566406
+      ],
+      "text": "15\n18\n19\n19\n19"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        493.16650390625,
+        354.7010803222656,
+        503.37322998046875,
+        361.8043212890625
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        352.31121826171875,
+        331.7470397949219,
+        357.638671875,
+        338.85028076171875
+      ],
+      "text": "49"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        357.50836181640625,
+        317.3912353515625,
+        506.1287841796875,
+        333.811279296875
+      ],
+      "text": "59\n65\n68\n70\n71\n79"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        387.2063903808594,
+        309.8344421386719,
+        392.5338439941406,
+        316.93768310546875
+      ],
+      "text": "95"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        415.571044921875,
+        299.3547058105469,
+        512.6563110351562,
+        311.4776611328125
+      ],
+      "text": "107\n112\n115\n117"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        362.7055358886719,
+        312.7779846191406,
+        368.0329895019531,
+        319.8812255859375
+      ],
+      "text": "89"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        391.0701904296875,
+        303.82427978515625,
+        399.0613708496094,
+        310.9275207519531
+      ],
+      "text": "108"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        420.7681884765625,
+        295.4768981933594,
+        428.7593688964844,
+        302.58013916015625
+      ],
+      "text": "126"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        450.4662170410156,
+        292.0830993652344,
+        458.4573974609375,
+        299.18634033203125
+      ],
+      "text": "133"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        480.16424560546875,
+        288.28717041015625,
+        488.1554260253906,
+        295.3904113769531
+      ],
+      "text": "141"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        509.8622741699219,
+        284.779541015625,
+        517.8533935546875,
+        291.8827819824219
+      ],
+      "text": "148"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        366.5693054199219,
+        292.31353759765625,
+        374.56048583984375,
+        299.4167785644531
+      ],
+      "text": "132"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        396.267333984375,
+        275.6096496582031,
+        404.2585144042969,
+        282.712890625
+      ],
+      "text": "168"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        425.9653625488281,
+        266.53057861328125,
+        433.95654296875,
+        273.6338195800781
+      ],
+      "text": "187"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        455.66339111328125,
+        260.2566833496094,
+        523.0505981445312,
+        268.8327941894531
+      ],
+      "text": "198\n200\n197"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        365.35919189453125,
+        238.1946258544922,
+        503.4841003417969,
+        248.84951782226562
+      ],
+      "text": "Attention forward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        357.82904052734375,
+        251.3141632080078,
+        411.9931335449219,
+        290.91790771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        336.135986328125,
+        390.6475830078125,
+        508.7928771972656,
+        399.6139831542969
+      ],
+      "text": "(d) With causal mask, head dimension 128"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        198.82398986816406,
+        411.29290771484375,
+        413.18914794921875,
+        421.2555236816406
+      ],
+      "text": "Figure 5: Attention forward speed on A100 GPU"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        72.0,
+        442.66790771484375,
+        541.9100952148438,
+        476.54052734375
+      ],
+      "text": "Just running the same implementation on H100 GPUs (using no special instructions to make use of new\nfeatures such as TMA and 4th-gen Tensor Cores), we obtain up to 335 TFLOPs/s (Fig. 7). We expect that by\nusing new instructions, we can obtain another 1.5x-2x speedup on H100 GPUs. We leave that to future work."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        72.0,
+        492.6494445800781,
+        246.91656494140625,
+        504.6046447753906
+      ],
+      "text": "4.2\nEnd-to-end Performance"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        71.49199676513672,
+        512.1693115234375,
+        540.2546997070312,
+        582.1375122070312
+      ],
+      "text": "We measure the training throughput of GPT-style models with either 1.3B or 2.7B parameters, on 8×A100\n80GB SXM. As shown in Table 1, FlashAttention-2 yields 2.8× speedup compared to a baseline without\nFlashAttention and 1.3× speedup compared to FlashAttention-2, reaching up to 225 TFLOPs/s per A100\nGPU.\nNote that we calculate the FLOPs by the formula, following Megatron-LM [16] (and many other papers\nand libraries):"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        145.322998046875,
+        589.677001953125,
+        466.50762939453125,
+        601.6155395507812
+      ],
+      "text": "6 · seqlen · number of params + 12 · number of layers · hidden dim · seqlen2."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        71.64099884033203,
+        610.7619018554688,
+        540.3302001953125,
+        656.5905151367188
+      ],
+      "text": "The first term accounts for the FLOPs due to weight–input multiplication, and the second term accounts for\nthe FLOPs due to attention. However, one can argue that the second term should be halved, as with causal\nmask we only need to compute approximately half the number of elements in attention. We choose to follow\nthe formula from the literature (without dividing the attention FLOPs by 2) for consistency."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        72.0,
+        675.8901977539062,
+        325.16741943359375,
+        690.2363891601562
+      ],
+      "text": "5\nDiscussion and Future Directions"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        72.0,
+        698.9095458984375,
+        540.2374267578125,
+        722.8544921875
+      ],
+      "text": "FlashAttention-2 is 2× faster than FlashAttention, which means that we can train models with 16k\nlonger context for the same price as previously training a 8k context model. We are excited about how this can"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        301.0199890136719,
+        742.7799072265625,
+        310.9825744628906,
+        752.7424926757812
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        121.18110656738281,
+        198.96316528320312,
+        279.509033203125,
+        217.5645751953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        94.13505554199219,
+        169.72128295898438,
+        100.79435729980469,
+        178.60035705566406
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        146.1318817138672,
+        100.79468536376953,
+        155.01095581054688
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        122.54249572753906,
+        100.79468536376953,
+        131.42156982421875
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        98.95310974121094,
+        100.79468536376953,
+        107.8321762084961
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        78.15292358398438,
+        109.30570983886719,
+        90.58362579345703,
+        173.0170135498047
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        113.11405181884766,
+        166.0338134765625,
+        237.23361206054688,
+        179.0116729736328
+      ],
+      "text": "39\n43\n48\n49\n51"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        259.1664733886719,
+        190.16806030273438,
+        269.3731994628906,
+        197.27130126953125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        118.31120300292969,
+        147.13290405273438,
+        153.33668518066406,
+        154.64816284179688
+      ],
+      "text": "91\n90"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        176.37388610839844,
+        136.64935302734375,
+        273.4591369628906,
+        147.4241485595703
+      ],
+      "text": "106\n109\n112\n113"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        123.50836181640625,
+        152.15794372558594,
+        277.325927734375,
+        168.10235595703125
+      ],
+      "text": "62\n67\n70\n70\n69\n68\n81"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        158.40353393554688,
+        146.7073516845703,
+        282.5230712890625,
+        156.67379760742188
+      ],
+      "text": "92\n87\n86\n87\n88"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        132.56930541992188,
+        133.47897338867188,
+        140.5604705810547,
+        140.58221435546875
+      ],
+      "text": "120"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        162.267333984375,
+        123.52338409423828,
+        170.2584991455078,
+        130.6266326904297
+      ],
+      "text": "141"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        191.96536254882812,
+        118.34232330322266,
+        199.95652770996094,
+        125.4455795288086
+      ],
+      "text": "152"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        221.66339111328125,
+        109.8424072265625,
+        289.05059814453125,
+        120.1356201171875
+      ],
+      "text": "163\n169\n170"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        128.20982360839844,
+        73.66161346435547,
+        272.629638671875,
+        84.31649017333984
+      ],
+      "text": "Attention backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        123.82902526855469,
+        86.7811508178711,
+        177.9931182861328,
+        126.3848876953125
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        98.04100036621094,
+        226.11459350585938,
+        278.89324951171875,
+        235.08099365234375
+      ],
+      "text": "(a) Without causal mask, head dimension 64"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        355.1811218261719,
+        198.96316528320312,
+        513.509033203125,
+        217.5645751953125
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        328.13507080078125,
+        169.72128295898438,
+        334.79437255859375,
+        178.60035705566406
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        146.1318817138672,
+        334.794677734375,
+        155.01095581054688
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        122.54249572753906,
+        334.794677734375,
+        131.42156982421875
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        98.95310974121094,
+        334.794677734375,
+        107.8321762084961
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        312.1529541015625,
+        109.30570983886719,
+        324.5836486816406,
+        173.0170135498047
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        347.11407470703125,
+        162.20094299316406,
+        352.4415283203125,
+        169.30418395996094
+      ],
+      "text": "59"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        376.81207275390625,
+        155.66700744628906,
+        382.1395263671875,
+        162.77024841308594
+      ],
+      "text": "73"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        406.5101013183594,
+        148.45045471191406,
+        441.53558349609375,
+        156.71144104003906
+      ],
+      "text": "86\n88"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        465.9061584472656,
+        144.25802612304688,
+        471.2336120605469,
+        151.36126708984375
+      ],
+      "text": "97"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        493.16650390625,
+        190.16806030273438,
+        503.37322998046875,
+        197.27130126953125
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        352.31121826171875,
+        148.541259765625,
+        506.1287841796875,
+        162.0603790283203
+      ],
+      "text": "78\n75\n79\n84\n86\n88\n76"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        387.2063903808594,
+        147.40184020996094,
+        511.325927734375,
+        157.44290161132812
+      ],
+      "text": "84\n88\n89\n90\n91"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        362.7055358886719,
+        151.71157836914062,
+        516.5230102539062,
+        165.24484252929688
+      ],
+      "text": "68\n74\n77\n80\n82\n81"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        366.5693054199219,
+        125.88507843017578,
+        374.56048583984375,
+        132.9883270263672
+      ],
+      "text": "136"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        396.267333984375,
+        115.32437133789062,
+        404.2585144042969,
+        122.42762756347656
+      ],
+      "text": "159"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        425.9653625488281,
+        107.61348724365234,
+        433.95654296875,
+        114.71674346923828
+      ],
+      "text": "175"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        455.66339111328125,
+        97.87109375,
+        523.0505981445312,
+        108.96986389160156
+      ],
+      "text": "187\n193\n196"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        362.2098388671875,
+        73.66161346435547,
+        506.6296691894531,
+        84.31649017333984
+      ],
+      "text": "Attention backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        357.82904052734375,
+        86.7811508178711,
+        411.9931335449219,
+        126.3848876953125
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        329.48199462890625,
+        226.11459350585938,
+        515.4539794921875,
+        235.08099365234375
+      ],
+      "text": "(b) Without causal mask, head dimension 128"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        121.18110656738281,
+        363.49615478515625,
+        279.509033203125,
+        382.09759521484375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        94.13505554199219,
+        334.2542724609375,
+        100.79435729980469,
+        343.13336181640625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        310.6648864746094,
+        100.79468536376953,
+        319.5439758300781
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        287.07550048828125,
+        100.79468536376953,
+        295.95458984375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.80573272705078,
+        263.4861145019531,
+        100.79468536376953,
+        272.3652038574219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        78.15292358398438,
+        273.8387451171875,
+        90.58362579345703,
+        337.550048828125
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        113.11405181884766,
+        342.60540771484375,
+        237.23361206054688,
+        352.6796569824219
+      ],
+      "text": "19\n21\n24\n25\n26"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        259.1664733886719,
+        354.7010803222656,
+        269.3731994628906,
+        361.8043212890625
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        118.31120300292969,
+        327.142578125,
+        123.63864135742188,
+        334.2458190917969
+      ],
+      "text": "58"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        148.0092315673828,
+        318.7345275878906,
+        183.03469848632812,
+        328.88922119140625
+      ],
+      "text": "70\n76"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        207.4052734375,
+        314.40521240234375,
+        212.73272705078125,
+        321.5084533691406
+      ],
+      "text": "85"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        237.10330200195312,
+        308.3040771484375,
+        272.1287841796875,
+        318.0020751953125
+      ],
+      "text": "93\n98"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        123.50836181640625,
+        332.8974609375,
+        128.83580017089844,
+        340.0007019042969
+      ],
+      "text": "46"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        128.7055206298828,
+        325.3582458496094,
+        277.325927734375,
+        336.5697021484375
+      ],
+      "text": "54\n60\n62\n62\n60\n53"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        133.90267944335938,
+        316.5274658203125,
+        282.5230712890625,
+        331.0255432128906
+      ],
+      "text": "68\n71\n65\n67\n68\n81"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        162.267333984375,
+        302.4604797363281,
+        170.2584991455078,
+        309.563720703125
+      ],
+      "text": "111"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        191.96536254882812,
+        292.7059326171875,
+        199.95652770996094,
+        299.8091735839844
+      ],
+      "text": "131"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        221.66339111328125,
+        284.3223876953125,
+        229.65455627441406,
+        291.4256286621094
+      ],
+      "text": "149"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        251.36138916015625,
+        276.2076416015625,
+        289.05059814453125,
+        286.41650390625
+      ],
+      "text": "160\n166"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        128.20982360839844,
+        238.1946258544922,
+        272.629638671875,
+        248.84951782226562
+      ],
+      "text": "Attention backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        123.82902526855469,
+        251.3141632080078,
+        177.9931182861328,
+        290.91790771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        104.95099639892578,
+        390.6475830078125,
+        271.97705078125,
+        399.6139831542969
+      ],
+      "text": "(c) With causal mask, head dimension 64"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        355.1811218261719,
+        363.49615478515625,
+        513.509033203125,
+        382.09759521484375
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        328.13507080078125,
+        334.2542724609375,
+        334.79437255859375,
+        343.13336181640625
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        310.6648864746094,
+        334.794677734375,
+        319.5439758300781
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        287.07550048828125,
+        334.794677734375,
+        295.95458984375
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        324.80572509765625,
+        263.4861145019531,
+        334.794677734375,
+        272.3652038574219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        312.1529541015625,
+        273.8387451171875,
+        324.5836486816406,
+        337.550048828125
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        347.11407470703125,
+        340.6576843261719,
+        352.4415283203125,
+        347.76092529296875
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        376.81207275390625,
+        331.6206970214844,
+        471.2336120605469,
+        344.4008483886719
+      ],
+      "text": "37\n43\n45\n49"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        493.16650390625,
+        354.7010803222656,
+        503.37322998046875,
+        361.8043212890625
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        352.31121826171875,
+        325.1570739746094,
+        387.3367004394531,
+        334.1053161621094
+      ],
+      "text": "59\n63"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        411.707275390625,
+        321.0255432128906,
+        417.03472900390625,
+        328.1287841796875
+      ],
+      "text": "71"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        441.4052734375,
+        312.68670654296875,
+        506.1287841796875,
+        324.2685241699219
+      ],
+      "text": "80\n86\n89"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        357.50836181640625,
+        329.8385925292969,
+        362.8358154296875,
+        336.94183349609375
+      ],
+      "text": "53"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        387.2063903808594,
+        323.8149719238281,
+        392.5338439941406,
+        330.918212890625
+      ],
+      "text": "65"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        416.9044189453125,
+        314.9094543457031,
+        511.325927734375,
+        326.4404602050781
+      ],
+      "text": "75\n80\n84\n84"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        362.7055358886719,
+        334.4840393066406,
+        368.0329895019531,
+        341.5872802734375
+      ],
+      "text": "43"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        392.4035339355469,
+        322.9183044433594,
+        516.5230102539062,
+        337.30828857421875
+      ],
+      "text": "52\n58\n63\n66\n67"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        367.9026794433594,
+        312.40509033203125,
+        373.2301330566406,
+        319.5083312988281
+      ],
+      "text": "90"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        396.267333984375,
+        297.0248107910156,
+        404.2585144042969,
+        304.1280517578125
+      ],
+      "text": "122"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        425.9653625488281,
+        286.2563781738281,
+        433.95654296875,
+        293.359619140625
+      ],
+      "text": "145"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        455.66339111328125,
+        277.0222473144531,
+        463.6545715332031,
+        284.12548828125
+      ],
+      "text": "165"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        485.36138916015625,
+        271.5643005371094,
+        493.3525695800781,
+        278.66754150390625
+      ],
+      "text": "176"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        515.0594482421875,
+        266.9312744140625,
+        523.0505981445312,
+        274.0345153808594
+      ],
+      "text": "186"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        362.2098388671875,
+        238.1946258544922,
+        506.6296691894531,
+        248.84951782226562
+      ],
+      "text": "Attention backward speed (A100 80GB SXM4)"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        357.82904052734375,
+        251.3141632080078,
+        411.9931335449219,
+        290.91790771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nxformers\nFlashAttention Triton\nFlashAttention-2"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        336.135986328125,
+        390.6475830078125,
+        508.7928771972656,
+        399.6139831542969
+      ],
+      "text": "(d) With causal mask, head dimension 128"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        194.82598876953125,
+        411.29290771484375,
+        417.17120361328125,
+        421.2555236816406
+      ],
+      "text": "Figure 6: Attention backward speed on A100 GPU"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        71.64099884033203,
+        433.11126708984375,
+        540.2716674804688,
+        469.0755310058594
+      ],
+      "text": "Table 1: Training speed (TFLOPs/s/GPU) of GPT-style models on 8×A100 GPUs. FlashAttention-2\nreaches up to 225 TFLOPs/s (72% model FLOPs utilization). We compare against a baseline running without\nFlashAttention."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        90.79598999023438,
+        479.0384216308594,
+        517.8635864257812,
+        539.2125244140625
+      ],
+      "text": "Model\nWithout FlashAttention\nFlashAttention\nFlashAttention-2\nGPT3-1.3B 2k context\n142 TFLOPs/s\n189 TFLOPs/s\n196 TFLOPs/s\nGPT3-1.3B 8k context\n72 TFLOPS/s\n170 TFLOPs/s\n220 TFLOPs/s\nGPT3-2.7B 2k context\n149 TFLOPs/s\n189 TFLOPs/s\n205 TFLOPs/s\nGPT3-2.7B 8k context\n80 TFLOPs/s\n175 TFLOPs/s\n225 TFLOPs/s"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        71.64099884033203,
+        560.83251953125,
+        540.3448486328125,
+        668.3284912109375
+      ],
+      "text": "be used to understand long books and reports, high resolution images, audio and video. FlashAttention-2\nwill also speed up training, finetuning, and inference of existing models.\nIn the near future, we plan to collaborate with researchers and engineers to make FlashAttention widely\napplicable in different kinds of devices (e.g., H100 GPUs, AMD GPUs), as well as new data types such as\nFP8. As an immediate next step, we plan to optimize FlashAttention-2 for H100 GPUs to use new hardware\nfeatures (TMA, 4th-gen Tensor Cores, fp8). Combining the low-level optimizations in FlashAttention-2 with\nhigh-level algorithmic changes (e.g., local, dilated, block-sparse attention) could allow us to train AI models\nwith much longer context. We are also excited to work with compiler researchers to make these optimization\ntechniques easily programmable."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        301.02001953125,
+        742.7799072265625,
+        310.98260498046875,
+        752.7424926757812
+      ],
+      "text": "12"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        116.48013305664062,
+        198.9778289794922,
+        284.2145080566406,
+        217.5813751220703
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        165.01419067382812,
+        100.79730987548828,
+        173.894287109375
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        136.70367431640625,
+        100.79730987548828,
+        145.58377075195312
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        108.39315795898438,
+        100.79730987548828,
+        117.27324676513672
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        78.15296173095703,
+        109.31010437011719,
+        90.5850830078125,
+        173.02871704101562
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        113.28131866455078,
+        165.48939514160156,
+        244.92575073242188,
+        179.6240997314453
+      ],
+      "text": "62\n72\n81\n86\n87"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        268.7388000488281,
+        190.1817169189453,
+        278.94671630859375,
+        197.28578186035156
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        117.47413635253906,
+        142.5615234375,
+        283.3616943359375,
+        152.90281677246094
+      ],
+      "text": "157\n159\n161\n161\n166\n168"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        123.00048828125,
+        129.2227325439453,
+        130.99256896972656,
+        136.32679748535156
+      ],
+      "text": "215"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        154.57955932617188,
+        118.38359069824219,
+        162.57164001464844,
+        125.48766326904297
+      ],
+      "text": "254"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        186.15866088867188,
+        112.49578857421875,
+        194.15074157714844,
+        119.59986114501953
+      ],
+      "text": "274"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        217.73776245117188,
+        106.28462982177734,
+        288.8880310058594,
+        115.8205337524414
+      ],
+      "text": "288\n294\n296"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        111.31803894042969,
+        73.66192626953125,
+        289.5389709472656,
+        84.31803131103516
+      ],
+      "text": "Attention forward + backward speed (H100 80GB SXM5)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        123.83428955078125,
+        86.78296661376953,
+        166.9457244873047,
+        111.02715301513672
+      ],
+      "text": "Pytorch\nFlashAttention\nFlashAttention-2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        98.04100036621094,
+        226.13156127929688,
+        278.89324951171875,
+        235.09796142578125
+      ],
+      "text": "(a) Without causal mask, head dimension 64"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        350.4801330566406,
+        198.9778289794922,
+        518.2145385742188,
+        217.5813751220703
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        165.01419067382812,
+        334.7973327636719,
+        173.894287109375
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        136.70367431640625,
+        334.7973327636719,
+        145.58377075195312
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        108.39315795898438,
+        334.7973327636719,
+        117.27324676513672
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        312.1529846191406,
+        109.31010437011719,
+        324.5851135253906,
+        173.02871704101562
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        347.28131103515625,
+        163.781982421875,
+        352.609375,
+        170.88604736328125
+      ],
+      "text": "93"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        377.52691650390625,
+        156.16587829589844,
+        385.5190124511719,
+        163.2699432373047
+      ],
+      "text": "120"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        409.1059875488281,
+        149.0590362548828,
+        417.09808349609375,
+        156.16310119628906
+      ],
+      "text": "145"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        440.68505859375,
+        142.9480743408203,
+        480.2562561035156,
+        151.92835998535156
+      ],
+      "text": "160\n167"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        502.73883056640625,
+        190.1817169189453,
+        512.9467163085938,
+        197.28578186035156
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        351.4741516113281,
+        150.7383270263672,
+        517.3616333007812,
+        161.3601531982422
+      ],
+      "text": "127\n127\n128\n131\n137\n139"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        357.00048828125,
+        119.89125061035156,
+        364.9925842285156,
+        126.99532318115234
+      ],
+      "text": "248"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        388.57958984375,
+        106.9751968383789,
+        396.5716857910156,
+        114.07926940917969
+      ],
+      "text": "294"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        420.15869140625,
+        94.60577392578125,
+        522.8880004882812,
+        106.59097290039062
+      ],
+      "text": "320\n326\n335\n338"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        345.31805419921875,
+        73.66192626953125,
+        523.5390014648438,
+        84.31803131103516
+      ],
+      "text": "Attention forward + backward speed (H100 80GB SXM5)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        357.83428955078125,
+        86.78296661376953,
+        400.94573974609375,
+        111.02715301513672
+      ],
+      "text": "Pytorch\nFlashAttention\nFlashAttention-2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        329.48199462890625,
+        226.13156127929688,
+        515.4539794921875,
+        235.09796142578125
+      ],
+      "text": "(b) Without causal mask, head dimension 128"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        116.48013305664062,
+        363.52783203125,
+        284.2145080566406,
+        382.1313781738281
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        329.5641784667969,
+        100.79730987548828,
+        338.44427490234375
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        301.253662109375,
+        100.79730987548828,
+        310.1337585449219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        90.80721282958984,
+        272.9431457519531,
+        100.79730987548828,
+        281.8232421875
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        78.15296173095703,
+        273.860107421875,
+        90.5850830078125,
+        337.5787048339844
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        113.28131866455078,
+        345.5411071777344,
+        244.92575073242188,
+        354.56365966796875
+      ],
+      "text": "26\n29\n31\n32\n32"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        268.7388000488281,
+        354.731689453125,
+        278.94671630859375,
+        361.8357849121094
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        117.47413635253906,
+        325.3941955566406,
+        125.4662094116211,
+        332.498291015625
+      ],
+      "text": "104"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        149.05322265625,
+        319.9692687988281,
+        157.04530334472656,
+        327.0733642578125
+      ],
+      "text": "123"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        123.00048828125,
+        310.6019287109375,
+        283.3616943359375,
+        323.29302978515625
+      ],
+      "text": "136\n138\n149\n156\n141"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        154.57955932617188,
+        300.4947814941406,
+        162.57164001464844,
+        307.598876953125
+      ],
+      "text": "192"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        186.15866088867188,
+        289.0676574707031,
+        194.15074157714844,
+        296.1717529296875
+      ],
+      "text": "232"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        217.73776245117188,
+        281.9342346191406,
+        225.72984313964844,
+        289.038330078125
+      ],
+      "text": "257"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        249.31683349609375,
+        274.2431945800781,
+        288.8880310058594,
+        284.5336608886719
+      ],
+      "text": "273\n284"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        111.31803894042969,
+        238.2119140625,
+        289.5389709472656,
+        248.86802673339844
+      ],
+      "text": "Attention forward + backward speed (H100 80GB SXM5)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        123.83428955078125,
+        251.33294677734375,
+        166.9457244873047,
+        275.5771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nFlashAttention-2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        104.95099639892578,
+        390.68157958984375,
+        271.97705078125,
+        399.6479797363281
+      ],
+      "text": "(c) With causal mask, head dimension 64"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        350.4801330566406,
+        363.52783203125,
+        518.2145385742188,
+        382.1313781738281
+      ],
+      "text": "512\n1k\n2k\n4k\n8k\n16k\nSequence length"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        329.5641784667969,
+        334.7973327636719,
+        338.44427490234375
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        301.253662109375,
+        334.7973327636719,
+        310.1337585449219
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        324.8072204589844,
+        272.9431457519531,
+        334.7973327636719,
+        281.8232421875
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        312.1529846191406,
+        273.860107421875,
+        324.5851135253906,
+        337.5787048339844
+      ],
+      "text": "Speed (TFLOPs/s)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        347.28131103515625,
+        337.02874755859375,
+        478.9257507324219,
+        350.45794677734375
+      ],
+      "text": "40\n50\n57\n61\n63"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        502.73883056640625,
+        354.731689453125,
+        512.9467163085938,
+        361.8357849121094
+      ],
+      "text": "OOM"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        352.80767822265625,
+        323.9149475097656,
+        422.6244201660156,
+        333.9906311035156
+      ],
+      "text": "98\n109\n108"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        446.21142578125,
+        315.89599609375,
+        517.3616333007812,
+        326.126220703125
+      ],
+      "text": "126\n135\n137"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        357.00048828125,
+        308.4501647949219,
+        364.9925842285156,
+        315.55426025390625
+      ],
+      "text": "163"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        388.57958984375,
+        292.0540466308594,
+        396.5716857910156,
+        299.15814208984375
+      ],
+      "text": "221"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        420.15869140625,
+        279.7008972167969,
+        428.1507873535156,
+        286.80499267578125
+      ],
+      "text": "265"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        451.7377624511719,
+        271.5493469238281,
+        459.7298583984375,
+        278.6534423828125
+      ],
+      "text": "294"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        483.31683349609375,
+        267.5006408691406,
+        491.3089294433594,
+        274.604736328125
+      ],
+      "text": "308"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        514.8959350585938,
+        261.9351501464844,
+        522.8880004882812,
+        269.03924560546875
+      ],
+      "text": "328"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        345.31805419921875,
+        238.2119140625,
+        523.5390014648438,
+        248.86802673339844
+      ],
+      "text": "Attention forward + backward speed (H100 80GB SXM5)"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        357.83428955078125,
+        251.33294677734375,
+        400.94573974609375,
+        275.5771484375
+      ],
+      "text": "Pytorch\nFlashAttention\nFlashAttention-2"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        336.135986328125,
+        390.68157958984375,
+        508.7928771972656,
+        399.6479797363281
+      ],
+      "text": "(d) With causal mask, head dimension 128"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        171.00498962402344,
+        411.326904296875,
+        441.0013427734375,
+        421.2895202636719
+      ],
+      "text": "Figure 7: Attention forward + backward speed on H100 GPU"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        71.99999237060547,
+        444.9947509765625,
+        161.5438690185547,
+        454.9573669433594
+      ],
+      "text": "Acknowledgments"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        71.49199676513672,
+        461.2965393066406,
+        541.9352416992188,
+        604.6585083007812
+      ],
+      "text": "We thank Phil Tillet and Daniel Haziza, who have implemented versions of FlashAttention in Triton [17] and\nthe xformers library [10]. FlashAttention-2 was motivated by exchange of ideas between different ways that\nattention could be implemented. We are grateful to the Nvidia CUTLASS team (especially Vijay Thakkar, Cris\nCecka, Haicheng Wu, and Andrew Kerr) for their CUTLASS library, in particular the CUTLASS 3.x release,\nwhich provides clean abstractions and powerful building blocks for the implementation of FlashAttention-2.\nWe thank Driss Guessous for integrating FlashAttention to PyTorch. FlashAttention-2 has benefited\nfrom helpful discussions with Phil Wang, Markus Rabe, James Bradbury, Young-Jun Ko, Julien Launay,\nDaniel Hesslow, Michaël Benesty, Horace He, Ashish Vaswani, and Erich Elsen. Thanks for Stanford CRFM\nand Stanford NLP for the compute support. We thank Dan Fu and Christopher Ré for their collaboration,\nconstructive feedback, and constant encouragement on this line of work of designing hardware-efficient\nalgorithms. We thank Albert Gu and Beidi Chen for their helpful suggestions on early drafts of this technical\nreport."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        72.0,
+        624.4102172851562,
+        145.63905334472656,
+        638.7564086914062
+      ],
+      "text": "References"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        76.9800033569336,
+        649.4569091796875,
+        540.2468872070312,
+        683.5258178710938
+      ],
+      "text": "[1] Joshua Ainslie, James Lee-Thorp, Michiel de Jong, Yury Zemlyanskiy, Federico Lebrón, and Sumit\nSanghai. Gqa: Training generalized multi-query transformer models from multi-head checkpoints. arXiv\npreprint arXiv:2305.13245, 2023."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        76.97998046875,
+        693.2918701171875,
+        539.8963012695312,
+        715.4068603515625
+      ],
+      "text": "[2] Iz Beltagy, Matthew E Peters, and Arman Cohan. Longformer: The long-document transformer. arXiv\npreprint arXiv:2004.05150, 2020."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        301.0199890136719,
+        742.7799072265625,
+        310.9825744628906,
+        752.7424926757812
+      ],
+      "text": "13"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.9800033569336,
+        74.85389709472656,
+        541.7220458984375,
+        96.95458984375
+      ],
+      "text": "[3] Beidi Chen, Tri Dao, Eric Winsor, Zhao Song, Atri Rudra, and Christopher Ré. Scatterbrain: Unifying\nsparse and low-rank attention. In Advances in Neural Information Processing Systems (NeurIPS), 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.9800033569336,
+        106.05690002441406,
+        541.4155883789062,
+        140.1258544921875
+      ],
+      "text": "[4] Krzysztof Marcin Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane,\nTamas Sarlos, Peter Hawkins, Jared Quincy Davis, Afroz Mohiuddin, Lukasz Kaiser, et al. Rethinking\nattention with performers. In International Conference on Learning Representations (ICLR), 2020."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.98001098632812,
+        149.2139434814453,
+        540.0234375,
+        183.2838134765625
+      ],
+      "text": "[5] Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. FlashAttention: Fast and\nmemory-efficient exact attention with IO-awareness. In Advances in Neural Information Processing\nSystems, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.98001098632812,
+        192.3719024658203,
+        539.9751586914062,
+        214.28952026367188
+      ],
+      "text": "[6] Zhe Jia and Peter Van Sandt. Dissecting the Ampere GPU architecture via microbenchmarking. GPU\nTechnology Conference, 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.97999572753906,
+        223.5739288330078,
+        539.997802734375,
+        245.6888427734375
+      ],
+      "text": "[7] Zhe Jia, Marco Maggioni, Benjamin Staiger, and Daniele P Scarpazza. Dissecting the nvidia Volta GPU\narchitecture via microbenchmarking. arXiv preprint arXiv:1804.06826, 2018."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.97998046875,
+        254.7769317626953,
+        541.4194946289062,
+        288.6495361328125
+      ],
+      "text": "[8] Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and François Fleuret. Transformers are RNNs:\nFast autoregressive transformers with linear attention. In International Conference on Machine Learning,\npages 5156–5165. PMLR, 2020."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        76.97999572753906,
+        297.93389892578125,
+        539.9968872070312,
+        320.048828125
+      ],
+      "text": "[9] Nikita Kitaev, Łukasz Kaiser, and Anselm Levskaya. Reformer: The efficient transformer. In The\nInternational Conference on Machine Learning (ICML), 2020."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.00003051757812,
+        329.13690185546875,
+        541.9375610351562,
+        363.6720886230469
+      ],
+      "text": "[10] Benjamin Lefaudeux, Francisco Massa, Diana Liskovich, Wenhan Xiong, Vittorio Caggiano, Sean Naren,\nMin Xu, Jieru Hu, Marta Tintore, Susan Zhang, Patrick Labatut, and Daniel Haziza. xformers: A modular\nand hackable transformer modelling library. https://github.com/facebookresearch/xformers, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        372.2939147949219,
+        539.9917602539062,
+        394.4078369140625
+      ],
+      "text": "[11] Maxim Milakov and Natalia Gimelshein. Online normalizer calculation for softmax. arXiv preprint\narXiv:1805.02867, 2018."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        403.49688720703125,
+        367.21331787109375,
+        413.65582275390625
+      ],
+      "text": "[12] OpenAI. Gpt-4 technical report. ArXiv, abs/2303.08774, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        71.99998474121094,
+        420.95196533203125,
+        539.9922485351562,
+        444.85784912109375
+      ],
+      "text": "[13] Markus N Rabe and Charles Staats. Self-attention does not need 𝑂(𝑛2) memory. arXiv preprint\narXiv:2112.05682, 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        453.9458923339844,
+        541.3934326171875,
+        487.81951904296875
+      ],
+      "text": "[14] Aurko Roy, Mohammad Saffar, Ashish Vaswani, and David Grangier. Efficient content-based sparse\nattention with routing transformers. Transactions of the Association for Computational Linguistics, 9:\n53–68, 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        497.1039123535156,
+        539.987548828125,
+        519.2178344726562
+      ],
+      "text": "[15] Noam Shazeer.\nFast transformer decoding:\nOne write-head is all you need.\narXiv preprint\narXiv:1911.02150, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        528.305908203125,
+        541.9405517578125,
+        562.3758544921875
+      ],
+      "text": "[16] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro.\nMegatron-LM: Training multi-billion parameter language models using model parallelism. arXiv preprint\narXiv:1909.08053, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        571.4638671875,
+        540.1924438476562,
+        605.5328369140625
+      ],
+      "text": "[17] Philippe Tillet, Hsiang-Tsung Kung, and David Cox. Triton: an intermediate language and compiler for\ntiled neural network computations. In Proceedings of the 3rd ACM SIGPLAN International Workshop\non Machine Learning and Programming Languages, pages 10–19, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        614.6209106445312,
+        540.01806640625,
+        648.6908569335938
+      ],
+      "text": "[18] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz\nKaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing\nsystems, 30, 2017."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.0,
+        657.7789306640625,
+        540.0092163085938,
+        679.892822265625
+      ],
+      "text": "[19] Sinong Wang, Belinda Z Li, Madian Khabsa, Han Fang, and Hao Ma. Linformer: Self-attention with\nlinear complexity. arXiv preprint arXiv:2006.04768, 2020."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        72.00001525878906,
+        688.9808959960938,
+        540.235107421875,
+        723.0508422851562
+      ],
+      "text": "[20] Manzil Zaheer, Guru Guruganesh, Kumar Avinava Dubey, Joshua Ainslie, Chris Alberti, Santiago\nOntanon, Philip Pham, Anirudh Ravula, Qifan Wang, Li Yang, et al. Big bird: Transformers for longer\nsequences. Advances in Neural Information Processing Systems, 33, 2020."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        301.0199890136719,
+        742.7799072265625,
+        310.9825744628906,
+        752.7424926757812
+      ],
+      "text": "14"
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 4,
+      "bbox": [
+        95.4010009765625,
+        400.787841796875,
+        516.5488891601562,
+        618.280029296875
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2307.08691/images/2307.08691_p4_blk1_crop.png"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        83.70099639892578,
+        352.9027099609375,
+        528.3065185546875,
+        598.22900390625
+      ],
+      "xref": 3,
+      "image_path": "../data/parsed_documents/2307.08691/images/2307.08691_p8_blk1_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        78.20099639892578,
+        269.12005615234375,
+        313.8045654296875,
+        408.45001220703125
+      ],
+      "xref": 3,
+      "image_path": "../data/parsed_documents/2307.08691/images/2307.08691_p9_blk1_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        325.53900146484375,
+        261.1026611328125,
+        534.4945068359375,
+        408.45001220703125
+      ],
+      "xref": 5,
+      "image_path": "../data/parsed_documents/2307.08691/images/2307.08691_p9_blk2_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 19,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 15,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p1_table2_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 28,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 25,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 10,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 21,
+      "ncols": 12,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 16,
+      "ncols": 8,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p6_table2_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 35,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p7_table2_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p8_table1_lattice.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 5,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p8_table2_lattice.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p10_table1_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p10_table2_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p10_table3_lattice.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p10_table4_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 24,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p11_table1_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 19,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p11_table2_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 18,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p11_table3_lattice.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 15,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p11_table4_lattice.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p12_table1_lattice.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p12_table2_lattice.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p12_table3_lattice.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 5,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p12_table4_lattice.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p13_table1_lattice.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 2,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p13_table2_lattice.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 3,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p13_table3_lattice.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 4,
+      "flavor": "lattice",
+      "nrows": 1,
+      "ncols": 6,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p13_table4_lattice.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 43,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2307.08691/2307.08691_p14_table1_stream.csv"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+"[HCC+18]","Yanping Huang, Yonglong Cheng, Dehao Chen, HyoukJoong Lee, Jiquan Ngiam, Quoc V. Le,"
+"","and Zhifeng Chen. Gpipe: Efﬁcient training of giant neural networks using pipeline parallelism."
+"","CoRR, abs/1811.06965, 2018, 1811.06965. URL http://arxiv.org/abs/1811.06965. 19"
+"[HNA+17]","Joel Hestness, Sharan Narang, Newsha Ardalani, Gregory Diamos, Heewoo Jun, Hassan Kia-"
+"","ninejad, Md. Mostofa Ali Patwary, Yang Yang, and Yanqi Zhou. Deep learning scaling is pre-"
+"","dictable, empirically, 2017, 1712.00409. 18"
+"[JGH18]","Arthur Jacot, Franck Gabriel, and Clément Hongler. Neural
+tangent kernel: Convergence and"
+"","generalization in neural networks. In Advances in neural information processing systems, pages"
+"","8571–8580, 2018. 18"
+"[KB14]","Diederik P. Kingma and Jimmy Ba.
+Adam: A method for
+stochastic optimization, 2014,"
+"","1412.6980. 7"
+"[Kom19]","Aran Komatsuzaki. One epoch is all you need, 2019, arXiv:1906.06669. 18"
+"[KSH12]","Alex Krizhevsky,
+Ilya Sutskever, and Geoffrey E. Hinton.
+Imagenet classiﬁcation with deep"
+"","convolutional neural networks.
+In Proceedings of the 25th International Conference on Neural"
+"","Information Processing Systems - Volume 1, NIPS’12, pages 1097–1105, USA, 2012. Curran"
+"","Associates Inc. URL http://dl.acm.org/citation.cfm?id=2999134.2999257. 19"
+"[LCG+19]","Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu"
+"","Soricut.
+Albert: A lite bert
+for
+self-supervised learning of
+language representations, 2019,"
+"","1909.11942. 9"
+"[LOG+19]","Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike"
+"","Lewis, Luke Zettlemoyer, and Veselin Stoyanov. Roberta: A robustly optimized BERT pretrain-"
+"","ing approach.
+CoRR, abs/1907.11692, 2019, 1907.11692.
+URL http://arxiv.org/abs/"
+"","1907.11692. 2"
+"[LSP+18]","Peter J. Liu, Mohammad Saleh, Etienne Pot, Ben Goodrich, Ryan Sepassi, Lukasz Kaiser, and"
+"","Noam Shazeer. Generating wikipedia by summarizing long sequences. arXiv:1801.10198 [cs],"
+"","2018, 1801.10198. URL http://arxiv.org/abs/1801.10198. 2, 6"
+"[LT16]","Henry W Lin and Max Tegmark. Criticality in formal
+languages and statistical physics. arXiv"
+"","preprint arXiv:1606.06737, 2016. 25"
+"[LXS+19]","Jaehoon Lee, Lechao Xiao, Samuel S. Schoenholz, Yasaman Bahri, Roman Novak, Jascha Sohl-"
+"","Dickstein, and Jeffrey Pennington. Wide neural networks of any depth evolve as linear models"
+"","under gradient descent, 2019, arXiv:1902.06720. 18"
+"[MKAT18]","Sam McCandlish, Jared Kaplan, Dario Amodei, and OpenAI Dota Team. An empirical model"
+"","of large-batch training, 2018, arXiv:1812.06162. 3, 5, 6, 12, 13, 21"
+"[Pap18]","Vardan Papyan. The full spectrum of deep net hessians at scale: Dynamics with sample size."
+"","CoRR, abs/1811.07062, 2018, 1811.07062. URL http://arxiv.org/abs/1811.07062. 18"
+"[RNSS18]","Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever.
+Improving language"
+"","understanding by generative pre-training. URL https://s3-us-west-2. amazonaws. com/openai-"
+"","assets/research-covers/languageunsupervised/language understanding paper. pdf, 2018. 2, 6"
+"[RRBS19a]","Jonathan S. Rosenfeld, Amir Rosenfeld, Yonatan Belinkov, and Nir Shavit.
+A constructive"
+"","prediction of the generalization error across scales, 2019, 1909.12673. 18"
+"[RRBS19b]","Jonathan S. Rosenfeld, Amir Rosenfeld, Yonatan Belinkov, and Nir Shavit.
+A constructive"
+"","prediction of the generalization error across scales, 2019, arXiv:1909.12673. 18"
+"[RSR+19]","Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena,"
+"","Yanqi Zhou, Wei Li, and Peter J. Liu. Exploring the limits of transfer learning with a uniﬁed"
+"","text-to-text transformer, 2019, arXiv:1910.10683. 2"
+"[RWC+19] Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. Language",""
+"","models are unsupervised multitask learners. openai.com, 2019. 2, 5, 6, 7, 8"
+"[SCP+18]","Noam Shazeer, Youlong Cheng, Niki Parmar, Dustin Tran, Ashish Vaswani, Penporn Koanan-"
+"","takool, Peter Hawkins, HyoukJoong Lee, Mingsheng Hong, Cliff Young, Ryan Sepassi, and"
+"","Blake Hechtman. Mesh-tensorﬂow: Deep learning for supercomputers, 2018, 1811.02084. 19"
+"[SHB15]","Rico Sennrich, Barry Haddow, and Alexandra Birch. Neural machine translation of rare words"
+"","with subword units. CoRR, 2015, 1508.07909. 6"

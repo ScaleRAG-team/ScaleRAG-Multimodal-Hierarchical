@@ -1,0 +1,128 @@
+"127
+127
+0","0
+489
+600
+472"
+"Reordering offline","400
+399"
+"Runtime unpacking","Whigh = (Pw >> 4) & Mask
+248"
+"","215
+300"
+"Packed  
+…",""
+"w31
+w15
+w2
+w17
+w1
+w16
+w0
+0
+w31
+Whigh
+Pw","…
+0
+0
+w18
+w17
+w16"
+"","0"
+"weights:",""
+"127
+127
+0","(4k,4k)
+(11k,4k)
+(4k,11k)
+(4k,32k)
+0"
+"Figure 4. SIMD-aware weight packing for ARM NEON with 128-bit SIMD units. Original weights are reordered and packed to align",""
+"with the bit width so that the weights can be unpacked into bytes at runtime using AND and shift bitwise operations with a 128-bit mask.",""
+"with 200 tokens only takes 10 ms. Consequently, the gen-","to FP16 before performing matrix computation. We avoid"
+"eration phase is substantially slower than the context stage,","writing dequantized weights into DRAM by fusing dequan-"
+"particularly for on-device interactive applications.","tization kernels with the matrix multplication kernel. Note"
+"","that such fusion is adopted for both matrix-matrix (MM)"
+"Generation stage is memory-bound.
+To accelerate the",""
+"","and matrix-vector (MV) product kernels."
+"generation phase, we conduct a roofline analysis in Fig-",""
+"ure 3(b). The 4090 GPU has a peak computation throughput",""
+"of 165 TFLOPS and a memory bandwidth of 1TB/s. There-",""
+"fore, any workload with arithmetic intensity (the ratio of",""
+"","SIMD-aware weight packing.
+On-the-fly weight dequan-"
+"FLOPs to memory access) less than 165 is memory bounded",""
+"","tization reduces intermediate DRAM access, but remains"
+"on 4090 GPUs. Notably, when executed in FP16, the gener-",""
+"","expensive. For instance, dequantizing a single 4-bit weight"
+"ation stage for on-device LLMs has arithmetic intensity≈1.",""
+"","involves 1 shift, 1 bitwise AND, and 1 FMA scaling op-"
+"This underscores the memory-bound nature of the workload.",""
+"","erations, while the dequantized weight undergoes only 1"
+"Since the FLOPs of a given model is fixed, the only way to",""
+"","FMA computation. This process is particularly costly on"
+"improve the peak performance is to reduce the total amount",""
+"","CPUs with SIMD architecture that
+favor vectorized in-"
+"of memory traffic. AWQ reduces the weight memory by",""
+"","structions. To mitigate this, we suggest platform-specific"
+"four times.",""
+"","weight packing tailored to the bitwidth of a device’s SIMD"
+"","units. Figure 4 demonstrates our strategy for ARM CPUs"
+"Weight access dominates memory traffic.
+We therefore",""
+"","with 128-bit SIMD registers offering up to 1.2× speedup."
+"further break down the memory access for weight and acti-",""
+"","Here, each register holds 32 4-bit weights, sequenced as"
+"vation in Figure 3(c). Clearly, weight access dominates the",""
+"","w0, w16, w1, w17, ..., w15, w31. This approach requires just"
+"memory traffic for on-device LLMs. Quantizing the model",""
+"","three SIMD instructions to unpack all 32 weights, as op-"
+"weights to 4 bit
+integers will approximately increase the",""
+"","posed to 3 scalar instructions per weight in a conventional"
+"arithmetic intensity to 4 FLOPs/Byte, leading to a 4TFLOPS",""
+"","packing (w0, w1, ..., w31). Generally, for 2n-bit SIMD reg-"
+"peak performance in Figure 3(b). Since weight-only quanti-",""
+"","isters, adjacent weights will have indices off by 1/8 × 2n,"
+"zation leads to a lower bit width for weights (and thus higher",""
+"","since each register can hold 1/8 × 2n 8-bit
+integers. On"
+"theoretical performance upper bound), it is natural for AWQ",""
+"","GPUs, we found it more efficient
+to pack each 8 weights"
+"to follow this setting for on-device LLM applications.",""
+"","into w{0,2,4,6,1,3,5,7} following (Kim et al., 2022)."
+"4.2
+Deploy AWQ with TinyChat",""
+"To this end, we demonstrated that 4-bit weight quantiza-",""
+"","Kernel fusion.
+We also extensively apply kernel fusion"
+"tion could lead to a 4× theoretical peak performance. We",""
+"","to optimize on-device LLM inference. For layer normaliza-"
+"further design TinyChat to realize this speedup. On GPUs,",""
+"","tion, we fuse all operators (e.g. multiplication, division and"
+"we only focus on implementing essential components,
+in-",""
+"","square root) into a single kernel. For attention layers, we"
+"cluding attention, layer normalization, and linear projection",""
+"","fuse QKV projections into a single kernel, and also perform"
+"kernels. The flexible frontend allows easy customization",""
+"","on-the-fly positional embedding calculation. We also pre-"
+"and fast support for new models. TinyChat with 4-bit AWQ",""
+"","allocate KV caches and perform cache updates within the"
+"achieves more than 3× speedup compared with the Hug-",""
+"","attention kernel. Kernel fusion is particularly useful for mod-"
+"gingface FP16 implementation across different families of",""
+"","els with inefficient forward pass implementations, such as"
+"LLMs on GPUs. On CPUs, we lower the entire computation",""
+"","Falcon (Penedo et al., 2023) and StarCoder (Li et al., 2023c)."
+"graph to C++ to minimize overhead.",""
+"","Notably,
+the computation time for each FP16 kernel
+is in"
+"On-the-fly weight dequantization.
+For quantized layers,","the order of 0.01ms on the 4090 GPU, comparable to the"
+"as the hardware does not provide multiplication instructions","GPU kernel launch overhead. Hence, reducing number of"
+"between INT4 and FP16, we need to dequantize the integers","kernel calls through kernel fusion leads to direct speedups."

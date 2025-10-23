@@ -1,0 +1,45 @@
+"Q:  If 4 daps = 7"
+"yaps, and 5"
+"yaps = 3 baps, 
+A: We …
+A: So …
+A: If 7/4 ...
+LM"
+"how many daps"
+"equal 42 baps?"
+"Figure 5 ∣ Parallel sampling (e.g., Best-of-N) verses sequential revisions. Left: Parallel sampling generates N answers"
+"independently in parallel, whereas sequential revisions generates each one in sequence conditioned on previous attempts. Right:"
+"In both the sequential and parallel cases, we can use the verifier to determine the best-of-N answers (e.g. by applying best-of-N"
+"weighted). We can also allocate some of our budget to parallel and some to sequential, effectively enabling a combination of the"
+"two sampling strategies.
+In this case, we use the verifier to first select the best answer within each sequential chain and then"
+"select the best answer accross chains."
+"6.1. Setup: Training and Using Revision Models"
+"Our procedure for finetuning revision models is similar to [28],
+though we introduce some crucial"
+"differences. For finetuning, we need trajectories consisting of a sequence of incorrect answers followed"
+"by a correct answer, that we can then run SFT on. Ideally, we want the correct answer to be correlated"
+"with the incorrect answers provided in context, so as to effectively teach the model to implicitly identify"
+"mistakes in examples provided in-context,
+followed by correcting those mistakes by making edits as"
+"opposed to ignoring the in-context examples altogether, and trying again from scratch."
+"Generating revision data. The on-policy approach of Qu et al. [28] for obtaining several multi-turn"
+"rollouts was shown to be effective, but it was not entirely feasible in our infrastructure due to compute"
+"costs associated with running multi-turn rollouts. Therefore, we sampled 64 responses in parallel at"
+"a higher temperature and post-hoc constructed multi-turn rollouts from these independent samples."
+"Specifically, following the recipe of [1], we pair up each correct answer with a sequence of incorrect"
+"answers from this set as context to construct multi-turn finetuning data. We include up to four incorrect"
+"answers in context, where the specific number of solutions in context is sampled randomly from a uniform"
+"distribution over categories 0 to 4. We use a character edit distance metric to prioritize selecting incorrect"
+"answers which are correlated with the final correct answer (see Appendix H). Note that
+token edit"
+"distance is not a perfect measure of correlation, but we found this heuristic to be sufficient to correlate"
+"incorrect
+in-context answers with correct target answers to facilitate training a meaningful revision"
+"model, as opposed to randomly pairing incorrect and correct responses with uncorrelated responses."
+"Using revisions at inference-time. Given a finetuned revision model, we can then sample a sequence of"
+"revisions from the model at test-time. While our revision model is only trained with up to four previous"
+"answers in-context, we can sample longer chains by truncating the context to the most recent four revised"
+"responses. In Figure 6 (left), we see that as we sample longer chains from the revision model, the model’s"
+"pass@1 at each step gradually improves, demonstrating that we are able to effectively teach the model to"
+"learn from mistakes made by previous answers in context."

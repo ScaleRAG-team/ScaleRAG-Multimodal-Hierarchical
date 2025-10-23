@@ -1,0 +1,83 @@
+"Published as a conference paper at ICLR 2024"
+"Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep"
+"bidirectional
+transformers
+for
+language understanding.
+In Jill Burstein, Christy Doran,
+and"
+"the 2019 Conference of
+the North American Chapter of
+Thamar Solorio (eds.), Proceedings of"
+"the Association for Computational Linguistics: Human Language Technologies, NAACL-HLT"
+"2019, Minneapolis, MN, USA, June 2-7, 2019, Volume 1 (Long and Short Papers), pp. 4171–"
+"4186. Association for Computational Linguistics, 2019.
+doi:
+10.18653/v1/n19-1423.
+URL"
+"https://doi.org/10.18653/v1/n19-1423."
+"Saurabh Goyal, Anamitra R. Choudhury, Saurabh Raje, Venkatesan T. Chakaravarthy, Yogish Sab-"
+"harwal,
+and Ashish Verma.
+Power-bert:
+Accelerating bert
+inference via progressive word-"
+"vector elimination.
+In International Conference on Machine Learning, 2020.
+URL https:"
+"//api.semanticscholar.org/CorpusID:219792793."
+"Yue Guan, Zhengyi Li, Jingwen Leng, Zhouhan Lin, and Minyi Guo. Transkimmer: Transformer"
+"learns to layer-wise skim.
+In Smaranda Muresan, Preslav Nakov, and Aline Villavicencio (eds.),"
+"Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume"
+"1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022, pp. 7275–7286. Association for"
+"Computational Linguistics, 2022. doi: 10.18653/v1/2022.acl-long.502. URL https://doi."
+"org/10.18653/v1/2022.acl-long.502."
+"Sylvain Gugger, Lysandre Debut, Thomas Wolf, Philipp Schmid, Zachary Mueller, Sourab Man-"
+"grulkar, Marc Sun, and Benjamin Bossan. Accelerate: Training and inference at scale made sim-"
+"ple, efficient and adaptable. https://github.com/huggingface/accelerate, 2022."
+"Christian Hansen, Casper Hansen, Stephen Alstrup, Jakob Grue Simonsen, and Christina Lioma."
+"Neural speed reading with structural-jump-lstm. ArXiv, abs/1904.00761, 2019. URL https:"
+"//api.semanticscholar.org/CorpusID:90258012."
+"Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, and Yejin Choi. The curious case of neural
+text"
+"degeneration. arXiv preprint arXiv:1904.09751, 2019."
+"Xin Huang, Ashish Khetan, Rene Bidart, and Zohar Karnin. Pyramid-bert: Reducing complexity via"
+"successive core-set based token selection. In Smaranda Muresan, Preslav Nakov, and Aline Villav-"
+"icencio (eds.), Proceedings of the 60th Annual Meeting of the Association for Computational Lin-"
+"guistics (Volume 1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022, pp. 8798–8817."
+"Association for Computational Linguistics, 2022.
+doi:
+10.18653/v1/2022.acl-long.602.
+URL"
+"https://doi.org/10.18653/v1/2022.acl-long.602."
+"Aniruddha Kembhavi, Minjoon Seo, Dustin Schwenk,
+Jonghyun Choi, Ali Farhadi,
+and Han-"
+"naneh Hajishirzi. Are you smarter than a sixth grader?
+textbook question answering for multi-"
+"modal machine comprehension. 2017 IEEE Conference on Computer Vision and Pattern Recog-"
+"nition (CVPR), pp. 5376–5384,
+2017.
+URL https://api.semanticscholar.org/"
+"CorpusID:1310550."
+"Sehoon Kim, Sheng Shen, David Thorsley, Amir Gholami, Woosuk Kwon, Joseph Hassoun, and"
+"Kurt Keutzer. Learned token pruning for transformers.
+In Aidong Zhang and Huzefa Rangwala"
+"(eds.), KDD ’22: The 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining,"
+"Washington, DC, USA, August 14 - 18, 2022, pp. 784–794. ACM, 2022. doi: 10.1145/3534678."
+"3539260. URL https://doi.org/10.1145/3534678.3539260."
+"Andreas K¨opf, Yannic Kilcher, Dimitri von R¨utte, Sotiris Anagnostidis, Zhi-Rui Tam, Keith Stevens,"
+"Abdullah Barhoum, Nguyen Minh Duc, Oliver Stanley, Rich´ard Nagyfi, Shahul ES, Sameer Suri,"
+"David Glushkov, Arnav Dantuluri, Andrew Maguire, Christoph Schuhmann, Huu Nguyen, and"
+"Alexander Mattick. Openassistant conversations - democratizing large language model alignment."
+"CoRR, abs/2304.07327, 2023.
+doi: 10.48550/arXiv.2304.07327. URL https://doi.org/"
+"10.48550/arXiv.2304.07327."
+"Olga Kovaleva, Alexey Romanov, Anna Rogers, and Anna Rumshisky. Revealing the dark secrets of"
+"BERT. In Kentaro Inui, Jing Jiang, Vincent Ng, and Xiaojun Wan (eds.), Proceedings of the 2019"
+"Conference on Empirical Methods in Natural Language Processing and the 9th International"
+"Joint Conference on Natural Language Processing, EMNLP-IJCNLP 2019, Hong Kong, China,"
+"November 3-7, 2019, pp. 4364–4373. Association for Computational Linguistics, 2019.
+doi:"
+"10.18653/v1/D19-1445. URL https://doi.org/10.18653/v1/D19-1445."

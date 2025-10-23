@@ -1,0 +1,200 @@
+"import
+mesh tensorflow
+as mtf"
+"def switch layer(inputs, n, capacity factor,
+num experts):"
+"""""""Distributed switch transformer feed−forward
+layer."""""""
+"# num cores
+(n) = total
+cores for
+training the
+model (scalar)."
+"# d model =
+model hidden
+size (scalar)."
+"# num experts
+= total number of experts."
+"# capacity factor
+= extra buffer for each
+expert."
+"# inputs shape: [batch, seq len, d model]"
+"batch,
+seq len, d model =
+inputs.get shape()"
+"# Each
+core will
+route tokens per core tokens to the
+correct experts."
+"tokens per core
+= batch
+∗ seq len /
+num cores"
+"# Each
+expert will
+have shape
+[num cores,
+expert capacity,
+d model]."
+"# Each
+core is
+responsible for
+sending expert capacity
+tokens"
+"# to
+each expert."
+"expert capacity
+= tokens per core
+∗ capacity factor
+/ num experts"
+"# Reshape to setup
+per core
+expert dispatching."
+"tokens per core,
+d model]
+# shape: [batch, seq len, d model] −> [num cores,"
+"# Core
+layout: [n,
+1]
+1, 1] −> [n, 1,"
+"inputs
+= mtf.reshape(inputs, [num cores,
+tokens per core,
+d model])"
+"# Core
+Layout: [n,
+1, 1],
+[n, 1, 1,
+1]
+1, 1] −> [n, 1,"
+"# dispatch tensor
+(boolean) shape:
+[num cores, tokens per core, num experts,
+expert capacity]"
+"# dispatch tensor
+is used for
+routing tokens to the
+correct expert."
+"# combine tensor
+(float) shape:
+[num cores,
+tokens per core,
+num experts,
+expert capacity]"
+"# combine tensor
+used for combining expert
+outputs and
+scaling with
+router"
+"# probability."
+"dispatch tensor,
+combine tensor,
+aux loss =
+router(inputs,
+expert capacity)"
+"# Matmul with large
+boolean tensor to assign tokens to
+the correct
+expert."
+"# Core
+Layout: [n,
+1, 1]
+1, 1], −> [1, n,"
+"# expert inputs
+shape: [num experts,
+num cores,
+expert capacity,
+d model]"
+"expert inputs
+= mtf.einsum([inputs, dispatch tensor],
+reduce dims=[tokens per core])"
+"# All−to−All communication. Cores
+split across num cores and now we
+want to split"
+"# across num experts.
+This sends
+tokens, routed
+locally, to
+the correct
+expert now"
+"# split
+across different cores."
+"# Core
+layout: [1,
+1, 1]
+n, 1, 1] −> [n, 1,"
+"expert inputs
+= mtf.reshape(expert inputs,
+[num experts,
+num cores,
+expert capacity,
+d model])"
+"# Standard feed forward computation, where each
+expert will
+have its
+own"
+"# unique set of
+parameters."
+"# Total
+unique parameters created:
+num experts ∗ (d model ∗ d ff ∗ 2)."
+"# expert outputs
+shape: [num experts,
+num cores,
+expert capacity,
+d model]"
+"expert outputs
+= feed forward(expert inputs)"
+"# All−to−All communication. Cores
+are currently split across the experts"
+"# dimension, which
+needs to be
+switched back to being
+split across
+num cores."
+"# Core
+Layout: [n,
+1, 1]
+1, 1, 1] −> [1, n,"
+"expert outputs
+= mtf.reshape(expert outputs,
+[num experts,
+num cores,
+expert capacity,
+d model])"
+"# Convert back to
+input shape
+and multiply
+outputs of
+experts by
+the routing
+probability."
+"# expert outputs
+shape: [num experts,
+num cores,
+tokens per core,
+d model]"
+"# expert outputs combined
+shape: [num cores,
+tokens per core,
+d model]"
+"# Core
+Layout: [1,
+1]
+n, 1, 1] −> [n, 1,"
+"expert outputs combined
+= mtf.einsum([expert outputs,
+combine tensor],
+reduce dims=[tokens per core])"
+"# Remove tokens per core shapes used for local routing dispatching
+to match
+input shape."
+"# Core
+Layout: [n,
+1]
+1, 1] −> [n, 1,"
+"outputs
+= mtf.reshape(expert outputs combined,
+[batch, seq len, d model])"
+"return
+outputs, aux loss"

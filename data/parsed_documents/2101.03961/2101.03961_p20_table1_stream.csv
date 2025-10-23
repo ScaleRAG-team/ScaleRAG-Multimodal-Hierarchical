@@ -1,0 +1,28 @@
+"Fedus, Zoph and Shazeer"
+"dmodel. Both the input (x) and output (y) of the FFN are of size [B, dmodel] and the inter-"
+"In the
+mediate (h) is of size [B, df f ] where df f
+is typically several times larger than dmodel."
+"FFN, the intermediate is h = xWin and then the output of the layer is y = ReLU (h)Wout."
+"Thus Win and Wout are applied independently to each token and have sizes
+[dmodel, df f ]"
+"and [df f , dmodel]."
+"We describe two aspects of partitioning:
+how the weights
+and batches of data divide"
+"over cores, depicted in Figure 9. We denote all cores available as N which Mesh Tensorﬂow"
+"may then remap into a logical multidimensional mesh of processors.
+Here we
+create a"
+"two-dimensional
+logical mesh, with one dimension representing the number of ways
+for"
+"data-parallel sharding (n) and the other, the model-parallel sharding (m). The total cores"
+"must equal
+the ways
+to shard across both data and model-parallelism, e.g. N = n × m."
+"To shard the layer across cores, the tensors containing that batch of B tokens are sharded"
+"across n data-parallel cores, so each core contains B/n tokens. Tensors and variables with"
+"are then sharded across m model-parallel cores. For the variants with experts-layers,
+df f"
+"we consider E experts, each of which can process up to C tokens."

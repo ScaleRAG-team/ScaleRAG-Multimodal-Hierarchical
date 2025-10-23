@@ -1,0 +1,78 @@
+"Switch Transformers"
+"(2021).
+In our protocol we pre-train with 220
+(1,048,576) tokens per batch for 550k steps"
+"amounting to 576B total
+tokens. We then ﬁne-tune across a diverse set of
+tasks using a"
+"dropout rate of 0.1 for all
+layers except the Switch layers, which use a dropout rate of 0.4"
+"(see Table 4). We ﬁne-tune using a batch-size of 1M for 16k steps and for each task, we"
+"evaluate model quality every 200-steps and report the peak performance as computed on"
+"the validation set."
+"Fine-tuning tasks and data sets. We select tasks probing language capabilities in-"
+"cluding question answering, summarization and knowledge about the world. The language"
+"benchmarks GLUE (Wang et al., 2018) and SuperGLUE (Wang et al., 2019) are handled"
+"as composite mixtures with all
+the tasks blended in proportion to the amount of
+tokens"
+"present
+in each.
+These benchmarks
+consist of
+tasks
+requiring sentiment analysis
+(SST-"
+"2), word sense disambiguation (WIC), sentence similarty (MRPC, STS-B, QQP), natural"
+"language
+inference
+(MNLI, QNLI, RTE, CB), question answering (MultiRC, RECORD,"
+"BoolQ), coreference resolution (WNLI, WSC) and sentence completion (COPA) and sen-"
+"tence acceptability (CoLA). The CNNDM (Hermann et al., 2015) and BBC XSum (Narayan"
+"et al., 2018) data sets are used to measure the ability to summarize articles. Question an-"
+"swering is probed with the SQuAD data set (Rajpurkar et al., 2016) and the ARC Reasoning"
+"Challenge (Clark et al., 2018). And as in Roberts et al. (2020), we evaluate the knowledge"
+"of our models by ﬁne-tuning on three closed-book question answering data sets: Natural"
+"Questions (Kwiatkowski et al., 2019), Web Questions (Berant et al., 2013) and Trivia QA"
+"(Joshi et al., 2017). Closed-book refers to questions posed with no supplemental reference"
+"or context material. To gauge the model’s common sense reasoning we evaluate it on the"
+"Winogrande Schema Challenge (Sakaguchi et al., 2020). And ﬁnally, we test our model’s"
+"natural language inference capabilities on the Adversarial NLI Benchmark (Nie et al., 2019)."
+"Fine-tuning metrics. The following evaluation metrics are used throughout the paper:"
+"We report the average scores across all subtasks for GLUE and SuperGLUE. The Rouge-2"
+"metric is used both the CNNDM and XSum.
+In SQuAD and the closed book tasks (Web,"
+"Natural, and Trivia Questions) we report the percentage of answers exactly matching the"
+"target
+(refer
+to Roberts et al.
+(2020)
+for
+further details and deﬁciency of
+this measure)."
+"Finally,
+in ARC Easy, ARC Challenge, ANLI, and Winogrande we report the accuracy of"
+"the generated responses."
+"Fine-tuning results. We observe signiﬁcant downstream improvements across many"
+"natural
+language
+tasks.
+Notable
+improvements
+come
+from SuperGLUE, where we ﬁnd"
+"FLOP-matched Switch variants improve by 4.4 and 2 percentage points over the T5-Base"
+"and T5-Large baselines, respectively as well as large improvements in Winogrande, closed"
+"book Trivia QA, and XSum.8
+In our ﬁne-tuning study,
+the only tasks where we do not"
+"observe gains are on the AI2 Reasoning Challenge
+(ARC) data sets where
+the T5-Base"
+"outperforms Switch-Base on the challenge data set and T5-Large outperforms Switch-Large"
+"on the easy data set. Taken as a whole, we observe signiﬁcant improvements spanning both"
+"reasoning and knowledge-heavy tasks. This validates our architecture, not just as one that"
+"pre-trains well, but can translate quality improvements to downstream tasks via ﬁne-tuning."
+"8. Our T5 and Switch models were pre-trained with 220
+tokens per batch for 550k steps on a revised C4"
+"data set for fair comparisons."

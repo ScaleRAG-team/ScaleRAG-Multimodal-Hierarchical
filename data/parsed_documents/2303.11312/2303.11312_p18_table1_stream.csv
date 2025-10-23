@@ -1,0 +1,67 @@
+"18
+waywiser: Ergonomic Methods for Assessing Spatial Models"
+"A challenge with requiring
+for
+input data
+is
+that
+it
+requires
+all
+observations
+sf objects"
+"be
+loaded into memory before any aggregations
+can be
+calculated, which poses problems"
+"for modeling eﬀorts with large numbers of
+relatively small observation units
+such as high-"
+"resolution landscape or global models.
+Such eﬀorts
+typically rely on raster
+formats
+for ef-"
+"ﬁciency, and avoid transforming rasters
+into vector
+representations whenever possible. As"
+"such, ww_multi_scale() can also be used to calculate performance metrics using raster in-"
+"puts.
+If data is NULL or missing, users can provide SpatRaster objects from the terra package"
+"(Hijmans 2023) to both truth and estimate in order to perform a multi-scale assessment."
+"Aggregation for this method is performed using the exactextractr package (Baston 2022) for"
+"memory and computational eﬃciency. Other than the slightly diﬀerent interface and using ex-"
+"actextractr for aggregation, this method of ww_multi_scale() works identically and returns"
+"an identical output to the sf method."
+"R>
+r1
+<- matrix(nrow = 10,
+ncol
+=
+10)"
+"R>
+r1[] <- 1"
+"R>
+r1
+<- terra::rast(r1)"
+"R>
+r2
+<- matrix(nrow = 10,
+ncol
+=
+10)"
+"R>
+r2[] <- 2"
+"R>
+r2
+<- terra::rast(r2)"
+"R>
+waywiser::ww_multi_scale(truth
+=
+r1,
+estimate
+=
+r2,
+n
+=
+1)"

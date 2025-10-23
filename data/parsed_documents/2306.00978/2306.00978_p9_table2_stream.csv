@@ -1,0 +1,8 @@
+"Figure 6. Visual reasoning examples from LLaVA-13B model (Liu et al., 2023a). AWQ improves over the round-to-nearest (RTN)","",""
+"baseline, providing more reasonable answers. We color the text to show the correct or wrong responses.","",""
+"W4-RTN: A model","W4-RTN: A man is","W4-RTN: A man"
+"airplane flying in","holding a baby elephant","and a dog walking"
+"the sky.","in his arms.","past some bushes."
+"W4-AWQ: Two toy","W4-AWQ: A man and","W4-AWQ: Two"
+"airplanes sit on a","his daughter pose with","dogs are walking"
+"grass field.","an elephant.","on the street."

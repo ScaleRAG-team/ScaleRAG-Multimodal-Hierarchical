@@ -1,0 +1,9 @@
+"F. Pseudo Code for Switch Transformers","",""
+"Pseudocode for Switch Transformers in Mesh Tensorﬂow (Shazeer et al., 2018). No model","",""
+"parallelism is being used for the below code (see 5.4 for more details).","",""
+"import
+mesh tensorflow
+as mtf","",""
+"def load balance loss(router probs,","expert mask):",""
+"""""""Calculate load−balancing","loss to
+ensure diverse","expert routing."""""""

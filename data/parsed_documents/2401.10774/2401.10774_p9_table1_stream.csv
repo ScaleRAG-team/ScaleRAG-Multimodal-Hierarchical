@@ -1,0 +1,41 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"dataset (Zheng et al., 2023) using MEDUSA-2 Vicuna 7B.","models. The typical acceptance scheme removes complica-"
+"Utilizing the Vicuna 7B model, we aligned our methodology","tions from rejection sampling while providing reasonable"
+"with the approach delineated by
+(Hewitt et al., 2022) set-","outputs. Our approach including two efficient training pro-"
+"√",""
+"ting the α =
+ϵ. Fig. 5 presents a comparative analysis of","cedures, ensures high-quality output across various models"
+"our model’s performance across various sampling settings.","and prompt types. We summarize the development of each"
+"These settings range from a threshold ϵ starting at 0.01 and","technique and their impact on the speedup in Table 3."
+"incrementally increasing to 0.25 in steps of 0.01. Our obser-",""
+"","In the paper, we focus on the setting with batch size 1 for"
+"vations indicate a discernible trade-off: as ϵ increases, there",""
+"","simplicity. Yet, we want
+to emphasize that
+the ideas pre-"
+"is an elevation in quality at the expense of a reduced accel-",""
+"","sented in our paper can be generalized to larger batch-size"
+"eration rate. Furthermore, for tasks demanding creativity, it",""
+"","settings, which are now supported by libraries like TensorRT"
+"is noted that the default random sampling surpasses greedy",""
+"","and Huggingface TGI following our paper."
+"sampling in performance, and the proposed typical sampling",""
+"is comparable with random sampling when ϵ increases.",""
+"","Acknowledgements"
+"Baseline
+Direct Fine-tuning
+MEDUSA-1
+MEDUSA-2",""
+"","We extend our heartfelt gratitude to several
+individuals"
+"Quality
+6.17
+5.925
+6.23
+6.18",""
+"Speedup
+N/A
+N/A
+2.18
+2.83","whose contributions were invaluable to this project:"

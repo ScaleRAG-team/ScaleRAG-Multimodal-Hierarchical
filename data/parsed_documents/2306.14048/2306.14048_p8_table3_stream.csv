@@ -1,0 +1,11 @@
+"Table 3: Generation throughput (token/s) on a T4 GPU with different systems. In the sequence length row, we","","","","","",""
+"","use “512 + 32” to denote a prompt length of 512 and a generation length of 32. “OOM” means out-of-memory.","","","","",""
+"The gray text in the bracket denotes the effective batch size and the lowest level of the memory hierarchy that","","","","","",""
+"","the system needs for offloading, where “C” means CPU and “G” means GPU.","","","","",""
+"Seq.
+length","","512+32","","512+512","","512+1024"
+"Model size","6.7B","30B","6.7B","30B","6.7B","30B"
+"Accelerate","20.4 (2, G)","0.6 (8, C)","15.5 (1, G)","0.6 (8, C)","5.6 (16, C)","0.6 (8, C)"
+"DeepSpeed","10.2 (16, C)","0.6 (4, C)","9.6 (16, C)","0.6 (4, C)","10.1 (16, C)","0.6 (4, C)"
+"FlexGen","20.2 (2, G)","8.1 (144, C)","16.8 (1, G)","8.5 (80, C)","16.9 (1, G)","7.1 (48, C)"
+"H2O (20%)","35.1 (4, G)","12.7 (728, C)","51.7 (4, G)","18.83 (416, C)","52.1 (4, G)","13.82 (264, C)"

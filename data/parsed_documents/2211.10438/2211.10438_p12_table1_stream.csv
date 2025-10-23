@@ -1,0 +1,104 @@
+"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",""
+"Shoeybi, M., Patwary, M., Puri, R., LeGresley, P., Casper,","Williams, A., Nangia, N.,
+and Bowman, S.
+A broad-"
+"J.,
+and Catanzaro, B.
+Megatron-lm:
+Training multi-","coverage challenge corpus for sentence understanding"
+"billion parameter
+language models using model par-","the 2018 Confer-
+through inference.
+In Proceedings of"
+"allelism.
+CoRR,
+abs/1909.08053,
+2019.
+URL http:","ence of the North American Chapter of the Association"
+"//arxiv.org/abs/1909.08053.","for Computational Linguistics: Human Language Tech-"
+"","nologies, Volume 1 (Long Papers), pp. 1112–1122. As-"
+"Smith, S., Patwary, M., Norick, B., LeGresley, P., Rajbhan-",""
+"","sociation for Computational Linguistics, 2018.
+URL"
+"dari, S., Casper, J., Liu, Z., Prabhumoye, S., Zerveas, G.,",""
+"","http://aclweb.org/anthology/N18-1101."
+"Korthikanti, V., et al. Using deepspeed and megatron to",""
+"train megatron-turing nlg 530b, a large-scale generative","Yao, Z., Aminabadi, R. Y., Zhang, M., Wu, X., Li, C., and"
+"language model. arXiv preprint arXiv:2201.11990, 2022.","He, Y. Zeroquant: Efficient and affordable post-training"
+"","quantization for
+large-scale transformers, 2022. URL"
+"Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux,",""
+"","https://arxiv.org/abs/2206.01861."
+"M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E.,",""
+"Azhar, F., et al. Llama: Open and efficient foundation lan-",""
+"","Yu, G.-I., Jeong, J. S., Kim, G.-W., Kim, S., and Chun, B.-"
+"guage models. arXiv preprint arXiv:2302.13971, 2023a.",""
+"","G. Orca: A distributed serving system for {Transformer-"
+"","Based} generative models.
+In 16th USENIX Symposium"
+"Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi,",""
+"","on Operating Systems Design and Implementation (OSDI"
+"A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P.,",""
+"","22), pp. 521–538, 2022."
+"Bhosale, S., Bikel, D., Blecher, L., Ferrer, C. C., Chen,",""
+"M., Cucurull, G., Esiobu, D., Fernandes, J., Fu, J., Fu, W.,",""
+"","Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., and Choi,"
+"Fuller, B., Gao, C., Goswami, V., Goyal, N., Hartshorn,",""
+"","Y
+. Hellaswag: Can a machine really finish your sentence?"
+"A., Hosseini, S., Hou, R., Inan, H., Kardas, M., Kerkez,",""
+"","CoRR, abs/1905.07830, 2019. URL http://arxiv.org/abs/"
+"V
+., Khabsa, M., Kloumann, I., Korenev, A., Koura, P. S.,",""
+"","1905.07830."
+"Lachaux, M.-A., Lavril, T., Lee, J., Liskovich, D., Lu, Y.,",""
+"Mao, Y., Martinet, X., Mihaylov, T., Mishra, P., Molybog,","Zeng, A., Liu, X., Du, Z., Wang, Z., Lai, H., Ding, M.,"
+"I., Nie, Y., Poulton, A., Reizenstein, J., Rungta, R., Saladi,","Yang, Z., Xu, Y., Zheng, W., Xia, X., et al. Glm-130b:"
+"K., Schelten, A., Silva, R., Smith, E. M., Subramanian, R.,","arXiv preprint
+An open bilingual pre-trained model."
+"Tan, X. E., Tang, B., Taylor, R., Williams, A., Kuan, J. X.,","arXiv:2210.02414, 2022."
+"Xu, P., Yan, Z., Zarov, I., Zhang, Y., Fan, A., Kambadur,",""
+"","Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M.,"
+"M., Narang, S., Rodriguez, A., Stojnic, R., Edunov, S.,",""
+"","Chen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., Mi-"
+"and Scialom, T. Llama 2: Open foundation and fine-tuned",""
+"","haylov, T., Ott, M., Shleifer, S., Shuster, K., Simig, D.,"
+"chat models, 2023b.",""
+"","Koura, P. S., Sridhar, A., Wang, T., and Zettlemoyer,"
+"Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,","L. Opt: Open pre-trained transformer language models,"
+"L., Gomez, A. N., Kaiser, Ł., and Polosukhin,
+I. At-","2022. URL https://arxiv.org/abs/2205.01068."
+"tention is all you need. Advances in neural information",""
+"","Zhao, R., Hu, Y., Dotzel, J., De Sa, C., and Zhang, Z.
+Im-"
+"processing systems, 30, 2017.",""
+"","proving neural network quantization without retraining"
+"Wang, A., Singh, A., Michael, J., Hill, F., Levy, O., and",""
+"","using outlier channel splitting.
+In International confer-"
+"Bowman, S. R. GLUE: A multi-task benchmark and anal-",""
+"","ence on machine learning, pp. 7543–7552. PMLR, 2019."
+"ysis platform for natural language understanding. CoRR,",""
+"abs/1804.07461, 2018. URL http://arxiv.org/abs/1804.",""
+"07461.",""
+"Wang, H., Zhang, Z.,
+and Han, S.
+Spatten:
+Efficient",""
+"sparse
+attention architecture with cascade
+token and",""
+"head pruning.
+CoRR, abs/2012.09852, 2020.
+URL",""
+"https://arxiv.org/abs/2012.09852.",""
+"Wang, K., Liu, Z., Lin, Y., Lin,
+J., and Han, S.
+HAQ:",""
+"Hardware-Aware Automated Quantization with Mixed",""
+"Precision.
+In CVPR, 2019.",""
+"Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang,",""
+"Q., Yu, F., and Liu, X. Outlier suppression: Pushing the",""
+"limit of low-bit transformer language models, 2022. URL",""
+"https://arxiv.org/abs/2209.13325.",""

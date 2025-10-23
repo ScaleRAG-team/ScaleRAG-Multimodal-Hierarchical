@@ -1,0 +1,32 @@
+"def","generation_loop (...) :",""
+"#","Prologue",""
+"...","",""
+"#","Generate",""
+"for","i","in
+range ( gen_len ) :"
+"","for","j
+in
+range ( num_layers ) :"
+"","for","k
+in
+range ( num_gpu_batches ) :"
+"","","load_weight (i ,
+j +1 ,
+k )"
+"","","load_cache (i ,
+j ,
+k +1)"
+"","","store_hidden (i ,
+j ,
+k -1)"
+"","","load_hidden (i ,
+j ,
+k +1)"
+"","","compute_layer (i ,
+j ,
+k )"
+"","","store_cache (i ,
+j ,
+k -1)"
+"","","sync ()"
+"#","Epilogue",""

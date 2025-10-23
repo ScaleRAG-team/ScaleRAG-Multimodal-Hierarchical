@@ -1,0 +1,142 @@
+"OPT 6.7B
+Naive
+CPU
+OPT 6.7B
+All
+CPU
+OPT 6.7B
+Naive
+Metal M1
+OPT 6.7B
+All
+Metal M1
+OPT 6.7B
+Naive
+Metal M2
+OPT 6.7B
+All
+Metal M2
+OPT 6.7B
+Naive
+GPU
+OPT 6.7B
+All
+GPU
+OPT 6.7B
+Speculative
+GPU","","2196
+0
+986
+3182
+105
+669
+58
+506
+2196
+0
+193
+2389
+92
+565
+35
+438
+2145
+0
+125
+2270
+26
+305
+8
+271
+2196
+0
+22
+2218
+30
+34
+20
+84
+60
+38.5
+9.5
+12"
+"Falcon 7B
+Naive
+CPU
+Falcon 7B
+Hybrid
+CPU
+Falcon 7B
+All
+CPU","","2295
+0
+800
+3095
+1147
+0
+800
+1947
+161
+706
+92
+453"
+"Persimmon 8B
+Naive
+CPU
+Persimmon 8B
+Hybrid
+CPU
+Persimmon 8B
+All
+CPU","","2622
+0
+1184
+3806
+1311
+0
+1184
+2495
+283
+1041
+98
+660"
+"Phi-2 2.7B
+Naive
+CPU
+Phi-2 2.7B
+Hybrid
+CPU
+Phi-2 2.7B
+All
+CPU","","885
+0
+402
+1287
+309
+0
+402
+711
+211
+546
+76
+259"
+"Llama 2 7B
+Naive
+CPU
+Llama 2 7B
+Hybrid
+CPU
+Llama 2 7B
+All
+CPU","","2166
+0
+929
+3095
+974
+0
+929
+1903
+279
+994
+152
+563"

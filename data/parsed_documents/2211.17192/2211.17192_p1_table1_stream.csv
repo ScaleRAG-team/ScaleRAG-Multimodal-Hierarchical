@@ -1,0 +1,107 @@
+"Yaniv Leviathan * 1 Matan Kalman * 1 Yossi Matias 1",""
+"Abstract","developed to make inference from them faster. Some ap-"
+"","proaches aim to reduce the inference cost
+for all
+inputs"
+"Inference from large autoregressive models like",""
+"","equally (e.g. Hinton et al., 2015;
+Jaszczur et al., 2021;"
+"Transformers is slow - decoding K tokens takes",""
+"","Hubara et al., 2016; So et al., 2021; Shazeer, 2019). Other"
+"K serial runs of the model.
+In this work we in-",""
+"","approaches stem from the observation that not all
+infer-"
+"troduce speculative decoding - an algorithm to",""
+"","ence steps are born alike - some require a very large model,"
+"sample from autoregressive models faster without",""
+"","while others can be approximated well by more efﬁcient"
+"any changes to the outputs, by computing several",""
+"","models. These adaptive computation methods (e.g. Han"
+"tokens in parallel. At the heart of our approach lie",""
+"","et al., 2021; Sukhbaatar et al., 2019; Schuster et al., 2021;"
+"the observations that (1) hard language-modeling",""
+"","Scardapane et al., 2020; Bapna et al., 2020; Elbayad et al.,"
+"tasks often include easier subtasks that can be ap-",""
+"","2019; Schwartz et al., 2020) aim to use less compute re-"
+"proximated well by more efﬁcient models, and",""
+"","sources for easier
+inference steps. While many of
+these"
+"(2) using speculative execution and a novel sam-",""
+"","solutions have proven extremely effective in practice, they"
+"pling method, we can make exact decoding from",""
+"","usually require changing the model architecture, changing"
+"the large models faster, by running them in par-",""
+"","the training-procedure and re-training the models, and don’t"
+"allel on the outputs of
+the approximation mod-",""
+"","maintain identical outputs."
+"els, potentially generating several tokens concur-",""
+"rently, and without changing the distribution. Our",""
+"","The key observation above,
+that some inference steps are"
+"method can accelerate existing off-the-shelf mod-",""
+"","“harder” and some are “easier”, is also a key motivator for"
+"els without retraining or architecture changes. We",""
+"","our work. We additionally observe that inference from large"
+"demonstrate it on T5-XXL and show a 2X-3X",""
+"","models is often not bottlenecked on arithmetic operations,"
+"acceleration compared to the standard T5X imple-",""
+"","but rather on memory bandwidth and communication, so"
+"mentation, with identical outputs.",""
+"","additional computation resources might be available. There-"
+"","fore we suggest
+increasing concurrency as a complemen-"
+"","tary approach to using an adaptive amount of computation."
+"","Speciﬁcally, we are able to accelerate inference without"
+"1. Introduction",""
+"","changing the model architectures, without changing the"
+"Large autoregressive models, notably large Transformers","training-procedures or needing to re-train the models, and"
+"(Vaswani et al., 2017), are much more capable than smaller","without changing the model output distribution.
+This is"
+"models, as is evidenced countless times in recent years e.g.,","accomplished via speculative execution."
+"in the text or
+image domains,
+like GPT-3 (Brown et al.,",""
+"","Speculative execution (Burton, 1985; Hennessy & Patterson,"
+"2020), LaMDA (Thoppilan et al., 2022), Parti (Yu et al.,",""
+"","2012) is an optimization technique, common in processors,"
+"2022), and PaLM (Chowdhery et al., 2022). Unfortunately,",""
+"","where a task is performed in parallel
+to verifying if
+it’s"
+"a single decode step from these larger models is signiﬁcantly",""
+"","actually needed - the payoff being increased concurrency."
+"slower than a step from their smaller counterparts, and mak-",""
+"","A well-known example of speculative execution is branch"
+"ing things worse, these steps are done serially - decoding K",""
+"","prediction. For speculative execution to be effective, we"
+"tokens takes K serial runs of the model.",""
+"","need an efﬁcient mechanism to suggest
+tasks to execute"
+"Given the importance of large autoregressive models and","that are likely to be needed.
+In this work, we generalize"
+"speciﬁcally large Transformers, several approaches were","speculative execution to the stochastic setting - where a"
+"","task might be needed with some probability. Applying this"
+"*Equal
+contribution
+1Google
+Research,
+Mountain",""
+"","to decoding from autoregressive models like Transformers,"
+"View,
+CA,
+USA.
+Correspondence
+to:
+Yaniv
+Leviathan",""
+"<leviathan@google.com>.","we sample generations from more efﬁcient approximation"
+"","models as speculative preﬁxes for the slower target mod-"
+"Proceedings of
+the 40 th International Conference on Machine",""
+"","els. With a novel sampling method, speculative sampling,"
+"Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright",""
+"","we maximize the probability of these speculative tasks to"
+"2023 by the author(s).",""

@@ -1,0 +1,116 @@
+"build on existing models and leverage their pre-trained fea-","CLIP’s knowledge. We begin by creating a pre-training"
+"tures to achieve better performance on target tasks with less","dataset consisting of triplets of 3D point clouds, images, and"
+"data and computation requirements.
+These recent
+trends","corresponding text descriptions. We use point clouds from"
+"in vision is actually similar
+to trends
+that were observed","ShapeNet
+[5] as our 3D data and curate its corresponding"
+"in natural
+language processing (NLP) a few years ago.
+In","rendered 2D image and a caption. Since ShapeNet consists"
+"NLP, foundation models have been dominating since 2018","of textured CAD models, we render random views of each"
+"as models like BERT [10] and GPT-3 [4] showed excep-","object to use as the image pair. Despite their distinct proper-"
+"tional
+ability to accomplish various NLP tasks,
+such as","ties, both a 3D point cloud and an image of the same object"
+"question answering, sentence prediction, sentiment classi-","share common semantic attributes. This is afﬁrmed by the"
+"ﬁcation, etc. Also, foundation models pre-trained on mul-","success of
+tasks
+such as
+single image point cloud recon-"
+"timodal data like images and text have been useful by ex-","struction [35, 12] as well as in the transfer of pre-trained"
+"hibiting impressive
+zero-shot
+capabilities.
+In particular,","weights from an image-based network to a 3D point cloud"
+"Contrastive Language Image Pre-training (CLIP)
+[46] has","classiﬁcation network, as seen in [65]. CG3D aims to en-"
+"been applied to various 2D tasks,
+including image classiﬁ-","sure that there is similarity between 3D features and 2D fea-"
+"cation [77], object detection [53, 16],
+image segmentation","tures, as well as between 3D features and text features for"
+"[29, 62, 75],
+image retrieval
+[21, 33], and visual question","objects of the same category, while being dissimilar for ob-"
+"answering [39, 8]. These advances in foundation models in","jects of different categories.
+This contrastive approach to"
+"vision and NLP are yet to disrupt the ﬁeld of 3D vision and","learning enables the 3D encoder to acquire zero-shot capa-"
+"understanding.
+In this work, we try to bridge this gap and","bilities similar to those of CLIP."
+"focus on answering the following question: How can we",""
+"","The process of training the 3D encoder with contrastive"
+"build a 3D network that can possess similar functionalities",""
+"","loss and comparing 3D features
+to the 2D features
+from"
+"as that of a foundation model like CLIP?",""
+"","CLIP’s visual encoder
+is a means of distilling CLIP’s se-"
+"3D visual understanding has many practical applications","mantic features to the 3D encoder. Although it would be"
+"in robotics
+[19, 76],
+augmented reality [20, 60, 68],
+and","efﬁcient
+to train CLIP’s visual encoder
+to align with the"
+"autonomous driving [44, 43, 51, 38]. Comprehending the","data distribution of 3D objects and their
+related images,"
+"semantics and characteristics of each point
+in a 3D space","we observed a signiﬁcant decrease in performance when"
+"is crucial
+for addressing a wide range of
+issues in down-","training both CLIP’s visual and text encoders along with"
+"stream tasks.
+Thus,
+there lies several use-cases for a po-","the 3D encoder
+in CG3D. This can be explained as CLIP"
+"tential 3D foundational model similar to foundation models","starts to catastrophically forget
+its previous features while"
+"for vision and NLP. A powerful 3D network with zero-shot","being trained to shift
+to the new distribution. However,
+it"
+"capabilities does not only help improve the performance","is not
+ideal
+to keep the visual encoder completely frozen."
+"of existing 3D backbones but also enables open 3D scene","Large-scale language models like CLIP are trained mostly"
+"understanding and 3D retrieval
+tasks. However,
+the devel-","on natural images, which differ in distribution to the graph-"
+"opment of foundational models for 3D understanding faces","ically rendered views of 3D objects.
+To address this do-"
+"several challenges,
+including the limited availability of 3D","main gap [58, 56, 57, 55], we propose using prompt tuning"
+"data compared to images. While CLIP was able to lever-","techniques [22, 7] to shift the distribution in the input space"
+"age the vast amount of images available on the internet
+to","before forwarding it
+to the visual encoder. We add visual"
+"create a large pre-training dataset of image-caption pairs, a","prompts to the transformer backbone of CLIP’s visual en-"
+"similar approach cannot be directly applied to pre-train a","coder thus adding only a small amount of parameters in the"
+"3D encoder with texts due to the scarcity of 3D data. There","input space while keeping the weights of visual encoder of"
+"have been some recent works like PointCLIP [72] which","CLIP frozen. These parameters learn the shift
+in input dis-"
+"tried to utilize CLIP’s zero-shot capabilities for 3D zero-","tribution to suit CLIP so that
+the 3D pre-training is effec-"
+"shot problems. PointCLIP directly uses the depth maps of","tive.
+To demonstrate the effectiveness of CG3D, we con-"
+"a 3D point cloud on 2D visual encoder of CLIP. While it","duct several experiments. First, we show its zero-shot capa-"
+"provides a quick and simple solution for 3D zero-shot prob-","bilities on synthetic and real object datasets like ModelNet"
+"lems,
+it
+lacks
+the characteristics of a foundational model","[61] and ScanObjectNN [54]. Additionally, we showcase"
+"since it cannot be used for 3D ﬁne-tuning tasks or
+for 3D","the 3D model’s ability in open-scene comprehension by uti-"
+"open scene understanding. Furthermore, it does not possess","lizing text-based queries, as well as its ability to conduct"
+"the ability to extract any 3D geometric features relevant for","cross-modal 3D data retrieval while utilizing image or text"
+"downstream tasks in 3D understanding.","queries. Further, the weights obtained from pre-training the"
+"","3D encoder using CG3D can also serve as effective initial"
+"To this end, we propose a new pre-training framework",""
+"","weights when ﬁne-tuning the model for other 3D tasks."
+"termed CG3D (CLIP Goes 3D)
+that
+trains a 3D encoder",""
+"using natural
+language supervision while also leveraging","In summary, the following are our major contributions:"

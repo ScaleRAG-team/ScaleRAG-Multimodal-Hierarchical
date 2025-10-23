@@ -1,0 +1,6 @@
+"","Table 3: Zero shot pass rates of Sampling and REBASE on MBPP code generation task.","","",""
+"# Samples","Sampling FLOPs","Sampling Pass Rate","REBASE FLOPs","REBASE Pass Rate"
+"8","8 × 1012","63","8.3 × 1012","69.6"
+"16","16 × 1012","69.4","17.5 × 1012","72.4"
+"32","32 × 1012","72.4","34.9 × 1012","75.8"
+"64","64 × 1012","79","69.2 × 1012","81.4"

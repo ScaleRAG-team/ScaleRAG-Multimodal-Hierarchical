@@ -1,0 +1,28 @@
+"of
+studied
+the BEOL integrated 1T1R cells. The CMO/HfOx ReRAM array is first"
+"in a quasi-static
+regime by statistically characterizing the devices’
+electro-forming"
+"step and quasi-static switching response. A physical 3D finite-element model (FEM)"
+"is developed to represent
+the geometry of
+the conductive filament and analytically"
+"describe the charge transport mechanism within these cells. Subsequently, the weight"
+"transfer
+accuracy and conductance
+relaxation are
+experimentally characterized on"
+"the 8x4 array. These measurements enable the demonstration of the core’s inference"
+"capabilities, validated through representative MVM accuracy simulations on a 64×64"
+"array. After demonstrating the MVM accuracy of the CMO/HfOx ReRAM core, ana-"
+"log switching experiments using an open-loop identical pulse scheme demonstrated"
+"the suitability of the same core for analog on-chip training acceleration. To assess the"
+"training performance, a realistic device model was used in the simulation, accounting"
+"for measured characteristics
+such as non-linear and asymmetric switching behavior,"
+"as well as
+inter- and intra-device variabilities. The
+training performance was vali-"
+"dated using AGAD on fully connected and long short-term memory (LSTM) neural"
+"networks, demonstrating scalability from small to large-scale neural networks."

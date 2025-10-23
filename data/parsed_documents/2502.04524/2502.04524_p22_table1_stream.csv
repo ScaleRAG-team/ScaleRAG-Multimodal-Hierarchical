@@ -1,0 +1,39 @@
+"[26], by considering σCMO = 5 S/cm and kCMO = 4 W/mK for the CMO layer used in"
+"this work. During the subsequent negative voltage sweep, the electrical conductivity"
+"of the CMO layer was used as a fitting parameter to model the radial redistribution"
+"of defects within the layer. Using experimental array data in the low-voltage linear"
+"regime (from 0 to −0.2 V), the resulting CMO electrical conductivity is 37 S/cm. Fig."
+"S1 in Supplementary Information shows the results of the simulations."
+"4.3 ReRAM forming voltage extraction"
+"The forming voltage of each 1T1R cell (V 1T1R"
+"forming) is defined as the voltage required to"
+"trigger the highest current increase (max (cid:0) dI
+(cid:1)) during the quasi-static voltage sweep"
+"dV"
+"from 0 to 3.6 V (see Supplementary Information Fig. S2a). The corresponding current"
+"is defined as the forming current (I 1T1R"
+"forming) (see Supplementary Information Fig. S2b)."
+"it acts as a series resistor in the
+Being the transistor driven by a constant VG = 1.2 V,"
+"triode region before the forming event, when the ReRAM stack is highly insulating."
+"After the forming event, when a conductive filament is created in the ReRAM device,"
+"the transistor ensures current compliance in the saturation region. The resistance of"
+"the transistor
+in the triode region at VG = 1.2 V is measured to be RDS ≈ 0.8 kΩ"
+"(see Supplementary Information Fig. S2c). Therefore,
+for each 1T1R cell, the actual"
+""
+"forming
+forming − Rtriode
+forming and"
+"reported in Fig. 2c."
+"4.4 Analytical ReRAM transport modelling"
+"In the 1T1R cell, the electronic current Ie is modelled as a trap-to-trap tunneling pro-"
+"cess within the CMO layer, as described in equation (6), following the model proposed"
+"by Mott and Gurney [42]. This model accounts for electron-hopping conduction across"
+"an energy barrier ∆Ee, which remains uniform in all directions when there is no elec-"
+"tric field applied. However, when an electric field is introduced,
+it modifies the energy"
+"leading to a reduction (increase)
+barrier by ∓ eaeE/2 for forward (backward) jumps,"
+"in the barrier height."

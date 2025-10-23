@@ -1,0 +1,8 @@
+"(Memory benchmark.) Mamba’s memory footprint is comparable to the most optimized Transformer. Results for 125M","",""
+"Batch size","Transformer (w/ FlashAttention-2)","Mamba"
+"1","4.6GB","4.8GB"
+"2","5.2GB","5.8GB"
+"4","6.9GB","7.3GB"
+"8","11.5GB","12.3GB"
+"16","20.7GB","23.1GB"
+"32","34.5GB","38.2GB"

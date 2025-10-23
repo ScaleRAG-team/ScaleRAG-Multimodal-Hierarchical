@@ -1,0 +1,7 @@
+"Best-of-N","","Beam Search","Lookahead Search"
+"","","","Beam search, but at each step"
+"","Generate N full solutions,","Select the top-N samples","rollout k-steps in advance, using"
+"","selecting the best one with the","at each step using the","the PRM value at the end of the"
+"","verifier","PRM","rollout to represent the value for"
+"Question","","Question","Question
+the current step"

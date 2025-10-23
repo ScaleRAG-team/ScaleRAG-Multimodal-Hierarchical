@@ -1,0 +1,22 @@
+"","","","Llama3-instruct-8B","","","Llama3-instruct-8B"
+"30","","","","80","",""
+"27","","","Sampling M.V.","","","Sampling M.V."
+"25","","","Sampling W.M.","75","","Sampling W.M."
+"22","","","","","",""
+"","","","Sampling BoN","","","Sampling BoN"
+"20","","","","70","",""
+"","","","REBASE M.V.","","","REBASE M.V."
+"17","","","REBASE W.M.","","","REBASE W.M."
+"","","","","65","",""
+"Test error on GSM8K
+15","","","REBASE BoN","Test error on MATH","","REBASE BoN"
+"12","","","","60","",""
+"10","","","","55","",""
+"7","","","","50","",""
+"","2","8","32
+128
+512","","4","16
+64
+256
+1024"
+"","","","Infer. FLOPs per question (×1012)","","","Infer. FLOPs per question (×1012)"

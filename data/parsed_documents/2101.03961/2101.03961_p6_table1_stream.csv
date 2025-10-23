@@ -1,0 +1,16 @@
+"study the top-k decision and found that higher k-values in lower layers in the model were"
+"important
+for models with many routing layers. Contrary to these ideas, we instead use"
+"a simpliﬁed strategy where we route to only a single expert. We show this simpliﬁcation"
+"preserves model quality,
+reduces
+routing computation and performs better.
+This k = 1"
+"routing strategy is later referred to as a Switch layer. Note that for both MoE and Switch"
+"Routing, the gate value pi(x) in Equation 2 permits diﬀerentiability of the router."
+"The beneﬁts for the Switch layer are three-fold: (1) The router computation is reduced"
+"as we are only routing a token to a single expert.
+(2) The batch size (expert capacity) of"
+"each expert can be at least halved since each token is only being routed to a single expert.3"
+"(3) The routing implementation is simpliﬁed and communication costs are reduced. Figure"
+"3 shows an example of routing with diﬀerent expert capacity factors."

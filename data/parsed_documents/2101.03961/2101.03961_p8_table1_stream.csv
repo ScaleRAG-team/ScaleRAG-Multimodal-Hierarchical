@@ -1,0 +1,76 @@
+"Fedus, Zoph and Shazeer"
+"the P -vector is diﬀerentiable, but the f -vector is not. The ﬁnal
+loss is multiplied by expert"
+"count N to keep the
+loss
+constant as
+the number of
+experts varies
+since under uniform"
+"routing (cid:80)N"
+"1N
+) = 1
+i=1( 1
+i=1(fi · Pi) = (cid:80)N
+N ·
+N . Finally, a hyper-parameter α is a multiplicative"
+"coeﬃcient for these auxiliary losses;
+throughout this work we use an α = 10−2 which was"
+"suﬃciently large
+to ensure
+load balancing while
+small
+enough to not
+to overwhelm the"
+"primary cross-entropy objective. We swept hyper-parameter ranges of α from 10−1 to 10−5"
+"in powers of 10 and found 10−2 balanced load quickly without interfering with training loss."
+"2.3 Putting It All Together: The Switch Transformer"
+"Our ﬁrst
+test of
+the Switch Transformer
+starts with pre-training on the “Colossal Clean"
+"Crawled Corpus” (C4),
+introduced in (Raﬀel et al., 2019). For our pre-training objective,"
+"we use a masked language modeling task (Taylor, 1953; Fedus et al., 2018; Devlin et al.,"
+"2018) where the model
+is trained to predict missing tokens.
+In our pre-training setting, as"
+"determined in Raﬀel et al. (2019) to be optimal, we drop out 15% of tokens and then replace"
+"the masked sequence with a single sentinel token. To compare our models, we record the"
+"negative log perplexity.4 Throughout all tables in the paper, ↑ indicates that a higher value"
+"for
+that metric is better and vice-versa for ↓. A comparison of all
+the models
+studied in"
+"this work are in Table 9."
+"A head-to-head comparison of
+the Switch Transformer and the MoE Transformer
+is"
+"presented in Table 1. Our Switch Transformer model is FLOP-matched to ‘T5-Base’ (Raﬀel"
+"et al., 2019) (same amount of computation per token is applied). The MoE Transformer,"
+"using top-2 routing, has two experts which each apply a separate FFN to each token and"
+"thus its FLOPS are larger. All models were trained for the same number of steps on identical"
+"hardware. Note that the MoE model going from capacity factor 2.0 to 1.25 actually slows"
+"down (840 to 790) in the above experiment setup, which is unexpected.5"
+"We highlight
+three key ﬁndings
+from Table 1:
+(1) Switch Transformers outperform"
+"both carefully tuned dense models and MoE Transformers on a speed-quality basis.
+For"
+"a ﬁxed amount of computation and wall-clock time, Switch Transformers achieve the best"
+"result.
+(2) The Switch Transformer has a smaller computational
+footprint than the MoE"
+"counterpart.
+If we increase its size to match the training speed of the MoE Transformer,"
+"we ﬁnd this outperforms all MoE and Dense models on a per step basis as well. (3) Switch"
+"Transformers perform better at lower capacity factors (1.0, 1.25). Smaller expert capacities"
+"are indicative of the scenario in the large model regime where model memory is very scarce"
+"and the capacity factor will want to be made as small as possible."
+"2.4 Improved Training and Fine-Tuning Techniques"
+"Sparse expert models may introduce training diﬃculties over a vanilla Transformer.
+Insta-"
+"bility can result because of the hard-switching (routing) decisions at each of these layers."
+"Further,
+low precision formats like bﬂoat16 (Wang and Kanwar, 2019) can exacerbate issues"

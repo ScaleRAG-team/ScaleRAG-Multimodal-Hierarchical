@@ -1,0 +1,83 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"2.3.2. SELF-DISTILLATION","one tip about using self-distillation is that it is preferable to"
+"","use LoRA without quantization in this case, otherwise, the"
+"In Section 2.2, we assume the existence of a training dataset",""
+"","teacher model will be the quantized model, which may lead"
+"that matches the target model’s output distribution. However,",""
+"","to a lower generation quality."
+"this is not always the case. For example, the model owners",""
+"may only release the model without the training data, or the",""
+"","2.3.3. SEARCHING FOR THE OPTIMIZED TREE"
+"model may have gone through a Reinforcement Learning",""
+"","CONSTRUCTION"
+"with Human Feedback (RLHF) procedure, which makes the",""
+"output distribution of the model different from the training","In Section 2.1.2, we present the simplest way to construct"
+"dataset. To tackle this issue, we propose an automated self-","the tree structure by taking the Cartesian product. However,"
+"distillation pipeline to use the model itself to generate the","with a fixed budget
+for
+the number of
+total nodes in the"
+"training dataset
+for MEDUSA heads, which matches the","tree, a regular
+tree structure may not be the best choice."
+"output distribution of the model.","Intuitively, those candidates composed of the top predictions"
+"","of different heads may have different accuracies. Therefore,"
+"The dataset generation process is straightforward. We first",""
+"","we can leverage an estimation of the accuracy to construct"
+"take a public seed dataset from a domain similar to the target",""
+"","the tree structure."
+"model; for example, using the ShareGPT (ShareGPT, 2023)",""
+"dataset for chat models. Then, we simply take the prompts","Specifically, we can use a calibration dataset and calculate"
+"from the dataset and ask the model to reply to the prompts.","the accuracies of the top predictions of different heads. Let"
+"In order to obtain multi-turn conversation samples, we can","a(i)
+denote the accuracy of the i-th top prediction of the k-th"
+"","k"
+"sequentially feed the prompts from the seed dataset to the","head2. Assuming the accuracies are independent, we can"
+"model. Or, for models like Zephyr 7B (Tunstall et al., 2023),","estimate the accuracy of a candidate sequence composed"
+"which are trained on both roles of the conversation,
+they",""
+"","by the top [i1, i2, · · ·
+, ik] predictions of different heads as"
+"have the ability to self-talk, and we can simply feed the","(cid:81)k"
+"",""
+"",". Let I denote the set of all possible combinations
+j=1 a(ij )"
+"first prompt and let the model generate multiple rounds of",""
+"","of [i1, i2, · · ·
+, ik] and each element of I can be mapped to"
+"conversation.",""
+"","a node of
+the tree (not only leaf nodes but all nodes are"
+"","included). Then, the expectation of the acceptance length of"
+"For MEDUSA-1,
+this
+dataset
+is
+sufficient
+for
+training",""
+"","a candidate sequence is:"
+"MEDUSA heads. However,
+for MEDUSA-2, we observe",""
+"that solely using this dataset for training the backbone and",""
+"MEDUSA heads usually leads to a lower generation quality.","(cid:88)"
+"","k(cid:89) j
+a(ij )
+."
+"","j"
+"In fact, even without training MEDUSA heads, training the",""
+"","=1
+[i1,i2,··· ,ik]∈I"
+"backbone model with this dataset will lead to performance",""
+"degradation.
+This suggests that we also need to use the",""
+"","Thinking about building a tree by adding nodes one by one,"
+"original model’s probability prediction instead of using the",""
+"","the contribution of a new node to the expectation is exactly"
+"ground truth token as the label for the backbone model, sim-",""
+"","the accuracy associated with the node. Therefore, we can"
+"ilar to classic knowledge distillation works (Kim & Rush,",""
+"","greedily add nodes to the tree by choosing the node that is"
+"2016). Concretely, the loss for the backbone model is:",""
+"","connected to the current tree and has the highest accuracy."
+"","This process can be repeated until the total number of nodes"

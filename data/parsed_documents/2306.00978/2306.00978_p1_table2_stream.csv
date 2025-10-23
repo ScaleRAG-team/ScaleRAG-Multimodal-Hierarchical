@@ -1,0 +1,43 @@
+"1
+INTRODUCTION","fp16
+int4"
+"","AWQ
+MacBook"
+"","TinyChat Computer"
+"Deploying large language models (LLMs) directly on edge","(Apple M1)"
+"","(Jetson Orin Nano)"
+"devices is crucial. On-device usage eliminates delays caused",""
+"","Quantization Algorithm: AWQ"
+"by sending data to a cloud server and enables LLMs to op-",""
+"","Raspberry Pi   
+AI PC 
+Inference System: TinyChat"
+"erate offline, which is beneficial for real-time applications","(ARM CPU)
+(CPU / GPU)"
+"like virtual assistants, chatbots, and autonomous vehicles.",""
+"The operational costs associated with maintaining and scal-","Figure 1. We introduce AWQ, a versatile weight quantization"
+"","method for LLM. To implement AWQ, we developed TinyChat"
+"ing centralized cloud infrastructure can also be reduced.",""
+"","to deploy 4-bit quantized LLMs
+into various edge platforms,"
+"On-device LLM also enhances data security by keeping",""
+"","achieving a 3-4× performance boost compared to FP16.
+No-"
+"sensitive information local,
+reducing the chance of data",""
+"","tably, we’ve also manufactured a TinyChat computer, powered"
+"breaches. LLMs, grounded in transformer-based architec-","by TinyChat, which contains an NVIDIA Jetson Orin Nano with"
+"tures (Vaswani et al., 2017), have gathered significant atten-","only 8GB of memory and 15W power consumption.
+Demo:"
+"","https://youtu.be/z91a8DrfgEw."
+"tion for their impressive performance across diverse bench-",""
+"marks (Brown et al., 2020; Zhang et al., 2022; Touvron",""
+"*: Algorithm co-lead, †: system co-lead. 1MIT 2Shanghai Jiao",""
+"Tong University 3NVIDIA 4Tsinghua University 5MIT-IBM Wat-",""
+"","et al., 2023a; Scao et al., 2022). However, the large model"
+"son AI Lab 6UMass Amherst. Correspondence to: Song Han",""
+"","size leads to the high serving costs. For example, GPT-3"
+"<songhan@mit.edu>.",""
+"","has 175B parameters, which is 350GB in FP16, while the"
+"Proceedings of the 7 th MLSys Conference, Santa Clara, CA, USA,","latest B200 GPU only has 192GB memory, let alone edge"
+"2024. Best Paper Award. Copyright 2024 by the author(s).","devices."

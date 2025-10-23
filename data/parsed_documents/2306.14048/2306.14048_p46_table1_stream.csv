@@ -1,0 +1,82 @@
+"D.19
+Hessian","","",""
+"Here, we compute the Hessian for several functions.","","",""
+"","Lemma D.45 (Hessian of u(x), Lemma 5.9 in [105]). Provided that the following conditions are","",""
+"true","","",""
+"Rn
+d.","","",""
+"• Given a matrix A
+×","","",""
+"∈","","",""
+"• For every i
+[d], let A","Rn denote the i-th column of matrix A.","",""
+"∗
+∈
+,i ∈","","",""
+"denote hadamard product.
+• Let","","",""
+"◦","","",""
+"Then, we have, for each i
+[d]","","",""
+"∈","","",""
+"• Part 1.","","",""
+"d2 exp(Ax)","","",""
+"","= A","u(x)","A"
+"dx2","","∗
+,i ◦","∗
+◦"
+"i","","",""
+"• Part 2.","","",""
+"d2 exp(Ax)","","",""
+"","= A","u(x)","A"
+"dxidxj","∗",",j ◦","∗
+◦"
+"","Lemma D.46 (Lemma 5.10 in [105]). Provided that the following conditions are true","",""
+"• We define α(x) as Definition D.36.","","",""
+"• For every i
+[d], let A","Rn denote the i-th column of matrix A.","",""
+"∗
+∈
+,i ∈","","",""
+"denote hadamard product.
+• Let","","",""
+"◦","","",""
+"Then, we have","","",""
+"• Part 1.","","",""
+"d2α(x)","","",""
+"","=
+u(x), A","A",""
+"dx2","⟨","∗
+,i ◦","∗
+,i⟩"
+"i","","",""
+"• Part 2.","","",""
+"d2α(x)","","",""
+"","=
+u(x), A","A",""
+"dxidxj","⟨","∗
+,i ◦","∗
+,j⟩"
+"• Part 3.","","",""
+"d2α(x)","","",""
+"","= A⊤ diag(u(x))A","",""
+"dx2","","",""
+"D.20
+Hessian is Positive Definite","","",""
+"","It is well known that in literature [104, 105, 107], the Hessian H of loss function can be written as","",""
+"","Rn","",""
+"A⊤(B(x) + W 2)A for some matrix function B(x)","","×","n (for example see explanation in Section"
+"","∈","",""
+"","5.10 in [105]). In this section, we show that Hessian is positive definite.","",""
+"If the following conditions hold
+Lemma D.47.","","",""
+"Rn
+d.","","",""
+"• Given matrix A
+×","","",""
+"∈","","",""
+"• We define Lsparse(x) as Definition D.41.","","",""
+"• We define Lsparse(x) Definition D.40.","","",""
+"• We define Lsparse(x) Definition D.39.","","",""
+"","• Let L(x) = Lexp(x) + Lsparse(x) + Lreg(x).","",""
+"","46","",""

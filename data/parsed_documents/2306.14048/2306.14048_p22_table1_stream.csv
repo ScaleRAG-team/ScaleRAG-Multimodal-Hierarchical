@@ -1,0 +1,28 @@
+"the averaged attention score to determine which KV embeddings should be retained. However, this"
+"alternative approach resulted in performance degradation. Additionally, we observed a significant"
+"the beginning of sentences. This finding suggests that
+the initial
+proportion of H2 occurrences at"
+"tokens play a substantial role in subsequent generation tasks."
+"Social Impact.
+Our work represents an initial effort in designing a KV Cache policy, a realm that"
+"has been relatively unexplored and yet
+is a significant bottleneck in LLMs. The proposed Heavy"
+"Hitter Oracle (H2O) provide a solution to improve the efficiency of LLM generation, which can save"
+"energy cost and contribute to green AI. Besides, our approach also serves as a source of inspiration"
+"for future advanced algorithm designs. We envision H2O as a foundational framework that could"
+"facilitate further innovation in this area. Moreover, long content generation is an area of growing"
+"importance that currently grapples with several efficiency issues. We hope our work that supports the"
+"generation of very long sequences will support further research in this direction, particularly in terms"
+"of enhancing consistency, devising superior evaluation methods, and establishing robust benchmarks."
+"Furthermore, another contribution of this study is the formulation of a dynamic submodular frame-"
+"work. We believe that this theoretical framework possesses the potential to be applicable beyond"
+"specific domains of interest. For instance, there may exist numerous other dynamic problems where"
+"the task involves solving a submodular problem with slight variations at each time."
+"Limitations.
+Furthermore, despite the notable advancements in throughput of our H2O, implement-"
+"ing LLMs for generative inference remains challenging due to the immense parameter count. As a"
+"substantial portion of these parameters is encompassed within the MLP blocks, building upon our"
+"observations of H2 occurrences in the MLP blocks, future research efforts can be directed towards"
+"leveraging the characteristics of H2 to devise an offloading policy. Such a policy can potentially"
+"enhance the efficiency of LLM inference even further."

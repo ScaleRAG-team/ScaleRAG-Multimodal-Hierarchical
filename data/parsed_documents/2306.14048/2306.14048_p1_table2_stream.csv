@@ -1,0 +1,18 @@
+"1
+Introduction"
+"Large Language Models (LLMs) have demonstrated remarkable proficiency in a wide range of"
+"natural
+language processing applications such as content creation, summarization, and dialogue"
+"systems [1, 2, 3, 4]. However,
+their deployment
+is very costly.
+In addition to the widely-studied"
+"bottlenecks of model size and the quadratic cost of attention layers,
+the problem of
+the size of"
+"the KV cache, which stores the intermediate attention key and values during generation to avoid"
+"re-computation, is becoming increasingly prominent [5]. For instance, a 30 billion-parameter model"
+"with an input batch size of 128 and a sequence length of 1024 results in 180GB of KV cache. A"
+"natural approach is to limit its maximum size as is done in classical software or hardware caches [6]."
+"However, it is challenging to reduce KV cache memory footprints in LLMs without accuracy drops."
+"37th Conference on Neural Information Processing Systems (NeurIPS 2023)."

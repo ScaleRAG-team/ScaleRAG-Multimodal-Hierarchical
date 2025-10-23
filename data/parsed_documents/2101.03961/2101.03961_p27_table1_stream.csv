@@ -1,0 +1,63 @@
+"far only considered language, but we believe that model sparsity can similarly provide"
+"advantages in new modalities, as well as multi-modal networks."
+"This
+list
+could easily be
+extended, but we hope
+this gives a ﬂavor
+for
+the
+types of"
+"challenges that we are thinking about and what we suspect are promising future directions."
+"9. Conclusion"
+"Switch Transformers are scalable and eﬀective natural
+language learners. We simplify Mix-"
+"ture of Experts to produce an architecture that is easy to understand, stable to train and"
+"vastly more sample eﬃcient than equivalently-sized dense models. We ﬁnd that these models"
+"excel across a diverse set of natural
+language tasks and in diﬀerent training regimes,
+includ-"
+"ing pre-training, ﬁne-tuning and multi-task training. These advances make it possible to"
+"train models with hundreds of billion to trillion parameters and which achieve substantial"
+"speedups
+relative to dense T5 baselines. We hope our work motivates
+sparse models as"
+"an eﬀective architecture and that this encourages researchers and practitioners to consider"
+"these ﬂexible models in natural
+language tasks, and beyond."
+"Acknowledgments"
+"The authors would like to thank Margaret Li who provided months of key insights
+into"
+"algorithmic improvements and suggestions for empirical studies. Hugo Larochelle for sage"
+"advising and clarifying comments on the draft,
+Irwan Bello for detailed comments and"
+"careful
+revisions, Colin Raﬀel and Adam Roberts
+for
+timely advice on neural
+language"
+"models and the T5 code-base, Yoshua Bengio for advising and encouragement on research"
+"in adaptive computation, Jascha Sohl-dickstein for interesting new directions for stabilizing"
+"new large scale models and paper revisions, and the Google Brain Team for useful discussions"
+"on the paper. Blake Hechtman who provided invaluable help in proﬁling and improving the"
+"training performance of our models."
+"A. Switch for Attention"
+"Shazeer et al.
+(2018); Lepikhin et al.
+(2020) designed MoE Transformers
+(Shazeer et al.,"
+"2017) by adding MoE layers
+into the dense
+feedfoward network (FFN)
+computations of"
+"the Transformer. Similarly, our work also replaced the FFN layer in the Transformer, but"
+"we brieﬂy explore here an alternate design. We add Switch layers
+into the Transformer"
+"Self-Attention layers. To do so, we replace the trainable weight matrices that produce the"
+"queries, keys and values with Switch layers as seen in Figure 10."
+"Table 10 records
+the quality after a ﬁxed number of
+steps as well as
+training time"
+"for several variants. Though we ﬁnd improvements, we also found these layers to be more"
+"unstable when using bﬂoat16 precision and thus we did not include them in the ﬁnal variant."

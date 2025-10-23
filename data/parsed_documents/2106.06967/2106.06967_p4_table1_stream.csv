@@ -1,0 +1,36 @@
+"(cid:40)
+(cid:41)"
+"(cid:18)
+(cid:19)
+(cid:18)
+(cid:19)
+(cid:90)"
+"∂ ˜wλ (r, b, y)"
+"1 2
+1 2
+=
+d2 r(cid:48) K (r(cid:48), r − r(cid:48)|r)
+r(cid:48), b +
+(r − r(cid:48)) , y
+r − r(cid:48), b +
+r(cid:48), y
+(13)
+wλ
+wλ
+− ˜wλ (r, b, y)"
+"∂ y"
+"σn"
+"In addition, discussing multiplicity distribution Pn =
+, where σn is the cross section for production of n color-"
+"σtot"
+"In this case the initial condition for the dipole cascade takes
+singlet dipoles, we need to integrate wn (r, b, y) over b."
+"the form:"
+"(14)
+P1 (Y = 0, r; r1) =
+δ(2) (r − r1)
+Pn>1 (Y = 0; {ri}) = 0"
+"which leads to the probabilities, that do not depend on impact parameters. Since in Eq. (3) b enters as a parameter,"
+"is also a solution to Eq. (3), which satisﬁes Eq. (14).
+Pn (Y ; ri), which does not depend on bi,"
+"Eq. (13) reduces to"

@@ -1,0 +1,58 @@
+"Baseline
+Direct Fine-tuning
+MEDUSA-1
+MEDUSA-2",""
+"","We extend our heartfelt gratitude to several
+individuals"
+"Quality
+6.17
+5.925
+6.23
+6.18",""
+"Speedup
+N/A
+N/A
+2.18
+2.83","whose contributions were invaluable to this project:"
+"Table 2. Comparison of Different Settings of Vicuna-7B. Quality",""
+"","• Zhuohan Li, for his invaluable insights on LLM serv-"
+"is obtained by evaluating models on MT-Bench using GPT-4 as",""
+"","ing.
+If you haven’t already, do check out Zhuohan’s"
+"the judge (higher the better).",""
+"","vLLM project—it’s nothing short of impressive."
+"","• Shaojie Bai, for engaging in crucial discussions that"
+"3.3.3. EFFECTIVENESS OF TWO-STAGE FINE-TUNING",""
+"","helped shape the early phases of this work."
+"Table 2 shows the performance differences between various",""
+"","• Denny Zhou, for introducing the truncation sampling"
+"fine-tuning strategies for the Vicuna-7B model. MEDUSA-",""
+"","scheme to Tianle and encouraging Tianle to explore"
+"1, which fine-tunes only the MEDUSA heads,
+achieves",""
+"","the area of LLM serving."
+"a 2.18x speedup without compromising generation qual-",""
+"ity.
+MEDUSA-2, which employs
+two-stage fine-tuning",""
+"","• Yanping Huang,
+for
+pointing
+out
+the memory-"
+"(Section 2.2.2), maintains generation quality and provides",""
+"","bandwidth-bound challenges
+associated with LLM"
+"greater speedup (2.83x) compared to MEDUSA-1.
+In con-",""
+"","serving to Tianle."
+"trast, direct fine-tuning the model with the MEDUSA heads",""
+"results in degraded generation quality.
+The findings in-",""
+"","• Lianmin Zheng,
+for clarifying the different
+training"
+"dicate that
+implementing our MEDUSA-2 for fine-tuning",""
+"","recipes used in different sizes of Vicuna models."
+"maintains the model’s quality and concurrently improves",""

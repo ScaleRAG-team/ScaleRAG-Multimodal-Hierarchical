@@ -1,0 +1,31 @@
+"References"
+"[1] Erdil, E.: Data Movement Bottlenecks
+to Large-Scale Model Training:
+Scal-"
+"ing
+Past
+1e28
+FLOP. Accessed:
+2024-12-06
+(2024).
+https://epoch.ai/blog/"
+"data-movement-bottlenecks-scaling-past-1e28-flop"
+"[2] Jouppi, N.P., Young, C., Patil, N., Patterson, D., Agrawal, G., Bajwa, R., Bates,"
+"S., Bhatia, S., Boden, N., Borchers, A., Boyle, R., Cantin, P.-l., Chao, C., Clark,"
+"C., Coriell, J., Daley, M., Dau, M., Dean, J., Gelb, B., Ghaemmaghami, T.V.,"
+"Gottipati, R., Gulland, W., Hagmann, R., Ho, C.R., Hogberg, D., Hu, J., Hundt,"
+"R., Hurt, D.,
+Ibarz, J., Jaffey, A., Jaworski, A., Kaplan, A., Khaitan, H., Kille-"
+"brew, D., Koch, A., Kumar, N., Lacy, S., Laudon, J., Law, J., Le, D., Leary,"
+"C., Liu, Z., Lucke, K., Lundin, A., MacKean, G., Maggiore, A., Mahony, M.,"
+"Miller, K., Nagarajan, R., Narayanaswami, R., Ni, R., Nix, K., Norrie, T., Omer-"
+"nick, M., Penukonda, N., Phelps, A., Ross, J., Ross, M., Salek, A., Samadiani,"
+"E., Severn, C., Sizikov, G., Snelham, M., Souter, J., Steinberg, D., Swing, A.,"
+"Tan, M., Thorson, G., Tian, B., Toma, H., Tuttle, E., Vasudevan, V., Walter,"
+"R., Wang, W., Wilcox, E., Yoon, D.H.:
+In-datacenter performance analysis of a"
+"tensor processing unit. ACM SIGARCH Computer Architecture News 45 (2017)"
+"https://doi.org/10.1145/3140659.3080246"
+"[3] Sze, V., Chen, Y.H., Yang, T.J., Emer, J.S.: Efficient Processing of Deep Neural"
+"Networks: A Tutorial and Survey (2017). https://doi.org/10.1109/JPROC.2017."
+"2761740"

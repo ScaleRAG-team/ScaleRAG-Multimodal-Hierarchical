@@ -1,0 +1,27 @@
+"","7"
+"3.
+Semi-classical solution",""
+"For","large y and ξ we can use the semi-classical approximation( SCA, see Refs.[24, 33] and references therein)
+to"
+"take the integral over y(cid:48)
+in Eq. (36).
+In this approximation we are searching for",""
+"N = eSN = eω(ξ(cid:48),y) y+γ(y,ξ(cid:48))ξ(cid:48)","(37)"
+"where ω (ξ(cid:48), y)
+and γ (y, ξ(cid:48))
+are
+smooth functions
+of
+y
+and ξ(cid:48):","∂ ω(cid:48) (ξ(cid:48), y) /∂ y (cid:28) ω2 (ξ(cid:48), y) , ∂ ω (ξ(cid:48), y) /∂ ξ(cid:48) (cid:28)"
+"","ω (ξ(cid:48), y) γ (y, ξ(cid:48)) , ∂ γ (ξ(cid:48), y) /∂ ξ(cid:48) (cid:28) γ2 (ξ(cid:48), y) , ∂ γ (ξ(cid:48), y) /∂ ξ(cid:48) (cid:28) ω (ξ(cid:48), y) γ (y, ξ(cid:48)). Such form of N stems from Eq. (21)"
+"if we use the method of steepest descent for calculating the integral over γ.","Indeed, using this method one can see"
+"that",""
+"","dχ (γ)"
+"ω (ξ(cid:48), y) = χ (γSP) ;
+γ (ξ(cid:48), y) = γSP;
+equation for γSP:","(cid:12)(cid:12)(cid:12)(cid:12)(cid:12)
+y = ξ(cid:48);
+(38)"
+"","dγ"
+"","γ=γSP"

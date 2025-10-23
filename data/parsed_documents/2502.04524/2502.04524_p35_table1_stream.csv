@@ -1,0 +1,30 @@
+"10 2"
+"0
+10
+20"
+"Log(Time[s])"
+"Fig. S6: The individual impact of IR-drop across array wires and input/output bit"
+"quantization on MVM accuracy. a Simulated RMSE compared to FP ideal results using"
+"64x64 analog CMO/HfOx ReRAM array, shown as a function of the time after programming."
+"Dashed horizontal
+lines represent the RMSE during programming, considering programming"
+"noise (with 0.2% G target as the acceptance range) but excluding relaxation effects. With 32-"
+"bit
+input/output quantization and no IR-drop (orange dots), an RMSE as
+low as 6 10−3"
+"is achieved during programming, which immediately increases
+(see the arrow) after
+relax-"
+"ation (within 1 s). Including the realistic IR-drop results in an overall RMSE increase (blue"
+"squares). Finally, reducing input/output quantization to 6/8 bits, respectively,
+leads to a fur-"
+"ther accuracy loss
+(green crosses), demonstrating that at short
+timescales
+(within 1 hour),"
+"the main analog MVM accuracy bottleneck is the reduced input/output quantization. After"
+"1 hour, all cases converge, showing that
+the accuracy bottleneck is then dominated by the"
+"relaxation process. b By scaling up to a 512x512 array size (grey diamonds) and considering"
+"input/output quantization of 6/8 bits, IR-drop emerges as the primary bottleneck for analog"
+"MVM accuracy."

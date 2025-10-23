@@ -1,0 +1,94 @@
+"2.2 Analog inference with CMO/HfOx ReRAM core"
+"Here, the experimental characterization of the key metrics of the CMO/HfOx ReRAM"
+"array relevant to inference performance is presented. Specifically, the continuous con-"
+"ductance
+tuning
+capability is demonstrated over
+a
+range
+spanning
+approximately"
+"one order of magnitude. The
+trade-off between weight
+transfer programming noise"
+"required iterations
+for programming
+of CMO/HfOx ReRAM devices and number of"
+"convergence is analyzed across different acceptance ranges. Furthermore, conductance"
+"relaxation—defined as
+the change in conductance over
+time after programming—is"
+"characterized. Finally,
+the
+combined impact of weight
+transfer,
+conductance
+relax-"
+"ation, limited input/output quantization of the digital-to-analog converter (DAC) and"
+"analog-to-digital converter (ADC), and IR drop on the array wires is evaluated with"
+"respect to MVM accuracy."
+"2.2.1 Weight transfer accuracy"
+"In memristor-based AIMC inference
+accelerators,
+pre-trained
+normalized weights"
+"are
+initially mapped into
+target
+conductances
+and subsequently programmed into"
+"hardware
+in an iterative process known as weight
+transfer. This
+iterative process,"
+"which stops once the programmed conductance converges to the target value within"
+"a defined acceptance range,
+inherently introduces an error due to the analog nature"
+"of
+conductance weights. This
+error, described by
+a normal distribution with the"
+"leads to a drop in MVM
+standard deviation referred to as programming noise (σprog),"
+"accuracy. To quantify this non-ideality,
+the non-volatile multi-level capability of
+the"
+"the experimental cumu-
+CMO/HfOx ReRAM array is characterized. Fig. 3a shows"
+"lative distribution of conductance values
+for 35 representative levels, with all
+states"
+"sharply separated and without any overlap. Fig. 3b shows a schematic representation"
+"of
+the closed-loop (i.e., program-verify)
+scheme, where identical
+set
+and reset pulse"
+"trains are employed to program each ReRAM cell to its target conductance within a"
+"desired acceptance range (see ”Methods” section ”Identical-pulse closed-loop scheme”"
+"for details). Selecting programming conditions
+involves a fundamental
+trade-off: a"
+"narrower acceptance range can improve programming precision by reducing program-"
+"ming noise, but
+it
+increases
+the number of
+iterations
+required for convergence (see"
+"Fig. 3d). Besides the longer programming time, other non-idealities to consider when"
+"choosing the acceptance range are (1) the conductance relaxation immediately after"
+"programming, which is characterized in 2.2.2 for CMO/HfOx ReRAM devices, and"
+"(2) read noise, which has already been characterized between 0.2% and 2% of G target"
+"for CMO/HfOx ReRAM devices [25] within a similar conductance range used in this"
+"work."
+"The trade-off between the programming noise and the number of
+iterations
+is char-"
+"acterized for two representative acceptance range intervals: 0.2% and 2% of G target,"
+"respectively. Fig. 3c illustrates the experimental number of pulses needed to converge"
+"to the G target using the two representative acceptance ranges. On average, each cell"
+"requires approximately 11 and 89 set/reset pulses
+for acceptance ranges of 2% and"
+"respectively. Since the acceptance range is defined as a percentage
+0.2% of G target,"

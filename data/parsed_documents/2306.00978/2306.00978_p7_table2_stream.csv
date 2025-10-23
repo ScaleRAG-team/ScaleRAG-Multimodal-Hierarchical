@@ -1,0 +1,30 @@
+"5.1
+Settings","","",""
+"","","","& Zettlemoyer, 2022; Yao et al., 2022), we mainly profiled"
+"","","","the quantized models on language modeling tasks (perplex-"
+"Quantization.","We focus on weight-only grouped quanti-","",""
+"","","","ity evaluation on WikiText-2 (Merity et al., 2016)) since per-"
+"zation in this work. As shown in previous work (Dettmers &","","",""
+"","","","plexity can stably reflect the LLM’s performance (Dettmers"
+"Zettlemoyer, 2022; Frantar et al., 2022), grouped quantiza-","","",""
+"","","& Zettlemoyer, 2022).",""
+"tion is always helpful for improving performance/model size","","",""
+"trade-off. We used a group size of 128 throughout the work,","","",""
+"","","Baselines.
+Our
+primary","baseline
+is
+vanilla
+round-to-"
+"except otherwise specified. We focus on INT4/INT3 quan-","","",""
+"","","","nearest quantization (RTN). It is actually quite strong when"
+"tization since they are able to mostly preserve the LLMs’","","",""
+"","","","using a small group size like 128 (Frantar et al., 2022;"
+"performance (Dettmers & Zettlemoyer, 2022). For AWQ,","","",""
+"","","","Dettmers & Zettlemoyer, 2022). We also compare with"
+"we used a small calibration set from the Pile (Gao et al.,","","",""
+"","","","a state-of-the-art method GPTQ (Frantar et al., 2022) for"
+"2020) dataset","in order not
+to overfit
+to a specific down-","",""
+"","","LLM weight quantization.","For GPTQ, we also compare"

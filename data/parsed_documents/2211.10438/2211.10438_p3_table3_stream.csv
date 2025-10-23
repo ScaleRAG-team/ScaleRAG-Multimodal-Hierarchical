@@ -1,0 +1,85 @@
+"",""
+"*
+ Ci
+X","INT8 per-token
+42.5% 33.0% 33.1% 32.9% 31.7%"
+"",""
+"W","INT8 per-channel
+64.8% 65.6% 68.0% 69.4% 71.4%"
+"per-token quant.
+per-channel quant.",""
+"(b) per-token + per-channel quantization",""
+"","in a small fraction of the channels.
+If one channel has an"
+"Figure 3:
+Definition of per-tensor,
+per-token,
+and per-","outlier, it persistently appears in all tokens (Figure 4, red)."
+"channel quantization. Per-tensor quantization is the most","The variance amongst the channels for a given token is large"
+"efficient to implement. For vector-wise quantization to ef-","(the activations in some channels are very large, but most"
+"ficiently utilize the INT8 GEMM kernels, we can only use","are small), but
+the variance between the magnitudes of a"
+"scaling factors from the outer dimensions (i.e.,
+token di-","given channel across tokens is small (outlier channels are"
+"inner
+mension T and out channel dimension Co) but not","consistently large).
+Due to the persistence of outliers"
+"dimension (i.e., in channel dimension Ci).","and the small variance inside each channel, if we could per-"
+"","form per-channel quantization (Bondarenko et al., 2021) of"
+"","the activation (i.e., using a different quantization step for"
+"supported by a wide range of hardware (e.g., NVIDIA GPUs,",""
+"","each channel), the quantization error would be much smaller"
+"Intel CPUs, Qualcomm DSPs, etc.).",""
+"","compared to per-tensor quantization, while per-token quan-"
+"","tization helps little.
+In Table 1, we verify the assumption"
+"3
+Review of Quantization Difficulty","that simulated per-channel activation quantization success-"
+"","fully bridges the accuracy with the FP16 baseline, which"
+"LLMs are notoriously difficult to quantize due to the outliers",""
+"","echos the findings of Bondarenko et al.."
+"in the activations (Dettmers et al., 2022; Wei et al., 2022;",""
+"Bondarenko et al., 2021). We first review the difficulties","However, per-channel activation quantization does not map"
+"of activation quantization and look for a pattern amongst","well to hardware-accelerated GEMM kernels, that rely on a"
+"outliers. We visualize the input activations and the weights","sequence of operations executed at a high throughput (e.g.,"
+"of a linear layer that has a large quantization error in Figure 4","Tensor Core MMAs) and do not
+tolerate the insertion of"
+"(left). We can find several patterns that motivate our method:","instructions with a lower throughput (e.g., conversions or"
+"","CUDA Core FMAs) in that sequence. In those kernels, scal-"
+"1. Activations are harder to quantize than weights.
+The",""
+"","ing can only be performed along the outer dimensions of the"
+"weight distribution is quite uniform and flat, which is easy",""
+"","matrix multiplication (i.e., token dimension of activations"
+"to quantize. Previous work has shown that quantizing the",""
+"","T , output channel dimension of weights Co, see Figure 3),"
+"weights of LLMs with INT8 or even with INT4 does not",""
+"","which can be applied after the matrix multiplication finishes:"
+"degrade accuracy (Dettmers et al., 2022; Yao et al., 2022;",""
+"Zeng et al., 2022), which echoes our observation.",""
+"","Y = diag(∆FP16
+) · ( ¯XINT8 · ¯WINT8) · diag(∆FP16
+(2)
+X
+W )"
+"2. Outliers make activation quantization difficult. The",""
+"scale of outliers in activations is ∼ 100× larger than most of",""
+"","Therefore, previous works all use per-token activation quan-"
+"the activation values. In the case of per-tensor quantization",""
+"","tization for linear layers (Dettmers et al., 2022; Yao et al.,"
+"(Equation 1), the large outliers dominate the maximum mag-",""
+"","2022), although they cannot address the difficulty of activa-"
+"nitude measurement, leading to low effective quantization",""
+"","tion quantization (only slightly better than per-tensor)."
+"bits/levels (Figure 2) for non-outlier channels: suppose the",""
+"maximum magnitude of channel i is mi, and the maximum",""
+"value of the whole matrix is m, the effective quantization","4
+SmoothQuant"
+"levels of channel i is 28 · mi/m. For non-outlier channels,",""
+"","Instead of per-channel activation quantization (which is"
+"the effective quantization levels would be very small (2-3),",""
+"","infeasible), we propose to “smooth” the input activation"
+"leading to large quantization errors.",""
+"","by dividing it by a per-channel smoothing factor s ∈ RCi."
+"3. Outliers persist in fixed channels.
+Outliers appear","To keep the mathematical equivalence of a linear layer, we"

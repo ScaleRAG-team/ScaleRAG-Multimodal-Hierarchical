@@ -1,0 +1,18 @@
+"","embedding
+embedding"
+"","x1
+x2"
+"","More
+Parameters"
+"Figure 2:","Illustration of a Switch Transformer encoder block. We replace the dense feed"
+"","forward network (FFN)
+layer present
+in the Transformer with a sparse Switch"
+"","FFN layer
+(light blue). The layer operates
+independently on the tokens
+in the"
+"","sequence. We diagram two tokens (x1 = “More” and x2 = “Parameters” below)"
+"","being routed (solid lines) across four FFN experts, where the router independently"
+"","routes each token. The switch FFN layer returns the output of the selected FFN"
+"","multiplied by the router gate value (dotted-line)."

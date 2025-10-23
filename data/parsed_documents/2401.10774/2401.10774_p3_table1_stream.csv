@@ -1,0 +1,105 @@
+"MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",""
+"achieved by MEDUSA heads, (2) is realized by tree attention,",""
+"and since MEDUSA heads are on top of the original model,",""
+"","(cid:16)
+(cid:16)
+(cid:17)(cid:17)"
+"the logits calculated in (2) can be used for substep (1) for","p(k)
+W (k)
+·
+,
+= softmax
+SiLU(W (k)
+· ht) + ht
+t"
+"","2
+1"
+"the next decoding step. The final step (3) can be realized by",""
+"","∈ Rd×V , W (k)
+∈ Rd×d.
+where W (k)"
+"",""
+"either rejection sampling (Leviathan et al., 2022; Chen et al.,","2
+1"
+"2023) or typical acceptance (Section 2.3.1). The overall",""
+"pipeline is illustrated in Figure 1.","d is the output dimension of the LLM’s last hidden layer"
+"","and V is the vocabulary size. We initialize W (k)
+identically"
+"In this section, we first
+introduce the key components of","2"
+"","to the original language model head, and W (k)
+to zero. This"
+"MEDUSA,
+including MEDUSA heads, and tree attention.","1"
+"","aligns the initial prediction of MEDUSA heads with that of"
+"Then, we present two levels of fine-tuning procedures for",""
+"","the original model. The SiLU activation function (Elfwing"
+"MEDUSA to meet
+the needs of different use cases.
+Fi-",""
+"","et al., 2017) is employed following the Llama models (Tou-"
+"nally, we propose two extensions to MEDUSA,
+including",""
+"","vron et al., 2023)."
+"self-distillation and typical acceptance, to handle situations",""
+"where no training data is available for MEDUSA and to",""
+"","Unlike a draft model, MEDUSA heads are trained in conjunc-"
+"improve the efficiency of the decoding process, respectively.",""
+"","tion with the original backbone model, which can remain"
+"","frozen during training (MEDUSA-1) or be trained together"
+"2.1. Key Components",""
+"","(MEDUSA-2). This method allows for fine-tuning large mod-"
+"","els even on a single GPU, taking advantage of the powerful"
+"2.1.1. MEDUSA HEADS",""
+"","base model’s learned representations. Furthermore,
+it en-"
+"In speculative decoding, subsequent tokens are predicted by","sures that the distribution of the MEDUSA heads aligns with"
+"an auxiliary draft model. This draft model must be small yet","that of the original model, thereby mitigating the distribution"
+"effective enough to generate continuations that the original","shift problem. Additionally, since the new heads consist of"
+"model will accept. Fulfilling these requirements is a chal-","just a single layer akin to the original language model head,"
+"lenging task, and existing approaches (Spector & Re, 2023;","MEDUSA does not add complexity to the serving system"
+"Miao et al., 2023) often resort
+to separately pre-training","design and is friendly to distributed settings. We will discuss"
+"a smaller model. This pre-training process demands sub-","the training recipe for MEDUSA heads in Section 2.2."
+"stantial additional computational resources. For example,",""
+"in (Miao et al., 2023), a reported 275 NVIDIA A100 GPU","2.1.2. TREE ATTENTION"
+"hours were used. Additionally, separate pre-training can po-",""
+"","Through MEDUSA heads, we obtain probability predictions"
+"tentially create a distribution shift between the draft model",""
+"","for the subsequent K+1 tokens. These predictions enable us"
+"and the original model,
+leading to continuations that
+the",""
+"","to create length-K + 1 continuations as candidates. While"
+"original model may not favor. Chen et al. (2023) have also",""
+"","the speculative decoding studies (Leviathan et al., 2022;"
+"highlighted the complexities of serving multiple models in",""
+"","Chen et al., 2023) suggest sampling a single continuation"
+"a distributed environment.",""
+"","as the candidate, leveraging multiple candidates during de-"
+"To streamline and democratize the acceleration of LLM in-","coding can enhance the expected acceptance length within a"
+"ference, we take inspiration from Stern et al. (2018), which","decoding step. Nevertheless, more candidates can also raise"
+"utilizes parallel decoding for tasks such as machine transla-","computational demands. To strike a balance, we employ"
+"tion and image super-resolution. MEDUSA heads are addi-","a tree-structured attention mechanism to process multiple"
+"tional decoding heads appended to the last hidden states of","candidates concurrently. This attention mechanism diverges"
+"the original model. Specifically, given the original model’s","from the traditional causal attention paradigm. Within this"
+"last hidden states ht at position t, we add K decoding heads","framework, only tokens from the same continuation are"
+"The k-th head is used to predict
+the token in the
+to ht.","regarded as historical data. Drawing inspiration from the"
+"(t + k + 1)-th position of the next tokens (the original lan-","concept of embedding graph structures into attention as"
+"guage model head is used to predict the (t + 1)-th position).","proposed in the graph neural network domain (Ying et al.,"
+"The prediction of the k-th head is denoted as p(k)
+, represent-
+t","2021), we incorporate the tree structure into our attention"
+"ing a distribution over the vocabulary, while the prediction","mask, visualized in Figure 2. Remarkably, similar ideas"
+"of the original model is denoted as p(0)
+. Following the ap-","have also been explored in independent works like Miao"
+"t",""
+"proach of Stern et al. (2018), we utilize a single layer of","et al. (2023); Spector & Re (2023), where they follow a"
+"feed-forward network with a residual connection for each","bottom-up approach and construct the tree by merging mul-"
+"head. We find that this simple design is sufficient to achieve","tiple candidates generated by a draft model. In our method,"
+"satisfactory performance. The definition of the k-th head is","we instead take a top-down approach to build the tree thanks"
+"outlined as:","to the structure of candidates generated by MEDUSA heads."
+"","For a given k-th head,
+its top-sk predictions serve as the"

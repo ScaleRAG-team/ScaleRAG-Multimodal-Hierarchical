@@ -1,0 +1,34 @@
+"Table 12. The original web texts are replicated to have the same number of samples per epoch as the bootstrapped dataset. Results verify
+that the improvement from CapFilt is not due to longer training time.
+Continue
+Yes
+No
+Table 13. Continue training the pre-trained model offers less gain compared to training a new model with the bootstrapped dataset.","Retrieval-FT (COCO)
+TR@1
+IR@1
+80.6
+63.0
+80.6
+63.1","Retrieval-ZS (Flickr)
+TR@1
+IR@1
+94.5
+84.6
+94.8
+84.9","Caption-FT (COCO)
+B@4
+CIDEr
+38.5
+129.9
+38.6
+129.7","Caption-ZS (NoCaps)
+CIDEr
+SPICE
+104.5
+14.2
+105.1
+14.4"
+"","","","",""
+"","","","",""
+"","","","",""
+"","","","",""

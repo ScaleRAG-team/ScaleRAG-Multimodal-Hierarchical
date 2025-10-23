@@ -1,0 +1,136 @@
+"","","","","SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+"outlier","","","",""
+"","maxCi(X)","","",""
+"","","determines quant. range","",""
+"","","","outlier",""
+"","","","","to up to 1.51× speed up and 1.96× memory saving on"
+"","","","| X |
+| W |",""
+"","","maxCi(W)","10
+0.1",""
+"","low effective bits","","","PyTorch.
+SmoothQuant
+is easy to implement. We inte-"
+"","","","low effective bits",""
+"","","","quant. levels","grate SmoothQuant into FasterTransformer, the state-of-the-"
+"","","","","art transformer serving framework, achieving up to 1.56×"
+"hard to quantize","","very easy to quantize","",""
+"","","","",""
+"","","","0
+0","speedup and halving the memory usage compared with"
+"","(a) Original","","hard to quantize
+very easy to quantize",""
+"","","","","FP16. Remarkably, SmoothQuant allows serving large mod-"
+"smoothed","","","(a) Original",""
+"","","","","els like OPT-175B using only half number of GPUs com-"
+"maxCi(","X)","W)
+maxCi(","",""
+"","","","migrate difficulty",""
+"","","","smoothed","pared to FP16 while being faster, and enabling the serving"
+"","","","| X |
+| W |",""
+"","","","1
+1","of a 530B model within one 8-GPU node. Our work democ-"
+"","","","","ratizes the use of LLMs by offering a turnkey solution to"
+"easy to quantize","","easy to quantize","quant. levels",""
+"","","","","reduce the serving cost. We hope SmoothQuant can inspire"
+"","(b) Smoothed","","",""
+"","","","0
+0","greater use of LLMs in the future."
+"","","","easy to quantize
+easy to quantize",""
+"","","","(b) SmoothQuant",""
+"","","","","2
+Preliminaries"
+"","","","Figure 2: SmoothQuant’s intuition:
+the activation X is hard","Quantization maps a high-precision value into discrete"
+"","","","to quantize because outliers stretch the quantization range,","levels. We study integer uniform quantization (Jacob et al.,"
+"","","","leaving few effective bits for most values. We migrate the","2018) (specifically INT8) for better hardware support and"
+"","","","scale variance from activations to weights W during offline","efficiency. The quantization process can be expressed as:"
+"","","","to reduce the quantization difficulty of activations.
+The",""
+"","","","","XFP16
+max(|X|)"
+"","","","smoothed activation ˆX and the adjusted weight
+W are both",""
+"","","","","XINT8 = ⌈
+⌋,
+∆ =
+,
+(1)"
+"","","","easy to quantize.","∆
+2N −1 − 1"
+"","","","","¯"
+"","","","","where X is the floating-point
+tensor,
+X is the quantized"
+"","","","","counterpart, ∆ is the quantization step size, ⌈·⌋ is the round-"
+"","","","ciently and delivers good accuracy for GPT-3-350M and",""
+"","","","","ing function, and N is the number of bits (8 in our case)."
+"","","","GPT-J-6B. However,
+it can not maintain the accuracy for",""
+"","","","","Here we assume the tensor is symmetric at 0 for simplicity;"
+"","","","the large OPT model with 175 billion parameters (see Sec-",""
+"","","","","the discussion is similar for asymmetric cases (e.g., after"
+"","","","tion 5.2). LLM.int8() (Dettmers et al., 2022) addresses",""
+"","","","","ReLU) by adding a zero-point (Jacob et al., 2018)."
+"","","","that accuracy issue by further introducing a mixed-precision",""
+"","","","decomposition (i.e., it keeps outliers in FP16 and uses INT8","Such quantizer uses the maximum absolute value to calcu-"
+"","","","for
+the other activations). However,
+it
+is hard to imple-","late ∆ so that it preserves the outliers in activation, which"
+"","","","ment
+the decomposition efficiently on hardware accelera-","are found to be important
+for accuracy (Dettmers et al.,"
+"","","","tors. Therefore, deriving an efficient, hardware-friendly, and","2022). We can calculate ∆ offline with the activations of"
+"","","","preferably training-free quantization scheme for LLMs that","some calibration samples, what we call static quantization."
+"","","","would use INT8 for all
+the compute-intensive operations","We can also use the runtime statistics of activations to get ∆,"
+"","","","remains an open challenge.","what we call dynamic quantization. As shown in Figure 3,"
+"","","","","quantization has different granularity levels. The per-tensor"
+"","","","We
+propose
+SmoothQuant,
+an
+accurate
+and
+efficient",""
+"","","","","quantization uses a single step size for the entire matrix. We"
+"","","","post-training
+quantization
+(PTQ)
+solution
+for
+LLMs.",""
+"","","","","can further enable finer-grained quantization by using dif-"
+"","","","SmoothQuant relies on a key observation: even if activations",""
+"","","","","ferent quantization step sizes for activations associated with"
+"","","","are much harder to quantize than weights due to the presence",""
+"","","","","each token (per-token quantization) or each output channel"
+"","","","of outliers (Dettmers et al., 2022), different tokens exhibit",""
+"","","","","of weights (per-channel quantization). A coarse-grained"
+"","","","similar variations across their channels. Based on this obser-",""
+"","","","","version of per-channel quantization is to use different quanti-"
+"","","","vation, SmoothQuant offline migrates the quantization diffi-",""
+"","","","","zation steps for different channel groups, called group-wise"
+"","","","culty from activations to weights (Figure 2). SmoothQuant",""
+"","","","","quantization (Shen et al., 2020; Yao et al., 2022)."
+"","","","proposes a mathematically equivalent per-channel scaling",""
+"","","","transformation that significantly smooths the magnitude","For a linear layer in Transformers (Vaswani et al., 2017)"
+"","","","across the channels, making the model quantization-friendly.","Y = X · W, Y ∈ RT ×Co, X ∈ RT ×Ci, W ∈ RCi×Co,"
+"","","","Since SmoothQuant is compatible with various quantization","is the input channel,
+where T is the number of tokens, Ci"
+"","","","schemes, we implement three efficiency levels of quantiza-","(see Figure 3, we omit
+the
+and Co is the output channel"
+"","","","tion settings for SmoothQuant (see Table 2, O1-O3). Exper-","batch dimension for simplicity), we can reduce the storage"
+"","","","iments show that SmoothQuant is hardware-efficient:
+it can","by half compared to FP16 by quantizing the weights to INT8."
+"","","","maintain the performance of OPT-175B (Zhang et al., 2022),","However,
+to speed up the inference, we need to quantize"
+"","","","BLOOM-176B (Scao et al., 2022) , GLM-130B (Zeng et al.,","both weights and activations into INT8 (i.e., W8A8)
+to"
+"","","","2022), and MT-NLG 530B (Smith et al., 2022),
+leading","utilize the integer kernels (e.g.,
+INT8 GEMM), which are"

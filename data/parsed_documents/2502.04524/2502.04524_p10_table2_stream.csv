@@ -1,0 +1,60 @@
+"[0.01, 0.1]µS"
+"prog
+100
+prog = 10 3 *(1.1 * G + 0.8)"
+"Low
+Iterations
+90
+Iterations
+Avg per G
+Avg"
+"0.2%
+10 2"
+"10
+30
+50
+70
+90
+10
+30
+50
+70
+90
+Low
+High"
+"Target Conductance [µS]
+Target Conductance [µS]
+Closed-loop iterations"
+"Fig. 3: Weight transfer characterization. a Cumulative distributions of 35 conductance"
+"states obtained using an identical-pulse closed-loop scheme with a 0.2% G target acceptance"
+"range. For each distribution, the entire CMO/HfOx ReRAM array was programmed to the"
+"conductance values measured during the final
+closed-loop
+corresponding G target, and the"
+"iteration (during programming)
+is
+reported. Each dot
+represents a 1T1R cell. b An exam-"
+"ple sequence of the identical-pulse closed-loop programming scheme utilized in this work. c"
+"for
+the two repre-
+Experimental number of closed-loop iterations as a function of G target"
+"sentative acceptance ranges. Each semitransparent point represents a 1T1R cell, the opaque"
+"points represent the average number of iterations per G target, and the horizontal dashed line"
+"indicates the overall average of the opaque points. d Graphical representation of the trade-"
+"off between programming noise and the number of
+iterations required for convergence, as a"
+"function of the acceptance range. e Experimental programming noise as a function of G target"
+"for the two representative acceptance ranges. Each point represents the standard deviation of"
+"the normal distribution measured across the entire array. The dashed lines in black indicate"
+"the corresponding linear fits."
+"2.2.2 Conductance relaxation and matrix-vector multiplication"
+"accuracy"
+"In addition to the excellent weight transfer accuracy during programming as presented"
+"in the previous
+section,
+the
+characterization of
+temporal
+conductance
+relaxation is"

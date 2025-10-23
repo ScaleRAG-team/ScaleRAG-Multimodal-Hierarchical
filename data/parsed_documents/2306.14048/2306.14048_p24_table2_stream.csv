@@ -1,0 +1,11 @@
+"Table 7: Generation throughput (token/s) with different systems without offloading. We use H2O-c denotes the","","",""
+"","H2O with 4-bit weights compression. In the sequence length row, we use “512 + 32” to denote a prompt length","",""
+"","of 512 and a generation length of 32. “OOM” means out-of-memory. The gray text in the bracket denotes the","",""
+"Seq.
+length","512+32","512+512","512+1024"
+"Model size","6.7B","6.7B","6.7B"
+"Accelerate","20.4 (2)","15.5 (1)","OOM"
+"DeepSpeed","OOM","OOM","OOM"
+"FlexGen","20.2 (2)","16.8 (1)","16.9 (1)"
+"H2O (20%)","35.1 (4)","51.7 (4)","52.1 (4)"
+"H2O-c (20%)","50.5 (70)","72.5 (52)","62.3 (44)"

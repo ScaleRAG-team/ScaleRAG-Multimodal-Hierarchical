@@ -1,0 +1,12 @@
+"","",""
+"","",""
+"","",""
+"","","Best-of-N Weighted
+Majority
+Beam; M := sqrt(N)
+Beam; M := 4
+1 Step Lookahead; M := sqrt(N)
+3 Step Lookahead; M := sqrt(N)
+3 Step Lookahead; M := 4"
+"","",""
+"","",""

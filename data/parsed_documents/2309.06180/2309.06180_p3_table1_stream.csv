@@ -1,0 +1,85 @@
+"2.1
+Transformer-Based Large Language Models","","The prompt phase takes the whole user prompt (𝑥1, . . . , 𝑥𝑛)"
+"","","as input and computes the probability of the first new to-"
+"The task of language modeling is to model the probability","",""
+"","","|
+ken 𝑃 (𝑥𝑛+1
+𝑥1, . . . , 𝑥𝑛). During this process, also gener-"
+"of a list of tokens (𝑥1, . . . , 𝑥𝑛). Since language has a natural","",""
+"","","ates the key vectors 𝑘1, . . . , 𝑘𝑛 and value vectors 𝑣1, . . . , 𝑣𝑛."
+"sequential ordering, it is common to factorize the joint prob-","",""
+"","","Since prompt tokens 𝑥1, . . . , 𝑥𝑛 are all known, the computa-"
+"ability over the whole sequence as the product of conditional","",""
+"","","tion of the prompt phase can be parallelized using matrix-"
+"probabilities (a.k.a. autoregressive decomposition [3]):","",""
+"","","matrix multiplication operations. Therefore, this phase can"
+"","","efficiently use the parallelism inherent in GPUs."
+"(1)
+𝑃 (𝑥) = 𝑃 (𝑥1) · 𝑃 (𝑥2
+| 𝑥1) · · · 𝑃 (𝑥𝑛 | 𝑥1, . . . , 𝑥𝑛−1).","",""
+"","","The autoregressive generation phase generates the re-"
+"Transformers [53] have become the de facto standard ar-","","maining new tokens sequentially. At iteration 𝑡, the model"
+"chitecture for modeling the probability above at a large scale.","","takes one token 𝑥𝑛+𝑡 as input and computes the probability"
+"The most important component of a Transformer-based lan-","","𝑃 (𝑥𝑛+𝑡 +1
+| 𝑥1, . . . , 𝑥𝑛+𝑡 ) with the key vectors 𝑘1, . . . , 𝑘𝑛+𝑡 and"
+"guage model is its self-attention layers. For an input hidden","","value vectors 𝑣1, . . . , 𝑣𝑛+𝑡 . Note that the key and value vectors"
+"∈ R𝑛×𝑑 , a self-attention layer","","at positions 1 to 𝑛 + 𝑡 − 1 are cached at previous iterations,"
+"state sequence (𝑥1, . . . , 𝑥𝑛)","",""
+"first applies linear transformations on each position 𝑖
+to get","","only the new key and value vector 𝑘𝑛+𝑡 and 𝑣𝑛+𝑡 are com-"
+"the query, key, and value vectors:","","puted at this iteration. This phase completes either when the"
+"","","sequence reaches a maximum length (specified by users or"
+"𝑞𝑖 = 𝑊𝑞𝑥𝑖, 𝑘𝑖 = 𝑊𝑘𝑥𝑖,
+𝑣𝑖 = 𝑊𝑣𝑥𝑖 .
+(2)","","limited by LLMs) or when an end-of-sequence (<eos>) token"
+"","","is emitted. The computation at different iterations cannot"
+"Then, the self-attention layer computes the attention score","","be parallelized due to the data dependency and often uses"
+"𝑎𝑖 𝑗 by multiplying the query vector at one position with all","","matrix-vector multiplication, which is less efficient. As a re-"
+"the key vectors before it and compute the output 𝑜𝑖 as the","","sult, this phase severely underutilizes GPU computation and"
+"weighted average over the value vectors:","","becomes memory-bound, being responsible for most portion"
+"","","of the latency of a single request."
+"√","",""
+"𝑑)
+exp(𝑞⊤
+𝑖 𝑘 𝑗 /","","2.3
+Batching Techniques for LLMs"
+"𝑖∑︁ 𝑗
+𝑎𝑖 𝑗𝑣 𝑗 .
+, 𝑜𝑖 =
+𝑎𝑖 𝑗 =
+√
+(3)","",""
+"(cid:205)𝑖","",""
+"𝑑)","",""
+"=1
+𝑡 =1 exp(𝑞⊤","","The compute utilization in serving LLMs can be improved"
+"","","by batching multiple requests. Because the requests share"
+"Besides the computation in Eq. 4, all other components","","the same model weights, the overhead of moving weights is"
+"in the Transformer model, including the embedding layer,","","amortized across the requests in a batch, and can be over-"
+"feed-forward layer, layer normalization [2], residual connec-","","whelmed by the computational overhead when the batch"
+"tion [22], output logit computation, and the query, key, and","","size is sufficiently large. However, batching the requests"
+"value transformation in Eq. 2, are all applied independently","","to an LLM service is non-trivial for two reasons. First, the"
+"position-wise in a form of 𝑦𝑖 = 𝑓 (𝑥𝑖 ).","","requests may arrive at different times. A naive batching strat-"
+"","","egy would either make earlier requests wait for later ones"
+"2.2
+LLM Service & Autoregressive Generation","",""
+"","","or delay the incoming requests until earlier ones finish, lead-"
+"Once trained, LLMs are often deployed as a conditional gen-","","ing to significant queueing delays. Second, the requests may"
+"eration service (e.g., completion API [34] or chatbot [19, 35]).","","have vastly different input and output lengths (Fig. 11). A"
+"A request to an LLM service provides a list of input prompt","","straightforward batching technique would pad the inputs"
+"tokens (𝑥1, . . . , 𝑥𝑛), and the LLM service generates a list of","","and outputs of the requests to equalize their lengths, wasting"
+"output tokens (𝑥𝑛+1, . . . , 𝑥𝑛+𝑇 ) according to Eq. 1. We refer to","","GPU computation and memory."
+"the concatenation of the prompt and output lists as sequence.","","To address this problem, fine-grained batching mecha-"
+"Due to the decomposition in Eq. 1, the LLM can only sam-","","nisms, such as cellular batching [16] and iteration-level sched-"
+"ple and generate new tokens one by one, and the generation","","uling [60], have been proposed. Unlike traditional methods"
+"process of each new token depends on all the previous tokens","","that work at the request level, these techniques operate at"
+"in that sequence, specifically their key and value vectors. In","","the iteration level. After each iteration, completed requests"
+"this sequential generation process, the key and value vectors","","are removed from the batch, and new ones are added. There-"
+"of existing tokens are often cached for generating future","","fore, a new request can be processed after waiting for a"
+"tokens, known as KV cache. Note that the KV cache of one","","single iteration, not waiting for the entire batch to complete."
+"token depends on all its previous tokens. This means that the","","Moreover, with special GPU kernels, these techniques elim-"
+"KV cache of the same token appearing at different positions","","inate the need to pad the inputs and outputs. By reducing"
+"in a sequence will be different.","","the queueing delay and the inefficiencies from padding, the"
+"Given a request prompt, the generation computation in","","fine-grained batching mechanisms significantly increase the"
+"the LLM service can be decomposed into two phases:","","throughput of LLM serving."
+"","3",""

@@ -1,0 +1,52 @@
+"trained with Adam.","In Figure A6 we show a comparison of an 680 million parameter model trained"
+"2.70","26
+3.00"
+"","Training Setup"
+"","25
+2.95"
+"","Adam w/ High Precision"
+"2.65","AdamW w/ High Precision"
+"","24"
+"","2.90"
+"","Adam No High Precision"
+"","23"
+"","AdamW No High Precision
+2.85"
+"2.60",""
+"","22"
+"Training Loss","Wikitext103 Perplexity
+C4 Loss
+2.80"
+"","21"
+"2.55",""
+"","2.75"
+"","20"
+"","2.70"
+"","19"
+"2.50",""
+"","2.65
+18"
+"2.45","17
+2.60"
+"0
+5
+10","15
+20
+25
+30
+0
+5
+10
+15
+20
+25
+30
+0
+5
+10
+15
+20
+25
+30"
+"Million Sequences","Million Sequences
+Million Sequences"

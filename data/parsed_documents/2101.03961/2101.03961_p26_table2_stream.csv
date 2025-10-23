@@ -1,0 +1,48 @@
+"of how sparse models scale. However, there remain many open future directions which we",""
+"brieﬂy describe here:",""
+"","1. A signiﬁcant challenge is further improving training stability for the largest models."
+"","While our stability techniques were eﬀective for our Switch-Base, Switch-Large and"
+"","Switch-C models (no observed instability), they were not suﬃcient for Switch-XXL."
+"","We have taken early steps towards stabilizing these models, which we think may be"
+"","generally useful
+for large models,
+including using regularizers for improving stability"
+"","and adapted forms of gradient clipping, but this remains unsolved."
+"","2. Generally we ﬁnd that improved pre-training quality leads to better downstream re-"
+"","sults (Appendix E), though we sometimes encounter striking anomalies. For instance,"
+"","despite similar perplexities modeling the C4 data set,
+the 1.6T parameter Switch-C"
+"","achieves only an 87.7 exact match score in SQuAD, which compares unfavorably to"
+"","89.6 for
+the smaller Switch-XXL model. One notable diﬀerence is
+that
+the Switch-"
+"","XXL model applies ≈10x the FLOPS per token than the Switch-C model, even though"
+"","it has ≈4x less unique parameters (395B vs 1.6T). This suggests a poorly understood"
+"","dependence between ﬁne-tuning quality, FLOPS per token and number of parameters."
+"3. Perform a comprehensive","study of
+scaling relationships
+to guide
+the design of ar-"
+"","chitectures blending data, model and expert-parallelism.
+Ideally, given the specs of"
+"","a hardware
+conﬁguration (computation, memory,
+communication) one
+could more"
+"","rapidly design an optimal model. And, vice versa, this may also help in the design of"
+"","future hardware."
+"","4. Our work falls within the family of adaptive computation algorithms. Our approach"
+"","always used identical, homogeneous experts, but future designs (facilitated by more"
+"","ﬂexible infrastructure) could support heterogeneous experts. This would enable more"
+"","ﬂexible adaptation by routing to larger experts when more computation is desired—"
+"","perhaps for harder examples."
+"5.","Investigating expert
+layers outside the FFN layer of
+the Transformer. We ﬁnd pre-"
+"","liminary evidence
+that
+this
+similarly can improve model quality.
+In Appendix A,"
+"","we report quality improvement adding these inside Self-Attention layers, where our"

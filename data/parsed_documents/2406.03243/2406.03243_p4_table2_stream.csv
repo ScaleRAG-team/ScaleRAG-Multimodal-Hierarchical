@@ -1,0 +1,72 @@
+"20","250"
+"","0"
+"0",""
+"","400
+450
+500
+550
+600
+650
+700"
+"64
+128
+256
+512
+1k
+2k
+4k
+8k",""
+"","Time (s)"
+"Total Batched Tokens",""
+"Figure 4: Latencies of one decode step of LLaMA-7B and","Figure 5: Total free memory vs. demands of the head-of-line"
+"LLaMA-30B with different sequence lengths and batch sizes.","queuing requests across four LLaMA-7B instances."
+"value of 256 tokens (details in §6). We control
+the request","with long inputs."
+"rate (0.42 req/s) to get a moderate memory load (62% on av-","Figure 5 shows an experiment of
+four LLaMA-7B in-"
+"erage) with some spikes due to the varying sequence lengths.","stances, where the trace also uses the input/output
+length"
+"Under such load, we still observe 8% of the requests being","distribution with mean value 256 and a Poisson distribution"
+"preempted. We quantify the preemption loss by measuring","with a request rate of 1.9 req/s. We implement a spreading dis-"
+"the latency penalty caused by preemption, including the extra","patching policy that dispatches new requests to the instance"
+"queuing time and the recomputing for previous KV cache. We","with the lowest memory load for load balancing. We demon-"
+"show different percentiles of per-token decode latency (aver-","strate the fragmentation by showing the total free memory"
+"aged across all decode iterations of a request). We do not use","blocks across the cluster, against the demand of the head-of-"
+"the end-to-end latency because it depends on the number of","line queuing request on each instance. For most of the time"
+"iterations. We observe that the P99 per-token decode latency","span, the total free memory can accommodate the queuing re-"
+"is much worse than the P50 (3.8×), and the preemption loss","quests on at least three instances (sometimes all of them). The"
+"accounts for 70% for the P99 request. In particular, the P99","request are queuing despite enough total memory because"
+"request experiences a total preemption loss of 50 seconds (pre-","they exceed the free space on their own instances, which"
+"empted twice), showing severe service stalls and degradation","demonstrates the fragmentation and also the potential of de-"
+"of user experiences due to preemptions.","fragmentation to reduce queuing delays."
+"Performance interference among requests.
+We also ob-","Different emergency and priorities of requests.
+With"
+"serve performance interference of requests in a batch to each","requirements of products like ChatGPT Plus and the diverse"
+"other, due to resource competition on GPU compute and mem-","application scenarios of LLMs, we foresee more applications"
+"ory bandwidth resources. Figure 4 shows the times for a de-","with different latency sensitivities. However, existing systems"
+"code step of LLaMA-7B (1-GPU) and LLaMA-30B (4-GPU)","usually treat all requests equally, where the latency-sensitive"
+"using different sequence lengths and batch sizes (the X-axis","could easily be interfered by other normal ones, e.g., excessive"
+"shows the total number of tokens in a batch for each data","queuing delays or performance interference. This calls for a"
+"point). The decode speed decreases with more requests and","systematic approach to differentiating the request priorities"
+"higher interference, and the gap between the same sequence","for an LLM to meet their respective latency objectives."
+"length is up to 2.6×.","Opportunity: request rescheduling across instances.
+This"
+"Memory fragmentation.
+Considering the aforementioned","paper explores a new dimension that
+is missing in current"
+"problems,
+it would be better
+to spread requests across in-","LLM serving systems: the multiple model instances of a de-"
+"stances to reduce preemptions and interference. However,","ployment and their interaction. A simple intuition is that when"
+"such spreading will make the available memory of the cluster","the aforementioned problems occur on a certain instance, it"
+"fragmented across instances simultaneously. Here fragmenta-","is possible that the whole cluster still has enough space for"
+"tion refers to external fragmentation, i.e., unallocated memory","avoiding preempting requests, accommodating new requests,"
+"on an instance. Dynamic allocation techniques like PagedAt-","or mitigating interference. This is also a natural consequence"
+"tention [34] can eliminate external fragmentation during the","of the varying request lengths and memory loads across in-"
+"decode phase, where the blocks are allocated one at a time.","stances. However, existing systems cannot exploit such free"
+"However, external fragmentation remains a significant prob-","space on other instances because requests are tied on the same"
+"lem for the prefill phase, which requires many blocks on an","instance once scheduled throughout the autoregressive exe-"
+"instance in one allocation to accommodate the KV cache of","cution. Llumnix unifies the request scheduling component"
+"all tokens in the inputs. Therefore, external fragmentation can","and the model inference engine to explore the potentials of"
+"cause long queuing delays of new requests, especially those","fine-grained coordination among inference instances."

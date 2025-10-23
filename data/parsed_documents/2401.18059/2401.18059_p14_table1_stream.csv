@@ -1,0 +1,79 @@
+"Published as a conference paper at ICLR 2024"
+"the 2022 Conference of
+Question Answering with Long Input Texts, Yes!
+In Proceedings of"
+"the North American Chapter of the Association for Computational Linguistics: Human Language"
+"Technologies, pp. 5336–5358, Seattle, United States, July 2022. Association for Computational"
+"Linguistics. URL https://aclanthology.org/2022.naacl-main.391."
+"Fabio Petroni, Tim Rockt¨aschel, Patrick Lewis, Anton Bakhtin, Yuxiang Wu, Alexander H Miller,"
+"and Sebastian Riedel. Language models as knowledge bases? arXiv preprint arXiv:1909.01066,"
+"2019. URL https://arxiv.org/abs/1909.01066."
+"Jack W Rae, Sebastian Borgeaud, Trevor Cai, Katie Millican, Jordan Hoffmann, Francis Song, John"
+"Aslanides, Sarah Henderson, Roman Ring, Susannah Young, et al.
+Scaling language models:"
+"Methods, Analysis & Insights from Training Gopher.
+arXiv preprint arXiv:2112.11446, 2021."
+"URL https://arxiv.org/abs/2112.11446."
+"Ori Ram, Yoav Levine,
+Itay Dalmedigos, Dor Muhlgay, Amnon
+Shashua, Kevin Leyton-"
+"arXiv preprint
+Brown, and Yoav Shoham.
+In-context
+retrieval-augmented language models."
+"arXiv:2302.00083, 2023. URL https://arxiv.org/abs/2302.00083."
+"Nils Reimers and Iryna Gurevych.
+Sentence-BERT: Sentence embeddings using Siamese BERT-"
+"the 2019 Conference on Empirical Methods
+in Natural Lan-
+networks.
+In Proceedings of"
+"guage Processing and the 9th International Joint Conference on Natural Language Processing"
+"(EMNLP-IJCNLP), pp. 3982–3992, Hong Kong, China, November 2019. Association for Com-"
+"putational Linguistics. doi: 10.18653/v1/D19-1410. URL https://aclanthology.org/"
+"D19-1410."
+"Adam Roberts, Colin Raffel,
+and Noam Shazeer.
+How Much Knowledge Can You Pack Into"
+"the 2020 Conference on Empir-
+the Parameters of a Language Model?
+In Proceedings of"
+"ical Methods
+in Natural Language Processing (EMNLP), pp. 5418–5426, Online, November"
+"2020. Association for Computational Linguistics. doi: 10.18653/v1/2020.emnlp-main.437. URL"
+"https://aclanthology.org/2020.emnlp-main.437."
+"Stephen Robertson, Hugo Zaragoza, et al.
+The Probabilistic Relevance Framework: BM25 and"
+"Beyond. Foundations and Trends in Information Retrieval, 3(4):333–389, 2009. URL https:"
+"//doi.org/10.1561/1500000019."
+"Stephen E Robertson, Steve Walker, Susan Jones, Micheline M Hancock-Beaulieu, Mike Gatford,"
+"et al. Okapi at TREC-3. Nist Special Publication Sp, 109:109, 1995. URL https://www."
+"microsoft.com/en-us/research/publication/okapi-at-trec-3/."
+"Devendra Singh Sachan, Mike Lewis, Dani Yogatama, Luke Zettlemoyer, Joelle Pineau, and Manzil"
+"Transactions of
+the As-
+Zaheer. Questions are all you need to train a dense passage retriever."
+"sociation for Computational Linguistics, 11:600–616, 2023.
+doi: 10.1162/tacl a 00564. URL"
+"https://aclanthology.org/2023.tacl-1.35."
+"Gideon Schwarz.
+Estimating the Dimension of a Model.
+The annals of statistics, pp. 461–464,"
+"1978. URL https://projecteuclid.org/journals/annals-of-statistics/"
+"volume-6/issue-2/Estimating-the-Dimension-of-a-Model/10.1214/"
+"aos/1176344136.full."
+"Karen Sp¨arck Jones.
+A Statistical
+Interpretation of Term Specificity and its Application in Re-"
+"trieval. Journal of documentation, 28(1):11–21, 1972. URL https://doi.org/10.1108/"
+"eb026526."
+"Simeng Sun, Kalpesh Krishna, Andrew Mattarella-Micke, and Mohit Iyyer. Do long-range language"
+"models actually use long-range context?
+In Marie-Francine Moens, Xuanjing Huang, Lucia"
+"Specia, and Scott Wen-tau Yih (eds.), Proceedings of the 2021 Conference on Empirical Methods"
+"in Natural Language Processing, pp. 807–822, Online and Punta Cana, Dominican Republic,"
+"November 2021. Association for Computational Linguistics. doi: 10.18653/v1/2021.emnlp-main."
+"62. URL https://aclanthology.org/2021.emnlp-main.62."
+"Zhiqing Sun, Xuezhi Wang, Yi Tay, Yiming Yang, and Denny Zhou. Recitation-augmented language"
+"models. arXiv preprint arXiv:2210.01296, 2022. URL https://arxiv.org/abs/2210."
+"01296."

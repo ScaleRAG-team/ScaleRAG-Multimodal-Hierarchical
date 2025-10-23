@@ -1,0 +1,13 @@
+"D.8
+Submodular: High Level Ideas",""
+"We formalize the submodular function maximization problem with cardinality constraint","in this"
+"section. Informally, a set function is submodular if it has decreasing marginal increment.",""
+"R as a set
+Definition D.16 (Submodular function). We denote f : 2[n]","function. The discrete"
+"→",""
+"derivative ∆f is defined as follows:",""
+"S) := f (S
+i
+)
+f (S).
+∆f (i",""

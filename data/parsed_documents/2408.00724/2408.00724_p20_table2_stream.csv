@@ -1,0 +1,31 @@
+"best-of-n strategy. Similarly, on MATH, REBASE with weighted majority voting using 128 samples","",""
+"Llemma-7B","Llemma-34B","Mistral-7B"
+"80","75","80"
+"Sampling M.V.","Sampling M.V.","Sampling M.V."
+"75","",""
+"","70","75"
+"REBASE M.V.","REBASE M.V.","REBASE M.V."
+"70","",""
+"","65","70"
+"65","",""
+"","60","65"
+"Test error on MATH
+60","Test error on MATH","Test error on MATH"
+"","55","60"
+"55","",""
+"","50","55"
+"50","",""
+"45","45","50"
+"4
+16
+64
+256
+1024","16
+32
+64
+128 256 5121024","4
+8
+16
+32
+64 128256512"
+"Infer. FLOPs per question (×1012)","Infer. FLOPs per question (×1012)","Infer. FLOPs per question (×1012)"

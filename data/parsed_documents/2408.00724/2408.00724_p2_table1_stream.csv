@@ -1,0 +1,68 @@
+"1
+INTRODUCTION"
+"Scaling laws of neural networks (Hestness et al., 2017; Rosenfeld et al., 2020) have been established"
+"across a range of domains, including language modeling (Kaplan et al., 2020; Hoffmann et al., 2022;"
+"OpenAI, 2023),
+image modeling (Henighan et al., 2020; Yu et al., 2022; Peebles & Xie, 2023),"
+"video modeling (Brooks et al., 2024), reward modeling (Gao et al., 2023), and board games (Jones,"
+"2021). These studies have demonstrated how model performance is influenced by both the size of"
+"the model and the amount of training compute. However, there is limited knowledge on how varying"
+"the compute during inference affects model performance after the model has been trained."
+"To improve the task performance of large language models (LLMs),
+inference techniques typically"
+"involve additional compute as a performance maximization step at inference time (Nye et al., 2021;"
+"Wei et al., 2022; Wang et al., 2023b; Yao et al., 2023; Chen et al., 2024b). The computational cost"
+"of these techniques must be taken into account for compute-optimal inference. For example, Monte"
+"Carlo Tree Search (MCTS) may improve task performance, but
+it potentially requires much more"
+"compute than simply sampling solutions multiple times (Jones, 2021). Generally speaking, we need"
+"a comprehensive understanding of how various inference-time methods (e.g., best-of-n, majority"
+"voting (Wang et al., 2023a; Li et al., 2023)) trade off between performance and cost. To improve"
+"our understanding,
+this paper presents a thorough empirical evaluation with careful analysis over"
+"various configurations of representative LLMs and inference algorithms."
+"Specifically, we explore how to select an optimal size for the language model and an effective in-"
+"ference strategy (e.g., greedy search, majority voting, best-of-n, weighted voting, and their
+tree-"
+"search variants) to maximize performance (i.e., accuracy) with a given compute budget. We control"
+"the inference compute (FLOPs) of a fixed model by generating more tokens through the language"
+"model1, sampling further candidate solutions, and ranking them with a reward model. We analyze"
+"the performance of fine-tuned models of various sizes given different
+inference FLOPs on mathe-"
+"matical reasoning benchmarks (e.g., GSM8K test set
+(Cobbe et al., 2021) and MATH500 test set"
+"(Hendrycks et al., 2021b; Lightman et al., 2024)). Our experiments cover several model families,"
+"including general-purpose LLMs (e.g., Pythia (Biderman et al., 2023) & Mistral (Jiang et al., 2023))"
+"as well as math-specialized ones (e.g., Llemma (Azerbayev et al., 2024))."
+"Our results on Pythia (Fig. 1) illustrate how performance scales with increased inference compute"
+"across various model sizes. Typically, increasing the compute budget leads to higher accuracy until"
+"the accuracy reaches saturation. As the compute budget increases, smaller models initially perform"
+"better than larger ones, but once the accuracy of the smaller models saturates, the larger models have"
+"favorable performance. The right panel of Figure 1 demonstrates that
+the optimal model size for"
+"inference varies with different levels of computational budgets. However, in real-world deployment,"
+"the available compute is typically much lower than the point where the accuracy of relatively small"
+"models saturates and larger models begin to show their advantage (as shown in Fig. 4, where the 7B"
+"model outperforms the 34B model until 128 Llemma 7B solutions are sampled). This indicates that"
+"relatively smaller models could be more compute-optimal for inference."
+"We analyze the asymptotic behavior of sampling and voting-based inference strategies,
+showing"
+"their convergence upper bound and rate of convergence. Given a dataset,
+the accuracy of the lan-"
+"guage model will ultimately saturate to a fixed limit which is determined by the output probabilities"
+"assigned by the model, exhibiting exponential convergence speed through sampling and voting. This"
+"implies that, without an oracle verifier, simple strategies like sampling cannot achieve perfect ac-"
+"curacy even with an infinite number of samples,
+leading to diminishing returns.
+Therefore,
+this"
+"highlights the necessity for more sophisticated inference algorithms."
+"We have also found that
+the commonly-used MCTS method does not perform well with weighted"
+"voting, as it often yields many unfinished solutions, hence having less effective votes. To address this"
+"issue, we propose a novel tree search algorithm, REward BAlanced SEarch (REBASE), which pairs"
+"well with weighted voting and achieves a Pareto-optimal trade-off between accuracy and inference"
+"compute. The key idea of REBASE is to use a node-quality reward to control node expansion, which"
+"eliminates the need for explicit rollouts while ensuring enough candidate solutions for voting."
+"1Following Uesato et al. (2022), we refer to the main language model generating outputs as the policy model."
+"It can be paired with a reward model, which scores outputs from the policy model to facilitate inference."

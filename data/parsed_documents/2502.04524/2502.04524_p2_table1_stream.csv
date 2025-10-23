@@ -1,0 +1,102 @@
+"Inference"
+"1 Introduction"
+"Modern computing systems
+rely on von Neumann architectures, where instructions"
+"and data must be transferred between memory and the processing unit
+to perform"
+"computational tasks. This data transfer, particularly recurrent and massive in promi-"
+"nent artificial
+intelligence
+(AI)-related workloads,
+results
+in significant
+latency and"
+"energy overhead [1]. Digital AI accelerators address
+this challenge through compu-"
+"tational parallelism, bringing memory closer
+to the processing units, and exploiting"
+"application-specific processors [2, 3]. This approach has demonstrated to bring signif-"
+"icant
+improvements
+in throughput and efficiency for
+running deep neural networks"
+"(DNNs) [4], but the physical separation between memory and compute units persists."
+"Analog in-memory computing (AIMC)
+[5]
+is a promising approach to eliminate this"
+"separation and so achieve further power and efficiency improvements in deep-learning"
+"workloads
+[6], by enabling
+some
+arithmetic
+and logic
+operations
+to be performed"
+"directly at
+the location where the data is
+stored. By mapping the weights of DNNs"
+"onto crossbar arrays of
+resistive devices and by leveraging Ohm’s and Kirchhoff’s"
+"physical
+laws, matrix-vector multiplications
+(MVMs)—the most
+recurrent operation"
+"in AI-workloads
+[7]—are performed in memory with O(1)
+time complexity [4, 5, 8]."
+"Recent demonstrations of the AIMC paradigm have primarily focused on accelerating"
+"the
+inference
+step of digitally trained DNNs
+[9–12]. However,
+the
+increasing com-"
+"puting demands of modern AI models make the training phase orders of magnitude"
+"more costly in time and expenses
+than inference, highlighting the need for efficient"
+"hardware acceleration based on the AIMC paradigm. For instance, Gemini 1.0 Ultra"
+"required over 5 · 1025 floating-point operations
+(FLOPs), approximately 100 days,"
+"24 MW of power, and an estimated cost of 30 million dollars for training [13]."
+"Analog training acceleration imposes even more stringent
+requirements on resistive"
+"devices.
+In addition to
+inference
+(i.e.,
+the
+forward pass),
+the back-propagation of"
+"errors, gradient computation, and weight update steps must be performed during the"
+"learning phase. However,
+in the digital domain updating the weights of a matrix of"
+"size NxN requires O(N 2) digital operations,
+leading to a significant drop in efficiency"
+"and speed. Beyond the
+forward pass,
+the AIMC approach enables
+acceleration of"
+"(1) backward pass through MVMs transposing the inputs and outputs, (2) gradient"
+"computation, and (3)
+the weight update through gradual bidirectional conductance"
+"changes upon external
+stimuli, all with O(1)
+time complexity. To achieve
+this,
+the"
+"ideal
+analog
+resistive
+device
+should
+exhibit
+bidirectional,
+linear,
+and
+symmetric"
+"conductance updates
+in response
+to an open-loop programming pulse
+scheme
+(i.e.,"
+"without the need for verification following each pulse) [4, 14]. Promising technologies"

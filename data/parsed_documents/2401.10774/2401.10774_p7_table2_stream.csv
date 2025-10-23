@@ -1,0 +1,62 @@
+"7B
+13B","t
+a
+R
+m"
+"","x
+e
+u"
+"","E
+R"
+"Model Size","H"
+"(a)","(b)"
+"Figure 3. Left: Speed comparison of baseline, MEDUSA-1 and MEDUSA-2 on Vicuna-7B/13B. MEDUSA-1 achieves more than 2×",""
+"","wall-time speedup compared to the baseline implementation while MEDUSA-2 further improves the speedup by a significant margin."
+"Right: Detailed speedup performance of Vicuna-7B with MEDUSA-2 on 8 categories from MT-Bench.",""
+"and in models like Zephyr-7B that employ Reinforcement","ment and other programming-related tasks. The “Extraction”"
+"Learning from Human Feedback (RLHF). The evaluation is","category shows the highest speedup at 3.62×,
+indicating"
+"conducted on MT-Bench (Zheng et al., 2023), a multi-turn,","that this task is highly optimized by the MEDUSA. Overall,"
+"conversational-format benchmark. Detailed settings can be","the results suggest that the MEDUSA significantly enhances"
+"found in Appendix B.","inference speed across different model sizes and tasks."
+"3.1. Case Study: MEDUSA-1 v.s. MEDUSA-2 on Vicuna","3.2. Case Study: Training with Self-Distillation on"
+"7B and 13B","Vicuna-33B and Zephyr-7B"
+"Experimental Setup. We use the Vicuna model class (Chi-","Experimental Setup.
+In this case study, we focus on"
+"ang et al., 2023), which encompasses chat models of vary-","the cases where self-distillation is needed. We use the"
+"ing sizes (7B, 13B, 33B) that are fine-tuned from the Llama","Vicuna-33B model (Chiang et al., 2023) and the Zephyr-"
+"model (Touvron et al., 2023). Among them,
+the 7B and","7B model
+(Tunstall et al., 2023) as examples.
+Follow-"
+"13B models are trained on the ShareGPT (ShareGPT, 2023)","ing the procedure described in Section 2.3.2, we first"
+"dataset, while the 33B model is an experimental model and","generate the datasets with some seed prompts. We use"
+"is trained on a private dataset.
+In this section, we use the","ShareGPT (ShareGPT, 2023) and UltraChat (Ding et al.,"
+"ShareGPT dataset
+to train the MEDUSA heads on the 7B","2023) as the seed datasets and collect a dataset at about"
+"and 13B models for 2 epochs. We use the v1.5 version of","100k samples for both cases. Interestingly, we find that the"
+"Vicuna models, which are fine-tuned from Llama-2 models","Zephyr model can continue to generate multiple rounds of"
+"with sequence length 4096.","conversation with a single prompt, which makes it easy to"
+"","collect a large dataset. For Vicuna-33B, we generate the"
+"Results. We collect
+the results and show them in Fig. 3.",""
+"","multi-turn conversations by iteratively feeding the prompts"
+"The baseline is the default Huggingface implementation.",""
+"","from each multi-turn seed conversation using random sam-"
+"In Fig. 3a, we can see that for the 7B models, MEDUSA-",""
+"","pling with temperature 0.3. Both models are trained with"
+"1 and MEDUSA-2 configurations lead to a significant
+in-",""
+"","sequence length 2048 and batch size 128."
+"crease in speed, measuring in tokens processed per second.",""
+"MEDUSA-1 shows a 2.18× speedup, while MEDUSA-2 fur-","Results. Table 1 complements these findings by comparing"
+"ther improves this to a 2.83×. When applied to the larger","various MEDUSA-2 models in terms of their acceleration"
+"13B model, MEDUSA-1 results in a 2.33× speed increase,","rate, overhead, and quality on MT-Bench with GPT-4 acting"
+"while MEDUSA-2 maintains a similar performance gain of","as the evaluator to assign performance scores ranging from"
+"2.83× over the baseline. We also plot the speedup per cate-","0 to 10. We report the quality differences of MEDUSA com-"
+"gory for MEDUSA-2 Vicuna-7B model. We observe that the","pared to the original model. Notably, while the MEDUSA-2"
+"coding category benefits from a 3.29× speedup, suggesting","Vicuna-33B model shows a lower acceleration rate, it main-"
+"that MEDUSA is particularly effective for tasks in this do-","tains a comparable quality. We hypothesize that this is due"
+"main. This points to a significant potential for optimizing","to a mismatch between the hidden training dataset and the"
+"coding LLMs, which are widely used in software develop-","dataset we used for self-distillation. Hence, the model’s gen-"

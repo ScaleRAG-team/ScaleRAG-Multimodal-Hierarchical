@@ -1,0 +1,68 @@
+"[3] Beidi Chen, Tri Dao, Eric Winsor, Zhao Song, Atri Rudra, and Christopher Ré. Scatterbrain: Unifying"
+"sparse and low-rank attention.
+In Advances in Neural Information Processing Systems (NeurIPS), 2021."
+"[4] Krzysztof Marcin Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane,"
+"Tamas Sarlos, Peter Hawkins, Jared Quincy Davis, Afroz Mohiuddin, Lukasz Kaiser, et al. Rethinking"
+"attention with performers.
+In International Conference on Learning Representations (ICLR), 2020."
+"[5] Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. FlashAttention: Fast and"
+"memory-efficient exact attention with IO-awareness.
+In Advances in Neural
+Information Processing"
+"Systems, 2022."
+"[6] Zhe Jia and Peter Van Sandt. Dissecting the Ampere GPU architecture via microbenchmarking. GPU"
+"Technology Conference, 2021."
+"[7] Zhe Jia, Marco Maggioni, Benjamin Staiger, and Daniele P Scarpazza. Dissecting the nvidia Volta GPU"
+"architecture via microbenchmarking. arXiv preprint arXiv:1804.06826, 2018."
+"[8] Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and François Fleuret. Transformers are RNNs:"
+"Fast autoregressive transformers with linear attention.
+In International Conference on Machine Learning,"
+"pages 5156–5165. PMLR, 2020."
+"[9] Nikita Kitaev, Łukasz Kaiser, and Anselm Levskaya. Reformer: The efficient
+transformer.
+In The"
+"International Conference on Machine Learning (ICML), 2020."
+"[10] Benjamin Lefaudeux, Francisco Massa, Diana Liskovich, Wenhan Xiong, Vittorio Caggiano, Sean Naren,"
+"Min Xu, Jieru Hu, Marta Tintore, Susan Zhang, Patrick Labatut, and Daniel Haziza. xformers: A modular"
+"and hackable transformer modelling library. https://github.com/facebookresearch/xformers, 2022."
+"[11] Maxim Milakov and Natalia Gimelshein. Online normalizer calculation for softmax.
+arXiv preprint"
+"arXiv:1805.02867, 2018."
+"[12] OpenAI. Gpt-4 technical report. ArXiv, abs/2303.08774, 2023."
+"[13] Markus N Rabe and Charles Staats.
+Self-attention does not need 𝑂 (𝑛2) memory.
+arXiv preprint"
+"arXiv:2112.05682, 2021."
+"[14] Aurko Roy, Mohammad Saffar, Ashish Vaswani, and David Grangier. Efficient content-based sparse"
+"attention with routing transformers. Transactions of
+the Association for Computational Linguistics, 9:"
+"53–68, 2021."
+"[15] Noam Shazeer.
+Fast
+transformer
+decoding:
+One write-head
+is
+all
+you
+need.
+arXiv
+preprint"
+"arXiv:1911.02150, 2019."
+"[16] Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro."
+"Megatron-LM: Training multi-billion parameter language models using model parallelism. arXiv preprint"
+"arXiv:1909.08053, 2019."
+"[17] Philippe Tillet, Hsiang-Tsung Kung, and David Cox. Triton: an intermediate language and compiler for"
+"tiled neural network computations.
+In Proceedings of
+the 3rd ACM SIGPLAN International Workshop"
+"on Machine Learning and Programming Languages, pages 10–19, 2019."
+"[18] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz"
+"Kaiser, and Illia Polosukhin. Attention is all you need. Advances
+in neural
+information processing"
+"systems, 30, 2017."
+"[19] Sinong Wang, Belinda Z Li, Madian Khabsa, Han Fang, and Hao Ma. Linformer: Self-attention with"
+"linear complexity. arXiv preprint arXiv:2006.04768, 2020."
+"[20] Manzil Zaheer, Guru Guruganesh, Kumar Avinava Dubey, Joshua Ainslie, Chris Alberti, Santiago"
+"Ontanon, Philip Pham, Anirudh Ravula, Qifan Wang, Li Yang, et al. Big bird: Transformers for longer"

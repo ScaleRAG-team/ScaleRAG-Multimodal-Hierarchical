@@ -1,0 +1,92 @@
+"During this step, a quasi-static voltage sweep up to 3.6 V is applied to the top elec-"
+"trode of each ReRAM device, while grounding the source and driving the gate of the"
+"corresponding NMOS selector with a constant VG = 1.2 V ensuring current compli-"
+"ance. This process leads to the formation of a highly defect-rich conductive filament"
+"in the HfOx layer. Due to the high oxygen vacancy (V··
+O in Kr¨oger–Vink notation [28])"
+"formation energy, ranging from 2.8 eV to 4.6 eV in HfOx depending on the stoichiome-"
+"try [29, 30], defect generation occurs with statistical relevance only during the forming"
+"layer
+[26]. The subsequent application of a negative voltage
+sweep within the HfOx"
+"induces a radial
+redistribution of
+sweep up to −1.4 V, with a constant VG = 3.3 V,"
+"the defects within the CMO layer, consistent with findings in literature [26]. This pro-"
+"cess leads to an increase of the ReRAM conductance and is modelled by considering a"
+"constant average radius of the conductive filament, with a local electrical conductiv-"
+"ity increase of the CMO layer on top of the filament. Refer to the ”Methods” section"
+"”ReRAM forming modelling” for details. To determine the experimental ReRAM form-"
+"ing voltage, the voltage drop across the NMOS selector must be subtracted from the"
+"voltage applied to the 1T1R cell. Fig. 2b shows
+the experimental
+transistor output"
+"characteristic, from which the resistance in the triode region at VG = 1.2 V is measured"
+"and used to extract the distribution of V ReRAM"
+"forming within the CMO/HfOx ReRAM array"
+"(reported in Fig. 2c). Refer to the ”Methods” section ”ReRAM forming voltage extrac-"
+"tion” for details. The highly reproducible CMO/HfOx ReRAM forming step exhibits a"
+"100% yield with a narrow distribution (σ = 75 mV) around V ReRAM"
+"forming ≈ 3.2 V, making"
+"it suitable for integration with 130 nm NMOS transistors rated for 3.3 V operation."
+"2.1.2 Resistive switching and polarity optimization"
+"The
+underlying
+physical mechanism behind
+the
+resistive
+switching
+in
+analog"
+"31,
+32]. The
+current
+CMO/HfOx ReRAM devices has been recently unveiled [26,"
+"transport is explained by a trap-to-trap tunneling process, and the resistive switching"
+"by a modulation of
+the defect density within the conductive sub-band of
+the CMO"
+"that behaves
+as
+electric field and temperature
+confinement
+layer.
+In these works,"
+"switching
+the analog CMO/HfOx ReRAM device shows a counter-eightwise (C8W)"
+"polarity, according to the definition proposed in literature [33]. The intrinsically grad-"
+"ual reset
+(from low to high resistance) process, marked by a temperature decrease,"
+"occurs during the positive voltage
+sweep on the ReRAM top electrode, while
+the"
+"exponential set
+(from high to low resistance) process,
+involving a rapid temperature"
+"increase, occurs on the negative
+side
+[26]. However, when arranged in a 1T1R cell"
+"configuration based on an NMOS selector, the C8W switching polarity prevents direct"
+"control of
+the
+exponential
+set
+process. This
+results
+in
+transistor’s VGS during the"
+"reduced switching uniformity, which is critical
+for the array-level adoption of analog"
+"CMO/HfOx ReRAM devices."
+"For
+this
+reason,
+in this work the
+analog CMO/HfOx ReRAM devices within the"
+"1T1R cells are optimized to exhibit the desirable 8W switching polarity by extending"
+"the current switching model
+in literature [26]. To achieve this,
+following the positive"
+"forming and the initial negative voltage sweep, each device in the array is subjected"
+"to a forward and backward voltage
+sweep from 0 to −1.5 V. During this process,"

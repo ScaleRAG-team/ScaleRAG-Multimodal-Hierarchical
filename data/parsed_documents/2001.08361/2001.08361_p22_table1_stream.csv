@@ -1,0 +1,10 @@
+"B.3
+Comparison to Inefﬁcient",""
+"Typically, researchers train models until they appear to be close to convergence.","In this section, we compare"
+"the efﬁcient training procedure described above to this more typical setup. We deﬁne a the convergence factor",""
+"f as the percent deviation from the converged loss:",""
+"L (N, C) = (1 + f ) L (N, ∞) .","(B.11)"
+"For compute-efﬁcient
+training we have f = αN /αS ≈ 10% from the previous section, but","researchers"
+"","typically use a much smaller value. Here, we choose f (cid:48) = 2% as an estimate. For a ﬁxed value of the loss,"
+"we predict:",""

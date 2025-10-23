@@ -1,0 +1,133 @@
+"2.3.2 Tiki-Taka training simulations"
+"To perform realistic hardware-aware
+training simulations,
+the
+experimental device"
+"response is
+reproduced on software using the generalized soft bounds model
+imple-"
+"mented
+in
+the
+’aihwkit’
+[40], which
+better
+captures
+the
+bidirectional
+resistive"
+"switching behavior
+(see Fig. S8
+in Supplementary
+Information)
+and accounts
+for"
+"intra- and inter-device variabilities (see cycle-to-cycle and device-to-device variations"
+"in Fig. 6a). Additionally, Gaussian distributions are modelled based on parameters"
+"extracted from device characterization (Gmax, Gmin, ∆Gsp, NSR, SPskew) to account"
+"for device-to-device
+variability
+observed in the
+experimental
+characterization (see"
+"”Methods”
+section ”Intra
+and inter-device variability”
+for details). This Gaussian"
+"fitting approach allows defining various device presets—characterized by the
+same"
+"model but with different parameter
+settings—to represent
+the
+synapses across
+the"
+"neural network. A realistic
+simulation setup is obtained by exclusively considering"
+"experimentally obtained parameters
+to reproduce
+the device
+trace
+(see ”Methods”"
+"section ”Generalized soft bounds model” for details). The device model
+is defined"
+"based on the observed conductance window and number of states, without assuming"
+"asymptotic behavior for an infinite number of pulses. This prevents overestimation of"
+"both the conductance window and the number of states (material states), enhancing"
+"the fidelity of the simulation."
+"To
+validate
+analog
+a
+3-layer
+fully
+training with CMO/HfOx ReRAM technology,"
+"connected (FC) neural network was
+trained on the MNIST dataset
+for
+image clas-"
+"sification.
+In addition,
+the impact of
+the device’s number of states, asymmetry, and"
+"noise-to-signal
+ratio on accuracy and convergence
+time
+is
+evaluated by simulating"
+"identical networks in which each property is individually enhanced, while keeping the"
+"others fixed at
+the
+experimentally derived values. Literature has
+shown that
+these"
+"device
+characteristics
+critically
+influence
+the
+convergence
+of
+analog
+training
+algo-"
+"rithms [23]. Therefore, this method assesses the deviation of the current CMO/HfOx"
+"ReRAM device properties from the ideal analog resistive device scenario. Moreover, to"
+"show the scalability of the CMO/HfOx ReRAM technology to more computationally-"
+"intensive
+tasks,
+such as
+time
+series processing,
+a
+2-layer
+long
+short-term memory"
+"(LSTM) network was trained on War and Peace
+text sequences to predict
+the next"
+"token. Each network is initially trained using conventional stochastic gradient descent"
+"(SGD) based backpropagation with 32-bit FP precision, serving as the baseline per-"
+"formance. Fig. 6b illustrates the accuracy per epoch for the FP-baseline trained with"
+"SGD (in green) and the analog network trained using AGAD, evaluated under
+four"
+"different parameter
+settings:
+(1) properties
+extracted from the
+experimental array"
+"(in yellow), (2) reduced NSR to 20% (in red), (3) average of Nstates = 100 states (in"
+"blue), and (4) zero average device asymmetry (in orange). Using symmetrical device"
+"presets,
+improves accuracy by 0.7% with respect
+i.e. with an average SPskew of 50%,"
+"to analog training with CMO/HfOx ReRAM experimentally derived configuration"
+"(96.9%),
+landing
+an accuracy of
+97.6%,
+a
+0.7% lower
+than the FP-SGD baseline"
+"(98.3%). The other two configurations show less performance improvement,
+indicating"
+"more resilience of the AGAD-training to device’s Nstates and NSR."

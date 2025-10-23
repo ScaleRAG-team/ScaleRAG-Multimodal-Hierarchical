@@ -1,0 +1,80 @@
+"sparsity of llama is above 90%. For models that","Indeed,
+the closest friend of each neuron coacti-"
+"have used Swi-GLU activation function (having a","vates with it very often. As Figure
+12b demon-"
+"gated linear unit, a down project and an up project),","strates, it is interesting to see each neuron and its"
+"replacing Swish with ReLU within the FFN doesn’t","closest friend coactivate with each other at
+least"
+"ensure high amount of sparsity
+(Mirzadeh et al.,","95% of the time. The graphs for the 4th closest"
+"2023). The FATReLU function activates neurons","friend and 8th closest friend are also drawn. Based"
+"with gated value greater than a threshold. This will","on this information we decided to put a bundle of"
+"ensure only a small portion of neurons are activated","each neuron and its closest friend in the flash mem-"
+"which are the most informative.","ory; whenever a neuron is predicted to be active"
+"Predictors. We used predictors of size 1024","we’ll bring its closest friend too. Unfortunately, this"
+"in 4 middle layers and predictor of size 256 in all","resulted in loading highly active neurons multiple"
+"other layers. The reason we used larger predictors","times and the bundling worked against our original"
+"in the middle layers is higher neuron activation in","intention. It means the neurons that are very active"
+"middle layers (similar to Phi2). The reason why in","are the ‘closest friends’ of almost everyone."
+"some networks middle layers are more active and",""
+"in some networks later layers are more active is","E
+Extended Related Works"
+"subject to follow up research.",""
+"","Efficient Inference for Large Language Models."
+"Latency analysis. LLM in flash gets 3x speed",""
+"","As LLMs grow in size,
+reducing their computa-"
+"up over naive baseline (Table 3). It is also perform-",""
+"","tional and memory requirements for inference has"
+"ing better than hybrid model which is the theoret-",""
+"","become an active area of
+research. Approaches"
+"ical
+lower bound for approaches that doesn’t use",""
+"","broadly fall
+into two categories: model compres-"
+"sparsity.",""
+"","sion techniques like pruning and quantization (Han"
+"Accuracy analysis. When doing MMLU eval-",""
+"","et al., 2016b; Sun et al., 2023; Jaiswal et al., 2023;"
+"uation using InstructEval repo (Chia et al., 2023)",""
+"","Xia et al., 2023), (Zhang et al., 2022a; Xu et al.,"
+"we got MMLU of 41.8 for Llama 2, 38.96 for spar-",""
+"","2023; Shao et al., 2023; Lin et al., 2023; Hoang"
+"sified model by (Song et al., 2024) and 38.63 after",""
+"","et al., 2023; Zhao et al., 2023; Ahmadian et al.,"
+"training our predictors. We noted a difference be-",""
+"","2023; Liu et al., 2023a; Li et al., 2023), and se-"
+"tween reported numbers and our evaluations. Using",""
+"","lective execution like sparse activations (Liu et al.,"
+"predictors on top of the sparse models didn’t hurt",""
+"","2023b; Mirzadeh et al., 2023; Zhang et al., 2024)"
+"the MMLU results.",""
+"","or conditional computation (Graves, 2016; Baykal"
+"Alternative approaches. Since Llama 2’s gate",""
+"","et al., 2023). Our work is complementary, focus-"
+"project with FATReLU provides sparse neurons,",""
+"","ing on minimizing data transfer from flash memory"
+"we can directly use gate project as predictor. This",""
+"","during inference."
+"completely matches with the sparse base model.",""
+"","Selective Weight Loading. Most related to our"
+"",""
+"3 of FFN layer and 5
+9 of",""
+"","approach is prior work on selective weight
+load-"
+"each transformer block, keeping them in memory",""
+"","ing.
+Dejavu (Liu et al., 2023b) exploits activa-"
+"will occupy more space in DRAM than having",""
+"","tion sparsity to load a subset of weights for each"
+"predictors.
+In fact with window size of 1,
+this",""
+"","layer. However, it still requires loading from GPU"
+"approach resulted in requiring 65% of model size",""
+"","memory.
+Flexgen (Sheng et al., 2023) offloads"
+"in DRAM.",""
+"","the weights and KV-cache from GPU memory to"

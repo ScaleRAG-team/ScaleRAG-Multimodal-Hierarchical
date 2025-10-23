@@ -1,0 +1,65 @@
+"(NSF DMS 2134012) and Convergent Research."
+"REFERENCES"
+"David H Ackley, Geoffrey E Hinton, and Terrence J Sejnowski. A learning algorithm for boltzmann"
+"machines. Cognitive science, 9(1):147–169, 1985."
+"Ibrahim M Alabdulmohsin, Behnam Neyshabur, and Xiaohua Zhai. Revisiting neural scaling laws"
+"in language and vision. Advances in Neural Information Processing Systems, 35:22300–22312,"
+"2022."
+"Jacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan,"
+"Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and Charles Sutton. Program synthesis with large"
+"language models, 2021. URL https://arxiv.org/abs/2108.07732."
+"Zhangir Azerbayev, Hailey Schoelkopf, Keiran Paster, Marco Dos Santos, Stephen Marcus McAleer,"
+"Albert Q. Jiang, Jia Deng, Stella Biderman, and Sean Welleck. Llemma: An open language model"
+"for mathematics.
+In The Twelfth International Conference on Learning Representations, 2024."
+"URL https://openreview.net/forum?id=4WnqRR915j."
+"Stella Biderman, Hailey Schoelkopf, Quentin Gregory Anthony, Herbie Bradley, Kyle O’Brien, Eric"
+"Hallahan, Mohammad Aflah Khan, Shivanshu Purohit, USVSN Sai Prashanth, Edward Raff, et al."
+"Pythia: A suite for analyzing large language models across training and scaling.
+In International"
+"Conference on Machine Learning, pp. 2397–2430. PMLR, 2023."
+"Tim Brooks, Bill Peebles, Connor Holmes, Will DePue, Yufei Guo, Li Jing, David Schnurr, Joe"
+"Taylor, Troy Luhman, Eric Luhman, Clarence Ng, Ricky Wang, and Aditya Ramesh.
+Video"
+"generation models as world simulators, 2024.
+URL https://openai.com/research/"
+"video-generation-models-as-world-simulators."
+"Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D. Kaplan, Prafulla Dhariwal,"
+"Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are"
+"few-shot learners. Advances in Neural Information Processing Systems, 33:1877–1901, 2020."
+"Guoxin Chen, Minpeng Liao, Chengxi Li, and Kai Fan. Alphamath almost zero: Process supervision"
+"Information Processing
+without process.
+In The Thirty-eighth Annual Conference on Neural"
+"Systems, 2024a. URL https://openreview.net/forum?id=VaXnxQ3UKo."
+"Ziru Chen, Michael White, Ray Mooney, Ali Payani, Yu Su, and Huan Sun. When is tree search"
+"the 62nd Annual
+useful
+for
+llm planning?
+it depends on the discriminator.
+In Proceedings of"
+"Meeting of
+the Association for Computational Linguistics (Volume 1: Long Papers), pp. 13659–"
+"13678, 2024b."
+"Sehyun Choi, Tianqing Fang, Zhaowei Wang, and Yangqiu Song. KCTS: Knowledge-constrained"
+"tree search decoding with token-level hallucination detection.
+In The 2023 Conference on Em-"
+"pirical Methods in Natural Language Processing, 2023. URL https://openreview.net/"
+"forum?id=7H45HfXsJb."
+"Aakanksha Chowdhery, Sharan Narang,
+Jacob Devlin, Maarten Bosma, Gaurav Mishra, Adam"
+"Roberts, Paul Barham, Hyung Won Chung, Charles Sutton, Sebastian Gehrmann, et al.
+Palm:"
+"Scaling language modeling with pathways.
+Journal of Machine Learning Research, 24(240):"
+"1–113, 2023."
+"Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser,"
+"Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, Christopher Hesse, and John"
+"Schulman.
+Training verifiers to solve math word problems.
+arXiv preprint arXiv:2110.14168,"
+"2021."
+"Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha"
+"Letman, Akhil Mathur, Alan Schelten, Amy Yang, Angela Fan, et al. The llama 3 herd of models."
+"arXiv preprint arXiv:2407.21783, 2024."

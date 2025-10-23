@@ -1,0 +1,50 @@
+"[4] Haensch, W., Gokmen, T., Puri, R.: The next generation of deep learning hard-"
+"ware: Analog computing. Proceedings of
+the IEEE 107 (2019) https://doi.org/"
+"10.1109/JPROC.2018.2871057"
+"[5] Sebastian, A., Le Gallo, M., Khaddam-Aljameh, R., Eleftheriou, E.: Memory"
+"devices and applications
+for
+in-memory computing (2020). https://doi.org/10."
+"1038/s41565-020-0655-z"
+"[6] Mutlu, O., Ghose, S., G´omez-Luna, J., Ausavarungnirun, R.: Processing data"
+"where
+it makes
+sense: Enabling in-memory computation. Microprocessors and"
+"Microsystems 67 (2019) https://doi.org/10.1016/j.micpro.2019.01.009"
+"[7] Tsai, H., Narayanan, P., Jain, S., Ambrogio, S., Hosokawa, K., Ishii, M., MacKin,"
+"C., Chen, C.T., Okazaki, A., Nomura, A., Boybat,
+I., Muralidhar, R., Frank,"
+"M.M., Yasuda, T., Friz, A., Kohda, Y., Chen, A., Fasoli, A., Rasch, M.J., Woz-"
+"niak, S., Luquin, J., Narayanan, V., Burr, G.W.: Architectures and circuits
+for"
+"analog-memory-based hardware accelerators for deep neural networks (invited)."
+"In: Proceedings -
+IEEE International Symposium on Circuits and Systems, vol."
+"2023-May (2023). https://doi.org/10.1109/ISCAS46773.2023.10181650"
+"[8] Burr, G.W., Shelby, R.M., Sebastian, A., Kim, S., Kim, S., Sidler, S., Virwani,"
+"K.,
+Ishii, M., Narayanan, P., Fumarola, A., Sanches, L.L., Boybat,
+I., Le Gallo,"
+"M., Moon, K., Woo, J., Hwang, H., Leblebici, Y.: Neuromorphic computing using"
+"non-volatile memory (2017). https://doi.org/10.1080/23746149.2016.1259585"
+"[9] Wan, W., Kubendran, R., Schaefer, C., Eryilmaz, S.B., Zhang, W., Wu, D., Deiss,"
+"S., Raina, P., Qian, H., Gao, B., Joshi, S., Wu, H., Wong, H.-S.P., Cauwenberghs,"
+"G.: A compute-in-memory chip based on resistive random-access memory. Nature"
+"608(7923), 504–512 (2022) https://doi.org/10.1038/s41586-022-04992-8"
+"[10] Yao, P., Wu, H., Gao, B., Tang, J., Zhang, Q., Zhang, W., Yang, J.J., Qian,"
+"H.: Fully hardware-implemented memristor convolutional neural network. Nature"
+"577 (2020) https://doi.org/10.1038/s41586-020-1942-4"
+"[11] Ambrogio, S., Narayanan, P., Okazaki, A., Fasoli, A., Mackin, C., Hosokawa, K.,"
+"Nomura, A., Yasuda, T., Chen, A., Friz, A.,
+Ishii, M., Luquin, J., Kohda, Y.,"
+"Saulnier, N., Brew, K., Choi, S., Ok, I., Philip, T., Chan, V., Silvestre, C., Ahsan,"
+"I., Narayanan, V., Tsai, H., Burr, G.W.: An analog-ai chip for energy-efficient"
+"speech recognition and transcription. Nature 620 (2023) https://doi.org/10.1038/"
+"s41586-023-06337-5"
+"[12] Le Gallo, M., Khaddam-Aljameh, R., Stanisavljevic, M., Vasilopoulos, A., Kerst-"
+"ing, B., Dazzi, M., Karunaratne, G., Br¨andli, M., Singh, A., M¨uller, S.M., B¨uchel,"
+"J., Timoneda, X., Joshi, V., Rasch, M.J., Egger, U., Garofalo, A., Petropoulos,"
+"A., Antonakopoulos, T., Brew, K., Choi, S., Ok,
+I., Philip, T., Chan, V., Sil-"
+"vestre, C., Ahsan, I., Saulnier, N., Narayanan, V., Francese, P.A., Eleftheriou, E.,"

@@ -1,0 +1,102 @@
+"The second goal is load-adaptivity to handle varying cluster","Physical usage
+Virtual usage"
+"load and improve cost efficiency. We notice that the benefits",""
+"of rescheduling is also relevant to cluster load, which could",""
+"be limited under too high/low load. Llumnix incorporates",""
+"instance auto-scaling to keep appropriate cluster load for both",""
+"saving costs and maximizing the benefits of rescheduling.",""
+"Besides these two goals similar to those of existing sys-",""
+"tems, Llumnix introduces a new goal of request priorities",""
+"that comes from the new requirements of LLMs. Priorities",""
+"","(a) Load balancing
+(b) De-frag
+(c) Prioritization
+(d) Auto-scaling"
+"present a systematic approach for the same LLM to serve",""
+"certain requests with higher emergency, e.g., from ChatGPT","Figure 9: Llumnix combines virtual usages with a
+load-"
+"Plus or more interactive applications. Llumnix provides ap-","balancing policy to unify multiple scheduling goals."
+"plications with an interface for specifying request priorities",""
+"to meet different SLOs, in terms of scheduling priority and","will
+trigger migration for
+load balancing (which in effect"
+"execution priority. Requests with higher scheduling priori-","is de-fragmentation for the queuing request), as shown in"
+"ties will get scheduled earlier to reduce their queuing delays.","Figure 9(b). There could be a lot of heuristics to explore for"
+"Those with higher execution priorities will be given lower","setting the virtual usage, which controls the tradeoff between"
+"instance load and hence less interference to accelerate their","reducing queuing delays and load balancing — for example,"
+"execution. Currently, Llumnix supports two priority classes,","gradually increasing the virtual usage of a queuing request"
+"high and normal,
+to demonstrate the ability of Llumnix to","until it reaches the real memory demand. Llumnix currently"
+"prefer high-priority requests, but our design also generalizes","uses a simple rule that directly uses its real demand (line"
+"to more priorities.","4 in Algorithm 1), which favours reducing queuing delays."
+"","This rule is based on our observation that queuing delay can"
+"","dominate the end-to-end latency and worth such preference."
+"4.4.2
+Virtual Usage",""
+"","Our evaluation also shows that this rule preserves the benefits"
+"","of load balancing, due to the high flexibility of migration."
+"To achieve the multiple goals above under the distributed",""
+"","Execution priorities.
+For a request with high execution"
+"scheduling architecture, Llumnix needs a scheduling policy",""
+"","priorities, Llumnix tries to prevent
+the instance the request"
+"that can express these goals using simple instance-level met-",""
+"","is running on from exceeding a given level of real load, by"
+"rics, to improve the efficiency and scalability of the global",""
+"","reserving a memory space as headroom, as shown in Fig-"
+"scheduler. To this end, Llumnix introduces the virtual usage",""
+"","ure 9(c). This is achieved by adding such a headroom on the"
+"abstraction to unify these different, sometimes conflicting",""
+"","physical usage of a high-priority request
+to get
+the virtual"
+"goals into a simple load metric of instances. The key observa-",""
+"","usage (line 8). When there are multiple high-priority requests"
+"tion here is that the aforementioned rescheduling scenarios",""
+"","on an instance, this headroom is divided among them (line"
+"fall
+into two categories:
+load balancing, and creating free",""
+"","10). The headroom for high-priority requests is currently de-"
+"space on one instance (de-fragmentation, prioritization, and",""
+"","fined as that required to preserve the ideal decode speed (i.e.,"
+"draining out instances). We find that they can be unified into",""
+"","no visible interference), which is obtained through profiling."
+"load balancing by assuming a virtual load on the instance: to",""
+"","The headroom for normal requests is 0. Llumnix can also"
+"create free space on an instance, we just need to set the vir-",""
+"","support more execution priorities by specifying the sizes for"
+"tual usages of certain requests to make the instance virtually",""
+"","the headroom. When the headroom for a high-priority request"
+"overloaded, then a load balancing policy will be triggered to",""
+"","is running up,
+the other normal
+requests will be migrated"
+"migrate the requests to other instances.",""
+"","away by the load balancing policy because the instance is"
+"This observation leads us to a simple heuristic with load-",""
+"","overloaded in terms of the total virtual usage."
+"balancing as the basis, combined with a set of rules for setting",""
+"","Auto-scaling.
+When a new instance is launched, Llumnix’s"
+"request virtual usages in different situations. We summarize",""
+"","load balancing policy will automatically saturate it by migrat-"
+"the rules in the function CalcVirtualUsage in Algorithm 1",""
+"","ing requests from other instances to it. When an instance is"
+"and illustrate example scenarios in Figure 9. In normal cases,",""
+"","terminating, we artificially add a fake request with a virtual"
+"the virtual usage of a request is just its physical memory usage",""
+"","usage of infinity on it (line 7), then the remaining requests"
+"to enable routine load balancing, as shown in Figure 9(a). We",""
+"","will be migrated to other instances, as shown in Figure 9(d)."
+"discuss the rules for other cases as follows.",""
+"Queuing requests.
+For the head-of-line queuing request",""
+"on an instance, we assign a positive virtual usage to it
+to",""
+"","4.4.3
+Policies"
+"reflect its resource demand in terms of the required memory,",""
+"although the physical usage is 0. Thus, queuing requests will","We then describe how the specific scheduling decisions are"
+"increase the total virtual usage of the instance, then the policy","made based on the virtual usages."

@@ -1,0 +1,65 @@
+"classes using image-level supervision.
+In Computer Vision–","A. Scene querying with language"
+"ECCV 2022:
+17th European Conference, Tel Aviv,
+Israel,",""
+"October 23–27, 2022, Proceedings, Part IX, pages 350–368.","We provide further qualitative results that demonstrate"
+"Springer, 2022.","the language-based querying capabilities of our proposed"
+"","framework on point clouds of indoor scenes. Note that
+in"
+"","the main paper, we pre-trained on ShapeNet which is not"
+"","a real-world dataset.
+In order
+to imporve performance on"
+"","scene-querying on real-world datasets, we perform addi-"
+"","tional pre-training on the ScanObjectNN dataset for query-"
+"","ing on a collection of meshed indoor scenes from the S3DIS"
+"","[3] and ScanNet [9] datasets."
+"","During standard CG3D pre-training, we render the tex-"
+"","tured CAD models of ShapeNet
+to use as inputs to our vi-"
+"","sual encoder. Such rendering is not possible with ScanOb-"
+"","jectNN, so we project each point cloud to a depth map in"
+"","a random view. The text caption is curated in the standard"
+"","procedure."
+"","A.1. Scene querying on S3DIS"
+"","We perform language-based scene querying on the in-"
+"","door scene dataset S3DIS [3]. Each scene (disregarding the"
+"","ﬂoor and ceiling regions, as
+is
+standard in semantic seg-"
+"","mentation tasks) is clustered into regions, each of which is"
+"","passed to CG3D along with a query containing the object to"
+"","be localized. Some qualitative results may be seen in Figure"
+"","8. Each row shows an input indoor scene, the result of clus-"
+"","tering, and the ﬁnal result of the language query. We query"
+"","the same scene for two different objects. In the second row,"
+"","it can be observed that several instances of the queried cat-"
+"","egory “chair” are correctly identiﬁed."
+"","A.2. Scene querying on ScanNet"
+"","We also demonstrate the performance of the 3D encoder"
+"","pre-trained on real data on indoor scene samples from the"
+"","ScanNet
+[9] dataset.
+Figure 9 shows the result of query-"
+"","ing on two samples. The quality of the results depends on"
+"","the clustering accuracy, which can cause spurious results."
+"","However, both instances of the queried object are correctly"
+"","identiﬁed in both examples."
+"","B. Leveraging prompt-tuning for images"
+"","In the main paper, we showed how we can train a 3D en-"
+"","coder in the CLIP framework and illustrated its beneﬁts. We"
+"","also introduced prompt
+tuning in the 2D encoder of CG3D"
+"","to tune it
+towards
+rendered 3D shapes and objects.
+Per-"
+"","forming contrastive visual prompt
+tuning not only aids in"
+"","pre-training the 3D encoder, but also allows us to leverage"
+"","CLIP’s visual encoder for 3D shapes. Using visual prompts"
+"","allows us to train the visual encoder without forgetting the"
+"","already existing weights of CLIP. Thus, this helps us obtain"
+"","a new visual encoder that has a capability of performing bet-"
+"","ter than normal CLIP encoder on image-based 3D tasks. By"

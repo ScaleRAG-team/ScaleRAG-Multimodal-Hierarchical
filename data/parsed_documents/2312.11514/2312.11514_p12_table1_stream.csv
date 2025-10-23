@@ -1,0 +1,99 @@
+"Adam Paszke, Sam Gross, Francisco Massa, Adam","Mingjie Sun, Zhuang Liu, Anna Bair, and J. Zico Kolter."
+"Lerer,
+James Bradbury, Gregory Chanan, Trevor","2023. A simple and effective pruning approach for"
+"Killeen, Zeming Lin, Natalia Gimelshein, Luca","large language models. ArXiv, abs/2306.11695."
+"Antiga, Alban Desmaison, Andreas Köpf, Edward Z.",""
+"Yang, Zachary DeVito, Martin Raison, Alykhan Te-","Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier"
+"jani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang,","Martinet, Marie-Anne Lachaux, Timothée Lacroix,"
+"Junjie Bai, and Soumith Chintala. 2019. Pytorch: An","Baptiste Rozière, Naman Goyal, Eric Hambro, Faisal"
+"imperative style, high-performance deep learning li-","Azhar, Aurélien Rodriguez, Armand Joulin, Edouard"
+"brary.
+In Advances in Neural Information Processing","Grave, and Guillaume Lample. 2023a. Llama: Open"
+"Systems 32: Annual Conference on Neural Informa-","and efficient
+foundation language models.
+CoRR,"
+"tion Processing Systems 2019, NeurIPS 2019, De-","abs/2302.13971."
+"cember 8-14, 2019, Vancouver, BC, Canada, pages",""
+"8024–8035.","Hugo Touvron, Louis Martin, Kevin Stone, Peter Al-"
+"","bert, Amjad Almahairi, Yasmine Babaei, Nikolay"
+"Samyam Rajbhandari, Olatunji Ruwase,
+Jeff Rasley,","Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti"
+"Shaden Smith, and Yuxiong He. 2021. Zero-infinity:","Bhosale,
+et
+al. 2023b.
+Llama 2: Open founda-"
+"Breaking the gpu memory wall
+for extreme scale","arXiv preprint
+tion and fine-tuned chat models."
+"deep learning.
+In SC21: International Conference for","arXiv:2307.09288."
+"High Performance Computing, Networking, Storage",""
+"and Analysis, pages 1–14.","Thomas Wolf, Lysandre Debut, Victor Sanh,
+Julien"
+"","Chaumond, Clement Delangue, Anthony Moi, Pier-"
+"Minsoo Rhu, Natalia Gimelshein,
+Jason Clemons,","ric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz,"
+"Arslan Zulfiqar,
+and Stephen W Keckler.
+2013.","and Jamie Brew. 2019. Huggingface’s transformers:"
+"vdnn: Virtualized deep neural networks for scalable,","State-of-the-art natural language processing. CoRR,"
+"memory-efficient neural network design.
+In 2016","abs/1910.03771."
+"49th Annual IEEE/ACM International Symposium on",""
+"Microarchitecture (MICRO), page Article 13. IEEE","Haojun Xia, Zhen Zheng, Yuchao Li, Donglin Zhuang,"
+"Computer Society.","Zhongzhu Zhou, Xiafei Qiu, Yong Li, Wei Lin, and"
+"","Shuaiwen Leon Song. 2023.
+Flash-llm: Enabling"
+"Wenqi Shao, Mengzhao Chen, Zhaoyang Zhang, Peng","low-cost and highly-efficient large generative model"
+"Xu, Lirui Zhao, Zhiqiang Li, Kaipeng Zhang, Peng","inference with unstructured sparsity. Proc. VLDB"
+"Gao, Yu Jiao Qiao, and Ping Luo. 2023. Omniquant:","Endow., 17:211–224."
+"Omnidirectionally calibrated quantization for large",""
+"language models. ArXiv, abs/2308.13137.","Zhaozhuo Xu, Zirui Liu, Beidi Chen, Yuxin Tang, Jue"
+"","Wang, Kaixiong Zhou, Xia Hu, and Anshumali Shri-"
+"Yifan Shao, Mengjiao Li, Wenhao Cai, Qi Wang,","vastava. 2023. Compress,
+then prompt:
+Improving"
+"Dhananjay Narayanan,
+and
+Parthasarathy
+Ran-","accuracy-efficiency trade-off of llm inference with"
+"ganathan. 2022. Hotpot: Warmed-up gigascale infer-","transferable prompt. ArXiv, abs/2305.11186."
+"ence with tightly-coupled compute and reuse in flash.",""
+"the 55th Annual
+IEEE/ACM In-
+In Proceedings of","Rongjie Yi, Liwei Guo, Shiyun Wei, Ao Zhou, Shang-"
+"ternational Symposium on Microarchitecture, pages","guang Wang, and Mengwei Xu. 2023.
+Edgemoe:"
+"335–349.","Fast on-device inference of moe-based large language"
+"","models. ArXiv, abs/2308.14352."
+"Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan",""
+"Li, Max Ryabinin, Beidi Chen, Percy Liang, Christo-","Hengrui Zhang, August Ning, Rohan Prabhakar, and"
+"pher Ré, Ion Stoica, and Ce Zhang. 2023. Flexgen:","David Wentzlaff. 2023a.
+A hardware evaluation"
+"High-throughput generative inference of large lan-","framework for large language model inference."
+"guage models with a single GPU.
+In International",""
+"Conference on Machine Learning, ICML 2023, 23-29","Jinchao Zhang,
+Jue Wang, Huan Li, Lidan Shou,"
+"July 2023, Honolulu, Hawaii, USA, volume 202 of","Ke Chen, Gang Chen, and Sharad Mehrotra. 2023b."
+"Proceedings of Machine Learning Research, pages","Draft & verify: Lossless large language model ac-"
+"31094–31116. PMLR.","celeration via
+self-speculative decoding.
+ArXiv,"
+"","abs/2309.08168."
+"Chenyang Song, Xu Han, Zhengyan Zhang, Shengding",""
+"Hu, Xiyu Shi, Kuai Li, Chen Chen, Zhiyuan Liu,","Shizhao Zhang, Han Dai, Tian Sheng, Jiawei Zhang,"
+"Guangli Li, Tao Yang,
+and Maosong Sun. 2024.","Xiaoyong Li, Qun Xu, Mengjia Dai, Yunsong Xiao,"
+"Prosparse: Introducing and enhancing intrinsic acti-","Chao Ma, Rui Tang, et al. 2022a. Llm quantization:"
+"vation sparsity within large language models.","Quantization-aware training for large language mod-"
+"","els.
+In Advances in Neural Information Processing"
+"Vedant Subramani, Marios Savvides, Li Ping, and Sha-","Systems, volume 35."
+"ran Narang. 2022. Adapt: Parameter adaptive token-",""
+"wise inference for vision transformers.
+In Proceed-","Susan Zhang, Stephen Roller, Naman Goyal, Mikel"
+"ings of
+the 55th Annual
+IEEE/ACM International","Artetxe, Moya Chen, Shuohui Chen, Christopher"
+"Symposium on Microarchitecture.","Dewan, Mona T. Diab, Xian Li, Xi Victoria Lin,"

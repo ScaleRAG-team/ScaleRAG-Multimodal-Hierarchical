@@ -1,0 +1,72 @@
+"","exponentials in the softmax. We include the backward pass description in Algorithm 2 for completeness.","",""
+"Algorithm 2 FlashAttention-2 Backward Pass","","",""
+"","Require: Matrices Q, K, V, O, dO ∈ R𝑁 ×𝑑 in HBM, vector 𝐿 ∈ R𝑁 in HBM, block sizes 𝐵𝑐, 𝐵𝑟 .","",""
+"","","",""
+"","","","(cid:109) blocks"
+"1: Divide Q into 𝑇𝑟 =
+𝐵𝑟","(cid:109) blocks Q1, . . . , Q𝑇𝑟 of size 𝐵𝑟 × 𝑑 each, and divide K, V in to 𝑇𝑐 =","𝐵𝑐",""
+"K1, . . . , K𝑇𝑐 and V1, . . . , V𝑇𝑐 , of size 𝐵𝑐 × 𝑑 each.","","",""
+"","2: Divide O into 𝑇𝑟 blocks O𝑖, . . . , O𝑇𝑟 of size 𝐵𝑟 × 𝑑 each, divide dO into 𝑇𝑟 blocks dO𝑖, . . . , dO𝑇𝑟 of size","",""
+"","","",""
+"𝐵𝑟 × 𝑑 each, and divide 𝐿 into 𝑇𝑟 blocks 𝐿𝑖, . . . , 𝐿𝑇𝑟 of size 𝐵𝑟","","",""
+"Initialize dQ = (0)𝑁 ×𝑑","","of size 𝐵𝑟 × 𝑑 each. Divide",""
+"3:
+in HBM and divide it into 𝑇𝑟 blocks dQ1",", . . . , dQ𝑇𝑟","",""
+"","dK, dV ∈ R𝑁 ×𝑑 in to 𝑇𝑐 blocks dK1, . . . , dK𝑇𝑐 and dV1, . . . , dV𝑇𝑐 , of size 𝐵𝑐 × 𝑑 each.","",""
+"","4: Compute 𝐷 = rowsum(dO ◦ O) ∈ R𝑑 (pointwise multiply), write 𝐷 to HBM and divide it into 𝑇𝑟 blocks","",""
+"","","",""
+"𝐷1, . . . , 𝐷𝑇𝑟 of size 𝐵𝑟","","",""
+"5:
+for 1 ≤ 𝑗 ≤ 𝑇𝑐 do","","",""
+"from HBM to on-chip SRAM.
+6:
+Load K 𝑗 , V 𝑗","","",""
+"7:
+Initialize dK 𝑗 = (0)𝐵𝑐 ×𝑑, dV 𝑗 = (0)𝐵𝑐 ×𝑑 on SRAM.","","",""
+"8:
+for 1 ≤ 𝑖 ≤ 𝑇𝑟 do","","",""
+"from HBM to on-chip SRAM.","","",""
+"9:
+Load Q𝑖, O𝑖, dO𝑖, dQ𝑖, 𝐿𝑖, 𝐷𝑖","","",""
+"10:
+On chip, compute S( 𝑗 )
+= Q𝑖K𝑇
+𝑗 ∈ R𝐵𝑟 ×𝐵𝑐 .
+𝑖","","",""
+"11:
+On chip, compute P( 𝑗 )
+= exp(S𝑖 𝑗 − 𝐿𝑖) ∈ R𝐵𝑟 ×𝐵𝑐 .
+𝑖","","",""
+"12:
+On chip, compute dV 𝑗 ← dV 𝑗 + (P( 𝑗 )
+)⊤dO𝑖 ∈ R𝐵𝑐 ×𝑑.
+𝑖","","",""
+"∈ R𝐵𝑟 ×𝐵𝑐 .
+13:
+On chip, compute dP( 𝑗 )
+= dO𝑖V⊤
+𝑖","","",""
+"14:
+− 𝐷𝑖) ∈ R𝐵𝑟 ×𝐵𝑐 .
+On chip, compute dS( 𝑗 )
+= P( 𝑗 )
+◦ (dP( 𝑗 )
+𝑖
+𝑖
+𝑖","","",""
+"15:
+Load dQ𝑖
+from HBM to SRAM, then on chip, update dQ𝑖 ← dQ𝑖 + dS( 𝑗 )","","K 𝑗 ∈ R𝐵𝑟 ×𝑑, and write back",""
+"to HBM.","","",""
+"⊤","","",""
+"16:
+On chip, compute dK 𝑗 ← dK 𝑗 + dS( 𝑗 )
+Q𝑖 ∈ R𝐵𝑐 ×𝑑.
+𝑖","","",""
+"17:
+end for","","",""
+"to HBM.
+18:
+Write dK 𝑗 , dV 𝑗","","",""
+"19: end for","","",""
+"20: Return dQ, dK, dV.","","",""

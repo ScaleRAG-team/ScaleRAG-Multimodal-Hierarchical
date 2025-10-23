@@ -1,0 +1,43 @@
+"Switch Transformers"
+"Distributed Switch Implementation. All of our tensor shapes are statically deter-"
+"mined at compilation time, but our computation is dynamic due to the routing decisions at"
+"training and inference. Because of this, one important technical consideration is how to set"
+"the expert capacity. The expert capacity—the number of tokens each expert computes—is"
+"set by evenly dividing the number of tokens in the batch across the number of experts, and"
+"then further expanding by a capacity factor,"
+""
+"(cid:18) tokens per batch"
+"expert capacity =
+× capacity factor.
+(3)"
+"number of experts"
+"A capacity factor greater than 1.0 creates additional buﬀer to accommodate for when to-"
+"kens are not perfectly balanced across experts.
+If too many tokens are routed to an expert"
+"(referred to later as dropped tokens),
+computation is
+skipped and the token representa-"
+"tion is passed directly to the next
+layer
+through the residual connection.
+Increasing the"
+"expert capacity is not without drawbacks, however, since high values will result in wasted"
+"computation and memory. This trade-oﬀ is explained in Figure 3. Empirically we ﬁnd en-"
+"suring lower rates of dropped tokens are important for the scaling of sparse expert-models."
+"Throughout our experiments we didn’t notice any dependency on the number of experts"
+"for the number of tokens dropped (typically < 1%). Using the auxiliary load balancing loss"
+"(next section) with a high enough coeﬃcient ensured good load balancing. We study the"
+"impact that these design decisions have on model quality and speed in Table 1."
+"A Diﬀerentiable Load Balancing Loss. To encourage a balanced load across experts"
+"we add an auxiliary loss (Shazeer et al., 2017, 2018; Lepikhin et al., 2020). As in Shazeer"
+"et al. (2018); Lepikhin et al. (2020), Switch Transformers simpliﬁes the original design in"
+"Shazeer et al. (2017) which had separate load-balancing and importance-weighting losses."
+"For each Switch layer, this auxiliary loss is added to the total model
+loss during training."
+"Given N experts indexed by i = 1 to N and a batch B with T tokens, the auxiliary loss is"
+"computed as the scaled dot-product between vectors f and P ,"
+"N(cid:88) i
+loss = α · N ·
+(4)
+fi · Pi"
+"=1"

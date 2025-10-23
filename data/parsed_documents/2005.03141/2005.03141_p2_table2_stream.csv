@@ -1,0 +1,119 @@
+"• We propose, Occluded Frequency, our measurement","","frequency. DFT is widely used in signal processing to an-"
+"of
+the contribution of each frequency component
+to-","","alyze the frequency components for signals and human are"
+"wards the prediction and we further show that robust","","more perceptional to the low frequency components in the"
+"models are usually less relied on the high-frequency","","signal, e.g.
+the content of
+image, while less perceptional"
+"components in the input;
+therefore,
+they are more ro-","","to the high-frequency patterns, e.g.
+noise and small per-"
+"bust.","","turbations. Computing DFT requires dealing with complex"
+"","","function and we avoid this by introducing Discrete Cosine"
+"","","Transform in the real
+implementation but
+the analysis
+is"
+"2. Background and Related Work","",""
+"","","still under DFT (Bracewell & Newbold, 1986)."
+"Besides in the original
+feature space,
+several works pro-","",""
+"","","Discrete Cosine Transform (DCT) DCT is similar to the"
+"vide new insights into the CNN behaviors from the aspect","",""
+"","","discrete Fourier transform:
+it
+transforms a signal or image"
+"in the frequency domain. Wang et al.
+(2019) shows that","",""
+"","","from the spatial domain to the frequency domain, but only"
+"unlike human beings, high-frequency components play sig-","",""
+"","","maintaining the real part. The difference is the basis func-"
+"niﬁcant roles in promoting CNN’s accuracy. Adopting in-","",""
+"","","tion: DFT uses complex exponential
+functions while the"
+"formation from high-frequency components may cause the","",""
+"","","DCT uses real-valued cosine functions (Narasimha & Pe-"
+"model
+to form very different concepts in learning as hu-","",""
+"","","terson, 1978).
+In the analysis part, we use DFT to demon-"
+"mans do. By observing adversarial defended models, Wang","",""
+"","","strate the motivations and methods while for
+the experi-"
+"et al.
+(2019) concludes
+that
+smoothing the CNN kernels","",""
+"","","ments we will replace DFT with DCT due to the imaginary"
+"helps to enforce the model
+to use features of low frequen-","",""
+"","","components of DCT will bring extra computational com-"
+"cies. While the conclusion remains questionable due to","",""
+"","","plexity."
+"the lack of
+theoretical proof
+is discussed,
+the paper pro-","",""
+"poses a novel view of attributing the frequencies compo-","",""
+"","","2.2. Adversarial Attacks"
+"nents to the model’s predictions. An alternative view of un-","",""
+"derstanding the importance of frequency components is to","","An adversarial attack tries to ﬁnd a neighbor of an input"
+"observe a model’s behavior when speciﬁc frequency com-","","x whose prediction is different
+from x but
+the change is"
+"ponents are modiﬁed.
+This area is studied known as the","","in-perceptional
+to humans, causing failure in the reason-"
+"frequency components analysis on adversarial examples.","","ing. We introduce a few representative adversarial attack"
+"Guo et al. (2018) proposes an adversarial attack only tar-","","algorithms and methods. We discuss the three white-box"
+"geting the low-frequency components in an image, which","","attacks
+to be evaluated in this paper.
+Goodfellow et al."
+"shows that
+the model does utilize the features in the low-","","(2014) proposes FGSM attack, a heuristic searching for"
+"frequency domains
+for predictions
+instead of only learn-","","the adversarial examples following the sign of adversarial"
+"ing from high-frequency components. Sharma et al. (2019)","","directions with a baby step at each time.
+It is usually done"
+"demonstrated that
+state-of-the-art defenses
+are nearly as","",""
+"","","in the (cid:96)∞ space by clipping the value outside the user-"
+"vulnerable as undefended models under low-frequency per-","","deﬁned pixel
+range. Unlike FGSM, PGD (Madry et al.,"
+"turbations, which implies current defense techniques are","","2017) projects the adversarial samples learned from each"
+"only valid against adversarial attack in the high-frequency","",""
+"","","iteration into the (cid:96)p ball of the original input, therefore, the"
+"domain. On the other side, (Rahaman et al., 2018) shows","","adversarial perturbation size is than the maximum allowed"
+"that ReLU networks tend to learn low-frequency featuers","","perturbation. CW attack Carlini & Wagner (2017) refor-"
+"ﬁrst and then pick up the high-frequency components later.","","malizes the adversarial loss to ensure that the solution to the"
+"","","optimization is close to the global optimal. They also solve"
+"2.1. Notation and Preliminary","","the perturbation in the tanh space to yield the smoothness"
+"","","of
+the gradient signal. Besides the white-box attacks, we"
+"We ﬁrst
+introduce the notation we are going to use in the","",""
+"","","are also interested in the black-box attack and we include"
+"rest of the paper.","",""
+"","","SimBA (Guo et al., 2019) in this paper. Under untargeted"
+"Notation A deep neural network y = arg maxc fc(x) that","","attack mode, SimBA tries to add a random perturbation on"
+"takes an input x ∈ Rd and outputs a prediction class y. For","","the input image at each step, and accept the perturbation if"
+"simplicity, we omit
+the bold font and denote the input as","","it decreases prediction certainty on the correct label."
+"x. We denote the (cid:96)p norm as || · ||p. The Discrete Fourier","",""
+"Transform of x is denoted as X = F(x) (discussion to","",""
+"","","3. Adversarial attack analysis in frequency"
+"follow).","",""
+"","","domain"
+"Discrete Fourier Transform (DFT) By convolution with a","",""
+"","","The discussion of robustness is caused by the introduction"
+"series of complex-valued exponential functions, DFT trans-","",""
+"","","of adversarial attacks and then the vulnerability comes into"
+"forms a ﬁnite signal into the a complex-valued function of","",""
+"","","the attention. In the time domain, e.g.
+the image, adversar-"
+"","2",""

@@ -1,0 +1,19 @@
+"depth, number of heads, and so on, are all much smaller
+than the T5-XXL model.
+In"
+"contrast, the Switch-XXL is FLOP-matched to the T5-XXL model, which allows for larger"
+"dimensions of the hyper-parameters, but at the expense of additional communication costs"
+"induced by model-parallelism (see Section 5.5 for more details)."
+"Sample eﬃciency versus T5-XXL.
+In the ﬁnal
+two columns of Table 9 we record"
+"the negative log perplexity on the C4 corpus after 250k and 500k steps, respectively. After"
+"250k steps, we ﬁnd both Switch Transformer variants to improve over the T5-XXL version’s"
+"negative log perplexity by over 0.061.10 To contextualize the signiﬁcance of a gap of 0.061,"
+"we note
+that
+the T5-XXL model had to train for an additional
+250k steps
+to increase"
+"0.052. The gap continues to increase with additional training, with the Switch-XXL model"
+"out-performing the T5-XXL by 0.087 by 500k steps."

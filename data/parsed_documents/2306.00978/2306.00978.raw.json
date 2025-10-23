@@ -1,0 +1,6022 @@
+{
+  "title": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration",
+  "authors": [
+    "Ji Lin",
+    "Jiaming Tang",
+    "Haotian Tang",
+    "Shang Yang",
+    "Wei-Ming Chen",
+    "Wei-Chen Wang",
+    "Guangxuan Xiao",
+    "Xingyu Dang",
+    "Chuang Gan",
+    "Song Han"
+  ],
+  "source_path": "../data/pdf/2306.00978.pdf",
+  "page_count": 15,
+  "processed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "counts": {
+    "texts": 540,
+    "pictures": 19,
+    "tables": 27
+  },
+  "stats_per_page": [
+    {
+      "page": 1,
+      "text_blocks": 21,
+      "layout_blocks": 6,
+      "xobjects_found": 2,
+      "xobjects_exported": 2,
+      "reused_exported": 0,
+      "rasterized": 6,
+      "tables_found": 2
+    },
+    {
+      "page": 2,
+      "text_blocks": 10,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 3,
+      "text_blocks": 50,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 4,
+      "text_blocks": 39,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 3
+    },
+    {
+      "page": 5,
+      "text_blocks": 42,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 6,
+      "text_blocks": 41,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 7,
+      "text_blocks": 47,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 2
+    },
+    {
+      "page": 8,
+      "text_blocks": 23,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 3
+    },
+    {
+      "page": 9,
+      "text_blocks": 19,
+      "layout_blocks": 8,
+      "xobjects_found": 4,
+      "xobjects_exported": 4,
+      "reused_exported": 0,
+      "rasterized": 8,
+      "tables_found": 4
+    },
+    {
+      "page": 10,
+      "text_blocks": 99,
+      "layout_blocks": 3,
+      "xobjects_found": 1,
+      "xobjects_exported": 1,
+      "reused_exported": 0,
+      "rasterized": 3,
+      "tables_found": 1
+    },
+    {
+      "page": 11,
+      "text_blocks": 77,
+      "layout_blocks": 2,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 2,
+      "tables_found": 2
+    },
+    {
+      "page": 12,
+      "text_blocks": 22,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 13,
+      "text_blocks": 25,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 14,
+      "text_blocks": 23,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    },
+    {
+      "page": 15,
+      "text_blocks": 2,
+      "layout_blocks": 0,
+      "xobjects_found": 0,
+      "xobjects_exported": 0,
+      "reused_exported": 0,
+      "rasterized": 0,
+      "tables_found": 1
+    }
+  ],
+  "texts": [
+    {
+      "page_no": 1,
+      "bbox": [
+        113.7770004272461,
+        90.90802001953125,
+        483.1080627441406,
+        123.18720245361328
+      ],
+      "text": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR\nON-DEVICE LLM COMPRESSION AND ACCELERATION"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        88.08899688720703,
+        155.62054443359375,
+        507.6539001464844,
+        169.19813537597656
+      ],
+      "text": "Ji Lin * 1 Jiaming Tang * 1 2 Haotian Tang † 1 Shang Yang † 1 Wei-Ming Chen 3 Wei-Chen Wang 1"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        157.24200439453125,
+        167.5755615234375,
+        437.9765930175781,
+        181.1531524658203
+      ],
+      "text": "Guangxuan Xiao 1 Xingyu Dang 1 4 Chuang Gan 5 6 Song Han 1 3"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        184.1190185546875,
+        183.72348022460938,
+        412.7608947753906,
+        193.6860809326172
+      ],
+      "text": "https://github.com/mit-han-lab/llm-awq"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        75.00700378417969,
+        216.168212890625,
+        523.16455078125,
+        431.3160705566406
+      ],
+      "text": "ABSTRACT\nLarge language models (LLMs) have transformed numerous AI applications. On-device LLM is becoming increas-\ningly important: running LLMs locally on edge devices can reduce the cloud computing cost and protect users’\nprivacy. However, the astronomical model size and the limited hardware resource pose significant deployment\nchallenges. We propose Activation-aware Weight Quantization (AWQ), a hardware-friendly approach for LLM\nlow-bit weight-only quantization. AWQ finds that not all weights in an LLM are equally important. Protecting\nonly 1% salient weights can greatly reduce quantization error. To identify salient weight channels, we should\nrefer to the activation distribution, not weights. To avoid the hardware-inefficient mix-precision quantization,\nwe mathematically derive that scaling up the salient channels can reduce the quantization error. AWQ employs\nan equivalent transformation to scale the salient weight channels to protect them. The scale is determined by\ncollecting the activation statistics offline. AWQ does not rely on any backpropagation or reconstruction, so\nit generalizes to different domains and modalities without overfitting the calibration set. AWQ outperforms\nexisting work on various language modeling and domain-specific benchmarks (coding and math). Thanks to\nbetter generalization, it achieves excellent quantization performance for instruction-tuned LMs and, for the first\ntime, multi-modal LMs. Alongside AWQ, we implement TinyChat, an efficient and flexible inference framework\ntailored for 4-bit on-device LLM/VLMs. With kernel fusion and platform-aware weight packing, TinyChat offers\nmore than 3× speedup over the Huggingface FP16 implementation on both desktop and mobile GPUs. It also\ndemocratizes the deployment of the 70B Llama-2 model on mobile GPUs."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.73899841308594,
+        449.4581604003906,
+        157.93405151367188,
+        461.4133605957031
+      ],
+      "text": "1\nINTRODUCTION"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.13100051879883,
+        485.2698059082031,
+        291.18487548828125,
+        638.70703125
+      ],
+      "text": "Deploying large language models (LLMs) directly on edge\ndevices is crucial. On-device usage eliminates delays caused\nby sending data to a cloud server and enables LLMs to op-\nerate offline, which is beneficial for real-time applications\nlike virtual assistants, chatbots, and autonomous vehicles.\nThe operational costs associated with maintaining and scal-\ning centralized cloud infrastructure can also be reduced.\nOn-device LLM also enhances data security by keeping\nsensitive information local, reducing the chance of data\nbreaches. LLMs, grounded in transformer-based architec-\ntures (Vaswani et al., 2017), have gathered significant atten-\ntion for their impressive performance across diverse bench-\nmarks (Brown et al., 2020; Zhang et al., 2022; Touvron"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.1619987487793,
+        646.9426879882812,
+        290.9269714355469,
+        687.33935546875
+      ],
+      "text": "*: Algorithm co-lead, †: system co-lead. 1MIT 2Shanghai Jiao\nTong University 3NVIDIA 4Tsinghua University 5MIT-IBM Wat-\nson AI Lab 6UMass Amherst. Correspondence to: Song Han\n<songhan@mit.edu>."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        55.1619987487793,
+        694.4000854492188,
+        290.5570373535156,
+        717.2273559570312
+      ],
+      "text": "Proceedings of the 7 th MLSys Conference, Santa Clara, CA, USA,\n2024. Best Paper Award. Copyright 2024 by the author(s)."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        386.99853515625,
+        503.21575927734375,
+        475.4399108886719,
+        510.6510925292969
+      ],
+      "text": "Quantization Algorithm: AWQ"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        390.9193115234375,
+        518.5916137695312,
+        471.51898193359375,
+        526.0269165039062
+      ],
+      "text": "Inference System: TinyChat"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        308.3649597167969,
+        485.0371398925781,
+        363.72015380859375,
+        492.47247314453125
+      ],
+      "text": "TinyChat Computer"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        309.46197509765625,
+        491.9742431640625,
+        360.94500732421875,
+        499.4095764160156
+      ],
+      "text": "(Jetson Orin Nano)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        506.72607421875,
+        479.40850830078125,
+        538.6234130859375,
+        493.7809143066406
+      ],
+      "text": "MacBook \n(Apple M1)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        504.57464599609375,
+        516.732421875,
+        540.7760009765625,
+        531.1047973632812
+      ],
+      "text": "AI PC \n(CPU / GPU)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        317.76104736328125,
+        516.732421875,
+        357.68341064453125,
+        531.1047973632812
+      ],
+      "text": "Raspberry Pi   \n(ARM CPU)"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        431.46337890625,
+        478.2326965332031,
+        447.5114440917969,
+        485.66802978515625
+      ],
+      "text": "AWQ"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        370.7671203613281,
+        453.8654479980469,
+        464.1367492675781,
+        461.5415954589844
+      ],
+      "text": "int4\nfp16"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        544.0556030273438,
+        542.9288330078125,
+        622.911376953125
+      ],
+      "text": "Figure 1. We introduce AWQ, a versatile weight quantization\nmethod for LLM. To implement AWQ, we developed TinyChat\nto deploy 4-bit quantized LLMs into various edge platforms,\nachieving a 3-4× performance boost compared to FP16. No-\ntably, we’ve also manufactured a TinyChat computer, powered\nby TinyChat, which contains an NVIDIA Jetson Orin Nano with\nonly 8GB of memory and 15W power consumption.\nDemo:\nhttps://youtu.be/z91a8DrfgEw."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        307.44000244140625,
+        659.635498046875,
+        541.4412231445312,
+        717.468017578125
+      ],
+      "text": "et al., 2023a; Scao et al., 2022). However, the large model\nsize leads to the high serving costs. For example, GPT-3\nhas 175B parameters, which is 350GB in FP16, while the\nlatest B200 GPU only has 192GB memory, let alone edge\ndevices."
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        10.940000534057617,
+        220.01995849609375,
+        37.619998931884766,
+        560.0
+      ],
+      "text": "arXiv:2306.00978v5  [cs.CL]  18 Jul 2024"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439998626708984,
+        69.47882080078125,
+        291.0960998535156,
+        198.98208618164062
+      ],
+      "text": "Low-bit weight quantization for LLMs can significantly re-\nduce the memory footprint of on-device LLM inference but\nis hard. Quantization-aware training (QAT) is not efficient\ndue to the high training cost, while post-training quantiza-\ntion (PTQ) suffers from large accuracy degradation under\na low-bit setting. The closest work is GPTQ (Frantar et al.,\n2022), which uses second-order information to perform er-\nror compensation. However, it may overfit the calibration\nset during reconstruction, distorting the learned features on\nout-of-distribution domains (Figure 8), which is problematic\nsince LLMs are generalist models."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.082000732421875,
+        206.87728881835938,
+        291.09686279296875,
+        479.9280700683594
+      ],
+      "text": "In this paper, we propose Activation-aware Weight Quan-\ntization (AWQ), a hardware-friendly low-bit weight-only\nquantization method for LLMs. Our method is based on\nthe observation that weights are not equally important for\nLLMs’ performance. There is a small fraction (0.1%-1%)\nof salient weights; skipping the quantization of these salient\nweights will significantly reduce the quantization loss (Ta-\nble 1). To find the salient weight channels, the insight is\nthat we should refer to the activation distribution instead\nof the weight distribution, despite we are doing weight-\nonly quantization: weight channels corresponding to larger\nactivation magnitudes are more salient since they process\nmore important features. To avoid the hardware-inefficient\nmixed-precision implementation, we analyze the error from\nweight quantization and derive that scaling up the salient\nchannels can reduce their relative quantization error (Equa-\ntion 2). Following the intuition, we designed a per-channel\nscaling method to automatically search for the optimal scal-\ning that minimizes the quantization error under full-weight\nquantization. AWQ does not rely on any backpropagation\nor reconstruction, so it can well preserve LLMs’ general-\nization ability on various domains and modalities without\noverfitting to the calibration set."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.13100051879883,
+        487.82330322265625,
+        291.09796142578125,
+        605.4580688476562
+      ],
+      "text": "To implement AWQ, we designed TinyChat, an efficient\ninference framework to convert theoretical memory savings\nfrom 4-bit LLM to measured speedup. Our framework sig-\nnificantly speeds up linear layers through on-the-fly dequan-\ntization. We also take advantage of efficient 4-bit weight\npacking and kernel fusion to minimize the inference over-\nhead (e.g., intermediate DRAM access and kernel launch\noverhead), such that we can better realize the speed up from\nquantizing the weights to 4-bit, despite the computer is\nbyte-aligned."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        55.439998626708984,
+        613.353271484375,
+        291.0943908691406,
+        707.0782470703125
+      ],
+      "text": "Experiments show that AWQ outperforms existing work\non various tasks for different model families (e.g.,\nLLaMA (Touvron et al., 2023a), OPT (Zhang et al., 2022))\nand model sizes. Thanks to better generalization, it also\nachieves good quantization performance for instruction-\ntuned LMs (e.g., Vicuna) and, for the first time, multi-modal\nLMs (OpenFlamingo (Awadalla et al., 2023)). TinyChat\nfurther translates the ∼4× lower memory footprint to mea-"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        306.6929931640625,
+        69.39230346679688,
+        543.0950317382812,
+        234.84805297851562
+      ],
+      "text": "sured speedup. On desktop, laptop and mobile GPUs, we\nconsistently observe a 3.2-3.3× average speedup compared\nto the FP16 implementation by Huggingface across a di-\nverse spectrum of LLMs. Furthermore, it facilitates effort-\nless deployment of the Llama-2-70B model on a single\nNVIDIA Jetson Orin with 64GB of memory. It also democ-\nratizes 13 billion parameter LLM at an interactive pace of\n30 tokens/second on a laptop RTX 4070 GPU with only\n8GB of memory. AWQ has been widely adopted by indus-\ntry and open-source community: HuggingFace Transform-\ners, NVIDIA TensorRT-LLM, Microsfot DirectML, Google\nVertex AI, Intel Neural Compressor, Amazon Sagemaker,\nAMD, FastChat, vLLM, LMDeploy, and enables Falcon-\n180B deployable on a single H200 GPU."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.7389831542969,
+        247.5411376953125,
+        415.86895751953125,
+        259.496337890625
+      ],
+      "text": "2\nRELATED WORK"
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.11199951171875,
+        266.321044921875,
+        543.0953979492188,
+        419.84808349609375
+      ],
+      "text": "Model quantization methods.\nQuantization reduces the\nbit-precision of deep learning models (Han et al., 2016;\nJacob et al., 2018; Nagel et al., 2019; Wang et al., 2019;\nNagel et al., 2020; Lin et al., 2020), which helps to reduce\nthe model size and accelerate inference. Quantization tech-\nniques generally fall into two categories: quantization-aware\ntraining (QAT, which relies on backpropagation to update\nthe quantized weights) (Bengio et al., 2013; Gholami et al.,\n2021; Nagel et al., 2021; Choi et al., 2018) and post-training\nquantization (Jacob et al., 2018; Nagel et al., 2019; 2020)\n(PTQ, usually training-free). The QAT methods cannot eas-\nily scale up to large models like LLMs. Therefore, people\nusually use PTQ methods to quantize LLMs."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        306.97198486328125,
+        427.02142333984375,
+        543.1799926757812,
+        688.2100219726562
+      ],
+      "text": "Quantization of LLMs.\nPeople study two settings for\nLLM quantization: (1) W8A8 quantization, where both\nactivation and weights are quantized to INT8 (Dettmers\net al., 2022; Xiao et al., 2022; Yao et al., 2022; Wei et al.,\n2022a; 2023); (2) Low-bit weight-only quantization (e.g.,\nW4A16), where only weights are quantized into low-bit\nintegers (Frantar et al., 2022; Dettmers & Zettlemoyer, 2022;\nSheng et al., 2023; Park et al., 2022). We focus on the\nsecond setting in this work since it not only reduces the\nhardware barrier (requiring a smaller memory size) but also\nspeeds up the token generation (remedies memory-bound\nworkload). Apart from the vanilla round-to-nearest baseline\n(RTN), GPTQ (Frantar et al., 2022) is the closest to our work.\nHowever, the reconstruction process of GPTQ leads to an\nover-fitting issue to the calibration set and may not preserve\nthe generalist abilities of LLMs for other modalities and\ndomains. It also requires a reordering trick to work for some\nmodels (e.g., LLaMA-7B (Touvron et al., 2023a) and OPT-\n66B (Zhang et al., 2022)). Apart from quantiztion methods\ndesigned for general-purporse hardware, SpAtten (Wang\net al., 2020) designs a progressive approach to gradually\nincrease the number of bits used in softmax calculation."
+    },
+    {
+      "page_no": 2,
+      "bbox": [
+        307.44000244140625,
+        695.4099731445312,
+        543.0935668945312,
+        717.4920043945312
+      ],
+      "text": "System support for low-bit quantized LLMs.\nLow-bit\nquantized LLMs have been a popular setting to reduce in-"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.00160217285156,
+        85.22210693359375,
+        103.07547760009766,
+        93.6397476196289
+      ],
+      "text": "+1.2 −0.2 −2.4 −3.4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.04411315917969,
+        94.86236572265625,
+        103.1094741821289,
+        103.33100128173828
+      ],
+      "text": "−2.5 −3.5 +1.9 +1.4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        64.99948120117188,
+        104.73147583007812,
+        103.105224609375,
+        113.17362213134766
+      ],
+      "text": "−0.9 +1.6 −2.5 −1.9"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.04411315917969,
+        114.6005859375,
+        103.24337768554688,
+        123.0692367553711
+      ],
+      "text": "−3.5 +1.5 +0.5 −0.1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.06324005126953,
+        124.4697036743164,
+        103.07547760009766,
+        132.9082489013672
+      ],
+      "text": "+1.8 −1.6 −3.2 −3.4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.00373077392578,
+        134.1099395751953,
+        103.105224609375,
+        142.5655059814453
+      ],
+      "text": "+2.4 −3.5 −2.8 −3.9"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.17163848876953,
+        144.20791625976562,
+        103.1094741821289,
+        152.62557983398438
+      ],
+      "text": "+0.1 −3.8 +2.4 +3.4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        65.03348541259766,
+        154.30589294433594,
+        103.16474151611328,
+        162.7235565185547
+      ],
+      "text": "+0.9 +3.3 −1.9 −2.3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.41993713378906,
+        85.19418334960938,
+        158.9866943359375,
+        93.62662506103516
+      ],
+      "text": "+1\n+0\n−2\n−3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.30728912353516,
+        94.83444213867188,
+        159.09933471679688,
+        103.2599868774414
+      ],
+      "text": "−3\n−4\n+2\n+1"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.38593292236328,
+        104.70355224609375,
+        158.89529418945312,
+        113.13602447509766
+      ],
+      "text": "−1\n+2\n−3\n−2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.21802520751953,
+        114.57267761230469,
+        158.925048828125,
+        123.00511932373047
+      ],
+      "text": "−4\n+2\n+1\n+0"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.24990844726562,
+        124.44176483154297,
+        158.9866943359375,
+        132.87423706054688
+      ],
+      "text": "+2\n−2\n−3\n−3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.24990844726562,
+        134.08201599121094,
+        158.89743041992188,
+        142.51449584960938
+      ],
+      "text": "+2\n−4\n−3\n−4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.24565124511719,
+        144.17999267578125,
+        159.02069091796875,
+        152.6124725341797
+      ],
+      "text": "+0\n−4\n+2\n+3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        124.41993713378906,
+        154.2779541015625,
+        158.89529418945312,
+        162.71044921875
+      ],
+      "text": "+1\n+3\n−2\n−2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        108.48042297363281,
+        111.29550170898438,
+        115.05705261230469,
+        121.3790512084961
+      ],
+      "text": "Q"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        56.142574310302734,
+        166.06158447265625,
+        168.72279357910156,
+        175.472900390625
+      ],
+      "text": "(a) RTN quantization (PPL 43.2)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        73.49530029296875,
+        73.03811645507812,
+        159.03855895996094,
+        83.12260437011719
+      ],
+      "text": "WFP16\nQ(W)INT3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.8028259277344,
+        85.19418334960938,
+        335.36956787109375,
+        93.62662506103516
+      ],
+      "text": "+1\n+0\n−2\n−3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.7688293457031,
+        104.70355224609375,
+        335.2781677246094,
+        113.13602447509766
+      ],
+      "text": "−1\n+2\n−3\n−2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.60089111328125,
+        114.57267761230469,
+        335.30792236328125,
+        123.00511932373047
+      ],
+      "text": "−4\n+2\n+1\n+0"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.6327819824219,
+        124.44176483154297,
+        335.36956787109375,
+        132.87423706054688
+      ],
+      "text": "+2\n−2\n−3\n−3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.6327819824219,
+        134.08201599121094,
+        335.2803039550781,
+        142.51449584960938
+      ],
+      "text": "+2\n−4\n−3\n−4"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.6285400390625,
+        144.17999267578125,
+        335.403564453125,
+        152.6124725341797
+      ],
+      "text": "+0\n−4\n+2\n+3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        300.8028259277344,
+        154.2779541015625,
+        335.2781677246094,
+        162.71044921875
+      ],
+      "text": "+1\n+3\n−2\n−2"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        196.47232055664062,
+        92.96208953857422,
+        336.7948303222656,
+        121.80573272705078
+      ],
+      "text": "−2.5 −3.5 +1.9 +1.4\ndetermine the salient \nweights by  \nactivation"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        187.43521118164062,
+        166.06158447265625,
+        352.95977783203125,
+        175.472900390625
+      ],
+      "text": "(b) Keep 1% salient weights in FP16 (PPL 13.0)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        297.16180419921875,
+        73.03811645507812,
+        339.8295593261719,
+        83.12260437011719
+      ],
+      "text": "Q(W)MixPrec"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        192.3157958984375,
+        143.8759307861328,
+        292.51788330078125,
+        153.95948791503906
+      ],
+      "text": "X\n*"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        260.42437744140625,
+        66.11277770996094,
+        336.54278564453125,
+        74.85185241699219
+      ],
+      "text": "bad hardware efficiency"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        361.7188415527344,
+        166.06158447265625,
+        541.137451171875,
+        175.472900390625
+      ],
+      "text": "(c) Scale the weights before quantization (PPL 13.0)"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        485.6973571777344,
+        73.03811645507812,
+        520.6043701171875,
+        83.12260437011719
+      ],
+      "text": "Q(W)INT3"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        373.27923583984375,
+        143.8759307861328,
+        478.9467468261719,
+        153.95948791503906
+      ],
+      "text": "X\n*"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        339.91558837890625,
+        90.22896575927734,
+        481.37322998046875,
+        111.993408203125
+      ],
+      "text": "α\nscale before quantize\nFP16 \nchannel"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        433.31756591796875,
+        121.3817367553711,
+        478.6296081542969,
+        130.7930450439453
+      ],
+      "text": "average mag."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.11800003051758,
+        186.41407775878906,
+        541.4441528320312,
+        225.33558654785156
+      ],
+      "text": "Figure 2. We observe that we can find 1% of the salient weights in LLMs based on the activation distribution (middle). Keeping the salient\nweights in FP16 can significantly improve the quantized performance (PPL from 43.2 (left) to 13.0 (middle)), but the mixed-precision\nformat is not hardware-efficient. We follow the activation-awareness principle and propose AWQ (right). AWQ performs per-channel\nscaling to protect the salient weights and reduce quantization error. We measure the perplexity of OPT-6.7B under INT3-g128 quantization."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.082000732421875,
+        248.43630981445312,
+        291.0979309082031,
+        425.8470764160156
+      ],
+      "text": "ference costs. There are some system supports to achieve\na practical speed-up. GPTQ (Frantar et al., 2022) provides\nINT3 kernels for OPT models and GPTQ-for-LLaMA ex-\ntends kernel support for INT4 reordered quantization with\nthe help of Triton (Tillet et al., 2019). FlexGen (Sheng et al.,\n2023), llama.cpp* and exllama† perform group-wise\nINT4 quantization to reduce I/O costs and offloading. Faster-\nTransformer implements FP16×INT4 GEMM for weight-\nonly per-tensor quantization but does not support group\nquantization. LUT-GEMM (Park et al., 2022) performs bit-\nwise computation on GPU CUDA cores with the help of\nlookup tables. Our concurrent work, MLC-LLM (MLC-\nTeam, 2023) offers strong results on multiple edge CPU and\nGPU platforms thanks to the powerful TVM (Chen et al.,\n2018; Feng et al., 2023) backend."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.73899841308594,
+        439.53717041015625,
+        270.0535583496094,
+        465.44036865234375
+      ],
+      "text": "3\nAWQ: ACTIVATION-AWARE WEIGHT\nQUANTIZATION"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.082000732421875,
+        477.42706298828125,
+        290.270263671875,
+        583.2850341796875
+      ],
+      "text": "Quantization maps a floating-point number into lower-bit\nintegers. It is an effective method to reduce the model\nsize and inference costs of LLMs (Dettmers et al., 2022;\nFrantar et al., 2022; Yao et al., 2022; Xiao et al., 2022). In\nthis section, we first propose a weight-only quantization\nmethod to improve accuracy without training/regression by\nprotecting more “important” weights. And then develop a\ndata-driven method to search for the optimal scaling that\nreduces quantization errors (Figure 2)."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        55.439998626708984,
+        596.5125122070312,
+        285.1376647949219,
+        618.4301147460938
+      ],
+      "text": "3.1\nImproving LLM Quantization by Preserving 1%\nSalient Weights"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        54.97200012207031,
+        630.8800048828125,
+        291.09564208984375,
+        688.9410400390625
+      ],
+      "text": "We observe that the weights of LLMs are not equally im-\nportant: there is a small fraction of salient weights that\nare much more important for LLMs’ performance com-\npared to others. Skipping the quantization of these salient\nweights can help bridge the performance degradation due"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        68.09300231933594,
+        697.2366943359375,
+        214.343017578125,
+        717.2273559570312
+      ],
+      "text": "*https://github.com/ggerganov/llama.cpp\n†https://github.com/turboderp/exllama"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        248.25808715820312,
+        543.1873168945312,
+        461.7120666503906
+      ],
+      "text": "to the quantization loss without any training or regression\n(Figure 2(b)). To verify the idea, we benchmark the per-\nformance of quantized LLMs when skipping part of the\nweight channels in Table 1. We measured the performance\nof INT3 quantized models while keeping some ratios of\nweight channels in FP16. A widely used method to deter-\nmine the importance of weights is to look at its magnitude\nor L2-norm (Han et al., 2015; Frankle & Carbin, 2018).\nBut we find skipping the weight channels with large norm\n(i.e., FP16% (based on W)) does not significantly improve\nthe quantized performance, leading to a similar marginal\nimprovement as random selection. Interestingly, selecting\nweights based on activation magnitude can significantly im-\nprove the performance despite keeping only 0.1%-1% of\nchannels in FP16. We hypothesize that the input features\nwith larger magnitudes are generally more important. Keep-\ning the corresponding weights in FP16 can preserve those\nfeatures, which contributes to better model performance."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        469.51544189453125,
+        543.0980224609375,
+        539.4210815429688
+      ],
+      "text": "Limitations:\nDespite keeping 0.1% of weights in FP16\ncan improve the quantized performance without a noticeable\nincrease in model size (measured in total bits), such a mixed-\nprecision data type will make the system implementation\ndifficult. We need to come up with a method to protect the\nimportant weights without actually keeping them as FP16."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.44000244140625,
+        571.093505859375,
+        531.199951171875,
+        593.0111083984375
+      ],
+      "text": "3.2\nProtecting Salient Weights by Activation-aware\nScaling"
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        306.97198486328125,
+        611.9393920898438,
+        541.44140625,
+        645.737060546875
+      ],
+      "text": "We propose an alternative method to reduce the quantization\nerror of the salient weight by per-channel scaling, which\ndoes not suffer from the hardware inefficiency issue."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        307.0820007324219,
+        653.615478515625,
+        448.7004089355469,
+        663.5780639648438
+      ],
+      "text": "Analyzing the quantization error."
+    },
+    {
+      "page_no": 3,
+      "bbox": [
+        306.97198486328125,
+        671.5642700195312,
+        543.093017578125,
+        717.4920043945312
+      ],
+      "text": "We start by analyzing the error from weight-only quanti-\nzation. Consider a group/block of weight w; the linear\noperation can be written as y = wx, and the quantized\ncounterpart is y = Q(w)x. Specifically, the quantization"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        103.0989990234375,
+        76.14999389648438,
+        481.07696533203125,
+        90.24639892578125
+      ],
+      "text": "PPL ↓\nFP16\nRTN\nFP16% (based on act.)\nFP16% (based on W)\nFP16% (random)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        177.4929962158203,
+        91.41299438476562,
+        489.6673278808594,
+        100.37939453125
+      ],
+      "text": "(w3-g128)\n0.1%\n1%\n3%\n0.1%\n1%\n3%\n0.1%\n1%\n3%"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        103.0989990234375,
+        106.87600708007812,
+        493.783203125,
+        136.764404296875
+      ],
+      "text": "OPT-1.3B\n14.62\n119.00\n25.03\n16.91\n16.68\n108.71\n98.55\n98.08\n119.76\n109.38\n61.49\nOPT-6.7B\n10.86\n23.54\n11.58\n11.39\n11.36\n23.41\n22.37\n22.45\n23.54\n24.23\n24.22\nOPT-13B\n10.13\n46.04\n10.51\n10.43\n10.42\n46.07\n48.96\n54.49\n44.87\n42.00\n39.71"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.14400100708008,
+        150.26536560058594,
+        541.5927734375,
+        189.2393798828125
+      ],
+      "text": "Table 1. Keeping a small fraction of weights (0.1%-1%) in FP16 significantly improves the performance of the quantized models over\nround-to-nearest (RTN). It is only effective when we select the important weights in FP16 by looking at activation distribution instead of\nweight distribution. We highlight results with a decent perplexity in green. We used INT3 quantization with a group size of 128 and\nmeasured the WikiText perplexity (↓)."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        58.72700119018555,
+        213.8874969482422,
+        285.1603088378906,
+        222.9795379638672
+      ],
+      "text": "OPT-6.7B\ns = 1 s = 1.25 s = 1.5 s = 2 s = 4"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        58.72700119018555,
+        224.6792449951172,
+        286.1492614746094,
+        252.5093994140625
+      ],
+      "text": "proportion of ∆\n′ ̸= ∆\n0%\n2.8%\n4.4%\n8.2% 21.2%\naverage ∆\n′/∆\n1\n1.005\n1.013\n1.038 1.213"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        58.72700500488281,
+        252.2914276123047,
+        97.9007568359375,
+        266.607421875
+      ],
+      "text": "average ∆\n′"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        91.322998046875,
+        256.09527587890625,
+        111.5963134765625,
+        268.78887939453125
+      ],
+      "text": "∆· 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        108.02300262451172,
+        257.55908203125,
+        284.66046142578125,
+        268.78887939453125
+      ],
+      "text": "s\n1\n0.804\n0.676\n0.519 0.303"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        58.72700119018555,
+        273.0220947265625,
+        284.66046142578125,
+        282.07037353515625
+      ],
+      "text": "Wiki-2 PPL\n23.54\n12.87\n12.48\n11.92 12.36"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.14400100708008,
+        295.5406188964844,
+        289.754638671875,
+        364.4333801269531
+      ],
+      "text": "Table 2. Statistics when multiplying the 1% salient channels by\ns > 1. Scaling up the salient channels significantly improves\nthe perplexity (23.54 to 11.92). As s goes larger, the percentage\nof changed ∆increases, and the error reduction rate for salient\nchannels also increases. However, the best perplexity is achieved\nat s = 2, since further increasing s will increase the quantization\nerror for non-salient channels."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.43999481201172,
+        387.4354553222656,
+        143.16067504882812,
+        397.3980712890625
+      ],
+      "text": "function is defined as:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        82.75199890136719,
+        405.5589294433594,
+        175.51092529296875,
+        422.4920654296875
+      ],
+      "text": "Q(w) = ∆· Round(w"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        167.2969970703125,
+        405.4298095703125,
+        258.16644287109375,
+        429.0945129394531
+      ],
+      "text": "∆),\n∆= max(|w|)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        226.66799926757812,
+        412.2989501953125,
+        290.10736083984375,
+        429.0945129394531
+      ],
+      "text": "2N−1\n,\n(1)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        436.7079162597656,
+        291.09552001953125,
+        494.7210693359375
+      ],
+      "text": "where N is the number of quantization bits, and ∆is the\nquantization scaler determined by the absolute maximum\nvalue. Now consider a weight element w ∈w, if we mul-\ntiply w with s > 1 and the inversely scale x, we will have\nQ(w · s)(x/s), which is:"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        91.86599731445312,
+        504.2069396972656,
+        140.84561157226562,
+        520.9095458984375
+      ],
+      "text": "Q(w · s) · x"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        135.65899658203125,
+        503.6977844238281,
+        217.72470092773438,
+        527.7435302734375
+      ],
+      "text": "s = ∆\n′ · Round(ws"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        205.93800354003906,
+        504.2069091796875,
+        249.05130004882812,
+        527.7435302734375
+      ],
+      "text": "∆\n′ ) · x · 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        244.2259979248047,
+        510.9468994140625,
+        290.10736083984375,
+        527.7435302734375
+      ],
+      "text": "s,\n(2)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        55.082000732421875,
+        531.6223754882812,
+        291.0934143066406,
+        667.6820678710938
+      ],
+      "text": "where ∆\n′ is the new quantization scaler after applying s. We\nempirically find that: (1) The expected error from Round(·)\n(denoted as RoundErr(·)) does not change: since the\nround function maps a floating-point number to an inte-\nger, the error is roughly uniformly distributed from [0,0.5],\nresulting in an average error of 0.25; i.e., RoundErr(·) ∼\n0.25. (2) Scaling up a single element w usually does not\nchange the maximum value from the group w. Therefore we\nhave ∆\n′ ≈∆; (3) As ∆and x are represented in FP16, they\nhave no quantization error. Consequently, the quantization\nerror from equation 1 and 2 can be expressed as"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        86.20199584960938,
+        674.7029418945312,
+        229.85821533203125,
+        691.405517578125
+      ],
+      "text": "Err(Q(w)x) = ∆· RoundErr( w"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        222.2740020751953,
+        681.3137817382812,
+        248.53961181640625,
+        698.239501953125
+      ],
+      "text": "∆) · x"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        64.19700622558594,
+        698.6819458007812,
+        131.66261291503906,
+        715.384521484375
+      ],
+      "text": "Err(Q(w · s)(x"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        126.47599792480469,
+        698.1727905273438,
+        237.54168701171875,
+        722.218505859375
+      ],
+      "text": "s )) = ∆\n′ · RoundErr(ws"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        225.75399780273438,
+        698.6819458007812,
+        268.8682861328125,
+        722.218505859375
+      ],
+      "text": "∆\n′ ) · x · 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        264.0419921875,
+        712.2559204101562,
+        268.7144470214844,
+        722.218505859375
+      ],
+      "text": "s"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        278.4909973144531,
+        694.0564575195312,
+        290.10736083984375,
+        704.01904296875
+      ],
+      "text": "(3)"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        320.51800537109375,
+        213.7712860107422,
+        525.7484741210938,
+        223.0614013671875
+      ],
+      "text": "OPT (PPL↓)\n1.3B\n2.7B\n6.7B\n13B\n30B"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        320.51800537109375,
+        229.55795288085938,
+        526.11767578125,
+        238.52435302734375
+      ],
+      "text": "FP16\n14.62\n12.47\n10.86\n10.13\n9.56"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        320.51800537109375,
+        245.01998901367188,
+        528.359375,
+        285.369384765625
+      ],
+      "text": "RTN\n119.47\n298.00\n23.54\n46.04\n18.80\n1% FP16\n16.91\n13.69\n11.39\n10.43\n9.85\ns = 2\n18.63\n14.94\n11.92\n10.80\n10.32\nAWQ\n16.32\n13.58\n11.39\n10.56\n9.77"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.1440124511719,
+        298.860107421875,
+        541.4428100585938,
+        347.7965087890625
+      ],
+      "text": "Table 3. AWQ protects salient weights and reduces quantization\nerror by using a scaling-based method. It consistently outperforms\nRound-to-nearest quantization (RTN) and achieves comparable\nperformance as mixed-precision (1% FP16) while being more\nhardware-friendly. We use 3-bit quantization with group size 128."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.1310119628906,
+        410.8573913574219,
+        523.6797485351562,
+        426.18603515625
+      ],
+      "text": "The ratio of the new error to the original error is ∆\n′"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        516.5339965820312,
+        414.3817443847656,
+        539.4520263671875,
+        428.71356201171875
+      ],
+      "text": "∆· 1"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        416.1242980957031,
+        543.1834716796875,
+        451.9380798339844
+      ],
+      "text": "s.\nGiven ∆\n′ ≈∆and s > 1, the relative error is smaller for\nthe salient weight w."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        306.6130065917969,
+        459.9844055175781,
+        543.1834716796875,
+        615.873046875
+      ],
+      "text": "To verify the idea, we multiply the 1% salient channels with\ns > 1 for the OPT-6.7B model, and measure the change in\n∆for each group in Table 2. We find that scaling up the\nsalient channels is quite effective: the perplexity improves\nfrom 23.54 for s = 1 (simply RTN) to 11.92 for s = 2.\nAs s goes larger, the percentage of changed ∆generally\ngets larger, but the percentage is still quite small for s < 2\n(less than 5%); the relative error for the salient channels\ncontinues to go smaller as s increases. Nonetheless, the best\nPPL actually appears at s = 2. This is because if we use a\nvery large s, it will increase the relative error for the non-\nsalient channels when ∆increases (the error of non-salient\nchannels will be amplified by ∆\n′"
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        605.811279296875,
+        541.6126098632812,
+        663.6690063476562
+      ],
+      "text": "∆, and the ratio is larger\nthan 1 for 21.2% of the channels under s = 4), which can\ndamage the model’s overall accuracy. Therefore, we need\nto also consider the error from non-salient channels when\nprotecting salient ones."
+    },
+    {
+      "page_no": 4,
+      "bbox": [
+        307.44000244140625,
+        671.472412109375,
+        543.18505859375,
+        717.4920043945312
+      ],
+      "text": "Searching to scale.\nTo consider both salient and non-\nsalient weights, we choose to automatically search for an\noptimal (per input channel) scaling factor that minimizes\nthe output difference after quantization for a certain layer."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        103.97643280029297,
+        126.88660430908203,
+        123.97537994384766,
+        134.3357391357422
+      ],
+      "text": "310 ms"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        110.5197525024414,
+        77.53179931640625,
+        127.15414428710938,
+        84.9809341430664
+      ],
+      "text": "10 ms"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        90.81299591064453,
+        98.42680358886719,
+        152.84877014160156,
+        113.44073486328125
+      ],
+      "text": "Context (200 tokens)\nGeneration (20 tokens)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        65.93846130371094,
+        153.42575073242188,
+        173.06246948242188,
+        163.35794067382812
+      ],
+      "text": "(a) Generation stage is slower"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        186.82611083984375,
+        80.05685424804688,
+        195.10293579101562,
+        123.33183288574219
+      ],
+      "text": "Peak TFLOPS"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        235.3826904296875,
+        137.03643798828125,
+        350.5105895996094,
+        146.1409454345703
+      ],
+      "text": "Arithmetic Intensity (FLOPs/Byte)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        199.01382446289062,
+        69.64765930175781,
+        210.22903442382812,
+        126.71441650390625
+      ],
+      "text": "0\n36\n72\n108\n144\n180"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        214.55592346191406,
+        126.15718841552734,
+        358.760986328125,
+        134.4340057373047
+      ],
+      "text": "0\n75\n150\n225\n300"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        240.2124786376953,
+        106.13089752197266,
+        345.683349609375,
+        121.43067169189453
+      ],
+      "text": "Generation Stage:\n\nArith. Inten. = 1, 1TFLOPS (W16A16)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        303.9713439941406,
+        83.35424041748047,
+        358.0963439941406,
+        98.65401458740234
+      ],
+      "text": "Context stage: \n\nArith. Inten. >= 165"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        187.02716064453125,
+        153.18116760253906,
+        385.1109313964844,
+        163.1133575439453
+      ],
+      "text": "(b) Generation stage is bounded by memory bandwidth"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        217.91647338867188,
+        68.75538635253906,
+        267.9919128417969,
+        76.20452117919922
+      ],
+      "text": "Generation Stage:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        214.54373168945312,
+        76.60602569580078,
+        269.684814453125,
+        91.90579986572266
+      ],
+      "text": "Arith. Inten. = 4, \n4TFLOPS (W4A16)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        429.0179138183594,
+        141.00228881835938,
+        504.05810546875,
+        149.27911376953125
+      ],
+      "text": "Attention\nFFN"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        436.31903076171875,
+        71.85701751708984,
+        516.0740966796875,
+        80.13383483886719
+      ],
+      "text": "Weight\nActivation"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        401.976806640625,
+        134.91934204101562,
+        413.6057434082031,
+        143.1961669921875
+      ],
+      "text": "10-2"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        401.976806640625,
+        120.54224395751953,
+        413.6057434082031,
+        128.81906127929688
+      ],
+      "text": "10-1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        405.9220275878906,
+        107.57884979248047,
+        409.6604309082031,
+        115.85566711425781
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        403.42291259765625,
+        95.6144790649414,
+        410.89971923828125,
+        103.89129638671875
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        388.83233642578125,
+        75.56355285644531,
+        397.1091613769531,
+        147.82981872558594
+      ],
+      "text": "Memory footprint (MB)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        451.4303894042969,
+        92.73504638671875,
+        518.5556030273438,
+        103.27913665771484
+      ],
+      "text": "79x\n1700x"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        399.6682434082031,
+        153.18353271484375,
+        533.5732421875,
+        163.11572265625
+      ],
+      "text": "(c) Weight loading is more expensive"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        402.1767883300781,
+        70.0761947631836,
+        412.7757873535156,
+        89.15833282470703
+      ],
+      "text": "102\n103"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        425.2373962402344,
+        87.91016387939453,
+        435.3310852050781,
+        95.35929870605469
+      ],
+      "text": "134"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        451.3369445800781,
+        110.89440155029297,
+        459.74835205078125,
+        118.34353637695312
+      ],
+      "text": "1.7"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        480.29010009765625,
+        83.47447204589844,
+        490.3837890625,
+        90.9236068725586
+      ],
+      "text": "271"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        505.00390625,
+        121.46932220458984,
+        513.415283203125,
+        128.91845703125
+      ],
+      "text": "0.2"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        176.1522216796875,
+        541.4381713867188,
+        215.119384765625
+      ],
+      "text": "Figure 3. Bottleneck analysis for Llama-2-7B on NVIDIA RTX 4090. Left: In on-device LLM applications, generation stage is much\nslower than the context stage. Middle: The generation stage is memory bound and has low arithmetic intensity. W4A16 quantization can\neffectively improve the arithmetic intensity by 4×. Right: The amount of weight access is orders of magnitude larger than the amount of\nactivation access. Thus, weight-only quantization is more effective for on-device LLMs."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        238.27345275878906,
+        274.1688232421875,
+        248.23605346679688
+      ],
+      "text": "Formally, we want to optimize the following objective:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        132.343994140625,
+        258.5674133300781,
+        207.79544067382812,
+        277.6595458984375
+      ],
+      "text": "s∗= arg min\ns\nL(s)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        65.3389892578125,
+        271.5174560546875,
+        290.10736083984375,
+        292.132080078125
+      ],
+      "text": "L(s) = ∥Q(W · diag(s))(diag(s)−1 · X) −WX∥\n(4)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.439998626708984,
+        304.17706298828125,
+        291.09832763671875,
+        457.8550720214844
+      ],
+      "text": "Here Q means the weight quantization function (e.g.,\nINT3/INT4 quantization with group size 128), W is the\noriginal weights in FP16, and X is the input features cached\nfrom a small calibration set (we take a small calibration\nset from he pre-training dataset in order not to overfit to\na specific task). s is a per-(input) channel scaling factor;\nfor s−1 · X, it can usually be fused into the previous op-\nerator (Wei et al., 2022b; Xiao et al., 2022). Since the\nquantization function is not differentiable, we are not able\nto directly optimize the problem with vanilla backpropaga-\ntion. There are some techniques relying on approximated\ngradients (Bengio et al., 2013; Esser et al., 2019), which we\nfound still suffers from unstable convergence."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.082000732421875,
+        465.6451416015625,
+        290.68695068359375,
+        535.5640258789062
+      ],
+      "text": "To make the process more stable, we define a search space\nfor the optimal scale by analyzing the factors that will affect\nthe choice of scaling factor. As shown in the last section, the\nsaliency of weight channels is actually determined by the\nactivation scale (thus “activation-awareness”). Therefore,\nwe simply use a very simple search space:"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        102.48799896240234,
+        546.327392578125,
+        290.10736083984375,
+        565.4205322265625
+      ],
+      "text": "s = sX\nα,\nα∗= arg min\nα\nL(sX\nα)\n(5)"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        55.082000732421875,
+        575.7679443359375,
+        291.0973205566406,
+        717.468017578125
+      ],
+      "text": "sX is the average magnitude of activation (per-channel), and\nwe use a single hyper-parameter α to balance between the\nprotection of salient and non-salient channels. We can find\nthe best α by a fast grid search over the interval of [0, 1] (0\nmeans we do not scale; 1 corresponds to the most aggres-\nsive scaling in our search space). We further apply weight\nclipping to minimize the MSE error of quantization. We\nprovide an ablation study on OPT models under INT3-g128\nquantization in Table 5; AWQ consistently outperforms\nround-to-nearest quantization (RTN) and achieves compara-\nble performance as mixed-precision (1% FP16) while being\nmore hardware-friendly."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        238.1063995361328,
+        543.0936279296875,
+        343.8780822753906
+      ],
+      "text": "Advantages. Our method does not rely on any regres-\nsion (Frantar et al., 2022) or backpropagation, which is\nrequired by many quantization-aware training methods. It\nhas minimal reliance on the calibration set since we only\nmeasure the average magnitude per channel, thus preventing\nover-fitting (Figure 8). Therefore, our method requires fewer\ndata for the quantization process and can preserve LLMs’\nknowledge outside of the calibration set’s distribution. See\nSection 5.3 for more details."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.739013671875,
+        356.6351623535156,
+        541.1051025390625,
+        382.5383605957031
+      ],
+      "text": "4\nTINYCHAT: MAPPING AWQ ONTO EDGE\nPLATFORMS"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.0820007324219,
+        394.4637145996094,
+        543.185791015625,
+        583.758056640625
+      ],
+      "text": "AWQ can substantially reduce the size of LLMs. However,\nconverting the theoretical memory savings from W4A16\n(4-bit weight, 16-bit activation) quantization into measured\nspeedup is non-trivial. Alternative W8A8 quantization meth-\nods, such as SmoothQuant (Xiao et al., 2022), maintain the\nsame data precision for both storage and computation. This\nallows the dequantization procedure to be seamlessly inte-\ngrated into the computation kernel’s epilogue. On the other\nhand, W4A16 quantization employs different data types for\nmemory access and computation. As a result, its dequantiza-\ntion must be incorporated into the primary computation loop\nfor optimal performance, posing implementation challenges.\nTo tackle this, we introduce TinyChat: a nimble system for\nAWQ model inference. It boasts a PyTorch frontend and\na backend harnessing device-specific instruction sets (e.g.,\nCUDA/PTX, Neon, AVX)."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        596.052490234375,
+        526.6571044921875,
+        606.0150756835938
+      ],
+      "text": "4.1\nWhy AWQ Helps Accelerate On-Device LLMs"
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.1310119628906,
+        618.332275390625,
+        543.0911865234375,
+        688.1460571289062
+      ],
+      "text": "To understand the acceleration opportunities in quantized\nLLMs on the edge, we start by profiling the latency break-\ndown of LLaMA-7B (Touvron et al., 2023a) model on an\nRTX 4090 GPU. We adopt an inference batch size of 1,\ncatering for edge use cases, and implement the model in\nFP16 with NVIDIA FasterTransformer."
+    },
+    {
+      "page_no": 5,
+      "bbox": [
+        307.44000244140625,
+        695.536376953125,
+        541.44384765625,
+        717.4559936523438
+      ],
+      "text": "Context vs generation latency.\nAs in Figure 3(a), it takes\n310 ms to generate 20 tokens, while summarizing a prompt"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        56.91775894165039,
+        78.41968536376953,
+        236.0288848876953,
+        95.97863006591797
+      ],
+      "text": "w31\nw30\nw16\nw15\n…\nw1\nw0\n…\nOriginal  \nweights:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        124.72041320800781,
+        72.98126983642578,
+        135.5708770751953,
+        80.70170593261719
+      ],
+      "text": "4bit"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        140.3705596923828,
+        66.4782943725586,
+        151.2210235595703,
+        74.19873046875
+      ],
+      "text": "8bit"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        56.91775894165039,
+        108.66455841064453,
+        236.1841583251953,
+        126.22350311279297
+      ],
+      "text": "w31\nw15\nw2\nw17\nw1\nw16\nw0\nPacked  \nweights:"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        143.35704040527344,
+        109.09709930419922,
+        151.72607421875,
+        118.84703063964844
+      ],
+      "text": "…"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        175.8030242919922,
+        97.6419448852539,
+        227.38351440429688,
+        105.36238098144531
+      ],
+      "text": "Reordering offline"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        274.64495849609375,
+        84.44927215576172,
+        399.1341857910156,
+        91.3983154296875
+      ],
+      "text": "0\nw15\n…\nw2\n0\nw1\n0\nw0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        274.7479553222656,
+        113.84265899658203,
+        400.2835388183594,
+        120.79170227050781
+      ],
+      "text": "0\nw31\n…\nw18\n0\nw17\n0\nw16"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        198.19845581054688,
+        70.36107635498047,
+        292.7965087890625,
+        78.08151245117188
+      ],
+      "text": "Mask = 0x0F…0F (128-bit mask)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        251.34002685546875,
+        101.36365509033203,
+        307.89801025390625,
+        109.08409118652344
+      ],
+      "text": "Runtime unpacking"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        350.3224182128906,
+        69.65886688232422,
+        401.7832336425781,
+        77.3800277709961
+      ],
+      "text": "Wlow = Pw & Mask"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        251.11416625976562,
+        83.09807586669922,
+        264.6700134277344,
+        90.8192367553711
+      ],
+      "text": "Wlow"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        250.46826171875,
+        113.7211685180664,
+        265.3166809082031,
+        121.44232940673828
+      ],
+      "text": "Whigh"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        100.05259704589844,
+        94.16278839111328,
+        401.7696228027344,
+        109.0848159790039
+      ],
+      "text": "Whigh = (Pw >> 4) & Mask\n0\n127"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        99.87825012207031,
+        123.45442962646484,
+        242.25457763671875,
+        130.40283203125
+      ],
+      "text": "0\n127"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        263.5257568359375,
+        94.14742279052734,
+        406.0640563964844,
+        101.09581756591797
+      ],
+      "text": "0\n127"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        263.97747802734375,
+        123.4235610961914,
+        406.5156555175781,
+        130.37196350097656
+      ],
+      "text": "0\n127"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        90.52084350585938,
+        81.989013671875,
+        99.07958221435547,
+        92.02558898925781
+      ],
+      "text": "W"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        90.09588623046875,
+        111.5343017578125,
+        425.73828125,
+        123.928466796875
+      ],
+      "text": "Pw\n0"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        415.2769775390625,
+        105.3941421508789,
+        425.73828125,
+        113.11457824707031
+      ],
+      "text": "300"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        415.2769775390625,
+        94.58023834228516,
+        425.73828125,
+        102.30067443847656
+      ],
+      "text": "600"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        415.2769775390625,
+        83.76636505126953,
+        425.73828125,
+        91.48680114746094
+      ],
+      "text": "900"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        411.7898864746094,
+        72.95243072509766,
+        525.8563842773438,
+        84.98104095458984
+      ],
+      "text": "1200\n954"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        443.5210876464844,
+        98.00232696533203,
+        501.54962158203125,
+        111.6192855834961
+      ],
+      "text": "400\n399\n215"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        505.8736267089844,
+        70.17455291748047,
+        518.1942749023438,
+        77.1229476928711
+      ],
+      "text": "1172"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        434.4061584472656,
+        94.7942123413086,
+        492.4346923828125,
+        110.42975616455078
+      ],
+      "text": "489\n472\n248"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        445.7800598144531,
+        75.83393096923828,
+        492.4583740234375,
+        91.27842712402344
+      ],
+      "text": "Original weights\nPacked weights"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        434.6649169921875,
+        121.4926528930664,
+        452.968017578125,
+        128.44105529785156
+      ],
+      "text": "(4k,4k)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        532.3173217773438,
+        77.9877700805664,
+        540.0377197265625,
+        113.03451538085938
+      ],
+      "text": "Latency (us)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        457.48345947265625,
+        121.4926528930664,
+        528.3615112304688,
+        128.44105529785156
+      ],
+      "text": "(11k,4k) (4k,11k) (4k,32k)"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.11800003051758,
+        141.06297302246094,
+        541.4444580078125,
+        160.10243225097656
+      ],
+      "text": "Figure 4. SIMD-aware weight packing for ARM NEON with 128-bit SIMD units. Original weights are reordered and packed to align\nwith the bit width so that the weights can be unpacked into bytes at runtime using AND and shift bitwise operations with a 128-bit mask."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        183.19430541992188,
+        291.091064453125,
+        217.14205932617188
+      ],
+      "text": "with 200 tokens only takes 10 ms. Consequently, the gen-\neration phase is substantially slower than the context stage,\nparticularly for on-device interactive applications."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.13100051879883,
+        226.47743225097656,
+        291.1840515136719,
+        380.0690612792969
+      ],
+      "text": "Generation stage is memory-bound.\nTo accelerate the\ngeneration phase, we conduct a roofline analysis in Fig-\nure 3(b). The 4090 GPU has a peak computation throughput\nof 165 TFLOPS and a memory bandwidth of 1TB/s. There-\nfore, any workload with arithmetic intensity (the ratio of\nFLOPs to memory access) less than 165 is memory bounded\non 4090 GPUs. Notably, when executed in FP16, the gener-\nation stage for on-device LLMs has arithmetic intensity≈1.\nThis underscores the memory-bound nature of the workload.\nSince the FLOPs of a given model is fixed, the only way to\nimprove the peak performance is to reduce the total amount\nof memory traffic. AWQ reduces the weight memory by\nfour times."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        389.5035095214844,
+        291.0975036621094,
+        507.1310729980469
+      ],
+      "text": "Weight access dominates memory traffic.\nWe therefore\nfurther break down the memory access for weight and acti-\nvation in Figure 3(c). Clearly, weight access dominates the\nmemory traffic for on-device LLMs. Quantizing the model\nweights to 4 bit integers will approximately increase the\narithmetic intensity to 4 FLOPs/Byte, leading to a 4TFLOPS\npeak performance in Figure 3(b). Since weight-only quanti-\nzation leads to a lower bit width for weights (and thus higher\ntheoretical performance upper bound), it is natural for AWQ\nto follow this setting for on-device LLM applications."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        521.5234985351562,
+        198.4331817626953,
+        531.486083984375
+      ],
+      "text": "4.2\nDeploy AWQ with TinyChat"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.082000732421875,
+        544.5032958984375,
+        291.0958251953125,
+        674.092041015625
+      ],
+      "text": "To this end, we demonstrated that 4-bit weight quantiza-\ntion could lead to a 4× theoretical peak performance. We\nfurther design TinyChat to realize this speedup. On GPUs,\nwe only focus on implementing essential components, in-\ncluding attention, layer normalization, and linear projection\nkernels. The flexible frontend allows easy customization\nand fast support for new models. TinyChat with 4-bit AWQ\nachieves more than 3× speedup compared with the Hug-\ngingface FP16 implementation across different families of\nLLMs on GPUs. On CPUs, we lower the entire computation\ngraph to C++ to minimize overhead."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        55.439998626708984,
+        683.5303344726562,
+        290.6844787597656,
+        717.44384765625
+      ],
+      "text": "On-the-fly weight dequantization.\nFor quantized layers,\nas the hardware does not provide multiplication instructions\nbetween INT4 and FP16, we need to dequantize the integers"
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        183.2017822265625,
+        543.0952758789062,
+        241.05307006835938
+      ],
+      "text": "to FP16 before performing matrix computation. We avoid\nwriting dequantized weights into DRAM by fusing dequan-\ntization kernels with the matrix multplication kernel. Note\nthat such fusion is adopted for both matrix-matrix (MM)\nand matrix-vector (MV) product kernels."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.0820007324219,
+        278.0003662109375,
+        543.183837890625,
+        516.9240112304688
+      ],
+      "text": "SIMD-aware weight packing.\nOn-the-fly weight dequan-\ntization reduces intermediate DRAM access, but remains\nexpensive. For instance, dequantizing a single 4-bit weight\ninvolves 1 shift, 1 bitwise AND, and 1 FMA scaling op-\nerations, while the dequantized weight undergoes only 1\nFMA computation. This process is particularly costly on\nCPUs with SIMD architecture that favor vectorized in-\nstructions. To mitigate this, we suggest platform-specific\nweight packing tailored to the bitwidth of a device’s SIMD\nunits. Figure 4 demonstrates our strategy for ARM CPUs\nwith 128-bit SIMD registers offering up to 1.2× speedup.\nHere, each register holds 32 4-bit weights, sequenced as\nw0, w16, w1, w17, ..., w15, w31. This approach requires just\nthree SIMD instructions to unpack all 32 weights, as op-\nposed to 3 scalar instructions per weight in a conventional\npacking (w0, w1, ..., w31). Generally, for 2n-bit SIMD reg-\nisters, adjacent weights will have indices off by 1/8 × 2n,\nsince each register can hold 1/8 × 2n 8-bit integers. On\nGPUs, we found it more efficient to pack each 8 weights\ninto w{0,2,4,6,1,3,5,7} following (Kim et al., 2022)."
+    },
+    {
+      "page_no": 6,
+      "bbox": [
+        307.44000244140625,
+        551.92138671875,
+        543.1859130859375,
+        717.468017578125
+      ],
+      "text": "Kernel fusion.\nWe also extensively apply kernel fusion\nto optimize on-device LLM inference. For layer normaliza-\ntion, we fuse all operators (e.g. multiplication, division and\nsquare root) into a single kernel. For attention layers, we\nfuse QKV projections into a single kernel, and also perform\non-the-fly positional embedding calculation. We also pre-\nallocate KV caches and perform cache updates within the\nattention kernel. Kernel fusion is particularly useful for mod-\nels with inefficient forward pass implementations, such as\nFalcon (Penedo et al., 2023) and StarCoder (Li et al., 2023c).\nNotably, the computation time for each FP16 kernel is in\nthe order of 0.01ms on the 4090 GPU, comparable to the\nGPU kernel launch overhead. Hence, reducing number of\nkernel calls through kernel fusion leads to direct speedups."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        120.91899871826172,
+        71.08612823486328,
+        424.40716552734375,
+        85.18350982666016
+      ],
+      "text": "PPL↓\nLlama-2\nLLaMA"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        225.2760009765625,
+        86.43197631835938,
+        475.591064453125,
+        95.39837646484375
+      ],
+      "text": "7B\n13B\n70B\n7B\n13B\n30B\n65B"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        120.91899871826172,
+        101.89498901367188,
+        475.961669921875,
+        110.86138916015625
+      ],
+      "text": "FP16\n-\n5.47\n4.88\n3.32\n5.68\n5.09\n4.10\n3.53"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        120.91899871826172,
+        127.90499877929688,
+        140.34022521972656,
+        146.10040283203125
+      ],
+      "text": "INT3\ng128"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        166.37399291992188,
+        117.35702514648438,
+        475.96600341796875,
+        157.7064208984375
+      ],
+      "text": "RTN\n6.66\n5.52\n3.98\n7.01\n5.88\n4.88\n4.24\nGPTQ\n6.43\n5.48\n3.88\n8.81\n5.66\n4.88\n4.17\nGPTQ-R\n6.42\n5.41\n3.86\n6.53\n5.64\n4.74\n4.21\nAWQ\n6.24\n5.32\n3.74\n6.35\n5.52\n4.61\n3.95"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        120.91899871826172,
+        174.76095581054688,
+        140.34022521972656,
+        192.934326171875
+      ],
+      "text": "INT4\ng128"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        166.37399291992188,
+        164.20291137695312,
+        475.96600341796875,
+        204.55133056640625
+      ],
+      "text": "RTN\n5.73\n4.98\n3.46\n5.96\n5.25\n4.23\n3.67\nGPTQ\n5.69\n4.98\n3.42\n6.22\n5.23\n4.24\n3.66\nGPTQ-R\n5.63\n4.99\n3.43\n5.83\n5.20\n4.22\n3.66\nAWQ\n5.60\n4.97\n3.41\n5.78\n5.19\n4.21\n3.62"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.14400100708008,
+        218.077392578125,
+        541.7540283203125,
+        237.10137939453125
+      ],
+      "text": "Table 4. AWQ improves over round-to-nearest quantization (RTN) for different model sizes and different bit-precisions. It consistently\nachieves better perplexity than GPTQ (w/ and w/o reordering) on LLaMA & Llama-2 models."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        87.40399932861328,
+        261.63330078125,
+        257.4774169921875,
+        270.92340087890625
+      ],
+      "text": "Wikitext2 PPL↓\nMixtral-8x7B\nMistral-7B"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        87.40399932861328,
+        277.41998291015625,
+        245.64303588867188,
+        286.3863830566406
+      ],
+      "text": "FP16\n5.94\n4.14"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        87.40399932861328,
+        292.88299560546875,
+        245.64303588867188,
+        312.30938720703125
+      ],
+      "text": "INT4-g128\n6.05\n4.30\nINT3-g128\n6.52\n4.83"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.14400100708008,
+        325.7806091308594,
+        290.9305419921875,
+        384.71038818359375
+      ],
+      "text": "Table 5.\nAWQ quantization results on Mistral-7B-Instruct-\nv0.2(Jiang et al., 2023) and Mixtral-8x7B-Instruct-v0.1 model\n(Jiang et al., 2024). The PPL result on wikitext shows that AWQ\ncan achieve superior quantization performance on different model\narchitectures including LLMs with GQA and Mixture-of-Experts\n(MoE) models."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.7390022277832,
+        414.441162109375,
+        151.92250061035156,
+        426.3963623046875
+      ],
+      "text": "5\nEXPERIMENTS"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.44000244140625,
+        441.5505065917969,
+        111.61909484863281,
+        451.5130920410156
+      ],
+      "text": "5.1\nSettings"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.082000732421875,
+        460.436279296875,
+        291.0976867675781,
+        602.1170654296875
+      ],
+      "text": "Quantization.\nWe focus on weight-only grouped quanti-\nzation in this work. As shown in previous work (Dettmers &\nZettlemoyer, 2022; Frantar et al., 2022), grouped quantiza-\ntion is always helpful for improving performance/model size\ntrade-off. We used a group size of 128 throughout the work,\nexcept otherwise specified. We focus on INT4/INT3 quan-\ntization since they are able to mostly preserve the LLMs’\nperformance (Dettmers & Zettlemoyer, 2022). For AWQ,\nwe used a small calibration set from the Pile (Gao et al.,\n2020) dataset in order not to overfit to a specific down-\nstream domain. We used a grid size of 20 to search for the\noptimal α in Equation 5."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        55.13100051879883,
+        614.544189453125,
+        291.1797180175781,
+        720.2920532226562
+      ],
+      "text": "Models.\nWe benchmarked our method on LLaMA (Tou-\nvron et al., 2023a) and OPT (Zhang et al., 2022) families.\nThere are other open LLMs like BLOOM (Scao et al., 2022),\nbut they are generally worse in quality, so we do not include\nthem in our study. We further benchmark an instruction-\ntuned model Vicuna (Chiang et al., 2023) and visual lan-\nguage models OpenFlamingo-9B (Awadalla et al., 2023)\nand LLaVA-13B (Liu et al., 2023a) to demonstrate the gen-\nerability of our method."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        343.970458984375,
+        307.3501281738281,
+        441.8080139160156,
+        315.32025146484375
+      ],
+      "text": "0\n20\n40\n60\n80"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        430.40838623046875,
+        294.20611572265625,
+        437.0081787109375,
+        301.5120849609375
+      ],
+      "text": "52"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        430.40838623046875,
+        282.03094482421875,
+        437.0081787109375,
+        289.3369140625
+      ],
+      "text": "75"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        430.40838623046875,
+        269.85577392578125,
+        437.0081787109375,
+        277.1617431640625
+      ],
+      "text": "71"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        373.77374267578125,
+        294.20611572265625,
+        377.0736389160156,
+        301.5120849609375
+      ],
+      "text": "5"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        351.1422424316406,
+        282.03094482421875,
+        354.442138671875,
+        289.3369140625
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        353.45318603515625,
+        269.85577392578125,
+        356.7530822753906,
+        277.1617431640625
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        364.69647216796875,
+        294.20611572265625,
+        371.2962646484375,
+        301.5120849609375
+      ],
+      "text": "23"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        346.67034912109375,
+        282.03094482421875,
+        349.9702453613281,
+        289.3369140625
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        348.3533630371094,
+        269.85577392578125,
+        351.65325927734375,
+        277.1617431640625
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        357.13983154296875,
+        258.5897521972656,
+        521.868896484375,
+        266.55987548828125
+      ],
+      "text": "Quantized Win\nTie\nQuantized Lost"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        447.90240478515625,
+        307.3501281738281,
+        550.4620361328125,
+        315.32025146484375
+      ],
+      "text": "0\n20\n40\n60\n80"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        539.0625,
+        294.20611572265625,
+        545.6622314453125,
+        301.5120849609375
+      ],
+      "text": "47"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        539.0625,
+        282.03094482421875,
+        545.6622314453125,
+        289.3369140625
+      ],
+      "text": "57"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        539.0625,
+        269.85577392578125,
+        545.6622314453125,
+        277.1617431640625
+      ],
+      "text": "57"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        482.3759765625,
+        294.20611572265625,
+        488.7309265136719,
+        301.5120849609375
+      ],
+      "text": "11"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        473.28594970703125,
+        282.03094482421875,
+        476.5858459472656,
+        289.3369140625
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        473.28594970703125,
+        269.85577392578125,
+        476.5858459472656,
+        277.1617431640625
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        468.77154541015625,
+        294.20611572265625,
+        475.371337890625,
+        301.5120849609375
+      ],
+      "text": "22"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        462.6990661621094,
+        282.03094482421875,
+        469.2988586425781,
+        289.3369140625
+      ],
+      "text": "17"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.0561828613281,
+        258.5897521972656,
+        465.6553649902344,
+        277.1617431640625
+      ],
+      "text": "14\nINT3/g128"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        325.8910827636719,
+        270.28656005859375,
+        341.6581115722656,
+        278.2566833496094
+      ],
+      "text": "RTN"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        321.0572814941406,
+        281.50384521484375,
+        341.65814208984375,
+        289.4739685058594
+      ],
+      "text": "GPTQ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        323.24041748046875,
+        292.72113037109375,
+        339.85888671875,
+        300.6912536621094
+      ],
+      "text": "AWQ"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        371.5799865722656,
+        316.1537170410156,
+        520.6923217773438,
+        324.12384033203125
+      ],
+      "text": "(a) Vicuna-7B\n(b) Vicuna-13B"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.1180114746094,
+        335.6531066894531,
+        543.0108642578125,
+        394.5623779296875
+      ],
+      "text": "Figure 5. Comparing INT3-g128 quantized Vicuna models with\nFP16 counterparts under GPT-4 evaluation protocol (Chiang et al.,\n2023). More winning cases (in blue) indicate better performance.\nAWQ consistently improves the quantized performance compared\nto RTN and GPTQ (Frantar et al., 2022), showing generalization\nto instruction-tuned models."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.052001953125,
+        419.9174499511719,
+        543.0977783203125,
+        501.778076171875
+      ],
+      "text": "Evaluations.\nFollowing previous literature (Dettmers\net al., 2022; Xiao et al., 2022; Frantar et al., 2022; Dettmers\n& Zettlemoyer, 2022; Yao et al., 2022), we mainly profiled\nthe quantized models on language modeling tasks (perplex-\nity evaluation on WikiText-2 (Merity et al., 2016)) since per-\nplexity can stably reflect the LLM’s performance (Dettmers\n& Zettlemoyer, 2022)."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.0820007324219,
+        510.4194030761719,
+        543.09814453125,
+        664.0110473632812
+      ],
+      "text": "Baselines.\nOur primary baseline is vanilla round-to-\nnearest quantization (RTN). It is actually quite strong when\nusing a small group size like 128 (Frantar et al., 2022;\nDettmers & Zettlemoyer, 2022). We also compare with\na state-of-the-art method GPTQ (Frantar et al., 2022) for\nLLM weight quantization. For GPTQ, we also compare\nwith an updated version that uses a “reorder” trick (denoted\nas GPTQ-Reorder or GPTQ-R). Other techniques like Ze-\nroQuant (Yao et al., 2022), AdaRound (Nagel et al., 2020),\nand BRECQ (Li et al., 2021) rely on backpropagation to up-\ndate the quantized weights, which may not easily scale up to\nlarge model sizes; they also do not outperform GPTQ (Fran-\ntar et al., 2022), thus not included for study."
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        677.70849609375,
+        376.2615661621094,
+        687.6710815429688
+      ],
+      "text": "5.2\nEvaluation"
+    },
+    {
+      "page_no": 7,
+      "bbox": [
+        307.44000244140625,
+        695.4366455078125,
+        543.08984375,
+        717.4583740234375
+      ],
+      "text": "Results on LLaMA models.\nWe focus on LLaMA mod-\nels (LLaMA (Touvron et al., 2023a) and Llama-2 (Touvron"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        117.70999908447266,
+        70.84429168701172,
+        479.1707763671875,
+        80.1343994140625
+      ],
+      "text": "COCO (CIDEr ↑)\n0-shot\n4-shot\n8-shot\n16-shot\n32-shot\n∆(32-shot)"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        117.70999908447266,
+        86.63101196289062,
+        460.387939453125,
+        95.597412109375
+      ],
+      "text": "FP16\n-\n63.73\n72.18\n76.95\n79.74\n81.70\n-"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        117.70999908447266,
+        107.42196655273438,
+        137.1312255859375,
+        125.5953369140625
+      ],
+      "text": "INT4\ng128"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        159.04901123046875,
+        102.09396362304688,
+        468.237548828125,
+        131.98236083984375
+      ],
+      "text": "RTN\n60.24\n68.07\n72.46\n74.09\n77.13\n-4.57\nGPTQ\n59.72\n67.68\n72.53\n74.98\n74.98\n-6.72\nAWQ\n62.57\n71.02\n74.75\n78.23\n80.53\n-1.17"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        117.70999908447266,
+        143.79598999023438,
+        137.1312255859375,
+        161.99139404296875
+      ],
+      "text": "INT3\ng128"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        159.04901123046875,
+        138.47799682617188,
+        470.4791259765625,
+        168.36639404296875
+      ],
+      "text": "RTN\n46.07\n55.13\n60.46\n63.21\n64.79\n-16.91\nGPTQ\n29.84\n50.77\n56.55\n60.54\n64.77\n-16.93\nAWQ\n56.33\n64.73\n68.79\n72.86\n74.47\n-7.23"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.11800003051758,
+        181.8366241455078,
+        543.0062255859375,
+        220.84136962890625
+      ],
+      "text": "Table 6. Quantization results of a visual language model OpenFlamingo-9B (Awadalla et al., 2023) on COCO Captioning datasets.\nActivation-aware Weight Quantization outperforms existing methods under zero-shot and various few-shot settings, demonstrating the\ngenerability to different modalities and in-context learning workloads. Activation-aware Weight Quantization reduces the quantization\ndegradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4× model size reduction with negligible performance loss."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        62.28499984741211,
+        237.4032440185547,
+        534.598388671875,
+        246.693359375
+      ],
+      "text": "Model (Accuracy↑)\nVQAv2\nGQA\nVizWiz\nSQA-I\nVQA-T\nPOPE\nMME\nMMB\nSEED\nllava-bench\nMM-Vet"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        62.28499984741211,
+        253.18997192382812,
+        527.004638671875,
+        293.5383605957031
+      ],
+      "text": "VILA-7B\n80.3\n63.1\n59.6\n68.0\n62.6\n86.3\n1489.4\n69.8\n61.7\n75.2\n35.1\nVILA-7B-AWQ\n80.1\n63.0\n57.8\n68.0\n61.9\n85.3\n1486.3\n68.8\n61.3\n75.8\n35.9\nVILA-13B\n80.5\n63.6\n63.1\n70.5\n64.0\n86.3\n1553.6\n73.8\n62.8\n78.3\n42.6\nVILA-13B-AWQ\n80.4\n63.6\n63.0\n71.2\n63.5\n87.0\n1552.9\n73.6\n62.2\n77.6\n42.0"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.14400100708008,
+        307.0096130371094,
+        542.5618286132812,
+        355.97637939453125
+      ],
+      "text": "Table 7. INT4-g128 results of VILA-7B and VILA-13B (Lin et al., 2024) on 11 visual-language benchmarks. AWQ consistently\nshows lossless performance on all benchmarks. Benchmark names are abbreviated due to space limits. VQA-v2 (Goyal et al., 2017);\nGQA (Hudson & Manning, 2019); VisWiz (Gurari et al., 2018); SQAI: ScienceQA-IMG (Lu et al., 2022); VQAT: TextVQA (Singh et al.,\n2019); POPE (Li et al., 2023d); MME (Fu et al., 2023); MMB: MMBench (Liu et al., 2023b); MMBCN: MMBench-Chinese (Liu et al.,\n2023b); SEED: SEED-Bench (Li et al., 2023a); LLaVAW: LLaVA-Bench (In-the-Wild) (Liu et al., 2023a); MM-Vet (Yu et al., 2023)."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.082000732421875,
+        379.1239318847656,
+        291.18487548828125,
+        472.7800598144531
+      ],
+      "text": "et al., 2023b)) due to their superior performance compared\nto other open-source LLMs (Zhang et al., 2022; Scao et al.,\n2022); it is also the foundation of many popular open-source\nmodels (Taori et al., 2023; Chiang et al., 2023). We evalu-\nate the perplexity before and after quantization in Table 4.\nAWQ consistently outperforms round-to-nearest (RTN) and\nGPTQ (Frantar et al., 2022) (w/ and w/o reordering) across\ndifferent model scales (7B-70B) and generations."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.439998626708984,
+        483.37542724609375,
+        291.0933837890625,
+        577.1910400390625
+      ],
+      "text": "Results on Mistral / Mixtral models.\nWe also evalu-\nated AWQ on the Mistral and Mixtral models, which are\namong the most popular open-source LLMs and Mixture-\nof-Experts (MoE) models, respectively (Jiang et al., 2023;\n2024). The results indicate that AWQ achieves superior\nperformance on both the Mistral and Mixtral models. This\ndemonstrates that AWQ is effective across various model\narchitectures."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        55.11199951171875,
+        587.8167724609375,
+        291.09735107421875,
+        717.44873046875
+      ],
+      "text": "Quantization of instruction-tuned models.\nInstruction\ntuning can significantly improve the models’ performance\nand usability (Wei et al., 2021; Sanh et al., 2021; Ouyang\net al., 2022; Chung et al., 2022). It has become an essential\nprocedure before model deployment. We further benchmark\nour method’s performance on a popular instruction-tuned\nmodel Vicuna (Chiang et al., 2023) in Figure 5. We used the\nGPT-4 score to evaluate the quantized models’ performance\nagainst the FP16 counterpart on 80 sample questions (Chi-\nang et al., 2023). We compare the responses with both orders\n(quantized-FP16, FP16-quantized) to get rid of the ordering"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        312.6990051269531,
+        380.7500915527344,
+        425.58905029296875,
+        389.7983703613281
+      ],
+      "text": "MBPP (7B) pass@1 pass@10"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        312.6990051269531,
+        396.29498291015625,
+        419.345458984375,
+        405.2613830566406
+      ],
+      "text": "FP16\n38.53\n49.77"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        312.6990051269531,
+        411.75799560546875,
+        419.3485107421875,
+        441.6453857421875
+      ],
+      "text": "RTN\n37.51\n48.49\nGPTQ\n31.97\n44.75\nAWQ\n40.64\n49.25"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        431.8190002441406,
+        380.7500915527344,
+        533.565185546875,
+        389.7983703613281
+      ],
+      "text": "GSM8K 7B\n13B\n70B"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        431.8190002441406,
+        396.29498291015625,
+        536.1790161132812,
+        405.2613830566406
+      ],
+      "text": "FP16\n13.87 26.16 56.41"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        431.8190002441406,
+        411.75799560546875,
+        536.1834106445312,
+        441.6453857421875
+      ],
+      "text": "RTN\n11.07 21.23 53.98\nGPTQ\n12.13 24.26 56.03\nAWQ\n13.57 25.25 56.40"
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.1440124511719,
+        455.1166076660156,
+        542.9317016601562,
+        524.0093994140625
+      ],
+      "text": "Table 8.\nINT4-g128 quantization results of CodeLlama-7b-\nInstruct-hf on MBPP dataset and Llama-2 (7B/13B/70B) on\nGSM8K dataset. AWQ outperforms existing methods on program-\nming and math datasets, demonstrating the generability to different\nscenarios and evaluation settings. Notably, AWQ under the INT4-\ng128 configuration demonstrates comparable performance to the\noriginal FP16 model across both datasets."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.44000244140625,
+        554.13330078125,
+        543.0934448242188,
+        611.9910278320312
+      ],
+      "text": "effect (we found GPT-4 tends to increase the rating of the\nfirst input), leading to 160 trials. AWQ consistently im-\nproves the INT3-g128 quantized Vicuna models over RTN\nand GPTQ under both scales (7B and 13B), demonstrating\nthe generability to instruction-tuned models."
+    },
+    {
+      "page_no": 8,
+      "bbox": [
+        307.11199951171875,
+        623.663818359375,
+        542.6851806640625,
+        717.4920043945312
+      ],
+      "text": "Quantization of multi-modal language models.\nLarge\nmulti-modal models (LMMs) or visual language models\n(VLMs) are LLMs augmented with vision inputs (Alayrac\net al., 2022; Li et al., 2023b; Koh et al., 2023; Driess et al.,\n2023; Zhang et al., 2023; Liu et al., 2023a). Such models are\nable to perform text generation conditioned on image/video\ninputs. Since our method does not have the overfitting issue\nto the calibration set, it can be directly applied to VLMs"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        152.69227600097656,
+        73.35453796386719,
+        534.9715576171875,
+        167.66510009765625
+      ],
+      "text": "Question: Can you explain this meme in detail? \n\nINT4-g128 RTN: The meme in the image features a plate of food, likely fried chicken, with a unique twist. There \nare small pictures of the Earth and other planets placed on top of the food, creating an interesting and amusing \nvisual. Alongside the plate, a caption reads, \"Sometimes I look at pictures of the Earth from space and I marvel at \nhow beautiful it all is.\" This combination of food and planet images adds a touch of humor and curiosity, making \nthe viewer wonder about the context and intent behind the meme.\n\nINT4-g128 AWQ: The meme in the image is a lighthearted and humorous take on the concept of looking at \npictures of the Earth from space. A plate of fried food, specifically chicken nuggets, is presented with the caption, \n\"Sometimes I look at pictures of the Earth from space and I marvel at how beautiful it all is.\" The playful \ncombination of a food item and an Earth-related context creates a fun and entertaining visual."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        184.08863830566406,
+        542.0423583984375,
+        203.1673583984375
+      ],
+      "text": "Figure 6. Visual reasoning examples from LLaVA-13B model (Liu et al., 2023a). AWQ improves over the round-to-nearest (RTN)\nbaseline, providing more reasonable answers. We color the text to show the correct or wrong responses."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        479.12823486328125,
+        216.052978515625,
+        543.4329833984375,
+        244.25009155273438
+      ],
+      "text": "W4-RTN: A man \nand a dog walking \npast some bushes."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        479.12823486328125,
+        247.5347900390625,
+        538.314208984375,
+        275.7319030761719
+      ],
+      "text": "W4-AWQ: Two \ndogs are walking \non the street."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        301.78167724609375,
+        216.052978515625,
+        383.945556640625,
+        244.25009155273438
+      ],
+      "text": "W4-RTN: A man is \nholding a baby elephant \nin his arms."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        301.78167724609375,
+        244.46900939941406,
+        379.32025146484375,
+        275.7319030761719
+      ],
+      "text": "W4-AWQ: A man and \nhis daughter pose with \nan elephant."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        148.25909423828125,
+        216.052978515625,
+        215.52577209472656,
+        244.25009155273438
+      ],
+      "text": "W4-RTN: A model \nairplane flying in \nthe sky."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        148.25909423828125,
+        244.46900939941406,
+        217.40370178222656,
+        275.7319030761719
+      ],
+      "text": "W4-AWQ: Two toy \nairplanes sit on a \ngrass field."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        286.5255126953125,
+        541.4449462890625,
+        315.54339599609375
+      ],
+      "text": "Figure 7. Qualitative results of quantized OpenFlamingo-9B (Awadalla et al., 2023) on COCO captioning dataset (4-shot, INT4-g128\nquantization). Our method significantly improves the captioning quality compared to the round-to-nearest (RTN) baseline. We color the\ntext to show the correct or wrong captions."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.69300079345703,
+        338.6795959472656,
+        291.1848449707031,
+        599.7190551757812
+      ],
+      "text": "to provide accurate and efficient quantization. We perform\nexperiments with the OpenFlamingo-9B model (Awadalla\net al., 2023) (an open-source reproduction of (Alayrac et al.,\n2022)) on COCO captioning (Chen et al., 2015) dataset (Ta-\nble 6). We measured the average performance of 5k samples\nunder different few-shot settings. We only quantize the lan-\nguage part of the model since it dominates the model size.\nAWQ outperforms existing methods under zero-shot and\nvarious few-shot settings, demonstrating the generability to\ndifferent modalities and in-context learning workloads. It\nreduces the quantization degradation (32-shot) from 4.57 to\n1.17 under INT4-g128, providing 4× model size reduction\nwith negligible performance loss. To further demonstrate\nthe generability of AWQ, we also evaluated AWQ on one of\nthe SoTA multi-image visual language models: VILA. The\nresult in Table 7 shows that AWQ achieves lossless quanti-\nzation performance on 11 visual-language benchmarks. We\nfurther provide some qualitative captioning results in Fig-\nure 7 to show our advantage over RTN. Our method provides\na push-the-button solution for LMM/VLM quantization. It\nis the first study of VLM low-bit quantization to the best of\nour knowledge."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.439998626708984,
+        626.5486450195312,
+        291.09344482421875,
+        720.2920532226562
+      ],
+      "text": "Visual reasoning results.\nWe further provide some qual-\nitative visual reasoning examples of the LLaVA-13B (Liu\net al., 2023a) model in Figure 6. AWQ improves the re-\nsponses compared to round-to-nearest (RTN) for INT4-g128\nquantization, leading to more reasonable answers. In this\nfirst example, the AWQ model can understand the meme as\nit resembles the Earth when looking from space, while RTN\nproduces wrong descriptions (marked in red)."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        318.85198974609375,
+        340.0752868652344,
+        527.414306640625,
+        349.3653869628906
+      ],
+      "text": "OPT (Wiki PPL↓) 1.3B\n2.7B\n6.7B\n13B\n30B"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        318.85198974609375,
+        355.8619689941406,
+        527.7872314453125,
+        364.828369140625
+      ],
+      "text": "FP16\n14.62\n12.47\n10.86 10.13\n9.56"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        318.85198974609375,
+        371.323974609375,
+        530.02880859375,
+        390.7513732910156
+      ],
+      "text": "RTN\n10476 193210 7622 17564 8170\nGPTQ\n46.67\n28.15\n16.65 16.74 11.75"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        318.85198974609375,
+        396.96710205078125,
+        530.0325317382812,
+        406.015380859375
+      ],
+      "text": "AWQ +GPTQ\n35.71\n25.70\n15.71 13.25 11.38"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.1180114746094,
+        419.5472412109375,
+        542.0405883789062,
+        458.4903869628906
+      ],
+      "text": "Table 9. Our method is orthogonal to GPTQ: it further closes the\nperformance gap under extreme low-bit quantization (INT2-g64)\nwhen combined with GPTQ. Results are WikiText-2 perplexity of\nOPT models."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.1910095214844,
+        484.7474365234375,
+        543.0989379882812,
+        686.1600341796875
+      ],
+      "text": "Results on programming and math tasks\nTo fur-\nther evaluate the performance of AWQ on tasks in-\nvolving complex generations, we also tested AWQ on\nMBPP (Austin et al., 2021) and GSM8K (Cobbe et al.,\n2021). MBPP (Austin et al., 2021) consists of around 1,000\nPython programming problems, designed to be solvable by\nentry level programmers, covering programming fundamen-\ntals, standard library functionality, etc. GSM8K (Cobbe\net al., 2021) was created to support the task of question an-\nswering on basic mathematical problems that require multi-\nstep reasoning. We quantize CodeLlama-7b-Instruct-hf and\nLlama-2 to INT4-g128 and perform experiments on pro-\ngramming and math datasets (Table 8). AWQ outperforms\nexisting methods on both datasets, demonstrating the gener-\nability to complex generation. AWQ under the INT4-g128\nconfiguration demonstrates comparable performance to the\noriginal FP16 model on both datasets."
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        307.44000244140625,
+        695.536376953125,
+        543.1813354492188,
+        717.46923828125
+      ],
+      "text": "Extreme low-bit quantization.\nWe further quantize LLM\nto INT2 to accommodate limited device memory (Table 9)."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.04430389404297,
+        74.57928466796875,
+        64.26712036132812,
+        108.82284545898438
+      ],
+      "text": "Perplexity"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        75.20121002197266,
+        107.23969268798828,
+        83.5325698852539,
+        116.46250915527344
+      ],
+      "text": "13"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        68.95269012451172,
+        86.9844741821289,
+        83.5325698852539,
+        96.20729064941406
+      ],
+      "text": "13.5"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        75.20121002197266,
+        66.7292709350586,
+        83.5325698852539,
+        75.95208740234375
+      ],
+      "text": "14"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        88.31930541992188,
+        116.0151596069336,
+        280.326416015625,
+        125.23797607421875
+      ],
+      "text": "8\n16\n32\n64\n128\n192\n256"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        248.5521240234375,
+        70.59544372558594,
+        494.59600830078125,
+        88.83712768554688
+      ],
+      "text": "GPTQ\nOurs\nGPTQ\nOurs"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        355.8144226074219,
+        89.77826690673828,
+        516.570068359375,
+        99.00108337402344
+      ],
+      "text": "PubMed\nEnron\nPubMed\nEnron"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        294.6316833496094,
+        105.22595977783203,
+        515.762939453125,
+        114.44877624511719
+      ],
+      "text": "PubMed\n32.48\n50.41\n32.56\n45.07"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        294.6316833496094,
+        119.6322021484375,
+        515.762939453125,
+        128.85501098632812
+      ],
+      "text": "Enron\n34.81\n45.52\n33.16\n44.57"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        297.6408996582031,
+        88.53643798828125,
+        315.6899719238281,
+        97.7592544555664
+      ],
+      "text": "Calib"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        321.0177307128906,
+        75.4933090209961,
+        336.2857971191406,
+        84.71612548828125
+      ],
+      "text": "Eval"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        335.38897705078125,
+        122.00254821777344,
+        353.0611877441406,
+        130.45680236816406
+      ],
+      "text": "+2.33"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        421.97540283203125,
+        107.5184326171875,
+        439.6476135253906,
+        115.97268676757812
+      ],
+      "text": "+4.89"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        435.2032165527344,
+        122.00254821777344,
+        452.87542724609375,
+        130.45680236816406
+      ],
+      "text": "+0.60"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        519.7689208984375,
+        107.5184326171875,
+        537.4411010742188,
+        115.97268676757812
+      ],
+      "text": "+0.50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        105.31936645507812,
+        127.57332611083984,
+        516.59130859375,
+        147.2662811279297
+      ],
+      "text": "# calibration sequences (×2048 tokens)\n(a) Our method needs a smaller calibration set\n(b) Our method is more robust to calibration set distribution"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        54.768001556396484,
+        158.73004150390625,
+        543.0093383789062,
+        207.59136962890625
+      ],
+      "text": "Figure 8. Left: AWQ needs a much smaller calibration set to reach a good quantized performance. It can achieve better perplexity using\n10× smaller calibration set compared to GPTQ. Right: Our method is more robust to the calibration set distribution. Overall, using the\nsame calibration and evaluation distribution works the best (PubMed-PubMed, Enron-Enron). But when using a different calibration\ndistribution (PubMed-Enron, Enron-PubMed), AWQ only increases the perplexity by 0.5-0.6, while GPTQ has 2.3-4.9 worse perplexity.\nAll experiments are done with the OPT-6.7B model under INT3-g128 quantization."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        72.41541290283203,
+        279.7705993652344,
+        75.65543365478516,
+        286.9440002441406
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        69.1753921508789,
+        268.6040954589844,
+        75.65543365478516,
+        275.7774963378906
+      ],
+      "text": "50"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        65.93537139892578,
+        257.4375915527344,
+        75.65543365478516,
+        264.6109924316406
+      ],
+      "text": "100"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        65.93537139892578,
+        246.27110290527344,
+        75.65543365478516,
+        253.4445037841797
+      ],
+      "text": "150"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        65.93537139892578,
+        235.1046142578125,
+        75.65543365478516,
+        242.27801513671875
+      ],
+      "text": "200"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        237.70773315429688,
+        256.06658935546875,
+        246.03921508789062,
+        262.2152404785156
+      ],
+      "text": "124"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        205.51913452148438,
+        272.83197021484375,
+        211.07345581054688,
+        278.9806213378906
+      ],
+      "text": "49"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        170.5533447265625,
+        248.42425537109375,
+        178.88482666015625,
+        254.57289123535156
+      ],
+      "text": "158"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        137.07919311523438,
+        259.1641845703125,
+        145.20460510253906,
+        265.3128356933594
+      ],
+      "text": "110"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        103.39893341064453,
+        240.3419647216797,
+        111.73041534423828,
+        246.4906005859375
+      ],
+      "text": "194"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        94.52780151367188,
+        269.642822265625,
+        234.39096069335938,
+        277.9108581542969
+      ],
+      "text": "53\n63\n62"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        84.26809692382812,
+        270.6388854980469,
+        224.13125610351562,
+        282.3886413574219
+      ],
+      "text": "33\n59\n52"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        201.3457794189453,
+        224.25599670410156,
+        427.908203125,
+        232.966552734375
+      ],
+      "text": "Huggingface (FP16)\nOurs (FP16)\nOurs (AWQ, W4A16)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        56.4168701171875,
+        252.09580993652344,
+        65.12743377685547,
+        290.878662109375
+      ],
+      "text": "Tokens / sec"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        119.5595703125,
+        267.0537414550781,
+        135.58407592773438,
+        281.6329040527344
+      ],
+      "text": "FP16\n\nOOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        113.19967651367188,
+        302.08319091796875,
+        384.51666259765625,
+        311.25579833984375
+      ],
+      "text": "(a) RTX 4090 desktop GPU\n(b) Jetson Orin mobile GPU"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        186.6728057861328,
+        267.0537414550781,
+        202.697265625,
+        281.6329040527344
+      ],
+      "text": "FP16\n\nOOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        87.44822692871094,
+        284.6424255371094,
+        111.01747131347656,
+        291.8158264160156
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        92.4838638305664,
+        292.0481872558594,
+        104.36177825927734,
+        299.2215881347656
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        117.7646484375,
+        284.6424255371094,
+        141.33389282226562,
+        291.8158264160156
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        121.18028259277344,
+        292.0481872558594,
+        136.2982177734375,
+        299.2215881347656
+      ],
+      "text": "(13B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        157.18775939941406,
+        284.6424255371094,
+        172.0146484375,
+        291.8158264160156
+      ],
+      "text": "MPT"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        157.8522186279297,
+        292.0481872558594,
+        169.73013305664062,
+        299.2215881347656
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        191.27487182617188,
+        284.6424255371094,
+        207.05731201171875,
+        299.2215881347656
+      ],
+      "text": "MPT\n\n(30B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        223.83395385742188,
+        284.6424255371094,
+        243.09056091308594,
+        291.8158264160156
+      ],
+      "text": "Falcon"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        226.71327209472656,
+        292.0481872558594,
+        238.5911865234375,
+        299.2215881347656
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        253.83648681640625,
+        279.7304992675781,
+        257.0765075683594,
+        286.9039001464844
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        250.59646606445312,
+        268.5740051269531,
+        257.0765075683594,
+        275.7474060058594
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        250.59646606445312,
+        257.41754150390625,
+        257.0765075683594,
+        264.5909423828125
+      ],
+      "text": "20"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        250.59646606445312,
+        246.26107788085938,
+        257.0765075683594,
+        253.43447875976562
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        250.59646606445312,
+        235.1046142578125,
+        257.0765075683594,
+        242.27801513671875
+      ],
+      "text": "40"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        420.517333984375,
+        258.931884765625,
+        426.0716552734375,
+        265.0805358886719
+      ],
+      "text": "22"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        388.32867431640625,
+        273.290283203125,
+        391.1058349609375,
+        279.4389343261719
+      ],
+      "text": "9"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        353.3630676269531,
+        241.69517517089844,
+        358.9173889160156,
+        247.84381103515625
+      ],
+      "text": "38"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        319.78582763671875,
+        259.9917907714844,
+        325.34014892578125,
+        266.14044189453125
+      ],
+      "text": "21"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        286.2085876464844,
+        240.0774688720703,
+        291.7629089355469,
+        246.22610473632812
+      ],
+      "text": "39"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        275.94891357421875,
+        270.45654296875,
+        414.423583984375,
+        279.8740539550781
+      ],
+      "text": "9\n12\n12"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        265.792236328125,
+        266.650146484375,
+        404.163818359375,
+        282.2726745605469
+      ],
+      "text": "7\n11\n11\nFP16\n\nOOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        368.761962890625,
+        266.650146484375,
+        384.7864990234375,
+        281.22930908203125
+      ],
+      "text": "FP16\n\nOOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        269.5374755859375,
+        284.23883056640625,
+        293.1067199707031,
+        291.4122314453125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        274.5731201171875,
+        291.64459228515625,
+        286.4510498046875,
+        298.8179931640625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        299.8539123535156,
+        284.23883056640625,
+        323.42315673828125,
+        291.4122314453125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        303.26959228515625,
+        291.64459228515625,
+        318.3875427246094,
+        298.8179931640625
+      ],
+      "text": "(13B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        339.2770690917969,
+        284.23883056640625,
+        354.10394287109375,
+        291.4122314453125
+      ],
+      "text": "MPT"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        339.9414978027344,
+        291.64459228515625,
+        351.8194274902344,
+        298.8179931640625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        373.36419677734375,
+        284.23883056640625,
+        389.1466064453125,
+        298.8179931640625
+      ],
+      "text": "MPT\n\n(30B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        405.9231262207031,
+        284.23883056640625,
+        425.1797180175781,
+        291.4122314453125
+      ],
+      "text": "Falcon"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        408.8025817871094,
+        291.64459228515625,
+        420.6805114746094,
+        298.8179931640625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        439.78460693359375,
+        279.7705993652344,
+        443.0246276855469,
+        286.9440002441406
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        436.5445861816406,
+        268.6040954589844,
+        443.0246276855469,
+        275.7774963378906
+      ],
+      "text": "15"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        436.5445861816406,
+        257.4375915527344,
+        443.0246276855469,
+        264.6109924316406
+      ],
+      "text": "30"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        436.5445861816406,
+        246.27110290527344,
+        443.0246276855469,
+        253.4445037841797
+      ],
+      "text": "45"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        436.5445861816406,
+        235.1046142578125,
+        443.0246276855469,
+        242.27801513671875
+      ],
+      "text": "60"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        503.4097900390625,
+        239.2334747314453,
+        532.2846069335938,
+        251.1142578125
+      ],
+      "text": "52\n60"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        480.0892639160156,
+        258.9385986328125,
+        485.6435852050781,
+        265.0872497558594
+      ],
+      "text": "33"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        456.7685546875,
+        239.15565490722656,
+        462.3228759765625,
+        245.30429077148438
+      ],
+      "text": "61"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        443.34234619140625,
+        284.23883056640625,
+        466.9115905761719,
+        291.4122314453125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        448.3780517578125,
+        291.64459228515625,
+        460.2559814453125,
+        298.8179931640625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        471.9794921875,
+        284.23883056640625,
+        495.5487365722656,
+        291.4122314453125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        475.3951721191406,
+        291.64459228515625,
+        490.51312255859375,
+        298.8179931640625
+      ],
+      "text": "(13B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        501.0119323730469,
+        284.23883056640625,
+        515.8388061523438,
+        291.4122314453125
+      ],
+      "text": "MPT"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        501.6763916015625,
+        291.64459228515625,
+        513.5543212890625,
+        298.8179931640625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        523.3865966796875,
+        284.23883056640625,
+        542.6431884765625,
+        291.4122314453125
+      ],
+      "text": "Falcon"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        447.29217529296875,
+        291.64459228515625,
+        538.1439208984375,
+        310.7937316894531
+      ],
+      "text": "(7B)\n(c) RTX 4070 laptop GPU"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        447.0165710449219,
+        251.09019470214844,
+        454.1899719238281,
+        281.5191650390625
+      ],
+      "text": "FP16 OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        470.1988830566406,
+        251.09019470214844,
+        477.3722839355469,
+        281.5191650390625
+      ],
+      "text": "FP16 OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        493.3812255859375,
+        251.09019470214844,
+        500.55462646484375,
+        281.5191650390625
+      ],
+      "text": "FP16 OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        516.5635375976562,
+        251.09019470214844,
+        523.7369384765625,
+        281.5191650390625
+      ],
+      "text": "FP16 OOM"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        323.0608215332031,
+        541.4410400390625,
+        351.9683837890625
+      ],
+      "text": "Figure 9. TinyChat provides a turn-key solution to transform the theoretical memory footprint reduction into a quantifiable speedup. As a\nresult, TinyChat is up to 3.9× and 3.5× faster than the FP16 implementation from Huggingface on 4090 (desktop GPU) and Orin (mobile\nGPU), respectively. AWQ also democratizes Llama-2-13B deployment on laptop GPUs (4070) with merely 8GB memory."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        375.15374755859375,
+        291.0976867675781,
+        432.9070739746094
+      ],
+      "text": "RTN completely fails, and AWQ brings significant perplex-\nity improvement on top of GPTQ.Our method is orthogonal\nto GPTQ. We can combine our method with GPTQ to fur-\nther improve the INT2 quantization performance, making it\na more practical setting."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        445.3795166015625,
+        227.015869140625,
+        455.34210205078125
+      ],
+      "text": "5.3\nData Efficiency and Generalization"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.439998626708984,
+        462.64544677734375,
+        291.08978271484375,
+        580.3710327148438
+      ],
+      "text": "Better data-efficiency for the calibration set.\nOur\nmethod requires a smaller calibration set since we do not\nrely on regression/backpropagation; we only measure the\naverage activation scale from the calibration set, which is\ndata-efficient. To demonstrate the idea, we compare the per-\nplexity of the OPT-6.7B model with INT3-g128 quantization\nin Figure 8 (a). AWQ needs a much smaller calibration to\nreach a good quantized performance; it can achieve better\nperplexity using 10× smaller calibration set compared to\nGPTQ (16 sequences v.s. 192 sequences)."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        55.082000732421875,
+        587.9124145507812,
+        291.0986022949219,
+        717.4896240234375
+      ],
+      "text": "Robust to the calibration set distributions.\nOur method\nis less sensitive to the calibration set distribution since we\nonly measure the average activation scale from the calibra-\ntion set, which is more generalizable across different dataset\ndistributions. We further benchmarked the effect of the dif-\nferent calibration set distributions in Figure 8(b). We took\ntwo subsets from the Pile dataset (Gao et al., 2020): PubMed\nAbstracts and Enron Emails (Klimt & Yang, 2004). We use\neach of the subsets as the calibration set and evaluate the\nquantized model on both sets (the calibration and evaluation\nsets are split with no overlapping; we used 1k samples for"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.11199951171875,
+        376.5002746582031,
+        531.7664794921875,
+        385.7903747558594
+      ],
+      "text": "Model (Throughput↑)\nPrecision\nA100\n4090\nOrin"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.11199951171875,
+        392.2869873046875,
+        531.4002075195312,
+        411.7143859863281
+      ],
+      "text": "VILA-7B\nFP16\n81.6\n58.5\n11.5\nVILA-7B-AWQ\nW4A16\n155.3\n168.1\n35.6"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        317.11199951171875,
+        418.2109680175781,
+        531.4002075195312,
+        437.6373596191406
+      ],
+      "text": "VILA-13B\nFP16\n48.5\nOOM\n6.1\nVILA-13B-AWQ\nW4A16\n102.1\n99.0\n17.5"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.1180114746094,
+        451.1086120605469,
+        542.926513671875,
+        500.07537841796875
+      ],
+      "text": "Table 10.\nTinyChat also enables seamless deployment of\nVILA (Lin et al., 2024), a state-of-the-art visual-language model,\non multiple GPU platforms. Leveraging our 4-bit AWQ quantiza-\ntion, TinyChat accelerates VILA-7B by up to 3.1× and VILA-13B\nby up to 2.9×."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.11199951171875,
+        526.6539306640625,
+        543.0979614257812,
+        608.321044921875
+      ],
+      "text": "evaluation). Overall, using the same calibration and evalua-\ntion distribution works the best (PubMed-PubMed, Enron-\nEnron). But when using a different calibration distribution\n(PubMed-Enron, Enron-PubMed), AWQ only increases the\nperplexity by 0.5-0.6, while GPTQ has 2.3-4.9 worse per-\nplexity. This demonstrates the robustness of AWQ to the\ncalibration set distribution."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        307.44000244140625,
+        622.6845092773438,
+        415.29510498046875,
+        632.6470947265625
+      ],
+      "text": "5.4\nSpeedup Evaluation"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        306.97198486328125,
+        640.5803833007812,
+        543.187744140625,
+        698.5550537109375
+      ],
+      "text": "Settings.\nIn Figure 9, we demonstrate the system accel-\neration results from TinyChat. TinyChat optimizes both\nlinear layers and layers that do not have quantized weights.\nWe conduct benchmarking experiments on RTX 4090 and\nJetson Orin following the protocol described in exllama ‡."
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        320.0929870605469,
+        706.7186889648438,
+        517.254638671875,
+        716.768310546875
+      ],
+      "text": "‡https://github.com/turboderp/exllama"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        512.6358032226562,
+        105.29683685302734,
+        516.6959228515625,
+        126.79237365722656
+      ],
+      "text": "Not Supported"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.929447174072266,
+        93.36587524414062,
+        63.55720520019531,
+        131.78005981445312
+      ],
+      "text": "Tokens / sec"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        168.40623474121094,
+        147.29644775390625,
+        351.5142822265625,
+        155.92420959472656
+      ],
+      "text": "(a) Latency comparison on Jetson Orin (64G) mobile GPU"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        66.5721435546875,
+        74.3793716430664,
+        113.4432601928711,
+        128.58584594726562
+      ],
+      "text": "0\n7\n14\n21\n28\n35\n39.1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        95.33897399902344,
+        98.40792846679688,
+        104.96663665771484,
+        104.49811553955078
+      ],
+      "text": "15.9"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        86.86234283447266,
+        90.06526184082031,
+        96.49000549316406,
+        96.15544891357422
+      ],
+      "text": "22.5"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        78.38569641113281,
+        101.56802368164062,
+        88.01335906982422,
+        107.65821075439453
+      ],
+      "text": "13.4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        210.14524841308594,
+        67.21923828125,
+        435.6913757324219,
+        75.84699249267578
+      ],
+      "text": "AutoGPTQ\nllama.cpp\nexllama\nTinyChat"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        83.23583221435547,
+        128.97206115722656,
+        106.58102416992188,
+        136.0772705078125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        88.22360229492188,
+        136.3074188232422,
+        99.98860168457031,
+        143.41262817382812
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        136.78306579589844,
+        128.97206115722656,
+        160.12826538085938,
+        136.0772705078125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        140.16622924804688,
+        136.3074188232422,
+        155.1404571533203,
+        143.41262817382812
+      ],
+      "text": "(13B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        118.31102752685547,
+        75.98441314697266,
+        165.18214416503906,
+        130.19090270996094
+      ],
+      "text": "0\n4\n8\n12\n16\n20\n21.2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        148.45323181152344,
+        99.98136138916016,
+        155.33013916015625,
+        106.07154846191406
+      ],
+      "text": "9.1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        138.60122680664062,
+        90.690673828125,
+        148.22889709472656,
+        96.7808609008789
+      ],
+      "text": "13.3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        131.4999542236328,
+        102.41464233398438,
+        138.37686157226562,
+        108.50482940673828
+      ],
+      "text": "8.0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        189.05316162109375,
+        128.9725799560547,
+        211.3359375,
+        136.07778930664062
+      ],
+      "text": "LLaMA"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        191.9051055908203,
+        136.3079376220703,
+        206.87933349609375,
+        143.41314697265625
+      ],
+      "text": "(30B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        173.25912475585938,
+        123.085693359375,
+        176.4683380126953,
+        130.19090270996094
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        173.25912475585938,
+        112.02533721923828,
+        176.4683380126953,
+        119.13054656982422
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        173.25912475585938,
+        100.96499633789062,
+        176.4683380126953,
+        108.07020568847656
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        173.25912475585938,
+        89.90464782714844,
+        176.4683380126953,
+        97.00985717773438
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        173.25912475585938,
+        75.98441314697266,
+        215.54566955566406,
+        85.94950866699219
+      ],
+      "text": "8\n8.8"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        200.19210815429688,
+        102.41464233398438,
+        207.0690155029297,
+        108.50482940673828
+      ],
+      "text": "3.2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        191.71546936035156,
+        88.03618621826172,
+        198.59237670898438,
+        94.12637329101562
+      ],
+      "text": "5.8"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        183.2388458251953,
+        104.07369232177734,
+        190.11575317382812,
+        110.16387939453125
+      ],
+      "text": "2.9"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        238.18350219726562,
+        128.97206115722656,
+        261.5286865234375,
+        136.0772705078125
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        241.56668090820312,
+        136.3074188232422,
+        256.5408935546875,
+        143.41262817382812
+      ],
+      "text": "(70B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        224.99801635742188,
+        123.085693359375,
+        228.2072296142578,
+        130.19090270996094
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        224.99801635742188,
+        112.02533721923828,
+        228.2072296142578,
+        119.13054656982422
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        224.99801635742188,
+        100.96499633789062,
+        228.2072296142578,
+        108.07020568847656
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        224.99801635742188,
+        89.90464782714844,
+        228.2072296142578,
+        97.00985717773438
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        224.99801635742188,
+        78.84429931640625,
+        267.2845153808594,
+        87.49015808105469
+      ],
+      "text": "4\n3.5"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        251.93101501464844,
+        104.626708984375,
+        258.80792236328125,
+        110.7168960571289
+      ],
+      "text": "1.4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        243.45437622070312,
+        86.93014526367188,
+        250.33128356933594,
+        93.02033233642578
+      ],
+      "text": "3.0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        234.97772216796875,
+        105.73274230957031,
+        241.85462951660156,
+        111.82292938232422
+      ],
+      "text": "1.3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        456.0159912109375,
+        123.58822631835938,
+        459.2252197265625,
+        130.6934356689453
+      ],
+      "text": "0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        456.0159912109375,
+        112.52787780761719,
+        459.2252197265625,
+        119.63308715820312
+      ],
+      "text": "1"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        456.0159912109375,
+        101.467529296875,
+        459.2252197265625,
+        108.57273864746094
+      ],
+      "text": "2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        456.0159912109375,
+        90.40718078613281,
+        459.2252197265625,
+        97.51239013671875
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        456.0159912109375,
+        79.34683227539062,
+        459.2252197265625,
+        86.45204162597656
+      ],
+      "text": "4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        519.36962890625,
+        88.49336242675781,
+        525.6734619140625,
+        94.0760269165039
+      ],
+      "text": "3.0"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        467.9338684082031,
+        113.04733276367188,
+        503.830810546875,
+        118.85121154785156
+      ],
+      "text": "0.7\n0.7\n0.7"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        460.7842102050781,
+        128.50083923339844,
+        484.12939453125,
+        135.60604858398438
+      ],
+      "text": "Llama-2"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        465.77203369140625,
+        135.83619689941406,
+        477.5370178222656,
+        142.94140625
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        488.51416015625,
+        128.50083923339844,
+        505.0929870605469,
+        142.94140625
+      ],
+      "text": "OPT\n\n(6.7B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        512.1585083007812,
+        128.50083923339844,
+        528.7373046875,
+        142.94140625
+      ],
+      "text": "OPT\n\n(1.3B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        447.40313720703125,
+        147.29644775390625,
+        541.5509033203125,
+        155.92420959472656
+      ],
+      "text": "(b) Latency on Raspberry Pi 4"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        278.88482666015625,
+        75.98441314697266,
+        307.7034912109375,
+        130.19090270996094
+      ],
+      "text": "0\n3\n6\n9\n12\n15\n17"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        294.5117492675781,
+        101.52981567382812,
+        297.26251220703125,
+        107.62000274658203
+      ],
+      "text": "6"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        287.407470703125,
+        128.97206115722656,
+        315.0368347167969,
+        136.0772705078125
+      ],
+      "text": "StarCoder"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        290.5259094238281,
+        136.3074188232422,
+        310.31396484375,
+        143.41262817382812
+      ],
+      "text": "(15.5B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        369.1564025878906,
+        75.98441314697266,
+        397.9749755859375,
+        130.19090270996094
+      ],
+      "text": "0\n7\n14\n21\n28\n35\n37"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        383.4078674316406,
+        102.92024993896484,
+        388.9093933105469,
+        109.01043701171875
+      ],
+      "text": "14"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        381.4211120605469,
+        128.97206115722656,
+        401.5664978027344,
+        136.0772705078125
+      ],
+      "text": "Mistral"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        332.6311340332031,
+        128.97206115722656,
+        396.5738830566406,
+        143.41262817382812
+      ],
+      "text": "(7B)\nStableCode"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        341.5440368652344,
+        136.3074188232422,
+        353.30902099609375,
+        143.41262817382812
+      ],
+      "text": "(3B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        325.89154052734375,
+        75.98441314697266,
+        354.7103271484375,
+        130.19090270996094
+      ],
+      "text": "0\n6\n12\n18\n24\n30\n32"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        340.1429748535156,
+        105.06912231445312,
+        345.6445007324219,
+        111.15930938720703
+      ],
+      "text": "10"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        415.4968566894531,
+        79.0163345336914,
+        444.3156433105469,
+        130.36293029785156
+      ],
+      "text": "0\n5\n10\n15\n20\n25\n22"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        431.1236877441406,
+        114.9742660522461,
+        433.87445068359375,
+        121.064453125
+      ],
+      "text": "3"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        428.2974853515625,
+        129.0292510986328,
+        447.37103271484375,
+        136.13446044921875
+      ],
+      "text": "Falcon"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        431.14935302734375,
+        136.3646240234375,
+        442.9143371582031,
+        143.46983337402344
+      ],
+      "text": "(7B)"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        491.8450927734375,
+        121.7260971069336,
+        495.90521240234375,
+        126.41412353515625
+      ],
+      "text": "NS"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        166.27427673339844,
+        543.0130004882812,
+        205.452392578125
+      ],
+      "text": "Figure 10. TinyChat offers 1.2-3.0× speedup over existing systems when running 4-bit quantized Llama models on NVIDIA Jetson Orin.\nIt also supports a diverse range of general-purpose and coding-specific LLMs with at least 2.6× speedup over AutoGPTQ, which also\nsupports all these workloads. Moreover, TinyChat seamlessly operates on Raspberry Pi and enables the deployment of LLMs with up to 7\nbillion parameters on extremely resource-constrained IoT devices."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        54.97200012207031,
+        228.53128051757812,
+        289.6138916015625,
+        274.4350891113281
+      ],
+      "text": "We perform batch size = 1 inference for all LLMs using a\nfixed prompt length of 4 tokens. We generate 200 tokens for\neach inference run and calculate the median latency as the\nfinal result."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.082000732421875,
+        294.3468017578125,
+        291.0971374511719,
+        543.7720336914062
+      ],
+      "text": "Results.\nAs in Figure 9(a), TinyChat brings 2.7-3.9×\nspeedup to three families of LLMs (Llama-2, MPT and\nFalcon) on 4090 compared with the Huggingface FP16 im-\nplementation. For Llama-2-7B, we improve the inference\nspeed from 52 tokens/s to 62 tokens/s through FP16 kernel\nfusion. On top of the stronger FP16 baseline, we further\nharvest 3.1× additional speedup from the fast quantized lin-\near kernels. For Falcon-7B, the official implementation did\nnot support KV cache correctly during the inference time,\nand thus it is significantly slower than other models. In this\ncase, our FP16 optimizations bring about a larger speedup\nof 1.6×. On the laptop 4070 GPU with only 8GB memory,\nwe are still able to run Llama-2-13B models at 33 tokens/s,\nwhile the FP16 implementation cannot fit 7B models. We\nalso demonstrate visual-language model (Lin et al., 2024)\nacceleration results in Table 10. TinyChat brings about 3×\nspeedup to both VILA-7B and VILA-13B on NVIDIA Jet-\nson Orin. Notably, we implement the forward pass for all\nAWQ models using native PyTorch APIs, and this code is\nreused across various GPU architectures. Hence, TinyChat\noffers exceptional extensibility."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        55.439998626708984,
+        563.9601440429688,
+        291.0985107421875,
+        717.468017578125
+      ],
+      "text": "Comparisons against other systems.\nWe compare Tiny-\nChat against existing edge LLM inference systems Auto-\nGPTQ, llama.cpp and exllama in Figure 10. Our system\nachieves up to 1.7× speedup over llama.cpp on Orin. Fur-\nthermore, llama.cpp and exllama exhibit limited adaptability,\nprimarily tailored for LLaMA and Llama-2 models. In con-\ntrast, our TinyChat supports a wide range of applications,\nincluding StarCoder (Li et al., 2023c), StableCode (GPT-\nNeoX) (Black et al., 2022), Mistral (Jiang et al., 2023), and\nFalcon (Penedo et al., 2023) while consistently delivering\nsignificant speedup over AutoGPTQ. TinyChat even democ-\nratizes LLM deployment on extremely resource-constrained\nRaspberry Pi 4B, achieving 0.7 tokens/s for 7B models."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.7389831542969,
+        226.98614501953125,
+        398.15338134765625,
+        238.94134521484375
+      ],
+      "text": "6\nCONCLUSION"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.0820007324219,
+        250.79629516601562,
+        543.0977783203125,
+        416.2510681152344
+      ],
+      "text": "In this work, we propose Activation-aware Weight Quan-\ntization (AWQ), a simple yet effective method for low-bit\nweight-only LLM compression. Based on the observation\nthat weights are not equally important in LLMs, AWQ per-\nforms per-channel scaling to reduce the quantization loss\nof salient weights. AWQ does not over-fit the calibration\nset and preserves the generalist abilities of LLMs in various\ndomains and modalities. It outperforms existing work on\nlanguage modeling and is applicable to instruction-tuned\nLMs and multi-modal LMs. Our TinyChat system further\ntranslates the theoretical memory savings achieved by AWQ\ninto 3.2-3.3× measured speedups over the FP16 implemen-\ntations from Huggingface on desktop and mobile GPUs,\ndemocratizing LLM deployment on the edge."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.739013671875,
+        429.0091552734375,
+        429.9375305175781,
+        440.96435546875
+      ],
+      "text": "ACKNOWLEDGEMENTS"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        306.97198486328125,
+        452.81829833984375,
+        541.7520751953125,
+        498.7220764160156
+      ],
+      "text": "We thank MIT AI Hardware Program, National Science\nFoundation, MIT-IBM Watson AI Lab, Amazon and MIT\nScience Hub, Microsoft Turing Academic Program, and\nSamsung for supporting this research."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.739013671875,
+        511.48016357421875,
+        379.08782958984375,
+        523.4353637695312
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        535.2892456054688,
+        542.6871337890625,
+        593.1480102539062
+      ],
+      "text": "Alayrac, J.-B., Donahue, J., Luc, P., Miech, A., Barr, I.,\nHasson, Y., Lenc, K., Mensch, A., Millican, K., Reynolds,\nM., et al. Flamingo: a visual language model for few-shot\nlearning. Advances in Neural Information Processing\nSystems, 35:23716–23736, 2022."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        603.42724609375,
+        542.68701171875,
+        649.3300170898438
+      ],
+      "text": "Austin, J., Odena, A., Nye, M., Bosma, M., Michalewski,\nH., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., and\nSutton, C. Program synthesis with large language models,\n2021."
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        307.44000244140625,
+        659.6092529296875,
+        544.4292602539062,
+        717.4680786132812
+      ],
+      "text": "Awadalla, A., Gao, I., Gardner, J., Hessel, J., Hanafy, Y.,\nZhu, W., Marathe, K., Bitton, Y., Gadre, S., Jitsev, J.,\nKornblith, S., Koh, P. W., Ilharco, G., Wortsman, M., and\nSchmidt, L. Openflamingo, March 2023. URL https:\n//doi.org/10.5281/zenodo.7733589."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        291.0925598144531,
+        115.29605102539062
+      ],
+      "text": "Bengio, Y., L´eonard, N., and Courville, A. Estimating or\npropagating gradients through stochastic neurons for con-\nditional computation. arXiv preprint arXiv:1308.3432,\n2013."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        123.74227905273438,
+        291.1854553222656,
+        169.62796020507812
+      ],
+      "text": "Black, S., Biderman, S., Hallahan, E., Anthony, Q., Gao,\nL., Golding, L., He, H., Leahy, C., McDonell, K., Phang,\nJ., et al. Gpt-neox-20b: An open-source autoregressive\nlanguage model. arXiv preprint arXiv:2204.06745, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        178.09231567382812,
+        298.7269592285156,
+        355.5030517578125
+      ],
+      "text": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan,\nJ. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry,\nG., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger,\nG., Henighan, T., Child, R., Ramesh, A., Ziegler, D.,\nWu, J., Winter, C., Hesse, C., Chen, M., Sigler, E.,\nLitwin, M., Gray, S., Chess, B., Clark, J., Berner, C.,\nMcCandlish, S., Radford, A., Sutskever, I., and Amodei,\nD. Language models are few-shot learners. In Larochelle,\nH., Ranzato, M., Hadsell, R., Balcan, M., and Lin,\nH. (eds.), Advances in Neural Information Processing\nSystems, volume 33, pp. 1877–1901. Curran Asso-\nciates, Inc., 2020.\nURL https://proceedings.\nneurips.cc/paper/2020/file/\n1457c0d6bfcb4967418bfb8ac142f64a-Paper.\npdf."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        364.10040283203125,
+        290.68792724609375,
+        421.8080749511719
+      ],
+      "text": "Chen, T., Moreau, T., Jiang, Z., Zheng, L., Yan, E., Shen, H.,\nCowan, M., Wang, L., Hu, Y., Ceze, L., et al. TVM: An\nAutomated End-to-End Optimizing Compiler for Deep\nLearning. In 13th USENIX Symposium on Operating\nSystems Design and Implementation (OSDI), 2018."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        430.2543029785156,
+        290.8236389160156,
+        476.1580810546875
+      ],
+      "text": "Chen, X., Fang, H., Lin, T.-Y., Vedantam, R., Gupta, S.,\nDoll´ar, P., and Zitnick, C. L. Microsoft coco captions:\nData collection and evaluation server. arXiv preprint\narXiv:1504.00325, 2015."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        484.6042785644531,
+        290.68701171875,
+        554.4180297851562
+      ],
+      "text": "Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang,\nH., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E.,\nStoica, I., and Xing, E. P.\nVicuna: An open-source\nchatbot impressing gpt-4 with 90%* chatgpt quality,\nMarch 2023.\nURL https://lmsys.org/blog/\n2023-03-30-vicuna/."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        563.015380859375,
+        291.0979309082031,
+        608.7680053710938
+      ],
+      "text": "Choi, J., Wang, Z., Venkataramani, S., Chuang, P. I.-J., Srini-\nvasan, V., and Gopalakrishnan, K. Pact: Parameterized\nclipping activation for quantized neural networks. arXiv\npreprint arXiv:1805.06085, 2018."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        617.2142333984375,
+        291.1810302734375,
+        663.1180419921875
+      ],
+      "text": "Chung, H. W., Hou, L., Longpre, S., Zoph, B., Tay, Y.,\nFedus, W., Li, E., Wang, X., Dehghani, M., Brahma,\nS., et al. Scaling instruction-finetuned language models.\narXiv preprint arXiv:2210.11416, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        55.439998626708984,
+        671.5642700195312,
+        290.68695068359375,
+        717.468017578125
+      ],
+      "text": "Cobbe, K., Kosaraju, V., Bavarian, M., Chen, M., Jun, H.,\nKaiser, L., Plappert, M., Tworek, J., Hilton, J., Nakano,\nR., Hesse, C., and Schulman, J. Training verifiers to solve\nmath word problems, 2021."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        543.0935668945312,
+        103.34109497070312
+      ],
+      "text": "Dettmers, T. and Zettlemoyer, L. The case for 4-bit pre-\ncision: k-bit inference scaling laws.\narXiv preprint\narXiv:2212.09720, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        112.18026733398438,
+        543.1849365234375,
+        146.12808227539062
+      ],
+      "text": "Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L.\nLlm.int8(): 8-bit matrix multiplication for transformers\nat scale. arXiv preprint arXiv:2208.07339, 2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        154.96829223632812,
+        543.1873168945312,
+        200.87106323242188
+      ],
+      "text": "Driess, D., Xia, F., Sajjadi, M. S., Lynch, C., Chowdhery,\nA., Ichter, B., Wahid, A., Tompson, J., Vuong, Q., Yu, T.,\net al. Palm-e: An embodied multimodal language model.\narXiv preprint arXiv:2303.03378, 2023."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        209.83572387695312,
+        542.6868286132812,
+        243.65908813476562
+      ],
+      "text": "Esser, S. K., McKinstry, J. L., Bablani, D., Appuswamy, R.,\nand Modha, D. S. Learned step size quantization. arXiv\npreprint arXiv:1902.08153, 2019."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        252.5772705078125,
+        543.0949096679688,
+        298.4020690917969
+      ],
+      "text": "Feng, S., Hou, B., Jin, H., Lin, W., Shao, J., Lai, R., Ye, Z.,\nZheng, L., Yu, C. H., Yu, Y., and Chen, T. TensorIR: An\nAbstraction for Automatic Tensorized Program Optimiza-\ntion. In ASPLOS, 2023."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        307.2413024902344,
+        542.8292846679688,
+        341.1900634765625
+      ],
+      "text": "Frankle, J. and Carbin, M. The lottery ticket hypothesis:\nFinding sparse, trainable neural networks. arXiv preprint\narXiv:1803.03635, 2018."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        350.180419921875,
+        543.094482421875,
+        395.9330749511719
+      ],
+      "text": "Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq:\nAccurate post-training quantization for generative pre-\ntrained transformers. arXiv preprint arXiv:2210.17323,\n2022."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        404.7723083496094,
+        542.68701171875,
+        462.6310729980469
+      ],
+      "text": "Fu, C., Chen, P., Shen, Y., Qin, Y., Zhang, M., Lin, X.,\nYang, J., Zheng, X., Li, K., Sun, X., Wu, Y., and Ji,\nR. MME: A Comprehensive Evaluation Benchmark for\nMultimodal Large Language Models.\narXiv preprint\narXiv:2306.13394, 2023."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        471.4703063964844,
+        542.6868896484375,
+        529.3290405273438
+      ],
+      "text": "Gao, L., Biderman, S., Black, S., Golding, L., Hoppe, T.,\nFoster, C., Phang, J., He, H., Thite, A., Nabeshima, N.,\net al. The pile: An 800gb dataset of diverse text for\nlanguage modeling. arXiv preprint arXiv:2101.00027,\n2020."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        538.224609375,
+        542.6819458007812,
+        584.072021484375
+      ],
+      "text": "Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W.,\nand Keutzer, K.\nA survey of quantization methods\nfor efficient neural network inference. arXiv preprint\narXiv:2103.13630, 2021."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        592.9112548828125,
+        543.0978393554688,
+        650.7700805664062
+      ],
+      "text": "Goyal, Y., Khot, T., Summers-Stay, D., Batra, D., and\nParikh, D. Making the v in vqa matter: Elevating the\nrole of image understanding in visual question answer-\ning. In Proceedings of the IEEE conference on computer\nvision and pattern recognition, pp. 6904–6913, 2017."
+    },
+    {
+      "page_no": 12,
+      "bbox": [
+        307.44000244140625,
+        659.7223510742188,
+        543.0955200195312,
+        717.468017578125
+      ],
+      "text": "Gurari, D., Li, Q., Stangl, A. J., Guo, A., Lin, C., Grauman,\nK., Luo, J., and Bigham, J. P. Vizwiz grand challenge:\nAnswering visual questions from blind people. In Pro-\nceedings of the IEEE conference on computer vision and\npattern recognition, pp. 3608–3617, 2018."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        291.1858825683594,
+        115.29605102539062
+      ],
+      "text": "Han, S., Pool, J., Tran, J., and Dally, W. Learning both\nweights and connections for efficient neural network.\nAdvances in neural information processing systems, 28,\n2015."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        126.17440032958984,
+        291.0979309082031,
+        159.97109985351562
+      ],
+      "text": "Han, S., Mao, H., and Dally, W. J. Deep Compression: Com-\npressing Deep Neural Networks with Pruning, Trained\nQuantization and Huffman Coding. In ICLR, 2016."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        170.80374145507812,
+        289.60540771484375,
+        204.64706420898438
+      ],
+      "text": "Hudson, D. A. and Manning, C. D. Gqa: A new dataset for\nreal-world visual reasoning and compositional question\nanswering. In CVPR, 2019."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        215.51779174804688,
+        291.0977478027344,
+        285.1880798339844
+      ],
+      "text": "Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard,\nA., Adam, H., and Kalenichenko, D.\nQuantization\nand training of neural networks for efficient integer-\narithmetic-only inference. In Proceedings of the IEEE\nConference on Computer Vision and Pattern Recognition,\npp. 2704–2713, 2018."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        295.915283203125,
+        290.6869812011719,
+        341.8180847167969
+      ],
+      "text": "Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C.,\nChaplot, D. S., Casas, D. d. l., Bressand, F., Lengyel, G.,\nLample, G., Saulnier, L., et al. Mistral 7b. arXiv preprint\narXiv:2310.06825, 2023."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        352.6974182128906,
+        290.6878967285156,
+        434.3150634765625
+      ],
+      "text": "Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary,\nB., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna,\nE. B., Bressand, F., Lengyel, G., Bour, G., Lample, G.,\nLavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P.,\nSubramanian, S., Yang, S., Antoniak, S., Scao, T. L.,\nGervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed,\nW. E. Mixtral of experts, 2024."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        445.04229736328125,
+        291.1848449707031,
+        490.945068359375
+      ],
+      "text": "Kim, Y. J., Henry, R., Fahim, R., and Awadalla, H. H.\nWho says elephants can’t run: Bringing large scale\nmoe models into cloud scale production. arXiv preprint\narXiv:2211.10017, 2022."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        501.67230224609375,
+        291.09320068359375,
+        559.5310668945312
+      ],
+      "text": "Klimt, B. and Yang, Y. The enron corpus: A new dataset\nfor email classification research. In Machine Learning:\nECML 2004: 15th European Conference on Machine\nLearning, Pisa, Italy, September 20-24, 2004. Proceed-\nings 15, pp. 217–226. Springer, 2004."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        570.25830078125,
+        291.1790771484375,
+        604.2060546875
+      ],
+      "text": "Koh, J. Y., Salakhutdinov, R., and Fried, D. Grounding\nlanguage models to images for multimodal generation.\narXiv preprint arXiv:2301.13823, 2023."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        614.9342651367188,
+        291.1848449707031,
+        660.8370361328125
+      ],
+      "text": "Li, B., Wang, R., Wang, G., Ge, Y., Ge, Y., and Shan, Y.\nSeed-bench: Benchmarking multimodal llms with gener-\native comprehension. arXiv preprint arXiv:2307.16125,\n2023a."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        55.439998626708984,
+        671.5642700195312,
+        291.0977783203125,
+        717.468017578125
+      ],
+      "text": "Li, J., Li, D., Savarese, S., and Hoi, S.\nBlip-2: Boot-\nstrapping language-image pre-training with frozen im-\nage encoders and large language models. arXiv preprint\narXiv:2301.12597, 2023b."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        69.40727996826172,
+        543.1790771484375,
+        115.29605102539062
+      ],
+      "text": "Li, R., Allal, L. B., Zi, Y., Muennighoff, N., Kocetkov, D.,\nMou, C., Marone, M., Akiki, C., Li, J., Chim, J., et al.\nStarcoder: may the source be with you! arXiv preprint\narXiv:2305.06161, 2023c."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        125.55130004882812,
+        542.68701171875,
+        171.45407104492188
+      ],
+      "text": "Li, Y., Gong, R., Tan, X., Yang, Y., Hu, P., Zhang, Q., Yu,\nF., Wang, W., and Gu, S. Brecq: Pushing the limit of\npost-training quantization by block reconstruction. arXiv\npreprint arXiv:2102.05426, 2021."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        181.70932006835938,
+        543.0916748046875,
+        227.61306762695312
+      ],
+      "text": "Li, Y., Du, Y., Zhou, K., Wang, J., Zhao, W. X., and Wen,\nJ.-R.\nEvaluating object hallucination in large vision-\nlanguage models.\narXiv preprint arXiv:2305.10355,\n2023d."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        238.01942443847656,
+        543.1271362304688,
+        271.8052062988281
+      ],
+      "text": "Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet:\nTiny deep learning on iot devices. Advances in Neural\nInformation Processing Systems, 33:11711–11722, 2020."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        282.0712890625,
+        543.1109008789062,
+        316.0164794921875
+      ],
+      "text": "Lin, J., Yin, H., Ping, W., Lu, Y., Molchanov, P., Tao, A.,\nMao, H., Kautz, J., Shoeybi, M., and Han, S. Vila: On\npre-training for visual language models. In CVPR, 2024."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        326.2752990722656,
+        541.4370727539062,
+        348.26806640625
+      ],
+      "text": "Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual instruction\ntuning. 2023a."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        358.5232849121094,
+        542.6868286132812,
+        404.42706298828125
+      ],
+      "text": "Liu, Y., Duan, H., Zhang, Y., Li, B., Zhang, S., Zhao, W.,\nYuan, Y., Wang, J., He, C., Liu, Z., et al. Mmbench: Is\nyour multi-modal model an all-around player?\narXiv\npreprint arXiv:2307.06281, 2023b."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        414.6822814941406,
+        543.0908203125,
+        472.5400695800781
+      ],
+      "text": "Lu, P., Mishra, S., Xia, T., Qiu, L., Chang, K.-W., Zhu,\nS.-C., Tafjord, O., Clark, P., and Kalyan, A. Learn to\nexplain: Multimodal reasoning via thought chains for\nscience question answering. Advances in Neural Infor-\nmation Processing Systems, 35:2507–2521, 2022."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        482.8365478515625,
+        541.6072998046875,
+        504.7890625
+      ],
+      "text": "Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer\nsentinel mixture models, 2016."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        514.6094360351562,
+        545.6243896484375,
+        537.0370483398438
+      ],
+      "text": "MLC-Team. MLC-LLM, 2023. URL https://github.\ncom/mlc-ai/mlc-llm."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        547.292236328125,
+        542.9348754882812,
+        605.1510620117188
+      ],
+      "text": "Nagel, M., Baalen, M. v., Blankevoort, T., and Welling,\nM. Data-free quantization through weight equalization\nand bias correction. In Proceedings of the IEEE/CVF\nInternational Conference on Computer Vision, pp. 1325–\n1334, 2019."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        615.40625,
+        542.6869506835938,
+        661.3090209960938
+      ],
+      "text": "Nagel, M., Amjad, R. A., Van Baalen, M., Louizos, C.,\nand Blankevoort, T. Up or down? adaptive rounding for\npost-training quantization. In International Conference\non Machine Learning, pp. 7197–7206. PMLR, 2020."
+    },
+    {
+      "page_no": 13,
+      "bbox": [
+        307.44000244140625,
+        671.5642700195312,
+        543.0888671875,
+        717.468017578125
+      ],
+      "text": "Nagel, M., Fournarakis, M., Amjad, R. A., Bondarenko,\nY., Van Baalen, M., and Blankevoort, T. A white pa-\nper on neural network quantization.\narXiv preprint\narXiv:2106.08295, 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        69.52055358886719,
+        290.68927001953125,
+        127.25106811523438
+      ],
+      "text": "Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C.,\nMishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A.,\net al. Training language models to follow instructions\nwith human feedback. Advances in Neural Information\nProcessing Systems, 35:27730–27744, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        138.95730590820312,
+        290.6869812011719,
+        184.86105346679688
+      ],
+      "text": "Park, G., Park, B., Kwon, S. J., Kim, B., Lee, Y., and Lee,\nD. nuqmm: Quantized matmul for efficient inference of\nlarge-scale generative language models. arXiv preprint\narXiv:2206.09557, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        196.56729125976562,
+        291.0976867675781,
+        254.42507934570312
+      ],
+      "text": "Penedo, G., Malartic, Q., Hesslow, D., Cojocaru, R., Cap-\npelli, A., Alobeidli, H., Pannier, B., Almazrouei, E., and\nLaunay, J. The refinedweb dataset for falcon llm: out-\nperforming curated corpora with web data, and web data\nonly. arXiv preprint arXiv:2306.01116, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        266.2405700683594,
+        290.68798828125,
+        323.9900817871094
+      ],
+      "text": "Sanh, V., Webson, A., Raffel, C., Bach, S. H., Sutawika, L.,\nAlyafeai, Z., Chaffin, A., Stiegler, A., Scao, T. L., Raja,\nA., et al. Multitask prompted training enables zero-shot\ntask generalization. arXiv preprint arXiv:2110.08207,\n2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        335.7214660644531,
+        291.1854553222656,
+        381.5809326171875
+      ],
+      "text": "Scao, T. L., Fan, A., Akiki, C., Pavlick, E., Ili´c, S., Hesslow,\nD., Castagn´e, R., Luccioni, A. S., Yvon, F., Gall´e, M.,\net al. Bloom: A 176b-parameter open-access multilingual\nlanguage model. arXiv preprint arXiv:2211.05100, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        393.3052978515625,
+        290.68695068359375,
+        451.1640625
+      ],
+      "text": "Sheng, Y., Zheng, L., Yuan, B., Li, Z., Ryabinin, M., Fu,\nD. Y., Xie, Z., Chen, B., Barrett, C., Gonzalez, J. E.,\net al.\nHigh-throughput generative inference of large\nlanguage models with a single gpu.\narXiv preprint\narXiv:2303.06865, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        462.87030029296875,
+        290.6869201660156,
+        520.7290649414062
+      ],
+      "text": "Singh, A., Natarajan, V., Shah, M., Jiang, Y., Chen, X.,\nBatra, D., Parikh, D., and Rohrbach, M. Towards vqa\nmodels that can read. In Proceedings of the IEEE/CVF\nconference on computer vision and pattern recognition,\npp. 8317–8326, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        532.4352416992188,
+        291.1859130859375,
+        590.2940063476562
+      ],
+      "text": "Taori, R., Gulrajani, I., Zhang, T., Dubois, Y., Li,\nX., Guestrin, C., Liang, P., and Hashimoto, T. B.\nStanford\nalpaca:\nAn\ninstruction-following\nllama\nmodel.\nhttps://github.com/tatsu-lab/\nstanford_alpaca, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        602.090576171875,
+        291.09832763671875,
+        659.8580322265625
+      ],
+      "text": "Tillet, P., Kung, H.-T., and Cox, D. Triton: an intermediate\nlanguage and compiler for tiled neural network computa-\ntions. In Proceedings of the 3rd ACM SIGPLAN Interna-\ntional Workshop on Machine Learning and Programming\nLanguages, pp. 10–19, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        55.439998626708984,
+        671.6318969726562,
+        291.0948181152344,
+        717.468017578125
+      ],
+      "text": "Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux,\nM.-A., Lacroix, T., Rozi`ere, B., Goyal, N., Hambro, E.,\nAzhar, F., et al. Llama: Open and efficient foundation lan-\nguage models. arXiv preprint arXiv:2302.13971, 2023a."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        69.39230346679688,
+        543.0977783203125,
+        127.25106811523438
+      ],
+      "text": "Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi,\nA., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P.,\nBhosale, S., et al. Llama 2: Open foundation and fine-\ntuned chat models. arXiv preprint arXiv:2307.09288,\n2023b."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        136.0977783203125,
+        543.0892944335938,
+        181.99404907226562
+      ],
+      "text": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,\nL., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. At-\ntention is all you need. Advances in neural information\nprocessing systems, 30, 2017."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        190.83328247070312,
+        541.9299926757812,
+        236.73709106445312
+      ],
+      "text": "Wang, H., Zhang, Z., and Han, S.\nSpatten: Efficient\nsparse attention architecture with cascade token and\nhead pruning.\nCoRR, abs/2012.09852, 2020.\nURL\nhttps://arxiv.org/abs/2012.09852."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        245.57626342773438,
+        542.8291625976562,
+        279.5250549316406
+      ],
+      "text": "Wang, K., Liu, Z., Lin, Y., Lin, J., and Han, S. HAQ:\nHardware-Aware Automated Quantization with Mixed\nPrecision. In CVPR, 2019."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        288.50396728515625,
+        543.0977172851562,
+        334.2670593261719
+      ],
+      "text": "Wei, J., Bosma, M., Zhao, V. Y., Guu, K., Yu, A. W., Lester,\nB., Du, N., Dai, A. M., and Le, Q. V. Finetuned lan-\nguage models are zero-shot learners.\narXiv preprint\narXiv:2109.01652, 2021."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        343.2127685546875,
+        543.1853637695312,
+        389.01007080078125
+      ],
+      "text": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang,\nQ., Yu, F., and Liu, X. Outlier suppression: Pushing\nthe limit of low-bit transformer language models, 2022a.\nURL https://arxiv.org/abs/2209.13325."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        397.95574951171875,
+        542.6826171875,
+        443.7530822753906
+      ],
+      "text": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang,\nQ., Yu, F., and Liu, X. Outlier suppression: Pushing\nthe limit of low-bit transformer language models. arXiv\npreprint arXiv:2209.13325, 2022b."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        452.7444152832031,
+        541.4427490234375,
+        498.4960632324219
+      ],
+      "text": "Wei, X., Zhang, Y., Li, Y., Zhang, X., Gong, R., Guo, J., and\nLiu, X. Outlier suppression+: Accurate quantization of\nlarge language models by equivalent and optimal shifting\nand scaling. arXiv preprint arXiv:2304.09145, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        507.3363342285156,
+        542.6870727539062,
+        553.2390747070312
+      ],
+      "text": "Xiao, G., Lin, J., Seznec, M., Demouth, J., and Han,\nS. Smoothquant: Accurate and efficient post-training\nquantization for large language models. arXiv preprint\narXiv:2211.10438, 2022."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        562.0969848632812,
+        541.9292602539062,
+        607.9820556640625
+      ],
+      "text": "Yao, Z., Aminabadi, R. Y., Zhang, M., Wu, X., Li, C., and\nHe, Y. Zeroquant: Efficient and affordable post-training\nquantization for large-scale transformers, 2022. URL\nhttps://arxiv.org/abs/2206.01861."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        616.8212890625,
+        543.0945434570312,
+        662.7250366210938
+      ],
+      "text": "Yu, W., Yang, Z., Li, L., Wang, J., Lin, K., Liu, Z., Wang,\nX., and Wang, L.\nMm-vet: Evaluating large multi-\nmodal models for integrated capabilities. arXiv preprint\narXiv:2308.02490, 2023."
+    },
+    {
+      "page_no": 14,
+      "bbox": [
+        307.44000244140625,
+        671.5642700195312,
+        543.097900390625,
+        717.468017578125
+      ],
+      "text": "Zhang, R., Han, J., Zhou, A., Hu, X., Yan, S., Lu, P., Li,\nH., Gao, P., and Qiao, Y. Llama-adapter: Efficient fine-\ntuning of language models with zero-init attention. arXiv\npreprint arXiv:2303.16199, 2023."
+    },
+    {
+      "page_no": 15,
+      "bbox": [
+        111.93199920654297,
+        47.22712326049805,
+        484.6294250488281,
+        56.19352340698242
+      ],
+      "text": "AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration"
+    },
+    {
+      "page_no": 15,
+      "bbox": [
+        55.439998626708984,
+        69.39230346679688,
+        293.6240539550781,
+        151.16110229492188
+      ],
+      "text": "Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M.,\nChen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., Mi-\nhaylov, T., Ott, M., Shleifer, S., Shuster, K., Simig, D.,\nKoura, P. S., Sridhar, A., Wang, T., and Zettlemoyer,\nL. Opt: Open pre-trained transformer language mod-\nels, 2022. URL https://arxiv.org/abs/2205.\n01068."
+    }
+  ],
+  "pictures": [
+    {
+      "page_no": 1,
+      "bbox": [
+        497.59088134765625,
+        450.9699401855469,
+        548.2849731445312,
+        479.50665283203125
+      ],
+      "xref": 13,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk1_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        501.6888427734375,
+        497.32489013671875,
+        544.2824096679688,
+        521.2837524414062
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk2_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        316.29766845703125,
+        496.284912109375,
+        348.82586669921875,
+        528.8131103515625
+      ],
+      "xref": 17,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk3_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        348.0225830078125,
+        449.6632995605469,
+        424.3009948730469,
+        509.66900634765625
+      ],
+      "xref": 19,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk4_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        435.588134765625,
+        465.54656982421875,
+        482.6866455078125,
+        502.597412109375
+      ],
+      "xref": 20,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk5_crop.png"
+    },
+    {
+      "page_no": 1,
+      "bbox": [
+        309.2216796875,
+        450.6763610839844,
+        361.9006042480469,
+        485.67779541015625
+      ],
+      "xref": 23,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p1_blk6_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        54.2609748840332,
+        67.02355194091797,
+        144.15155029296875,
+        175.0990447998047
+      ],
+      "xref": 1,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk1_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        4.536903381347656,
+        67.93212890625,
+        191.73355102539062,
+        173.2302703857422
+      ],
+      "xref": 2,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk2_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        387.6014404296875,
+        216.38531494140625,
+        476.451171875,
+        276.501953125
+      ],
+      "xref": 7,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk3_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        388.7158203125,
+        217.2957305908203,
+        474.7795715332031,
+        274.6263732910156
+      ],
+      "xref": 8,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk4_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        220.3336944580078,
+        216.38674926757812,
+        299.0240173339844,
+        276.5033874511719
+      ],
+      "xref": 11,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk5_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        221.44810485839844,
+        217.2971649169922,
+        297.3524169921875,
+        274.6278076171875
+      ],
+      "xref": 12,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk6_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        55.448944091796875,
+        216.10813903808594,
+        145.46762084960938,
+        276.781982421875
+      ],
+      "xref": 15,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk7_crop.png"
+    },
+    {
+      "page_no": 9,
+      "bbox": [
+        56.5633430480957,
+        217.01858520507812,
+        143.7960205078125,
+        274.90643310546875
+      ],
+      "xref": 16,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p9_blk8_crop.png"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        391.3263854980469,
+        239.1136474609375,
+        413.6598205566406,
+        261.44708251953125
+      ],
+      "xref": 86,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p10_blk1_crop.png"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        204.28887939453125,
+        239.7243194580078,
+        223.8350372314453,
+        267.47467041015625
+      ],
+      "xref": 87,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p10_blk2_crop.png"
+    },
+    {
+      "page_no": 10,
+      "bbox": [
+        478.1799621582031,
+        239.55250549316406,
+        494.3838195800781,
+        251.71246337890625
+      ],
+      "xref": 88,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p10_blk3_crop.png"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        150.17005920410156,
+        141.8722686767578,
+        165.31446838378906,
+        157.0166778564453
+      ],
+      "xref": 64,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p11_blk1_crop.png"
+    },
+    {
+      "page_no": 11,
+      "bbox": [
+        481.9730529785156,
+        86.64979553222656,
+        496.1462097167969,
+        96.77030944824219
+      ],
+      "xref": 65,
+      "image_path": "../data/parsed_documents/2306.00978/images/2306.00978_p11_blk2_crop.png"
+    }
+  ],
+  "tables": [
+    {
+      "page_no": 1,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 19,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p1_table1_stream.csv"
+    },
+    {
+      "page_no": 1,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 33,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p1_table2_stream.csv"
+    },
+    {
+      "page_no": 2,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 70,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p2_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 15,
+      "ncols": 13,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p3_table1_stream.csv"
+    },
+    {
+      "page_no": 3,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 57,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p3_table2_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 7,
+      "ncols": 12,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p4_table1_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 15,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p4_table2_stream.csv"
+    },
+    {
+      "page_no": 4,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 19,
+      "ncols": 13,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p4_table3_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 17,
+      "ncols": 11,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p5_table1_stream.csv"
+    },
+    {
+      "page_no": 5,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 35,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p5_table2_stream.csv"
+    },
+    {
+      "page_no": 6,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 85,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p6_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 9,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p7_table1_stream.csv"
+    },
+    {
+      "page_no": 7,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 22,
+      "ncols": 4,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p7_table2_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p8_table1_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 12,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p8_table2_stream.csv"
+    },
+    {
+      "page_no": 8,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 40,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p8_table3_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 11,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p9_table1_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 3,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p9_table2_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 3,
+      "flavor": "stream",
+      "nrows": 13,
+      "ncols": 7,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p9_table3_stream.csv"
+    },
+    {
+      "page_no": 9,
+      "index": 4,
+      "flavor": "stream",
+      "nrows": 48,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p9_table4_stream.csv"
+    },
+    {
+      "page_no": 10,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 15,
+      "ncols": 12,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p10_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 25,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p11_table1_stream.csv"
+    },
+    {
+      "page_no": 11,
+      "index": 2,
+      "flavor": "stream",
+      "nrows": 71,
+      "ncols": 1,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p11_table2_stream.csv"
+    },
+    {
+      "page_no": 12,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 71,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p12_table1_stream.csv"
+    },
+    {
+      "page_no": 13,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 66,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p13_table1_stream.csv"
+    },
+    {
+      "page_no": 14,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 78,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p14_table1_stream.csv"
+    },
+    {
+      "page_no": 15,
+      "index": 1,
+      "flavor": "stream",
+      "nrows": 8,
+      "ncols": 2,
+      "csv_path": "../data/parsed_documents/2306.00978/2306.00978_p15_table1_stream.csv"
+    }
+  ]
+}

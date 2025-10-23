@@ -1,0 +1,18 @@
+"result, TinyChat is up to 3.9× and 3.5× faster than the FP16 implementation from Huggingface on 4090 (desktop GPU) and Orin (mobile","","","","","","","","","","",""
+"GPU), respectively. AWQ also democratizes Llama-2-13B deployment on laptop GPUs (4070) with merely 8GB memory.","","","","","","","","","","",""
+"RTN completely fails, and AWQ brings significant perplex-","","","","","","","Model (Throughput↑)","Precision","A100","4090","Orin"
+"ity improvement on top of GPTQ.Our method is orthogonal","","","","","","","","","","",""
+"","","","","","","","VILA-7B","FP16","81.6","58.5","11.5"
+"to GPTQ. We can combine our method with GPTQ to fur-","","","","","","","","","","",""
+"","","","","","","","VILA-7B-AWQ","W4A16","155.3","168.1","35.6"
+"ther improve the INT2 quantization performance, making it","","","","","","","","","","",""
+"","","","","","","","VILA-13B","FP16","48.5","OOM","6.1"
+"a more practical setting.","","","","","","","","","","",""
+"","","","","","","","VILA-13B-AWQ","W4A16","102.1","99.0","17.5"
+"5.3","Data Efficiency and Generalization","","","","","","","","","",""
+"","","","","","","","Table
+10.
+TinyChat","also
+enables","seamless","deployment","of"
+"","","","","","","","","VILA (Lin et al., 2024), a state-of-the-art visual-language model,","","",""
+"Better","data-efficiency","for","the","calibration","set.","Our","","","","",""
