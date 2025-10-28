@@ -1,0 +1,3530 @@
+[
+  {
+    "id": "2312.11514_paragraph_1",
+    "type": "paragraph",
+    "content": "Keivan Alizadeh, Iman Mirzadeh * , Dmitry Belenko * , S. Karen Khatamifard, Minsik Cho, Carlo C Del Mundo, Mohammad Rastegari, Mehrdad Farajtabar Apple †",
+    "metadata": {
+      "page": 1,
+      "section": "Efficient Large Language Model Inference with Limited Memory",
+      "bbox": [
+        97.217,
+        667.0130146484375,
+        498.063,
+        705.6360146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_2",
+    "type": "paragraph",
+    "content": "Large language models (LLMs) are central to modern natural language processing, delivering exceptional performance in various tasks. However, their substantial computational and memory requirements present challenges, especially for devices with limited DRAM capacity. This paper tackles the challenge of efficiently running LLMs that exceed the available DRAM capacity by storing the model parameters in flash memory, but bringing them on demand to DRAM. Our method involves constructing an inference cost model that takes into account the characteristics of flash memory, guiding us to optimize in two critical areas: reducing the volume of data transferred from flash and reading data in larger, more contiguous chunks. Within this hardware-informed framework, we introduce two principal techniques. First, 'windowing' strategically reduces data transfer by reusing previously activated neurons, and second, 'row-column bundling', tailored to the sequential data access strengths of flash memory, increases the size of data chunks read from flash memory. These methods collectively enable running models up to twice the size of the available DRAM, with up to 4x and 20x increase in inference speed compared to naive loading approaches in CPU and GPU, respectively. Our integration of sparsity awareness, context-adaptive loading, and a hardware-oriented design paves the way for effective inference of LLMs on devices with limited memory.",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        87.516,
+        204.57401464843747,
+        273.864,
+        595.6920146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_3",
+    "type": "paragraph",
+    "content": "In recent years, large language models (LLMs) have demonstrated strong performance across a wide range of natural language tasks (Brown et al., 2020; Chowdhery et al., 2022; Touvron et al., 2023a; Jiang et al., 2023; Gemini Team, 2023).",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        70.473,
+        105.47501464843754,
+        291.042,
+        169.03701464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_4",
+    "type": "paragraph",
+    "content": "* Major Contribution † {kalizadehvahid, imirzadeh, d_belenko, skhatamifard, minsik, cdelmundo, mrastegari, farajtabar}@apple.com",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        83.519,
+        87.96101464843753,
+        162.049,
+        96.20001464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_1",
+    "type": "figure",
+    "content": "Figure 1: Average inference latency for a single token when only half of the model's memory is available: Our method selectively loads parameters on demand for each token generation step. The latency represents the time required to repeatedly load parameters from flash memory, combined with the time needed for computations.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        308.8535461425781,
+        464.0065612792969,
+        517.2933959960938,
+        617.8585662841797
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_6",
+    "type": "paragraph",
+    "content": "However, the unprecedented capabilities of these models come with substantial computational and memory requirements for inference. LLMs can contain hundreds of billions or even trillions of parameters, which makes them challenging to load and run efficiently, especially on personal devices.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        306.142,
+        274.43001464843746,
+        526.22,
+        351.5410146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_7",
+    "type": "paragraph",
+    "content": "Currently, the standard approach is to load the entire model into DRAM (Dynamic Random Access Memory) for inference (Rajbhandari et al., 2021; Aminabadi et al., 2022). However, this severely limits the maximum model size that can be run. For example, a 7 billion parameter model requires over 14GB of memory just to load the parameters in half-precision floating point format, exceeding the capabilities of most personal devices such as smartphones. While it is possible to employ techniques such as quantization to reduce the model size, still, this cannot address the main limitation of loading the entire model into DRAM.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        305.749,
+        96.09101464843752,
+        526.318,
+        268.04601464843745
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_8",
+    "type": "paragraph",
+    "content": "To address this limitation, we propose to store the model parameters in flash memory, which is",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        524.415,
+        89.70701464843751
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_2",
+    "type": "figure",
+    "content": "Figure 2: (a) Flash memory offers significantly higher capacity but suffers from much lower bandwidth compared to DRAM and CPU/GPU caches and registers. (b) The throughput for random reads in flash memory increases with the size of sequential chunks and the number of threads.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        69.35081481933594,
+        638.0083160400391,
+        523.2947387695312,
+        771.2671585083008
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_2.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_9",
+    "type": "paragraph",
+    "content": "at least an order of magnitude larger than DRAM. Then, during inference, we directly load the required subset of parameters from the flash memory, avoiding the need to fit the entire model in DRAM. To this end, our work makes several contributions:",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        70.528,
+        504.2210146484375,
+        291.044,
+        567.7820146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_10",
+    "type": "paragraph",
+    "content": "First, we study the hardware characteristics of storage systems (e.g., flash, DRAM). We show that hardware constraints such as capacity and bandwidth limitations can have significant considerations when designing efficient algorithms for serving LLMs from flash (Section 2).",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        70.866,
+        416.38601464843754,
+        290.94,
+        493.4970146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_11",
+    "type": "paragraph",
+    "content": "Motivated by our findings, we propose several techniques that can help with (i) reducing the required data transfer, (ii) increasing the transfer throughput, and (iii) managing loaded parameters efficiently in DRAM (Section 3).",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        70.866,
+        348.1420146484375,
+        289.317,
+        411.7040146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_12",
+    "type": "paragraph",
+    "content": "Finally, as partially demonstrated in Figure 1, we show that our proposed techniques for optimizing the cost model and selectively loading parameters on demand allows us to run models 2x larger than the device's DRAM capacity and speed up inference up to 4x, 7x, and 20x compared to naive implementation in CPU, Metal and NVIDIA GPU backends, respectively (Section 4).",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        70.866,
+        225.70101464843754,
+        290.947,
+        343.4600146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_13",
+    "type": "paragraph",
+    "content": "In this section, we explore the characteristics of memory storage systems (e.g., flash, DRAM), and their implications for large language model (LLM) inference. We aim to understand the challenges and hardware-specific considerations essential for algorithm design, particularly in optimizing inference when working with flash memory.",
+    "metadata": {
+      "page": 2,
+      "section": "Flash Memory & LLM Inference",
+      "bbox": [
+        70.473,
+        66.79301464843752,
+        290.949,
+        157.4530146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_14",
+    "type": "paragraph",
+    "content": "While modern NAND flash memories offer high bandwidth and low latency, they fall well short of the performance levels of DRAM (Dynamic Random-Access Memory), in terms of both latency and throughput. Figure 2a illustrates these differences. A naive inference implementation that relies on NAND flash memory might necessitate reloading the entire model for each forward pass. This process is not only time-consuming, often taking seconds for even compressed models, but it also consumes more energy than transferring data from DRAM to the CPU or GPU's internal memory.",
+    "metadata": {
+      "page": 2,
+      "section": "Bandwidth and Energy Constraints",
+      "bbox": [
+        305.629,
+        391.7500146484375,
+        526.217,
+        550.1560146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_15",
+    "type": "paragraph",
+    "content": "Load times for the models can be a problem even in the traditional DRAM-resident setup where weights are not reloaded partially - the initial, full load of the model still incurs a penalty, particularly in situations requiring rapid response times for the first token. Our approach, leveraging activation sparsity in LLMs, addresses these challenges by enabling selective reading of model weights, thereby reducing the response latency.",
+    "metadata": {
+      "page": 2,
+      "section": "Bandwidth and Energy Constraints",
+      "bbox": [
+        305.749,
+        269.7320146484376,
+        526.225,
+        387.4900146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_16",
+    "type": "paragraph",
+    "content": "Flash memory systems perform optimally with large sequential reads. For instance, benchmarks on an Apple MacBook M1 Max with 1TB flash memory demonstrate speeds exceeding 6 GiB/s for a 1GiB linear read of an uncached file. However, this high bandwidth cannot be achieved for smaller, random reads due to the inherent multi-phase nature of these reads, encompassing the operating system, drivers, interrupt handling, and the flash controller, among others. Each phase introduces latency, disproportionately affecting smaller reads.",
+    "metadata": {
+      "page": 2,
+      "section": "Read Throughput",
+      "bbox": [
+        306.142,
+        93.9670146484375,
+        526.315,
+        238.8230146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_17",
+    "type": "paragraph",
+    "content": "To circumvent these limitations, we advocate two primary strategies, which can be employed jointly. The first involves reading larger chunks of data. For smaller blocks, a substantial part of the overall read time is spent waiting for data transfer to begin. This is often referred to as latency to first byte. This latency reduces the overall throughput of each read operation considerably because the overall measured throughput has to take into account not just the speed of transfer once it begins, but the latency before it begins as well, which penalizes small reads. This means that if we coalesce the reads for rows and columns of the FFN matrices, we can pay the latency cost only once for any given row/column pair in both matrices and higher throughput can be realized. This principle is depicted in Figure 2b. Perhaps a counterintuitive yet interesting observation is that in some scenarios, it will be worthwhile to read more than needed (but in larger chunks) and then discard, rather than only reading strictly the necessary parts but in smaller chunks. The second strategy leverages parallelized reads, utilizing the inherent parallelism within storage stacks and flash controllers. Our results indicate that throughputs appropriate for sparse LLM inference are achievable on modern hardware using 32KiB or larger random reads across multiple threads.",
+    "metadata": {
+      "page": 2,
+      "section": "Read Throughput",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        524.415,
+        89.70701464843751
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_18",
+    "type": "paragraph",
+    "content": "Motivated by the challenges described in this section, in Section 3, we propose methods to optimize data transfer volume and enhance read throughput to significantly enhance inference speeds.",
+    "metadata": {
+      "page": 3,
+      "section": "Read Throughput",
+      "bbox": [
+        70.866,
+        364.5910146484375,
+        290.943,
+        414.6030146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_19",
+    "type": "paragraph",
+    "content": "This section addresses the challenge of conducting inference on devices where the available DRAM is substantially smaller than the size of the model. This necessitates storing the full model weights in flash memory. Our primary metric for evaluating various flash loading strategies is latency, dissected into three distinct components: the I/O cost of loading from flash, the overhead of managing memory with newly loaded data, and the compute cost for inference operations.",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        70.473,
+        196.28101464843758,
+        291.048,
+        327.5880146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_20",
+    "type": "paragraph",
+    "content": "Our proposed solutions for reducing latency under memory constraints are categorized into areas:",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        70.866,
+        168.89801464843754,
+        290.941,
+        191.81201464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_21",
+    "type": "paragraph",
+    "content": "Reducing Data Load : Aiming to decrease latency associated with flash I/O operations by loading less data 1 .",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        70.866,
+        126.97001464843754,
+        290.944,
+        163.85801464843757
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_22",
+    "type": "paragraph",
+    "content": "1 It is notable that, by data we often refer to the weights of the neural network. However, the techniques we have developed can be easily generalized to other data types transferred and used for LLM inference, such as activations or KV cache, as suggested by Sheng et al. (2023).",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        70.866,
+        67.19601464843754,
+        290.623,
+        116.60601464843751
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_23",
+    "type": "paragraph",
+    "content": "Optimizing Data Chunk Size : Enhancing flash throughput by increasing the size of data chunks loaded, thereby mitigating latency.",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        306.142,
+        730.7030146484375,
+        524.41,
+        767.5920146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_24",
+    "type": "paragraph",
+    "content": "Efficient Management of Loaded Data : Streamlining the management of data once it is loaded into memory to minimize overhead.",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        306.142,
+        689.5580146484375,
+        525.926,
+        726.4460146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_25",
+    "type": "paragraph",
+    "content": "It is important to note that our focus is not on optimizing the compute, as it is orthogonal to the core concerns of our work. Instead, we concentrate on optimizing flash memory interactions and memory management to achieve efficient inference on memory-constrained devices. We will elaborate on the implementation details of these strategies in the experimental setup section.",
+    "metadata": {
+      "page": 3,
+      "section": "Load From Flash",
+      "bbox": [
+        306.142,
+        580.1680146484375,
+        524.415,
+        684.3770146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_26",
+    "type": "paragraph",
+    "content": "Our method leverages the inherent activation sparsity found in Feed-Forward Network (FFN) models, as documented in preceding research. The OPT 6.7B model, for instance, exhibits a notable 97% sparsity within its FFN layer. Similarly, the Falcon 7B model has been adapted through fine-tuning, which involves swapping their activation functions to ReLU, resulting in 95% sparsity while being similar in accuracy (Mirzadeh et al., 2023). Replacing activations of Llama 2 model (Touvron et al., 2023b) by FATReLU and finetuning can achieve 90% sparsity(Song et al., 2024). In light of this information, our approach involves the iterative transfer of only the essential, dynamic subset of the weights from flash memory to DRAM for processing during inference.",
+    "metadata": {
+      "page": 3,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        305.749,
+        337.7770146484375,
+        526.225,
+        550.3800146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_27",
+    "type": "paragraph",
+    "content": "Selective Persistence Strategy. We opt to retain the embeddings and matrices within the attention mechanism of the transformer constantly in DRAM. For the Feed-Forward Network (FFN) portions, only the non-sparse segments are dynamically loaded into DRAM as needed. Keeping attention weights, which constitute approximately one-third of the model's size, in memory, allows for more efficient computation and quicker access, thereby enhancing inference performance without the need for full model loading.",
+    "metadata": {
+      "page": 3,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        306.142,
+        188.73501464843753,
+        526.222,
+        334.0170146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_28",
+    "type": "paragraph",
+    "content": "Anticipating ReLU Sparsity . The ReLU activation function naturally induces over 90% sparsity in the FFN's intermediate outputs, which reduces the memory footprint for subsequent layers that utilize these sparse outputs. However, the preceding layer, namely the up project, must be fully present in memory.",
+    "metadata": {
+      "page": 3,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        306.142,
+        93.89101464843748,
+        525.772,
+        184.9760146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_29",
+    "type": "paragraph",
+    "content": "To avoid loading the entire up projection matrix, we follow Liu et al. (2023b), and employ a",
+    "metadata": {
+      "page": 3,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        526.222,
+        89.70701464843751
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_3",
+    "type": "figure",
+    "content": "Figure 3: (a) Preactivations of tokens in one sequence in OPT 6.7B. The blue graph shows the preactivation of elements that the predictor detected as positive while the green graph is for up projection. As it can be seen most of the False Positives are close to 0 and False Negatives constitute a small portion of the elements. (b) A small low-rank predictor finds out which intermediate neurons are going to be activated.",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        71.9707260131836,
+        618.4710998535156,
+        245.27479553222656,
+        765.0610427856445
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_3.png"
+    }
+  },
+  {
+    "id": "2312.11514_table_1",
+    "type": "table",
+    "content": "Table 1: The low-rank predictor has a marginal impact on zero-shot metrics as the predictor of each layer accurately identifies sparsity.",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        81.66529083251953,
+        436.3724365234375,
+        276.9659729003906,
+        495.5938720703125
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_1.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_30",
+    "type": "paragraph",
+    "content": "low-rank predictor to identify the elements zeroed by ReLU (see Figure 3b). We used a balanced loss over negative and positive samples of each layer. In contrast to their work, our predictor needs only the output of the current layer's attention module and not the previous layer's FFN module. We have observed that postponing the prediction to the current layer is sufficient for hardware-aware weight-loading algorithm design but leads to more accurate outcomes due to deferred inputs. We used 10000 samples from the C4 training dataset to do the training for 2 epochs. It took 4 hours on an A100 GPU to train each predictor.",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        70.048,
+        244.62801464843756,
+        290.949,
+        416.58301464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_31",
+    "type": "paragraph",
+    "content": "We thereby only load elements indicated by the predictor, as shown in Figure 3a. Furthermore, as demonstrated in Table 1, using predictors does not adversely affect the model's performance in 0-shot tasks. For more details please refer to Appendix B.",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        70.866,
+        189.58301464843748,
+        289.139,
+        239.59601464843752
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_32",
+    "type": "paragraph",
+    "content": "The Sliding Window Technique. In our study, we define an active neuron as one that yields a positive output in our low-rank predictor model. Our approach focuses on managing neuron data by employing a Sliding Window Technique . This technique entails maintaining a DRAM cache of only the weight rows that were predicted to be required by the recent subset of input tokens. The key aspect of this technique is the incremental loading of neuron data that differs between the current input token and its immediate predecessors. This strategy allows for efficient memory utilization, as it frees up memory resources previously allocated to cached weights required by tokens that are no longer within the sliding window (as depicted in Figure 4b).",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        70.473,
+        66.79301464843752,
+        291.042,
+        171.42701464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_33",
+    "type": "paragraph",
+    "content": "From a mathematical standpoint, let s agg ( k ) denote the cumulative use of neuron data across a sequence of k input tokens. Our memory architecture is designed to store an average of s agg ( k ) in DRAM. As we process each new token, the incremental neuron data, which is mathematically represented as s agg ( k + 1) -s agg ( k ) , is loaded from flash memory into DRAM. This practice is grounded in the observed trend of decreasing aggregated neuron usage over time. Consequently, larger values of k result in a lesser volume of data being loaded for each new token (refer to Figure 4a), while smaller values of k can help conserve DRAM that is used to store the cached weights. In determining the size of the sliding window, the aim is to maximize it within the constraints imposed by the available memory capacity.",
+    "metadata": {
+      "page": 4,
+      "section": "Reducing Data Transfer",
+      "bbox": [
+        305.76,
+        215.85901464843755,
+        526.217,
+        442.3600146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_34",
+    "type": "paragraph",
+    "content": "To increase data throughput from flash memory, it is crucial to read data in larger chunks, preferably sized as the multiples of the block size of the underlying storage pool. In this section, we detail the strategy we have employed to augment the chunk sizes for more efficient flash memory reads.",
+    "metadata": {
+      "page": 4,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        305.804,
+        107.56601464843754,
+        526.217,
+        184.67701464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_35",
+    "type": "paragraph",
+    "content": "Bundling Columns and Rows. Note that in the FFN layer, the usage of the i th column from the up projection and the i th row from the down projection",
+    "metadata": {
+      "page": 4,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        524.414,
+        103.68101464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_36",
+    "type": "paragraph",
+    "content": "Initial Window",
+    "metadata": {
+      "page": 5,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        378.965,
+        761.2660146484375,
+        421.388,
+        766.9340146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_4",
+    "type": "figure",
+    "content": "Figure 4: (a) Aggregated neuron usage of the tenth layer of Falcon 7B: the slope of aggregated neuron usage is decreasing. Other layers exhibit the same pattern. (b) Rather than deleting neurons that were brought to DRAM we keep the active neurons of past k tokens (we use k = 5 ): when the new token \"Was\" is being processed only a small fraction of new weights need to be loaded.",
+    "metadata": {
+      "page": 5,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        71.66859436035156,
+        615.8534393310547,
+        525.3243408203125,
+        764.8993530273438
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_5.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_37",
+    "type": "paragraph",
+    "content": "coincides with the activation of the i th intermediate neuron. Consequently, by storing these corresponding columns and rows together in flash memory, we can consolidate the data into larger chunks for reading. Refer to Figure 5 for an illustration of this bundling approach. If each element of weights of the network is stored in num_bytes such bundling doubles the chunk size from d model × num_bytes to 2 d model × num_bytes as shown in Figure 5. Our analysis and experiment show this increases the throughput of the model.",
+    "metadata": {
+      "page": 5,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        70.473,
+        388.35501464843753,
+        290.949,
+        533.5610146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_38",
+    "type": "paragraph",
+    "content": "Bundling Based on Co-activation. We hypothesized that neurons might exhibit highly correlated activity patterns, enabling bundling. By analyzing activations on the C4 validation dataset, we found a power law distribution of coactivations. However, bundling neurons with their highest coactivated neuron (closest friend) led to multiple loadings of highly active neurons, counteracting our goal. This result suggests that very active neurons are the closest friends of many others. We present this negative result to inspire future research on effective neuron bundling for efficient inference. Please refer to Appendix D for details.",
+    "metadata": {
+      "page": 5,
+      "section": "Increasing Transfer Throughput",
+      "bbox": [
+        70.473,
+        210.5540146484375,
+        290.949,
+        382.93401464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_39",
+    "type": "paragraph",
+    "content": "Although data transfer within DRAM is more efficient compared to accessing flash memory, it still incurs a non-negligible cost. When introducing data for new neurons, reallocating the matrix and appending new matrices can lead to significant overhead due to the need for rewriting existing neuron data in DRAM. This is particularly costly when a substantial portion (approximately 25%)",
+    "metadata": {
+      "page": 5,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        70.473,
+        66.79301464843752,
+        290.949,
+        171.00201464843758
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_5",
+    "type": "figure",
+    "content": "Figure 5: By bundling columns of the up project and rows of the down project layer, we can load 2x chunks instead of reading columns or rows separately.",
+    "metadata": {
+      "page": 5,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        323.5326843261719,
+        397.396728515625,
+        515.1783447265625,
+        538.0613098144531
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_6.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_40",
+    "type": "paragraph",
+    "content": "of the Feed-Forward Networks (FFNs) in DRAM needs to be rewritten. To address this issue, we adopt an alternative memory management strategy. This involves the preallocation of all necessary memory and the establishment of a corresponding data structure for efficient management. The data structure comprises elements such as pointers , matrix , bias , num_used , and last_k_active shown in Figure 6.",
+    "metadata": {
+      "page": 5,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        305.804,
+        204.9190146484375,
+        526.322,
+        322.67701464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_41",
+    "type": "paragraph",
+    "content": "Each row in the matrix represents the concatenated row of the 'up project' and the column of the 'down project' of a neuron. The pointer vector indicates the original neuron index corresponding to each row in the matrix . The bias for the 'up project' in the original model is represented in the corresponding bias element. The num_used parameter tracks the number of rows currently utilized in the matrix , initially set to zero. The matrix for the i th layer is pre-allocated with a size",
+    "metadata": {
+      "page": 5,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        304.331,
+        66.79301464843752,
+        526.218,
+        198.10001464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_6",
+    "type": "figure",
+    "content": "Figure 6: Memory management; First we replace elements to be deleted by last elements to maintain a consecutive occupation of memory. Then the new weights are stacked at the end. This reduces the unnecessary data movements.",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        93.06507110595703,
+        613.4687805175781,
+        500.8743591308594,
+        768.9474334716797
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_7.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_42",
+    "type": "paragraph",
+    "content": "of Req i × 2 d model, where Req i denotes the maximum number of neurons required for the specified window size in a subset of C4 validation set. By allocating enough memory for each layer in advance, we minimize the need for reallocation. Finally, the last_k_active component identifies the neurons from the original model that were most recently activated using the last k tokens. The following operations can be done as depicted in Figure 6:",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        70.473,
+        437.4730146484375,
+        290.941,
+        556.5840146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_43",
+    "type": "paragraph",
+    "content": "Deleting Neurons: Neurons that are no longer required are identified efficiently in linear time, utilizing the associated last_k_active value and the current prediction. The matrix , pointer , and scalars of these redundant neurons are replaced with the most recent elements, and their count is subtracted from num_rows . For O ( c ) neurons to be deleted, a memory rewrite of the order O ( c × d model ) is required.",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        70.866,
+        302.4680146484375,
+        291.043,
+        428.86201464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_44",
+    "type": "paragraph",
+    "content": "Bringing in New Neurons: The required weights are retrieved from flash memory. The corresponding pointers and scalars are read from DRAM, and these rows are then inserted into the matrix, extending from num_row to num_row + num_new . This approach eliminates the need for reallocating memory in DRAM and copying existing data, reducing inference latency.",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        70.866,
+        202.28501464843748,
+        289.407,
+        306.9190146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_45",
+    "type": "paragraph",
+    "content": "Inference Process: For the inference operation, the first half of the matrix[:num_rows,:d_model] is used as the 'up project', and the transposed second half, matrix[:num_rows,d_model:].transpose() serves as the 'down project'. This configuration is possible because the order of neurons in the intermediate output of the FFN does not alter the final output, allowing for a streamlined inference process.",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        291.302,
+        198.5250146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_46",
+    "type": "paragraph",
+    "content": "These steps collectively ensure efficient memory management during inference, optimizing the neural network's performance and resource utilization.",
+    "metadata": {
+      "page": 6,
+      "section": "Optimized Data Management in DRAM",
+      "bbox": [
+        306.142,
+        518.7680146484375,
+        526.268,
+        555.2310146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_47",
+    "type": "paragraph",
+    "content": "We start this section by briefly discussing our experimental setup and implementation details. Next, we show that the techniques introduced in Section 3 can improve the inference latency significantly across different models and runtime platforms. We postpone the some details to the appendix sections as follows: performance of our trained low-rank predictor (Appendix B).",
+    "metadata": {
+      "page": 6,
+      "section": "Experiments and Results",
+      "bbox": [
+        305.629,
+        378.47501464843754,
+        526.318,
+        482.68401464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_48",
+    "type": "paragraph",
+    "content": "Our work is mainly motivated by optimizing inference efficiency on personal devices. To this end, in our experiments, we process sequences individually, running only one sequence at a time. This approach allows us to allocate a specific portion of DRAM for the Key-Value (KV) cache while primarily focusing on the model size. For the implementation of our inference process, we utilize HuggingFace Transformers library (Wolf et al., 2019) and PyTorch (Paszke et al., 2019). This setup is tested under the condition that approximately half of the model size is available in DRAM. While with a different level of sparsity or employing quantization, one can work with smaller available DRAM capacity, these optimizations are orthogonal to our proposed method.",
+    "metadata": {
+      "page": 6,
+      "section": "Experimental Setup",
+      "bbox": [
+        306.142,
+        134.66801464843752,
+        526.225,
+        347.27101464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_49",
+    "type": "paragraph",
+    "content": "Models. We mainly use OPT 6.7B (Zhang et al., 2022b) and the sparsified Falcon 7B (Mirzadeh et al., 2023) model for our evaluations, but we additionally report results on Phi-2 (Gunasekar et al., 2023), Persimmon 8B (Elsen et al., 2023) and a",
+    "metadata": {
+      "page": 6,
+      "section": "Experimental Setup",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        526.217,
+        130.7790146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_table_2",
+    "type": "table",
+    "content": "Table 2: The I/O latency of OPT 6.7B 16 bit on M1 Max when half the memory is available. By employing the activation predictor and windowing, we can reduce the data transfer from flash memory to DRAM. While this reduces the throughput, the bundling technique can alleviate this by doubling the data transfer chunk size and hence the throughput which leads to reducing the overall latency to half.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        74.19483947753906,
+        627.0803527832031,
+        520.2105102539062,
+        713.5243530273438
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_2.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_50",
+    "type": "paragraph",
+    "content": "Llama 2 (Touvron et al., 2023b) which is sparsified using FATReLU (Song et al., 2024). Note that the techniques introduced in this work are mostly independent of architecture.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        70.866,
+        553.6310146484375,
+        289.517,
+        603.6440146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_51",
+    "type": "paragraph",
+    "content": "Data. We use a small subset of C4 validation dataset for our latency measurements. We take the first 128 tokens of each example as the prompt, and generate 256 new tokens.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        70.866,
+        495.2290146484375,
+        289.138,
+        545.6660146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_52",
+    "type": "paragraph",
+    "content": "Hardware Configuration. Our models are evaluated across three hardware setups. The first includes an Apple M1 Max with a 1TB SSD. The second features an Apple M2 Ultra with a 2TB SSD. On MacBooks we run the model on the CPU with float32 or GPU with Metal and float16. The third setup uses a Linux machine with a 24GB NVIDIA RTX 4090, where GPU computations utilize bfloat16 models. Across all setups, we assume nearly half of the total memory (DRAM and GPU) is allocated for model computations.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        70.473,
+        341.98201464843754,
+        290.949,
+        487.2640146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_53",
+    "type": "paragraph",
+    "content": "Baselines. We compare our models with a naive baseline of loading the model on demand when doing the forward pass. We additionally compare with our hybrid loading approach as a secondary baseline when half of the model is persisted in memory and the other half is loaded on demand at generation of every token without use of sparsity. We used best theoretical possible numbers for IO latency for each of the methods to make a fair comparison, the real number might be higher. For methods not employing sparsity or weight sharing, at least half of the model must be transferred from flash memory during the forward pass. This necessity arises because, initially, only half of the model is available in DRAM, but as the forward pass progresses, the entire model capacity is utilized. Consequently, any data not present at the start must be transferred at least once. Thus, the most efficient theoretical baseline involves loading half of the model size from the flash memory into DRAM. This optimal I/O scenario serves as our primary baseline. Given the nature of our setup (i.e., the limited available DRAM or GPU memory), we are not aware of any other method that can surpass this theoretical I/O efficiency.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        70.353,
+        66.79301464843752,
+        291.042,
+        334.0170146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_54",
+    "type": "paragraph",
+    "content": "Implementation Details. To optimize data loading from flash memory, our system employs reads parallelized over 32 threads. This multithreaded approach is intended to both better amortize latency to the first byte by not waiting for each read sequentially, and maximize read throughput by reading multiple streams at once (Figure 2b). To better assess the actual throughput, we conducted benchmarks without the aid of operating system caching leading to a more accurate measurement.",
+    "metadata": {
+      "page": 7,
+      "section": "Experimental Setup",
+      "bbox": [
+        306.142,
+        404.2290146484375,
+        526.222,
+        535.9620146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_55",
+    "type": "paragraph",
+    "content": "Our first result in Table 2 demonstrates the effectiveness of techniques we introduced in Section 3, where the I/O latency depends on how much data is being transferred from flash to DRAM, and the chunk size which determines the throughput. For instance, by using a low-rank predictor, we reduce the data transfer significantly, and the amount of this traffic can be further reduced using our proposed windowing technique. Compared to a long, contiguous read, scattered reads will necessarily result in lower throughput (e.g. 1.25 GiB/s sparse vs 6.1 GiB/s dense), but this is partially mitigated by bundling up-projection and down-projection weights. The overall effect of sparse reads is still strongly favorable, because only a small subset of the overall weights is loaded incrementally in each iteration, and the load of just the required subset of weights takes less time and less DRAM.",
+    "metadata": {
+      "page": 7,
+      "section": "Faster Load From Flash",
+      "bbox": [
+        305.749,
+        134.89901464843751,
+        526.225,
+        374.6010146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_56",
+    "type": "paragraph",
+    "content": "Additionally, we examine end-to-end latencies under various setups in Table 3. We allocate approximately 50 % of the model size for OPT, Falcon, and Persimmon and Llama 2. For the significantly smaller Phi-2 model, we observed less",
+    "metadata": {
+      "page": 7,
+      "section": "Faster Load From Flash",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        526.219,
+        130.35401464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_table_3",
+    "type": "table",
+    "content": "Table 3: The end-to-end inference latency across different setups. Our efficient implementation (referred as All ) that employs the predictor, windowing, and bundling can lead to significant latency reduction.",
+    "metadata": {
+      "page": 8,
+      "section": "Faster Load From Flash",
+      "bbox": [
+        69.12648010253906,
+        484.89056396484375,
+        295.9744567871094,
+        712.7560119628906
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_3.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_57",
+    "type": "paragraph",
+    "content": "sparsity rates, prompting us to set this limit at 65%. We observe a significant improvement in loading efficiency over both naive and hybrid approaches across all models. Moreover we showed the GPU backend outcomes further improve when combined with speculative decoding.",
+    "metadata": {
+      "page": 8,
+      "section": "Faster Load From Flash",
+      "bbox": [
+        70.353,
+        384.2820146484375,
+        291.045,
+        461.3930146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_58",
+    "type": "paragraph",
+    "content": "So far, we have mainly worked under the assumption that the available DRAM is roughly half of our model size. However, we note that this is not a hard constraint and we can relax this constraint.",
+    "metadata": {
+      "page": 8,
+      "section": "The Memory-Latency Tradeoff",
+      "bbox": [
+        70.866,
+        299.1360146484376,
+        290.941,
+        349.14801464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_59",
+    "type": "paragraph",
+    "content": "To this end, we study the impact of window size on memory usage, and consequently on latency. By increasing the window size, we increase the percentage of model parameters that we keep in DRAM. As a result, we need to bring fewer parameters, and hence the latency can be reduced at the cost of using higher DRAM as shown in Figure 7.",
+    "metadata": {
+      "page": 8,
+      "section": "The Memory-Latency Tradeoff",
+      "bbox": [
+        70.866,
+        203.44001464843745,
+        291.042,
+        294.10001464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_60",
+    "type": "paragraph",
+    "content": "In our previous results, we have used short to medium-length (256 tokens) generations for our benchmarks. It is possible that for longer generation of tokens, the ssd enable thermal throttling and lower the performance. However, Figure 8 shows that this is not the case, even when we generate",
+    "metadata": {
+      "page": 8,
+      "section": "The Impact of Longer Generation",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        290.941,
+        143.9040146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_7",
+    "type": "figure",
+    "content": "Figure 7: By bringing more of our model (OPT-6.7B) parameters into DRAM, the latency can be reduced on the GPU machine.",
+    "metadata": {
+      "page": 8,
+      "section": "The Impact of Longer Generation",
+      "bbox": [
+        321.1685485839844,
+        632.0271606445312,
+        508.2345275878906,
+        769.5241622924805
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_8.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_61",
+    "type": "paragraph",
+    "content": "1000 tokens for OPT 6.7B model on GPU. Moreover, we show that the average flash latency doesn't increase as we go further in generation. In contrast, the flash latency for the the first few tokens is higher since the allocated memory in DRAM is empty and needs to be filled in with neurons and for first few tokens we need more data transfer.",
+    "metadata": {
+      "page": 8,
+      "section": "The Impact of Longer Generation",
+      "bbox": [
+        305.324,
+        470.6750146484375,
+        526.223,
+        561.3350146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_62",
+    "type": "paragraph",
+    "content": "Also it is possible to argue that the non-greedy sampling methods such as the Nucleus sampling (Holtzman et al., 2020) method can result in more diverse activation, and hence less favorable towards our method. We found out this is not the case either for long token generations. Nucleus sampling doesn't lead to lower performance in long generation in neither cpu or gpu.",
+    "metadata": {
+      "page": 8,
+      "section": "The Impact of Longer Generation",
+      "bbox": [
+        306.142,
+        360.4610146484375,
+        526.217,
+        464.67001464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_63",
+    "type": "paragraph",
+    "content": "To further showcase the strength of our method and adaptability to other decoding strategies we have applied speculative decoding on the OPT 6.7B model. The challenge for doing speculative decoding is the limited memory available within DRAM. Given λ tokens from the draft model, the big model verifies them and will keep a window of size k for each layer. The model should decide neurons of which tokens to keep in memory before verifications are done. If the model keeps the last k tokens out of λ +1 tokens in memory and most of them get rejected, there will be very few neuron reuse for the next forward pass. We conjecture that if the ratio of the acceptance is α keeping the last k tokens ending with α ( λ +1) th token is optimal in DRAM. We used λ = 4 and were able to improve the speed of decoding by 1.4x as shown in table 5, this is close to the original 1.58x speedup of speculative decoding.",
+    "metadata": {
+      "page": 8,
+      "section": "Speculative Decoding",
+      "bbox": [
+        305.749,
+        66.79301464843752,
+        526.317,
+        320.0430146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_8",
+    "type": "figure",
+    "content": "Figure 8: Weight loading latency of OPT 6.7B with increasing generation length.",
+    "metadata": {
+      "page": 9,
+      "section": "Speculative Decoding",
+      "bbox": [
+        85.99134826660156,
+        631.1641540527344,
+        273.19854736328125,
+        768.3804092407227
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_9.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_64",
+    "type": "paragraph",
+    "content": "In evaluating the efficiency of our method, we compared the power consumption of our sparse model approach with that of generating tokens using a dense model of similar size. While the power usage (energy per unit of time) of the sparse model was lower than that of the dense model, the extended duration required for token generation resulted in the sparse model having a higher total energy consumption. This is going to be reflected in the greater area under the curve when plotting power over time for the sparse model compared to the dense model. A systematic and quantitative evaluation of the exact power usage pattern is left as a future work.",
+    "metadata": {
+      "page": 9,
+      "section": "A Note on Power Consumption",
+      "bbox": [
+        70.473,
+        368.7000146484375,
+        290.949,
+        554.2040146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_65",
+    "type": "paragraph",
+    "content": "As LLMs grow in size, reducing their computational and memory requirements for inference has become an active area of research. Approaches broadly fall into two categories: model compression techniques such as pruning and quantization (Han et al., 2016b; Sun et al., 2023; Jaiswal et al., 2023; Xia et al., 2023; Zhang et al., 2022a; Xu et al., 2023; Shao et al., 2023; Lin et al., 2023; Hoang et al., 2023; Zhao et al., 2023; Ahmadian et al., 2023; Li et al., 2023), and selective execution such as sparse activation (Liu et al., 2023b; Mirzadeh et al., 2023), or conditional computation (Graves, 2016; Baykal et al., 2023). Our work is orthogonal to these directions, focusing mainly on minimizing data transfer from flash memory during inference.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Works",
+      "bbox": [
+        70.473,
+        134.5390146484375,
+        290.949,
+        333.5920146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_66",
+    "type": "paragraph",
+    "content": "Perhaps most related to our work is the literature on selective weight loading. Dejavu (Liu et al., 2023b) exploits activation sparsity to load a subset of weights for each layer. However, it still requires loading from GPU memory. FlexGen (Sheng et al., 2023) offloads the weights and KV-cache from GPU memory to DRAM and DRAM to flash memory. In contrast, we consider only the cases where the full model can't reside in the whole DRAM and GPU memory on the edge devices. Notably, FlexGen is still theoretically bound by the slow throughput of flash to DRAM in such scenarios. An expanded discusion of related works is deferred to Appendix E.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Works",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        290.496,
+        130.35401464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_67",
+    "type": "paragraph",
+    "content": "Overall, the primary assumption in the literature is that the model can fully reside in the GPU memory or system DRAM. However, considering the limited resources available on personal devices, we do not share this assumption in this work. Instead, we concentrate on exploring how to store and load parameters on flash memory more efficiently, aiming to enhance inference efficiency.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Works",
+      "bbox": [
+        305.749,
+        541.0150146484375,
+        526.222,
+        645.2240146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_68",
+    "type": "paragraph",
+    "content": "In this study, we have tackled the significant challenge of running large language models (LLMs) on devices with constrained memory capacities. Our approach, deeply rooted in the understanding of flash memory and DRAM characteristics, represents a novel convergence of hardware-aware strategies and machine learning. By developing an inference cost model that aligns with these hardware constraints, we have introduced two new techniques: 'windowing' and 'row-column bundling'.",
+    "metadata": {
+      "page": 9,
+      "section": "Discussion",
+      "bbox": [
+        305.749,
+        374.3930146484375,
+        526.318,
+        505.70101464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_69",
+    "type": "paragraph",
+    "content": "The practical outcomes of our research are noteworthy. We have demonstrated the ability to run LLMs up to twice the size of available DRAM. For example, on OPT model, we achieve an acceleration in inference speed of 4-5x compared to traditional loading methods in CPU, and 20-25x in GPU. This is particularly crucial for deploying LLMs in resource-limited environments, thereby expanding their applicability and accessibility.",
+    "metadata": {
+      "page": 9,
+      "section": "Discussion",
+      "bbox": [
+        306.142,
+        252.45001464843745,
+        526.317,
+        370.2090146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_70",
+    "type": "paragraph",
+    "content": "While in this work we have studied the previously unexplored problem of serving LLMs from flash, we note that this work is only a first step in this direction, and has several limitations that we discuss in the next section, and we believe there are several interesting problems left to be explored in future works. For instance, from the algorithmic perspective, more optimized techniques of weight bundling and data structures can be crafted, while from the engineering perspective, the characteristics of specific hardware platforms can inform works on building more efficient inference stacks.",
+    "metadata": {
+      "page": 9,
+      "section": "Discussion",
+      "bbox": [
+        305.749,
+        89.86001464843753,
+        526.222,
+        248.26601464843748
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_71",
+    "type": "paragraph",
+    "content": "Our study represents an initial endeavor in the pursuit of democratizing Large Language Model (LLM) inference, making it accessible to a wider array of individuals and devices. We recognize that this early effort has its limitations, which, in turn, open up compelling avenues for future research. A critical aspect for future exploration is the systematic analysis of power consumption and thermal limitations inherent in the methods we propose, particularly for on-device deployment.",
+    "metadata": {
+      "page": 10,
+      "section": "Limitations",
+      "bbox": [
+        70.506,
+        614.4790146484376,
+        290.95,
+        745.7860146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_72",
+    "type": "paragraph",
+    "content": "Currently, our study is limited to single-batch inference. We provide some preliminary results on combining our proposed idea with speculative decoding, however, expanding this to include more complex scenarios like prompt processing and multi-batch inference are valuable areas for further investigation.",
+    "metadata": {
+      "page": 10,
+      "section": "Limitations",
+      "bbox": [
+        70.866,
+        519.4460146484375,
+        290.941,
+        610.1060146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_73",
+    "type": "paragraph",
+    "content": "In our initial proof of concept, we operated under the assumption of memory availability being half the size of the model. Exploring the dynamics of working with varying memory sizes-both larger and smaller-introduces a fascinating balance between latency and accuracy, and is a compelling area for future exploration.",
+    "metadata": {
+      "page": 10,
+      "section": "Limitations",
+      "bbox": [
+        70.473,
+        424.4130146484375,
+        290.949,
+        515.0730146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_74",
+    "type": "paragraph",
+    "content": "In conclusion, our methodology is constructed on the foundation of sparsified networks. Nonetheless, the underlying concept holds potential for broader applications. It can be adapted to selectively load weights in non-sparse networks or to dynamically retrieve model weights from flash storage. This adaptation would be contingent on the specific requirements of the input prompt or the contextual parameters provided. Such an approach suggests a versatile strategy for managing model weights, and optimizing performance based on the nature of the input, thereby enhancing the efficiency, usefulness, and applicability of the proposed scheme in various scenarios dealing with Large Language Models (LLMs).",
+    "metadata": {
+      "page": 10,
+      "section": "Limitations",
+      "bbox": [
+        70.473,
+        220.9860146484375,
+        290.949,
+        420.04001464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_75",
+    "type": "paragraph",
+    "content": "We would like to thank Itay Sagron, Lailin Chen, Chenfan (Frank) Sun, Hanieh Hashemi, Mahyar Najibi, Qichen Fu, Moin Nabi, Peter Zatloukal, Arsalan Farooq, Sachin Mehta, Mohammad Samragh, Matt Johnson, Etai Zaltsman, Lin Chang, Dominic Giampaolo, Tal Uliel, Hadi Pouransari, Fartash Faghri, Oncel Tuzel, Samy Bengio, Ruoming Pang, Chong Wang, Ronan Collobert, David Grangier, and Aftab Munshi for the valuable discussions.",
+    "metadata": {
+      "page": 10,
+      "section": "Acknowledgements",
+      "bbox": [
+        70.353,
+        66.79301464843752,
+        290.949,
+        184.55101464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_76",
+    "type": "paragraph",
+    "content": "Arash Ahmadian, Saurabh Dash, Hongyu Chen, Bharat Venkitesh, Stephen Gou, Phil Blunsom, A. Ustun, and Sara Hooker. 2023. Intriguing properties of quantization at scale. ArXiv , abs/2305.19268.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        707.7880146484375,
+        526.065,
+        749.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_77",
+    "type": "paragraph",
+    "content": "Ebtesam Almazrouei, Hamza Alobeidli, Abdulaziz Alshamsi, Alessandro Cappelli, Ruxandra Cojocaru, Maitha Alhammadi, Mazzotta Daniele, Daniel Heslow, Julien Launay, Quentin Malartic, Badreddine Noune, Baptiste Pannier, and Guilherme Penedo. 2023. The falcon series of language models: Towards open frontier models.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        622.8860146484375,
+        526.151,
+        697.1920146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_78",
+    "type": "paragraph",
+    "content": "Reza Yazdani Aminabadi, Samyam Rajbhandari, Ammar Ahmad Awan, Cheng Li, Du Li, Elton Zheng, Olatunji Ruwase, Shaden Smith, Minjia Zhang, Jeff Rasley, et al. 2022. Deepspeed-inference: enabling efficient inference of transformer models at unprecedented scale. In SC22: International Conference for High Performance Computing, Networking, Storage and Analysis , pages 1-15. IEEE.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        527.0260146484375,
+        526.065,
+        612.2900146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_79",
+    "type": "paragraph",
+    "content": "Sangmin Bae, Jongwoo Ko, Hwanjun Song, and Se-Young Yun. 2023. Fast and robust earlyexiting framework for autoregressive language models with synchronized parallel decoding. ArXiv , abs/2310.05424.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        464.0420146484375,
+        526.066,
+        516.4290146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_80",
+    "type": "paragraph",
+    "content": "Cenk Baykal, Dylan Cutler, Nishanth Dikkala, Nikhil Ghosh, Rina Panigrahy, and Xin Wang. 2023. Alternating updates for efficient transformers. ArXiv , abs/2301.13310.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        412.0170146484375,
+        526.06,
+        453.4450146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_81",
+    "type": "paragraph",
+    "content": "Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. 2020. Language models are few-shot learners. Advances in neural information processing systems , 33:1877-1901.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        338.0740146484375,
+        524.41,
+        401.42001464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_82",
+    "type": "paragraph",
+    "content": "Yew Ken Chia, Pengfei Hong, Lidong Bing, and Soujanya Poria. 2023. Instructeval: Towards holistic evaluation of instruction-tuned large language models.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        286.0490146484375,
+        526.065,
+        327.4770146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_83",
+    "type": "paragraph",
+    "content": "Aakanksha Chowdhery, Sharan Narang, Jacob Devlin, Maarten Bosma, Gaurav Mishra, Adam Roberts, Paul Barham, Hyung Won Chung, Charles Sutton, Sebastian Gehrmann, et al. 2022. Palm: Scaling language modeling with pathways. arXiv preprint arXiv:2204.02311 .",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        212.1060146484375,
+        525.658,
+        275.4520146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_84",
+    "type": "paragraph",
+    "content": "Han Dai, Yi Zhang, Ziyu Gong, Nanqing Yang, Wei Dai, Eric Song, and Qiankun Xie. 2021. Spatten: Efficient sparse attention architecture with cascade token and head pruning. In Advances in Neural Information Processing Systems , volume 34.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        149.12201464843747,
+        525.651,
+        201.5100146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_85",
+    "type": "paragraph",
+    "content": "Erich Elsen, Augustus Odena, Maxwell Nye, Sa˘ gnak Ta¸ sırlar, Tri Dao, Curtis Hawthorne, Deepak Moparthi, and Arushi Somani. 2023. Releasing Persimmon-8B.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        97.0970146484375,
+        526.063,
+        138.52601464843747
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_86",
+    "type": "paragraph",
+    "content": "Trevor Gale, Matei Zaharia, Cliff Young, and Erich Elsen. 2020. Sparse gpu kernels for deep learning.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        306.142,
+        66.99001464843752,
+        524.408,
+        86.50101464843749
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_87",
+    "type": "paragraph",
+    "content": "Mingyu Gao, Jie Yu, Wentai Li, Michael C Dai, Nam Sung Kim, and Krste Asanovic. 2022. computedram: In-memory compute using off-the-shelf dram. In Proceedings of the 27th ACM International Conference on Architectural Support for Programming Languages and Operating Systems , pages 10651079.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        692.2450146484375,
+        290.79,
+        766.5510146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_88",
+    "type": "paragraph",
+    "content": "Google Gemini Team. 2023. Gemini: a family of highly capable multimodal models. arXiv preprint arXiv:2312.11805 .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        650.3480146484375,
+        289.132,
+        680.8180146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_89",
+    "type": "paragraph",
+    "content": "Alex Graves. 2016. Adaptive computation time for recurrent neural networks. In International Conference on Machine Learning , pages 3500-3509. PMLR.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        608.4500146484376,
+        290.787,
+        638.9200146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_90",
+    "type": "paragraph",
+    "content": "Suriya Gunasekar, Yi Zhang, Jyoti Aneja, Caio César Teodoro Mendes, Allie Del Giorno, Sivakanth Gopi, Mojan Javaheripi, Piero Kauffmann, Gustavo de Rosa, Olli Saarikivi, Adil Salim, Shital Shah, Harkirat Singh Behl, Xin Wang, Sébastien Bubeck, Ronen Eldan, Adam Tauman Kalai, Yin Tat Lee, and Yuanzhi Li. 2023. Textbooks are all you need. CoRR , abs/2306.11644.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        511.7580146484375,
+        290.379,
+        597.0230146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_91",
+    "type": "paragraph",
+    "content": "Jongmin Ham, Jinha Kim, Jinwoong Choi, Cheolwoo Cho, Seulki Hong, Kyeongsu Han, and Taejoo Chung. 2016. Graphssd: a high performance flash-based storage system for large-scale graph processing. In 2016 USENIX Annual Technical Conference (USENIXATC 16) , pages 243-256.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        436.9840146484375,
+        290.877,
+        500.33101464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_92",
+    "type": "paragraph",
+    "content": "Song Han, Xingyu Liu, Huizi Mao, Jing Pu, Ardavan Pedram, Mark A Horowitz, and William J Dally. 2016a. Eie: efficient inference engine on compressed deep neural network. arXiv preprint arXiv:1602.01528 .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        384.1280146484375,
+        290.877,
+        425.55701464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_93",
+    "type": "paragraph",
+    "content": "Song Han, Huizi Mao, and William J Dally. 2016b. Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding. In International Conference on Learning Representations (ICLR) .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        320.3130146484375,
+        290.88,
+        372.7000146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_94",
+    "type": "paragraph",
+    "content": "Awni Hannun, Jagrit Digani, Angelos Katharopoulos, and Ronan Collobert. 2023. MLX: Efficient and flexible machine learning on apple silicon.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        278.4150146484376,
+        290.382,
+        308.8850146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_95",
+    "type": "paragraph",
+    "content": "Zhenyu He, Zexuan Zhong, Tianle Cai, Jason D Lee, and Di He. 2023. Rest: Retrieval-based speculative decoding. ArXiv , abs/2311.08252.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        236.51801464843754,
+        290.382,
+        266.9870146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_96",
+    "type": "paragraph",
+    "content": "Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. 2021. Measuring massive multitask language understanding. In 9th International Conference on Learning Representations, ICLR 2021, Virtual Event, Austria, May 3-7, 2021 . OpenReview.net.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        161.74401464843754,
+        290.882,
+        225.09001464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_97",
+    "type": "paragraph",
+    "content": "Duc Nien Hoang, Minsik Cho, Thomas Merth, Mohammad Rastegari, and Zhangyang Wang. 2023. (dynamic) prompting might be all you need to repair compressed llms. ArXiv , abs/2310.00867.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        108.88701464843757,
+        290.789,
+        150.31601464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_98",
+    "type": "paragraph",
+    "content": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, and Yejin Choi. 2020. The curious case of neural text degeneration. In 8th International Conference on",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        70.866,
+        66.99001464843752,
+        289.132,
+        97.46001464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_99",
+    "type": "paragraph",
+    "content": "Learning Representations, ICLR 2020, Addis Ababa, Ethiopia, April 26-30, 2020 . OpenReview.net.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        316.742,
+        747.0400146484375,
+        526.157,
+        766.7200146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_100",
+    "type": "paragraph",
+    "content": "Ajay Jaiswal, Zhe Gan, Xianzhi Du, Bowen Zhang, Zhangyang Wang, and Yinfei Yang. 2023. Compressing llms: The truth is rarely pure and never simple. ArXiv , abs/2310.01382.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        693.2810146484375,
+        526.151,
+        734.7100146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_101",
+    "type": "paragraph",
+    "content": "Albert Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh Chaplot, Diego de Las Casas, Florian Bressand, Gianna Lengyel, Guillaume Lample, Lucile Saulnier, Lélio Renard Lavaud, Marie-Anne Lachaux, Pierre Stock, Teven Le Scao, Thibaut Lavril, Thomas Wang, Timothée Lacroix, and William El Sayed. 2023. Mistral 7b. CoRR , abs/2310.06825.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        595.6870146484375,
+        526.065,
+        680.9520146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_102",
+    "type": "paragraph",
+    "content": "Yaniv Leviathan, Matan Kalman, and Yossi Matias. 2022. Fast inference from transformers via speculative decoding.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        552.8880146484375,
+        526.156,
+        583.3580146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_103",
+    "type": "paragraph",
+    "content": "Liang Li, Qingyuan Li, Bo Zhang, and Xiangxiang Chu. 2023. Norm tweaking: High-performance lowbit quantization of large language models. ArXiv , abs/2309.02784.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        499.12901464843753,
+        526.064,
+        540.5580146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_104",
+    "type": "paragraph",
+    "content": "Ji Lin, Jiaming Tang, Haotian Tang, Shang Yang, Xingyu Dang, and Song Han. 2023. Awq: Activationaware weight quantization for llm compression and acceleration. ArXiv , abs/2306.00978.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        445.3710146484375,
+        526.067,
+        486.8000146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_105",
+    "type": "paragraph",
+    "content": "Zechun Liu, Barlas Oguz, Changsheng Zhao, Ernie Chang, Pierre Stock, Yashar Mehdad, Yangyang Shi, Raghuraman Krishnamoorthi, and Vikas Chandra. 2023a. Llm-qat: Data-free quantization aware training for large language models. CoRR .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        380.6540146484375,
+        526.151,
+        433.0410146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_106",
+    "type": "paragraph",
+    "content": "Zichang Liu, Jue Wang, Tri Dao, Tianyi Zhou, Binhang Yuan, Zhao Song, Anshumali Shrivastava, Ce Zhang, Yuandong Tian, Christopher Re, et al. 2023b. Deja vu: Contextual sparsity for efficient llms at inference time. In International Conference on Machine Learning , pages 22137-22176. PMLR.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        304.9770146484375,
+        526.065,
+        368.3240146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_107",
+    "type": "paragraph",
+    "content": "Moinuddin K Meswani, Sergey Blagodurov, David Roberts, John Slice, Mike Ignatowski, and Gabriel Loh. 2015. Neural cache: Bit-serial in-cache acceleration of deep neural networks. In 2015 48th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO) , pages 383-394. IEEE.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        229.30101464843756,
+        526.068,
+        292.64801464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_108",
+    "type": "paragraph",
+    "content": "Iman Mirzadeh, Keivan Alizadeh, Sachin Mehta, Carlo C Del Mundo, Oncel Tuzel, Golnoosh Samei, Mohammad Rastegari, and Mehrdad Farajtabar. 2023. Relu strikes back: Exploiting activation sparsity in large language models.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        164.58401464843746,
+        526.151,
+        216.97101464843752
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_109",
+    "type": "paragraph",
+    "content": "Angshuman Parashar, Minsoo Rhu, Anurag Mukkara, Antonio Puglielli, Rangharajan Venkatesan, Brucek Khailany, Joel Emer, Stephen W Keckler, and William J Dally. 2017. Timeloop: A systematic approach to dnn accelerator evaluation. In 2017 IEEE International Symposium on Performance Analysis of Systems and Software (ISPASS) , pages 241-251. IEEE.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        306.142,
+        66.99001464843752,
+        526.154,
+        152.25401464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_110",
+    "type": "paragraph",
+    "content": "Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Köpf, Edward Z. Yang, Zachary DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. 2019. Pytorch: An imperative style, high-performance deep learning library. In Advances in Neural Information Processing Systems 32: Annual Conference on Neural Information Processing Systems 2019, NeurIPS 2019, December 8-14, 2019, Vancouver, BC, Canada , pages 8024-8035.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        626.4920146484375,
+        290.881,
+        766.5510146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_111",
+    "type": "paragraph",
+    "content": "Samyam Rajbhandari, Olatunji Ruwase, Jeff Rasley, Shaden Smith, and Yuxiong He. 2021. Zero-infinity: Breaking the gpu memory wall for extreme scale deep learning. In SC21: International Conference for High Performance Computing, Networking, Storage and Analysis , pages 1-14.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        549.6940146484375,
+        290.514,
+        613.0410146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_112",
+    "type": "paragraph",
+    "content": "Minsoo Rhu, Natalia Gimelshein, Jason Clemons, Arslan Zulfiqar, and Stephen W Keckler. 2013. vdnn: Virtualized deep neural networks for scalable, memory-efficient neural network design. In 2016 49th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO) , page Article 13. IEEE Computer Society.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        461.9370146484375,
+        290.873,
+        536.2430146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_113",
+    "type": "paragraph",
+    "content": "Wenqi Shao, Mengzhao Chen, Zhaoyang Zhang, Peng Xu, Lirui Zhao, Zhiqiang Li, Kaipeng Zhang, Peng Gao, Yu Jiao Qiao, and Ping Luo. 2023. Omniquant: Omnidirectionally calibrated quantization for large language models. ArXiv , abs/2308.13137.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        396.0990146484375,
+        290.522,
+        448.4860146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_114",
+    "type": "paragraph",
+    "content": "Yifan Shao, Mengjiao Li, Wenhao Cai, Qi Wang, Dhananjay Narayanan, and Parthasarathy Ranganathan. 2022. Hotpot: Warmed-up gigascale inference with tightly-coupled compute and reuse in flash. In Proceedings of the 55th Annual IEEE/ACM International Symposium on Microarchitecture , pages 335-349.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        308.3420146484375,
+        290.877,
+        382.6470146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_115",
+    "type": "paragraph",
+    "content": "Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan Li, Max Ryabinin, Beidi Chen, Percy Liang, Christopher Ré, Ion Stoica, and Ce Zhang. 2023. Flexgen: High-throughput generative inference of large language models with a single GPU. In International Conference on Machine Learning, ICML 2023, 23-29 July 2023, Honolulu, Hawaii, USA , volume 202 of Proceedings of Machine Learning Research , pages 31094-31116. PMLR.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        198.66701464843754,
+        290.789,
+        294.8910146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_116",
+    "type": "paragraph",
+    "content": "Chenyang Song, Xu Han, Zhengyan Zhang, Shengding Hu, Xiyu Shi, Kuai Li, Chen Chen, Zhiyuan Liu, Guangli Li, Tao Yang, and Maosong Sun. 2024. Prosparse: Introducing and enhancing intrinsic activation sparsity within large language models.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        132.82901464843758,
+        290.875,
+        185.21601464843752
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_117",
+    "type": "paragraph",
+    "content": "Vedant Subramani, Marios Savvides, Li Ping, and Sharan Narang. 2022. Adapt: Parameter adaptive tokenwise inference for vision transformers. In Proceedings of the 55th Annual IEEE/ACM International Symposium on Microarchitecture .",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.866,
+        66.99001464843752,
+        290.791,
+        119.37701464843747
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_118",
+    "type": "paragraph",
+    "content": "Mingjie Sun, Zhuang Liu, Anna Bair, and J. Zico Kolter. 2023. A simple and effective pruning approach for large language models. ArXiv , abs/2306.11695.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        736.0810146484375,
+        526.149,
+        766.5510146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_119",
+    "type": "paragraph",
+    "content": "Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric Hambro, Faisal Azhar, Aurélien Rodriguez, Armand Joulin, Edouard Grave, and Guillaume Lample. 2023a. Llama: Open and efficient foundation language models. CoRR , abs/2302.13971.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        648.3500146484375,
+        525.654,
+        722.6550146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_120",
+    "type": "paragraph",
+    "content": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et al. 2023b. Llama 2: Open foundation and fine-tuned chat models. arXiv preprint arXiv:2307.09288 .",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        571.5780146484375,
+        526.065,
+        634.9240146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_121",
+    "type": "paragraph",
+    "content": "Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, and Jamie Brew. 2019. Huggingface's transformers: State-of-the-art natural language processing. CoRR , abs/1910.03771.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        494.8060146484375,
+        526.067,
+        558.1520146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_122",
+    "type": "paragraph",
+    "content": "Haojun Xia, Zhen Zheng, Yuchao Li, Donglin Zhuang, Zhongzhu Zhou, Xiafei Qiu, Yong Li, Wei Lin, and Shuaiwen Leon Song. 2023. Flash-llm: Enabling low-cost and highly-efficient large generative model inference with unstructured sparsity. Proc. VLDB Endow. , 17:211-224.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        418.03301464843753,
+        525.657,
+        481.3800146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_123",
+    "type": "paragraph",
+    "content": "Zhaozhuo Xu, Zirui Liu, Beidi Chen, Yuxin Tang, Jue Wang, Kaixiong Zhou, Xia Hu, and Anshumali Shrivastava. 2023. Compress, then prompt: Improving accuracy-efficiency trade-off of llm inference with transferable prompt. ArXiv , abs/2305.11186.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        352.22001464843754,
+        526.067,
+        404.6080146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_124",
+    "type": "paragraph",
+    "content": "Rongjie Yi, Liwei Guo, Shiyun Wei, Ao Zhou, Shangguang Wang, and Mengwei Xu. 2023. Edgemoe: Fast on-device inference of moe-based large language models. ArXiv , abs/2308.14352.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        297.3660146484375,
+        526.063,
+        338.79501464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_125",
+    "type": "paragraph",
+    "content": "Hengrui Zhang, August Ning, Rohan Prabhakar, and David Wentzlaff. 2023a. A hardware evaluation framework for large language model inference.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        253.47001464843754,
+        524.414,
+        283.94001464843745
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_126",
+    "type": "paragraph",
+    "content": "Jinchao Zhang, Jue Wang, Huan Li, Lidan Shou, Ke Chen, Gang Chen, and Sharad Mehrotra. 2023b. Draft & verify: Lossless large language model acceleration via self-speculative decoding. ArXiv , abs/2309.08168.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        187.65701464843755,
+        526.154,
+        240.04501464843747
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_127",
+    "type": "paragraph",
+    "content": "Shizhao Zhang, Han Dai, Tian Sheng, Jiawei Zhang, Xiaoyong Li, Qun Xu, Mengjia Dai, Yunsong Xiao, Chao Ma, Rui Tang, et al. 2022a. Llm quantization: Quantization-aware training for large language models. In Advances in Neural Information Processing Systems , volume 35.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        110.8850146484375,
+        526.06,
+        174.23201464843748
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_128",
+    "type": "paragraph",
+    "content": "Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen, Christopher Dewan, Mona T. Diab, Xian Li, Xi Victoria Lin,",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        306.142,
+        66.99001464843752,
+        525.653,
+        97.46001464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_129",
+    "type": "paragraph",
+    "content": "Todor Mihaylov, Myle Ott, Sam Shleifer, Kurt Shuster, Daniel Simig, Punit Singh Koura, Anjali Sridhar, Tianlu Wang, and Luke Zettlemoyer. 2022b. OPT: open pre-trained transformer language models. CoRR , abs/2205.01068.",
+    "metadata": {
+      "page": 13,
+      "section": "References",
+      "bbox": [
+        81.466,
+        714.1630146484375,
+        290.875,
+        766.5510146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_130",
+    "type": "paragraph",
+    "content": "Zhengyan Zhang, Yixin Song, Guanghui Yu, Xu Han, Yankai Lin, Chaojun Xiao, Chenyang Song, Zhiyuan Liu, Zeyu Mi, and Maosong Sun. 2024. Relu 2 wins: Discovering efficient activation functions for sparse llms.",
+    "metadata": {
+      "page": 13,
+      "section": "References",
+      "bbox": [
+        70.866,
+        650.4020146484376,
+        290.519,
+        702.7900146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_131",
+    "type": "paragraph",
+    "content": "Yilong Zhao, Chien-Yu Lin, Kan Zhu, Zihao Ye, Lequn Chen, Size Zheng, Luis Ceze, Arvind Krishnamurthy, Tianqi Chen, and Baris Kasikci. 2023. Atom: Lowbit quantization for efficient and accurate llm serving. ArXiv , abs/2310.19102.",
+    "metadata": {
+      "page": 13,
+      "section": "References",
+      "bbox": [
+        70.866,
+        586.6410146484375,
+        290.877,
+        639.0290146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_132",
+    "type": "paragraph",
+    "content": "The appendix is structured as follows:",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.528,
+        736.9860146484375,
+        236.597,
+        746.3510146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_133",
+    "type": "paragraph",
+    "content": "In Appendix B, we provide additional details on the low-rank predictor introduced in Section 3. We evaluate our trained predictors from both accuracy (i.e., their impact on the model's accuracy) and efficiency perspectives (i.e., the additional neurons they predict to be activated).",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        647.2180146484375,
+        291.04,
+        724.3290146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_134",
+    "type": "paragraph",
+    "content": "Appendix C offers a more detailed description of our experimental setup and implementation for the experiments conducted in Section 4.",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        597.8020146484375,
+        289.315,
+        634.2650146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_135",
+    "type": "paragraph",
+    "content": "In Appendix D, we discuss a negative result regarding the strategy of bundling neurons based on co-activation as a potential method for increasing chunk size (cf. Section 3.2). We intentionally include this negative result as we believe it may inspire future research on effective neuron bundling and its utilization for efficient inference.",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        494.1880146484375,
+        291.047,
+        584.8490146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_136",
+    "type": "paragraph",
+    "content": "In Appendix E, we delve deeper into the review of related works in the literature.",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        458.32101464843754,
+        289.529,
+        481.2350146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_137",
+    "type": "paragraph",
+    "content": "In Appendix F, we go over implications of llm in flash when going to smaller devices.",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        422.4540146484375,
+        289.133,
+        445.3680146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_138",
+    "type": "paragraph",
+    "content": "Finally, Appendix G compares the texts generated by the base model with those produced by our models that utilize the predictor.",
+    "metadata": {
+      "page": 14,
+      "section": "A Appendix Overview",
+      "bbox": [
+        70.866,
+        373.0370146484375,
+        290.94,
+        409.5010146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_139",
+    "type": "paragraph",
+    "content": "The number of neurons predicted to be active will determine the efficiency of our algorithm, the less sparse the predicted activation the more weights will have to be loaded from flash. We evaluated the sparsity patterns over 100 random samples of the C4 validation dataset. In Figure 9 we can see the sparsity patterns of OPT, Persimmon, and Phi. In OPT, the number of active neurons predicted by the predictor is 3x the amount of actual sparsity observed in the case of dense inference. In Persimmon it is about the same - 3x the required neurons, and in Phi-2 it is roughly 2x the required neurons of the original model that are activated by the predictor. The neurons that are activated by the model and not the predictor are the false negatives. The gap between the neurons active in both the predictor and the model, and the neurons active only in the model is very narrow in all three models, hence false negatives constitute a small fraction of predictions. To reduce false negatives, the predictor has to \"over-predict\", which results in loading neurons that are redundant, that is, will have zero activation and no effect on the outcome. An interesting future direction of this work is improving the accuracy of the predictors to be able to load fewer neurons. One observation we had in OPT and Persimmon is the later layers have more active neurons, which can be seen in Figure 9d.",
+    "metadata": {
+      "page": 14,
+      "section": "B.1 Sparsity patterns of predictors",
+      "bbox": [
+        70.473,
+        66.79301464843752,
+        291.04,
+        306.49401464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_140",
+    "type": "paragraph",
+    "content": "We evaluate the accuracy of models on public benchmarks with predictors in place. In Table 4 it can be seen zero shot accuracy of models doesn't drop. Also, we can see that increasing the predictor size for the last 4 layers of Persimmon and Falcon improves the zero-shot metrics. We evaluated models on MMLU (Hendrycks et al., 2021) benchmark as well. We used Instruct Eval's implementaion (Chia et al., 2023) for evaluating MMLU. In Figure 10a we can see the MMLU of Persimmon doesn't drop when the last 4 layers use higher rank predictors but this is not the case for lower ranked ones. Phi2's MMLU will drop 2.3 points from the relufied model still keeping at 52 as shown in Figure 10b. By increasing the threshold of lowrank predictor we can reduce the amount of data load, this comes with a slight degradation in zeroshot metrics as seen in the Table 4 for different thresholds of the Persimmon model. We have used threshold=0.7 for Persimmon.",
+    "metadata": {
+      "page": 14,
+      "section": "B.2 Accuracy of models using predictors",
+      "bbox": [
+        305.324,
+        334.9740146484375,
+        526.225,
+        601.7740146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_141",
+    "type": "paragraph",
+    "content": "The average rank of predictors in the OPT-6.7B is 240, this will result in less than 2.4% of nonembedding weights and FLOPs. In M1 Max CPU experiments this was comprising 2.75% and in RTX GPU it was 4.8% of inference time which is negligible. For Falocn 7B, predictors take 4% model size and CPU computation. For Persimmon it was taking 2.85% of inference time on CPU. For Llama 2 7B it was taking 3.92% of inference time on CPU.",
+    "metadata": {
+      "page": 14,
+      "section": "B.3 Overhead of predictors",
+      "bbox": [
+        305.804,
+        169.58101464843753,
+        526.217,
+        300.8890146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_142",
+    "type": "paragraph",
+    "content": "Experimental Setup: Our experiment is designed to optimize inference efficiency on personal devices. To this end, we process sequences individually, running only one sequence at a time. This approach allows us to allocate a specific portion of",
+    "metadata": {
+      "page": 14,
+      "section": "C Extended Results",
+      "bbox": [
+        305.869,
+        66.79301464843752,
+        526.223,
+        130.7790146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_9",
+    "type": "figure",
+    "content": "Figure 9: (a) The percentage of fired neurons in each layer's FFN is less than 5%. In predictor, roughly 3x of this amount will get activated. The narrow gap between neurons that are activated in both shows the model output will not change abruptly. (b) Earlier layers of Persimmon have less active neurons, and later layers of Persimmon have higher active neurons, so we trained larger predictors for them. (c) In Phi2 middle layers have a higher active neuron ratio, so we trained larger predictors for those layers. (d) The number of neurons cached within a real scenario of inference, later layers have more cached rows because of their higher nonsparse ratio.",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        70.4878158569336,
+        679.6484985351562,
+        523.8319091796875,
+        770.5449829101562
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_10.png"
+    }
+  },
+  {
+    "id": "2312.11514_fig_10",
+    "type": "figure",
+    "content": "Figure 10: (a) If we use larger predictors in the last 4 layers MMLU wouldn't drop a lot in Persimmon. (b) Phi's MMLUwill drop in the relufication process due to lower quality data, using distillation can improve the results for that. Using predictors will downgrade the results but still keep it at 52.",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        71.76715087890625,
+        425.0307922363281,
+        521.5552368164062,
+        584.1911315917969
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_11.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_143",
+    "type": "paragraph",
+    "content": "DRAM for the Key-Value (KV) cache while primarily focusing on the model size. This strategy is particularly effective when dealing with only one sequence/query at a time. 2",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        70.866,
+        304.0100146484375,
+        290.941,
+        354.0220146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_144",
+    "type": "paragraph",
+    "content": "For the implementation of our inference process, we utilize the HuggingFace Transformers and KV caching. This setup is tested under the condition that approximately half of the model size is available in DRAM. We select this amount as a showcase of the idea of hosting the LLM in Flash. With a different level of sparsity or employing quantization, one can work with smaller available DRAM capacity as well, or alternatively use larger models. Such a configuration demonstrates the practicality of executing inference with lower memory footprints.",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        70.473,
+        140.01701464843745,
+        291.041,
+        298.4230146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_145",
+    "type": "paragraph",
+    "content": "Systems performance optimization: The primary target of our experiments was the Apple ma-",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        70.866,
+        111.51701464843745,
+        290.95,
+        134.8560146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_146",
+    "type": "paragraph",
+    "content": "2 For OPT 6.7 B model with context length 2048 KV-cache requires 2048 × 2 d model elements which is only 8% of model size. Also, the KV cache itself can be held in flash memory.",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        70.866,
+        67.19601464843754,
+        289.137,
+        96.68101464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_147",
+    "type": "paragraph",
+    "content": "cOS 14.3 operating system. For high-performance inference, most of the existing deep learning frameworks require that the shape of the weights and the intermediate results in the computation remain static throughout. In particular, the Metal Performance Shaders (MPS) backend for PyTorch demonstrates rather steep performance cliffs when any shape dynamism is present in the computational graph. In order to build a high-performance implementation, we chose to borrow custom, dynamismfriendly Metal kernels from Apple's open-source MLX deep learning framework (Hannun et al., 2023). In addition, we made use of the unified memory architecture available on Apple systems, which we exploit to maintain the weights cache using the GPU allocator, by creating the tensors using the MTLStorageModeShared allocation mode. This mode allows both the CPU and the GPU to access the same memory buffer directly, without redundant copies. We observe that the inputs to and the outputs from the feed-forward network",
+    "metadata": {
+      "page": 15,
+      "section": "C Extended Results",
+      "bbox": [
+        305.749,
+        73.67401464843749,
+        526.322,
+        354.0220146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_table_4",
+    "type": "table",
+    "content": "Table 4: Model performance on zero-shot tasks when using predictors",
+    "metadata": {
+      "page": 16,
+      "section": "C Extended Results",
+      "bbox": [
+        69.560302734375,
+        471.49072265625,
+        524.9778442382812,
+        749.2883605957031
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_4.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_148",
+    "type": "paragraph",
+    "content": "have a static shape, so by hiding the dynamism inside a binary extension and handling the shape dynamism and memory management internally, we were able to achieve a level of performance that is not achievable with PyTorch MPS backend alone while leaving the rest of the model intact. Over the course of our work, we were able to eliminate nearly all redundant data movement, improving inference performance.",
+    "metadata": {
+      "page": 16,
+      "section": "C Extended Results",
+      "bbox": [
+        70.473,
+        313.7560146484375,
+        289.324,
+        431.5140146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_149",
+    "type": "paragraph",
+    "content": "Caching Considerations for Data Loading from Flash Memory. When data is read from flash memory, the operating system typically caches the blocks in the block cache, anticipating future reuse. However, this caching mechanism consumes additional memory in DRAM beyond what is allocated for the model. To accurately assess the real throughput of flash memory under limited DRAM conditions, benchmarks should be conducted without relying on caching. Practical systems may or may not rely on filesystem cache, depending on requirements.",
+    "metadata": {
+      "page": 16,
+      "section": "C Extended Results",
+      "bbox": [
+        70.866,
+        149.62701464843758,
+        291.045,
+        308.4580146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_150",
+    "type": "paragraph",
+    "content": "For the purpose of our hardware benchmarking in this study, we deliberately and significantly pessimize our NVMe throughput measurements. On macOS and iOS, we employ the F_NOCACHE flag with the fcntl() function, while on Linux, we use DirectIO . Additionally, on macOS, we clear any resident buffers before initiating the benchmark using the purge command. This approach provides a conservative lower bound of throughput in scenarios where no caching is permitted and makes the benchmarks repeatable. It's worth noting that these figures can improve if either the inference code or the operating system is allowed to cache some part of the weights.",
+    "metadata": {
+      "page": 16,
+      "section": "C Extended Results",
+      "bbox": [
+        70.473,
+        66.79301464843752,
+        291.042,
+        143.9040146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_151",
+    "type": "paragraph",
+    "content": "While OS-level buffer caching is advantageous for general-purpose applications with high cache hit rates, it lacks fine-grained control over cache usage per process or buffer eviction at the application level. In the context of on-device memory constraints and large model sizes, this could lead to a situation where the file system level cache does not help because in order to evaluate later layers earlier layers must be evicted in a rolling pattern, so the effective cache hit rate is close to zero. Aside from being inefficient, this can cause coexistence issues with other processes due to memory allocation pressure and Translation Lookaside Buffer (TLB) churn.",
+    "metadata": {
+      "page": 16,
+      "section": "C Extended Results",
+      "bbox": [
+        305.782,
+        137.01701464843745,
+        526.217,
+        322.52201464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_152",
+    "type": "paragraph",
+    "content": "This section presents the outcomes for the OPT 6.7B model, specifically under conditions where the memory allocated for the model in DRAM is",
+    "metadata": {
+      "page": 16,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        305.804,
+        66.79301464843752,
+        524.744,
+        103.25601464843749
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_table_5",
+    "type": "table",
+    "content": "Table 5: The end-to-end inference latency across different setups with standard deviation. Our efficient implementation (referred to as All ) that employs the predictor, windowing, and bundling can lead to significant latency reduction.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        69.94664001464844,
+        618.2474212646484,
+        525.1041259765625,
+        724.1129760742188
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_5.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_153",
+    "type": "paragraph",
+    "content": "approximately half of its baseline requirement.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        70.866,
+        585.2930146484375,
+        275.073,
+        594.6580146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_154",
+    "type": "paragraph",
+    "content": "Predictors. For the initial 28 layers of the OPT 6.7B model, we train predictors with a rank of r = 128 . To reduce the occurrence of false negatives, the final four layers employ predictors with a higher rank of r = 1024 . These predictors achieve an average of 5% false negatives and 7% false positives in the OPT 6.7B model. As depicted in Figure 3a, our predictor accurately identifies most activated neurons, while occasionally misidentifying inactive ones with values near zero. Notably, these false negatives, being close to zero, do not significantly alter the final output when they are excluded. Furthermore, as demonstrated in Table 1, this level of prediction accuracy does not adversely affect the model's performance in 0-shot tasks.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        70.593,
+        381.1470146484375,
+        291.045,
+        580.6260146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_155",
+    "type": "paragraph",
+    "content": "Windowing in the OPT 6.7B Model. Utilizing a windowing method with k = 4 in the OPT 6.7B model significantly reduces the necessity for fresh data loading. Using active neurons of predictor would require about 10% of the DRAM memory capacity on average; however, with our method, it drops to 2.4%. This process involves reserving DRAM memory for a window of the past 5 tokens, which, in turn, increases the DRAM requirement for the Feed Forward Network (FFN) to 24%.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        70.473,
+        244.74801464843745,
+        290.496,
+        376.48001464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_156",
+    "type": "paragraph",
+    "content": "The overall memory retained in DRAM for the model comprises several components: Embeddings, the Attention Model, the Predictor, and the Loaded Feed Forward layer. The Predictor accounts for 1.25% of the model size, while Embeddings constitute 3%. The Attention Model's weights make up 32.3%, and the FFN occupies 15.5% (calculated as 0 . 24 × 64 . 62 ). Summing these up, the total DRAM memory usage amounts to 52.1% of the model's size.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        70.048,
+        108.34801464843747,
+        290.941,
+        239.65601464843758
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_157",
+    "type": "paragraph",
+    "content": "Latency Analysis: Using a window size of 4, each token requires access to 2.4% of the Feed Forward Network (FFN) neurons. For a 32-bit model, the data chunk size per read is 2 d model × 4 bytes = 32 KiB, as it involves concatenated rows and columns. On an M1 Max, this results in the average latency of 105 ms per token for loading from flash and 57 ms for memory management (involving neuron deletion and addition). Thus, the total memory-related latency is less than 162 ms per token (refer to Figure 1). In contrast, the baseline approach, which requires loading 13.4GB of data at a speed of 6.1GB/s, leads to a latency of approximately 2196 ms per token. Therefore, our method represents a substantial improvement over the baseline.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        290.497,
+        103.68101464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_158",
+    "type": "paragraph",
+    "content": "For a 16-bit model on a GPU machine, the flash load time is reduced to 30 . 5 ms , and memory management takes 35 ms , slightly higher due to the additional overhead of transferring data from CPU to GPU. Nevertheless, the baseline method's I/O time remains above 2000 milliseconds.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        306.142,
+        340.9400146484375,
+        526.224,
+        418.0510146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_159",
+    "type": "paragraph",
+    "content": "Detailed comparisons of how each method impacts performance are provided in Table 2.",
+    "metadata": {
+      "page": 17,
+      "section": "C.1 Results for OPT 6.7B Model",
+      "bbox": [
+        306.142,
+        313.37401464843754,
+        526.222,
+        336.2880146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_160",
+    "type": "paragraph",
+    "content": "To verify that our findings generalize beyond OPT models we also apply the idea of LLM in flash to Falcon model (Almazrouei et al., 2023). Since the original Falcon model is not sparse, we used a sparsified (relufied) version with almost the same performance as that of the base version (Mirzadeh et al., 2023). Similar to the previous section, we present the results obtained under the condition that approximately half of the model size is available for use in DRAM.",
+    "metadata": {
+      "page": 17,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        305.804,
+        149.02301464843754,
+        524.743,
+        280.33001464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_161",
+    "type": "paragraph",
+    "content": "Predictors. In the Falcon 7B model, predictors of rank r = 256 are used for the initial 28 layers, and r = 1152 for the last four layers.",
+    "metadata": {
+      "page": 17,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        306.142,
+        107.90801464843753,
+        525.777,
+        144.79601464843745
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_162",
+    "type": "paragraph",
+    "content": "Window configuration. Our model reserves memory for a window containing the last 4 tokens. This setup utilizes 33% of the Feed Forward Net-",
+    "metadata": {
+      "page": 17,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        305.804,
+        66.79301464843752,
+        526.323,
+        103.68101464843755
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_11",
+    "type": "figure",
+    "content": "Figure 11: There is a slight drop in the perplexity of OPT and persimmon and more drop in phi-2 after using predictors.",
+    "metadata": {
+      "page": 18,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        83.34449768066406,
+        629.8556213378906,
+        275.5501403808594,
+        757.9803619384766
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_12.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_163",
+    "type": "paragraph",
+    "content": "work (FFN). In terms of memory allocation, embeddings take 4.2% of the model size, attention weights account for 19.4%, and predictors require 4%. The active portion of the FFN, given our window size, is 25.3% (calculated as 0 . 33 × 76 . 8 ). Overall, this amounts to 52.93% of the model's total size.",
+    "metadata": {
+      "page": 18,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        70.473,
+        472.51101464843754,
+        291.043,
+        563.1710146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_164",
+    "type": "paragraph",
+    "content": "Latency Analysis. Using a window size of 4 in our model requires accessing 3.1% of the Feed Forward Network (FFN) neurons for each token. In a 32-bit model, this equates to a data chunk size of 35.5 KiB per read (calculated as 2 d model × 4 bytes). On an M1 Max device, the time taken to load this data from flash memory is approximately 161ms, and the memory management process adds another 90ms, leading to a total latency of 250ms per token. In comparison, the baseline latency is around 2196 milliseconds, making our method approximately 9 to 10 times faster.",
+    "metadata": {
+      "page": 18,
+      "section": "C.2 Results for Falcon 7B Model",
+      "bbox": [
+        70.866,
+        309.91701464843754,
+        291.045,
+        468.7480146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_165",
+    "type": "paragraph",
+    "content": "We have applied LLM in Flash for Persimmon 8b models. Since Persimmon is already using squared ReLU activation we didn't need to finetune it further.",
+    "metadata": {
+      "page": 18,
+      "section": "C.3 Persimmon 8B",
+      "bbox": [
+        70.353,
+        229.3900146484375,
+        290.941,
+        279.40201464843744
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_166",
+    "type": "paragraph",
+    "content": "Predictors. In the Persimmon 8B base model, predictors of rank r=256 are used for the initial 32 layers and r = 1152 for the last four layers.s. Persimmon's sparsity is less than OPT and Falcon so we changed the sigmoid threshold to 0.7. In figure 10a you can see that the MMLU of the model doesn't drop with this setting. This wouldn't be the case if all the predictors had a rank of 256. Also in Figure 11 you can see that perplexity on wikitext2 with doesn't drop abruptly. Qualitative evaluations can be found in Section G.",
+    "metadata": {
+      "page": 18,
+      "section": "C.3 Persimmon 8B",
+      "bbox": [
+        70.473,
+        80.34501464843754,
+        291.042,
+        225.62701464843758
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_167",
+    "type": "paragraph",
+    "content": "Window configuration. Our model reserves memory for a window containing the last 4 tokens and also reduces window size dynamically whenever the whole memory usage passes the 25% of FFN size threshold.",
+    "metadata": {
+      "page": 18,
+      "section": "C.3 Persimmon 8B",
+      "bbox": [
+        81.775,
+        66.77601464843747,
+        289.132,
+        76.58301464843748
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_168",
+    "type": "paragraph",
+    "content": "Latency analysis. Since we have fixed the memory budget we won't exceed the 25% limit in the FFN which will be 50% of the total model size. We used nucleus sampling «cite nucleus» with p=0.9 to have a broader analysis. As it can be seen in Figure 1 it takes 310ms for loading from flash and 155ms for memory management.",
+    "metadata": {
+      "page": 18,
+      "section": "C.3 Persimmon 8B",
+      "bbox": [
+        305.324,
+        622.2110146484375,
+        526.216,
+        713.2960146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_169",
+    "type": "paragraph",
+    "content": "We have applied LLM in Flash for Phi-2 models. We first relufied the model then trained the predictor and applied inference. Since the model is already small, we gave it 65% of its memory for running the inference. During the inference, we modified the window size to make sure it will never exceed the limit.",
+    "metadata": {
+      "page": 18,
+      "section": "C.4 Phi-2",
+      "bbox": [
+        305.629,
+        500.5150146484375,
+        526.316,
+        591.1750146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_170",
+    "type": "paragraph",
+    "content": "Relufication. We finetuned the model using a refined-web dataset following Mirzadeh et al. (2023). We found that adding a distillation loss as suggested by (Liu et al., 2023a) improves the results as can be seen in 10b. MMLU metric drops from 57 to 54.3 after relufication with distillation.",
+    "metadata": {
+      "page": 18,
+      "section": "C.4 Phi-2",
+      "bbox": [
+        305.782,
+        419.1210146484375,
+        526.318,
+        496.6570146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_171",
+    "type": "paragraph",
+    "content": "Predictors. The sparsity pattern of Phi-2 is different than other models. As you can see in figure 9c the sparsity of the middle layers is less than other layers for a random sample of the C4 dataset. As a general rule of thumb, we trained larger predictors for the less sparse layers. If layers are grouped by 4, we will have 8 groups of layers. For the last group, we didn't use any predictors. For the first, second, and seventh groups, we trained a predictor of size 160. For the third and sixth groups we trained predictors of size 480 and for groups in the middle we trained predictors of size 800.",
+    "metadata": {
+      "page": 18,
+      "section": "C.4 Phi-2",
+      "bbox": [
+        305.76,
+        256.43201464843753,
+        526.218,
+        415.2630146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_172",
+    "type": "paragraph",
+    "content": "Latency analysis. Phi-2 gets 2.35x speedup over naive baseline as it can be seen in table 3. It also improves our hybrid-only approach.",
+    "metadata": {
+      "page": 18,
+      "section": "C.4 Phi-2",
+      "bbox": [
+        306.142,
+        215.68601464843755,
+        524.415,
+        252.57401464843747
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_173",
+    "type": "paragraph",
+    "content": "To further validate our result we tried running Llama2 (Touvron et al., 2023b) on flash. We used the sparisified Llama2 (Song et al., 2024) as the base model and run our experiments on M1 Max CPU. We used window size of 2. We didn't cache weights when the total memory was growing over 55% of model size.",
+    "metadata": {
+      "page": 18,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        305.749,
+        93.99001464843752,
+        524.682,
+        184.6500146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_174",
+    "type": "paragraph",
+    "content": "Sparse models. The sparsified model (Song et al., 2024) uses FATReLU function to ensure sparsity of llama is above 90%. For models that have used Swi-GLU activation function (having a gated linear unit, a down project and an up project), replacing Swish with ReLU within the FFN doesn't ensure high amount of sparsity (Mirzadeh et al., 2023). The FATReLU function activates neurons with gated value greater than a threshold. This will ensure only a small portion of neurons are activated which are the most informative.",
+    "metadata": {
+      "page": 18,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        524.415,
+        90.13201464843746
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_175",
+    "type": "paragraph",
+    "content": "Predictors. We used predictors of size 1024 in 4 middle layers and predictor of size 256 in all other layers. The reason we used larger predictors in the middle layers is higher neuron activation in middle layers (similar to Phi2). The reason why in some networks middle layers are more active and in some networks later layers are more active is subject to follow up research.",
+    "metadata": {
+      "page": 19,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        70.866,
+        540.0570146484375,
+        289.139,
+        644.6920146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_176",
+    "type": "paragraph",
+    "content": "Latency analysis. LLM in flash gets 3x speed up over naive baseline (Table 3). It is also performing better than hybrid model which is the theoretical lower bound for approaches that doesn't use sparsity.",
+    "metadata": {
+      "page": 19,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        70.866,
+        471.3540146484375,
+        290.949,
+        535.3410146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_177",
+    "type": "paragraph",
+    "content": "Accuracy analysis. When doing MMLU evaluation using InstructEval repo (Chia et al., 2023) we got MMLU of 41 . 8 for Llama 2, 38 . 96 for sparsified model by (Song et al., 2024) and 38 . 63 after training our predictors. We noted a difference between reported numbers and our evaluations. Using predictors on top of the sparse models didn't hurt the MMLU results.",
+    "metadata": {
+      "page": 19,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        70.473,
+        362.0030146484375,
+        290.946,
+        466.6370146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_178",
+    "type": "paragraph",
+    "content": "Alternative approaches. Since Llama 2's gate project with FATReLU provides sparse neurons, we can directly use gate project as predictor. This completely matches with the sparse base model. Since gate projects take 1 3 of FFN layer and 5 9 of each transformer block, keeping them in memory will occupy more space in DRAM than having predictors. In fact with window size of 1, this approach resulted in requiring 65% of model size in DRAM.",
+    "metadata": {
+      "page": 19,
+      "section": "C.5 Llama 2",
+      "bbox": [
+        70.473,
+        225.5540146484375,
+        291.042,
+        357.2860146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_179",
+    "type": "paragraph",
+    "content": "Given the high reuse of data in sparse models, we hypothesize that neurons may be highly correlated in their activity patterns, which may enable further bundling. To verify this we calculated the activations of neurons over the C4 validation dataset. For each neuron, the coactivation of that neuron with other ones forms a power law distribution as depicted in Figure 12a. Now, let's call the neuron that coactivates with a neuron the most closest friend .",
+    "metadata": {
+      "page": 19,
+      "section": "D Bundling Based on Co-activation",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        291.043,
+        184.55101464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_180",
+    "type": "paragraph",
+    "content": "Indeed, the closest friend of each neuron coactivates with it very often. As Figure 12b demonstrates, it is interesting to see each neuron and its closest friend coactivate with each other at least 95% of the time. The graphs for the 4th closest friend and 8th closest friend are also drawn. Based on this information we decided to put a bundle of each neuron and its closest friend in the flash memory; whenever a neuron is predicted to be active we'll bring its closest friend too. Unfortunately, this resulted in loading highly active neurons multiple times and the bundling worked against our original intention. It means the neurons that are very active are the 'closest friends' of almost everyone.",
+    "metadata": {
+      "page": 19,
+      "section": "D Bundling Based on Co-activation",
+      "bbox": [
+        305.749,
+        581.6620146484375,
+        526.225,
+        767.1670146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_181",
+    "type": "paragraph",
+    "content": "As LLMs grow in size, reducing their computational and memory requirements for inference has become an active area of research. Approaches broadly fall into two categories: model compression techniques like pruning and quantization (Han et al., 2016b; Sun et al., 2023; Jaiswal et al., 2023; Xia et al., 2023), (Zhang et al., 2022a; Xu et al., 2023; Shao et al., 2023; Lin et al., 2023; Hoang et al., 2023; Zhao et al., 2023; Ahmadian et al., 2023; Liu et al., 2023a; Li et al., 2023), and selective execution like sparse activations (Liu et al., 2023b; Mirzadeh et al., 2023; Zhang et al., 2024) or conditional computation (Graves, 2016; Baykal et al., 2023). Our work is complementary, focusing on minimizing data transfer from flash memory during inference.",
+    "metadata": {
+      "page": 19,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        305.749,
+        312.0490146484375,
+        526.225,
+        524.6520146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_182",
+    "type": "paragraph",
+    "content": "Selective Weight Loading. Most related to our approach is prior work on selective weight loading. Dejavu (Liu et al., 2023b) exploits activation sparsity to load a subset of weights for each layer. However, it still requires loading from GPU memory. Flexgen (Sheng et al., 2023) offloads the weights and KV-cache from GPU memory to DRAM and DRAM to flash memory, in contrast, we consider only the cases where the full model can't reside in the whole DRAM and GPU memory on the edge devices. Flexgen is theoretically bound by the slow throughput of flash to DRAM in such scenarios. Similar techniques have been explored for CNNs (Parashar et al., 2017), (Rhu et al., 2013). Concurrently, Adapt (Subramani et al., 2022) has proposed adaptive weight loading for vision transformers. We focus on transformer-based LLMs and introduce techniques like neuron bundling tailored",
+    "metadata": {
+      "page": 19,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        305.749,
+        66.79301464843752,
+        526.321,
+        306.9190146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_fig_12",
+    "type": "figure",
+    "content": "Figure 12: (a) For a randomly selected neuron from the 10th layer of OPT 6.7B, there exists a group of neurons that are coactivated with high probability (b) The closest friend of a neuron is defined as the most coactivated neuron in the same layer, and the closet friend of every neuron in OPT 6.7B almost always get coactivated. (c) The 3rd closest friend gets co-activated with each neuron 86% of the time on average (d) The 7th closest friend seems to be less relevant and doesn't coactivate with the neuron very often.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.26100158691406,
+        670.7388610839844,
+        523.9808959960938,
+        771.818229675293
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/figure/figure_13.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_183",
+    "type": "paragraph",
+    "content": "to LLMs.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.866,
+        567.5180146484375,
+        112.081,
+        576.8830146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_184",
+    "type": "paragraph",
+    "content": "To hide flash latency, we build on speculative execution techniques like SpAtten (Dai et al., 2021; Bae et al., 2023). But, we introduce lightweight speculation tailored to adaptive weight loading.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.866,
+        502.6010146484375,
+        290.041,
+        552.6130146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_185",
+    "type": "paragraph",
+    "content": "Hardware Optimizations. There is a rich body of work on hardware optimizations for efficient LLM inference, including efficient memory architectures (Gao et al., 2022), dataflow optimizations (Han et al., 2016a; Shao et al., 2022), hardware evaluation frameworks (Zhang et al., 2023a), faster sparse kernels (Gale et al., 2020) and flash optimizations (Ham et al., 2016), (Meswani et al., 2015). We focus on algorithmic improvements, but these could provide additional speedups.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.506,
+        356.3890146484375,
+        290.947,
+        488.1210146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_186",
+    "type": "paragraph",
+    "content": "Speculative Execution. Speculative decoding (Leviathan et al., 2022; Zhang et al., 2023b; He et al., 2023) is a technique that uses a draft model for generation and uses the larger model to verify those tokens. This technique is orthogonal to us and can be used for further improvement. In the case of speculative decoding, the window in our method is updated with multiple tokens rather than one.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.506,
+        223.72501464843754,
+        289.517,
+        341.9090146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_187",
+    "type": "paragraph",
+    "content": "Mixture of Experts. Mixture of Experts (Yi et al., 2023) have a sparse structure in their feed-forward layer and can leverage our method for enabling larger models on the device.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.506,
+        158.8080146484375,
+        289.324,
+        209.2460146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_188",
+    "type": "paragraph",
+    "content": "In summary, we propose algorithmic techniques to minimize weight loading from flash memory during LLM inference. By combining cost modeling, sparsity prediction, and hardware awareness, we demonstrate 4-5x and 20-25x speedup on CPU and GPU, respectively.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        70.866,
+        66.79301464843752,
+        290.949,
+        143.9040146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_table_6",
+    "type": "table",
+    "content": "Table 6: Active neuron percentage in different layers of OPT 6.7B vs Quantized model over 100 sequences.",
+    "metadata": {
+      "page": 20,
+      "section": "Efficient Inference for Large Language Models.",
+      "bbox": [
+        349.1661376953125,
+        483.7917785644531,
+        480.0274963378906,
+        548.1764831542969
+      ],
+      "image_path": "data/rag_assets/images/2312.11514/table/table_6.png"
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_189",
+    "type": "paragraph",
+    "content": "We note that many of the hardware assumptions (e.g., limited DRAM capacity, characteristics of Flash such as bandwidth limitations and increased throughput with larger chunks) are also applicable to smaller devices like smartphones. For example, when running a 7B model on a smartphone, the same technique can be employed; instead of loading 16-bit values, 4-bit values would be loaded. Consequently, rather than the baseline's 3.5GB of required DRAM, our model would necessitate less than 2GB of memory for operation.x We believe that since quantization does not alter activation sparsity patterns, the same technique can be utilized here by loading 4-bit instead of 16-bit values (Table 6). However, actual implementation would require special 4-bit compute kernels on device, which falls outside the scope of this paper.",
+    "metadata": {
+      "page": 20,
+      "section": "F Small Device Implications",
+      "bbox": [
+        305.629,
+        219.40601464843758,
+        526.321,
+        445.5580146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_190",
+    "type": "paragraph",
+    "content": "Here we present some of the examples generated from the model with a predictor. The purpose is to qualitatively demonstrate that the models' output is comparatively reasonable when the predictors are applied. Table 7 and 8 show the results where the prompt was \"once upon a time there was a\" and the models are asked to complete it. Table 9 shows the results after prompting the model to complete a random sample taken from C4 dataset.",
+    "metadata": {
+      "page": 20,
+      "section": "G Qualitative Evaluations",
+      "bbox": [
+        306.142,
+        66.79301464843752,
+        524.415,
+        184.55101464843756
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_191",
+    "type": "paragraph",
+    "content": "Table 7: Comparison of the output of original model and model with predictors.",
+    "metadata": {
+      "page": 21,
+      "section": "G Qualitative Evaluations",
+      "bbox": [
+        138.332,
+        602.9240146484375,
+        456.637,
+        611.4760146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_192",
+    "type": "paragraph",
+    "content": "Prompt : Once upon a time there was a Prompt : Once upon a time there was a",
+    "metadata": {
+      "page": 21,
+      "section": "G Qualitative Evaluations",
+      "bbox": [
+        76.844,
+        575.6130146484376,
+        115.429,
+        585.4200146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_195",
+    "type": "paragraph",
+    "content": "young girl named Lily who loved to read. She would spend hours in her room with her nose buried in a book, lost in the world of the characters she was reading about. Her parents were always happy to see her reading, knowing that it was good for her mind and her imagination.",
+    "metadata": {
+      "page": 22,
+      "section": "Phi-2",
+      "bbox": [
+        76.571,
+        559.3100146484375,
+        303.618,
+        636.4210146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_196",
+    "type": "paragraph",
+    "content": "One day, Lily's parents decided to take her to the library to pick out some new books to read. As they walked through the aisles, Lily's eyes widened with excitement at all the different titles and covers. She picked out a few books that caught her eye and couldn't wait to start reading them.",
+    "metadata": {
+      "page": 22,
+      "section": "Phi-2",
+      "bbox": [
+        76.451,
+        478.0150146484375,
+        305.519,
+        555.1260146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_197",
+    "type": "paragraph",
+    "content": "As they were leaving the library, Lily's parents noticed a sign advertising a book club for kids. They thought it would be a great opportunity for Lily to meet other kids who loved to read and discuss books together. Lily was hesitant at first, but her parents convinced her to give it a try.",
+    "metadata": {
+      "page": 22,
+      "section": "Phi-2",
+      "bbox": [
+        76.451,
+        396.72001464843754,
+        305.428,
+        473.83101464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_198",
+    "type": "paragraph",
+    "content": "At the first book club meeting, Lily was nervous but excited to meet the other kids. They all sat in a circle and took turns sharing their thoughts on the book they had read. Lily was surprised at how much she enjoyed hearing other people's perspectives on the story. She realized that reading wasn't just about escaping into a world of her",
+    "metadata": {
+      "page": 22,
+      "section": "Phi-2",
+      "bbox": [
+        76.451,
+        301.8750146484375,
+        303.885,
+        392.5360146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_199",
+    "type": "paragraph",
+    "content": "little girl who loved to play with her dolls. She loved to dress them up and make them do all sorts of things. One day, she decided to make a dollhouse for her dolls.",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2",
+      "bbox": [
+        76.844,
+        211.03501464843748,
+        305.523,
+        261.04701464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_200",
+    "type": "paragraph",
+    "content": "Write a dialogue around the person in the article based on the content in the previous article.",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2",
+      "bbox": [
+        76.331,
+        183.93701464843753,
+        303.617,
+        206.8510146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_201",
+    "type": "paragraph",
+    "content": "Melanie: Hey, Mom! I was thinking about making a dollhouse for my dolls.",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2",
+      "bbox": [
+        76.844,
+        156.83801464843748,
+        303.617,
+        179.75201464843758
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_202",
+    "type": "paragraph",
+    "content": "Mother: That sounds like a great idea, Melanie! What",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2",
+      "bbox": [
+        76.331,
+        129.74001464843752,
+        303.974,
+        152.6540146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_203",
+    "type": "paragraph",
+    "content": "young girl named Lily who loved to read. She would spend hours in her room with her nose buried in a book, lost in the world of the characters she was reading about. Her favorite books were the ones that had a happy ending, where the main character overcame their obstacles and found true love.",
+    "metadata": {
+      "page": 22,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.298,
+        559.3100146484375,
+        542.523,
+        636.4210146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_204",
+    "type": "paragraph",
+    "content": "One day, Lily's parents surprised her with a trip to the library. She was so excited to see all the new books she could check out. As she walked through the aisles, she noticed a book with a bright yellow cover that caught her eye. It was called \"The Adventures of Lily and the Magic Book.\"",
+    "metadata": {
+      "page": 22,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.571,
+        478.0150146484375,
+        542.528,
+        555.1260146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_205",
+    "type": "paragraph",
+    "content": "Lily eagerly checked out the book and took it home to read. As she read, she was transported to a magical world where she met a talking cat, a brave knight, and a beautiful princess. The book was filled with adventure, magic, and romance.",
+    "metadata": {
+      "page": 22,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.178,
+        410.2690146484375,
+        543.71,
+        473.83101464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_206",
+    "type": "paragraph",
+    "content": "As Lily read on, she noticed that the book was getting darker and darker. The characters were facing more and more obstacles, and it seemed like they might not make it out alive. Lily began to worry that the book was going to end badly.",
+    "metadata": {
+      "page": 22,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.178,
+        342.52301464843754,
+        542.345,
+        406.0850146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_207",
+    "type": "paragraph",
+    "content": "little girl named Lily. She loved to play with her dolls and stuffed animals. One day, she decided to make a new doll for herself. Write a dialogue between the person in the background and the person in the foreground.",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2 with predictors",
+      "bbox": [
+        315.571,
+        197.4860146484375,
+        542.347,
+        261.04701464843754
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_208",
+    "type": "paragraph",
+    "content": "Person in the background: Lily, what are you doing? Person in the foreground: I'm making a doll for myself.",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2 with predictors",
+      "bbox": [
+        315.571,
+        156.83801464843748,
+        544.149,
+        193.30201464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_209",
+    "type": "paragraph",
+    "content": "Person in the background: Why do you need a doll? Person in the foreground",
+    "metadata": {
+      "page": 22,
+      "section": "Sparse Llama 2 with predictors",
+      "bbox": [
+        315.571,
+        129.74001464843752,
+        542.502,
+        152.6540146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_210",
+    "type": "paragraph",
+    "content": "Table 9: Comparison of the output of original model and model with predictors.",
+    "metadata": {
+      "page": 23,
+      "section": "Sparse Llama 2 with predictors",
+      "bbox": [
+        138.332,
+        623.2480146484376,
+        456.637,
+        631.8000146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_211",
+    "type": "paragraph",
+    "content": "Prompt : There is a lot of discussion right now about stress reduction. Today we see an increased work load of mental health professionals, increased occurrences of abuse or violence faced by social workers and other therapists, and the terrible struggles facing our returning veterans. All of these things have increased our awareness of the stressful elements of our society and the impact those elements have on both our clients and the professionals whose job it is to help. As a social worker I am",
+    "metadata": {
+      "page": 23,
+      "section": "Sparse Llama 2 with predictors",
+      "bbox": [
+        76.844,
+        541.9150146484375,
+        543.997,
+        605.7440146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_212",
+    "type": "paragraph",
+    "content": "constantly reminded of the importance of stress reduction.",
+    "metadata": {
+      "page": 23,
+      "section": "Persimmon 8B (nucleus sampling)",
+      "bbox": [
+        76.844,
+        478.0150146484375,
+        305.432,
+        500.9290146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_213",
+    "type": "paragraph",
+    "content": "am aware of this stress, and as a psychotherapist I help my clients learn techniques to deal with these stressful elements.",
+    "metadata": {
+      "page": 23,
+      "section": "Persimmon 8B (nucleus sampling)",
+      "bbox": [
+        76.844,
+        437.36701464843753,
+        303.618,
+        473.83101464843753
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_214",
+    "type": "paragraph",
+    "content": "I am writing to encourage all mental health professionals to learn yoga. I strongly believe that yoga should be part of your clinical routine, and that yoga classes should be taken by clinicians for credit, just like psychotherapy, case management and substance use classes",
+    "metadata": {
+      "page": 23,
+      "section": "Persimmon 8B (nucleus sampling)",
+      "bbox": [
+        76.844,
+        356.0720146484375,
+        305.432,
+        433.1830146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_215",
+    "type": "paragraph",
+    "content": "constantly looking for ways to reduce stress in my life and in the lives of my clients. One of the most effective ways to reduce stress is to take time to relax. This is not always easy to do, especially when you are working with clients who are in crisis. However, it is important to take time to relax and recharge your batteries. One way to do this is to take a break from work and go for a walk. Walking is a great way to clear your mind and get some",
+    "metadata": {
+      "page": 23,
+      "section": "Phi-2",
+      "bbox": [
+        76.451,
+        211.03501464843748,
+        305.523,
+        328.7930146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_216",
+    "type": "paragraph",
+    "content": "constantly reflecting on my own stress levels and how I can remain more fit to handle the pressures of the profession. In social work a social worker calls themselves \"a problem solver.\" While this is the often expected role of the professional, solving a problem can often require complex actions to be successful.",
+    "metadata": {
+      "page": 23,
+      "section": "Persimmon 8B with predictors (nucleus sampling)",
+      "bbox": [
+        315.571,
+        423.8180146484375,
+        542.347,
+        500.9290146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_217",
+    "type": "paragraph",
+    "content": "often asked how I deal with stress. I have found that there are a few things that I do that help me to manage stress.",
+    "metadata": {
+      "page": 23,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.571,
+        292.33001464843755,
+        542.347,
+        328.7930146484375
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_218",
+    "type": "paragraph",
+    "content": "I make sure that I get enough sleep. I try to get at least 8 hours of sleep a night. I also try to get up early and get out of bed by 7:00 a.m. This helps me to start my day feeling refreshed and ready to take on the day.",
+    "metadata": {
+      "page": 23,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        314.752,
+        224.58401464843746,
+        542.347,
+        288.1460146484376
+      ]
+    }
+  },
+  {
+    "id": "2312.11514_paragraph_219",
+    "type": "paragraph",
+    "content": "I make sure that I eat a healthy diet",
+    "metadata": {
+      "page": 23,
+      "section": "Relufied Phi-2 with predictors",
+      "bbox": [
+        315.571,
+        211.03501464843748,
+        480.266,
+        220.4000146484375
+      ]
+    }
+  }
+]
