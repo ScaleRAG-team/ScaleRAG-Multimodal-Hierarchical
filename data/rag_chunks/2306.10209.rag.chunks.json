@@ -1,0 +1,2749 @@
+[
+  {
+    "id": "2306.10209_paragraph_1",
+    "type": "paragraph",
+    "content": "Zero Redundancy Optimizer (ZeRO) has been used to train a wide range of large language models on massive GPUs clusters due to its ease of use, efficiency, and good scalability. However, when training on low-bandwidth clusters, or at scale which forces batch size per GPU to be small, ZeRO's effective throughput is limited because of high communication volume from gathering weights in forward pass, backward pass, and averaging gradients. This paper introduces three communication volume reduction techniques, which we collectively refer to as ZeRO++, targeting each of the communication collectives in ZeRO. First is block-quantization based all-gather. Second is data remapping that trades-off communication for more memory. Third is a novel all-to-all based quantized gradient averaging paradigm as replacement of reduce-scatter collective, which preserves accuracy despite communicating low precision data. Collectively, ZeRO++ reduces communication volume of ZeRO by 4x, enabling up to 2.16x better throughput at 384 GPU scale.",
+    "metadata": {
+      "page": 1,
+      "section": "ABSTRACT",
+      "bbox": [
+        53.798,
+        414.383,
+        295.559,
+        591.158
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_2",
+    "type": "paragraph",
+    "content": "Large model training, High performance computing, Deep learning",
+    "metadata": {
+      "page": 1,
+      "section": "KEYWORDS",
+      "bbox": [
+        53.798,
+        379.049,
+        294.045,
+        391.44
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_3",
+    "type": "paragraph",
+    "content": "Guanhua Wang*, Heyang Qin*, Sam Ade Jacobs, Connor Holmes, Samyam Rajbhandari and Olatunji Ruwase, Feng Yan 1 , Lei Yang 2 , Yuxiong He. 2023. ZeRO++: Extremely Efficient Collective Communication for Giant Model Training. In Proceedings of ABC. ACM, New York, NY, USA, 12 pages. https: //doi.org/10.1145/nnnnnnn.nnnnnnn",
+    "metadata": {
+      "page": 1,
+      "section": "ACMReference Format:",
+      "bbox": [
+        53.543,
+        314.797,
+        295.273,
+        365.662
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_4",
+    "type": "paragraph",
+    "content": "Deep learning (DL) models have been applied successfully in many different domains such as image/video analysis, natural language processing, speech recognition, etc. Over years, the quality, functionality, and coverage of these models have continued to improve. Model size has been a key factor in this improvement. There is a strong correlation of model size with accuracy and improved functionality, and as result, the model size has grown dramatically in recent years. For example, parameter size grows from 100 million to 500+ billion from BERT [9] to Megatron-Turing NLG [33].",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        53.798,
+        190.75700000000006,
+        295.565,
+        290.82
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_5",
+    "type": "paragraph",
+    "content": "Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org.",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        53.798,
+        125.78700000000003,
+        294.81,
+        183.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_6",
+    "type": "paragraph",
+    "content": "© 2023 Association for Computing Machinery.",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        53.317,
+        98.80100000000004,
+        185.526,
+        108.43899999999996
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_7",
+    "type": "paragraph",
+    "content": "1 University of Houston, 2 University of Nevada-Reno, * Equal Contribution. ABC, 2023, USA",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        53.672,
+        107.81200000000001,
+        267.626,
+        126.93100000000004
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_8",
+    "type": "paragraph",
+    "content": "ACM ISBN 978-x-xxxx-xxxx-x/YY/MM...$15.00 https://doi.org/10.1145/nnnnnnn.nnnnnnn",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        53.554,
+        90.83100000000002,
+        189.543,
+        100.46900000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_1",
+    "type": "figure",
+    "content": "Figure 1: Large scale training throughput are constrained by network bandwidth and batch size per GPU",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        322.2066345214844,
+        489.2158508300781,
+        553.4916381835938,
+        602.0041351318359
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_10",
+    "type": "paragraph",
+    "content": "With the increase in model size, the memory and compute requirements for training have increased significantly beyond the capability of a single accelerator (e.g., a GPU). Training massive models requires efficiently using aggregated computing power and memory across hundreds or even thousands of GPU devices. There are two popular approaches to this, namely 3D parallelism [22, 36] and Zero Redundancy Optimizer (ZeRO) [29].",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        317.955,
+        349.438,
+        559.716,
+        427.582
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_11",
+    "type": "paragraph",
+    "content": "In contrast, ZeRO offers an alternative that requires no model code refactoring. ZeRO is a memory efficient variation of data parallelism [2, 6] where model states are partitioned across all the GPUs, instead of being replicated, and reconstructed using gather based communication collectives on-the-fly during training. This allows ZeRO to effectively leverage the aggregate GPU memory across machines, at the expense of minimal communication overhead compared to standard data parallel training (2M vs 3M for model size of M) [29], while still achieving excellent throughput scalability [30].",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        317.955,
+        163.13599999999997,
+        559.714,
+        263.19900000000007
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_12",
+    "type": "paragraph",
+    "content": "3D parallelism combines data parallelism [2, 6], pipeline parallelism [13, 14, 21] and tensor parallelism [32] to distribute model training workloads across hundreds of GPUs. This approach can achieve excellent per-GPU computing and memory efficiency. However, a major downside here is the system and user complexity. It puts the burden of refactoring the single GPU code to work for 3D parallelism on data scientists and AI practitioners, which is nontrivial and often cumbersome.",
+    "metadata": {
+      "page": 1,
+      "section": "EXTENDED INTRODUCTION",
+      "bbox": [
+        317.955,
+        261.76700000000005,
+        559.72,
+        350.87
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_13",
+    "type": "paragraph",
+    "content": "Ease of use of ZeRO combined with its ability to scale efficiently across hundreds to thousands of GPUs, has resulted in its wide adoption. However, there are two critical scenarios where efficiency of ZeRO can be limited due to communication overhead: i) clusters with low-bandwidth, and ii) at very small batch sizes per GPU.",
+    "metadata": {
+      "page": 1,
+      "section": "Limitations of ZeRO",
+      "bbox": [
+        317.623,
+        82.34900000000005,
+        558.433,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_14",
+    "type": "paragraph",
+    "content": "On one hand, clusters with low-bandwidth is common in majority of cloud computing environments. Although high performance nodes like DGX boxes [10, 11] are equipped with high-bandwidth NVLink [25] and NVSwitch [26] as intra-node interconnects, crossnode links are often less than 100Gbps ethernet which makes it the communication bottleneck. As shown in Figure 1(a), the per GPUthroughput on low bandwidth clusters is only half of that with high-bandwidth clusters.",
+    "metadata": {
+      "page": 2,
+      "section": "Limitations of ZeRO",
+      "bbox": [
+        53.798,
+        619.335,
+        295.559,
+        708.438
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_15",
+    "type": "paragraph",
+    "content": "However, rare efforts have been made to optimize end-to-end communication efficiency for ZeRO. There are many previous work on reducing communication overhead in distributed model training, such as 1-bit LAMB [18], 1-bit Adam [35] and other error compensation compression techniques for gradient averaging [1, 12, 31, 34]. However, none of them can work with ZeRO as they all assume model state replication, while model states are partitioned in ZeRO. We start from scratch and provide an end-to-end system for reducing all communication overhead in ZeRO training.",
+    "metadata": {
+      "page": 2,
+      "section": "Limitations of ZeRO",
+      "bbox": [
+        53.368,
+        400.157,
+        295.562,
+        500.219
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_16",
+    "type": "paragraph",
+    "content": "On the other hand, even on high-bandwidth clusters, when running on thousands of GPUs, the batch size per GPU is limited by the maximum global batch size that can be used during the training without sacrificing convergence efficiency [2, 17, 39]. In other words, as global batch size cannot be increased indefinitely without slowing down model convergence, training on thousands of GPUs forces the batch size per GPU to be very small, which reduces the compute-to-communication ratio and thus creates a communication bottleneck. As shown in Figure 1(b), the per GPU throughput is heavily impacted by small batch size per GPU, which is a result of communication bottleneck.",
+    "metadata": {
+      "page": 2,
+      "section": "Limitations of ZeRO",
+      "bbox": [
+        53.467,
+        498.787,
+        295.561,
+        620.767
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_17",
+    "type": "paragraph",
+    "content": "In this paper, we present a novel system of communication optimizations collectively called ZeRO++ that offers dramatic communication volume reduction for ZeRO. Below we discuss the main communication overheads in ZeRO, followed by three different communication optimizations in ZeRO++ that address them.",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        53.798,
+        312.486,
+        295.556,
+        368.712
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_18",
+    "type": "paragraph",
+    "content": "To reduce these communication overheads, ZeRO++ has three sets of communication optimizations, targeting each of the above mentioned three communication collectives respectively:",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        53.798,
+        191.938,
+        294.046,
+        226.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_19",
+    "type": "paragraph",
+    "content": "Assume the model size as 𝑀 . During the forward pass, ZeRO [29] conducts an all-gather operation to collect all the parameters ( 𝑀 ) needed to train for all model layers. In the backward pass, ZeRO re-collects parameters ( 𝑀 ) with all-gather first, then each GPUcan compute local gradients. After that, ZeRO operates reducescatter function to aggregate and redistribute gradients ( 𝑀 ) across accelerators. In total, ZeRO has a total communication volume of 3 𝑀 , spreads evenly across 2 all-gather and 1 reduce-scatter.",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        53.529,
+        224.81399999999996,
+        295.557,
+        313.918
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_20",
+    "type": "paragraph",
+    "content": "Quantized Weight Communication for ZeRO (qwZ) First, in order to reduce parameter communication volume during forward all-gather, we adopt quantization on weights to shrink down each model parameter from FP16 (2 bytes) to INT8 (1 byte) data type before communicating, thus reducing the communication volume by half. However, naively conducting quantization on weights may lose model training accuracy. In order to preserve decent model training precision, we adopt block-based quantization [8], which conducts independent quantization on each subset of model parameters. There is no existing implementation for high performance block-based quantization. Thus, we implement highly optimized quantization CUDA kernels from scratch.",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        295.557,
+        193.37
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_21",
+    "type": "paragraph",
+    "content": "Quantized Gradient Communication for ZeRO (qgZ) Third, reducing communication cost of gradients using reduce-scatter is even more challenging. Directly applying quantization to reduce communication volume is infeasible. The main issue is, even by incorporating block-based quantization to reduce-scatter operation, it will still significantly hurt model training accuracy. The key reason behind is quantization will decrease value precision. And reduction on low-precision values will accumulate and amplify the errors. Therefore, we propose a novel and much more efficient gradient communication paradigm as a general replacement of reduce-scatter collective, where the gradients are compressed using block-based INT4 quantization during the communication to reduce the communication volume, but the full precision is recovered before the reduction operator to preserve training accuracy. We call this 𝑞𝑔𝑍 , and is designed to i) overcome significant accuracy loss that would result from low-precision reduction if we were to simply implement reduce-scatter in INT4/INT8, and ii) avoid accuracy degradation and significant latency overhead of a long sequence of quantization and dequantization steps needed by a ring [23] or tree [5, 37] based reduce-scatter (e.g., left of Figure 5), even if we did the reductions in full-precision. Furthermore, 𝑞𝑔𝑍 leverages the hierarchical nature of modern GPU clusters, where intra-node bandwidth is significantly higher than inter-node, to first reduce gradients within a node before doing cross-node reduction to minimize inter-node communication volume, resulting in 2/4x communication volume reduction (INT8/4) compared to FP16 reduce-scatter. We further reduce end-to-end latency of 𝑞𝑔𝑍 by pipelining intra-node and inter-node communication and conducting CUDA kernel fusion.",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        317.641,
+        268.65,
+        559.719,
+        587.89
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_22",
+    "type": "paragraph",
+    "content": "Hierarchical Weight Partition for ZeRO (hpZ) Second, to reduce communication overhead of all-gather on weights during backward, we trade GPU memory for communication. More specifically, instead of spreading whole model weights across all the machines, we maintain a full model copy within each machine. At the expense of higher memory overhead, this allows us to replace the expensive cross-machine all-gather on weights with intra-machine all-gather, which is substantially faster due to much higher intra-machine communication bandwidth.",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        317.623,
+        586.458,
+        559.716,
+        686.52
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_23",
+    "type": "paragraph",
+    "content": "Communication Volume Reduction By incorporating all three components above, we reduce the cross-node communication volume from 3 𝑀 down to 0 . 75 𝑀 . More specifically, for forward all-gather operation on model weights, by applying INT8 quantization, we reduce the communication size from 𝑀 to 0 . 5 𝑀 . During backward all-gather on weights, with our secondary copy of model parameters, we reduce the communication size from 𝑀 to 0. By replacing backward fp16 reduce-scatter on gradients to our novel all-to-all based INT4 reduce-scatter, we reduce cross-node communication from 𝑀 to 0 . 25 𝑀 . Thus, in total, we reduce 3 𝑀 communication to 0 . 75 𝑀 .",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        317.731,
+        148.10199999999998,
+        559.72,
+        270.082
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_24",
+    "type": "paragraph",
+    "content": "Evaluation We implemented ZeRO++ and performed extensive evaluation demonstrating three key results: i) scalability of GPT-3 like models on up to 384 GPUs achieving over 45% of sustained peak throughput, ii) consistent speedup of up to 2.4x over ZeRO [29] baseline across models ranging from 10-138B parameters, and iii) comparing with baseline in 4x higher bandwidth cluster, ZeRO++",
+    "metadata": {
+      "page": 2,
+      "section": "ZeRO++",
+      "bbox": [
+        317.955,
+        82.34900000000005,
+        559.427,
+        149.534
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_25",
+    "type": "paragraph",
+    "content": "achieves similar throughput in low-bandwidth setting. In addition, we show the impact of each of the three optimizations in ZeRO++ and how they compose together. Furthermore, we also show the impact of our optimized kernel implementations on end-to-end system throughput. Finally, we conduct convergence evaluation indicating that ZeRO++ has negligible impact on model convergence and maintains similar model training accuracy as ZeRO baseline.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        53.467,
+        630.294,
+        295.557,
+        708.438
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_26",
+    "type": "paragraph",
+    "content": "The main contributions of this paper are as follows:",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        63.761,
+        619.335,
+        252.943,
+        631.726
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_27",
+    "type": "paragraph",
+    "content": "Blocked quantized weights ( 𝑞𝑤𝑍 ) reduces communication volume of all-gather of weights by 50%.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        594.363,
+        294.042,
+        617.713
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_28",
+    "type": "paragraph",
+    "content": "Novel, all-to-all quantized gradient reduction collective ( 𝑞𝑔𝑍 ) reduces gradient communication by 75% comparing with reduce-scatter.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        528.61,
+        294.583,
+        562.919
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_29",
+    "type": "paragraph",
+    "content": "Hierarchical partitioning of model weights ( ℎ𝑝𝑍 ) completely eliminates inter-node all-gather communication in backward propagation.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        561.486,
+        294.28,
+        595.795
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_30",
+    "type": "paragraph",
+    "content": "Optimized Integration of each of the above techniques into existing ZeRO implementation, that enables communication and computation overlapping, and leverages custom high performance CUDA kernels for quantization, dequantization, as well as operator fusion (section 4). Our implementation translates the 4x communication volume reduction of ZeRO++ into real throughput improvement.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        451.897,
+        295.564,
+        530.042
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_31",
+    "type": "paragraph",
+    "content": "ZeRO++ is open-sourced and released as part of https:// github.com/microsoft/DeepSpeed",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        342.308,
+        294.632,
+        365.658
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_32",
+    "type": "paragraph",
+    "content": "Extensive experiments shows that i) over 45% of sustained peak throughput even at small batch sizes, ii) up to 2.4x endto-end system improvement over ZeRO, and iii) achieving similar throughput in low-bandwidth cluster compared to baseline in high-bandwidth cluster. In addition, we present performance breakdown and analysis of diffrent components of ZeRO++.Our end-to-end training shows that ZeRO++ does not affect model convergence.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO++",
+      "bbox": [
+        69.765,
+        364.226,
+        295.564,
+        453.33
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_33",
+    "type": "paragraph",
+    "content": "Data parallelism (DP), pipeline parallelism (PP), and tensor parallelism (TP) are three forms of parallelism used to train large models across multi-GPU clusters. [6, 15, 20, 22] DP is commonly used when model size fits within a single GPU memory. In DP, each GPU holds a full copy of model weights and trains on separate input data. MP is orthogonal to DP, and is often used in cases where model size cannot fit into a single GPU's memory. Instead of splitting input data, model parallelism partitions a full model into pieces and assigns each model piece onto a GPU. There are mainly two approaches for model parallelism: i) pipeline parallelism (PP) and ii) tensor parallelism (TP). PP [14, 15, 20] splits models vertically, creating sequential stages consisting of a contiguous subset of layers. While there is sequential dependency between stages for an input micro-batch, the stages can be executed in parallel across micro-batches. In contrast, TP [22] splits each layer across multiple GPUs, where each GPU works on a different part of the layer for the same input.",
+    "metadata": {
+      "page": 3,
+      "section": "Data, Model and 3D parallelism",
+      "bbox": [
+        53.467,
+        115.22500000000002,
+        295.559,
+        302.959
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_34",
+    "type": "paragraph",
+    "content": "3D parallelism [33, 36] refers to combination of DP, PP, and TP, and is capable of achieving excellent throughput and scalability, and has been used to train a wide range of large language models [4,",
+    "metadata": {
+      "page": 3,
+      "section": "Data, Model and 3D parallelism",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        295.035,
+        116.65700000000004
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_35",
+    "type": "paragraph",
+    "content": "19, 22, 28]. Despite being highly efficient, 3D parallelism is severely limited by the fact that it requires complete rewrite of model and training pipeline to make them compatible with 3D parallelism [33].",
+    "metadata": {
+      "page": 3,
+      "section": "Data, Model and 3D parallelism",
+      "bbox": [
+        317.749,
+        674.129,
+        559.582,
+        708.438
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_36",
+    "type": "paragraph",
+    "content": "ZeRO is a memory-optimized solution for data parallel training. ZeRO partitions and distributes all model states (i.e., parameters, gradients, optimizer states) among GPUs in use and recollects model states only when the layer needs to be computed. There are three different stages for using ZeRO to optimize on-device memory usage. In ZeRO stage 1 (ZeRO-1), only optimizer states are split and spread across all GPUs in use. ZeRO stage 2 (ZeRO-2) partitions both optimizer states and gradients, where ZeRO stage 3 (ZeRO-3) splits all three components of model states as parameters, gradients, and optimizer states.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO Optimizer",
+      "bbox": [
+        317.955,
+        358.279,
+        559.585,
+        469.3
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_37",
+    "type": "paragraph",
+    "content": "ZeRO-3 is the most memory efficient solution for model training at large scale, but at the cost of more collective communications. Algorithm 1 illustrates the high-level pseudocode for ZeRO-3. During model training, ZeRO-3 lazy-schedules the fetching of parameters until the computation needs to happen on a particular layer. Before forward propagation, ZeRO launches an all-gather to collect the full model weights and then computes the forward pass (line 2-3) of Algorithm 1. Then ZeRO empties the all-gather weights buffer after forward computation completes (line 4). During backward, ZeRO re-collects all model weights again via a second all-gather (line 5) to calculate gradients (line 6). Once gradients are calculated on each GPU, ZeRO empties weights buffer again (line 7) and conducts a reduce-scatter operation to do gradient averaging and re-distribution (line 8). Model states and parameters are updated in optimizer step (line 9). In a nutshell, to minimize the on-device memory footprint using ZeRO-3, three collective communication operations are issued at each training iteration, which include 2 all-gather on weights and 1 reduce-scatter on gradients.",
+    "metadata": {
+      "page": 3,
+      "section": "ZeRO Optimizer",
+      "bbox": [
+        317.686,
+        161.019,
+        559.719,
+        359.711
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_38",
+    "type": "paragraph",
+    "content": "Quantization: Quantization is often used to reduce memory footprint, and data movement volume by using low precision to represent data [7, 8]. However, the loss of information from representing high precision data with lower precision often comes with accuracy degradation. Many related work focus on improving",
+    "metadata": {
+      "page": 3,
+      "section": "Communication Reduction Techniques",
+      "bbox": [
+        317.623,
+        82.34900000000005,
+        559.713,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_39",
+    "type": "paragraph",
+    "content": "quantization accuracy. The fundamental challenge of quantization accuracy lies in the vast difference in number ranges and granularity between high precision and low precision data (Eg. FP32/16 vs. INT8). Some related work [41] propose to filter the outliers in data to mitigate the gap in numerical ranges. Yet their accuracy hinges on the quality of outlier filtering and it brings extra filtering overhead. Dettmers et al. [8] proposes to use block based quantization on optimizer states to improve the quantization accuracy yet it requires changes to the model structure thus limits its usability.",
+    "metadata": {
+      "page": 4,
+      "section": "Communication Reduction Techniques",
+      "bbox": [
+        53.574,
+        608.376,
+        295.564,
+        708.438
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_40",
+    "type": "paragraph",
+    "content": "ZeROCommunicationReduction: To reduce expensive crossnode communication, recent optimization on ZeRO-3, such as MiCS [40], trades on-device memory for communication. In MiCS, the GPU cluster is divided into sub-groups, and model states are partitioned within a sub-group but replicated across sub-groups. By keeping the sub-group size small, MiCS can either leverage high bandwidth intra-node interconnect, or use hierarchical communication to lower the communication volume. ℎ𝑝𝑍 in ZeRO++ adopts a similar approach of trading memory for less communication. The key difference is that ℎ𝑝𝑍 only do secondary partition on weights, while keeping all other model states partitioned across all GPUs. This allows hpZ to achieve significant communication reduction without the massive memory overhead of MiCS.",
+    "metadata": {
+      "page": 4,
+      "section": "Communication Reduction Techniques",
+      "bbox": [
+        53.467,
+        334.403,
+        295.56,
+        478.301
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_41",
+    "type": "paragraph",
+    "content": "Gradient Compression: Starting from 1-bit SGD of errorcompensation compression [31], gradient compression has been pushed to an extreme direction of using just a single bit. To deal with non-linear gradient-based optimizers like Adam or Lamb, 1-bit quantization algorithms like 1-bit Adam [35] and 1-bit Lamb [18] are proposed, which achieve extreme efficient gradient communication in distributed training. However, 1-bit Adam/LAMB cannot be directly applicable to ZeRO-3. The main reason is 1-bit Adam/Lamb assumes each GPU has the full view of optimizer states (OS) for the model, but ZeRO-3 splits it across all the GPUs in use. Therefore, it is infeasible to directly apply existing gradient compression techniques at ZeRO-3 and we need to design our own.",
+    "metadata": {
+      "page": 4,
+      "section": "Communication Reduction Techniques",
+      "bbox": [
+        53.467,
+        476.869,
+        295.562,
+        609.808
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_42",
+    "type": "paragraph",
+    "content": "In this section, we elaborate on the design of our three key optimizations in ZeRO++ introduced in Section 1 for reducing the communication overhead of ZeRO: i) Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 ), ii) Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 ), and iii) Quantized Gradient communication for ZeRO ( 𝑞𝑔𝑍 ). After that, we discuss the end-to-end impact of these optimizations to reduce to total communication volume of ZeRO.",
+    "metadata": {
+      "page": 4,
+      "section": "DESIGN",
+      "bbox": [
+        53.484,
+        220.33100000000002,
+        295.563,
+        298.476
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_43",
+    "type": "paragraph",
+    "content": "As discussed in Section 2.2, ZeRO partitions the model weights across all the ranks (i.e., GPUs) and fetches the FP16 weights layerby-layer right before they are needed in computation via all-gather for the forward and backward of each training iteration. To reduce the communication overhead of forward all-gather on weights, 𝑞𝑤𝑍 , quantizes FP16 weights to INT8 right during the all-gather, and dequantizes them back to FP16 on the receiver side, and then conducts layer computation.",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        53.395,
+        82.34900000000005,
+        295.564,
+        171.452
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_2",
+    "type": "figure",
+    "content": "Figure 2: Illustration & example of block based quantization vs. baseline",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        319.084716796875,
+        589.7861022949219,
+        554.4992065429688,
+        705.3797607421875
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_2.png"
+    }
+  },
+  {
+    "id": "2306.10209_fig_3",
+    "type": "figure",
+    "content": "Figure 3: hpZ removes cross node traffic in backward allgather by holding secondary weight partitions in on-device memory.",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        318.0516662597656,
+        398.8015441894531,
+        564.593994140625,
+        521.0286560058594
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_3.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_44",
+    "type": "paragraph",
+    "content": "While this reduces the communication volume of the all-gather by 2x, doing so naively results in two major issues: i) the lowering of precision results in significant accuracy degradation during training as discussed in 2.3 , and ii) the quantization and dequantization overhead negates any throughput gain from communication volume reduction. We discuss the optimized implementation of 𝑞𝑤𝑍 to minimize the quantization and dequantization overhead in Section 4. Here, we primarily focus on design choices to mitigate accuracy degradation.",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        317.552,
+        213.85500000000002,
+        559.718,
+        313.918
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_45",
+    "type": "paragraph",
+    "content": "We show an example of the quantization error of performing block based quantization vs. the non-blocked quantization baseline in Figure 2(a). Fig. 2(b) shows a case study of weights quantization on BERT model, where block based quantization reduces the quantization error by 3x. More in-depth convergence evaluations are shown in Sec. 5.",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        317.955,
+        82.34900000000005,
+        559.72,
+        149.534
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_46",
+    "type": "paragraph",
+    "content": "𝑞𝑤𝑍 uses blocked based quantization to improve the quantization accuracy. As illustrated in Figure 2, each weight tensor is divided into smaller chunks, and converted into INT8 by symmetric quantization, using an independent quantization scaling coefficient. By keeping the quantization granularity small, we significantly mitigate the gap in number ranges and granularity.",
+    "metadata": {
+      "page": 4,
+      "section": "Quantized Weight Communication for ZeRO ( 𝑞𝑤𝑍 )",
+      "bbox": [
+        317.955,
+        148.10199999999998,
+        559.716,
+        215.28700000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_47",
+    "type": "paragraph",
+    "content": "ZeRO-3 partitions all its model states across all its ranks, resulting in communication collectives that span all the GPUs. With ℎ𝑝𝑍 , we notice that it is possible to have different partitioning for different model states, limiting the communication collectives to a subset of the GPUs. Given that on modern GPU clusters, intra-node communication bandwidth is significantly higher than inter-node communication bandwidth, this presents opportunities to reduce the inter-node communication.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.467,
+        605.636,
+        295.564,
+        694.74
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_48",
+    "type": "paragraph",
+    "content": "Consider a 64-node cluster, each node with 8 GPUs. Model weights are partitioned in two stages: i) across all 512 GPUs that we call primary partition, and ii) the same weights are also partitioned within a compute node across 8 GPUs, that we call secondary partition. In this example, for the secondary partition, each compute node in the cluster holds a full replica of FP16 weights partitioned among the 8 GPUs within the node, and there are 64 of such replicas in total.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.467,
+        419.335,
+        295.558,
+        508.438
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_49",
+    "type": "paragraph",
+    "content": "More specifically, in ℎ𝑝𝑍 , we eliminate the inter-node all-gather during the backward pass by holding secondary FP16 weights partition within each node. We do this by creating a hierarchical partitioning strategy consisting of two partitions: first, all model states are partitioned globally across all devices as in ZeRO-3, which we call primary partition. Second, a secondary copy of FP16 parameters is partitioned at the sub-global level (e,.g., compute node, see figure 3), which we call secondary partition. This secondary copy of FP16 parameters is replicated across multiple secondary partitions.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.798,
+        507.006,
+        295.564,
+        607.068
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_50",
+    "type": "paragraph",
+    "content": "3.2.1 A training iteration with hpZ. During the forward pass of a training iteration, we all-gather weights based on the primary partition across all GPUs. However, once the weights are consumed during the forward pass, they are partitioned based on the secondary partition. Given the temporal consistency of model parameters between forward and backward passes, when the weights are needed again during the backward pass, we all-gather weights based on this secondary group. Note that when the secondary partitioning is set to be a compute node, this avoids any inter-node communication for this all-gather. Finally, at the end of the iteration, during the optimizer step, all the model states, as well as the primary copy of the fp16 parameter are updated based on the primary partition. hpZ makes two changes to baseline ZeRO pseudocode in Algorithm 1: i) in line 4, parameter partitioning is based on secondary group size , ii) parameter all-gather preceding backward pass in line 5 is also based on secondary group size .",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.798,
+        228.92399999999998,
+        295.564,
+        405.698
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_51",
+    "type": "paragraph",
+    "content": "Our design of ℎ𝑝𝑍 is flexible to support any secondary group size . The group size controls how many ranks (i.e., GPUs) are in the secondary partition. It is also a measure of memory-communication trade-off of ℎ𝑝𝑍 . Simply put, by default, ℎ𝑝𝑍 secondary partition is node-based (recall intra-node bandwidth is multiple factors of internode bandwidth for current and future hardware configurations) but can be extended to support multiple compute nodes as needed.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.798,
+        152.212,
+        295.557,
+        230.356
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_52",
+    "type": "paragraph",
+    "content": "3.2.2 Memory Usage Analysis. By design, ℎ𝑝𝑍 trades memory for communication efficiency. It is important to analyze this tradeoff. Recall that standard data parallel DNN (DP) replicates model parameters across data parallel ranks, ZeRO-3 on the other hand partitions parameter across data parallel ranks. A midway approach is model",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        295.557,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_4",
+    "type": "figure",
+    "content": "Figure 4: Per-device memory consumption analysis of standard data parallel (DP), ZeRO stage 3 (ZeRO-3) and proposed hierarchical partitioning of ZeRO parameters ( ℎ𝑝𝑍 ). 𝐾 denotes the memory multiplier of optimizer states, 𝑀 represents the number of trainable parameters, 𝑃 is the data parallel group size or world size, and 𝛼 is the number of secondary groups or ratio of world size to the number of ranks in the secondary group. A typical real world scenario example is provided in the last column. We assume a model size of 100B trained on 1024 V100 GPU DGX cluster (64 compute nodes, 16 GPUs per node).",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        321.4443054199219,
+        618.0035247802734,
+        553.9074096679688,
+        699.1594161987305
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_4.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_53",
+    "type": "paragraph",
+    "content": "parameters partitioned across a subset of devices as long as model parameters fit.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        317.955,
+        434.505,
+        558.202,
+        457.855
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_54",
+    "type": "paragraph",
+    "content": "Figure 4 provides a concrete memory usage estimate of a typical large language model of size of 100B parameters, with primary group size of 1024 GPUs and secondary group size of 16 GPUs (e.g., DGX-2 V100 node). As shown in Figure 4, with our proposed method, ℎ𝑝𝑍 consumes 8 . 9 𝑥 more memory than ZeRO-3, our approach is still 114 𝑥 less memory requirement than standard DP. This marginal increase in memory usage is compensated for by efficient intra-node communication schedule. By eliminating or reducing inter-node communication for backward pass, ℎ𝑝𝑍 reduces the end-to-end communication of ZeRO by 1 . 5 𝑥 , while still supporting model training with hundreds of billions of parameters.",
+    "metadata": {
+      "page": 5,
+      "section": "Hierarchical Partitioning for ZeRO ( ℎ𝑝𝑍 )",
+      "bbox": [
+        317.686,
+        313.957,
+        559.721,
+        435.937
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_55",
+    "type": "paragraph",
+    "content": "In this section, we propose a novel quantized reduce-scatter algorithm called qgZ based on all-to-all collectives that enables a 4x communication volume reduction of gradient reduce-scatter by replacing FP16 with INT4 quantized data, while overcoming precision loss challenges described in Section 1, as well as numerous system challenges that we will outline in this section.",
+    "metadata": {
+      "page": 5,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        209.85900000000004,
+        559.717,
+        277.044
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_56",
+    "type": "paragraph",
+    "content": "qgZleverages all-to-all collectives to implement quantized reducescatter which includes three major components: 1) all-to-all-based implementation of quantized gradient reduce-scatter, 2) reducing communication volume with hierarchical collectives, 3) tensor slice reordering for correct gradient placement. We talk about each of them step-by-step.",
+    "metadata": {
+      "page": 5,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        144.10500000000002,
+        561.672,
+        211.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_57",
+    "type": "paragraph",
+    "content": "3.3.1 All-to-all based implementation. A naive approach towards quantized reduce-scatter, while avoiding precision loss due to reduction is to apply quantization and dequantization to a ring-based reduce-scatter directly as shown on the left of Figure 5. We can inject quantization and dequantization on each GPU. Once a GPU",
+    "metadata": {
+      "page": 5,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        82.34900000000005,
+        559.714,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_5",
+    "type": "figure",
+    "content": "Figure 5: Comparison between ZeRO-3 ring-based reducescatter and qgZ 1-hop all-to-all.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        52.91901397705078,
+        582.6946563720703,
+        307.1319885253906,
+        709.3463897705078
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_5.png"
+    }
+  },
+  {
+    "id": "2306.10209_fig_6",
+    "type": "figure",
+    "content": "Figure 6: Communication volume comparison between ZeRO-3 reduce-scatter and qgZ 1-hop all-to-all.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        60.240203857421875,
+        420.4512634277344,
+        298.3932189941406,
+        533.5967102050781
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_6.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_58",
+    "type": "paragraph",
+    "content": "receives gradients from its predecessor, we dequantize it to recover full precision and conduct a local reduction. Next we can quantize local reduction output and pass quantized data to its successor. To finish the whole reduce-scatter, the number of sequential quantization and dequantization kernels is equal to the number of GPUs (i.e., n) in use.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.529,
+        301.527,
+        295.557,
+        368.712
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_59",
+    "type": "paragraph",
+    "content": "To overcome this, we completely abandon existing ring-based reduce-scatter approach and incorporate 1-hop all-to-all collective for our gradient communication. As shown on the right of Figure 5, we first apply quantization on a given tensor, then we conduct all-to-all communication among all the GPUs. After all-toall, we apply another dequantization to recover the data precision and then reduce on high-precision values to get the final gradient reduction output. By replacing ring-based solution with our all-to-all collective, we reduce the number of sequential quantization+dequantization kernel from the number of GPUs to 1. Thus, we solve the long latency and low precision issues when applying quantization in reduce-scatter for supercomputing scenarios like DGX boxes connected in fat-tree topology.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.467,
+        82.34900000000005,
+        295.563,
+        226.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_60",
+    "type": "paragraph",
+    "content": "Thus, applying quantization and dequantization on existing ring based reduce-scatter collective will lead to high communication latency and low value precision due to multiple sequential quantization and dequantization steps. Although recent tree-based collective like Blink[38] could reduce the number of sequential kernels from n to log(n), the long latency and low precision issue is not completely resolved.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.798,
+        224.81399999999996,
+        295.557,
+        302.959
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_7",
+    "type": "figure",
+    "content": "Figure 7: qgZ apply hierarchy all-to-all to reduce cross node traffic.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        324.64349365234375,
+        595.7521820068359,
+        562.9786376953125,
+        708.2823028564453
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_7.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_61",
+    "type": "paragraph",
+    "content": "3.3.2 Reducing inter-node communication volume. Although replacing reduce-scatter with all-to-all achieves single-shot quantization and dequantization, it introduces a new problem; the inter-node communication volume increases instead of decreasing despite the quantization of data. We elaborate on this in Figure 6.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        484.14,
+        559.717,
+        540.367
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_62",
+    "type": "paragraph",
+    "content": "To address this, we do a hierarchical 2-hop all-to-all instead of 1-hop: a) first intra-node all-to-all and b) followed by inter-node allto-all, which is shown as Figure 7. First, with high-bandwidth links among GPUs inside a machine, we conduct intra-node all-to-all on quantized data, then dequantize data and reduce on dequantized data. After intra-node quantization, all-to-all, dequantization, and reduction, we reduce the data size per GPU from 𝑀 / 𝑍 to 𝑀 /( 𝑍 ∗ 𝑁 ) . After intra-node all-to-all is completed, we conduct the inter-node all-to-all communication, which is similar to 1-hop all-to-all we described above. Given that now each GPU only needs to send out 𝑀 /( 𝑍 ∗ 𝑁 ) data, the communication volume per machine is now 𝑀 /( 𝑍 ∗ 𝑁 ) ∗ 𝑁 = 𝑀 / 𝑍 . By adopting this hierarchical all-to-all communication as 2-hop approach, we resolve the communication volume blow-up issue in our 1-hop scheme perfectly. Note that even though the total communication volume is doubled (one intranode, the other inter-node), intra-node communication introduces negligible overhead given NVLink/NVswitch high bandwidth, and cross-node traffic has been significantly reduced, which is the major bottleneck in gradient communication.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.641,
+        177.29099999999994,
+        559.719,
+        386.942
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_63",
+    "type": "paragraph",
+    "content": "Here we assume model size of 𝑀 , GPU per node is 𝑁 , gradient compression ratio as 𝑍 . Reduce-scatter, reduces the data during transmission over the ring, thus the total amount of data for crossnode communication is M. However, when using our 1-hop all-to-all approach, even though the data are compressed before communication (i.e., 𝑀 / 𝑍 ), each GPU needs to send out 𝑀 / 𝑍 amount of data to GPUs on the other nodes. Therefore, each machine will generate 𝑁 ∗ 𝑀 / 𝑍 amount of cross-node communication data, which is much bigger than reduce-scatter communication volume.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        385.51,
+        559.714,
+        485.573
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_64",
+    "type": "paragraph",
+    "content": "3.3.3 Tensor slice reordering for correct data placement. With the 2hop all-to-all, the inter-node communication volume is as expected, however, this introduces a gradient misplacement issue. We describe this issue using a 2x2 example, where we have 2 machines and each machine has 2 GPUs. As shown in Figure 8, the correct final gradient placement is shown as green boxes in the figure, where GPU 0 holds final gradient partition 1, GPU 1 holds gradient partition 2, so on and so forth.",
+    "metadata": {
+      "page": 6,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        317.955,
+        82.34900000000005,
+        559.716,
+        171.452
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_8",
+    "type": "figure",
+    "content": "Figure 8: Gradient partition misplacement when applying hierarchical all-to-all in qgZ.",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.03564453125,
+        583.0930328369141,
+        570.6740112304688,
+        707.6548767089844
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_8.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_65",
+    "type": "paragraph",
+    "content": "Our 2-step all-to-all communication works as follows, first we divide all gradients on each GPU into 4 chunks, then conduct our intra-node all-to-all. After intra-node all-to-all finishes, GPU0 (i.e., G0) holds partial aggregated gradient partition 1,2 whereas G1 holds gradient partition 3,4. Same thing happens on G2 and G3. Since G1 does not have gradient partition 2 (which is supposed to be held by G1) while G2 does not have gradient partition 3, after inter-node all-to-all, there is gradient misplacement issue on both G1 and G2.",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.798,
+        441.028,
+        295.38,
+        530.131
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_66",
+    "type": "paragraph",
+    "content": "We address this with tensor slice reordering. As shown in Figure 9, before intra-node all-to-all begin, we first swap the tensor slice order of slice 2 and 3, which is shown as orange arrows. Then after intra-node all-to-all is completed, G1 now has gradient 2 while G2 has gradient 3. Therefore, after the inter-node all-to-all, all GPUs get the correct gradient placement. Mathematically, given X GPUs per node and Y nodes in total, each GPU will hold X*Y gradient slices initially. Our tensor slice reordering works as follows:",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.798,
+        353.357,
+        295.559,
+        442.46
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_1",
+    "type": "equation",
+    "content": "𝑏𝑒𝑓 𝑜𝑟𝑒 : [ 0 , 1 , 2 , 3 , 4 , ...𝑌 𝑋 -3 , 𝑌 𝑋 -2 , 𝑌 𝑋 -1 ] (1)",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        89.124,
+        336.931,
+        294.583,
+        349.322
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_2",
+    "type": "equation",
+    "content": "𝑎𝑓 𝑡𝑒𝑟 : [ 0 , 𝑋, 2 𝑋, ... ( 𝑌 -1 ) 𝑋, 1 , 𝑋 + 1 , ( 𝑌 -1 ) 𝑋 + 1 , ...𝑌 𝑋 -1 ] (2)",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        57.989,
+        318.874,
+        294.583,
+        331.265
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_67",
+    "type": "paragraph",
+    "content": "Based on Equation 1 and 2, we can map each original tensor slice position (i.e., Equation 1) to new tensor slice position (i.e., Equation 2) on each GPU to correct final gradient misplacement issue.",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.798,
+        282.449,
+        294.045,
+        316.757
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_68",
+    "type": "paragraph",
+    "content": "In summary, by solving above three challenges step-by-step, we design a novel gradient communication and reduction protocol, which can be a more communication efficient and generalized replacement of reduce-scatter collective. We discuss some of the optimization and implementation details for our approach in Sec. 4.",
+    "metadata": {
+      "page": 7,
+      "section": "Quantized Gradients Communication for ZeRO ( 𝑞𝑔𝑍 )",
+      "bbox": [
+        53.467,
+        227.654,
+        295.564,
+        283.881
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_69",
+    "type": "paragraph",
+    "content": "Table 1 illustrates theoretical communication volume comparison between ZeRO-3 and ZeRO++. We assume the model size of 𝑀 . As described in Section 2, during ZeRO-3 there are 3 collective calls: all-gather on weights in forward pass, then all-gather on weights in backward pass and last is reduce-scatter on gradients in the backward. And each collective communicates 𝑀 volume of data.",
+    "metadata": {
+      "page": 7,
+      "section": "ZeRO++ Communication Volume Analysis",
+      "bbox": [
+        53.529,
+        137.14300000000003,
+        295.1,
+        204.32899999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_70",
+    "type": "paragraph",
+    "content": "With ZeRO-3, in total we need to communicate 3M data per each training iteration. Given that intra-node communication is fast with NVLink and NVSwitch, we ignore intra-node communication and focus on cross-node traffic only. For all-gather in the forward pass, by incorporating our quantized weights communication, we reduce",
+    "metadata": {
+      "page": 7,
+      "section": "ZeRO++ Communication Volume Analysis",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        295.032,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_table_1",
+    "type": "table",
+    "content": "Figure 9: Tensor slices reordering to correct gradient misplacement in qgZ.",
+    "metadata": {
+      "page": 7,
+      "section": "ZeRO++ Communication Volume Analysis",
+      "bbox": [
+        339.9870910644531,
+        488.7925109863281,
+        535.3976440429688,
+        534.7311401367188
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/table/table_2.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_71",
+    "type": "paragraph",
+    "content": "Table 1: Communication volume comparison between ZeRO3 and ZeRO++.",
+    "metadata": {
+      "page": 7,
+      "section": "ZeRO++ Communication Volume Analysis",
+      "bbox": [
+        317.659,
+        467.018,
+        559.804,
+        485.43
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_72",
+    "type": "paragraph",
+    "content": "communication volume from M to 0.5M. During the all-gather in the backward pass, by holding secondary weights partition within each node, we completely removed cross-node traffic. For reducescatter in the backward pass, by replacing reduce-scatter with our novel quantized gradient communication protocol, we reduce crossnode traffic from M to 0.25M. Therefore, compared with ZeRO-3, ZeRO++ reduces communication volume from 3M down to 0.75M for each training iteration.",
+    "metadata": {
+      "page": 7,
+      "section": "ZeRO++ Communication Volume Analysis",
+      "bbox": [
+        317.955,
+        346.356,
+        559.72,
+        435.46
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_73",
+    "type": "paragraph",
+    "content": "In this section, we discuss two key optimizations that enable ZeRO++ to fully realize the potential of 4x communication volume reduction to improve throughput without getting limited by implementation overheads: i) overlapping different communication and compute streams, when doing so enables better resource utilization, and ii) optimized CUDA kernels for quantization, dequantization, and tensor slice reordering operators, and kernel fusion across these operators when appropriate to minimize the memory traffic overhead. Below we discuss the two lines of optimization in detail.",
+    "metadata": {
+      "page": 7,
+      "section": "OPTIMIZED IMPLEMENTATION",
+      "bbox": [
+        317.955,
+        222.986,
+        560.39,
+        323.049
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_74",
+    "type": "paragraph",
+    "content": "To reduce end-to-end communication time, we overlap quantization computation with communication for all-gathering of weights in both forward and backward passes. For the hierarchical all-to-all based reduce-scatter implementation of gradients, we overlap the intra-node communication with inter-node communication.",
+    "metadata": {
+      "page": 7,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        317.686,
+        143.452,
+        558.206,
+        199.67899999999997
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_75",
+    "type": "paragraph",
+    "content": "4.1.1 Communication-computation overlapping on weights. For allgather on weights, we enable communication-computation overlap using two key features : i) we track the execution order of model layers to get the sequence they will be fetched. ii) we guarantee asynchronous quantization execution. Specifically, the call to the",
+    "metadata": {
+      "page": 7,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        317.955,
+        82.34900000000005,
+        559.719,
+        138.57500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_76",
+    "type": "paragraph",
+    "content": "Time",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        274.405,
+        588.629,
+        286.571,
+        594.682
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_77",
+    "type": "paragraph",
+    "content": "Figure 10: Pipelining and overlapping intra-node communication with inter-node communication in 𝑞𝑔𝑍 .",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.798,
+        554.854,
+        295.646,
+        573.266
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_78",
+    "type": "paragraph",
+    "content": "quantization kernel is non-blocking and we further avoid operations that involve explicit/implicit CUDA synchronization (e.g. tensor concatenation), making the quantization a non-blocking operation that can be launched asynchronously.",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.798,
+        458.238,
+        294.212,
+        503.505
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_79",
+    "type": "paragraph",
+    "content": "With this two features, as ZeRO fetch parameters for each layer, the communication of the current layer and the quantization of the next layer can be launched at the same time on different CUDA streams. When the quantized data are needed for the next layer, ZeRO++ synchronizes the quantization stream to make sure the quantized data are ready. This approach hides the quantization cost of the next layer under the communication time span of the current layer which hides the quantization overhead.",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.798,
+        370.566,
+        295.035,
+        459.67
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_80",
+    "type": "paragraph",
+    "content": "4.1.2 Hierarchical Collectives for Gradient Communication. As discussed in Sec. 3.3.2, our all-to-all based gradient communication is broken into two stages: first intra-node communication followed by inter-node communication. The inter-node communication depends on the results of the intra-node communication, therefore, with a naive implementation, inter-nodes links are idle during intranode communication and vice versa. To reduce latency by leveraging both inter-node and intra-node links in parallel, we chunk our input gradient tensor and pipeline transfer between intra-node communication and inter-node communication. As shown in Figure 10, compared with \"no pipeline\" case on the top, simply adopting a \"2stage pipeline\" transfer achieves the amount of end-to-end latency reduction shown as the red arrow-line in Figure 10. By overlapping intra-node and inter-node communication, the end-to-end latency of gradient communication is significantly reduced.",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.467,
+        191.938,
+        295.56,
+        357.753
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_81",
+    "type": "paragraph",
+    "content": "Next, we discuss how we optimize our CUDA kernels to further reduce all quantization related overhead.",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        294.216,
+        105.69799999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_82",
+    "type": "paragraph",
+    "content": "Doing this pipeline correctly has implications on our tensor slice reordering process. The more pipeline stages we have, the more fine-grained tensor slices are needed for reordering. Therefore, we also propose a generalized tensor slices reordering scheme as algorithm 2, which covers both w/ and w/o pipelining data transfer cases. Here stages refer to the number of pipeline stages we have, nodeSize is the number of GPUs per node and nodes is the number of nodes.",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        53.467,
+        104.26599999999996,
+        295.035,
+        193.37
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_83",
+    "type": "paragraph",
+    "content": "Algorithm 2: Generalized tensor slice reordering ( 𝑞𝑔𝑍 ) Constants: , ,",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        322.605,
+        694.903,
+        527.19,
+        707.294
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_3",
+    "type": "equation",
+    "content": "1 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠 ← 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒 ∗ 𝑛𝑜𝑑𝑒𝑠 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        648.789,
+        452.187,
+        661.18
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_4",
+    "type": "equation",
+    "content": "2 𝑠𝑡𝑎𝑔𝑒𝐼𝐷 ← 𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷 % 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        636.834,
+        473.253,
+        649.225
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_5",
+    "type": "equation",
+    "content": "3 𝑐ℎ𝑢𝑛𝑘𝐼𝐷 ← 𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        621.667,
+        420.263,
+        635.41
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_6",
+    "type": "equation",
+    "content": "4 𝑝𝑖𝑝𝑒𝑙𝑖𝑛𝑒𝑂𝑓 𝑓 𝑠𝑒𝑡 ← 𝑠𝑡𝑎𝑔𝑒𝐼𝐷 ∗ 𝑡𝑜𝑡𝑎𝑙𝐷𝑒𝑣𝑖𝑐𝑒𝑠 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        610.736,
+        485.443,
+        623.127
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_7",
+    "type": "equation",
+    "content": "5 𝑐ℎ𝑢𝑛𝑘𝑂𝑓 𝑓 𝑠𝑒𝑡 ← 𝑠𝑡𝑎𝑔𝑒𝐼𝐷 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        595.569,
+        425.181,
+        609.313
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_85",
+    "type": "paragraph",
+    "content": "7 Return: 𝑝𝑖𝑝𝑒𝑙𝑖𝑛𝑒𝑂𝑓 𝑓 𝑠𝑒𝑡 + 𝑐ℎ𝑢𝑛𝑘𝐵𝑎𝑠𝑒 + 𝑐ℎ𝑢𝑛𝑘𝑂𝑓 𝑓 𝑠𝑒𝑡 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        572.621,
+        529.924,
+        585.012
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_8",
+    "type": "equation",
+    "content": "6 𝑐ℎ𝑢𝑛𝑘𝐵𝑎𝑠𝑒 ←( 𝑐ℎ𝑢𝑛𝑘𝐼𝐷 % 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒 ) ∗ 𝑛𝑜𝑑𝑒𝑠 ;",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        320.362,
+        584.576,
+        494.221,
+        596.967
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_86",
+    "type": "paragraph",
+    "content": "𝑠𝑡𝑎𝑔𝑒𝑠 𝑛𝑜𝑑𝑒𝑆𝑖𝑧𝑒 𝑛𝑜𝑑𝑒𝑠 Input : 𝑝𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷 Output : 𝑚𝑎𝑝𝑝𝑒𝑑𝑃𝑎𝑟𝑡𝑖𝑡𝑖𝑜𝑛𝐼𝐷",
+    "metadata": {
+      "page": 8,
+      "section": "Overlap Compute and Communication",
+      "bbox": [
+        373.028,
+        683.87,
+        457.307,
+        687.887
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_91",
+    "type": "paragraph",
+    "content": "As existing quantization implementations are unable to capture the combination of data mapping and high throughput necessary to minimize kernel overhead, we implement and optimize custom CUDA kernels to implement these primitives. In particular, these kernels aim to (1) saturate device memory bandwidth and (2) minimize the total traffic via fusion.",
+    "metadata": {
+      "page": 8,
+      "section": "CUDA Kernels",
+      "bbox": [
+        317.641,
+        468.567,
+        559.72,
+        535.753
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_92",
+    "type": "paragraph",
+    "content": "Minimizing Total Traffic: Multiple techniques are used to reduce the total memory traffic for quantization kernels. First, the size of each quantization block is tuned so as to express sufficient parallelism to schedule across a GPU's streaming multiprocessors and cache values not quantized yet in the register file while calculating the quantization scale and offset for the block. Second, we fuse tensor reshaping and quantization into the same kernel to avoid redundantly loading data from global memory. For example, the tensor slice reordering (i.e., orange arrow-lines in Figure 9) is realized within a fused quantization and remapping kernel.This fused kernel achieves the same level of performance as a single quantization kernel working with contiguous data. Finally, we fuse sequential dequantization, reduction, and quantization operations into single kernel implementation, which reduces total memory traffic by 9x in 𝑞𝑔𝑍 .",
+    "metadata": {
+      "page": 8,
+      "section": "CUDA Kernels",
+      "bbox": [
+        317.623,
+        172.67700000000002,
+        559.714,
+        338.493
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_93",
+    "type": "paragraph",
+    "content": "Maximizing Bandwidth Utilization: A core quantization and dequantization library of composable operators was developed as the foundation for ZeRO++. The core primitives leverage efficient vectorized memory accesses at the maximum granularity a given GPU architecture supports. In order to satisfy the alignment requirements these instructions have, model state is partitioned such that quantization granularities will be 16B aligned. Additionally, we leverage instruction level parallelism to overlap multiple memory transactions with each other. In practice, the combination of vectorized accesses and instruction level parallelism enables the quantization library to achieve full GPU memory bandwidth utilization.",
+    "metadata": {
+      "page": 8,
+      "section": "CUDA Kernels",
+      "bbox": [
+        317.623,
+        337.061,
+        559.719,
+        470.0
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_94",
+    "type": "paragraph",
+    "content": "In this section, we perform three sets of evaluations for ZeRO++. First, we perform end-to-end evaluations showing : i) scalability evaluation on up to 384 GPUs , ii) speedup over state-of-the-art (SOTA) baseline across models ranging from 10-138B parameters, and iii) throughput comparisons for cluster setting with varied cross-node bandwidth. Second, we perform throughput analysis",
+    "metadata": {
+      "page": 8,
+      "section": "EVALUATION",
+      "bbox": [
+        317.686,
+        82.34900000000005,
+        559.585,
+        149.534
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_9",
+    "type": "figure",
+    "content": "Figure 11: Scalability on up to 384 GPUs of 18B model with different numbers of InfiniBand connections and tokens per GPU",
+    "metadata": {
+      "page": 9,
+      "section": "EVALUATION",
+      "bbox": [
+        58.38650131225586,
+        513.2855834960938,
+        291.7829895019531,
+        706.4191131591797
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_10.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_95",
+    "type": "paragraph",
+    "content": "and breakdown, evaluating the impact of different components of ZeRO++, as well as the impacts of our kernel optimizations on end-to-end throughput. Finally, we show convergence evaluation indicating that ZeRO++ doesn't harm model convergence and maintains similar model training accuracy.",
+    "metadata": {
+      "page": 9,
+      "section": "EVALUATION",
+      "bbox": [
+        53.798,
+        385.558,
+        295.557,
+        441.785
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_96",
+    "type": "paragraph",
+    "content": "Hardware: 24 NVIDIA DGX-2 nodes where each with 16 V100 SXM3 32 GB GPUs [11]. The nodes are connected by InfiniBand (IB) with NVIDIA SHARP support [16], achieving total inter-node bandwidth of over 800 Gbps. To evaluate ZeRO++ in clusters under different network environments, we show the performance of ZeRO++ running with different cross-node bandwidth by enabling from 1 to 8 IB connections (i.e., 100 Gbps to 800 Gbps).",
+    "metadata": {
+      "page": 9,
+      "section": "Methodology",
+      "bbox": [
+        53.529,
+        283.268,
+        295.556,
+        361.413
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_97",
+    "type": "paragraph",
+    "content": "Model Configurations: We use GPT-style transformer models for evaluation. Given Megatron-Turing-NLG [33] training 530B model on 2K GPUs using 2K tokens per GPU (i.e., micro batch size), we evaluate ZeRO++ with the same 2k tokens per GPU setting. We also evaluate on 1K tokens per GPU to test ZeRO++ with more extreme scale scenario. The number of layers and hidden sizes are adjusted to have models of different sizes. Please refer to the appendix and our open-sourced evaluation scripts for hyperparameters and other training details.",
+    "metadata": {
+      "page": 9,
+      "section": "Methodology",
+      "bbox": [
+        53.798,
+        129.84400000000005,
+        294.217,
+        229.90599999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_98",
+    "type": "paragraph",
+    "content": "Baseline: We use ZeRO-3 as the baseline given its ease-to-use for training giant models at large scale. To evaluate the performance of our optimized kernels, we also implemented ZeRO++ with PyTorch quantization[27] and non-fused kernels as baselines for our ablation study.",
+    "metadata": {
+      "page": 9,
+      "section": "Methodology",
+      "bbox": [
+        53.798,
+        228.47399999999993,
+        294.213,
+        284.701
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_99",
+    "type": "paragraph",
+    "content": "We evaluate ZeRO++ end-to-end performance here. One key metric we use here is the percentage of peak performance , which is shown",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        53.368,
+        82.34900000000005,
+        294.046,
+        105.69799999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_table_2",
+    "type": "table",
+    "content": "Table 2: End-to-end speedup of ZeRO++ on 384 GPUs with different model sizes",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.0826110839844,
+        582.4207153320312,
+        558.6547241210938,
+        675.3536682128906
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/table/table_3.png"
+    }
+  },
+  {
+    "id": "2306.10209_fig_10",
+    "type": "figure",
+    "content": "Figure 12: ZeRO++ achieving high bandwidth cluster performance with significantly lower bandwidth",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.37744140625,
+        475.76556396484375,
+        558.85791015625,
+        565.3819580078125
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_11.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_100",
+    "type": "paragraph",
+    "content": "as equation 3.",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.955,
+        412.129,
+        368.257,
+        424.52
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_equation_9",
+    "type": "equation",
+    "content": "𝑝𝑒𝑎𝑘 _ 𝑝𝑒𝑟 𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒 = 𝑎𝑐ℎ𝑖𝑒𝑣𝑒𝑑 _ 𝑇𝐹𝐿𝑂𝑃𝑠 / 𝑚𝑎𝑥 _ 𝑇𝐹𝐿𝑂𝑃𝑠 (3)",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        336.402,
+        395.919,
+        558.739,
+        408.31
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_101",
+    "type": "paragraph",
+    "content": "Given that we use V100 GPU, its 𝑚𝑎𝑥 _ 𝑇𝐹𝐿𝑂𝑃𝑠 is 120 TFLOPs [24] for mixed precision computation. Thus, our reported peak performance refers to the percentage number of 𝑎𝑐ℎ𝑖𝑒𝑣𝑒𝑑 _ 𝑇𝐹𝐿𝑂𝑃𝑠 / 120.",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.955,
+        357.792,
+        559.606,
+        392.1
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_102",
+    "type": "paragraph",
+    "content": "5.2.1 Scalability upto 384 GPUs. In Figure 11, we present ZeRO++ scalability evaluation from 64 to 384 GPUs with 18B model on both low (1 IB) and high (8 IB) bandwidth clusters. On low bandwidth cluster, ZeRO++ achieves 30% and 38.3% of peak performance (120 TFLOPs) even at 384 GPUs for 1K and 2K batch sizes, which is much higher compared to 12.5% and 21.6% as baseline peak performance. This presents up to 2.4x better throughput. On high bandwidth cluster, despite having significantly more bandwidth, ZeRO++ still enables up to 1.29x better throughput, and can achieve up 45% of sustained peak throughput at 384 GPUs. ZeRO++ significantly speed up large scale training for low bandwidth clusters while archiving decent speedup even on high bandwidth clusters.",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.686,
+        209.111,
+        559.582,
+        342.05
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_103",
+    "type": "paragraph",
+    "content": "5.2.2 Throughput for different model sizes. Table 2 compares training throughput for models of 18B-138B on 384 GPUs between ZeRO++ and baseline on both low and high bandwidth clusters. On low bandwidth cluster, ZeRO++ consistently achieves over 31.5% and 18.1% peak performance for 2K and 1K batch sizes on all models. Compared with the baseline peak performance of 16.6% and 9.3%, the speedup is up to 2.16x . On high bandwidth cluster, ZeRO++ peak performances are 44.7% and 31.5%, which is 1.3x over the baseline peak performance of 31.5% and 26.0%. ZeRO++ is robust and offers consistent speedup across different model and batch sizes as well as across clusters with different network bandwidths.",
+    "metadata": {
+      "page": 9,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        317.623,
+        82.34900000000005,
+        559.714,
+        204.32899999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_table_3",
+    "type": "table",
+    "content": "Table 3: End-to-end performance when using ZeRO++ w.\\wo. optimized kernels",
+    "metadata": {
+      "page": 10,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        76.89993286132812,
+        580.2909545898438,
+        270.703369140625,
+        675.3979263305664
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/table/table_4.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_104",
+    "type": "paragraph",
+    "content": "5.2.3 Democratization for large scale training. Figure 12 compares the throughput of ZeRO++ on a low cross-node bandwidth (200 Gbps as 2 IB) cluster with the baseline running on 800 Gbps highbandwidth (8 IB) cluster. For small model of 18B, ZeRO++ achieves a higher peak performance of 41.6% compared with baseline peak performance of 39.1% despite running with 4x lower cross-node bandwidth. For large model of 138B, ZeRO++ and baseline achieve the same peak performance of 40%, but baseline runs at 4x higher cross-node bandwidth. This evaluation shows that ZeRO++ makes large scale training more accessible by significantly decreasing the minimum cross-node bandwidth requirement for efficient training. Furthermore, it demonstrates that optimized ZeRO++ implementation effectively translates the 4x communication reduction of ZeRO++ into real end-to-end system throughput gain.",
+    "metadata": {
+      "page": 10,
+      "section": "E2E System Evaluations",
+      "bbox": [
+        53.798,
+        394.218,
+        295.557,
+        549.074
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_105",
+    "type": "paragraph",
+    "content": "5.3.1 Impact of Individual Techniques. In Figure 13, we show the individual and combined impact of qwZ, hpZ, and qgZ, on the throughput of 18B model on 128 GPUs. On low bandwidth clusters, each of these techniques enables a speedup ranging from 1.3-1.4x compared with baseline, while achieving an aggregated speedup of up to 2.26x. Note that our TFLOPs throughput is calculated from wall-clock time measurement, ZeRO++ aggregated throughput gain is not equivalent to sum of qgZ, qwZ, hpZ gain. We can validate the theoretical speedup with composition of our techniques by accumulating the speedup multiplicatively: 1 . 4 ∗ 1 . 26 ∗ 1 . 3 = 2 . 29, which is very near to what we achieved as 2.26x.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        53.467,
+        245.50599999999997,
+        295.031,
+        367.486
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_106",
+    "type": "paragraph",
+    "content": "For high bandwidth clusters, the individual speedup ranges between 1.13-1.16x, for a combined speedup of up to 1.3x. The figure demonstrates that each of these techniques has a similar impact towards throughput improvement and they compose effectively to produce a much larger aggregated speedup.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        53.798,
+        190.712,
+        295.557,
+        246.938
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_107",
+    "type": "paragraph",
+    "content": "5.3.2 Impact of Kernel Optimizations. Here, we evaluate the impact of our optimized kernels on ZeRO++ throughput using a 18B model running on 64 GPUs.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        53.798,
+        148.10199999999998,
+        294.045,
+        182.41100000000006
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_108",
+    "type": "paragraph",
+    "content": "Quantization Kernel: As shown in Table 3, compared with the baseline that uses PyTorch quantization [27], our optimize quantization kernels can achieve up to 1.67x speedup in terms of end-to-end throughput. Also, the baseline implementation suffers performance degradation as group number increases which means the throughput gap will be larger when used with larger models.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        53.798,
+        82.34900000000005,
+        295.561,
+        149.534
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_11",
+    "type": "figure",
+    "content": "Figure 13: Throughput of 18B models on128 GPUs with ZeRO++, qwZ, qgZ, hpZ, and baseline on different numbers of InfiniBand connections",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        323.7803039550781,
+        594.5635986328125,
+        552.1397094726562,
+        705.3805618286133
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_12.png"
+    }
+  },
+  {
+    "id": "2306.10209_table_4",
+    "type": "table",
+    "content": "Table 4: hpZ vs MiCS evaluation on a 4 node cluster (16 V100 GPUs per node)",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        328.9796447753906,
+        420.26947021484375,
+        546.6055908203125,
+        489.36566162109375
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/table/table_5.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_109",
+    "type": "paragraph",
+    "content": "Kernel Fusion: As described in Section 4.2, kernel fusion is one of our key optimizations to improve memory throughput when executing sequences of CUDA kernels. Our fusion includes 1) tensorreorder and quantization fusion 2) intra-node dequant, intra-node reduction and inter-node quant fusion. As shown in Table 3, we achieve up to 1.15x speedup on the end-to-end throughput.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        317.955,
+        326.106,
+        559.72,
+        393.291
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_110",
+    "type": "paragraph",
+    "content": "5.3.3 Comparing hpZ with MICS. As previously discussed in Section 2, closely related to hierarchical weight partition for ZeRO ( ℎ𝑝𝑍 ) is 𝑀𝑖𝐶𝑆 [40]. Key difference of the two methods is what data are replicated in secondary group; model weights are replicated in ℎ𝑝𝑍 , entire model states are replicated in 𝑀𝑖𝐶𝑆 . Table 4 shows per-GPU throughput of both methods for different model and token size configurations. The table also shows that given a secondary partition size of a single node (16 V100 GPUs), ℎ𝑝𝑍 can support 18 billion parameter model where as 𝑀𝑖𝐶𝑆 reports out-of-memory (OOM) at this scale.",
+    "metadata": {
+      "page": 10,
+      "section": "Throughput Breakdown and Analysis",
+      "bbox": [
+        317.686,
+        207.96299999999997,
+        559.718,
+        318.984
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_111",
+    "type": "paragraph",
+    "content": "Next we evaluate ZeRO++'s impact on model convergence by training GPT-350M model with 30B tokens on the pile dataset [3] using ZeRO++, ZeRO++ with basic (non-blocked) quantization, and ZeRO-3 as baseline. All hyperparameters are kept the same between baseline training and ZeRO++ trainings to ensure fair comparison. The convergence is measured by the validation LM loss.",
+    "metadata": {
+      "page": 10,
+      "section": "Model convergence analysis",
+      "bbox": [
+        317.686,
+        115.22500000000002,
+        559.718,
+        182.41100000000006
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_112",
+    "type": "paragraph",
+    "content": "As shown in Figure 14, we present end-to-end training trace. The training with basic (non-blocked) quantization diverged at the beginning so there is no visible data, on the contrary, ZeRO++",
+    "metadata": {
+      "page": 10,
+      "section": "Model convergence analysis",
+      "bbox": [
+        317.686,
+        82.34900000000005,
+        559.579,
+        116.65700000000004
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_fig_12",
+    "type": "figure",
+    "content": "Figure 14: Training convergence for GPT-350M on 30B tokens",
+    "metadata": {
+      "page": 11,
+      "section": "Model convergence analysis",
+      "bbox": [
+        101.8899154663086,
+        581.2677917480469,
+        245.39114379882812,
+        702.7668991088867
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/figure/figure_13.png"
+    }
+  },
+  {
+    "id": "2306.10209_table_5",
+    "type": "table",
+    "content": "Table 5: Validation loss at the end of training (GPT 350M / 30B tokens)",
+    "metadata": {
+      "page": 11,
+      "section": "Model convergence analysis",
+      "bbox": [
+        77.21330261230469,
+        391.29541015625,
+        270.75311279296875,
+        502.5682678222656
+      ],
+      "image_path": "data/rag_assets/images/2306.10209/table/table_6.png"
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_113",
+    "type": "paragraph",
+    "content": "is closely aligned with the baseline, and also confirms our previous analysis of better quantization accuracy by using block based quantization.",
+    "metadata": {
+      "page": 11,
+      "section": "Model convergence analysis",
+      "bbox": [
+        53.798,
+        337.568,
+        295.556,
+        371.877
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_114",
+    "type": "paragraph",
+    "content": "We further extended the convergence evaluation by comparing the final evaluation loss at the end of training. As shown in Table 5, even with all three optimizations on, the final evaluation loss is only off by 1%. We further merged this convergence gap by using a straightforward interleaving schedule where the hierarchical partitioning and quantized weights are turned on throughout the training and the quantized gradient is only turned on for the first 50% of training. For a more extended case, we also evaluate hierarchical partitioning and quantized weights alone. The results suggest our convergence is identical to the baseline in this case.",
+    "metadata": {
+      "page": 11,
+      "section": "Model convergence analysis",
+      "bbox": [
+        53.798,
+        227.97900000000004,
+        295.556,
+        339.0
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_115",
+    "type": "paragraph",
+    "content": "This paper present ZeRO++, an efficient collective communication solution for giant model training using ZeRO stage-3. We optimize both model weights and gradients communication in forward and backward pass of each training iteration. To reduce communication volume of model weights in forward propagation, we adopt block-based quantization and data pre-fetching. To remove crossnode communication of weights during backward pass, we hold secondary model partition on each node to trade memory for communication. To minimize gradient communication during backward propagation, we design and implement a novel all-to-all based gradient quantization and reduction scheme. By incorporating all the three optimizations above, we improve system throughput up to 2.16x in large scale model training using 384 V100 GPUs. We envision ZeRO++ as the next generation of easy-to-use framework for training giant models at trillion-level model scale.",
+    "metadata": {
+      "page": 11,
+      "section": "CONCLUSION",
+      "bbox": [
+        53.529,
+        82.34900000000005,
+        295.562,
+        204.32899999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_116",
+    "type": "paragraph",
+    "content": "Guanhua Wang: design and implementation of qgZ, code integration, high performance quantization kernels design and implementation, solving all CUDA kernel conflicts in code merging, majority of paper writing.",
+    "metadata": {
+      "page": 11,
+      "section": "AUTHORSHIP AND MAJOR CREDIT ATTRIBUTION",
+      "bbox": [
+        333.922,
+        582.473,
+        558.204,
+        627.741
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_117",
+    "type": "paragraph",
+    "content": "Sam Ade Jacobs: design and implementation of hpZ, code integration/resolve conflicts in code merging.",
+    "metadata": {
+      "page": 11,
+      "section": "AUTHORSHIP AND MAJOR CREDIT ATTRIBUTION",
+      "bbox": [
+        333.922,
+        527.679,
+        558.198,
+        551.028
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_118",
+    "type": "paragraph",
+    "content": "Heyang Qin: design and implementation of qwZ, code integration/resolve conflicts in code merging, experimental design and evaluation, in depth convergence study.",
+    "metadata": {
+      "page": 11,
+      "section": "AUTHORSHIP AND MAJOR CREDIT ATTRIBUTION",
+      "bbox": [
+        333.922,
+        549.596,
+        559.719,
+        583.905
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_119",
+    "type": "paragraph",
+    "content": "Connor Holmes: design and implementation of high performance quantization kernels.",
+    "metadata": {
+      "page": 11,
+      "section": "AUTHORSHIP AND MAJOR CREDIT ATTRIBUTION",
+      "bbox": [
+        333.922,
+        505.761,
+        559.718,
+        529.111
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_120",
+    "type": "paragraph",
+    "content": "Samyam Rajbhandari: chief architect Olatunji Ruwase: technical support Yuxiong He: team lead",
+    "metadata": {
+      "page": 11,
+      "section": "AUTHORSHIP AND MAJOR CREDIT ATTRIBUTION",
+      "bbox": [
+        333.922,
+        494.802,
+        486.633,
+        507.193
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_123",
+    "type": "paragraph",
+    "content": "Dan Alistarh, Demjan Grubic, Jerry Li, Ryota Tomioka, and Milan Vojnovic. 2017. QSGD: Communication-efficient SGD via gradient quantization and encoding. Advances in neural information processing systems 30 (2017).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        669.909,
+        295.118,
+        695.487
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_124",
+    "type": "paragraph",
+    "content": "Stella Biderman, Kieran Bicheno, and Leo Gao. 2022. Datasheet for the Pile. arXiv:2201.07311 [cs.CL]",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        630.059,
+        295.116,
+        647.667
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_125",
+    "type": "paragraph",
+    "content": "Tal Ben-Nun and Torsten Hoefler. 2019. Demystifying parallel and distributed deep learning: An in-depth concurrency analysis. ACM Computing Surveys (CSUR) 52, 4 (2019), 1-43.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        645.999,
+        294.046,
+        671.577
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_126",
+    "type": "paragraph",
+    "content": "Sid Black, Stella Biderman, Eric Hallahan, Quentin Anthony, Leo Gao, Laurence Golding, Horace He, Connor Leahy, Kyle McDonell, Jason Phang, Michael Pieler, USVSN Sai Prashanth, Shivanshu Purohit, Laria Reynolds, Jonathan Tow, Ben Wang, and Samuel Weinbach. 2022. GPT-NeoX-20B: An Open-Source Autoregressive Language Model. (2022).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        590.208,
+        295.223,
+        631.726
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_127",
+    "type": "paragraph",
+    "content": "Jeffrey Dean, Greg Corrado, Rajat Monga, Kai Chen, Matthieu Devin, Mark Mao, Marc'aurelio Ranzato, Andrew Senior, Paul Tucker, Ke Yang, et al. 2012. Large scale distributed deep networks. Advances in neural information processing systems 25 (2012).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        534.417,
+        295.119,
+        567.966
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_128",
+    "type": "paragraph",
+    "content": "Ernie Chan, Marcel Heimlich, Avi Purkayastha, and Robert Van De Geijn. 2007. Collective communication: theory, practice, and experience. Concurrency and Computation: Practice and Experience 19, 13 (2007), 1749-1783.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        566.298,
+        295.122,
+        591.876
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_129",
+    "type": "paragraph",
+    "content": "Tim Dettmers. 2015. 8-bit approximations for parallelism in deep learning. arXiv preprint arXiv:1511.04561 (2015).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        518.477,
+        294.044,
+        536.085
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_130",
+    "type": "paragraph",
+    "content": "Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805 (2018).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        462.686,
+        294.866,
+        488.264
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_131",
+    "type": "paragraph",
+    "content": "Tim Dettmers, Mike Lewis, Sam Shleifer, and Luke Zettlemoyer. 2022. 8-bit Optimizers via Block-wise Quantization. In The Tenth International Conference on Learning Representations, ICLR 2022, Virtual Event, April 25-29, 2022 . OpenReview.net. https://openreview.net/forum?id=shpkpVXzo3h",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        57.041,
+        486.597,
+        295.222,
+        520.145
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_132",
+    "type": "paragraph",
+    "content": "dgx1 2017. NVIDIA DGX-1. https://www.nvidia.com/en-us/data-center/dgx-1/.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        454.716,
+        292.208,
+        464.354
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_133",
+    "type": "paragraph",
+    "content": "Nikoli Dryden, Tim Moon, Sam Ade Jacobs, and Brian Van Essen. 2016. Communication Quantization for Data-Parallel Training of Deep Neural Networks. In Proceedings of the Workshop on Machine Learning in High Performance Computing Environments (Salt Lake City, Utah) (MLHPC '16) . IEEE Press, 1-8.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        414.866,
+        295.22,
+        448.414
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_134",
+    "type": "paragraph",
+    "content": "dgx2 2018. NVIDIA DGX-2. https://www.nvidia.com/en-us/data-center/dgx-2/.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        446.746,
+        292.208,
+        456.384
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_135",
+    "type": "paragraph",
+    "content": "Aaron Harlap, Deepak Narayanan, Amar Phanishayee, Vivek Seshadri, Nikhil Devanur, Greg Ganger, and Phil Gibbons. 2018. Pipedream: Fast and efficient pipeline parallel dnn training. arXiv preprint arXiv:1806.03377 (2018).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        390.955,
+        294.042,
+        416.533
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_136",
+    "type": "paragraph",
+    "content": "Yanping Huang, Yonglong Cheng, Dehao Chen, HyoukJoong Lee, Jiquan Ngiam, Quoc V. Le, and Zhifeng Chen. 2018. GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism. ArXiv abs/1811.06965 (2018).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        335.164,
+        294.815,
+        360.743
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_137",
+    "type": "paragraph",
+    "content": "Yanping Huang, Youlong Cheng, Ankur Bapna, Orhan Firat, Dehao Chen, Mia Chen, HyoukJoong Lee, Jiquan Ngiam, Quoc V Le, Yonghui Wu, et al. 2019. Gpipe: Efficient training of giant neural networks using pipeline parallelism. Advances in neural information processing systems 32 (2019).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        359.075,
+        294.869,
+        392.623
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_138",
+    "type": "paragraph",
+    "content": "Infiniband Sharp white paper 2021. NVIDIA InfiniBand Adaptive Routing Technology. https://nvdam.widen.net/s/whmszwfrbt/infiniband-white-paperadaptive-routing-1846350.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        311.254,
+        294.728,
+        336.832
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_139",
+    "type": "paragraph",
+    "content": "Conglong Li, Ammar Ahmad Awan, Hanlin Tang, Samyam Rajbhandari, and Yuxiong He. 2021. 1-bit LAMB: Communication Efficient Large-Scale LargeBatch Training with LAMB's Convergence Speed. CoRR abs/2104.06069 (2021). arXiv:2104.06069 https://arxiv.org/abs/2104.06069",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        255.46299999999997,
+        295.22,
+        289.012
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_140",
+    "type": "paragraph",
+    "content": "Nitish Shirish Keskar, Dheevatsa Mudigere, Jorge Nocedal, Mikhail Smelyanskiy, and Ping Tak Peter Tang. 2016. On large-batch training for deep learning: Generalization gap and sharp minima. arXiv preprint arXiv:1609.04836 (2016).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        287.344,
+        295.223,
+        312.922
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_141",
+    "type": "paragraph",
+    "content": "Microsoft. 2020. Turing-NLG: A 17-billion-parameter language model by Microsoft. https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17billion-parameter-language-model-by-microsoft/.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        231.553,
+        294.725,
+        257.131
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_142",
+    "type": "paragraph",
+    "content": "Deepak Narayanan, Amar Phanishayee, Kaiyu Shi, Xie Chen, and Matei Zaharia. 2021. Memory-efficient pipeline-parallel dnn training. In International Conference on Machine Learning . PMLR, 7937-7947.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        175.76199999999994,
+        295.118,
+        201.34000000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_143",
+    "type": "paragraph",
+    "content": "Deepak Narayanan, Aaron Harlap, Amar Phanishayee, Vivek Seshadri, Nikhil Devanur, Greg Granger, Phil Gibbons, and Matei Zaharia. 2019. PipeDream: Generalized Pipeline Parallelism for DNN Training. In ACM Symposium on Operating Systems Principles (SOSP 2019) .",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        199.67200000000003,
+        295.225,
+        233.221
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_144",
+    "type": "paragraph",
+    "content": "Deepak Narayanan, Mohammad Shoeybi, Jared Casper, Patrick LeGresley, Mostofa Patwary, Vijay Korthikanti, Dmitri Vainbrand, Prethvi Kashinkunti, Julie Bernauer, Bryan Catanzaro, Amar Phanishayee, and Matei Zaharia. 2021. Efficient Large-Scale Language Model Training on GPU Clusters Using MegatronLM. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (St. Louis, Missouri) (SC '21) . Association for Computing Machinery, New York, NY, USA, Article 58, 15 pages. https://doi.org/10.1145/3458817.3476209",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        112.00099999999998,
+        295.225,
+        177.43000000000006
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_145",
+    "type": "paragraph",
+    "content": "Nvidia V100 datasheet 2017. NVIDIA TESLA V100 GPU ACCELERATOR. https://www.penguinsolutions.com/computing/wp-content/uploads/2019/",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        88.09100000000001,
+        295.223,
+        105.69899999999996
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_146",
+    "type": "paragraph",
+    "content": "N NVIDIA. 2017. NVIDIA Collective Communications Library (NCCL).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        53.798,
+        104.03099999999995,
+        271.562,
+        113.66899999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_147",
+    "type": "paragraph",
+    "content": "03/penguin-computing-tesla-v100-ds.pdf.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        333.391,
+        696.559,
+        453.201,
+        706.197
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_148",
+    "type": "paragraph",
+    "content": "NVSwitch 2018. NVIDIA NVSWITCH. http://images.nvidia.com/content/pdf/ nvswitch-technical-overview.pdf.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        672.649,
+        558.654,
+        690.257
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_149",
+    "type": "paragraph",
+    "content": "NVLink 2017. NVIDIA NVLINK. http://www.nvidia.com/object/nvlink.html.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        688.589,
+        551.166,
+        698.227
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_150",
+    "type": "paragraph",
+    "content": "Quantization - PyTorch documentation 2023. Quantization - PyTorch documentation. https://pytorch.org/docs/stable/quantization.html.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        656.709,
+        559.378,
+        674.317
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_151",
+    "type": "paragraph",
+    "content": "Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and Yuxiong He. 2020. Zero: Memory optimizations toward training trillion parameter models. In SC20: International Conference for High Performance Computing, Networking, Storage and Analysis . IEEE, 1-16.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        608.888,
+        559.023,
+        642.436
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_152",
+    "type": "paragraph",
+    "content": "Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. Language Models are Unsupervised Multitask Learners. (2019).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        640.768,
+        558.199,
+        658.377
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_153",
+    "type": "paragraph",
+    "content": "Samyam Rajbhandari, Olatunji Ruwase, Jeff Rasley, Shaden Smith, and Yuxiong He. 2021. ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC '21) .",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        577.007,
+        558.204,
+        610.556
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_154",
+    "type": "paragraph",
+    "content": "MohammadShoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. 2019. Megatron-lm: Training multi-billion parameter language models using model parallelism. arXiv preprint arXiv:1909.08053 (2019).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        521.217,
+        558.972,
+        546.795
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_155",
+    "type": "paragraph",
+    "content": "Frank Seide, Hao Fu, Jasha Droppo, Gang Li, and Dong Yu. 2014. 1-bit stochastic gradient descent and its application to data-parallel distributed training of speech dnns. In Fifteenth annual conference of the international speech communication association .",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        545.127,
+        558.2,
+        578.675
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_156",
+    "type": "paragraph",
+    "content": "Shaden Smith, Mostofa Patwary, Brandon Norick, Patrick LeGresley, Samyam Rajbhandari, Jared Casper, Zhun Liu, Shrimai Prabhumoye, George Zerveas, Vijay Korthikanti, et al. 2022. Using DeepSpeed and Megatron to Train MegatronTuring NLG 530B, A Large-Scale Generative Language Model. arXiv preprint arXiv:2201.11990 (2022).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        481.366,
+        559.38,
+        522.885
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_157",
+    "type": "paragraph",
+    "content": "Hanlin Tang, Shaoduo Gan, Ammar Ahmad Awan, Samyam Rajbhandari, Conglong Li, Xiangru Lian, Ji Liu, Ce Zhang, and Yuxiong He. 2021. 1-bit Adam: Communication Efficient Large-Scale Training with Adam's Convergence Speed. CoRR abs/2102.02888 (2021). arXiv:2102.02888 https://arxiv.org/abs/2102.02888",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        433.545,
+        559.377,
+        467.094
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_158",
+    "type": "paragraph",
+    "content": "Nikko Ström. 2015. Scalable distributed DNN training using commodity GPU cloud computing. (2015).",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        465.426,
+        558.199,
+        483.034
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_159",
+    "type": "paragraph",
+    "content": "DeepSpeed Team and Rangan Majumder. 2020. DeepSpeed: Extreme-scale model training for everyone. https://www.microsoft.com/en-us/research/blog/ deepspeed-extreme-scale-model-training-for-everyone/.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        409.635,
+        558.655,
+        435.213
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_160",
+    "type": "paragraph",
+    "content": "Guanhua Wang, Shivaram Venkataraman, Amar Phanishayee, Jorgen Thelin, Nikhil R. Devanur, and Ion Stoica. 2020. Blink: Fast and Generic Collectives for Distributed ML. In Proceedings of Machine Learning and Systems 2020, MLSys 2020, Austin, TX, USA, March 2-4, 2020 , Inderjit S. Dhillon, Dimitris S. Papailiopoulos, and Vivienne Sze (Eds.). mlsys.org. https://proceedings.mlsys.org/book/299.pdf",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        345.874,
+        558.967,
+        387.393
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_161",
+    "type": "paragraph",
+    "content": "Rajeev Thakur, Rolf Rabenseifner, and William Gropp. 2005. Optimization of collective communication operations in MPICH. The International Journal of High Performance Computing Applications 19, 1 (2005), 49-66.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        385.725,
+        558.203,
+        411.303
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_162",
+    "type": "paragraph",
+    "content": "Yang You, Jing Li, Jonathan Hseu, Xiaodan Song, James Demmel, and Cho-Jui Hsieh. 2019. Reducing BERT Pre-Training Time from 3 Days to 76 Minutes. CoRR abs/1904.00962 (2019). arXiv:1904.00962 http://arxiv.org/abs/1904.00962",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        321.964,
+        558.202,
+        347.542
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_163",
+    "type": "paragraph",
+    "content": "Ritchie Zhao, Yuwei Hu, Jordan Dotzel, Christopher De Sa, and Zhiru Zhang. 2019. Improving Neural Network Quantization without Retraining using Outlier Channel Splitting. In Proceedings of the 36th International Conference on Machine Learning, ICML 2019, 9-15 June 2019, Long Beach, California, USA (Proceedings of Machine Learning Research, Vol. 97) , Kamalika Chaudhuri and Ruslan Salakhutdinov (Eds.). PMLR, 7543-7552. http://proceedings.mlr.press/v97/zhao19c.html",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        250.23299999999995,
+        559.379,
+        299.721
+      ]
+    }
+  },
+  {
+    "id": "2306.10209_paragraph_164",
+    "type": "paragraph",
+    "content": "Zhen Zhang, Shuai Zheng, Yida Wang, Justin Chiu, George Karypis, Trishul Chilimbi, Mu Li, and Xin Jin. 2022. MiCS: Near-linear Scaling for Training Gigantic Model on Public Cloud. arXiv:2205.00119 [cs.DC]",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        317.955,
+        298.054,
+        558.199,
+        323.632
+      ]
+    }
+  }
+]
