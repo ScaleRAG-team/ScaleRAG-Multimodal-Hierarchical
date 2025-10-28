@@ -1,0 +1,2661 @@
+[
+  {
+    "id": "2306.00978_paragraph_1",
+    "type": "paragraph",
+    "content": "Large language models (LLMs) have transformed numerous AI applications. On-device LLM is becoming increasingly important: running LLMs locally on edge devices can reduce the cloud computing cost and protect users' privacy. However, the astronomical model size and the limited hardware resource pose significant deployment challenges. We propose Activation-aware Weight Quantization (AWQ), a hardware-friendly approach for LLM low-bit weight-only quantization. AWQ finds that not all weights in an LLM are equally important. Protecting only 1% salient weights can greatly reduce quantization error. To identify salient weight channels, we should refer to the activation distribution, not weights. To avoid the hardware-inefficient mix-precision quantization, we mathematically derive that scaling up the salient channels can reduce the quantization error. AWQ employs an equivalent transformation to scale the salient weight channels to protect them. The scale is determined by collecting the activation statistics offline. AWQ does not rely on any backpropagation or reconstruction, so it generalizes to different domains and modalities without overfitting the calibration set. AWQ outperforms existing work on various language modeling and domain-specific benchmarks (coding and math). Thanks to better generalization, it achieves excellent quantization performance for instruction-tuned LMs and, for the first time, multi-modal LMs. Alongside AWQ, we implement TinyChat, an efficient and flexible inference framework tailored for 4-bit on-device LLM/VLMs. With kernel fusion and platform-aware weight packing, TinyChat offers more than 3 × speedup over the Huggingface FP16 implementation on both desktop and mobile GPUs. It also democratizes the deployment of the 70B Llama-2 model on mobile GPUs.",
+    "metadata": {
+      "page": 1,
+      "section": "ABSTRACT",
+      "bbox": [
+        75.007,
+        361.025,
+        523.165,
+        561.039
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_2",
+    "type": "paragraph",
+    "content": "Deploying large language models (LLMs) directly on edge devices is crucial. On-device usage eliminates delays caused by sending data to a cloud server and enables LLMs to operate offline, which is beneficial for real-time applications like virtual assistants, chatbots, and autonomous vehicles. The operational costs associated with maintaining and scaling centralized cloud infrastructure can also be reduced. On-device LLM also enhances data security by keeping sensitive information local, reducing the chance of data breaches. LLMs, grounded in transformer-based architectures (Vaswani et al., 2017), have gathered significant attention for their impressive performance across diverse benchmarks (Brown et al., 2020; Zhang et al., 2022; Touvron",
+    "metadata": {
+      "page": 1,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.131,
+        153.65800000000002,
+        291.185,
+        305.672
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_3",
+    "type": "paragraph",
+    "content": "* : Algorithm co-lead, † : system co-lead. 1 MIT 2 Shanghai Jiao Tong University 3 NVIDIA 4 Tsinghua University 5 MIT-IBM Watson AI Lab 6 UMass Amherst. Correspondence to: Song Han < songhan@mit.edu > .",
+    "metadata": {
+      "page": 1,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.162,
+        104.96699999999998,
+        290.927,
+        144.41499999999996
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_4",
+    "type": "paragraph",
+    "content": "Proceedings of the 7 th MLSys Conference , Santa Clara, CA, USA, 2024. Best Paper Award. Copyright 2024 by the author(s).",
+    "metadata": {
+      "page": 1,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.162,
+        75.06500000000005,
+        290.557,
+        94.79399999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_1",
+    "type": "figure",
+    "content": "Figure 1. We introduce AWQ , a versatile weight quantization method for LLM. To implement AWQ, we developed TinyChat to deploy 4-bit quantized LLMs into various edge platforms, achieving a 3-4 × performance boost compared to FP16. Notably, we've also manufactured a TinyChat computer , powered by TinyChat, which contains an NVIDIA Jetson Orin Nano with only 8GB of memory and 15W power consumption. Demo: https://youtu.be/z91a8DrfgEw .",
+    "metadata": {
+      "page": 1,
+      "section": "INTRODUCTION",
+      "bbox": [
+        308.1915283203125,
+        261.25347900390625,
+        541.1087036132812,
+        343.11907958984375
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_5",
+    "type": "paragraph",
+    "content": "et al., 2023a; Scao et al., 2022). However, the large model size leads to the high serving costs. For example, GPT-3 has 175B parameters, which is 350GB in FP16, while the latest B200 GPU only has 192GB memory, let alone edge devices.",
+    "metadata": {
+      "page": 1,
+      "section": "INTRODUCTION",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.441,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_6",
+    "type": "paragraph",
+    "content": "Low-bit weight quantization for LLMs can significantly reduce the memory footprint of on-device LLM inference but is hard. Quantization-aware training (QAT) is not efficient due to the high training cost, while post-training quantization (PTQ) suffers from large accuracy degradation under a low-bit setting. The closest work is GPTQ (Frantar et al., 2022), which uses second-order information to perform error compensation. However, it may overfit the calibration set during reconstruction, distorting the learned features on out-of-distribution domains (Figure 8), which is problematic since LLMs are generalist models.",
+    "metadata": {
+      "page": 2,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.44,
+        593.359,
+        291.096,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_7",
+    "type": "paragraph",
+    "content": "In this paper, we propose Activation-aware Weight Quantization (AWQ), a hardware-friendly low-bit weight-only quantization method for LLMs. Our method is based on the observation that weights are not equally important for LLMs' performance. There is a small fraction (0.1%-1%) of salient weights; skipping the quantization of these salient weights will significantly reduce the quantization loss (Table 1). To find the salient weight channels, the insight is that we should refer to the activation distribution instead of the weight distribution, despite we are doing weightonly quantization: weight channels corresponding to larger activation magnitudes are more salient since they process more important features. To avoid the hardware-inefficient mixed-precision implementation, we analyze the error from weight quantization and derive that scaling up the salient channels can reduce their relative quantization error (Equation 2). Following the intuition, we designed a per-channel scaling method to automatically search for the optimal scaling that minimizes the quantization error under full-weight quantization. AWQ does not rely on any backpropagation or reconstruction, so it can well preserve LLMs' generalization ability on various domains and modalities without overfitting to the calibration set.",
+    "metadata": {
+      "page": 2,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.082,
+        312.413,
+        291.097,
+        583.978
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_8",
+    "type": "paragraph",
+    "content": "To implement AWQ, we designed TinyChat, an efficient inference framework to convert theoretical memory savings from 4-bit LLM to measured speedup. Our framework significantly speeds up linear layers through on-the-fly dequantization. We also take advantage of efficient 4-bit weight packing and kernel fusion to minimize the inference overhead ( e.g ., intermediate DRAM access and kernel launch overhead), such that we can better realize the speed up from quantizing the weights to 4-bit, despite the computer is byte-aligned.",
+    "metadata": {
+      "page": 2,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.131,
+        186.88300000000004,
+        291.098,
+        303.032
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_9",
+    "type": "paragraph",
+    "content": "Experiments show that AWQ outperforms existing work on various tasks for different model families ( e.g ., LLaMA (Touvron et al., 2023a), OPT (Zhang et al., 2022)) and model sizes. Thanks to better generalization, it also achieves good quantization performance for instructiontuned LMs ( e.g ., Vicuna) and, for the first time, multi-modal LMs (OpenFlamingo (Awadalla et al., 2023)). TinyChat further translates the ∼ 4 × lower memory footprint to mea- sured speedup. On desktop, laptop and mobile GPUs, we consistently observe a 3.2-3.3 × average speedup compared to the FP16 implementation by Huggingface across a diverse spectrum of LLMs. Furthermore, it facilitates effortless deployment of the Llama-2-70B model on a single NVIDIA Jetson Orin with 64GB of memory. It also democratizes 13 billion parameter LLM at an interactive pace of 30 tokens/second on a laptop RTX 4070 GPU with only 8GB of memory. AWQ has been widely adopted by industry and open-source community: HuggingFace Transformers, NVIDIA TensorRT-LLM, Microsfot DirectML, Google Vertex AI, Intel Neural Compressor, Amazon Sagemaker, AMD, FastChat, vLLM, LMDeploy, and enables Falcon180B deployable on a single H200 GPU.",
+    "metadata": {
+      "page": 2,
+      "section": "INTRODUCTION",
+      "bbox": [
+        55.44,
+        85.26400000000001,
+        291.094,
+        177.50199999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_10",
+    "type": "paragraph",
+    "content": "Model quantization methods. Quantization reduces the bit-precision of deep learning models (Han et al., 2016; Jacob et al., 2018; Nagel et al., 2019; Wang et al., 2019; Nagel et al., 2020; Lin et al., 2020), which helps to reduce the model size and accelerate inference. Quantization techniques generally fall into two categories: quantization-aware training (QAT, which relies on backpropagation to update the quantized weights) (Bengio et al., 2013; Gholami et al., 2021; Nagel et al., 2021; Choi et al., 2018) and post-training quantization (Jacob et al., 2018; Nagel et al., 2019; 2020) (PTQ, usually training-free). The QAT methods cannot easily scale up to large models like LLMs. Therefore, people usually use PTQ methods to quantize LLMs.",
+    "metadata": {
+      "page": 2,
+      "section": "RELATED WORK",
+      "bbox": [
+        307.112,
+        372.493,
+        543.095,
+        524.895
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_11",
+    "type": "paragraph",
+    "content": "Quantization of LLMs. People study two settings for LLM quantization: (1) W8A8 quantization, where both activation and weights are quantized to INT8 (Dettmers et al., 2022; Xiao et al., 2022; Yao et al., 2022; Wei et al., 2022a; 2023); (2) Low-bit weight-only quantization ( e.g ., W4A16), where only weights are quantized into low-bit integers (Frantar et al., 2022; Dettmers & Zettlemoyer, 2022; Sheng et al., 2023; Park et al., 2022). We focus on the second setting in this work since it not only reduces the hardware barrier (requiring a smaller memory size) but also speeds up the token generation (remedies memory-bound workload). Apart from the vanilla round-to-nearest baseline (RTN), GPTQ (Frantar et al., 2022) is the closest to our work. However, the reconstruction process of GPTQ leads to an over-fitting issue to the calibration set and may not preserve the generalist abilities of LLMs for other modalities and domains. It also requires a reordering trick to work for some models ( e.g ., LLaMA-7B (Touvron et al., 2023a) and OPT66B (Zhang et al., 2022)). Apart from quantiztion methods designed for general-purporse hardware, SpAtten (Wang et al., 2020) designs a progressive approach to gradually increase the number of bits used in softmax calculation.",
+    "metadata": {
+      "page": 2,
+      "section": "RELATED WORK",
+      "bbox": [
+        306.972,
+        104.13099999999997,
+        543.18,
+        364.13
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_12",
+    "type": "paragraph",
+    "content": "System support for low-bit quantized LLMs. Low-bit quantized LLMs have been a popular setting to reduce in-",
+    "metadata": {
+      "page": 2,
+      "section": "RELATED WORK",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.093,
+        95.76800000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_2",
+    "type": "figure",
+    "content": "Figure 2. We observe that we can find 1% of the salient weights in LLMs based on the activation distribution (middle). Keeping the salient weights in FP16 can significantly improve the quantized performance (PPL from 43.2 (left) to 13.0 (middle)), but the mixed-precision format is not hardware-efficient. We follow the activation-awareness principle and propose AWQ (right). AWQ performs per-channel scaling to protect the salient weights and reduce quantization error. We measure the perplexity of OPT-6.7B under INT3-g128 quantization.",
+    "metadata": {
+      "page": 3,
+      "section": "RELATED WORK",
+      "bbox": [
+        55.70419692993164,
+        616.4799499511719,
+        542.2744140625,
+        723.6585693359375
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_2.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_13",
+    "type": "paragraph",
+    "content": "ference costs. There are some system supports to achieve a practical speed-up. GPTQ (Frantar et al., 2022) provides INT3 kernels for OPT models and GPTQ-for-LLaMA extends kernel support for INT4 reordered quantization with the help of Triton (Tillet et al., 2019). FlexGen (Sheng et al., 2023), llama.cpp * and exllama † perform group-wise INT4 quantization to reduce I/O costs and offloading. FasterTransformer implements FP16 × INT4 GEMM for weightonly per-tensor quantization but does not support group quantization. LUT-GEMM (Park et al., 2022) performs bitwise computation on GPU CUDA cores with the help of lookup tables. Our concurrent work, MLC-LLM (MLCTeam, 2023) offers strong results on multiple edge CPU and GPU platforms thanks to the powerful TVM (Chen et al., 2018; Feng et al., 2023) backend.",
+    "metadata": {
+      "page": 3,
+      "section": "RELATED WORK",
+      "bbox": [
+        55.082,
+        366.494,
+        291.098,
+        542.419
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_14",
+    "type": "paragraph",
+    "content": "Quantization maps a floating-point number into lower-bit integers. It is an effective method to reduce the model size and inference costs of LLMs (Dettmers et al., 2022; Frantar et al., 2022; Yao et al., 2022; Xiao et al., 2022). In this section, we first propose a weight-only quantization method to improve accuracy without training/regression by protecting more 'important' weights. And then develop a data-driven method to search for the optimal scaling that reduces quantization errors (Figure 2).",
+    "metadata": {
+      "page": 3,
+      "section": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION",
+      "bbox": [
+        55.082,
+        209.05600000000004,
+        290.27,
+        313.429
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_15",
+    "type": "paragraph",
+    "content": "We observe that the weights of LLMs are not equally important : there is a small fraction of salient weights that are much more important for LLMs' performance compared to others. Skipping the quantization of these salient weights can help bridge the performance degradation due",
+    "metadata": {
+      "page": 3,
+      "section": "Improving LLM Quantization by Preserving 1% Salient Weights",
+      "bbox": [
+        54.972,
+        103.42399999999998,
+        291.096,
+        159.976
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_16",
+    "type": "paragraph",
+    "content": "* https://github.com/ggerganov/llama.cpp",
+    "metadata": {
+      "page": 3,
+      "section": "Improving LLM Quantization by Preserving 1% Salient Weights",
+      "bbox": [
+        68.093,
+        85.88200000000006,
+        214.343,
+        94.12099999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_17",
+    "type": "paragraph",
+    "content": "† https://github.com/turboderp/exllama",
+    "metadata": {
+      "page": 3,
+      "section": "Improving LLM Quantization by Preserving 1% Salient Weights",
+      "bbox": [
+        68.093,
+        75.07899999999995,
+        204.839,
+        84.63900000000001
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_18",
+    "type": "paragraph",
+    "content": "to the quantization loss without any training or regression (Figure 2(b)). To verify the idea, we benchmark the performance of quantized LLMs when skipping part of the weight channels in Table 1. We measured the performance of INT3 quantized models while keeping some ratios of weight channels in FP16. A widely used method to determine the importance of weights is to look at its magnitude or L 2 -norm (Han et al., 2015; Frankle & Carbin, 2018). But we find skipping the weight channels with large norm ( i.e ., FP16% (based on W)) does not significantly improve the quantized performance, leading to a similar marginal improvement as random selection. Interestingly, selecting weights based on activation magnitude can significantly improve the performance despite keeping only 0.1%-1% of channels in FP16. We hypothesize that the input features with larger magnitudes are generally more important. Keeping the corresponding weights in FP16 can preserve those features, which contributes to better model performance.",
+    "metadata": {
+      "page": 3,
+      "section": "Improving LLM Quantization by Preserving 1% Salient Weights",
+      "bbox": [
+        307.082,
+        330.629,
+        543.187,
+        542.598
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_19",
+    "type": "paragraph",
+    "content": "Limitations: Despite keeping 0.1% of weights in FP16 can improve the quantized performance without a noticeable increase in model size (measured in total bits), such a mixedprecision data type will make the system implementation difficult. We need to come up with a method to protect the important weights without actually keeping them as FP16.",
+    "metadata": {
+      "page": 3,
+      "section": "Improving LLM Quantization by Preserving 1% Salient Weights",
+      "bbox": [
+        307.44,
+        252.91999999999996,
+        543.098,
+        321.636
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_20",
+    "type": "paragraph",
+    "content": "We propose an alternative method to reduce the quantization error of the salient weight by per-channel scaling , which does not suffer from the hardware inefficiency issue.",
+    "metadata": {
+      "page": 3,
+      "section": "Protecting Salient Weights by Activation-aware Scaling",
+      "bbox": [
+        306.972,
+        146.60400000000004,
+        541.441,
+        179.067
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_21",
+    "type": "paragraph",
+    "content": "We start by analyzing the error from weight-only quantization. Consider a group/block of weight w ; the linear operation can be written as y = wx , and the quantized counterpart is y = Q ( w ) x . Specifically, the quantization",
+    "metadata": {
+      "page": 3,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        306.972,
+        74.87300000000005,
+        543.093,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_1",
+    "type": "table",
+    "content": "Table 1. Keeping a small fraction of weights (0.1%-1%) in FP16 significantly improves the performance of the quantized models over round-to-nearest (RTN). It is only effective when we select the important weights in FP16 by looking at activation distribution instead of weight distribution. We highlight results with a decent perplexity in green. We used INT3 quantization with a group size of 128 and measured the WikiText perplexity ( ↓ ).",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        97.40715026855469,
+        651.5494384765625,
+        498.69561767578125,
+        720.5795440673828
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_1.png"
+    }
+  },
+  {
+    "id": "2306.00978_table_2",
+    "type": "table",
+    "content": "Table 2. Statistics when multiplying the 1% salient channels by s > 1 . Scaling up the salient channels significantly improves the perplexity (23.54 to 11.92). As s goes larger, the percentage of changed ∆ increases, and the error reduction rate for salient channels also increases. However, the best perplexity is achieved at s = 2 , since further increasing s will increase the quantization error for non-salient channels.",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.74250793457031,
+        506.3465576171875,
+        288.64874267578125,
+        583.4676666259766
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_2.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_22",
+    "type": "paragraph",
+    "content": "function is defined as:",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.44,
+        394.943,
+        143.161,
+        403.495
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_equation_1",
+    "type": "equation",
+    "content": "Q ( w ) = ∆ · Round ( w ∆ ) , ∆ = max( | w | ) 2 N -1 , (1)",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        82.752,
+        363.18,
+        290.107,
+        385.489
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_23",
+    "type": "paragraph",
+    "content": "where N is the number of quantization bits, and ∆ is the quantization scaler determined by the absolute maximum value. Now consider a weight element w ∈ w , if we multiply w with s > 1 and the inversely scale x , we will have Q ( w · s )( x/s ) , which is:",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.082,
+        297.62,
+        291.096,
+        354.31
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_equation_2",
+    "type": "equation",
+    "content": "Q ( w · s ) · x s = ∆ ′ · Round ( ws ∆ ′ ) · x · 1 s , (2)",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        91.866,
+        264.53099999999995,
+        290.107,
+        286.811
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_24",
+    "type": "paragraph",
+    "content": "where ∆ ′ is the new quantization scaler after applying s . We empirically find that: (1) The expected error from Round ( · ) (denoted as RoundErr ( · ) ) does not change: since the round function maps a floating-point number to an integer, the error is roughly uniformly distributed from [0,0.5], resulting in an average error of 0 . 25 ; i.e., RoundErr ( · ) ∼ 0 . 25 . (2) Scaling up a single element w usually does not change the maximum value from the group w . Therefore we have ∆ ′ ≈ ∆ ; (3) As ∆ and x are represented in FP16, they have no quantization error. Consequently, the quantization error from equation 1 and 2 can be expressed as",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.082,
+        124.65899999999999,
+        291.093,
+        256.29999999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_equation_3",
+    "type": "equation",
+    "content": "Err ( Q ( w ) x ) = ∆ · RoundErr ( w ∆ ) · x Err ( Q ( w · s )( x s )) = ∆ ′ · RoundErr ( ws ∆ ′ ) · x · 1 s (3)",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        64.197,
+        70.05600000000004,
+        290.107,
+        116.31500000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_3",
+    "type": "table",
+    "content": "Table 3. AWQprotects salient weights and reduces quantization error by using a scaling-based method. It consistently outperforms Round-to-nearest quantization (RTN) and achieves comparable performance as mixed-precision (1% FP16) while being more hardware-friendly. We use 3-bit quantization with group size 128.",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        314.12518310546875,
+        503.0585632324219,
+        533.9121704101562,
+        582.8157653808594
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_3.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_25",
+    "type": "paragraph",
+    "content": "The ratio of the new error to the original error is ∆ ′ ∆ · 1 s . Given ∆ ′ ≈ ∆ and s > 1 , the relative error is smaller for the salient weight w .",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        307.131,
+        340.403,
+        543.183,
+        380.587
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_26",
+    "type": "paragraph",
+    "content": "To verify the idea, we multiply the 1% salient channels with s > 1 for the OPT-6.7B model, and measure the change in ∆ for each group in Table 2. We find that scaling up the salient channels is quite effective: the perplexity improves from 23.54 for s = 1 (simply RTN) to 11.92 for s = 2 . As s goes larger, the percentage of changed ∆ generally gets larger, but the percentage is still quite small for s < 2 (less than 5%); the relative error for the salient channels continues to go smaller as s increases. Nonetheless, the best PPL actually appears at s = 2 . This is because if we use a very large s , it will increase the relative error for the nonsalient channels when ∆ increases (the error of non-salient channels will be amplified by ∆ ′ ∆ , and the ratio is larger than 1 for 21.2% of the channels under s = 4 ), which can damage the model's overall accuracy. Therefore, we need to also consider the error from non-salient channels when protecting salient ones.",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        306.613,
+        128.67200000000003,
+        543.183,
+        331.022
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_27",
+    "type": "paragraph",
+    "content": "Searching to scale. To consider both salient and nonsalient weights, we choose to automatically search for an optimal (per input channel) scaling factor that minimizes the output difference after quantization for a certain layer.",
+    "metadata": {
+      "page": 4,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.185,
+        119.67899999999997
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_28",
+    "type": "paragraph",
+    "content": "(a) Generation stage is slower",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        65.938,
+        629.14,
+        173.062,
+        636.52
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_29",
+    "type": "paragraph",
+    "content": "(b) Generation stage is bounded by memory bandwidth",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        187.027,
+        629.385,
+        385.111,
+        636.764
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_30",
+    "type": "paragraph",
+    "content": "(c) Weight loading is more expensive",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        399.668,
+        629.382,
+        533.573,
+        636.762
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_31",
+    "type": "paragraph",
+    "content": "Figure 3. Bottleneck analysis for Llama-2-7B on NVIDIA RTX 4090. Left : In on-device LLM applications, generation stage is much slower than the context stage. Middle : The generation stage is memory bound and has low arithmetic intensity. W4A16 quantization can effectively improve the arithmetic intensity by 4 × . Right : The amount of weight access is orders of magnitude larger than the amount of activation access. Thus, weight-only quantization is more effective for on-device LLMs.",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.44,
+        577.187,
+        541.438,
+        615.122
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_32",
+    "type": "paragraph",
+    "content": "Formally, we want to optimize the following objective:",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.44,
+        544.105,
+        274.169,
+        552.657
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_equation_4",
+    "type": "equation",
+    "content": "s ∗ = arg min s L ( s ) L ( s ) = ∥ Q ( W · diag ( s ))( diag ( s ) -1 · X ) -WX ∥ (4)",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        65.339,
+        500.209,
+        290.107,
+        532.655
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_33",
+    "type": "paragraph",
+    "content": "Here Q means the weight quantization function ( e.g ., INT3/INT4 quantization with group size 128), W is the original weights in FP16, and X is the input features cached from a small calibration set (we take a small calibration set from he pre-training dataset in order not to overfit to a specific task). s is a per-(input) channel scaling factor; for s -1 · X , it can usually be fused into the previous operator (Wei et al., 2022b; Xiao et al., 2022). Since the quantization function is not differentiable, we are not able to directly optimize the problem with vanilla backpropagation. There are some techniques relying on approximated gradients (Bengio et al., 2013; Esser et al., 2019), which we found still suffers from unstable convergence.",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.44,
+        334.486,
+        291.098,
+        486.818
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_34",
+    "type": "paragraph",
+    "content": "To make the process more stable, we define a search space for the optimal scale by analyzing the factors that will affect the choice of scaling factor. As shown in the last section, the saliency of weight channels is actually determined by the activation scale (thus 'activation-awareness'). Therefore, we simply use a very simple search space:",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.082,
+        256.77700000000004,
+        290.687,
+        325.284
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_equation_5",
+    "type": "equation",
+    "content": "s = s X α , α ∗ = arg min α L ( s X α ) (5)",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        102.488,
+        226.77199999999993,
+        290.107,
+        244.89499999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_35",
+    "type": "paragraph",
+    "content": "s X is the average magnitude of activation (per-channel), and we use a single hyper-parameter α to balance between the protection of salient and non-salient channels. We can find the best α by a fast grid search over the interval of [0 , 1] ( 0 means we do not scale; 1 corresponds to the most aggressive scaling in our search space). We further apply weight clipping to minimize the MSE error of quantization. We provide an ablation study on OPT models under INT3-g128 quantization in Table 5; AWQ consistently outperforms round-to-nearest quantization (RTN) and achieves comparable performance as mixed-precision (1% FP16) while being more hardware-friendly.",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        291.097,
+        215.27999999999997
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_36",
+    "type": "paragraph",
+    "content": "Advantages. Our method does not rely on any regression (Frantar et al., 2022) or backpropagation, which is required by many quantization-aware training methods. It has minimal reliance on the calibration set since we only measure the average magnitude per channel, thus preventing over-fitting (Figure 8). Therefore, our method requires fewer data for the quantization process and can preserve LLMs' knowledge outside of the calibration set's distribution. See Section 5.3 for more details.",
+    "metadata": {
+      "page": 5,
+      "section": "Analyzing the quantization error.",
+      "bbox": [
+        307.082,
+        448.463,
+        543.093,
+        553.045
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_37",
+    "type": "paragraph",
+    "content": "AWQcan substantially reduce the size of LLMs. However, converting the theoretical memory savings from W4A16 (4-bit weight, 16-bit activation) quantization into measured speedup is non-trivial. Alternative W8A8 quantization methods, such as SmoothQuant (Xiao et al., 2022), maintain the same data precision for both storage and computation. This allows the dequantization procedure to be seamlessly integrated into the computation kernel's epilogue. On the other hand, W4A16 quantization employs different data types for memory access and computation. As a result, its dequantization must be incorporated into the primary computation loop for optimal performance, posing implementation challenges. To tackle this, we introduce TinyChat: a nimble system for AWQ model inference. It boasts a PyTorch frontend and a backend harnessing device-specific instruction sets (e.g., CUDA/PTX, Neon, AVX).",
+    "metadata": {
+      "page": 5,
+      "section": "TINYCHAT: MAPPING AWQ ONTO EDGE PLATFORMS",
+      "bbox": [
+        307.082,
+        208.58299999999997,
+        543.186,
+        396.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_38",
+    "type": "paragraph",
+    "content": "To understand the acceleration opportunities in quantized LLMs on the edge, we start by profiling the latency breakdown of LLaMA-7B (Touvron et al., 2023a) model on an RTX 4090 GPU. We adopt an inference batch size of 1, catering for edge use cases, and implement the model in FP16 with NVIDIA FasterTransformer.",
+    "metadata": {
+      "page": 5,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        307.131,
+        104.19499999999994,
+        543.091,
+        172.52300000000002
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_39",
+    "type": "paragraph",
+    "content": "Context vs generation latency. As in Figure 3(a), it takes 310 ms to generate 20 tokens, while summarizing a prompt",
+    "metadata": {
+      "page": 5,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.444,
+        95.76800000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_3",
+    "type": "figure",
+    "content": "Figure 4. SIMD-aware weight packing for ARM NEON with 128-bit SIMD units. Original weights are reordered and packed to align with the bit width so that the weights can be unpacked into bytes at runtime using AND and shift bitwise operations with a 128-bit mask.",
+    "metadata": {
+      "page": 6,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        55.4654655456543,
+        661.2658233642578,
+        540.6504516601562,
+        725.4031219482422
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_6.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_40",
+    "type": "paragraph",
+    "content": "with 200 tokens only takes 10 ms. Consequently, the generation phase is substantially slower than the context stage, particularly for on-device interactive applications.",
+    "metadata": {
+      "page": 6,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        55.082,
+        575.199,
+        291.091,
+        607.661
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_41",
+    "type": "paragraph",
+    "content": "Generation stage is memory-bound. To accelerate the generation phase, we conduct a roofline analysis in Figure 3(b). The 4090 GPU has a peak computation throughput of 165 TFLOPS and a memory bandwidth of 1TB/s. Therefore, any workload with arithmetic intensity (the ratio of FLOPs to memory access) less than 165 is memory bounded on 4090 GPUs. Notably, when executed in FP16, the generation stage for on-device LLMs has arithmetic intensity ≈ 1. This underscores the memory-bound nature of the workload. Since the FLOPs of a given model is fixed, the only way to improve the peak performance is to reduce the total amount of memory traffic. AWQ reduces the weight memory by four times.",
+    "metadata": {
+      "page": 6,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        55.131,
+        412.272,
+        291.184,
+        564.674
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_42",
+    "type": "paragraph",
+    "content": "Weight access dominates memory traffic. We therefore further break down the memory access for weight and activation in Figure 3(c). Clearly, weight access dominates the memory traffic for on-device LLMs. Quantizing the model weights to 4 bit integers will approximately increase the arithmetic intensity to 4 FLOPs/Byte, leading to a 4TFLOPS peak performance in Figure 3(b). Since weight-only quantization leads to a lower bit width for weights (and thus higher theoretical performance upper bound), it is natural for AWQ to follow this setting for on-device LLM applications.",
+    "metadata": {
+      "page": 6,
+      "section": "Why AWQ Helps Accelerate On-Device LLMs",
+      "bbox": [
+        55.082,
+        285.21,
+        291.097,
+        401.747
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_43",
+    "type": "paragraph",
+    "content": "To this end, we demonstrated that 4-bit weight quantization could lead to a 4 × theoretical peak performance. We further design TinyChat to realize this speedup. On GPUs, we only focus on implementing essential components, including attention, layer normalization, and linear projection kernels. The flexible frontend allows easy customization and fast support for new models. TinyChat with 4-bit AWQ achieves more than 3 × speedup compared with the Huggingface FP16 implementation across different families of LLMs on GPUs. On CPUs, we lower the entire computation graph to C++ to minimize overhead.",
+    "metadata": {
+      "page": 6,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        55.082,
+        118.24900000000002,
+        291.096,
+        246.35199999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_44",
+    "type": "paragraph",
+    "content": "On-the-fly weight dequantization. For quantized layers, as the hardware does not provide multiplication instructions between INT4 and FP16, we need to dequantize the integers to FP16 before performing matrix computation. We avoid writing dequantized weights into DRAM by fusing dequantization kernels with the matrix multplication kernel. Note that such fusion is adopted for both matrix-matrix (MM) and matrix-vector (MV) product kernels.",
+    "metadata": {
+      "page": 6,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        290.685,
+        107.72400000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_45",
+    "type": "paragraph",
+    "content": "SIMD-aware weight packing. On-the-fly weight dequantization reduces intermediate DRAM access, but remains expensive. For instance, dequantizing a single 4-bit weight involves 1 shift, 1 bitwise AND, and 1 FMA scaling operations, while the dequantized weight undergoes only 1 FMA computation. This process is particularly costly on CPUs with SIMD architecture that favor vectorized instructions. To mitigate this, we suggest platform-specific weight packing tailored to the bitwidth of a device's SIMD units. Figure 4 demonstrates our strategy for ARM CPUs with 128-bit SIMD registers offering up to 1.2 × speedup. Here, each register holds 32 4-bit weights, sequenced as w 0 , w 16 , w 1 , w 17 , ..., w 15 , w 31 . This approach requires just three SIMD instructions to unpack all 32 weights , as opposed to 3 scalar instructions per weight in a conventional packing ( w 0 , w 1 , ..., w 31 ). Generally, for 2 n -bit SIMD registers, adjacent weights will have indices off by 1 / 8 × 2 n , since each register can hold 1 / 8 × 2 n 8-bit integers. On GPUs, we found it more efficient to pack each 8 weights into w { 0 , 2 , 4 , 6 , 1 , 3 , 5 , 7 } following (Kim et al., 2022).",
+    "metadata": {
+      "page": 6,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        307.082,
+        276.15200000000004,
+        543.184,
+        513.304
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_46",
+    "type": "paragraph",
+    "content": "Kernel fusion. We also extensively apply kernel fusion to optimize on-device LLM inference. For layer normalization, we fuse all operators ( e.g . multiplication, division and square root) into a single kernel. For attention layers, we fuse QKV projections into a single kernel, and also perform on-the-fly positional embedding calculation. We also preallocate KV caches and perform cache updates within the attention kernel. Kernel fusion is particularly useful for models with inefficient forward pass implementations, such as Falcon (Penedo et al., 2023) and StarCoder (Li et al., 2023c). Notably, the computation time for each FP16 kernel is in the order of 0.01ms on the 4090 GPU, comparable to the GPU kernel launch overhead. Hence, reducing number of kernel calls through kernel fusion leads to direct speedups.",
+    "metadata": {
+      "page": 6,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.186,
+        239.23000000000002
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_4",
+    "type": "table",
+    "content": "Table 4. AWQimproves over round-to-nearest quantization (RTN) for different model sizes and different bit-precisions. It consistently achieves better perplexity than GPTQ (w/ and w/o reordering) on LLaMA & Llama-2 models.",
+    "metadata": {
+      "page": 7,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        108.3505859375,
+        584.3536987304688,
+        488.1644287109375,
+        727.090705871582
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_4.png"
+    }
+  },
+  {
+    "id": "2306.00978_table_5",
+    "type": "table",
+    "content": "Table 5. AWQ quantization results on Mistral-7B-Instructv0.2(Jiang et al., 2023) and Mixtral-8x7B-Instruct-v0.1 model (Jiang et al., 2024). The PPL result on wikitext shows that AWQ can achieve superior quantization performance on different model architectures including LLMs with GQA and Mixture-of-Experts (MoE) models.",
+    "metadata": {
+      "page": 7,
+      "section": "Deploy AWQ with TinyChat",
+      "bbox": [
+        81.13580322265625,
+        475.9327087402344,
+        262.7716979980469,
+        535.4777221679688
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_5.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_47",
+    "type": "paragraph",
+    "content": "Quantization. We focus on weight-only grouped quantization in this work. As shown in previous work (Dettmers & Zettlemoyer, 2022; Frantar et al., 2022), grouped quantization is always helpful for improving performance/model size trade-off. We used a group size of 128 throughout the work, except otherwise specified. We focus on INT4/INT3 quantization since they are able to mostly preserve the LLMs' performance (Dettmers & Zettlemoyer, 2022). For AWQ, we used a small calibration set from the Pile (Gao et al., 2020) dataset in order not to overfit to a specific downstream domain. We used a grid size of 20 to search for the optimal α in Equation 5.",
+    "metadata": {
+      "page": 7,
+      "section": "Settings",
+      "bbox": [
+        55.082,
+        190.22399999999993,
+        291.098,
+        330.671
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_48",
+    "type": "paragraph",
+    "content": "Models. We benchmarked our method on LLaMA (Touvron et al., 2023a) and OPT (Zhang et al., 2022) families. There are other open LLMs like BLOOM (Scao et al., 2022), but they are generally worse in quality, so we do not include them in our study. We further benchmark an instructiontuned model Vicuna (Chiang et al., 2023) and visual language models OpenFlamingo-9B (Awadalla et al., 2023) and LLaVA-13B (Liu et al., 2023a) to demonstrate the generability of our method.",
+    "metadata": {
+      "page": 7,
+      "section": "Settings",
+      "bbox": [
+        55.131,
+        72.04899999999998,
+        291.18,
+        176.63
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_4",
+    "type": "figure",
+    "content": "Figure 5. Comparing INT3-g128 quantized Vicuna models with FP16 counterparts under GPT-4 evaluation protocol (Chiang et al., 2023). More winning cases (in blue) indicate better performance. AWQ consistently improves the quantized performance compared to RTN and GPTQ (Frantar et al., 2022), showing generalization to instruction-tuned models.",
+    "metadata": {
+      "page": 7,
+      "section": "Settings",
+      "bbox": [
+        305.9181823730469,
+        467.5142517089844,
+        550.7814331054688,
+        533.9153442382812
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_7.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_49",
+    "type": "paragraph",
+    "content": "Evaluations. Following previous literature (Dettmers et al., 2022; Xiao et al., 2022; Frantar et al., 2022; Dettmers &Zettlemoyer, 2022; Yao et al., 2022), we mainly profiled the quantized models on language modeling tasks (perplexity evaluation on WikiText-2 (Merity et al., 2016)) since perplexity can stably reflect the LLM's performance (Dettmers &Zettlemoyer, 2022).",
+    "metadata": {
+      "page": 7,
+      "section": "Settings",
+      "bbox": [
+        307.052,
+        290.563,
+        543.098,
+        371.234
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_50",
+    "type": "paragraph",
+    "content": "Baselines. Our primary baseline is vanilla round-tonearest quantization (RTN). It is actually quite strong when using a small group size like 128 (Frantar et al., 2022; Dettmers & Zettlemoyer, 2022). We also compare with a state-of-the-art method GPTQ (Frantar et al., 2022) for LLM weight quantization. For GPTQ, we also compare with an updated version that uses a 'reorder' trick (denoted as GPTQ-Reorder or GPTQ-R). Other techniques like ZeroQuant (Yao et al., 2022), AdaRound (Nagel et al., 2020), and BRECQ (Li et al., 2021) rely on backpropagation to update the quantized weights, which may not easily scale up to large model sizes; they also do not outperform GPTQ (Frantar et al., 2022), thus not included for study.",
+    "metadata": {
+      "page": 7,
+      "section": "Settings",
+      "bbox": [
+        307.082,
+        128.33000000000004,
+        543.098,
+        280.732
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_51",
+    "type": "paragraph",
+    "content": "Results on LLaMA models. We focus on LLaMA models (LLaMA (Touvron et al., 2023a) and Llama-2 (Touvron",
+    "metadata": {
+      "page": 7,
+      "section": "Evaluation",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.09,
+        95.76800000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_6",
+    "type": "table",
+    "content": "Table 6. Quantization results of a visual language model OpenFlamingo-9B (Awadalla et al., 2023) on COCO Captioning datasets. Activation-aware Weight Quantization outperforms existing methods under zero-shot and various few-shot settings, demonstrating the generability to different modalities and in-context learning workloads. Activation-aware Weight Quantization reduces the quantization degradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4 × model size reduction with negligible performance loss.",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        105.66397857666016,
+        619.8065185546875,
+        490.857177734375,
+        728.3147888183594
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_6.png"
+    }
+  },
+  {
+    "id": "2306.00978_table_7",
+    "type": "table",
+    "content": "Table 7. INT4-g128 results of VILA-7B and VILA-13B (Lin et al., 2024) on 11 visual-language benchmarks. AWQ consistently shows lossless performance on all benchmarks. Benchmark names are abbreviated due to space limits. VQA-v2 (Goyal et al., 2017); GQA (Hudson & Manning, 2019); VisWiz (Gurari et al., 2018); SQA I : ScienceQA-IMG (Lu et al., 2022); VQA T : TextVQA (Singh et al., 2019); POPE (Li et al., 2023d); MME (Fu et al., 2023); MMB: MMBench (Liu et al., 2023b); MMB CN : MMBench-Chinese (Liu et al., 2023b); SEED: SEED-Bench (Li et al., 2023a); LLaVA W : LLaVA-Bench (In-the-Wild) (Liu et al., 2023a); MM-Vet (Yu et al., 2023).",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        60.82786560058594,
+        494.7362365722656,
+        535.4718627929688,
+        559.9319000244141
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_7.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_52",
+    "type": "paragraph",
+    "content": "et al., 2023b)) due to their superior performance compared to other open-source LLMs (Zhang et al., 2022; Scao et al., 2022); it is also the foundation of many popular open-source models (Taori et al., 2023; Chiang et al., 2023). We evaluate the perplexity before and after quantization in Table 4. AWQconsistently outperforms round-to-nearest (RTN) and GPTQ (Frantar et al., 2022) (w/ and w/o reordering) across different model scales (7B-70B) and generations.",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        55.082,
+        319.561,
+        291.185,
+        411.799
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_53",
+    "type": "paragraph",
+    "content": "Results on Mistral / Mixtral models. We also evaluated AWQ on the Mistral and Mixtral models, which are among the most popular open-source LLMs and Mixtureof-Experts (MoE) models, respectively (Jiang et al., 2023; 2024). The results indicate that AWQ achieves superior performance on both the Mistral and Mixtral models. This demonstrates that AWQ is effective across various model architectures.",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        55.44,
+        215.14999999999998,
+        291.093,
+        307.776
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_54",
+    "type": "paragraph",
+    "content": "Quantization of instruction-tuned models. Instruction tuning can significantly improve the models' performance and usability (Wei et al., 2021; Sanh et al., 2021; Ouyang et al., 2022; Chung et al., 2022). It has become an essential procedure before model deployment. We further benchmark our method's performance on a popular instruction-tuned model Vicuna (Chiang et al., 2023) in Figure 5. We used the GPT-4 score to evaluate the quantized models' performance against the FP16 counterpart on 80 sample questions (Chiang et al., 2023). We compare the responses with both orders (quantized-FP16, FP16-quantized) to get rid of the ordering",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        55.112,
+        74.87300000000005,
+        291.097,
+        203.365
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_8",
+    "type": "table",
+    "content": "Table 8. INT4-g128 quantization results of CodeLlama-7bInstruct-hf on MBPP dataset and Llama-2 (7B/13B/70B) on GSM8K dataset. AWQ outperforms existing methods on programming and math datasets, demonstrating the generability to different scenarios and evaluation settings. Notably, AWQ under the INT4g128 configuration demonstrates comparable performance to the original FP16 model across both datasets.",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        309.5317077636719,
+        346.93670654296875,
+        539.1301879882812,
+        416.3252258300781
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_8.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_55",
+    "type": "paragraph",
+    "content": "effect (we found GPT-4 tends to increase the rating of the first input), leading to 160 trials. AWQ consistently improves the INT3-g128 quantized Vicuna models over RTN and GPTQ under both scales (7B and 13B), demonstrating the generability to instruction-tuned models.",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        307.44,
+        180.35000000000002,
+        543.093,
+        236.72199999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_56",
+    "type": "paragraph",
+    "content": "Quantization of multi-modal language models. Large multi-modal models (LMMs) or visual language models (VLMs) are LLMs augmented with vision inputs (Alayrac et al., 2022; Li et al., 2023b; Koh et al., 2023; Driess et al., 2023; Zhang et al., 2023; Liu et al., 2023a). Such models are able to perform text generation conditioned on image/video inputs. Since our method does not have the overfitting issue to the calibration set, it can be directly applied to VLMs",
+    "metadata": {
+      "page": 8,
+      "section": "Evaluation",
+      "bbox": [
+        307.112,
+        74.87300000000005,
+        542.685,
+        167.49900000000002
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_57",
+    "type": "paragraph",
+    "content": "SometimesIjustlookatpicturesof theearthfromspaceandImarvelat howbeautiful it all is.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        57.666666666666664,
+        702.3333333333334,
+        138.0,
+        723.3333333333334
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_58",
+    "type": "paragraph",
+    "content": "Question : Can you explain this meme in detail?",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        152.692,
+        709.875,
+        317.401,
+        716.735
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_59",
+    "type": "paragraph",
+    "content": "I N T4-g128 RT N : The meme in the image features a plate of food, likely fried chicken, with a unique twist. There are small pictures of the Earth and other planets placed on top of the food, creating an interesting and amusing visual. Alongside the plate, a caption reads, \"Sometimes I look at pictures of the Earth from space and I marvel at how beautiful it all is.\" This combination of food and planet images adds a touch of humor and curiosity, making the viewer wonder about the context and intent behind the meme.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        152.692,
+        662.61,
+        534.972,
+        707.282
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_60",
+    "type": "paragraph",
+    "content": "I N T4-g128 AWQ : The meme in the image is a lighthearted and humorous take on the concept of looking at pictures of the Earth from space. A plate of fried food, specifically chicken nuggets, is presented with the caption, \"Sometimes I look at pictures of the Earth from space and I marvel at how beautiful it all is.\" The playful combination of a food item and an Earth-related context creates a fun and entertaining visual.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        152.692,
+        624.798,
+        533.692,
+        660.017
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_5",
+    "type": "figure",
+    "content": "Figure 6. Visual reasoning examples from LLaVA-13B model (Liu et al., 2023a). AWQ improves over the round-to-nearest (RTN) baseline, providing more reasonable answers. We color the text to show the correct or wrong responses.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.36754608154297,
+        516.4895935058594,
+        144.3358154296875,
+        575.8953399658203
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_9.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_61",
+    "type": "paragraph",
+    "content": "W4-RTN : A man and a dog walking past some bushes. W4-AWQ : Two dogs are walking on the street.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        479.128,
+        526.19,
+        545.523,
+        574.092
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_62",
+    "type": "paragraph",
+    "content": "W4-RTN : A man is holding a baby elephant in his arms.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        301.782,
+        548.2,
+        383.946,
+        574.092
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_63",
+    "type": "paragraph",
+    "content": "W4-AWQ : A man and his daughter pose with an elephant.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        301.782,
+        516.718,
+        379.32,
+        542.61
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_64",
+    "type": "paragraph",
+    "content": "W4-RTN airplane flying in the sky.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        148.259,
+        548.2,
+        207.907,
+        573.941
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_65",
+    "type": "paragraph",
+    "content": ": A model",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        180.932,
+        567.145,
+        215.526,
+        574.092
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_66",
+    "type": "paragraph",
+    "content": "W4-AWQ : Two toy airplanes sit on a grass field.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        148.259,
+        516.718,
+        217.404,
+        542.61
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_6",
+    "type": "figure",
+    "content": "Figure 7. Qualitative results of quantized OpenFlamingo-9B (Awadalla et al., 2023) on COCO captioning dataset (4-shot, INT4-g128 quantization). Our method significantly improves the captioning quality compared to the round-to-nearest (RTN) baseline. We color the text to show the correct or wrong captions.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        220.276611328125,
+        516.9724426269531,
+        298.5231628417969,
+        576.3628997802734
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_10.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_67",
+    "type": "paragraph",
+    "content": "to provide accurate and efficient quantization. We perform experiments with the OpenFlamingo-9B model (Awadalla et al., 2023) (an open-source reproduction of (Alayrac et al., 2022)) on COCO captioning (Chen et al., 2015) dataset (Table 6). We measured the average performance of 5k samples under different few-shot settings. We only quantize the language part of the model since it dominates the model size. AWQ outperforms existing methods under zero-shot and various few-shot settings, demonstrating the generability to different modalities and in-context learning workloads. It reduces the quantization degradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4 × model size reduction with negligible performance loss. To further demonstrate the generability of AWQ, we also evaluated AWQ on one of the SoTA multi-image visual language models: VILA. The result in Table 7 shows that AWQ achieves lossless quantization performance on 11 visual-language benchmarks. We further provide some qualitative captioning results in Figure 7 to show our advantage over RTN. Our method provides a push-the-button solution for LMM/VLM quantization. It is the first study of VLM low-bit quantization to the best of our knowledge.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        54.693,
+        192.62200000000007,
+        291.185,
+        452.232
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_68",
+    "type": "paragraph",
+    "content": "Visual reasoning results. We further provide some qualitative visual reasoning examples of the LLaVA-13B (Liu et al., 2023a) model in Figure 6. AWQ improves the responses compared to round-to-nearest (RTN) for INT4-g128 quantization, leading to more reasonable answers. In this first example, the AWQ model can understand the meme as it resembles the Earth when looking from space, while RTN produces wrong descriptions (marked in red).",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.44,
+        72.04899999999998,
+        291.093,
+        164.67499999999995
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_9",
+    "type": "table",
+    "content": "Table 9. Our method is orthogonal to GPTQ: it further closes the performance gap under extreme low-bit quantization (INT2-g64) when combined with GPTQ. Results are WikiText-2 perplexity of OPT models.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        314.4440002441406,
+        381.8243408203125,
+        533.95166015625,
+        456.525634765625
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_9.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_69",
+    "type": "paragraph",
+    "content": "Results on programming and math tasks To further evaluate the performance of AWQ on tasks involving complex generations, we also tested AWQ on MBPP (Austin et al., 2021) and GSM8K (Cobbe et al., 2021). MBPP (Austin et al., 2021) consists of around 1,000 Python programming problems, designed to be solvable by entry level programmers, covering programming fundamentals, standard library functionality, etc. GSM8K (Cobbe et al., 2021) was created to support the task of question answering on basic mathematical problems that require multistep reasoning. We quantize CodeLlama-7b-Instruct-hf and Llama-2 to INT4-g128 and perform experiments on programming and math datasets (Table 8). AWQ outperforms existing methods on both datasets, demonstrating the generability to complex generation. AWQ under the INT4-g128 configuration demonstrates comparable performance to the original FP16 model on both datasets.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        307.191,
+        106.18100000000004,
+        543.099,
+        306.404
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_70",
+    "type": "paragraph",
+    "content": "Extreme low-bit quantization. We further quantize LLM to INT2 to accommodate limited device memory (Table 9).",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.181,
+        95.76800000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_7",
+    "type": "figure",
+    "content": "Figure 8. Left: AWQ needs a much smaller calibration set to reach a good quantized performance. It can achieve better perplexity using 10 × smaller calibration set compared to GPTQ. Right: Our method is more robust to the calibration set distribution. Overall, using the same calibration and evaluation distribution works the best (PubMed-PubMed, Enron-Enron). But when using a different calibration distribution (PubMed-Enron, Enron-PubMed), AWQ only increases the perplexity by 0.5-0.6, while GPTQ has 2.3-4.9 worse perplexity. All experiments are done with the OPT-6.7B model under INT3-g128 quantization.",
+    "metadata": {
+      "page": 10,
+      "section": "Evaluation",
+      "bbox": [
+        54.6229133605957,
+        644.6401977539062,
+        538.6740112304688,
+        724.966926574707
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_12.png"
+    }
+  },
+  {
+    "id": "2306.00978_fig_8",
+    "type": "figure",
+    "content": "Figure 9. TinyChat provides a turn-key solution to transform the theoretical memory footprint reduction into a quantifiable speedup. As a result, TinyChat is up to 3.9 × and 3.5 × faster than the FP16 implementation from Huggingface on 4090 (desktop GPU) and Orin (mobile GPU), respectively. AWQ also democratizes Llama-2-13B deployment on laptop GPUs (4070) with merely 8GB memory.",
+    "metadata": {
+      "page": 10,
+      "section": "Evaluation",
+      "bbox": [
+        56.3199462890625,
+        480.3410949707031,
+        541.8130493164062,
+        568.0090789794922
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_13.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_71",
+    "type": "paragraph",
+    "content": "RTN completely fails, and AWQ brings significant perplexity improvement on top of GPTQ.Our method is orthogonal to GPTQ. We can combine our method with GPTQ to further improve the INT2 quantization performance, making it a more practical setting.",
+    "metadata": {
+      "page": 10,
+      "section": "Evaluation",
+      "bbox": [
+        55.44,
+        359.434,
+        291.098,
+        415.807
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_72",
+    "type": "paragraph",
+    "content": "Better data-efficiency for the calibration set. Our method requires a smaller calibration set since we do not rely on regression/backpropagation; we only measure the average activation scale from the calibration set, which is data-efficient. To demonstrate the idea, we compare the perplexity of the OPT-6.7B model with INT3-g128 quantization in Figure 8 (a). AWQ needs a much smaller calibration to reach a good quantized performance; it can achieve better perplexity using 10 × smaller calibration set compared to GPTQ (16 sequences v.s. 192 sequences).",
+    "metadata": {
+      "page": 10,
+      "section": "Data Efficiency and Generalization",
+      "bbox": [
+        55.44,
+        211.97000000000003,
+        291.09,
+        328.506
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_73",
+    "type": "paragraph",
+    "content": "Robust to the calibration set distributions. Our method is less sensitive to the calibration set distribution since we only measure the average activation scale from the calibration set, which is more generalizable across different dataset distributions. We further benchmarked the effect of the different calibration set distributions in Figure 8(b). We took two subsets from the Pile dataset (Gao et al., 2020): PubMed Abstracts and Enron Emails (Klimt & Yang, 2004). We use each of the subsets as the calibration set and evaluate the quantized model on both sets (the calibration and evaluation sets are split with no overlapping; we used 1k samples for",
+    "metadata": {
+      "page": 10,
+      "section": "Data Efficiency and Generalization",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        291.099,
+        203.365
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_table_10",
+    "type": "table",
+    "content": "Table 10. TinyChat also enables seamless deployment of VILA (Lin et al., 2024), a state-of-the-art visual-language model, on multiple GPU platforms. Leveraging our 4-bit AWQ quantization, TinyChat accelerates VILA-7B by up to 3.1 × and VILA-13B by up to 2.9 × .",
+    "metadata": {
+      "page": 10,
+      "section": "Data Efficiency and Generalization",
+      "bbox": [
+        310.9310302734375,
+        350.64874267578125,
+        537.5115966796875,
+        420.335693359375
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/table/table_11.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_74",
+    "type": "paragraph",
+    "content": "evaluation). Overall, using the same calibration and evaluation distribution works the best (PubMed-PubMed, EnronEnron). But when using a different calibration distribution (PubMed-Enron, Enron-PubMed), AWQ only increases the perplexity by 0.5-0.6, while GPTQ has 2.3-4.9 worse perplexity. This demonstrates the robustness of AWQ to the calibration set distribution.",
+    "metadata": {
+      "page": 10,
+      "section": "Data Efficiency and Generalization",
+      "bbox": [
+        307.112,
+        184.01999999999998,
+        543.098,
+        264.303
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_75",
+    "type": "paragraph",
+    "content": "Settings. In Figure 9, we demonstrate the system acceleration results from TinyChat. TinyChat optimizes both linear layers and layers that do not have quantized weights. We conduct benchmarking experiments on RTX 4090 and Jetson Orin following the protocol described in exllama ‡ .",
+    "metadata": {
+      "page": 10,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        306.972,
+        93.80999999999995,
+        543.187,
+        150.57100000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_76",
+    "type": "paragraph",
+    "content": "‡ https://github.com/turboderp/exllama",
+    "metadata": {
+      "page": 10,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        320.093,
+        75.76400000000001,
+        517.254,
+        84.63900000000001
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_fig_9",
+    "type": "figure",
+    "content": "Figure 10. TinyChat offers 1.2-3.0 × speedup over existing systems when running 4-bit quantized Llama models on NVIDIA Jetson Orin. It also supports a diverse range of general-purpose and coding-specific LLMs with at least 2.6 × speedup over AutoGPTQ, which also supports all these workloads. Moreover, TinyChat seamlessly operates on Raspberry Pi and enables the deployment of LLMs with up to 7 billion parameters on extremely resource-constrained IoT devices.",
+    "metadata": {
+      "page": 11,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        54.59172439575195,
+        635.7702941894531,
+        540.6986083984375,
+        726.0246887207031
+      ],
+      "image_path": "data/rag_assets/images/2306.00978/figure/figure_14.png"
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_77",
+    "type": "paragraph",
+    "content": "We perform batch size = 1 inference for all LLMs using a fixed prompt length of 4 tokens. We generate 200 tokens for each inference run and calculate the median latency as the final result.",
+    "metadata": {
+      "page": 11,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        54.972,
+        517.906,
+        289.614,
+        562.324
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_78",
+    "type": "paragraph",
+    "content": "Results. As in Figure 9(a), TinyChat brings 2.7-3.9 × speedup to three families of LLMs (Llama-2, MPT and Falcon) on 4090 compared with the Huggingface FP16 implementation. For Llama-2-7B, we improve the inference speed from 52 tokens/s to 62 tokens/s through FP16 kernel fusion. On top of the stronger FP16 baseline, we further harvest 3.1 × additional speedup from the fast quantized linear kernels. For Falcon-7B, the official implementation did not support KV cache correctly during the inference time, and thus it is significantly slower than other models. In this case, our FP16 optimizations bring about a larger speedup of 1.6 × . On the laptop 4070 GPU with only 8GB memory, we are still able to run Llama-2-13B models at 33 tokens/s, while the FP16 implementation cannot fit 7B models. We also demonstrate visual-language model (Lin et al., 2024) acceleration results in Table 10. TinyChat brings about 3 × speedup to both VILA-7B and VILA-13B on NVIDIA Jetson Orin. Notably, we implement the forward pass for all AWQmodels using native PyTorch APIs, and this code is reused across various GPU architectures. Hence, TinyChat offers exceptional extensibility.",
+    "metadata": {
+      "page": 11,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        55.082,
+        248.56899999999996,
+        291.097,
+        496.612
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_79",
+    "type": "paragraph",
+    "content": "Comparisons against other systems. We compare TinyChat against existing edge LLM inference systems AutoGPTQ, llama.cpp and exllama in Figure 10. Our system achieves up to 1.7 × speedup over llama.cpp on Orin. Furthermore, llama.cpp and exllama exhibit limited adaptability, primarily tailored for LLaMA and Llama-2 models. In contrast, our TinyChat supports a wide range of applications, including StarCoder (Li et al., 2023c), StableCode (GPTNeoX) (Black et al., 2022), Mistral (Jiang et al., 2023), and Falcon (Penedo et al., 2023) while consistently delivering significant speedup over AutoGPTQ. TinyChat even democratizes LLM deployment on extremely resource-constrained Raspberry Pi 4B, achieving 0.7 tokens/s for 7B models.",
+    "metadata": {
+      "page": 11,
+      "section": "Speedup Evaluation",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.098,
+        227.27499999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_80",
+    "type": "paragraph",
+    "content": "In this work, we propose Activation-aware Weight Quantization (AWQ), a simple yet effective method for low-bit weight-only LLM compression. Based on the observation that weights are not equally important in LLMs, AWQ performs per-channel scaling to reduce the quantization loss of salient weights. AWQ does not over-fit the calibration set and preserves the generalist abilities of LLMs in various domains and modalities. It outperforms existing work on language modeling and is applicable to instruction-tuned LMs and multi-modal LMs. Our TinyChat system further translates the theoretical memory savings achieved by AWQ into 3.2-3.3 × measured speedups over the FP16 implementations from Huggingface on desktop and mobile GPUs, democratizing LLM deployment on the edge.",
+    "metadata": {
+      "page": 11,
+      "section": "CONCLUSION",
+      "bbox": [
+        307.082,
+        376.09,
+        543.097,
+        540.059
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_81",
+    "type": "paragraph",
+    "content": "We thank MIT AI Hardware Program, National Science Foundation, MIT-IBM Watson AI Lab, Amazon and MIT Science Hub, Microsoft Turing Academic Program, and Samsung for supporting this research.",
+    "metadata": {
+      "page": 11,
+      "section": "ACKNOWLEDGEMENTS",
+      "bbox": [
+        306.972,
+        293.619,
+        541.752,
+        338.037
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_82",
+    "type": "paragraph",
+    "content": "Alayrac, J.-B., Donahue, J., Luc, P., Miech, A., Barr, I., Hasson, Y., Lenc, K., Mensch, A., Millican, K., Reynolds, M., et al. Flamingo: a visual language model for few-shot learning. Advances in Neural Information Processing Systems , 35:23716-23736, 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        199.19299999999998,
+        542.687,
+        255.56600000000003
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_83",
+    "type": "paragraph",
+    "content": "Austin, J., Odena, A., Nye, M., Bosma, M., Michalewski, H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., and Sutton, C. Program synthesis with large language models, 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        143.01099999999997,
+        542.687,
+        187.428
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_84",
+    "type": "paragraph",
+    "content": "Awadalla, A., Gao, I., Gardner, J., Hessel, J., Hanafy, Y., Zhu, W., Marathe, K., Bitton, Y., Gadre, S., Jitsev, J., Kornblith, S., Koh, P. W., Ilharco, G., Wortsman, M., and Schmidt, L. Openflamingo, March 2023. URL https: //doi.org/10.5281/zenodo.7733589 .",
+    "metadata": {
+      "page": 11,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        544.429,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_85",
+    "type": "paragraph",
+    "content": "Bengio, Y., L´ eonard, N., and Courville, A. Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432 , 2013.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        677.045,
+        291.093,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_86",
+    "type": "paragraph",
+    "content": "Black, S., Biderman, S., Hallahan, E., Anthony, Q., Gao, L., Golding, L., He, H., Leahy, C., McDonell, K., Phang, J., et al. Gpt-neox-20b: An open-source autoregressive language model. arXiv preprint arXiv:2204.06745 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        622.695,
+        291.185,
+        667.113
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_87",
+    "type": "paragraph",
+    "content": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A., Sutskever, I., and Amodei, D. Language models are few-shot learners. In Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H. (eds.), Advances in Neural Information Processing Systems , volume 33, pp. 1877-1901. Curran Associates, Inc., 2020. URL https://proceedings. neurips.cc/paper/2020/file/ 1457c0d6bfcb4967418bfb8ac142f64a-Paper. pdf .",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        436.838,
+        298.727,
+        612.763
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_88",
+    "type": "paragraph",
+    "content": "Chen, T., Moreau, T., Jiang, Z., Zheng, L., Yan, E., Shen, H., Cowan, M., Wang, L., Hu, Y., Ceze, L., et al. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning. In 13th USENIX Symposium on Operating Systems Design and Implementation (OSDI) , 2018.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        370.533,
+        290.688,
+        426.906
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_89",
+    "type": "paragraph",
+    "content": "Chen, X., Fang, H., Lin, T.-Y., Vedantam, R., Gupta, S., Doll´ ar, P., and Zitnick, C. L. Microsoft coco captions: Data collection and evaluation server. arXiv preprint arXiv:1504.00325 , 2015.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        316.183,
+        290.824,
+        360.601
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_90",
+    "type": "paragraph",
+    "content": "Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang, H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E., Stoica, I., and Xing, E. P. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https://lmsys.org/blog/ 2023-03-30-vicuna/ .",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        237.923,
+        290.687,
+        306.251
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_91",
+    "type": "paragraph",
+    "content": "Choi, J., Wang, Z., Venkataramani, S., Chuang, P. I.-J., Srinivasan, V., and Gopalakrishnan, K. Pact: Parameterized clipping activation for quantized neural networks. arXiv preprint arXiv:1805.06085 , 2018.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        183.57299999999998,
+        291.098,
+        227.99099999999999
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_92",
+    "type": "paragraph",
+    "content": "Chung, H. W., Hou, L., Longpre, S., Zoph, B., Tay, Y., Fedus, W., Li, E., Wang, X., Dehghani, M., Brahma, S., et al. Scaling instruction-finetuned language models. arXiv preprint arXiv:2210.11416 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        129.22299999999996,
+        291.181,
+        173.64099999999996
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_93",
+    "type": "paragraph",
+    "content": "Cobbe, K., Kosaraju, V., Bavarian, M., Chen, M., Jun, H., Kaiser, L., Plappert, M., Tworek, J., Hilton, J., Nakano, R., Hesse, C., and Schulman, J. Training verifiers to solve math word problems, 2021.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        290.687,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_94",
+    "type": "paragraph",
+    "content": "Dettmers, T. and Zettlemoyer, L. The case for 4-bit precision: k-bit inference scaling laws. arXiv preprint arXiv:2212.09720 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        689.0,
+        543.093,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_95",
+    "type": "paragraph",
+    "content": "Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L. Llm.int8(): 8-bit matrix multiplication for transformers at scale. arXiv preprint arXiv:2208.07339 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        646.213,
+        543.185,
+        678.675
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_96",
+    "type": "paragraph",
+    "content": "Driess, D., Xia, F., Sajjadi, M. S., Lynch, C., Chowdhery, A., Ichter, B., Wahid, A., Tompson, J., Vuong, Q., Yu, T., et al. Palm-e: An embodied multimodal language model. arXiv preprint arXiv:2303.03378 , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        591.47,
+        543.187,
+        635.887
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_97",
+    "type": "paragraph",
+    "content": "Esser, S. K., McKinstry, J. L., Bablani, D., Appuswamy, R., and Modha, D. S. Learned step size quantization. arXiv preprint arXiv:1902.08153 , 2019.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        548.682,
+        542.687,
+        581.144
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_98",
+    "type": "paragraph",
+    "content": "Feng, S., Hou, B., Jin, H., Lin, W., Shao, J., Lai, R., Ye, Z., Zheng, L., Yu, C. H., Yu, Y., and Chen, T. TensorIR: An Abstraction for Automatic Tensorized Program Optimization. In ASPLOS , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        493.939,
+        543.095,
+        538.357
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_99",
+    "type": "paragraph",
+    "content": "Frankle, J. and Carbin, M. The lottery ticket hypothesis: Finding sparse, trainable neural networks. arXiv preprint arXiv:1803.03635 , 2018.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        451.151,
+        542.829,
+        483.614
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_100",
+    "type": "paragraph",
+    "content": "Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq: Accurate post-training quantization for generative pretrained transformers. arXiv preprint arXiv:2210.17323 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        396.408,
+        543.094,
+        440.826
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_101",
+    "type": "paragraph",
+    "content": "Fu, C., Chen, P., Shen, Y., Qin, Y., Zhang, M., Lin, X., Yang, J., Zheng, X., Li, K., Sun, X., Wu, Y., and Ji, R. MME: A Comprehensive Evaluation Benchmark for Multimodal Large Language Models. arXiv preprint arXiv:2306.13394 , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        329.71,
+        542.687,
+        386.083
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_102",
+    "type": "paragraph",
+    "content": "Gao, L., Biderman, S., Black, S., Golding, L., Hoppe, T., Foster, C., Phang, J., He, H., Thite, A., Nabeshima, N., et al. The pile: An 800gb dataset of diverse text for language modeling. arXiv preprint arXiv:2101.00027 , 2020.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        263.01199999999994,
+        542.687,
+        319.385
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_103",
+    "type": "paragraph",
+    "content": "Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W., and Keutzer, K. A survey of quantization methods for efficient neural network inference. arXiv preprint arXiv:2103.13630 , 2021.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        208.269,
+        542.682,
+        252.687
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_104",
+    "type": "paragraph",
+    "content": "Goyal, Y., Khot, T., Summers-Stay, D., Batra, D., and Parikh, D. Making the v in vqa matter: Elevating the role of image understanding in visual question answering. In Proceedings of the IEEE conference on computer vision and pattern recognition , pp. 6904-6913, 2017.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        141.57100000000003,
+        543.098,
+        197.94399999999996
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_105",
+    "type": "paragraph",
+    "content": "Gurari, D., Li, Q., Stangl, A. J., Guo, A., Lin, C., Grauman, K., Luo, J., and Bigham, J. P. Vizwiz grand challenge: Answering visual questions from blind people. In Proceedings of the IEEE conference on computer vision and pattern recognition , pp. 3608-3617, 2018.",
+    "metadata": {
+      "page": 12,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.096,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_106",
+    "type": "paragraph",
+    "content": "Han, S., Pool, J., Tran, J., and Dally, W. Learning both weights and connections for efficient neural network. Advances in neural information processing systems , 28, 2015.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        677.045,
+        291.186,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_107",
+    "type": "paragraph",
+    "content": "Han, S., Mao, H., and Dally, W. J. Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding. In ICLR , 2016.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        632.37,
+        291.098,
+        664.832
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_108",
+    "type": "paragraph",
+    "content": "Hudson, D. A. and Manning, C. D. Gqa: A new dataset for real-world visual reasoning and compositional question answering. In CVPR , 2019.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        587.694,
+        289.605,
+        620.157
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_109",
+    "type": "paragraph",
+    "content": "Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard, A., Adam, H., and Kalenichenko, D. Quantization and training of neural networks for efficient integerarithmetic-only inference. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition , pp. 2704-2713, 2018.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        507.153,
+        291.098,
+        575.481
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_110",
+    "type": "paragraph",
+    "content": "Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C., Chaplot, D. S., Casas, D. d. l., Bressand, F., Lengyel, G., Lample, G., Saulnier, L., et al. Mistral 7b. arXiv preprint arXiv:2310.06825 , 2023.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        450.523,
+        290.687,
+        494.94
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_111",
+    "type": "paragraph",
+    "content": "Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary, B., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna, E. B., Bressand, F., Lengyel, G., Bour, G., Lample, G., Lavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P., Subramanian, S., Yang, S., Antoniak, S., Scao, T. L., Gervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed, W. E. Mixtral of experts, 2024.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        358.026,
+        290.688,
+        438.309
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_112",
+    "type": "paragraph",
+    "content": "Kim, Y. J., Henry, R., Fahim, R., and Awadalla, H. H. Who says elephants can't run: Bringing large scale moe models into cloud scale production. arXiv preprint arXiv:2211.10017 , 2022.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        301.396,
+        291.185,
+        345.813
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_113",
+    "type": "paragraph",
+    "content": "Klimt, B. and Yang, Y. The enron corpus: A new dataset for email classification research. In Machine Learning: ECML 2004: 15th European Conference on Machine Learning, Pisa, Italy, September 20-24, 2004. Proceedings 15 , pp. 217-226. Springer, 2004.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        232.80999999999995,
+        291.093,
+        289.183
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_114",
+    "type": "paragraph",
+    "content": "Koh, J. Y., Salakhutdinov, R., and Fried, D. Grounding language models to images for multimodal generation. arXiv preprint arXiv:2301.13823 , 2023.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        188.135,
+        291.179,
+        220.59699999999998
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_115",
+    "type": "paragraph",
+    "content": "Li, B., Wang, R., Wang, G., Ge, Y., Ge, Y., and Shan, Y. Seed-bench: Benchmarking multimodal llms with generative comprehension. arXiv preprint arXiv:2307.16125 , 2023a.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        131.50400000000002,
+        291.185,
+        175.92100000000005
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_116",
+    "type": "paragraph",
+    "content": "Li, J., Li, D., Savarese, S., and Hoi, S. Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models. arXiv preprint arXiv:2301.12597 , 2023b.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.098,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_117",
+    "type": "paragraph",
+    "content": "Li, R., Allal, L. B., Zi, Y ., Muennighoff, N., Kocetkov, D., Mou, C., Marone, M., Akiki, C., Li, J., Chim, J., et al. Starcoder: may the source be with you! arXiv preprint arXiv:2305.06161 , 2023c.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        677.045,
+        543.179,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_118",
+    "type": "paragraph",
+    "content": "Li, Y., Gong, R., Tan, X., Yang, Y., Hu, P., Zhang, Q., Yu, F., Wang, W., and Gu, S. Brecq: Pushing the limit of post-training quantization by block reconstruction. arXiv preprint arXiv:2102.05426 , 2021.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        620.887,
+        542.687,
+        665.304
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_119",
+    "type": "paragraph",
+    "content": "Li, Y., Du, Y., Zhou, K., Wang, J., Zhao, W. X., and Wen, J.-R. Evaluating object hallucination in large visionlanguage models. arXiv preprint arXiv:2305.10355 , 2023d.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        564.728,
+        543.092,
+        609.146
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_120",
+    "type": "paragraph",
+    "content": "Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet: Tiny deep learning on iot devices. Advances in Neural Information Processing Systems , 33:11711-11722, 2020.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        520.525,
+        543.127,
+        552.987
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_121",
+    "type": "paragraph",
+    "content": "Lin, J., Yin, H., Ping, W., Lu, Y., Molchanov, P., Tao, A., Mao, H., Kautz, J., Shoeybi, M., and Han, S. Vila: On pre-training for visual language models. In CVPR , 2024.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        476.321,
+        543.111,
+        508.784
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_122",
+    "type": "paragraph",
+    "content": "Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual instruction tuning. 2023a.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        444.073,
+        541.437,
+        464.58
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_123",
+    "type": "paragraph",
+    "content": "Liu, Y., Duan, H., Zhang, Y., Li, B., Zhang, S., Zhao, W., Yuan, Y., Wang, J., He, C., Liu, Z., et al. Mmbench: Is your multi-modal model an all-around player? arXiv preprint arXiv:2307.06281 , 2023b.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        387.914,
+        542.687,
+        432.332
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_124",
+    "type": "paragraph",
+    "content": "Lu, P., Mishra, S., Xia, T., Qiu, L., Chang, K.-W., Zhu, S.-C., Tafjord, O., Clark, P., and Kalyan, A. Learn to explain: Multimodal reasoning via thought chains for science question answering. Advances in Neural Information Processing Systems , 35:2507-2521, 2022.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        319.801,
+        543.091,
+        376.173
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_125",
+    "type": "paragraph",
+    "content": "Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer sentinel mixture models, 2016.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        287.552,
+        541.607,
+        308.06
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_126",
+    "type": "paragraph",
+    "content": "MLC-Team. MLC-LLM, 2023. URL https://github. com/mlc-ai/mlc-llm .",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        255.30399999999997,
+        545.624,
+        275.8109999999999
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_127",
+    "type": "paragraph",
+    "content": "Nagel, M., Baalen, M. v., Blankevoort, T., and Welling, M. Data-free quantization through weight equalization and bias correction. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pp. 13251334, 2019.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        187.19000000000005,
+        542.935,
+        243.563
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_128",
+    "type": "paragraph",
+    "content": "Nagel, M., Amjad, R. A., Van Baalen, M., Louizos, C., and Blankevoort, T. Up or down? adaptive rounding for post-training quantization. In International Conference on Machine Learning , pp. 7197-7206. PMLR, 2020.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        131.03200000000004,
+        542.687,
+        175.44900000000007
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_129",
+    "type": "paragraph",
+    "content": "Nagel, M., Fournarakis, M., Amjad, R. A., Bondarenko, Y., Van Baalen, M., and Blankevoort, T. A white paper on neural network quantization. arXiv preprint arXiv:2106.08295 , 2021.",
+    "metadata": {
+      "page": 13,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.089,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_130",
+    "type": "paragraph",
+    "content": "Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., et al. Training language models to follow instructions with human feedback. Advances in Neural Information Processing Systems , 35:27730-27744, 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        665.09,
+        290.689,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_131",
+    "type": "paragraph",
+    "content": "Park, G., Park, B., Kwon, S. J., Kim, B., Lee, Y., and Lee, D. nuqmm: Quantized matmul for efficient inference of large-scale generative language models. arXiv preprint arXiv:2206.09557 , 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        607.48,
+        290.687,
+        651.898
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_132",
+    "type": "paragraph",
+    "content": "Penedo, G., Malartic, Q., Hesslow, D., Cojocaru, R., Cappelli, A., Alobeidli, H., Pannier, B., Almazrouei, E., and Launay, J. The refinedweb dataset for falcon llm: outperforming curated corpora with web data, and web data only. arXiv preprint arXiv:2306.01116 , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        537.916,
+        291.098,
+        594.288
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_133",
+    "type": "paragraph",
+    "content": "Sanh, V., Webson, A., Raffel, C., Bach, S. H., Sutawika, L., Alyafeai, Z., Chaffin, A., Stiegler, A., Scao, T. L., Raja, A., et al. Multitask prompted training enables zero-shot task generalization. arXiv preprint arXiv:2110.08207 , 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        468.351,
+        290.688,
+        524.724
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_134",
+    "type": "paragraph",
+    "content": "Scao, T. L., Fan, A., Akiki, C., Pavlick, E., Ili´ c, S., Hesslow, D., Castagn´ e, R., Luccioni, A. S., Yvon, F., Gall´ e, M., et al. Bloom: A 176b-parameter open-access multilingual language model. arXiv preprint arXiv:2211.05100 , 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        410.742,
+        291.185,
+        455.209
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_135",
+    "type": "paragraph",
+    "content": "Sheng, Y., Zheng, L., Yuan, B., Li, Z., Ryabinin, M., Fu, D. Y., Xie, Z., Chen, B., Barrett, C., Gonzalez, J. E., et al. High-throughput generative inference of large language models with a single gpu. arXiv preprint arXiv:2303.06865 , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        341.177,
+        290.687,
+        397.55
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_136",
+    "type": "paragraph",
+    "content": "Singh, A., Natarajan, V., Shah, M., Jiang, Y., Chen, X., Batra, D., Parikh, D., and Rohrbach, M. Towards vqa models that can read. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pp. 8317-8326, 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        271.6120000000001,
+        290.687,
+        327.985
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_137",
+    "type": "paragraph",
+    "content": "Taori, R., Gulrajani, I., Zhang, T., Dubois, Y., Li, X., Guestrin, C., Liang, P., and Hashimoto, T. B. Stanford alpaca: An instruction-following llama model. https://github.com/tatsu-lab/ stanford_alpaca , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        202.04700000000003,
+        291.186,
+        258.4200000000001
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_138",
+    "type": "paragraph",
+    "content": "Tillet, P., Kung, H.-T., and Cox, D. Triton: an intermediate language and compiler for tiled neural network computations. In Proceedings of the 3rd ACM SIGPLAN International Workshop on Machine Learning and Programming Languages , pp. 10-19, 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        132.48299999999995,
+        291.098,
+        188.85500000000002
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_139",
+    "type": "paragraph",
+    "content": "Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozi` ere, B., Goyal, N., Hambro, E., Azhar, F., et al. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971 , 2023a.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.095,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_140",
+    "type": "paragraph",
+    "content": "Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et al. Llama 2: Open foundation and finetuned chat models. arXiv preprint arXiv:2307.09288 , 2023b.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        665.09,
+        543.098,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_141",
+    "type": "paragraph",
+    "content": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. Attention is all you need. Advances in neural information processing systems , 30, 2017.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        610.347,
+        543.089,
+        654.765
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_142",
+    "type": "paragraph",
+    "content": "Wang, H., Zhang, Z., and Han, S. Spatten: Efficient sparse attention architecture with cascade token and head pruning. CoRR , abs/2012.09852, 2020. URL https://arxiv.org/abs/2012.09852 .",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        555.604,
+        541.93,
+        600.022
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_143",
+    "type": "paragraph",
+    "content": "Wang, K., Liu, Z., Lin, Y., Lin, J., and Han, S. HAQ: Hardware-Aware Automated Quantization with Mixed Precision. In CVPR , 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        512.816,
+        542.829,
+        545.279
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_144",
+    "type": "paragraph",
+    "content": "Wei, J., Bosma, M., Zhao, V. Y., Guu, K., Yu, A. W., Lester, B., Du, N., Dai, A. M., and Le, Q. V. Finetuned language models are zero-shot learners. arXiv preprint arXiv:2109.01652 , 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        458.074,
+        543.098,
+        502.491
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_145",
+    "type": "paragraph",
+    "content": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang, Q., Yu, F., and Liu, X. Outlier suppression: Pushing the limit of low-bit transformer language models, 2022a. URL https://arxiv.org/abs/2209.13325 .",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        403.331,
+        543.185,
+        447.748
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_146",
+    "type": "paragraph",
+    "content": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang, Q., Yu, F., and Liu, X. Outlier suppression: Pushing the limit of low-bit transformer language models. arXiv preprint arXiv:2209.13325 , 2022b.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        348.588,
+        542.683,
+        393.005
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_147",
+    "type": "paragraph",
+    "content": "Wei, X., Zhang, Y., Li, Y ., Zhang, X., Gong, R., Guo, J., and Liu, X. Outlier suppression+: Accurate quantization of large language models by equivalent and optimal shifting and scaling. arXiv preprint arXiv:2304.09145 , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        293.845,
+        541.443,
+        338.262
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_148",
+    "type": "paragraph",
+    "content": "Xiao, G., Lin, J., Seznec, M., Demouth, J., and Han, S. Smoothquant: Accurate and efficient post-training quantization for large language models. arXiv preprint arXiv:2211.10438 , 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        239.10199999999998,
+        542.687,
+        283.519
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_149",
+    "type": "paragraph",
+    "content": "Yao, Z., Aminabadi, R. Y., Zhang, M., Wu, X., Li, C., and He, Y. Zeroquant: Efficient and affordable post-training quantization for large-scale transformers, 2022. URL https://arxiv.org/abs/2206.01861 .",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        184.35900000000004,
+        541.929,
+        228.77700000000004
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_150",
+    "type": "paragraph",
+    "content": "Yu, W., Yang, Z., Li, L., Wang, J., Lin, K., Liu, Z., Wang, X., and Wang, L. Mm-vet: Evaluating large multimodal models for integrated capabilities. arXiv preprint arXiv:2308.02490 , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        129.61599999999999,
+        543.094,
+        174.034
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_151",
+    "type": "paragraph",
+    "content": "Zhang, R., Han, J., Zhou, A., Hu, X., Yan, S., Lu, P., Li, H., Gao, P., and Qiao, Y. Llama-adapter: Efficient finetuning of language models with zero-init attention. arXiv preprint arXiv:2303.16199 , 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "REFERENCES",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.098,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2306.00978_paragraph_152",
+    "type": "paragraph",
+    "content": "Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M., Chen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., Mihaylov, T., Ott, M., Shleifer, S., Shuster, K., Simig, D., Koura, P. S., Sridhar, A., Wang, T., and Zettlemoyer, L. Opt: Open pre-trained transformer language models, 2022. URL https://arxiv.org/abs/2205. 01068 .",
+    "metadata": {
+      "page": 15,
+      "section": "REFERENCES",
+      "bbox": [
+        55.44,
+        641.18,
+        293.624,
+        721.463
+      ]
+    }
+  }
+]
