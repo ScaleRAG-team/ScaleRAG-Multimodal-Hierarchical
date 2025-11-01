@@ -1,0 +1,3099 @@
+[
+  {
+    "id": "2309.06180_paragraph_1",
+    "type": "paragraph",
+    "content": "High throughput serving of large language models (LLMs) requires batching sufficiently many requests at a time. However, existing systems struggle because the key-value cache (KV cache) memory for each request is huge and grows and shrinks dynamically. When managed inefficiently, this memory can be significantly wasted by fragmentation and redundant duplication, limiting the batch size. To address this problem, we propose PagedAttention, an attention algorithm inspired by the classical virtual memory and paging techniques in operating systems. On top of it, we build vLLM, an LLM serving system that achieves (1) near-zero waste in KV cache memory and (2) flexible sharing of KV cache within and across requests to further reduce memory usage. Our evaluations show that vLLM improves the throughput of popular LLMs by 2-4 × with the same level of latency compared to the state-of-the-art systems, such as FasterTransformer and Orca. The improvement is more pronounced with longer sequences, larger models, and more complex decoding algorithms. vLLM's source code is publicly available at https://github.com/vllm-project/vllm .",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        53.631,
+        358.638,
+        295.73,
+        594.553
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_2",
+    "type": "paragraph",
+    "content": "The emergence of large language models ( LLMs ) like GPT [5, 37] and PaLM [9] have enabled new applications such as programming assistants [6, 18] and universal chatbots [19, 35] that are starting to profoundly impact our work and daily routines. Many cloud companies [34, 44] are racing to provide these applications as hosted services. However, running these applications is very expensive, requiring a large number of hardware accelerators such as GPUs. According to recent estimates, processing an LLM request can be 10 × more expensive than a traditional keyword query [43]. Given these high costs, increasing the throughput-and hence reducing",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        53.701,
+        192.861,
+        295.732,
+        321.159
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_3",
+    "type": "paragraph",
+    "content": "Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for thirdparty components of this work must be honored. For all other uses, contact the owner/author(s).",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        116.52700000000004,
+        295.39,
+        173.274
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_4",
+    "type": "paragraph",
+    "content": "SOSP '23, October 23-26, 2023, Koblenz, Germany",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        105.529,
+        210.413,
+        112.56600000000003
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_5",
+    "type": "paragraph",
+    "content": "© 2023 Copyright held by the owner/author(s).",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        53.45,
+        94.60900000000004,
+        205.942,
+        101.543
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_6",
+    "type": "paragraph",
+    "content": "ACM ISBN 979-8-4007-0229-7/23/10.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        53.721,
+        84.64599999999996,
+        171.981,
+        91.58000000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_1",
+    "type": "figure",
+    "content": "Figure 1. Left: Memory layout when serving an LLM with 13B parameters on NVIDIA A100. The parameters (gray) persist in GPU memory throughout serving. The memory for the KV cache (red) is (de)allocated per serving request. A small amount of memory (yellow) is used ephemerally for activation. Right: vLLM smooths out the rapid growth curve of KV cache memory seen in existing systems [31, 60], leading to a notable boost in serving throughput.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        323.7418518066406,
+        483.943603515625,
+        545.4970703125,
+        609.2289123535156
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_1.png",
+      "image_summary": "The figure consists of two main parts: a left block diagram illustrating GPU memory composition and a right panel with two line graphs showing memory usage and throughput as functions of batch size.\n\n**Left Block Diagram:**\n- It represents the memory division of an NVIDIA A100 GPU with 40 GB total memory capacity.\n- The memory is subdivided into three major segments:\n  - \"Parameters\" take up 26 GB which corresponds to 65% of the total memory.\n  - \"KV Cache\" occupies more than 30% of the memory.\n  - \"Others\" occupy the remaining small portion.\nThis diagram highlights that the majority of GPU memory is consumed by model parameters and KV cache.\n\n**Right Panel:**\n- It contains two line graphs, one on top of the other, sharing the x-axis, which represents \"Batch size (# requests)\" ranging from 0 to 40.\n  \n  **Top graph:**\n  - The y-axis represents \"Memory usage (GB)\" ranging from 20 to 40 GB.\n  - Two lines are plotted:\n    - Orange line: \"Existing systems\" shows a steep increase in memory usage approximating from 26 GB at batch size 0 to nearly 40 GB around batch size 10.\n    - Blue line: \"vLLM\" shows a gradual, near-linear increase in memory usage from 26 GB at batch size 0 up to about 39 GB at batch size 40.\n  - A vertical dotted line at batch size ~10 on the orange line and ~40 on the blue line marks the parameter size usage at initial memory (~26 GB).\n\n  **Bottom graph:**\n  - The y-axis represents \"Throughput (token/s)\" ranging from 0 to 1.2k.\n  - A single green line shows throughput increasing with batch size from 0 to around 0.9k tokens/s at batch size 40.\n  - Horizontal arrows and vertical dotted lines (orange and blue) correspond to the batch size markers for existing systems and vLLM from the top graph.\n\n**Key Trends & Comparisons:**\n- Existing systems quickly consume nearly all available GPU memory by batch size ~10.\n- vLLM gradually increases memory consumption up to batch size 40 without hitting the memory limit.\n- Throughput improves with batch size, and vLLM supports larger batch sizes, resulting in higher throughput (~0.9k tokens/s at batch size 40) compared to the lower batch size limit (~10) for existing systems.\n- The main limitation for existing systems is memory ceiling, whereas vLLM efficiently manages memory, allowing higher batch sizes and throughput.\n\n**Main Takeaway:**\nThe figure demonstrates that vLLM has a significantly better memory efficiency than existing systems on the NVIDIA A100 40GB GPU, supporting larger batch sizes and achieving higher throughput by optimizing memory usage, especially in the context of parameter size and KV cache."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_7",
+    "type": "paragraph",
+    "content": "the cost per request-of LLM serving systems is becoming more important.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        342.406,
+        558.0,
+        363.108
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_8",
+    "type": "paragraph",
+    "content": "At the core of LLMs lies an autoregressive Transformer model [53]. This model generates words (tokens), one at a time , based on the input (prompt) and the previous sequence of the output's tokens it has generated so far. For each request, this expensive process is repeated until the model outputs a termination token. This sequential generation process makes the workload memory-bound , underutilizing the computation power of GPUs and limiting the serving throughput.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        246.765,
+        559.686,
+        339.119
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_9",
+    "type": "paragraph",
+    "content": "Improving the throughput is possible by batching multiple requests together. However, to process many requests in a batch, the memory space for each request should be efficiently managed. For example, Fig. 1 (left) illustrates the memorydistribution for a 13B-parameter LLM on an NVIDIA A100 GPU with 40GB RAM. Approximately 65% of the memory is allocated for the model weights, which remain static during serving. Close to 30% of the memory is used to store the dynamic states of the requests. For Transformers, these states consist of the key and value tensors associated with the attention mechanism, commonly referred to as KVcache [41], which represent the context from earlier tokens to generate new output tokens in sequence. The remaining small",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.587,
+        91.34799999999996,
+        559.688,
+        243.47800000000007
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_10",
+    "type": "paragraph",
+    "content": "∗ Equal contribution.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        318.453,
+        74.68299999999999,
+        384.602,
+        83.67399999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_2",
+    "type": "figure",
+    "content": "Figure 2. Average percentage of memory wastes in different LLM serving systems during the experiment in §6.2.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        57.5934944152832,
+        586.7339477539062,
+        282.96685791015625,
+        709.7672424316406
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_2.png",
+      "image_summary": "The figure is a stacked bar chart comparing the percentage usage of different KV cache components across four model configurations: Orca (Max), Orca (Pow2), Orca (Oracle), and vLLM. The y-axis represents KV cache usage in percentage (%), ranging from 0 to 100%.\n\nThe KV cache usage is divided into four categories, each represented by a distinct color: \n- Token states (green)\n- Reservation (orange)\n- Internal fragmentation (red)\n- External fragmentation and others (gray)\n\nKey observations include:\n\n1. **Orca (Max):**\n   - Token states usage is 20.4%.\n   - Reservation is 13.3%.\n   - Internal fragmentation is particularly high at 57.3%.\n   - External fragmentation and others constitute 8.9%.\n\n2. **Orca (Pow2):**\n   - Token states increase to 26.8%.\n   - Reservation rises slightly to 17.9%.\n   - Internal fragmentation drops significantly to 13.6%.\n   - External fragmentation and others increase to 41.6%.\n\n3. **Orca (Oracle):**\n   - Token states usage further increases to 38.2%.\n   - Reservation also increases to 25.2%.\n   - Internal fragmentation drops to zero or negligible (not visible).\n   - External fragmentation and others decrease to 36.6%.\n\n4. **vLLM:**\n   - Token states dominate the KV cache usage at 96.3%.\n   - Reservation is minimal at 1.1%.\n   - Internal fragmentation is absent.\n   - External fragmentation and others are 2.6%.\n\nMain takeaway:\nThe figure demonstrates that vLLM achieves extremely efficient KV cache utilization, with over 96% allocated to token states and negligible fragmentation or reservation overhead. In contrast, Orca variants show considerable inefficiencies, particularly in internal and external fragmentation and reservations. Notably, Orca (Max) has the highest internal fragmentation (57.3%), while Orca (Pow2) and Orca (Oracle) show improvements but still substantial fragmentation compared to vLLM. This indicates that vLLM significantly reduces memory overhead and fragmentation in KV cache usage relative to Orca configurations."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_11",
+    "type": "paragraph",
+    "content": "percentage of memory is used for other data, including activations - the ephemeral tensors created when evaluating the LLM. Since the model weights are constant and the activations only occupy a small fraction of the GPU memory, the way the KV cache is managed is critical in determining the maximum batch size. When managed inefficiently, the KV cache memory can significantly limit the batch size and consequently the throughput of the LLM, as illustrated in Fig. 1 (right).",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        420.951,
+        295.728,
+        525.261
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_12",
+    "type": "paragraph",
+    "content": "In this paper, we observe that existing LLM serving systems [31, 60] fall short of managing the KV cache memory efficiently. This is mainly because they store the KV cache of a request in contiguous memory space, as most deep learning frameworks [33, 39] require tensors to be stored in contiguous memory. However, unlike the tensors in the traditional deep learning workloads, the KV cache has unique characteristics: it dynamically grows and shrinks over time as the model generates new tokens, and its lifetime and length are not known a priori. These characteristics make the existing systems' approach significantly inefficient in two ways:",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        289.444,
+        295.73,
+        417.664
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_13",
+    "type": "paragraph",
+    "content": "First, the existing systems [31, 60] suffer from internal and external memory fragmentation. To store the KV cache of a request in contiguous space, they pre-allocate a contiguous chunk of memory with the request's maximum length (e.g., 2048 tokens). This can result in severe internal fragmentation, since the request's actual length can be much shorter than its maximum length (e.g., Fig. 11). Moreover, even if the actual length is known a priori, the pre-allocation is still inefficient: As the entire chunk is reserved during the request's lifetime, other shorter requests cannot utilize any part of the chunk that is currently unused. Besides, external memory fragmentation can also be significant, since the preallocated size can be different for each request. Indeed, our profiling results in Fig. 2 show that only 20.4% - 38.2% of the KV cache memory is used to store the actual token states in the existing systems.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        53.701,
+        98.16200000000003,
+        295.731,
+        286.157
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_14",
+    "type": "paragraph",
+    "content": "Second, the existing systems cannot exploit the opportunities for memory sharing. LLM services often use advanced decoding algorithms, such as parallel sampling and beam search, that generate multiple outputs per request. In these scenarios, the request consists of multiple sequences that can partially share their KV cache. However, memory sharing is not possible in the existing systems because the KV cache of the sequences is stored in separate contiguous spaces.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.73,
+        94.875
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_15",
+    "type": "paragraph",
+    "content": "To address the above limitations, we propose PagedAttention , an attention algorithm inspired by the operating system's (OS) solution to memory fragmentation and sharing: virtual memory with paging . PagedAttention divides the request's KV cache into blocks, each of which can contain the attention keys and values of a fixed number of tokens. In PagedAttention, the blocks for the KV cache are not necessarily stored in contiguous space. Therefore, we can manage the KV cache in a more flexible way as in OS's virtual memory: one can think of blocks as pages, tokens as bytes, and requests as processes. This design alleviates internal fragmentation by using relatively small blocks and allocating them on demand. Moreover, it eliminates external fragmentation as all blocks have the same size. Finally, it enables memory sharing at the granularity of a block, across the different sequences associated with the same request or even across the different requests.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        444.862,
+        559.688,
+        644.891
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_16",
+    "type": "paragraph",
+    "content": "In this work, we build vLLM , a high-throughput distributed LLM serving engine on top of PagedAttention that achieves near-zero waste in KV cache memory. vLLM uses block-level memory management and preemptive request scheduling that are co-designed with PagedAttention. vLLM supports popular LLMs such as GPT [5], OPT [62], and LLaMA [52] with varying sizes, including the ones exceeding the memory capacity of a single GPU. Our evaluations on various models and workloads show that vLLM improves the LLM serving throughput by 2-4 × compared to the state-of-the-art systems [31, 60], without affecting the model accuracy at all. The improvements are more pronounced with longer sequences, larger models, and more complex decoding algorithms (§4.3). In summary, we make the following contributions:",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.587,
+        277.48900000000003,
+        559.687,
+        441.653
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_17",
+    "type": "paragraph",
+    "content": "Weidentify the challenges in memory allocation in serving LLMs and quantify their impact on serving performance.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        253.57899999999995,
+        558.0,
+        274.74
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_18",
+    "type": "paragraph",
+    "content": "We propose PagedAttention, an attention algorithm that operates on KV cache stored in non-contiguous paged memory, which is inspired by the virtual memory and paging in OS.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        205.75800000000004,
+        558.003,
+        250.83000000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_19",
+    "type": "paragraph",
+    "content": "Wedesign and implement vLLM, a distributed LLM serving engine built on top of PagedAttention.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        181.84799999999996,
+        558.0,
+        203.00900000000001
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_20",
+    "type": "paragraph",
+    "content": "We evaluate vLLM on various scenarios and demonstrate that it substantially outperforms the previous state-of-theart solutions such as FasterTransformer [31] and Orca [60].",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.955,
+        145.98199999999997,
+        559.68,
+        179.09899999999993
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_21",
+    "type": "paragraph",
+    "content": "In this section, we describe the generation and serving procedures of typical LLMs and the iteration-level scheduling used in LLM serving.",
+    "metadata": {
+      "page": 2,
+      "section": "Background",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        559.68,
+        106.83000000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_22",
+    "type": "paragraph",
+    "content": "The task of language modeling is to model the probability of a list of tokens ( 𝑥 1 , . . . , 𝑥 𝑛 ) . Since language has a natural sequential ordering, it is common to factorize the joint probability over the whole sequence as the product of conditional probabilities (a.k.a. autoregressive decomposition [3]):",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        53.701,
+        642.977,
+        295.731,
+        699.515
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_equation_1",
+    "type": "equation",
+    "content": "𝑃 ( 𝑥 ) = 𝑃 ( 𝑥 1 ) · 𝑃 ( 𝑥 2 | 𝑥 1 ) · · · 𝑃 ( 𝑥 𝑛 | 𝑥 1 , . . . , 𝑥 𝑛 -1 ) . (1)",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        76.149,
+        618.149,
+        294.642,
+        628.266
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_23",
+    "type": "paragraph",
+    "content": "Transformers [53] have become the de facto standard architecture for modeling the probability above at a large scale. The most important component of a Transformer-based language model is its self-attention layers. For an input hidden state sequence ( 𝑥 1 , . . . , 𝑥 𝑛 ) ∈ R 𝑛 × 𝑑 , a self-attention layer first applies linear transformations on each position 𝑖 to get the query, key, and value vectors:",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        53.701,
+        523.208,
+        295.732,
+        603.763
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_equation_2",
+    "type": "equation",
+    "content": "𝑞 𝑖 = 𝑊 𝑞 𝑥 𝑖 , 𝑘 𝑖 = 𝑊 𝑘 𝑥 𝑖 , 𝑣 𝑖 = 𝑊 𝑣 𝑥 𝑖 . (2)",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        108.021,
+        499.242,
+        294.642,
+        508.238
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_24",
+    "type": "paragraph",
+    "content": "Then, the self-attention layer computes the attention score 𝑎 𝑖 𝑗 by multiplying the query vector at one position with all the key vectors before it and compute the output 𝑜 𝑖 as the weighted average over the value vectors:",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        53.631,
+        439.411,
+        294.047,
+        483.944
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_equation_3",
+    "type": "equation",
+    "content": "𝑎 𝑖 𝑗 = exp ( 𝑞 ⊤ 𝑖 𝑘 𝑗 / √ 𝑑 ) ˝ 𝑖 𝑡 = 1 exp ( 𝑞 ⊤ 𝑖 𝑘 𝑡 / √ 𝑑 ) , 𝑜 𝑖 = 𝑖 ∑︁ 𝑗 = 1 𝑎 𝑖 𝑗 𝑣 𝑗 . (3)",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        90.906,
+        395.379,
+        294.642,
+        431.779
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_25",
+    "type": "paragraph",
+    "content": "Besides the computation in Eq. 4, all other components in the Transformer model, including the embedding layer, feed-forward layer, layer normalization [2], residual connection [22], output logit computation, and the query, key, and value transformation in Eq. 2, are all applied independently position-wise in a form of 𝑦 𝑖 = 𝑓 ( 𝑥 𝑖 ) .",
+    "metadata": {
+      "page": 3,
+      "section": "Transformer-Based Large Language Models",
+      "bbox": [
+        53.751,
+        313.145,
+        295.732,
+        381.589
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_26",
+    "type": "paragraph",
+    "content": "Once trained, LLMs are often deployed as a conditional generation service (e.g., completion API [34] or chatbot [19, 35]). A request to an LLM service provides a list of input prompt tokens ( 𝑥 1 , . . . , 𝑥 𝑛 ) , and the LLM service generates a list of output tokens ( 𝑥 𝑛 + 1 , . . . , 𝑥 𝑛 + 𝑇 ) according to Eq. 1. We refer to the concatenation of the prompt and output lists as sequence .",
+    "metadata": {
+      "page": 3,
+      "section": "LLM Service & Autoregressive Generation",
+      "bbox": [
+        53.651,
+        217.664,
+        295.727,
+        286.157
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_27",
+    "type": "paragraph",
+    "content": "Due to the decomposition in Eq. 1, the LLM can only sample and generate new tokens one by one, and the generation process of each new token depends on all the previous tokens in that sequence, specifically their key and value vectors. In this sequential generation process, the key and value vectors of existing tokens are often cached for generating future tokens, known as KV cache . Note that the KV cache of one token depends on all its previous tokens. This means that the KV cache of the same token appearing at different positions in a sequence will be different.",
+    "metadata": {
+      "page": 3,
+      "section": "LLM Service & Autoregressive Generation",
+      "bbox": [
+        54.0,
+        98.16200000000003,
+        295.725,
+        214.42599999999993
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_28",
+    "type": "paragraph",
+    "content": "Given a request prompt, the generation computation in the LLM service can be decomposed into two phases:",
+    "metadata": {
+      "page": 3,
+      "section": "LLM Service & Autoregressive Generation",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        294.048,
+        94.875
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_29",
+    "type": "paragraph",
+    "content": "Thepromptphase takes the whole user prompt ( 𝑥 1 , . . . , 𝑥 𝑛 ) as input and computes the probability of the first new token 𝑃 ( 𝑥 𝑛 + 1 | 𝑥 1 , . . . , 𝑥 𝑛 ) . During this process, also generates the key vectors 𝑘 1 , . . . , 𝑘 𝑛 and value vectors 𝑣 1 , . . . , 𝑣 𝑛 . Since prompt tokens 𝑥 1 , . . . , 𝑥 𝑛 are all known, the computation of the prompt phase can be parallelized using matrixmatrix multiplication operations. Therefore, this phase can efficiently use the parallelism inherent in GPUs.",
+    "metadata": {
+      "page": 3,
+      "section": "LLM Service & Autoregressive Generation",
+      "bbox": [
+        317.626,
+        624.189,
+        559.685,
+        717.081
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_30",
+    "type": "paragraph",
+    "content": "The autoregressive generation phase generates the remaining new tokens sequentially. At iteration 𝑡 , the model takes one token 𝑥 𝑛 + 𝑡 as input and computes the probability 𝑃 ( 𝑥 𝑛 + 𝑡 + 1 | 𝑥 1 , . . . , 𝑥 𝑛 + 𝑡 ) with the key vectors 𝑘 1 , . . . , 𝑘 𝑛 + 𝑡 and value vectors 𝑣 1 , . . . , 𝑣 𝑛 + 𝑡 . Note that the key and value vectors at positions 1 to 𝑛 + 𝑡 -1 are cached at previous iterations, only the new key and value vector 𝑘 𝑛 + 𝑡 and 𝑣 𝑛 + 𝑡 are computed at this iteration. This phase completes either when the sequence reaches a maximum length (specified by users or limited by LLMs) or when an end-of-sequence ( <eos> ) token is emitted. The computation at different iterations cannot be parallelized due to the data dependency and often uses matrix-vector multiplication, which is less efficient. As a result, this phase severely underutilizes GPU computation and becomes memory-bound, being responsible for most portion of the latency of a single request.",
+    "metadata": {
+      "page": 3,
+      "section": "LLM Service & Autoregressive Generation",
+      "bbox": [
+        317.626,
+        428.921,
+        559.687,
+        616.917
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_31",
+    "type": "paragraph",
+    "content": "The compute utilization in serving LLMs can be improved by batching multiple requests. Because the requests share the same model weights, the overhead of moving weights is amortized across the requests in a batch, and can be overwhelmed by the computational overhead when the batch size is sufficiently large. However, batching the requests to an LLM service is non-trivial for two reasons. First, the requests may arrive at different times. A naive batching strategy would either make earlier requests wait for later ones or delay the incoming requests until earlier ones finish, leading to significant queueing delays. Second, the requests may have vastly different input and output lengths (Fig. 11). A straightforward batching technique would pad the inputs and outputs of the requests to equalize their lengths, wasting GPU computation and memory.",
+    "metadata": {
+      "page": 3,
+      "section": "Batching Techniques for LLMs",
+      "bbox": [
+        317.587,
+        229.66899999999998,
+        559.686,
+        405.709
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_32",
+    "type": "paragraph",
+    "content": "To address this problem, fine-grained batching mechanisms, such as cellular batching [16] and iteration-level scheduling [60], have been proposed. Unlike traditional methods that work at the request level, these techniques operate at the iteration level. After each iteration, completed requests are removed from the batch, and new ones are added. Therefore, a new request can be processed after waiting for a single iteration, not waiting for the entire batch to complete. Moreover, with special GPU kernels, these techniques eliminate the need to pad the inputs and outputs. By reducing the queueing delay and the inefficiencies from padding, the fine-grained batching mechanisms significantly increase the throughput of LLM serving.",
+    "metadata": {
+      "page": 3,
+      "section": "Batching Techniques for LLMs",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        560.356,
+        226.38099999999997
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_3",
+    "type": "figure",
+    "content": "Figure 3. KVcache memory management in existing systems. Three types of memory wastes - reserved, internal fragmentation, and external fragmentation - exist that prevent other requests from fitting into the memory. The token in each memory slot represents its KV cache. Note the same tokens can have different KV cache when at different positions.",
+    "metadata": {
+      "page": 4,
+      "section": "Batching Techniques for LLMs",
+      "bbox": [
+        90.40859985351562,
+        655.6797332763672,
+        518.8211669921875,
+        719.8512573242188
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_3.png",
+      "image_summary": "The figure presents a schematic illustration of key-value (KV) cache states within a language model, focusing on two different requests, labeled Request A and Request B. \n\nHorizontal segments of the figure represent sequential cache slots, with tokens inside labeled to show content states. The figure is divided into distinct colored blocks:\n\n- The yellow block on the left shows 7 KV cache states associated with Request A’s prompt: tokens “Four score and seven years ago our fathers brought.”\n- The yellow segment immediately following is the current iteration for Request A, highlighting “fathers” and “brought” as active slots, with one slot labeled for the generated token, and a following slot reserved for future usage (“forth,” “<eos>,” “<resv>”).\n- The large gray block represents 2038 slots never used by either request, annotated as “internal fragmentation,” emphasizing wasted capacity.\n- To the right of the gray block is an empty section labeled “External fragmentation.”\n- The green block corresponds to 3 KV cache states for Request B’s prompt: tokens “You only live.”\n- The green segment following is the current iteration for Request B, showing “once” as the active generated token slot, with a reserved slot following it.\n- A subsequent green section, marked with 507 never-used slots, indicates internal fragmentation for Request B.\n\nAnnotations explain the allocation of slots per iteration and highlight fragmentation types: internal fragmentation (unused slots within reserved blocks for each request) and external fragmentation (unused slots outside any request block).\n\nMain takeaway: The figure visually differentiates how KV cache reuse and iteration are managed for multiple requests, pinpointing significant internal and external fragmentation in cache allocation that leads to inefficient memory utilization. This provides insight into wasted cache resources in multi-request scenarios during model token generation."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_33",
+    "type": "paragraph",
+    "content": "Although fine-grained batching reduces the waste of computing and enables requests to be batched in a more flexible way, the number of requests that can be batched together is still constrained by GPU memory capacity, particularly the space allocated to store the KV cache. In other words, the serving system's throughput is memory-bound . Overcoming this memory-bound requires addressing the following challenges in the memory management:",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Challenges in LLM Serving",
+      "bbox": [
+        53.631,
+        476.742,
+        295.728,
+        569.096
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_34",
+    "type": "paragraph",
+    "content": "Large KV cache. The KV Cache size grows quickly with the number of requests. As an example, for the 13B parameter OPT model [62], the KV cache of a single token demands 800 KB of space, calculated as 2 (key and value vectors) × 5120 (hidden state size) × 40 (number of layers) × 2 (bytes per FP16). Since OPT can generate sequences up to 2048 tokens, the memory required to store the KV cache of one request can be as much as 1.6 GB. Concurrent GPUs have memory capacities in the tens of GBs. Even if all available memory was allocated to KV cache, only a few tens of requests could be accommodated. Moreover, inefficient memory management can further decrease the batch size, as shown in Fig. 2. Additionally, given the current trends, the GPU's computation speed grows faster than the memory capacity [17]. For example, from NVIDIA A100 to H100, The FLOPS increases by more than 2x, but the GPU memory stays at 80GB maximum. Therefore, we believe the memory will become an increasingly significant bottleneck.",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Challenges in LLM Serving",
+      "bbox": [
+        53.631,
+        257.5640000000001,
+        295.733,
+        469.47
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_35",
+    "type": "paragraph",
+    "content": "Complexdecoding algorithms. LLMservices offer a range of decoding algorithms for users to select from, each with varying implications for memory management complexity. For example, when users request multiple random samples from a single input prompt, a typical use case in program suggestion [18], the KV cache of the prompt part, which accounts for 12% of the total KV cache memory in our experiment (§6.3), can be shared to minimize memory usage. On the other hand, the KV cache during the autoregressive generation phase should remain unshared due to the different sample results and their dependence on context and position. The extent of KV cache sharing depends on the specific decoding algorithm employed. In more sophisticated algorithms like beam search [49], different request beams can share larger portions (up to 55% memory saving, see",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Challenges in LLM Serving",
+      "bbox": [
+        53.751,
+        74.25099999999998,
+        295.73,
+        250.29200000000003
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_36",
+    "type": "paragraph",
+    "content": "§6.3) of their KV cache, and the sharing pattern evolves as the decoding process advances.",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Challenges in LLM Serving",
+      "bbox": [
+        317.955,
+        573.236,
+        558.004,
+        593.859
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_37",
+    "type": "paragraph",
+    "content": "Scheduling for unknown input & output lengths. The requests to an LLM service exhibit variability in their input and output lengths. This requires the memory management system to accommodate a wide range of prompt lengths. In addition, as the output length of a request grows at decoding, the memory required for its KV cache also expands and may exhaust available memory for incoming requests or ongoing generation for existing prompts. The system needs to make scheduling decisions, such as deleting or swapping out the KV cache of some requests from GPU memory.",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Challenges in LLM Serving",
+      "bbox": [
+        317.955,
+        449.699,
+        559.1,
+        565.963
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_38",
+    "type": "paragraph",
+    "content": "Since most operators in current deep learning frameworks [33, 39] require tensors to be stored in contiguous memory, previous LLM serving systems [31, 60] also store the KV cache of one request as a contiguous tensor across the different positions. Due to the unpredictable output lengths from the LLM, they statically allocate a chunk of memory for a request based on the request's maximum possible sequence length, irrespective of the actual input or eventual output length of the request.",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Management in Existing Systems",
+      "bbox": [
+        317.955,
+        301.4,
+        559.686,
+        405.709
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_39",
+    "type": "paragraph",
+    "content": "Fig. 3 illustrates two requests: request A with 2048 maximum possible sequence length and request B with a maximum of 512. The chunk pre-allocation scheme in existing systems has three primary sources of memory wastes: reserved slots for future tokens, internal fragmentation due to over-provisioning for potential maximum sequence lengths, and external fragmentation from the memory allocator like the buddy allocator. The external fragmentation will never be used for generated tokens, which is known before serving a request. Internal fragmentation also remains unused, but this is only realized after a request has finished sampling. They are both pure memory waste. Although the reserved memory is eventually used, reserving this space for the entire request's duration, especially when the reserved space is large, occupies the space that could otherwise be used to process other requests. We visualize the average percentage of memory wastes in our experiments in Fig. 2, revealing that the actual effective memory in previous systems can be as low as 20.4%.",
+    "metadata": {
+      "page": 4,
+      "section": "Memory Management in Existing Systems",
+      "bbox": [
+        317.656,
+        74.25099999999998,
+        559.687,
+        298.112
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_4",
+    "type": "figure",
+    "content": "Figure 4. vLLM system overview.",
+    "metadata": {
+      "page": 5,
+      "section": "Memory Management in Existing Systems",
+      "bbox": [
+        64.68047332763672,
+        606.4306945800781,
+        280.2888488769531,
+        720.5031433105469
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_4.png",
+      "image_summary": "The figure presents a schematic diagram illustrating the architecture of a distributed cache and model shard management system. The diagram does not have visible axes or units, as it is a conceptual flowchart rather than a data plot.\n\nKey components and flow:\n\n1. Scheduler (green box): This component initiates the process and directs operations. Arrows indicate it sends commands or requests both to the KV Cache Manager and each Worker instance.\n  \n2. KV Cache Manager (white box with block tables): It manages key-value cache block tables, represented as two small grid tables with colored and empty cells. This suggests management of cache blocks, where possibly the colored blocks represent allocated or active blocks. From the KV Cache Manager, two allocators branch out:\n   - CPU Block Allocator\n   - GPU Block Allocator\nThis division highlights that cache block allocation is separated between CPU and GPU.\n\n3. Workers (blue boxes): There are multiple workers labeled from Worker 0, Worker 1, through Worker N - 1, reflecting scalability to an arbitrary number of workers.\n   - Each Worker contains two components: a Cache Engine and a Model Shard (with indices matching the worker number), with an icon of a GPU card on the right side of each box.\n   - The parallel lines from Scheduler to all workers suggest the Scheduler coordinates or controls the workers simultaneously.\n\nMain takeaway:\n\nThis figure depicts a system architecture designed for efficient distributed memory management and model distribution where the Scheduler orchestrates cache and model shard assignment across multiple GPU-enabled worker nodes. The KV Cache Manager centrally manages the allocation of cache blocks separated by CPU and GPU resources, and each worker runs a cache engine paired with a specific shard of a large model, likely enabling parallel processing and scalability in a heterogeneous computing environment."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_40",
+    "type": "paragraph",
+    "content": "Although compaction [54] has been proposed as a potential solution to fragmentation, performing compaction in a performance-sensitive LLM serving system is impractical due to the massive KV cache. Even with compaction, the pre-allocated chunk space for each request prevents memory sharing specific to decoding algorithms in existing memory management systems.",
+    "metadata": {
+      "page": 5,
+      "section": "Memory Management in Existing Systems",
+      "bbox": [
+        54.0,
+        495.316,
+        295.724,
+        575.715
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_41",
+    "type": "paragraph",
+    "content": "In this work, we develop a new attention algorithm, PagedAttention , and build an LLM serving engine, vLLM , to tackle the challenges outlined in §3. The architecture of vLLM is shown in Fig. 4. vLLM adopts a centralized scheduler to coordinate the execution of distributed GPU workers. The KV cache manager effectively manages the KV cache in a paged fashion, enabled by PagedAttention. Specifically, the KV cache manager manages the physical KV cache memory on the GPU workers through the instructions sent by the centralized scheduler.",
+    "metadata": {
+      "page": 5,
+      "section": "Method",
+      "bbox": [
+        54.0,
+        353.86,
+        295.041,
+        470.204
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_42",
+    "type": "paragraph",
+    "content": "Next, We describe the PagedAttention algorithm in §4.1. With that, we show the design of the KV cache manager in §4.2 and how it facilitates PagedAttention in §4.3, respectively. Then, we show how this design facilitates effective memory management for various decoding methods (§4.4) and handles the variable length input and output sequences (§4.5). Finally, we show how the system design of vLLM works in a distributed setting (§4.6).",
+    "metadata": {
+      "page": 5,
+      "section": "Method",
+      "bbox": [
+        53.522,
+        258.21900000000005,
+        295.73,
+        350.573
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_43",
+    "type": "paragraph",
+    "content": "To address the memory challenges in §3, we introduce PagedAttention , an attention algorithm inspired by the classic idea of paging [25] in operating systems. Unlike the traditional attention algorithms, PagedAttention allows storing continuous keys and values in non-contiguous memory space. Specifically, PagedAttention partitions the KV cache of each sequence into KVblocks . Each block contains the key and value vectors for a fixed number of tokens, 1 which we denote as KV",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        53.701,
+        141.62,
+        295.731,
+        234.10199999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_44",
+    "type": "paragraph",
+    "content": "1 In Transformer, each token has a set of key and value vectors across layers and attention heads within a layer. All the key and value vectors can be managed together within a single KV block, or the key and value vectors at different heads and layers can each have a separate block and be managed in separate block tables. The two designs have no performance difference and we choose the second one for easy implementation.",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        53.858,
+        74.68299999999999,
+        294.048,
+        133.15300000000002
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_5",
+    "type": "figure",
+    "content": "Figure 5. Illustration of the PagedAttention algorithm, where the attention key and values vectors are stored as non-contiguous blocks in the memory.",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        340.3447265625,
+        631.8444976806641,
+        531.8460693359375,
+        719.2664947509766
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_5.png",
+      "image_summary": "The figure illustrates the relationship between a query vector labeled \"forth\" and three distinct blocks of key and value vectors, referred to as Block 0, Block 1, and Block 2. \n\nOn the left side, the single query vector \"forth\" is visually connected via arrows to the three blocks. Each block contains a set of words arranged in a grid pattern, representing the key and value vectors in that block. The words within each block are as follows:\n\n- Block 0: \"Four\", \"score\", \"and\", \"seven\"\n- Block 1: \"years\", \"ago\", \"our\", \"fathers\"\n- Block 2: \"brought\", \"forth\"\n\nThe figure highlights that the query vector \"forth\" interacts simultaneously with multiple blocks, each containing different words. Block 1 partitions words that seem to provide a historical context (\"years ago our fathers\"), while Block 0 contains a phrase likely associated with numbers and conjunctions (\"Four score and seven\"). Block 2 is smaller and includes only two words, one of which is identical to the query vector (\"forth\"), indicating a potential direct match.\n\nThe main takeaway from this figure is to demonstrate how a single query vector can be associated or attend to multiple blocks of key and value vectors with different semantic contents or word groupings, which is a common concept in attention mechanisms used in natural language processing systems. The figure effectively shows the multiple pathways or attention heads through which the query word \"forth\" retrieves or relates to different contextual information from distinct blocks."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_45",
+    "type": "paragraph",
+    "content": "block size ( 𝐵 ). Denote the key block 𝐾 𝑗 = ( 𝑘 ( 𝑗 -1 ) 𝐵 + 1 , . . . , 𝑘 𝑗𝐵 ) and value block 𝑉 𝑗 = ( 𝑣 ( 𝑗 -1 ) 𝐵 + 1 , . . . , 𝑣 𝑗𝐵 ) . The attention computation in Eq. 4 can be transformed into the following blockwise computation:",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        317.587,
+        532.306,
+        559.686,
+        577.378
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_equation_4",
+    "type": "equation",
+    "content": "𝐴 𝑖 𝑗 = exp ( 𝑞 ⊤ 𝑖 𝐾 𝑗 / √ 𝑑 ) ˝ ⌈ 𝑖 / 𝐵 ⌉ 𝑡 = 1 exp ( 𝑞 ⊤ 𝑖 𝐾 𝑡 1 / √ 𝑑 ) , 𝑜 𝑖 = ⌈ 𝑖 / 𝐵 ⌉ ∑︁ 𝑗 = 1 𝑉 𝑗 𝐴 ⊤ 𝑖 𝑗 , (4)",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        344.338,
+        492.684,
+        558.597,
+        530.144
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_46",
+    "type": "paragraph",
+    "content": "where 𝐴 𝑖 𝑗 = ( 𝑎 𝑖, ( 𝑗 -1 ) 𝐵 + 1 , . . . , 𝑎 𝑖,𝑗𝐵 ) is the row vector of attention score on 𝑗 -th KV block.",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        317.587,
+        465.825,
+        559.679,
+        486.987
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_47",
+    "type": "paragraph",
+    "content": "During the attention computation, the PagedAttention kernel identifies and fetches different KV blocks separately. We show an example of PagedAttention in Fig. 5: The key and value vectors are spread across three blocks, and the three blocks are not contiguous on the physical memory. At each time, the kernel multiplies the query vector 𝑞 𝑖 of the query token (' forth ') and the key vectors 𝐾 𝑗 in a block (e.g., key vectors of ' Four score and seven ' for block 0) to compute the attention score 𝐴 𝑖 𝑗 , and later multiplies 𝐴 𝑖 𝑗 with the value vectors 𝑉 𝑗 in a block to derive the final attention output 𝑜 𝑖 .",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        317.477,
+        346.274,
+        559.532,
+        462.538
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_48",
+    "type": "paragraph",
+    "content": "In summary, the PagedAttention algorithm allows the KV blocks to be stored in non-contiguous physical memory, which enables more flexible paged memory management in vLLM.",
+    "metadata": {
+      "page": 5,
+      "section": "PagedAttention",
+      "bbox": [
+        317.587,
+        298.453,
+        559.098,
+        342.987
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_49",
+    "type": "paragraph",
+    "content": "The key idea behind vLLM's memory manager is analogous to the virtual memory [25] in operating systems. OS partitions memory into fixed-sized pages and maps user programs' logical pages to physical pages. Contiguous logical pages can correspond to non-contiguous physical memory pages, allowing user programs to access memory as though it were contiguous. Moreover, physical memory space needs not to be fully reserved in advance, enabling the OS to dynamically allocate physical pages as needed. vLLM uses the ideas behind virtual memory to manage the KV cache in an LLM service. Enabled by PagedAttention, we organize the KV cache as fixed-size KV blocks, like pages in virtual memory.",
+    "metadata": {
+      "page": 5,
+      "section": "KV Cache Manager",
+      "bbox": [
+        317.656,
+        134.02700000000004,
+        559.688,
+        274.202
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_50",
+    "type": "paragraph",
+    "content": "A request's KV cache is represented as a series of logical KVblocks , filled from left to right as new tokens and their KV cache are generated. The last KV block's unfilled positions are reserved for future generations. On GPU workers, a block engine allocates a contiguous chunk of GPU DRAM and",
+    "metadata": {
+      "page": 5,
+      "section": "KV Cache Manager",
+      "bbox": [
+        317.955,
+        74.202,
+        558.325,
+        130.81899999999996
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_6",
+    "type": "figure",
+    "content": "Figure 6. Block table translation in vLLM.",
+    "metadata": {
+      "page": 6,
+      "section": "KV Cache Manager",
+      "bbox": [
+        54.14889144897461,
+        606.2576293945312,
+        293.1823425292969,
+        719.9735488891602
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_6.png",
+      "image_summary": "The figure illustrates the mapping process between logical KV (key-value) blocks and physical KV blocks in GPU DRAM for a request involving the prompt \"Four score and seven years ago our\" and outputs progressing from \"fathers\" to \"brought\" and beyond.\n\n- **Logical KV Blocks (left section):** \n  - Arranged as a 4x4 grid labeled Block 0 to Block 3 vertically and containing the tokens of the prompt for key and value pairs.\n  - Key tokens in each cell are indexed with circled numbers ①, ②, ③ indicating token order.\n  - Example contents: Block 0 has \"Four\", \"score\", \"and\", \"seven\"; Block 1 has \"years\", \"ago\", \"our\", \"fathers\"; Block 2 has \"brought\"; Block 3 is empty.\n\n- **Physical KV Blocks (right section):**\n  - Arranged vertically as Blocks 0 to 8 (not all fully filled).\n  - Blocks contain tokens from the prompt but reordered compared to Logical KV blocks.\n  - Example: Block 1 physically contains tokens \"years\", \"ago\", \"our\", \"fathers\" from Logical Block 1; Block 3 holds \"brought\"; Block 7 contains \"Four\", \"score\", \"and\", \"seven\".\n\n- **Block Table (middle section):**\n  - Maps logical block numbers (0,1,2,3) to their corresponding physical block numbers on GPU memory.\n  - Also shows the count of filled slots in each physical block, indicating how many key-value pairs are stored.\n  - Shows a sequence indicating that physical block 1 maps to logical block 4 via an arrow (potentially a linked or follow-up block).\n\n**Key Observations and Takeaways:**\n- Logical KV blocks organize tokens as contiguous sequences according to prompt order.\n- This logical order is mapped into non-contiguous physical blocks in GPU DRAM, likely for memory management optimization.\n- The Block Table acts as an intermediary lookup enabling efficient access to physical locations based on logical requests.\n- Some blocks are partially filled, reflecting variable token counts.\n- There is a non-trivial remapping, e.g., Logical Block 0 corresponds to Physical Block 7, Logical Block 1 to Physical Block 1, Logical Block 2 to Physical Block 3, and so forth.\n- The figure clarifies how prompt tokens are stored and accessed in a GPU memory system using logical-to-physical block mapping for transformer model key-value pairs."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_51",
+    "type": "paragraph",
+    "content": "divides it into physical KV blocks (this is also done on CPU RAM for swapping; see §4.5). The KV block manager also maintains block tables -the mapping between logical and physical KV blocks of each request. Each block table entry records the corresponding physical blocks of a logical block and the number of filled positions. Separating logical and physical KV blocks allows vLLM to dynamically grow the KV cache memory without reserving it for all positions in advance, which eliminates most memory waste in existing systems, as in Fig. 2.",
+    "metadata": {
+      "page": 6,
+      "section": "KV Cache Manager",
+      "bbox": [
+        54.0,
+        455.471,
+        294.308,
+        571.814
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_52",
+    "type": "paragraph",
+    "content": "Next, we walk through an example, as in Fig. 6, to demonstrate how vLLM executes PagedAttention and manages the memory during the decoding process of a single input sequence: 1 ○ As in OS's virtual memory, vLLM does not require reserving the memory for the maximum possible generated sequence length initially. Instead, it reserves only the necessary KV blocks to accommodate the KV cache generated during prompt computation. In this case, The prompt has 7 tokens, so vLLM maps the first 2 logical KV blocks (0 and 1) to 2 physical KV blocks (7 and 1, respectively). In the prefill step, vLLM generates the KV cache of the prompts and the first output token with a conventional self-attention algorithm (e.g., [13]). vLLM then stores the KV cache of the first 4 tokens in logical block 0 and the following 3 tokens in logical block 1. The remaining slot is reserved for the subsequent autoregressive generation phase. 2 ○ In the first autoregressive decoding step, vLLM generates the new token with the PagedAttention algorithm on physical blocks 7 and 1. Since one slot remains available in the last logical block, the newly generated KV cache is stored there, and the block table's #filled record is updated. 3 ○ At the second decoding step, as the last logical block is full, vLLM stores the newly generated KV cache in a new logical block; vLLM allocates a new physical block (physical block 3) for it and stores this mapping in the block table.",
+    "metadata": {
+      "page": 6,
+      "section": "Decoding with PagedAttention and vLLM",
+      "bbox": [
+        53.631,
+        134.02700000000004,
+        295.73,
+        429.619
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_53",
+    "type": "paragraph",
+    "content": "Globally, for each decoding iteration, vLLM first selects a set of candidate sequences for batching (more in §4.5), and allocates the physical blocks for the newly required logical blocks. Then, vLLM concatenates all the input tokens of the current iteration (i.e., all tokens for prompt phase",
+    "metadata": {
+      "page": 6,
+      "section": "Decoding with PagedAttention and vLLM",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.141,
+        130.74
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_7",
+    "type": "figure",
+    "content": "Figure 7. Storing the KV cache of two requests at the same time in vLLM.",
+    "metadata": {
+      "page": 6,
+      "section": "Decoding with PagedAttention and vLLM",
+      "bbox": [
+        317.2522277832031,
+        624.3851165771484,
+        557.8179321289062,
+        719.3982391357422
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_7.png",
+      "image_summary": "The figure consists of three distinct parts illustrating logical and physical Key-Value (KV) blocks involved in two separate requests, A and B.\n\n1. Left Panel: \n   - Titled \"Logical KV blocks\" in red (associated with Request A).\n   - Displays a grid with 4 rows labeled Block 0 to Block 3 and 4 columns.\n   - Contains phrases split into blocks: Block 0 includes \"Four score and seven,\" Block 1 contains \"years ago our fathers,\" and Block 2 has the singular word \"brought.\"\n   - Block 3 is empty in this logical representation.\n\n2. Center Panel:\n   - Titled \"Physical KV blocks\" in red.\n   - A larger grid with rows labeled Block 0 through Block 8.\n   - The content from the logical blocks of Request A is spread in a non-contiguous manner:\n     - Block 0: Empty.\n     - Block 1: \"years ago our fathers\".\n     - Block 2: \"of times\" (words not present in logical blocks).\n     - Block 3: \"brought\".\n     - Block 4: Empty.\n     - Block 5: \"It was the best\".\n     - Block 6 to Block 8: \"Four score and seven\".\n   - The physical blocks appear to overlap with contents from what will be shown as logical blocks from Request B, indicating some form of shared or interleaved storage.\n\n3. Right Panel: \n   - Titled \"Logical KV blocks\" in red (associated with Request B).\n   - A grid with 3 rows labeled Block 0 to Block 2.\n   - Contains the phrases: Block 0 has \"It was the best,\" and Block 1 has \"of times.\" Block 2 is empty.\n   - These phrases correspond visually with the blocks found in the physical KV block representation (center panel).\n\nKey trends and comparison:\n- Logical KV blocks for requests A and B map to a shared physical KV block space, but their contents are interleaved rather than contiguous.\n- Certain phrases such as \"years ago our fathers,\" \"brought,\" and \"Four score and seven\" belong to Request A, whereas \"It was the best\" and \"of times\" belong to Request B.\n- The physical KV blocks do not strictly follow the order or segmentation of logical blocks for either request.\n- There appears to be a reuse or overlap of physical blocks between the two logical requests.\n\nMain takeaway:\nThe figure demonstrates the mapping and interleaving of logical KV blocks from different requests into a common pool of physical KV blocks, highlighting how logical segmentation does not necessarily translate into contiguous physical storage and reflecting the complexity of key-value block management in a system accommodating multiple requests."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_54",
+    "type": "paragraph",
+    "content": "requests and the latest tokens for generation phase requests) as one sequence and feeds it into the LLM. During LLM's computation, vLLM uses the PagedAttention kernel to access the previous KV cache stored in the form of logical KV blocks and saves the newly generated KV cache into the physical KV blocks. Storing multiple tokens within a KV block (block size > 1) enables the PagedAttention kernel to process the KV cache across more positions in parallel, thus increasing the hardware utilization and reducing latency. However, a larger block size also increases memory fragmentation. We study the effect of block size in §7.2.",
+    "metadata": {
+      "page": 6,
+      "section": "Decoding with PagedAttention and vLLM",
+      "bbox": [
+        317.955,
+        446.974,
+        558.602,
+        575.194
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_55",
+    "type": "paragraph",
+    "content": "Again, vLLM dynamically assigns new physical blocks to logical blocks as more tokens and their KV cache are generated. As all the blocks are filled from left to right and a new physical block is only allocated when all previous blocks are full, vLLM limits all the memory wastes for a request within one block, so it can effectively utilize all the memory, as shown in Fig. 2. This allows more requests to fit into memory for batching-hence improving the throughput. Once a request finishes its generation, its KV blocks can be freed to store the KV cache of other requests. In Fig. 7, we show an example of vLLM managing the memory for two sequences. The logical blocks of the two sequences are mapped to different physical blocks within the space reserved by the block engine in GPU workers. The neighboring logical blocks of both sequences do not need to be contiguous in physical GPU memory and the space of physical blocks can be effectively utilized by both sequences.",
+    "metadata": {
+      "page": 6,
+      "section": "Decoding with PagedAttention and vLLM",
+      "bbox": [
+        317.587,
+        243.73699999999997,
+        559.687,
+        443.687
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_56",
+    "type": "paragraph",
+    "content": "§4.3 shows how PagedAttention and vLLM handle basic decoding algorithms, such as greedy decoding and sampling, that take one user prompt as input and generate a single output sequence. In many successful LLM applications [18, 34], an LLM service must offer more complex decoding scenarios that exhibit complex accessing patterns and more opportunities for memory sharing. We show the general applicability of vLLM on them in this section.",
+    "metadata": {
+      "page": 6,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.955,
+        126.05700000000002,
+        559.686,
+        218.41100000000006
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_57",
+    "type": "paragraph",
+    "content": "Parallel sampling. In LLM-based program assistants [6, 18], an LLM generates multiple sampled outputs for a single input prompt; users can choose a favorite output from various candidates. So far we have implicitly assumed that a request",
+    "metadata": {
+      "page": 6,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        559.685,
+        118.78499999999997
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_8",
+    "type": "figure",
+    "content": "Figure 8. Parallel sampling example.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        54.079254150390625,
+        624.9477996826172,
+        293.1714782714844,
+        719.6929550170898
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_8.png",
+      "image_summary": "The figure illustrates the relationship and changes between logical key-value (KV) blocks and physical KV blocks in two samples, A1 and A2.\n\nAxes/Units:\n- The figure is not plotted on conventional x and y axes with units; instead, it uses a tabular block format to represent logical and physical KV blocks.\n- The left and right sides show logical KV blocks from Sample A1 (left) and Sample A2 (right).\n- The middle section represents physical KV blocks indexed from Block 0 to Block 8.\n\nDescription and Key Trends:\n- Sample A1’s logical KV blocks consist of two blocks:\n   - Block 0 contains: \"Four score and seven\"\n   - Block 1 contains: \"years ago our fathers\" (with \"fathers\" highlighted in yellow)\n- Sample A2’s logical KV blocks also contain two blocks:\n   - Block 0 is identical to A1 Block 0\n   - Block 1 contains: \"years ago our mothers\" (with \"mothers\" highlighted in green)\n- The physical KV blocks show how these logical blocks are mapped into storage.\n   - Block 2 is highlighted in red indicating a \"Copy-on-write\" operation.\n   - Physical Block 2 contains two rows: one \"years ago our mothers\" and one \"years ago our fathers\" where the \"fathers\" version precedes the \"mothers\" version.\n   - Reference count (Ref count) is shown as decreasing from 2 to 1 for the \"mothers\" block, indicating a deduplication or sharing mechanism between samples.\n- Blocks 7 in physical KV blocks store the \"Four score and seven\" phrase shared between both samples.\n\nComparisons:\n- The major difference between Sample A1 and A2 lies in the last word of the second logical block (“fathers” in A1 versus “mothers” in A2).\n- The figure shows that the physical KV blocks store these differences explicitly, while identical blocks are shared, reducing redundancy (as seen in the unchanged Block 7).\n\nAnomalies:\n- No anomalies appear explicitly; however, the copy-on-write mechanic is notably illustrated by duplicating block 2 to handle the variation between \"fathers\" and \"mothers.\"\n\nMain Takeaway:\nThe figure demonstrates an efficient storage mechanism using logical and physical KV blocks, where shared data is deduplicated but variations are managed via copy-on-write blocks. This approach optimizes storage by sharing common data and only diverging blocks when differences occur, as exemplified by the differing words “fathers” and “mothers” in otherwise similar phrases."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_58",
+    "type": "paragraph",
+    "content": "generates a single sequence. In the remainder of this paper, we assume the more general case in which a request generates multiple sequences. In parallel sampling, one request includes multiple samples sharing the same input prompt, allowing the KV cache of the prompt to be shared as well. Via its PagedAttention and paged memory management, vLLM can realize this sharing easily and save memory.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        53.631,
+        508.623,
+        295.732,
+        589.022
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_59",
+    "type": "paragraph",
+    "content": "Fig. 8 shows an example of parallel decoding for two outputs. Since both outputs share the same prompt, we only reserve space for one copy of the prompt's state at the prompt phase; the logical blocks for the prompts of both sequences are mapped to the same physical blocks: the logical block 0 and 1 of both sequences are mapped to physical blocks 7 and 1, respectively. Since a single physical block can be mapped to multiple logical blocks, we introduce a reference count for each physical block. In this case, the reference counts for physical blocks 7 and 1 are both 2. At the generation phase, the two outputs sample different output tokens and need separate storage for KV cache. vLLM implements a copy-onwrite mechanism at the block granularity for the physical blocks that need modification by multiple sequences, similar to the copy-on-write technique in OS virtual memory (e.g., when forking a process). Specifically, in Fig. 8, when sample A1 needs to write to its last logical block (logical block 1), vLLM recognizes that the reference count of the corresponding physical block (physical block 1) is greater than 1; it allocates a new physical block (physical block 3), instructs the block engine to copy the information from physical block 1, and decreases the reference count to 1. Next, when sample A2 writes to physical block 1, the reference count is already reduced to 1; thus A2 directly writes its newly generated KV cache to physical block 1.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        53.631,
+        209.74299999999994,
+        295.733,
+        505.335
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_60",
+    "type": "paragraph",
+    "content": "In summary, vLLM enables the sharing of most of the space used to store the prompts' KV cache across multiple output samples, with the exception of the final logical block, which is managed by a copy-on-write mechanism. By sharing physical blocks across multiple samples, memory usage can be greatly reduced, especially for long input prompts .",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        53.631,
+        137.96299999999997,
+        295.137,
+        206.45600000000002
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_61",
+    "type": "paragraph",
+    "content": "Beam search. In LLM tasks like machine translation [59], the users expect the top𝑘 most appropriate translations output by the LLM. Beam search [49] is widely used to decode the most probable output sequence from an LLM, as it mitigates the computational complexity of fully traversing the",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.733,
+        130.74
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_9",
+    "type": "figure",
+    "content": "Figure 9. Beam search example.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        328.7900085449219,
+        642.1822662353516,
+        544.2476806640625,
+        719.225341796875
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_9.png",
+      "image_summary": "The figure presents a flow diagram illustrating the processing of four beam candidates (labeled 0 through 3) through a sequence of computational blocks, which are color-coded and organized in a grid-like structure.\n\n- The y-axis lists the beam candidates 0, 1, 2, and 3 from top to bottom.\n- The processing flow progresses from left to right through a series of blocks labeled numerically from Block 0 to Block 12.\n- Beam candidate 0 is processed only through Block 5 (red), which is then marked with an \"X\" indicating termination or failure at that point.\n- Beam candidate 1 follows a continuous path through Block 0 (yellow), Block 1 (yellow), and Block 3 (yellow), with no termination marks, suggesting successful progression. After Block 3, it splits towards Block 6 (yellow) and further leads to Blocks 10 (yellow) and 11 (blue).\n- Beam candidate 2 passes through Blocks 7 (blue) and 11 (blue), indicating that it goes through some of the later stages, likely as a parallel track.\n- Beam candidate 3 begins processing at Block 2 (green), continuing to Block 4 (green) and Block 8 (green), but each of these blocks is marked with an \"X,\" indicating failure or termination at multiple stages. After Block 8, the flow ends, indicating no further progression.\n- A vertical dashed line separates Block 8 from Blocks 9 through 12, likely signifying a boundary between two phases or categories of processing blocks.\n- The blocks are color-coded into four groups: yellow (Blocks 0,1,3,6,10), green (Blocks 2,4,8), red (Block 5), and blue (Blocks 7,9,11,12), which may represent different processing types or stages.\n- The main takeaway is that beam candidate 1 successfully navigates through more blocks without termination, suggesting it has the strongest or most optimal trajectory, while candidates 0 and 3 encounter early terminations, and candidate 2 follows a different route including blue blocks. The figure likely highlights the evaluation and filtering of beam candidates through sequential processing blocks with some candidates being pruned at various points."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_62",
+    "type": "paragraph",
+    "content": "sample space. The algorithm relies on the beam width parameter 𝑘 , which determines the number of top candidates retained at every step. During decoding, beam search expands each candidate sequence in the beam by considering all possible tokens, computes their respective probabilities using the LLM, and retains the top𝑘 most probable sequences out of 𝑘 · | 𝑉 | candidates, where | 𝑉 | is the vocabulary size.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.955,
+        532.533,
+        559.686,
+        613.011
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_63",
+    "type": "paragraph",
+    "content": "Unlike parallel decoding, beam search facilities sharing not only the initial prompt blocks but also other blocks across different candidates, and the sharing patterns dynamically change as the decoding process advances, similar to the process tree in the OS created by compound forks. Fig. 9 shows how vLLM manages the KV blocks for a beam search example with 𝑘 = 4. Prior to the iteration illustrated as the dotted line, each candidate sequence has used 4 full logical blocks. All beam candidates share the first block 0 (i.e., prompt). Candidate 3 digresses from others from the second block. Candidates 0-2 share the first 3 blocks and diverge at the fourth block. At subsequent iterations, the top-4 probable candidates all originate from candidates 1 and 2. As the original candidates 0 and 3 are no longer among the top candidates, their logical blocks are freed, and the reference counts of corresponding physical blocks are reduced. vLLM frees all physical blocks whose reference counts reach 0 (blocks 2, 4, 5, 8). Then, vLLM allocates new physical blocks (blocks 9-12) to store the new KV cache from the new candidates. Now, all candidates share blocks 0, 1, 3; candidates 0 and 1 share block 6, and candidates 2 and 3 further share block 7.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.656,
+        269.519,
+        559.688,
+        529.246
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_64",
+    "type": "paragraph",
+    "content": "Previous LLM serving systems require frequent memory copies of the KV cache across the beam candidates. For example, in the case shown in Fig. 9, after the dotted line, candidate 3 would need to copy a large portion of candidate 2's KV cache to continue generation. This frequent memory copy overhead is significantly reduced by vLLM's physical block sharing. In vLLM, most blocks of different beam candidates can be shared. The copy-on-write mechanism is applied only when the newly generated tokens are within an old shared block, as in parallel decoding. This involves only copying one block of data.",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.587,
+        138.01199999999994,
+        559.686,
+        266.23199999999997
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_65",
+    "type": "paragraph",
+    "content": "Shared prefix. Commonly, the LLM user provides a (long) description of the task including instructions and example inputs and outputs, also known as system prompt [36]. The description is concatenated with the actual task input to form the prompt of the request. The LLM generates outputs based",
+    "metadata": {
+      "page": 7,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        558.6,
+        130.74
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_10",
+    "type": "figure",
+    "content": "Figure 10. Shared prompt example for machine translation. The examples are adopted from [5].",
+    "metadata": {
+      "page": 8,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        65.37906646728516,
+        643.7537536621094,
+        279.27435302734375,
+        720.3829193115234
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_10.png",
+      "image_summary": "This figure presents a comparison between two sequences, A and B, each consisting of three components stacked vertically: Shared prefix, Task input, and Task output.\n\n1. **Axes/Units**: \n   - The figure is arranged into two columns labeled \"Sequence A\" and \"Sequence B.\"\n   - Within each column, there are three horizontal colored boxes:\n     - Beige box labeled \"Shared prefix\" containing English-to-French translation prompts.\n     - Light green box labeled \"Task input\" with an English word or phrase followed by \"=>\".\n     - Light blue box labeled \"Task output\" containing the LLM (Large Language Model) output in French.\n\n2. **Key Content**:\n   - **Shared prefix** (common to both sequences) provides translation examples from English to French:\n     - \"sea otter\" => \"loutre de mer\"\n     - \"peppermint\" => \"menthe poivrée\"\n     - \"plush giraffe\" => \"girafe en peluche\"\n   - **Task input**:\n     - Sequence A has the input word \"cheese\" =>\n     - Sequence B has the input phrase \"I love you\" =>\n   - **Task output**:\n     - Sequence A's LLM output is \"fromage\" (French for cheese)\n     - Sequence B's LLM output is \"Je t’aime\" (French for \"I love you\")\n\n3. **Key Trends and Comparisons**:\n   - Both sequences share the same initial translation prompt examples (the \"Shared prefix\").\n   - The task input is different between the sequences, leading to different task outputs.\n   - The LLM outputs in both cases are accurate French translations of their respective inputs.\n   - This format suggests that after reading the shared prefix examples, the LLM is prompted with a new input to translate, testing the ability to generalize learned translations.\n\n4. **Anomalies**:\n   - No anomalies are evident. Both translations correctly correspond to their inputs, and the figure illustrates consistent behavior.\n\n5. **Main Takeaway**:\n   - The figure demonstrates how a shared prefix prompt containing a few English-to-French translation examples can prime the LLM to translate new English words or phrases accurately. Both Sequence A and Sequence B use identical prompt contexts but different inputs, resulting in task outputs that correctly complete the translation task, highlighting successful few-shot prompting."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_66",
+    "type": "paragraph",
+    "content": "on the full prompt. Fig. 10 shows an example. Moreover, the shared prefix can be further tuned, via prompt engineering, to improve the accuracy of the downstream tasks [26, 27].",
+    "metadata": {
+      "page": 8,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        54.0,
+        566.767,
+        295.136,
+        599.346
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_67",
+    "type": "paragraph",
+    "content": "For this type of application, many user prompts share a prefix, thus the LLM service provider can store the KV cache of the prefix in advance to reduce the redundant computation spent on the prefix. In vLLM, this can be conveniently achieved by reserving a set of physical blocks for a set of predefined shared prefixes by the LLM service provider, as how OS handles shared library across processes. A user input prompt with the shared prefix can simply map its logical blocks to the cached physical blocks (with the last block marked copy-on-write). The prompt phase computation only needs to execute on the user's task input.",
+    "metadata": {
+      "page": 8,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        54.0,
+        435.261,
+        295.728,
+        563.48
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_68",
+    "type": "paragraph",
+    "content": "Mixed decoding methods. The decoding methods discussed earlier exhibit diverse memory sharing and accessing patterns. Nonetheless, vLLM facilitates the simultaneous processing of requests with different decoding preferences, which existing systems cannot efficiently do. This is because vLLM conceals the complex memory sharing between different sequences via a common mapping layer that translates logical blocks to physical blocks. The LLM and its execution kernel only see a list of physical block IDs for each sequence and do not need to handle sharing patterns across sequences. Compared to existing systems, this approach broadens the batching opportunities for requests with different sampling requirements, ultimately increasing the system's overall throughput.",
+    "metadata": {
+      "page": 8,
+      "section": "Application to Other Decoding Scenarios",
+      "bbox": [
+        53.631,
+        263.903,
+        295.733,
+        427.988
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_69",
+    "type": "paragraph",
+    "content": "When the request traffic surpasses the system's capacity, vLLM must prioritize a subset of requests. In vLLM, we adopt the first-come-first-serve (FCFS) scheduling policy for all requests, ensuring fairness and preventing starvation. When vLLM needs to preempt requests, it ensures that the earliest arrived requests are served first and the latest requests are preempted first.",
+    "metadata": {
+      "page": 8,
+      "section": "Scheduling and Preemption",
+      "bbox": [
+        53.522,
+        157.938,
+        295.14,
+        238.337
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_70",
+    "type": "paragraph",
+    "content": "LLM services face a unique challenge: the input prompts for an LLM can vary significantly in length, and the resulting output lengths are not known a priori, contingent on both the input prompt and the model. As the number of requests and their outputs grow, vLLM can run out of the GPU's physical blocks to store the newly generated KV cache. There are two classic questions that vLLM needs to answer in this context: (1) Which blocks should it evict? (2) How to recover evicted blocks if needed again? Typically, eviction policies use heuristics to predict which block will be accessed furthest in the future and evict that block. Since in our case we know that all blocks of a sequence are accessed together, we implement an all-or-nothing eviction policy, i.e., either evict all or none of the blocks of a sequence. Furthermore, multiple sequences within one request (e.g., beam candidates in one beam search request) are gang-scheduled as a sequence group . The sequences within one sequence group are always preempted or rescheduled together due to potential memory sharing across those sequences. To answer the second question of how to recover an evicted block, we consider two techniques:",
+    "metadata": {
+      "page": 8,
+      "section": "Scheduling and Preemption",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.731,
+        154.64999999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_71",
+    "type": "paragraph",
+    "content": "Swapping. This is the classic technique used by most virtual memory implementations which copy the evicted pages to a swap space on the disk. In our case, we copy evicted blocks to the CPU memory. As shown in Fig. 4, besides the GPU block allocator, vLLM includes a CPU block allocator to manage the physical blocks swapped to CPU RAM. When vLLM exhausts free physical blocks for new tokens, it selects a set of sequences to evict and transfer their KV cache to the CPU. Once it preempts a sequence and evicts its blocks, vLLM stops accepting new requests until all preempted sequences are completed. Once a request completes, its blocks are freed from memory, and the blocks of a preempted sequence are brought back in to continue the processing of that sequence. Note that with this design, the number of blocks swapped to the CPU RAM never exceeds the number of total physical blocks in the GPU RAM, so the swap space on the CPU RAM is bounded by the GPU memory allocated for the KV cache.",
+    "metadata": {
+      "page": 8,
+      "section": "Scheduling and Preemption",
+      "bbox": [
+        317.955,
+        345.235,
+        559.533,
+        545.186
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_72",
+    "type": "paragraph",
+    "content": "Recomputation. In this case, we simply recompute the KV cache when the preempted sequences are rescheduled. Note that recomputation latency can be significantly lower than the original latency, as the tokens generated at decoding can be concatenated with the original user prompt as a new prompt-their KV cache at all positions can be generated in one prompt phase iteration.",
+    "metadata": {
+      "page": 8,
+      "section": "Scheduling and Preemption",
+      "bbox": [
+        317.955,
+        257.5640000000001,
+        558.364,
+        337.963
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_73",
+    "type": "paragraph",
+    "content": "The performances of swapping and recomputation depend on the bandwidth between CPU RAM and GPU memory and the computation power of the GPU. We examine the speeds of swapping and recomputation in §7.3.",
+    "metadata": {
+      "page": 8,
+      "section": "Scheduling and Preemption",
+      "bbox": [
+        317.955,
+        209.74299999999994,
+        558.004,
+        254.27700000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_74",
+    "type": "paragraph",
+    "content": "Many LLMs have parameter sizes exceeding the capacity of a single GPU [5, 9]. Therefore, it is necessary to partition them across distributed GPUs and execute them in a model parallel fashion [28, 63]. This calls for a memory manager capable of handling distributed memory. vLLM is effective in distributed settings by supporting the widely used Megatron-LM style tensor model parallelism strategy on Transformers [47]. This strategy adheres to an SPMD (Single Program Multiple Data) execution schedule, wherein the linear layers are partitioned",
+    "metadata": {
+      "page": 8,
+      "section": "Distributed Execution",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        558.602,
+        178.56100000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_table_1",
+    "type": "table",
+    "content": "Table 1. Model sizes and server configurations.",
+    "metadata": {
+      "page": 9,
+      "section": "Distributed Execution",
+      "bbox": [
+        75.85626220703125,
+        631.7119293212891,
+        269.3089294433594,
+        707.9645309448242
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/table/table_1.png"
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_75",
+    "type": "paragraph",
+    "content": "to perform block-wise matrix multiplication, and the the GPUs constantly synchronize intermediate results via an allreduce operation. Specifically, the attention operator is split on the attention head dimension, each SPMD process takes care of a subset of attention heads in multi-head attention.",
+    "metadata": {
+      "page": 9,
+      "section": "Distributed Execution",
+      "bbox": [
+        54.0,
+        562.086,
+        295.731,
+        618.575
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_76",
+    "type": "paragraph",
+    "content": "We observe that even with model parallel execution, each model shard still processes the same set of input tokens, thus requiring the KV Cache for the same positions. Therefore, vLLM features a single KV cache manager within the centralized scheduler, as in Fig. 4. Different GPU workers share the manager, as well as the mapping from logical blocks to physical blocks. This common mapping allows GPU workers to execute the model with the physical blocks provided by the scheduler for each input request. Although each GPU worker has the same physical block IDs, a worker only stores a portion of the KV cache for its corresponding attention heads.",
+    "metadata": {
+      "page": 9,
+      "section": "Distributed Execution",
+      "bbox": [
+        53.631,
+        418.624,
+        295.725,
+        558.799
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_77",
+    "type": "paragraph",
+    "content": "In each step, the scheduler first prepares the message with input token IDs for each request in the batch, as well as the block table for each request. Next, the scheduler broadcasts this control message to the GPU workers. Then, the GPU workers start to execute the model with the input token IDs. In the attention layers, the GPU workers read the KV cache according to the block table in the control message. During execution, the GPU workers synchronize the intermediate results with the all-reduce communication primitive without the coordination of the scheduler, as in [47]. In the end, the GPU workers send the sampled tokens of this iteration back to the scheduler. In summary, GPU workers do not need to synchronize on memory management as they only need to receive all the memory management information at the beginning of each decoding iteration along with the step inputs.",
+    "metadata": {
+      "page": 9,
+      "section": "Distributed Execution",
+      "bbox": [
+        53.631,
+        227.341,
+        295.579,
+        415.337
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_78",
+    "type": "paragraph",
+    "content": "vLLM is an end-to-end serving system with a FastAPI [15] frontend and a GPU-based inference engine. The frontend extends the OpenAI API [34] interface, allowing users to customize sampling parameters for each request, such as the maximum sequence length and the beam width 𝑘 . The vLLMengine is written in 8.5K lines of Python and 2K lines of C++/CUDA code. We develop control-related components including the scheduler and the block manager in Python while developing custom CUDA kernels for key operations such as PagedAttention. For the model executor, we implement popular LLMs such as GPT [5], OPT [62], and LLaMA [52] using",
+    "metadata": {
+      "page": 9,
+      "section": "Implementation",
+      "bbox": [
+        53.751,
+        74.25099999999998,
+        295.731,
+        202.471
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_11",
+    "type": "figure",
+    "content": "Figure 11. Input and output length distributions of the (a) ShareGPT and (b) Alpaca datasets.",
+    "metadata": {
+      "page": 9,
+      "section": "Implementation",
+      "bbox": [
+        320.7004089355469,
+        620.9258575439453,
+        553.77978515625,
+        716.5251922607422
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_11.png",
+      "image_summary": "The figure presents two density histograms comparing the distribution of token counts for \"Input\" and \"Output\" in two language models, ShareGPT (a) and Alpaca (b).\n\nAxes:\n- Both subplots have the x-axis labeled as \"# Tokens\" ranging from 0 to 2000 tokens.\n- The y-axis for both is labeled as \"Density,\" with the left plot (ShareGPT) peaking around 0.02 and the right plot (Alpaca) peaking around 0.08.\n- The y-axis scale differs notably, with Alpaca showing a higher density peak than ShareGPT.\n\nKey trends and comparisons:\n- In both models, the input distributions (blue) are sharply concentrated near zero tokens, indicating most inputs are relatively short.\n- The output distributions (orange) show a longer tail extending to higher token counts in both models, indicating outputs tend to be longer than inputs.\n- The mean token counts are provided in the legends:\n  - ShareGPT input mean: 161.31 tokens; output mean: 337.99 tokens, showing that outputs are roughly twice the input length on average.\n  - Alpaca input mean: 19.31 tokens; output mean: 58.45 tokens; outputs are about three times longer than inputs but with shorter absolute lengths compared to ShareGPT.\n- The density for Alpaca's inputs is much higher near zero, showing very short input sequences dominate, whereas ShareGPT inputs are more spread out with a larger mean input length.\n\nAnomalies:\n- The output density for ShareGPT tails off smoothly, indicating a wide range of output sizes.\n- For Alpaca, the output density is highly skewed towards shorter outputs, with a much sharper drop-off.\n\nMain takeaway:\nThese histograms illustrate that for both ShareGPT and Alpaca, generated outputs tend to be longer than inputs on average. ShareGPT handles longer input and output sequences overall compared to Alpaca, which operates primarily with shorter input-output pairs. The higher density peak near zero for Alpaca inputs suggests a different usage pattern or dataset characteristic relative to ShareGPT."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_79",
+    "type": "paragraph",
+    "content": "PyTorch [39] and Transformers [58]. We use NCCL [32] for tensor communication across the distributed GPU workers.",
+    "metadata": {
+      "page": 9,
+      "section": "Implementation",
+      "bbox": [
+        317.955,
+        558.06,
+        559.02,
+        578.683
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_80",
+    "type": "paragraph",
+    "content": "Since PagedAttention introduces memory access patterns that are not efficiently supported by existing systems, we develop several GPU kernels for optimizing it. (1) Fused reshape and block write. In every Transformer layer, the new KV cache are split into blocks, reshaped to a memory layout optimized for block read, then saved at positions specified by the block table. To minimize kernel launch overheads, we fuse them into a single kernel. (2) Fusing block read and attention. Weadapt the attention kernel in FasterTransformer [31] to read KV cache according to the block table and perform attention operations on the fly. To ensure coalesced memory access, we assign a GPU warp to read each block. Moreover, we add support for variable sequence lengths within a request batch. (3) Fused block copy. Block copy operations, issued by the copy-on-write mechanism, may operate on discontinuous blocks. This can lead to numerous invocations of small data movements if we use the cudaMemcpyAsync API. To mitigate the overhead, we implement a kernel that batches the copy operations for different blocks into a single kernel launch.",
+    "metadata": {
+      "page": 9,
+      "section": "Kernel-level Optimization",
+      "bbox": [
+        317.606,
+        297.496,
+        559.685,
+        533.312
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_81",
+    "type": "paragraph",
+    "content": "vLLM implements various decoding algorithms using three key methods: fork , append , and free . The fork method creates a new sequence from an existing one. The append method appends a new token to the sequence. Finally, the free method deletes the sequence. For instance, in parallel sampling, vLLM creates multiple output sequences from the single input sequence using the fork method. It then adds new tokens to these sequences in every iteration with append , and deletes sequences that meet a stopping condition using free . The same strategy is also applied in beam search and prefix sharing by vLLM. We believe future decoding algorithms can also be supported by combining these methods.",
+    "metadata": {
+      "page": 9,
+      "section": "Supporting Various Decoding Algorithms",
+      "bbox": [
+        317.706,
+        120.61900000000003,
+        559.688,
+        272.749
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_82",
+    "type": "paragraph",
+    "content": "In this section, we evaluate the performance of vLLM under a variety of workloads.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        558.189,
+        94.875
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_12",
+    "type": "figure",
+    "content": "Figure 12. Single sequence generation with OPT models on the ShareGPT and Alpaca dataset",
+    "metadata": {
+      "page": 10,
+      "section": "Evaluation",
+      "bbox": [
+        56.664955139160156,
+        530.2637329101562,
+        554.9088134765625,
+        715.830696105957
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_12.png",
+      "image_summary": "The figure consists of six subplots (a)-(f), each showing the relationship between normalized latency (y-axis, in seconds per token, ranging 0 to 1) and request rate (x-axis, in requests per second) for different models and setups. The y-axis is labeled \"Normalized latency (s/token).\" The x-axis is labeled \"Request rate (req/s).\" Each subplot compares five methods indicated by colored and shaped markers: FasterTransformer (gray circles), Orca (Max) (red crosses), Orca (Pow2) (orange triangles), Orca (Oracle) (green squares), and vLLM (blue circles). The subplots differ by model size, number of GPUs, and dataset:\n\n- (a) OPT-13B, 1 GPU, ShareGPT\n- (b) OPT-66B, 4 GPUs, ShareGPT\n- (c) OPT-175B, 8 GPUs, ShareGPT\n- (d) OPT-13B, 1 GPU, Alpaca\n- (e) OPT-66B, 4 GPUs, Alpaca\n- (f) OPT-175B, 8 GPUs, Alpaca\n\nKey trends across all plots:\n- FasterTransformer shows low latency for very small request rates but quickly increases steeply.\n- Orca variants (Max, Pow2, Oracle) show varying performance; Orca (Oracle) generally achieves higher request rates than Max and Pow2 but below vLLM.\n- vLLM consistently supports the highest request rates at relatively low normalized latency before sharply increasing at near 1.0 normalized latency.\n- The request rates supported by each method increase markedly moving from the smaller model (13B) to largest (175B) when using Alpaca compared to ShareGPT, indicating dataset influence on throughput.\n- The latency curves for all methods steeply increase as request rates approach their maximum sustainable throughput, indicating saturation.\n\nComparisons:\n- vLLM delivers the highest throughput performance across all models and datasets, with request rates close to 2 req/s (OPT-13B ShareGPT) up to 30 req/s (OPT-13B Alpaca).\n- Orca (Oracle) performs second best, staying below vLLM but exceeding Max and Pow2 significantly in capacity.\n- FasterTransformer, while lower in throughput, maintains stable low latency at low request rates but saturates earliest.\n- For larger models and multi-GPU settings (b,c,e,f), throughput of all methods improves compared to single GPU with smaller models, especially with Alpaca dataset.\n\nNotable anomalies:\n- In (f) with the OPT-175B on Alpaca, Orca (Pow2) and Orca (Oracle) overlap substantially with vLLM at higher request rates before latency sharply spikes.\n- Orca (Max) saturates earliest and has the lowest maximum request rate performance across all tests.\n- ShareGPT runs yield lower overall throughput per method compared to Alpaca runs across all model sizes.\n\nMain takeaway:\nvLLM substantially outperforms FasterTransformer and all Orca variants in maximizing request throughput while maintaining low normalized latency across various large language model sizes and datasets. Orca (Oracle) shows improvements over simpler Orca configurations but does not match vLLM. The type of dataset (ShareGPT vs. Alpaca) and model size with GPU count directly affect throughput and efficiency. This figure quantifies the superior latency-throughput tradeoffs provided by vLLM and highlights the benefits of advanced request handling in large-scale LLM serving."
+    }
+  },
+  {
+    "id": "2309.06180_fig_13",
+    "type": "figure",
+    "content": "Figure 13. Average number of batched requests when serving OPT-13B for the ShareGPT (2 reqs/s) and Alpaca (30 reqs/s) traces.",
+    "metadata": {
+      "page": 10,
+      "section": "Evaluation",
+      "bbox": [
+        61.86197280883789,
+        411.525390625,
+        286.46337890625,
+        504.1907958984375
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_13.png",
+      "image_summary": "The figure consists of two adjacent bar plots labeled as (a) ShareGPT and (b) Alpaca, each comparing the number of batched requests across four different methods: \"Orca (Max)\", \"Orca (Pow2)\", \"Orca (Oracle)\", and \"vLLM\". \n\nIn both plots, the y-axis is labeled as \"# Batched requests,\" representing the count of batched requests, with no explicit unit beyond a numerical count. For the ShareGPT dataset (panel a), the y-axis ranges from 0 to 35, whereas for the Alpaca dataset (panel b), the y-axis spans from 0 to 150, indicating a generally larger number of batched requests in the Alpaca data.\n\nKey trends observed are:\n- For both datasets, the \"vLLM\" method results in the highest number of batched requests, reaching 30.42 for ShareGPT and 132.44 for Alpaca, shown in blue bars.\n- The \"Orca (Oracle)\" method, represented in green, consistently ranks second with 13.62 (ShareGPT) and 72.75 (Alpaca), nearly doubling the counts seen for the \"Orca (Pow2)\" method.\n- The \"Orca (Pow2)\" method, indicated by orange bars, yields intermediate values of 9.81 (ShareGPT) and 43.24 (Alpaca).\n- The \"Orca (Max)\" method, shown in red, consistently produces the lowest number of batched requests, fixed at 7.00 for both datasets.\n\nNo apparent anomalies are evident; the data shows a clear increasing trend in the number of batched requests from \"Orca (Max)\" to \"vLLM\" in both datasets.\n\nThe primary takeaway is that the \"vLLM\" approach substantially outperforms all variations of the Orca method in maximizing batched requests across both ShareGPT and Alpaca datasets, with the Alpaca dataset exhibiting a much greater magnitude of batch requests overall. This suggests that vLLM may provide significant efficiency advantages for batch processing in these contexts."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_83",
+    "type": "paragraph",
+    "content": "Model and server configurations. We use OPT [62] models with 13B, 66B, and 175B parameters and LLaMA [52] with 13B parameters for our evaluation. 13B and 66B are popular sizes for LLMs as shown in an LLM leaderboard [38], while 175B is the size of the famous GPT-3 [5] model. For all of our experiments, we use A2 instances with NVIDIA A100 GPUs on Google Cloud Platform. The detailed model sizes and server configurations are shown in Table 1.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.771,
+        249.59400000000005,
+        295.728,
+        341.948
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_84",
+    "type": "paragraph",
+    "content": "Workloads. Wesynthesize workloads based on ShareGPT [51] and Alpaca [50] datasets, which contain input and output texts of real LLM services. The ShareGPT dataset is a collection of user-shared conversations with ChatGPT [35]. The Alpaca dataset is an instruction dataset generated by GPT3.5 with self-instruct [57]. We tokenize the datasets and use their input and output lengths to synthesize client requests. As shown in Fig. 11, the ShareGPT dataset has 8.4 × longer input prompts and 5.8 × longer outputs on average than the Alpaca dataset, with higher variance. Since these datasets do not include timestamps, we generate request arrival times using Poisson distribution with different request rates.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.492,
+        102.14700000000005,
+        300.591,
+        242.322
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_85",
+    "type": "paragraph",
+    "content": "Baseline 1: FasterTransformer. FasterTransformer [31] is a distributed inference engine highly optimized for latency.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.578,
+        94.875
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_86",
+    "type": "paragraph",
+    "content": "As FasterTransformer does not have its own scheduler, we implement a custom scheduler with a dynamic batching mechanism similar to the existing serving systems such as Triton [30]. Specifically, we set a maximum batch size 𝐵 as large as possible for each experiment, according to the GPU memory capacity. The scheduler takes up to 𝐵 number of earliest arrived requests and sends the batch to FasterTransformer for processing.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.606,
+        410.424,
+        559.679,
+        502.778
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_87",
+    "type": "paragraph",
+    "content": "Baseline 2: Orca. Orca [60] is a state-of-the-art LLM serving system optimized for throughput. Since Orca is not publicly available for use, we implement our own version of Orca. We assume Orca uses the buddy allocation algorithm to determine the memory address to store KV cache. We implement three versions of Orca based on how much it over-reserves the space for request outputs:",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.955,
+        322.753,
+        559.682,
+        403.152
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_88",
+    "type": "paragraph",
+    "content": "Orca (Oracle). We assume the system has the knowledge of the lengths of the outputs that will be actually generated for the requests. This shows the upper-bound performance of Orca, which is infeasible to achieve in practice.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.955,
+        274.932,
+        558.0,
+        320.004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_89",
+    "type": "paragraph",
+    "content": "Orca (Pow2). We assume the system over-reserves the space for outputs by at most 2 × . For example, if the true output length is 25, it reserves 32 positions for outputs.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.955,
+        239.067,
+        558.003,
+        272.183
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_90",
+    "type": "paragraph",
+    "content": "Orca (Max). We assume the system always reserves the space up to the maximum sequence length of the model, i.e., 2048 tokens.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.955,
+        203.20100000000002,
+        559.091,
+        236.31799999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_91",
+    "type": "paragraph",
+    "content": "Key metrics. We focus on serving throughput. Specifically, using the workloads with different request rates, we measure normalized latency of the systems, the mean of every request's end-to-end latency divided by its output length, as in Orca [60]. A high-throughput serving system should retain low normalized latency against high request rates. For most experiments, we evaluate the systems with 1-hour traces. As an exception, we use 15-minute traces for the OPT-175B model due to the cost limit.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.955,
+        91.62,
+        559.685,
+        195.92899999999997
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_14",
+    "type": "figure",
+    "content": "Figure 14. Parallel generation and beam search with OPT-13B on the Alpaca dataset.",
+    "metadata": {
+      "page": 11,
+      "section": "Experimental Setup",
+      "bbox": [
+        56.97640609741211,
+        530.2211608886719,
+        555.8623046875,
+        715.1831207275391
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_14.png",
+      "image_summary": "The figure consists of six subplots arranged in a 2x3 grid, each depicting the relationship between request rate (in requests per second, req/s) on the x-axis and normalized latency (in seconds per token, s/token) on the y-axis. Normalized latency values range from 0 to 1 on all graphs, and request rate ranges vary depending on the subplot.\n\nEach subplot compares four methods for generating text or predictions: Orca (Max) in red with \"x\" markers, Orca (Pow2) in orange with triangle markers, Orca (Oracle) in green with square markers, and vLLM in blue with circle markers. The legends are consistent across subplots.\n\nThe top row subplots (a, b, c) analyze \"parallel generation\" with varying parallel sizes: 2, 4, and 6, respectively. The bottom row subplots (d, e, f) analyze \"beam search\" with beam widths 2, 4, and 6, respectively.\n\nKey trends and comparisons:\n\n1. Across all graphs, vLLM (blue) consistently achieves the highest request rates at the lowest latencies compared to all Orca variants (red, orange, green). vLLM curves extend to the rightmost request rates in every subplot.\n2. The three Orca variants show a clear ranking in maximum achievable request rate: Orca (Oracle, green) > Orca (Pow2, orange) > Orca (Max, red), with Oracle variant sustaining higher request rates before latency sharply increases.\n3. Increasing the parallel size (top row) or beam width (bottom row) leads to generally reduced maximum request rates and increased latencies, evident as the curves all shift leftward when comparing left to right plots within each row.\n   - For example, parallel size = 2 (subplot a) supports higher request rates (up to ~18 req/s with vLLM) than parallel size = 6 (subplot c) which supports up to ~7.5 req/s with vLLM.\n   - Similarly, for beam search, beam width = 2 (subplot d) supports higher request rates (~18 req/s vLLM) than beam width = 6 (subplot f) (~7.5 req/s vLLM).\n4. All methods experience a sharp \"knee\" or increase in latency beyond their maximum throughput point, indicating saturation or overload conditions.\n5. Within Orca variants, Pow2 and Oracle show smoother latency increases and better throughput before saturation than Max.\n\nMain takeaway: vLLM outperforms all Orca variants in terms of achieving higher request rates at lower normalized latencies for both parallel generation and beam search across multiple parallel sizes and beam widths. Increasing parallel size or beam width reduces maximum throughput across all methods, demonstrating the trade-off between model complexity and request handling capacity. Orca (Oracle) is the best performing among Orca variants but still significantly outclassed by vLLM."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_92",
+    "type": "paragraph",
+    "content": "We evaluate the performance of vLLM with basic sampling (one sample per request) on three models and two datasets. The first row of Fig. 12 shows the results on the ShareGPT dataset. The curves illustrate that as the request rate increases, the latency initially increases at a gradual pace but then suddenly explodes. This can be attributed to the fact that when the request rate surpasses the capacity of the serving system, the queue length continues to grow infinitely and so does the latency of the requests.",
+    "metadata": {
+      "page": 11,
+      "section": "Basic Sampling",
+      "bbox": [
+        53.522,
+        361.175,
+        295.731,
+        465.485
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_93",
+    "type": "paragraph",
+    "content": "On the ShareGPT dataset, vLLM can sustain 1 . 7 × -2 . 7 × higher request rates compared to Orca (Oracle) and 2 . 7 × -8 × compared to Orca (Max), while maintaining similar latencies. This is because vLLM's PagedAttention can efficiently manage the memory usage and thus enable batching more requests than Orca. For example, as shown in Fig. 13a, for OPT-13B vLLM processes 2 . 2 × more requests at the same time than Orca (Oracle) and 4 . 3 × more requests than Orca (Max). Compared to FasterTransformer, vLLM can sustain up to 22 × higher request rates, as FasterTransformer does not utilize a fine-grained scheduling mechanism and inefficiently manages the memory like Orca (Max).",
+    "metadata": {
+      "page": 11,
+      "section": "Basic Sampling",
+      "bbox": [
+        53.701,
+        217.71299999999997,
+        295.73,
+        358.426
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_94",
+    "type": "paragraph",
+    "content": "The second row of Fig. 12 and Fig. 13b shows the results on the Alpaca dataset, which follows a similar trend to the ShareGPT dataset. One exception is Fig. 12 (f), where vLLM's advantage over Orca (Oracle) and Orca (Pow2) is less pronounced. This is because the model and server configuration for OPT-175B (Table 1) allows for large GPU memory space available to store KV cache, while the Alpaca dataset has short sequences. In this setup, Orca (Oracle) and Orca (Pow2) can also batch a large number of requests despite the inefficiencies in their memory management. As a result, the performance of the systems becomes compute-bound rather than memory-bound.",
+    "metadata": {
+      "page": 11,
+      "section": "Basic Sampling",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.73,
+        214.42599999999993
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_15",
+    "type": "figure",
+    "content": "Figure 15. Average amount of memory saving from sharing KV blocks, when serving OPT-13B for the Alpaca trace.",
+    "metadata": {
+      "page": 11,
+      "section": "Basic Sampling",
+      "bbox": [
+        324.71881103515625,
+        417.1283264160156,
+        549.2313842773438,
+        491.6550598144531
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_15.png",
+      "image_summary": "The figure consists of two separate bar plots comparing memory savings (%) under different conditions for two methods: (a) Parallel sampling and (b) Beam search.\n\nIn subfigure (a) labeled \"Parallel sampling,\" the x-axis represents the number of output sequences, with discrete values of 2, 4, and 6. The y-axis shows the memory saving as a percentage, ranging from 0 to 12%. The memory saving increases with the number of output sequences: at 2 sequences, it is 6.09%; at 4 sequences, it rises to 8.53%; and at 6 sequences, it further increases to 9.79%. This indicates a positive correlation between the number of output sequences and memory savings in parallel sampling.\n\nIn subfigure (b) labeled \"Beam search,\" the x-axis represents the beam width, again with values 2, 4, and 6. The y-axis shows memory saving (%) on a larger scale from 0 to 60%. The memory saving here is much higher compared to parallel sampling: at a beam width of 2, the saving is 37.56%; it increases substantially to 53.13% at a beam width of 4; and slightly further to 55.16% at a beam width of 6. This demonstrates that beam search achieves significantly greater memory savings, especially as beam width increases, although the gain from widening the beam from 4 to 6 is relatively modest.\n\nThe main takeaway from the figure is that both methods yield increased memory savings as their respective parameters (# output sequences for parallel sampling, beam width for beam search) increase. However, beam search shows substantially larger memory savings overall compared to parallel sampling. The growth in memory savings with parameter size is more pronounced in beam search, but the marginal benefit diminishes at higher beam widths."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_95",
+    "type": "paragraph",
+    "content": "We evaluate the effectiveness of memory sharing in PagedAttention with two popular sampling methods: parallel sampling and beam search. In parallel sampling, all parallel sequences in a request can share the KV cache for the prompt. As shown in the first row of Fig. 14, with a larger number of sequences to sample, vLLM brings more improvement over the Orca baselines. Similarly, the second row of Fig. 14 shows the results for beam search with different beam widths. Since beam search allows for more sharing, vLLM demonstrates even greater performance benefits. The improvement of vLLM over Orca (Oracle) on OPT-13B and the Alpaca dataset goes from 1 . 3 × in basic sampling to 2 . 3 × in beam search with a width of 6.",
+    "metadata": {
+      "page": 11,
+      "section": "Parallel Sampling and Beam Search",
+      "bbox": [
+        317.477,
+        204.12200000000007,
+        559.686,
+        356.252
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_96",
+    "type": "paragraph",
+    "content": "Fig. 15 plots the amount of memory saving, computed by the number of blocks we saved by sharing divided by the number of total blocks without sharing. We show 6.1% - 9.8% memory saving on parallel sampling and 37.6% - 55.2% on beam search. In the same experiments with the ShareGPT dataset, we saw 16.2% - 30.5% memory saving on parallel sampling and 44.3% - 66.3% on beam search.",
+    "metadata": {
+      "page": 11,
+      "section": "Parallel Sampling and Beam Search",
+      "bbox": [
+        317.955,
+        120.43600000000004,
+        558.319,
+        200.83500000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_97",
+    "type": "paragraph",
+    "content": "We explore the effectiveness of vLLM for the case a prefix is shared among different input prompts, as illustrated in",
+    "metadata": {
+      "page": 11,
+      "section": "Shared prefix",
+      "bbox": [
+        317.477,
+        74.25099999999998,
+        558.242,
+        94.875
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_16",
+    "type": "figure",
+    "content": "Figure 16. Translation workload where the input prompts share a common prefix. The prefix includes (a) 1 example with 80 tokens or (b) 5 examples with 341 tokens.",
+    "metadata": {
+      "page": 12,
+      "section": "Shared prefix",
+      "bbox": [
+        66.801025390625,
+        603.630126953125,
+        279.9315490722656,
+        715.1924514770508
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_16.png",
+      "image_summary": "The figure consists of two subplots comparing the normalized latency (seconds per token) against the request rate (requests per second) for two systems: Orca (Oracle) and vLLM. \n\n- The vertical axis on both subplots represents normalized latency in seconds per token, ranging from 0 to 1.0.\n- The horizontal axis represents the request rate in requests per second. For subplot (a), this ranges up to approximately 45 req/s, while for subplot (b), it extends to around 47 req/s.\n\nSubplot (a) shows results for a 1-shot prefix prompt, and subplot (b) shows results for a 5-shot prefix prompt.\n\nKey observations:\n- In both subplots, Orca (Oracle) starts with very low latency and maintains low latency up to roughly 20-25 req/s before latency rapidly increases towards 1.0 s/token, showing a sharp knee in performance.\n- In contrast, vLLM maintains much lower latency at higher request rates than Orca, only showing a steep increase in latency near 40-45 req/s.\n- The maximum sustainable request rate before latency spikes is significantly higher for vLLM than for Orca in both prompt conditions.\n- The latency curves of vLLM are consistently below those of Orca across the entire range, indicating better latency performance.\n- Both systems experience a sharp increase in normalized latency when the system approaches or exceeds its capacity, but vLLM handles higher throughput more efficiently.\n\nMain takeaway:\nvLLM demonstrates substantially better latency scalability than Orca (Oracle) under both 1-shot and 5-shot prefix prompt conditions, supporting higher request rates with lower normalized latency before performance degradation occurs."
+    }
+  },
+  {
+    "id": "2309.06180_fig_17",
+    "type": "figure",
+    "content": "Figure 17. Performance on chatbot workload.",
+    "metadata": {
+      "page": 12,
+      "section": "Shared prefix",
+      "bbox": [
+        79.35360717773438,
+        467.2505187988281,
+        264.2591552734375,
+        539.8882598876953
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_17.png",
+      "image_summary": "The figure presents a line graph comparing the normalized latency (seconds per token) against the request rate (requests per second) for four different methods: Orca (Max), Orca (Pow2), Orca (Oracle), and vLLM.\n\nThe x-axis represents the request rate in requests per second (req/s), ranging from 0.0 to approximately 0.95. The y-axis denotes the normalized latency in seconds per token, ranging from 0.0 to 1.0.\n\nKey observations include:\n- All methods exhibit low and nearly constant latency at lower request rates (up to about 0.4 req/s).\n- Beyond 0.4 req/s, Orca (Max), Orca (Pow2), and Orca (Oracle) experience a sharp increase in latency, with latency rapidly rising to 1.0 s/token as the request rate approaches roughly 0.5 to 0.6 req/s, indicating saturation.\n- Among the Orca variants, the \"Max\" version (red with crosses) reaches latency saturation slightly earlier than \"Pow2\" (orange triangles) and \"Oracle\" (green squares), with \"Oracle\" showing the best performance (lowest latency before saturation) among them.\n- In contrast, vLLM (blue circles) maintains much lower latency as the request rate increases, showing a more gradual increase and reaching higher request rates (~0.85 req/s) before latency spikes notably.\n- The latency for vLLM remains consistently lower than for any Orca variants at higher request rates, suggesting better handling of increased workloads.\n\nThe main takeaway is that while all methods perform similarly at low request rates, vLLM significantly outperforms the Orca variants at higher request rates, managing higher throughput with lower normalized latency. Among the Orca methods, the Oracle-based approach yields better latency than the heuristic-based Max and Pow2 variants."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_98",
+    "type": "paragraph",
+    "content": "Fig. 10. For the model, we use LLaMA-13B [52], which is multilingual. For the workload, we use the WMT16 [4] Englishto-German translation dataset and synthesize two prefixes that include an instruction and a few translation examples. The first prefix includes a single example (i.e., one-shot) while the other prefix includes 5 examples (i.e., few-shot). As shown in Fig. 16 (a), vLLM achieves 1 . 67 × higher throughput than Orca (Oracle) when the one-shot prefix is shared. Furthermore, when more examples are shared (Fig. 16 (b)), vLLM achieves 3 . 58 × higher throughput than Orca (Oracle).",
+    "metadata": {
+      "page": 12,
+      "section": "Shared prefix",
+      "bbox": [
+        53.631,
+        310.524,
+        295.73,
+        426.789
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_99",
+    "type": "paragraph",
+    "content": "Achatbot [8, 19, 35] is one of the most important applications of LLMs. To implement a chatbot, we let the model generate a response by concatenating the chatting history and the last user query into a prompt. We synthesize the chatting history and user query using the ShareGPT dataset. Due to the limited context length of the OPT-13B model, we cut the prompt to the last 1024 tokens and let the model generate at most 1024 tokens. We do not store the KV cache between different conversation rounds as doing this would occupy the space for other requests between the conversation rounds.",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        53.651,
+        169.89300000000003,
+        294.046,
+        286.157
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_100",
+    "type": "paragraph",
+    "content": "Fig. 17 shows that vLLM can sustain 2 × higher request rates compared to the three Orca baselines. Since the ShareGPT dataset contains many long conversations, the input prompts for most requests have 1024 tokens. Due to the buddy allocation algorithm, the Orca baselines reserve the space for 1024 tokens for the request outputs, regardless of how they predict the output lengths. For this reason, the three Orca baselines behave similarly. In contrast, vLLM can effectively",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        53.771,
+        74.25099999999998,
+        300.378,
+        167.144
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_101",
+    "type": "paragraph",
+    "content": "(a) Latency of attention kernels.",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        317.677,
+        616.84,
+        433.174,
+        624.641
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_102",
+    "type": "paragraph",
+    "content": "(b) End-to-end latency with different block sizes.",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        440.011,
+        605.881,
+        557.023,
+        624.641
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_103",
+    "type": "paragraph",
+    "content": "Figure 18. Ablation experiments.",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        369.684,
+        592.016,
+        506.271,
+        600.684
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_104",
+    "type": "paragraph",
+    "content": "handle the long prompts, as PagedAttention resolves the problem of memory fragmentation and reservation.",
+    "metadata": {
+      "page": 12,
+      "section": "Chatbot",
+      "bbox": [
+        317.955,
+        531.948,
+        557.998,
+        552.571
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_105",
+    "type": "paragraph",
+    "content": "In this section, we study various aspects of vLLM and evaluate the design choices we make with ablation experiments.",
+    "metadata": {
+      "page": 12,
+      "section": "Ablation Studies",
+      "bbox": [
+        317.955,
+        482.33,
+        559.681,
+        502.953
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_106",
+    "type": "paragraph",
+    "content": "The dynamic block mapping in PagedAttention affects the performance of the GPU operations involving the stored KV cache, i.e., block read/writes and attention. Compared to the existing systems, our GPU kernels (§5) involve extra overheads of accessing the block table, executing extra branches, and handling variable sequence lengths. As shown in Fig. 18a, this leads to 20-26% higher attention kernel latency, compared to the highly-optimized FasterTransformer implementation. We believe the overhead is small as it only affects the attention operator but not the other operators in the model, such as Linear. Despite the overhead, PagedAttention makes vLLM significantly outperform FasterTransformer in end-to-end performance (§6).",
+    "metadata": {
+      "page": 12,
+      "section": "Kernel Microbenchmark",
+      "bbox": [
+        317.656,
+        302.201,
+        559.685,
+        454.331
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_107",
+    "type": "paragraph",
+    "content": "The choice of block size can have a substantial impact on the performance of vLLM. If the block size is too small, vLLM may not fully utilize the GPU's parallelism for reading and processing KV cache. If the block size is too large, internal fragmentation increases and the probability of sharing decreases.",
+    "metadata": {
+      "page": 12,
+      "section": "Impact of Block Size",
+      "bbox": [
+        317.656,
+        205.75800000000004,
+        559.685,
+        274.202
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_108",
+    "type": "paragraph",
+    "content": "In Fig. 18b, we evaluate the performance of vLLM with different block sizes, using the ShareGPT and Alpaca traces with basic sampling under fixed request rates. In the ShareGPT trace, block sizes from 16 to 128 lead to the best performance. In the Alpaca trace, while the block size 16 and 32 work well, larger block sizes significantly degrade the performance since the sequences become shorter than the block sizes. In practice, we find that the block size 16 is large enough to efficiently utilize the GPU and small enough to avoid significant internal fragmentation in most workloads. Accordingly, vLLM sets its default block size as 16.",
+    "metadata": {
+      "page": 12,
+      "section": "Impact of Block Size",
+      "bbox": [
+        317.587,
+        74.25099999999998,
+        559.686,
+        202.471
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_fig_18",
+    "type": "figure",
+    "content": "Figure 19. (a) Overhead of recomputation and swapping for different block sizes. (b) Performance when serving OPT-13B with the ShareGPT traces at the same request rate.",
+    "metadata": {
+      "page": 13,
+      "section": "Impact of Block Size",
+      "bbox": [
+        62.317237854003906,
+        632.4716186523438,
+        281.990478515625,
+        717.0284042358398
+      ],
+      "image_path": "data/rag_assets/images/2309.06180/figure/figure_19.png",
+      "image_summary": "The figure consists of two subplots labeled (a) and (b), each illustrating performance metrics as a function of block size with x-axes using a logarithmic scale in powers of 2 from 1 to 256.\n\nSubplot (a), titled \"Microbenchmark,\" plots Time (ms) on the y-axis (ranging approximately from 0 to 140 ms) against Block size on the x-axis. Four methods are compared: Recompute (blue line with circle markers), Swap in (orange line with circle markers), Swap out (green line with circle markers), and Swap in + out (red line with circle markers). Key trends include:\n- Recompute maintains relatively stable timing near 40 ms across all block sizes.\n- Swap in and Swap out methods decrease significantly from around 80 ms and 40 ms respectively at block size 1, leveling off near 20 ms at large block sizes (128-256).\n- Swap in + out starts at the highest time (about 140 ms at block size 1) and sharply decreases to plateau near 40 ms for larger block sizes, converging close to Recompute performance.\n- For very small block sizes (1 to 4), Swap in + out is notably slower than all other methods.\n\nSubplot (b), titled \"End-to-end performance,\" plots Normalized latency (seconds per token) on the y-axis (ranging roughly 0 to 2.5) against Block size on the x-axis. Two methods, Recompute (blue line) and Swap (red line), are compared. Key observations include:\n- Both methods show a similar decreasing trend in normalized latency as block size increases from 1 to 16, dropping from above 2.0 s/token to nearly 0.1 s/token.\n- From block sizes 16 to 128, latency remains very low and stable for both methods.\n- At block size 256, latency rises again, more sharply for Recompute (~1.1 s/token) than for Swap (~0.7 s/token).\n- Swap consistently exhibits slightly higher latency than Recompute at very small block sizes but outperforms it at the largest block size tested.\n\nMain takeaway: In microbenchmarking, recomputation offers stable and moderate time costs regardless of block size, whereas swapping operations show improvement with increasing block size but can be costly at small sizes. End-to-end, both methods achieve optimal latency at medium block sizes (16-128), but recomputation suffers a larger penalty at the largest block size compared to swapping, indicating swapping may better handle large block sizes in overall performance."
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_109",
+    "type": "paragraph",
+    "content": "vLLM supports both recomputation and swapping as its recovery mechanisms. To understand the tradeoffs between the two methods, we evaluate their end-to-end performance and microbenchmark their overheads, as presented in Fig. 19. Our results reveal that swapping incurs excessive overhead with small block sizes. This is because small block sizes often result in numerous small data transfers between CPU and GPU, which limits the effective PCIe bandwidth. In contrast, the overhead of recomputation remains constant across different block sizes, as recomputation does not utilize the KV blocks. Thus, recomputation is more efficient when the block size is small, while swapping is more efficient when the block size is large, though recomputation overhead is never higher than 20% of swapping's latency. For medium block sizes from 16 to 64, the two methods exhibit comparable end-to-end performance.",
+    "metadata": {
+      "page": 13,
+      "section": "Comparing Recomputation and Swapping",
+      "bbox": [
+        53.631,
+        367.078,
+        295.732,
+        555.074
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_110",
+    "type": "paragraph",
+    "content": "Applying the virtual memory and paging technique to other GPU workloads. The idea of virtual memory and paging is effective for managing the KV cache in LLM serving because the workload requires dynamic memory allocation (since the output length is not known a priori) and its performance is bound by the GPU memory capacity. However, this does not generally hold for every GPU workload. For example, in DNN training, the tensor shapes are typically static, and thus memory allocation can be optimized ahead of time. For another example, in serving DNNs that are not LLMs, an increase in memory efficiency may not result in any performance improvement since the performance is primarily compute-bound. In such scenarios, introducing the vLLM's techniques may rather degrade the performance due to the extra overhead of memory indirection and non-contiguous block memory. However, we would be excited to see vLLM's techniques being applied to other workloads with similar properties to LLM serving.",
+    "metadata": {
+      "page": 13,
+      "section": "Discussion",
+      "bbox": [
+        53.631,
+        126.05700000000002,
+        295.726,
+        337.714
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_111",
+    "type": "paragraph",
+    "content": "LLM-specific optimizations in applying virtual memory and paging. vLLM re-interprets and augments the idea of virtual memory and paging by leveraging the applicationspecific semantics. One example is vLLM's all-or-nothing swap-out policy, which exploits the fact that processing a request requires all of its corresponding token states to be stored in GPU memory. Another example is the recomputation method to recover the evicted blocks, which is not feasible in OS. Besides, vLLM mitigates the overhead of memory indirection in paging by fusing the GPU kernels for memory access operations with those for other operations such as attention.",
+    "metadata": {
+      "page": 13,
+      "section": "Discussion",
+      "bbox": [
+        54.0,
+        74.25099999999998,
+        295.827,
+        118.53600000000006
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_112",
+    "type": "paragraph",
+    "content": "General model serving systems. Model serving has been an active area of research in recent years, with numerous systems proposed to tackle diverse aspects of deep learning model deployment. Clipper [11], TensorFlow Serving [33], Nexus [45], InferLine [10], and Clockwork [20] are some earlier general model serving systems. They study batching, caching, placement, and scheduling for serving single or multiple models. More recently, DVABatch [12] introduces multi-entry multi-exit batching. REEF [21] and Shepherd [61] propose preemption for serving. AlpaServe [28] utilizes model parallelism for statistical multiplexing. However, these general systems fail to take into account the autoregressive property and token state of LLM inference, resulting in missed opportunities for optimization.",
+    "metadata": {
+      "page": 13,
+      "section": "Related Work",
+      "bbox": [
+        317.955,
+        420.951,
+        559.687,
+        585.037
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_113",
+    "type": "paragraph",
+    "content": "Specialized serving systems for transformers. Due to the significance of the transformer architecture, numerous specialized serving systems for it have been developed. These systems utilize GPU kernel optimizations [1, 29, 31, 56], advanced batching mechanisms [14, 60], model parallelism [1, 41, 60], and parameter sharing [64] for efficient serving. Among them, Orca [60] is most relevant to our approach.",
+    "metadata": {
+      "page": 13,
+      "section": "Related Work",
+      "bbox": [
+        317.606,
+        333.28,
+        559.688,
+        413.679
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_114",
+    "type": "paragraph",
+    "content": "Comparison to Orca. The iteration-level scheduling in Orca [60] and PagedAttention in vLLM are complementary techniques: While both systems aim to increase the GPU utilization and hence the throughput of LLM serving, Orca achieves it by scheduling and interleaving the requests so that more requests can be processed in parallel, while vLLM is doing so by increasing memory utilization so that the working sets of more requests fit into memory. By reducing memory fragmentation and enabling sharing, vLLM runs more requests in a batch in parallel and achieves a 2-4 × speedup compared to Orca. Indeed, the fine-grained scheduling and interleaving of the requests like in Orca makes memory management more challenging, making the techniques proposed in vLLM even more crucial.",
+    "metadata": {
+      "page": 13,
+      "section": "Related Work",
+      "bbox": [
+        317.587,
+        161.923,
+        559.685,
+        326.008
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_115",
+    "type": "paragraph",
+    "content": "Memory optimizations. The widening gap between the compute capability and memory capacity of accelerators has caused memory to become a bottleneck for both training and inference. Swapping [23, 42, 55], recomputation [7, 24] and their combination [40] have been utilized to reduce the peak memory of training. Notably, FlexGen [46] studies how to swap weights and token states for LLM inference with",
+    "metadata": {
+      "page": 13,
+      "section": "Related Work",
+      "bbox": [
+        317.955,
+        74.25099999999998,
+        558.368,
+        154.64999999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_116",
+    "type": "paragraph",
+    "content": "limited GPU memory, but it does not target the online serving settings. OLLA [48] optimizes the lifetime and location of tensors to reduce fragmentation, but it does not do finegrained block-level management or online serving. FlashAttention [13] applies tiling and kernel optimizations to reduce the peak memory of attention computation and reduce I/O costs. This paper introduces a new idea of block-level memory management in the context of online serving.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        54.0,
+        624.189,
+        295.732,
+        716.543
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_117",
+    "type": "paragraph",
+    "content": "This paper proposes PagedAttention, a new attention algorithm that allows attention keys and values to be stored in non-contiguous paged memory, and presents vLLM, a high-throughput LLM serving system with efficient memory management enabled by PagedAttention. Inspired by operating systems, we demonstrate how established techniques, such as virtual memory and copy-on-write, can be adapted to efficiently manage KV cache and handle various decoding algorithms in LLM serving. Our experiments show that vLLM achieves 2-4 × throughput improvements over the state-of-the-art systems.",
+    "metadata": {
+      "page": 14,
+      "section": "Conclusion",
+      "bbox": [
+        53.701,
+        467.624,
+        295.73,
+        595.844
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_118",
+    "type": "paragraph",
+    "content": "We would like to thank Xiaoxuan Liu, Zhifeng Chen, Yanping Huang, anonymous SOSP reviewers, and our shepherd, Lidong Zhou, for their insightful feedback. This research is partly supported by gifts from Andreessen Horowitz, Anyscale, Astronomer, Google, IBM, Intel, Lacework, Microsoft, Mohamed Bin Zayed University of Artificial Intelligence, Samsung SDS, Uber, and VMware.",
+    "metadata": {
+      "page": 14,
+      "section": "Acknowledgement",
+      "bbox": [
+        53.522,
+        358.88,
+        301.13,
+        439.279
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_119",
+    "type": "paragraph",
+    "content": "Reza Yazdani Aminabadi, Samyam Rajbhandari, Minjia Zhang, Ammar Ahmad Awan, Cheng Li, Du Li, Elton Zheng, Jeff Rasley, Shaden Smith, Olatunji Ruwase, et al. 2022. DeepSpeed Inference: Enabling Efficient Inference of Transformer Models at Unprecedented Scale. arXiv preprint arXiv:2207.00032 (2022).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        283.86,
+        295.389,
+        330.683
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_120",
+    "type": "paragraph",
+    "content": "Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. 2016. Layer normalization. arXiv preprint arXiv:1607.06450 (2016).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        263.93499999999995,
+        294.194,
+        280.87
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_121",
+    "type": "paragraph",
+    "content": "Yoshua Bengio, Réjean Ducharme, and Pascal Vincent. 2000. A neural probabilistic language model. Advances in neural information processing systems 13 (2000).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        234.04700000000003,
+        294.84,
+        260.94499999999994
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_122",
+    "type": "paragraph",
+    "content": "Ond rej Bojar, Rajen Chatterjee, Christian Federmann, Yvette Graham, Barry Haddow, Matthias Huck, Antonio Jimeno Yepes, Philipp Koehn, Varvara Logacheva, Christof Monz, Matteo Negri, Aurelie Neveol, Mariana Neves, Martin Popel, Matt Post, Raphael Rubino, Carolina Scarton, Lucia Specia, Marco Turchi, Karin Verspoor, and Marcos Zampieri. 2016. Findings of the 2016 Conference on Machine Translation. In Proceedings of the First Conference on Machine Translation . Association for Computational Linguistics, Berlin, Germany, 131-198. http://www.aclweb.org/anthology/W/W16/W16-2301",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        144.34299999999996,
+        295.395,
+        231.05700000000002
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_123",
+    "type": "paragraph",
+    "content": "Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. 2020. Language models are few-shot learners. Advances in neural information processing systems 33 (2020), 1877-1901.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        94.60900000000004,
+        294.92,
+        141.39300000000003
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_124",
+    "type": "paragraph",
+    "content": "Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        57.706,
+        74.68299999999999,
+        294.044,
+        91.58000000000004
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_125",
+    "type": "paragraph",
+    "content": "Joseph, Greg Brockman, et al. 2021. Evaluating large language models trained on code. arXiv preprint arXiv:2107.03374 (2021).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        334.9,
+        698.306,
+        557.998,
+        715.241
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_126",
+    "type": "paragraph",
+    "content": "Tianqi Chen, Bing Xu, Chiyuan Zhang, and Carlos Guestrin. 2016. Training deep nets with sublinear memory cost. arXiv preprint arXiv:1604.06174 (2016).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        321.661,
+        668.418,
+        559.231,
+        695.316
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_127",
+    "type": "paragraph",
+    "content": "Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. 2023. Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality. https://lmsys. org/blog/2023-03-30-vicuna/",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        321.661,
+        618.565,
+        559.227,
+        665.428
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_128",
+    "type": "paragraph",
+    "content": "Aakanksha Chowdhery, Sharan Narang, Jacob Devlin, Maarten Bosma, Gaurav Mishra, Adam Roberts, Paul Barham, Hyung Won Chung, Charles Sutton, Sebastian Gehrmann, et al. 2022. Palm: Scaling language modeling with pathways. arXiv preprint arXiv:2204.02311 (2022).",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        321.661,
+        578.754,
+        559.349,
+        615.615
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_129",
+    "type": "paragraph",
+    "content": "Daniel Crankshaw, Gur-Eyal Sela, Xiangxi Mo, Corey Zumar, Ion Stoica, Joseph Gonzalez, and Alexey Tumanov. 2020. InferLine: latencyaware provisioning and scaling for prediction serving pipelines. In Proceedings of the 11th ACM Symposium on Cloud Computing . 477-491.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        538.903,
+        559.35,
+        575.764
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_130",
+    "type": "paragraph",
+    "content": "Daniel Crankshaw, Xin Wang, Guilio Zhou, Michael J Franklin, Joseph E Gonzalez, and Ion Stoica. 2017. Clipper: A Low-Latency Online Prediction Serving System. In 14th USENIX Symposium on Networked Systems Design and Implementation (NSDI 17) . 613-627.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        499.053,
+        558.873,
+        535.914
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_131",
+    "type": "paragraph",
+    "content": "Weihao Cui, Han Zhao, Quan Chen, Hao Wei, Zirui Li, Deze Zeng, Chao Li, and Minyi Guo. 2022. DVABatch: Diversity-aware MultiEntry Multi-Exit Batching for Efficient Processing of DNN Services on GPUs. In 2022 USENIX Annual Technical Conference (USENIX ATC 22) . 183-198.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        449.24,
+        559.344,
+        496.063
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_132",
+    "type": "paragraph",
+    "content": "Tri Dao, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. 2022. Flashattention: Fast and memory-efficient exact attention with io-awareness. Advances in Neural Information Processing Systems 35 (2022), 16344-16359.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        409.428,
+        559.231,
+        446.25
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_133",
+    "type": "paragraph",
+    "content": "Jiarui Fang, Yang Yu, Chengduo Zhao, and Jie Zhou. 2021. TurboTransformers: an efficient GPU serving system for transformer models. In Proceedings of the 26th ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming . 389-402.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        369.539,
+        559.35,
+        406.4
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_134",
+    "type": "paragraph",
+    "content": "FastAPI. 2023. FastAPI. https://github.com/tiangolo/fastapi .",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        359.536,
+        529.856,
+        366.581
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_135",
+    "type": "paragraph",
+    "content": "Pin Gao, Lingfan Yu, Yongwei Wu, and Jinyang Li. 2018. Low latency rnn inference with cellular batching. In Proceedings of the Thirteenth EuroSys Conference . 1-15.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        329.688,
+        558.211,
+        356.586
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_136",
+    "type": "paragraph",
+    "content": "Amir Gholami, Zhewei Yao, Sehoon Kim, Michael W Mahoney, and Kurt Keutzer. 2021. Ai and memory wall. RiseLab Medium Post 1 (2021), 6.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        299.839,
+        558.874,
+        326.698
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_137",
+    "type": "paragraph",
+    "content": "Github. 2022. https://github.com/features/copilot Google. 2023. https://bard.google.com/",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        289.797,
+        497.744,
+        296.842
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_139",
+    "type": "paragraph",
+    "content": "Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao, Antoine Kaufmann, Ymir Vigfusson, and Jonathan Mace. 2020. Serving { DNNs } like Clockwork: Performance Predictability from the Bottom Up. In 14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20) . 443-462.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        230.062,
+        559.351,
+        276.885
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_140",
+    "type": "paragraph",
+    "content": "Mingcong Han, Hanze Zhang, Rong Chen, and Haibo Chen. 2022. Microsecond-scale Preemption for Concurrent { GPUaccelerated }{ DNN } Inferences. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) . 539-558.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        190.211,
+        559.346,
+        227.072
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_141",
+    "type": "paragraph",
+    "content": "Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. 2016. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition . 770-778.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        160.32299999999998,
+        558.003,
+        187.221
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_142",
+    "type": "paragraph",
+    "content": "Chien-Chin Huang, Gu Jin, and Jinyang Li. 2020. Swapadvisor: Pushing deep learning beyond the gpu memory limit via smart swapping. In Proceedings of the Twenty-Fifth International Conference on Architectural Support for Programming Languages and Operating Systems . 1341-1355.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        110.54899999999998,
+        559.348,
+        157.33400000000006
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_143",
+    "type": "paragraph",
+    "content": "Paras Jain, Ajay Jain, Aniruddha Nrusimha, Amir Gholami, Pieter Abbeel, Joseph Gonzalez, Kurt Keutzer, and Ion Stoica. 2020. Checkmate: Breaking the memory wall with optimal tensor rematerialization.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        317.955,
+        80.66100000000006,
+        559.346,
+        107.51999999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_144",
+    "type": "paragraph",
+    "content": "Proceedings of Machine Learning and Systems 2 (2020), 497-511.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        71.072,
+        708.268,
+        275.868,
+        715.305
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_145",
+    "type": "paragraph",
+    "content": "Tom Kilburn, David BG Edwards, Michael J Lanigan, and Frank H Sumner. 1962. One-level storage system. IRE Transactions on Electronic Computers 2 (1962), 223-235.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        678.38,
+        294.048,
+        705.279
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_146",
+    "type": "paragraph",
+    "content": "Brian Lester, Rami Al-Rfou, and Noah Constant. 2021. The power of scale for parameter-efficient prompt tuning. arXiv preprint arXiv:2104.08691 (2021).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        648.493,
+        294.194,
+        675.391
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_147",
+    "type": "paragraph",
+    "content": "Xiang Lisa Li and Percy Liang. 2021. Prefix-tuning: Optimizing continuous prompts for generation. arXiv preprint arXiv:2101.00190 (2021).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        628.567,
+        295.395,
+        645.503
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_148",
+    "type": "paragraph",
+    "content": "Zhuohan Li, Lianmin Zheng, Yinmin Zhong, Vincent Liu, Ying Sheng, Xin Jin, Yanping Huang, Zhifeng Chen, Hao Zhang, Joseph E Gonzalez, et al. 2023. AlpaServe: Statistical Multiplexing with Model Parallelism for Deep Learning Serving. arXiv preprint arXiv:2302.11665 (2023).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        588.717,
+        294.923,
+        625.578
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_149",
+    "type": "paragraph",
+    "content": "Lingxiao Ma, Zhiqiang Xie, Zhi Yang, Jilong Xue, Youshan Miao, Wei Cui, Wenxiang Hu, Fan Yang, Lintao Zhang, and Lidong Zhou. 2020. Rammer: Enabling holistic deep learning compiler optimizations with rtasks. In Proceedings of the 14th USENIX Conference on Operating Systems Design and Implementation . 881-897.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        538.903,
+        295.271,
+        585.727
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_150",
+    "type": "paragraph",
+    "content": "NVIDIA. [n. d.]. Triton Inference Server. https://developer.nvidia.com/ nvidia-triton-inference-server .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        518.938,
+        294.566,
+        535.946
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_151",
+    "type": "paragraph",
+    "content": "NVIDIA. 2023. FasterTransformer. https://github.com/NVIDIA/ FasterTransformer .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        499.013,
+        294.563,
+        516.021
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_152",
+    "type": "paragraph",
+    "content": "NVIDIA. 2023. NCCL: The NVIDIA Collective Communication Library. https://developer.nvidia.com/nccl .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        479.088,
+        295.27,
+        496.063
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_153",
+    "type": "paragraph",
+    "content": "Christopher Olston, Noah Fiedel, Kiril Gorovoy, Jeremiah Harmsen, Li Lao, Fangwei Li, Vinu Rajashekhar, Sukriti Ramesh, and Jordan Soyke. 2017. Tensorflow-serving: Flexible, high-performance ml serving. arXiv preprint arXiv:1712.06139 (2017).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        439.277,
+        295.276,
+        476.138
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_154",
+    "type": "paragraph",
+    "content": "OpenAI. 2020. https://openai.com/blog/openai-api OpenAI. 2022. https://openai.com/blog/chatgpt OpenAI. 2023. https://openai.com/blog/custom-instructions-forchatgpt OpenAI. 2023. GPT-4 Technical Report. arXiv:2303.08774 [cs.CL]",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        429.274,
+        238.109,
+        436.319
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_158",
+    "type": "paragraph",
+    "content": "LMSYS ORG. 2023. Chatbot Arena Leaderboard Week 8: Introducing MT-Bench and Vicuna-33B. https://lmsys.org/blog/2023-06-22leaderboard/.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        359.615,
+        295.389,
+        386.474
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_159",
+    "type": "paragraph",
+    "content": "Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, et al. 2019. Pytorch: An imperative style, high-performance deep learning library. Advances in neural information processing systems 32 (2019).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        309.763,
+        294.923,
+        356.586
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_160",
+    "type": "paragraph",
+    "content": "Shishir G Patil, Paras Jain, Prabal Dutta, Ion Stoica, and Joseph Gonzalez. 2022. POET: Training Neural Networks on Tiny Devices with Integrated Rematerialization and Paging. In International Conference on Machine Learning . PMLR, 17573-17583.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        269.91200000000003,
+        295.388,
+        306.773
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_161",
+    "type": "paragraph",
+    "content": "Reiner Pope, Sholto Douglas, Aakanksha Chowdhery, Jacob Devlin, James Bradbury, Anselm Levskaya, Jonathan Heek, Kefan Xiao, Shivani Agrawal, and Jeff Dean. 2022. Efficiently Scaling Transformer Inference. arXiv preprint arXiv:2211.05102 (2022).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        230.062,
+        295.272,
+        266.923
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_162",
+    "type": "paragraph",
+    "content": "Jie Ren, Samyam Rajbhandari, Reza Yazdani Aminabadi, Olatunji Ruwase, Shuangyan Yang, Minjia Zhang, Dong Li, and Yuxiong He. 2021. ZeRO-Offload: Democratizing Billion-Scale Model Training.. In USENIX Annual Technical Conference . 551-564.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        190.211,
+        295.276,
+        227.072
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_163",
+    "type": "paragraph",
+    "content": "Reuters. 2023. https://www.reuters.com/technology/tech-giants-ailike-bing-bard-poses-billion-dollar-search-problem-2023-02-22/ Amazon Web Services. 2023. https://aws.amazon.com/bedrock/",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        170.24599999999998,
+        294.876,
+        187.25299999999993
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_165",
+    "type": "paragraph",
+    "content": "Haichen Shen, Lequn Chen, Yuchen Jin, Liangyu Zhao, Bingyu Kong, Matthai Philipose, Arvind Krishnamurthy, and Ravi Sundaram. 2019. Nexus: A GPU cluster engine for accelerating DNN-based video analysis. In Proceedings of the 27th ACM Symposium on Operating Systems Principles . 322-337.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        110.50999999999999,
+        295.391,
+        157.33400000000006
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_166",
+    "type": "paragraph",
+    "content": "Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan Li, Max Ryabinin, Daniel Y Fu, Zhiqiang Xie, Beidi Chen, Clark Barrett, Joseph E Gonzalez, et al. 2023. High-throughput Generative Inference of Large",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        80.66100000000006,
+        295.389,
+        107.51999999999998
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_167",
+    "type": "paragraph",
+    "content": "Language Models with a Single GPU. arXiv preprint arXiv:2303.06865 (2023).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        334.788,
+        698.345,
+        558.001,
+        715.305
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_168",
+    "type": "paragraph",
+    "content": "Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. 2019. Megatron-lm: Training multibillion parameter language models using model parallelism. arXiv preprint arXiv:1909.08053 (2019).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        658.455,
+        559.348,
+        695.316
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_169",
+    "type": "paragraph",
+    "content": "Benoit Steiner, Mostafa Elhoushi, Jacob Kahn, and James Hegarty. 2022. OLLA: Optimizing the Lifetime and Location of Arrays to Reduce the Memory Usage of Neural Networks. (2022). https://doi.org/10.48550/ arXiv.2210.12924",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        618.565,
+        559.225,
+        655.466
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_170",
+    "type": "paragraph",
+    "content": "Ilya Sutskever, Oriol Vinyals, and Quoc V Le. 2014. Sequence to sequence learning with neural networks. Advances in neural information processing systems 27 (2014).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        588.717,
+        559.344,
+        615.615
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_171",
+    "type": "paragraph",
+    "content": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, and Tatsunori B. Hashimoto. 2023. Stanford Alpaca: An Instruction-following LLaMA model. https:// github.com/tatsu-lab/stanford_alpaca .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        548.826,
+        559.231,
+        585.727
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_172",
+    "type": "paragraph",
+    "content": "ShareGPT Team. 2023. https://sharegpt.com/",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        538.863,
+        483.789,
+        545.908
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_173",
+    "type": "paragraph",
+    "content": "Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, MarieAnne Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric Hambro, Faisal Azhar, et al. 2023. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971 (2023).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        499.053,
+        559.35,
+        535.914
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_174",
+    "type": "paragraph",
+    "content": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. Attention is all you need. Advances in neural information processing systems 30 (2017).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        459.202,
+        559.347,
+        496.063
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_175",
+    "type": "paragraph",
+    "content": "Jing Wang, Youyou Lu, Qing Wang, Minhui Xie, Keji Huang, and Jiwu Shu. 2022. Pacman: An Efficient Compaction Approach for { LogStructured }{ Key-Value } Store on Persistent Memory. In 2022 USENIX Annual Technical Conference (USENIX ATC 22) . 773-788.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        419.352,
+        559.347,
+        456.213
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_176",
+    "type": "paragraph",
+    "content": "Linnan Wang, Jinmian Ye, Yiyang Zhao, Wei Wu, Ang Li, Shuaiwen Leon Song, Zenglin Xu, and Tim Kraska. 2018. Superneurons: Dynamic GPU memory management for training deep neural networks. In Proceedings of the 23rd ACM SIGPLAN symposium on principles and practice of parallel programming . 41-53.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        369.539,
+        559.344,
+        416.362
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_177",
+    "type": "paragraph",
+    "content": "Xiaohui Wang, Ying Xiong, Yang Wei, Mingxuan Wang, and Lei Li. 2021. LightSeq: A High Performance Inference Library for Transformers. In Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Industry Papers . 113-120.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        319.725,
+        559.345,
+        366.549
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_178",
+    "type": "paragraph",
+    "content": "Yizhong Wang, Yeganeh Kordi, Swaroop Mishra, Alisa Liu, Noah A Smith, Daniel Khashabi, and Hannaneh Hajishirzi. 2022. Self-Instruct: Aligning Language Model with Self Generated Instructions. arXiv preprint arXiv:2212.10560 (2022).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        279.875,
+        558.94,
+        316.736
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_179",
+    "type": "paragraph",
+    "content": "Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, et al. 2020. Transformers: State-of-the-art natural language processing. In Proceedings of the 2020 conference on empirical methods in natural language processing: system demonstrations . 38-45.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        230.062,
+        558.874,
+        276.885
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_180",
+    "type": "paragraph",
+    "content": "Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. 2016. Google's neural machine translation system: Bridging the gap between human and machine translation. arXiv preprint arXiv:1609.08144 (2016).",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        180.24800000000005,
+        559.231,
+        227.072
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_181",
+    "type": "paragraph",
+    "content": "Gyeong-In Yu, Joo Seong Jeong, Geon-Woo Kim, Soojeong Kim, and Byung-Gon Chun. 2022. Orca: A Distributed Serving System for { Transformer-Based } Generative Models. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) . 521-538.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        140.39800000000002,
+        558.149,
+        177.25900000000001
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_182",
+    "type": "paragraph",
+    "content": "Hong Zhang, Yupeng Tang, Anurag Khandelwal, and Ion Stoica. 2023. SHEPHERD: Serving DNNs in the Wild. In 20th USENIX Symposium on Networked Systems Design and Implementation (NSDI 23) . USENIX Association, Boston, MA, 787-808. https://www.usenix.org/conference/ nsdi23/presentation/zhang-hong",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.955,
+        90.54499999999996,
+        559.349,
+        137.40800000000002
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_183",
+    "type": "paragraph",
+    "content": "Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen, Christopher Dewan, Mona Diab, Xian Li, Xi Victoria Lin, et al. 2022. Opt: Open pre-trained transformer language models. arXiv preprint arXiv:2205.01068 (2022).",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        678.38,
+        295.268,
+        715.241
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_184",
+    "type": "paragraph",
+    "content": "Lianmin Zheng, Zhuohan Li, Hao Zhang, Yonghao Zhuang, Zhifeng Chen, Yanping Huang, Yida Wang, Yuanzhong Xu, Danyang Zhuo,",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        658.494,
+        294.918,
+        675.391
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_185",
+    "type": "paragraph",
+    "content": "Eric P Xing, et al. 2022. Alpa: Automating Inter-and Intra-Operator Parallelism for Distributed Deep Learning. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) . 559-578.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        335.027,
+        688.343,
+        558.153,
+        715.241
+      ]
+    }
+  },
+  {
+    "id": "2309.06180_paragraph_186",
+    "type": "paragraph",
+    "content": "Zhe Zhou, Xuechao Wei, Jiejing Zhang, and Guangyu Sun. 2022. PetS: AUnified Framework for Parameter-Efficient Transformers Serving. In 2022 USENIX Annual Technical Conference (USENIX ATC 22) . 489-504.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.955,
+        658.455,
+        558.936,
+        685.353
+      ]
+    }
+  }
+]

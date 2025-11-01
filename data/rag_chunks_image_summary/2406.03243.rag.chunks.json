@@ -1,0 +1,3350 @@
+[
+  {
+    "id": "2406.03243_paragraph_1",
+    "type": "paragraph",
+    "content": "Inference serving for large language models (LLMs) is the key to unleashing their potential in people's daily lives. However, efficient LLM serving remains challenging today because the requests are inherently heterogeneous and unpredictable in terms of resource and latency requirements, as a result of the diverse applications and the dynamic execution nature of LLMs. Existing systems are fundamentally limited in handling these characteristics and cause problems such as severe queuing delays, poor tail latencies, and SLO violations.",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        54.0,
+        415.423,
+        295.771,
+        519.616
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_2",
+    "type": "paragraph",
+    "content": "Biao Sun ∗ † , Ziming Huang ∗ † , Hanyu Zhao ∗ , Wencong Xiao, Xinyi Zhang † , Yong Li, Wei Lin",
+    "metadata": {
+      "page": 1,
+      "section": "Llumnix: Dynamic Scheduling for Large Language Model Serving",
+      "bbox": [
+        79.766,
+        613.163,
+        532.235,
+        626.106
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_3",
+    "type": "paragraph",
+    "content": "Alibaba Group",
+    "metadata": {
+      "page": 1,
+      "section": "Llumnix: Dynamic Scheduling for Large Language Model Serving",
+      "bbox": [
+        270.236,
+        585.44,
+        341.764,
+        595.733
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_4",
+    "type": "paragraph",
+    "content": "Inference serving of LLMs plays a key role in LLMpowered services, becoming a critical workload in datacenters. Such services are typically backed by multiple instances of the LLM deployed on a GPU cluster. The system involves a scheduler and an inference engine , where a request is first dispatched by the scheduler to a model serving instance, then gets executed by the inference engine inside. The requests are typically batched for execution on each instance to increase throughput and cost efficiency.",
+    "metadata": {
+      "page": 1,
+      "section": "Llumnix: Dynamic Scheduling for Large Language Model Serving",
+      "bbox": [
+        317.88,
+        432.33,
+        559.747,
+        536.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_5",
+    "type": "paragraph",
+    "content": "We introduce Llumnix, an LLM serving system that reacts to such heterogeneous and unpredictable requests by runtime rescheduling across multiple model instances. Similar to context switching across CPU cores in modern operating systems, Llumnix reschedules requests to improve load balancing and isolation, mitigate resource fragmentation, and differentiate request priorities and SLOs. Llumnix implements the rescheduling with an efficient and scalable live migration mechanism for requests and their in-memory states, and exploits it in a dynamic scheduling policy that unifies the multiple rescheduling scenarios elegantly. Our evaluations show that Llumnix improves tail latencies by an order of magnitude, accelerates high-priority requests by up to 1.5 × , and delivers up to 36% cost savings while achieving similar tail latencies, compared against state-of-theart LLM serving systems. Llumnix is publicly available at https://github.com/AlibabaPAI/llumnix .",
+    "metadata": {
+      "page": 1,
+      "section": "Llumnix: Dynamic Scheduling for Large Language Model Serving",
+      "bbox": [
+        54.0,
+        211.94299999999998,
+        295.775,
+        411.778
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_6",
+    "type": "paragraph",
+    "content": "Large language models (LLMs) such as the GPT series [15, 49] are bringing generative AI to an unprecedented level. Their human-level generation capabilities are being quickly adopted in a wide range of domains, inspiring many imaginations for future applications, and expected to have profound influences on how people live and work.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        53.651,
+        98.47299999999996,
+        295.859,
+        166.80099999999993
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_7",
+    "type": "paragraph",
+    "content": "∗ Equal contribution.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        64.859,
+        80.17100000000005,
+        129.732,
+        88.79999999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_8",
+    "type": "paragraph",
+    "content": "† Work done during internship at Alibaba Group.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        64.859,
+        70.34699999999998,
+        219.34,
+        78.78399999999999
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_9",
+    "type": "paragraph",
+    "content": "We observe unique characteristics of LLMs that call for new design philosophy of the serving infrastructure. The first is workload heterogeneity . LLMs are designed to be universal, by learning as much knowledge as possible from whatever domains. People can query the same LLM in totally different situations or even build custom applications atop LLMs for various scenarios; for all of these, a context-specific input ( i.e. , prompt) is all you need [15]. Such universality and application diversity lead to heterogeneity of the inference requests, in terms of input lengths, output lengths, expected latencies, etc . For instance, the task of summarizing long text can introduce significant input lengths, where the latency of returning the first token (word) is often important to user experience [38].",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.631,
+        275.66599999999994,
+        559.744,
+        427.68
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_10",
+    "type": "paragraph",
+    "content": "The second characteristic is execution unpredictability. Serving an LLM request needs to run the model for multiple iterations, each producing a single output token; however, it is not known a priori how many tokens will be generated eventually. Moreover, the iterative generation also brings considerable GPU memory consumption that dynamically grows with the tokens. As such, the execution time and the resource demand of a request are both unpredictable.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.521,
+        178.77800000000002,
+        559.748,
+        271.18499999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_11",
+    "type": "paragraph",
+    "content": "These characteristics make an LLM inherently a multitenant and dynamic environment, serving heterogeneous and unpredictable workloads on multiple instances. This behavior is fundamentally different from traditional DNN models, where the requests are homogeneous and the execution is one-shot, stateless, and deterministic. Instead, we find LLMs more similar to modern operating systems hosting processes with dynamic working sets and different priorities on multiple cores. Managing such systems has complex goals, which goes",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        317.521,
+        69.93399999999997,
+        559.654,
+        174.29600000000005
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_12",
+    "type": "paragraph",
+    "content": "beyond what existing inference serving systems are designed for. Although there has been a series of LLM-tailored inference engines that shows superior performance, such systems concentrate on the sole goal of maximizing throughput within a single instance [34, 46, 67]. The request scheduling across instances, on the other hand, has received relatively little attention; the common practice today is still to use generic scheduling systems or policies inherited from the era of traditional DNNs [4,28,35,47,53]. Such a clear gap introduces challenges in the following aspects that are crucial in multitenant environments and online services.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        588.42,
+        295.777,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_13",
+    "type": "paragraph",
+    "content": "Isolation. The system can hardly provide performance isolation to requests as their memory consumption grows unpredictably. Memory contention incurs performance interference and even preemptions of certain requests in a batch [34], leading to highly unstable latencies and service-level objective (SLO) violations, significantly sacrificing user experiences.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        53.671,
+        515.806,
+        295.771,
+        584.522
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_14",
+    "type": "paragraph",
+    "content": "Fragmentation. The varying request lengths and memory demands inevitably result in memory fragmentation across instances, which introduces conflicting scheduling objectives. The running requests prefer load balancing to reduce preemptions and interference, but such load balancing fragments the free memory space across instances at the same time. The fragmentation can cause long queuing delays of new requests that instead require a large space on one instance for the input sequences. This conflict is difficult for the scheduler to reconcile with unpredictable arrivals and lengths of requests. Priorities. Requests from different applications and scenarios naturally come with different latency objectives. Online chatbots [6, 8] are interactive applications and are therefore with tight SLO constraints. On the contrary, offline applications, such as evaluation [51], scoring [36], or data wrangling [43], are less sensitive to latency. Such different latency objectives are also a consequence of the commercial purpose of earning more profits from LLMs via diversified service classes ( e.g. , ChatGPT Plus [2]). However, existing LLM inference systems [34,67] often treat all requests for a model equally and cannot differentiate their priorities, which has limitations in meeting different latency objectives of requests.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        53.671,
+        251.02700000000004,
+        295.865,
+        511.908
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_15",
+    "type": "paragraph",
+    "content": "We introduce Llumnix, a new scheduling system for LLM serving that addresses the challenges above via runtime rescheduling of requests across model instances. Analogous to context switching across CPU cores in OS process management, rescheduling enables Llumnix to react to the unpredictable workload dynamics at runtime, instead of having to address all the complex scheduling concerns and tradeoffs with the one-shot dispatching of requests. Llumnix reschedules requests for multiple purposes (Figure 1): load balancing for reducing preemptions and interference, de-fragmentation for mitigating queuing delays, prioritization of urgent requests by creating even higher degree of isolation, saturating or draining out instances during auto-scaling more quickly.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        53.641,
+        94.72699999999998,
+        295.778,
+        246.74099999999999
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_16",
+    "type": "paragraph",
+    "content": "Llumnix reschedules requests via an efficient and scalable live migration mechanism of requests along with their GPU",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        294.124,
+        90.44100000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_1",
+    "type": "figure",
+    "content": "Figure 1: Example rescheduling scenarios in Llumnix.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        321.3599548339844,
+        609.5197143554688,
+        553.5541381835938,
+        722.7783203125
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_2.png",
+      "image_summary": "The figure presents four schematic diagrams labeled (a) Load balancing, (b) De-frag, (c) Prioritization, and (d) Auto-scaling, illustrating different resource management strategies in a computing environment. The diagrams use rectangular bars to represent system instances with a color-coded legend indicating different states: Normal instance (white), Terminating instance (dashed border), Queuing request (gray-filled), Running request (light peach), Rescheduling destination (peach with diagonal orange lines), and High-priority request (blue with a star).\n\n(a) Load balancing shows three stacked segments across two connected instances. The left bar has a large blue segment (high-priority request) at the bottom, a peach running request above, and a red double-headed arrow indicating resource transfer downwards. An arrow points from the running request segment in the left instance to a diagonally patterned rescheduling destination in the right instance, which has a now smaller blue segment below it and a green segment at the bottom. This suggests moving workload from the heavily loaded left instance to balance load.\n\n(b) De-frag depicts three instances: a left gray-filled bar representing a queuing request with a red \"X\" mark, indicating a rejected or failed request, a middle normal instance with queued and running requests, and a right instance with a diagonally patterned rescheduling destination. An arrow from the middle instance to the right instance signifies shifting running requests to consolidate free space, thereby avoiding queuing or rejection.\n\n(c) Prioritization shows two normal instances: the left instance contains a blue high-priority request (marked by a blue star) along with a running request. The right instance features a diagonally patterned rescheduling destination. An arrow points from the high-priority request in the left instance to the rescheduling destination in the right, indicating prioritization of high-priority tasks by rescheduling lower-priority ones to free up resources.\n\n(d) Auto-scaling displays two instances: the left is a terminating instance filled with a blue high-priority request, and the right is a normal instance newly allocated with a diagonally patterned rescheduling destination and a peach running request. An arrow connects the two, illustrating that when an instance is terminating but still has high-priority work, resources are shifted to a new instance to maintain service continuity.\n\nMain takeaway: The figure effectively demonstrates four resource management mechanisms—load balancing, defragmentation, prioritization, and auto-scaling—using graphical representations of request states and instances. It highlights how workloads are redistributed to optimize resource utilization, prioritize high-priority tasks, and maintain system stability under varying conditions."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_17",
+    "type": "paragraph",
+    "content": "memory states across instances. Straightforward rescheduling approaches could introduce substantial downtimes to rescheduled requests, especially for long sequences. By contrast, Llumnix introduces near-zero downtime that is constant to sequence lengths, by carefully coordinating the computation and the memory transfer to hide the cost.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.88,
+        493.818,
+        559.65,
+        562.146
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_18",
+    "type": "paragraph",
+    "content": "To exploit such great scheduling flexibility of migration, Llumnix adopts a distributed scheduling architecture that enables continuous rescheduling with high scalability. Llumnix further introduces a dynamic scheduling policy under this architecture that unifies all the rescheduling scenarios with different goals elegantly. This unification is achieved via a concept called virtual usage : Llumnix just needs to define a set of rules for setting the virtual usages of GPU memory for requests in different scenarios, and then use a simple loadbalancing policy based on the virtual usages.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.88,
+        372.342,
+        559.652,
+        488.491
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_19",
+    "type": "paragraph",
+    "content": "We have implemented Llumnix as a scheduling layer on top of inference engines. Llumnix currently supports a representative system, vLLM [34], as the underlying engine. Evaluation on a 16-GPU cluster using realistic workloads shows that Llumnix improves P99 first-token latency by up to 15 × and P99 per-token generation latency by up to 2 × , compared against a state-of-the-art scheduler INFaaS [53]. Llumnix also accelerates high-priority requests by 1.5 × , and achieves 36% cost saving when delivering similar tail latencies.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        317.88,
+        262.822,
+        559.657,
+        367.016
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_20",
+    "type": "paragraph",
+    "content": "In summary, this paper makes the following contributions.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        327.843,
+        248.94299999999998,
+        559.7,
+        257.495
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_21",
+    "type": "paragraph",
+    "content": "We reveal the unique characteristics and scheduling challenges of LLM serving that necessitate new scheduling goals such as isolation, de-fragmentation, and priorities.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        319.374,
+        195.42100000000005,
+        559.654,
+        227.88300000000004
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_22",
+    "type": "paragraph",
+    "content": "We propose request rescheduling as a key measure to achieve these goals and realize it with an efficient migration mechanism of requests and their GPU memory states.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        319.374,
+        155.56999999999994,
+        558.004,
+        188.03300000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_23",
+    "type": "paragraph",
+    "content": "We design a distributed scheduling architecture and an accompanying scheduling policy that exploit request migration to achieve the multiple goals in a unified manner.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        319.374,
+        115.72000000000003,
+        559.655,
+        148.18200000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_24",
+    "type": "paragraph",
+    "content": "Weimplement and evaluate Llumnix to show its advantages over state-of-the-art inference serving systems.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        319.374,
+        87.82399999999996,
+        558.004,
+        108.332
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_2",
+    "type": "figure",
+    "content": "Figure 2: Request queuing and preemption using continuous batching and dynamic memory allocation.",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        70.67949676513672,
+        640.4563293457031,
+        277.1117248535156,
+        721.5720520019531
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_3.png",
+      "image_summary": "The figure illustrates the state transition of a GPU request scheduling system between two consecutive iterations, labeled \"Iteration N\" on the left and \"Iteration N+1\" on the right.\n\nIn both iterations, the system is composed of two main components: the \"Request queue\" at the top and the \"GPU\" resource allocation below it.\n\n- **Request queue:**\n  - In Iteration N, the queue contains a shaded region representing a preempted or queuing request.\n  - In Iteration N+1, the queue still contains the original preempted/queuing request block, now outlined with a red dashed line and explicitly labeled as a \"Preempted request\" in red text, indicating that the request has been moved to preempted status in this iteration.\n\n- **GPU blocks:**\n  - GPU blocks are displayed in a grid format with individual blocks colored and labeled.\n  - There are three block types in the legend: \"Running req block\" (light blue), \"Free block\" (white), and \"Preempted/queuing req\" (gray shaded with dashed border).\n  - In Iteration N:\n    - The first GPU block is colored light blue, indicating a running request block.\n    - Two GPU blocks in the middle row are white, indicating free blocks.\n    - One block on the right is a free block.\n    - There are two arrows labeled allocations:\n      - A yellow arrow labeled \"Alloc\" points from the first running block to the middle blocks.\n      - A green arrow labeled \"Alloc\" points from near the free blocks to the lower row blocks.\n    - A red cross with the label \"Preempt\" is situated on top of the first running block, indicating that this running block has been preempted in this iteration.\n  - In Iteration N+1:\n    - None of the GPU blocks are colored blue (no running request blocks).\n    - All GPU blocks are colored in light beige or light green (matching the blocks where allocation arrows pointed previously), indicating they have been allocated to other requests.\n    - The preempted request has been removed from GPU blocks, consistent with preemption indicated in Iteration N.\n\n**Main takeaway:**  \nThe figure demonstrates the process of preempting a currently running GPU request block in iteration N, which involves moving the running block to a preempted state and reallocating freed GPU blocks to other requests in iteration N+1. This highlights a scheduling mechanism where GPU resources occupied by preempted requests are freed and reallocated efficiently, while the preempted request is returned to the queue for later servicing."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_25",
+    "type": "paragraph",
+    "content": "Application diversity of LLMs. Recent LLMs are becoming task-agnostic . That is, the same model can work for various tasks with context-specific inputs ( a.k.a. the 'prompts') provided. This is achieved by both increasingly larger model and dataset sizes and advanced pre-training approaches such as few-shot learning [14]. Task-agnostic models enable diverse applications, from chatbots, search engines, summarization, coding, AI assistants, to AI agents, to name a few.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        53.641,
+        465.237,
+        295.775,
+        557.863
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_26",
+    "type": "paragraph",
+    "content": "The diverse applications lead to requests with different requirements for the serving. An important aspect is the sequence lengths . LLMs are racing to support longer sequence lengths - for example, from March to November 2023, the maximum sequence lengths of the GPT family have scaled from 32k 1 (GPT-4 [49]) to 128k (GPT-4 Turbo [50]). We expect this trend to continue as longer sequences are necessary for broader applications of LLMs. Consider an intuitive example of the tasks for summarizing and writing an article: they require sufficiently long input and output lengths, respectively. Another aspect is expected latencies . A real product example is that OpenAI introduces a subscription plan called ChatGPT Plus [2] to offer faster responses of common ChatGPT services. In general, different applications and situations also naturally have different levels of urgency. For example, more interactive applications like personal assistants expect shorter latencies than tasks like summarizing an article.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        54.0,
+        261.053,
+        295.774,
+        460.888
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_27",
+    "type": "paragraph",
+    "content": "Autoregressive generation. The inference for state-of-theart LLMs is autoregressive : the model iteratively accepts the input sequence plus all the previous output tokens to generate the next output token, until an 'end-of-sequence' (EOS) token is generated. The phase for generating the first token and that for each new token afterwards are usually referred to as prefill and decode , respectively. LLM services typically return the generated tokens in a streaming manner. Therefore, the prefill and decode latencies are both user-perceivable and important to user experiences. The prefill latency determines how long it takes to start receiving the response, which can be dominated by the queuing delay. The decode latency determines the speed of receiving the following tokens subsequently.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        53.641,
+        104.68899999999996,
+        295.774,
+        257.091
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_28",
+    "type": "paragraph",
+    "content": "During the autoregression, the intermediate results (key and",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        63.963,
+        91.78800000000001,
+        294.124,
+        100.34000000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_29",
+    "type": "paragraph",
+    "content": "1 1k stands for 1,024 when describing sequence length in this paper.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        64.859,
+        70.34699999999998,
+        279.37,
+        78.78399999999999
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_3",
+    "type": "figure",
+    "content": "Figure 3: Request preemptions in LLaMA-7B serving.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        325.7718200683594,
+        634.5920257568359,
+        549.7176513671875,
+        717.4484786987305
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_4.png",
+      "image_summary": "The provided figure consists of two panels, each conveying different aspects of system performance in terms of memory usage, preemption, and latency.\n\nLeft Panel:\n- This plot shows Memory Usage (%) on the primary y-axis (left) and Preempted Ratio (%) on the secondary y-axis (right) as functions of Time (s) on the x-axis.\n- Memory Usage is represented by a blue dotted line, exhibiting large fluctuations between near 0% and almost 100% across time points from 0 to approximately 4800 seconds.\n- A horizontal red dashed line marks the Average Memory usage at 62.84%, indicating that despite the fluctuations, memory usage tends to hover around this average level.\n- The Preempted Ratio is plotted as an orange line with markers and shows a general increasing trend starting from 0% at the beginning to about 10% towards the end of the observed time interval.\n- Notably, Preempted Ratio shows a stepwise, accumulating increase rather than alternating fluctuations.\n- The key takeaway from this panel is that while memory usage is highly variable over time, preemption events accumulate gradually, suggesting a relationship to workload or system state changes over time.\n\nRight Panel:\n- This bar chart presents Per-token Latency (ms) on the y-axis with four categories on the x-axis: P50, P80, P95, and P99. These likely represent latency percentiles.\n- Each latency bar is stacked, divided into \"Decode Inference\" latency (in blue) and \"Preemption Loss\" latency (in orange).\n- Decode Inference latency remains roughly similar across percentiles, ranging between 50 ms and just below 60 ms, with a slight increase from P50 to P99.\n- Preemption Loss latency is minimal or zero for P50 and P80 but increases substantially for P95 and more drastically for P99, reaching nearly 140 ms for P99.\n- This indicates that higher latency percentiles are predominantly impacted by preemption loss, highlighting that preemption events contribute significantly to worst-case delays.\n  \nOverall, the figure illustrates that memory usage is dynamically variable during operation, preemption events gradually accumulate over time, and these preemptions substantially increase tail latency (P95 and P99) for per-token processing. The main takeaway is that preemption losses are a critical factor in latency spikes, suggesting the need to manage memory and preemption to improve inference latency consistency."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_30",
+    "type": "paragraph",
+    "content": "value tensors used in the attention operation [59]) for each token are involved in the generation of all following tokens. Therefore, the inference engine typically stores these states in GPU memory for reuse, known as the KV cache [52].",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        317.571,
+        540.942,
+        559.739,
+        585.359
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_31",
+    "type": "paragraph",
+    "content": "Batching and memory management. State-of-the-art inference engines apply the continuous batching technique [34,67] to handle the varying sequence lengths and dynamic arrivals of requests. That is, a new/completed request can join/leave the running batch immediately, instead of waiting for all the running requests to complete. Batching also raises concern about memory management of KV cache. Since the memory demand of KV cache is not known a priori, it would clearly limit the batch size and batching benefits if the memory is reserved to the maximum length. For example, a LLaMA-213B [58] model supports sequence lengths up to 4k, which translates to 3.2 GB KV cache for a single request; while the memory of current GPUs remain tens of GBs, let alone the space for model weights (26 GB for LLaMA-2-13B). Therefore, recent work (vLLM [34]) proposed dynamic memory allocation for KV cache to increase batch size and throughput, enabled by a technique named PagedAttention: the KV cache tensors are stored in dynamically allocated blocks as the KV cache grows. Figure 2 presents an example of using continuous batching with dynamic memory allocation. The running requests are chosen based on the free memory blocks, hence there is a queuing request (the gray one) at iteration N as the memory is insufficient. At the next iteration, the system runs out of memory for the new blocks of the running requests. Therefore, the system preempts certain running requests (the blue one), which then goes back to the queue.",
+    "metadata": {
+      "page": 3,
+      "section": "Background",
+      "bbox": [
+        317.133,
+        230.03600000000006,
+        559.742,
+        537.855
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_32",
+    "type": "paragraph",
+    "content": "We motivate the design of Llumnix with a series of key characteristics of LLM serving as follows.",
+    "metadata": {
+      "page": 3,
+      "section": "Motivation",
+      "bbox": [
+        317.412,
+        165.64699999999993,
+        559.656,
+        186.154
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_33",
+    "type": "paragraph",
+    "content": "Unpredictable memory demands and preemptions. With dynamic memory allocation, request preemptions are inevitable as a result of the unpredictable memory demands, which can significantly increase the latencies of the preempted requests. Figure 3 shows an experiment of LLaMA-7B model serving using vLLM on an A10 GPU running a trace of 2,000 requests generated from a Poisson distribution. The input and output lengths follow a power-law distribution with a mean",
+    "metadata": {
+      "page": 3,
+      "section": "Motivation",
+      "bbox": [
+        317.521,
+        69.93399999999997,
+        559.651,
+        162.55999999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_4",
+    "type": "figure",
+    "content": "Figure 4: Latencies of one decode step of LLaMA-7B and LLaMA-30B with different sequence lengths and batch sizes.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        88.47793579101562,
+        606.2733459472656,
+        258.8424377441406,
+        720.8596038818359
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_5.png",
+      "image_summary": "The figure is a line plot showing decode latency (in milliseconds) on the y-axis versus total batched tokens on the x-axis, which uses a logarithmic scale with tokens ranging from 64 to 8k. \n\nTwo model sizes are compared: \n- 7B parameters (blue lines and markers)\n- 30B parameters (orange lines and markers)\n\nFor each model size, three sequence lengths (seq) are tested: 64, 256, and 1024 tokens, each represented by different marker shapes (circles, downward triangles, and squares respectively) and line styles.\n\nKey trends:\n- Decode latency generally increases as total batched tokens increase for all configurations.\n- The 7B models consistently exhibit lower decode latency than the 30B models across all batch sizes.\n- For both model sizes, the latency tends to increase more steeply for larger sequence lengths.\n- The 30B model with sequence length 64 starts near 50 ms latency at the smallest batch size and rises sharply, exceeding 120 ms at the largest batch size.\n- The 7B models show a more gradual latency increase with larger batches, with sequence length 1024 showing slightly less latency increase at large batch sizes than sequence length 256.\n\nMain takeaway:\nLarger models (30B) have higher decode latency, and latency generally scales with both total batch tokens and sequence length. Smaller models (7B) are more efficient in decoding latency across varied batch sizes and sequence lengths, indicating better scalability with increased batching."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_34",
+    "type": "paragraph",
+    "content": "value of 256 tokens (details in §6). We control the request rate (0.42 req/s) to get a moderate memory load (62% on average) with some spikes due to the varying sequence lengths. Under such load, we still observe 8% of the requests being preempted. We quantify the preemption loss by measuring the latency penalty caused by preemption, including the extra queuing time and the recomputing for previous KV cache. We show different percentiles of per-token decode latency (averaged across all decode iterations of a request). We do not use the end-to-end latency because it depends on the number of iterations. We observe that the P99 per-token decode latency is much worse than the P50 (3.8 × ), and the preemption loss accounts for 70% for the P99 request. In particular, the P99 request experiences a total preemption loss of 50 seconds (preempted twice), showing severe service stalls and degradation of user experiences due to preemptions.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        53.751,
+        359.103,
+        295.867,
+        546.982
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_35",
+    "type": "paragraph",
+    "content": "Performance interference among requests. We also observe performance interference of requests in a batch to each other, due to resource competition on GPU compute and memory bandwidth resources. Figure 4 shows the times for a decode step of LLaMA-7B (1-GPU) and LLaMA-30B (4-GPU) using different sequence lengths and batch sizes (the X-axis shows the total number of tokens in a batch for each data point). The decode speed decreases with more requests and higher interference, and the gap between the same sequence length is up to 2.6 × .",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        54.0,
+        238.42899999999997,
+        295.773,
+        354.965
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_36",
+    "type": "paragraph",
+    "content": "Memory fragmentation. Considering the aforementioned problems, it would be better to spread requests across instances to reduce preemptions and interference. However, such spreading will make the available memory of the cluster fragmented across instances simultaneously. Here fragmentation refers to external fragmentation, i.e. , unallocated memory on an instance. Dynamic allocation techniques like PagedAttention [34] can eliminate external fragmentation during the decode phase, where the blocks are allocated one at a time. However, external fragmentation remains a significant problem for the prefill phase, which requires many blocks on an instance in one allocation to accommodate the KV cache of all tokens in the inputs. Therefore, external fragmentation can cause long queuing delays of new requests, especially those",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.864,
+        234.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_5",
+    "type": "figure",
+    "content": "Figure 5: Total free memory vs. demands of the head-of-line queuing requests across four LLaMA-7B instances.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        349.9346008300781,
+        609.5922241210938,
+        525.4091796875,
+        717.8060684204102
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_6.png",
+      "image_summary": "This figure presents the number of blocks over time, with the x-axis labeled \"Time (s)\" ranging approximately from 400 to 700 seconds, and the y-axis labeled \"Num of Blocks\" ranging from 0 to 2000. \n\nMultiple colored stacked bars represent different instances, labeled as Instance 0 (orange), Instance 1 (light green), Instance 2 (purple), and Instance 3 (cyan). These bars show the distribution and variation in the number of blocks for these instances over the time period. Instance 3 (cyan) tends to have the highest block counts, especially between about 450 and 600 seconds, with notable peak values approaching or exceeding 1000 blocks. Instance 2 (purple) also shows significant contributions, particularly between 500 and 600 seconds, peaking just below 600 blocks. Instances 0 and 1 generally have lower block counts, with Instance 1 (light green) showing sporadic higher values around 500-600 seconds.\n\nA red dashed line labeled \"Total Free\" overlays the plot, indicating the total number of free blocks over time. This line fluctuates significantly, with peaks above 1500 blocks occurring around 420 seconds and again near 610 seconds, and troughs dipping to about 400-600 blocks between 480 and 560 seconds. The total free blocks trend appears inversely related to the stacked blocks, with the total free number decreasing when stacked blocks increase, and vice versa.\n\nThe main takeaway is that the number of blocks held by instances varies dynamically over time, with Instance 3 contributing the largest proportion in the middle time range, while the total free blocks inversely fluctuate, reflecting the sum of all block instances at any given time. This suggests resource allocation between instances impacts the total free blocks availability over the observed period."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_37",
+    "type": "paragraph",
+    "content": "with long inputs.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        317.521,
+        538.864,
+        384.779,
+        547.416
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_38",
+    "type": "paragraph",
+    "content": "Figure 5 shows an experiment of four LLaMA-7B instances, where the trace also uses the input/output length distribution with mean value 256 and a Poisson distribution with a request rate of 1.9 req/s. We implement a spreading dispatching policy that dispatches new requests to the instance with the lowest memory load for load balancing. We demonstrate the fragmentation by showing the total free memory blocks across the cluster, against the demand of the head-ofline queuing request on each instance. For most of the time span, the total free memory can accommodate the queuing requests on at least three instances (sometimes all of them). The request are queuing despite enough total memory because they exceed the free space on their own instances, which demonstrates the fragmentation and also the potential of defragmentation to reduce queuing delays.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        317.521,
+        358.644,
+        559.655,
+        534.568
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_39",
+    "type": "paragraph",
+    "content": "Different emergency and priorities of requests. With requirements of products like ChatGPT Plus and the diverse application scenarios of LLMs, we foresee more applications with different latency sensitivities. However, existing systems usually treat all requests equally, where the latency-sensitive could easily be interfered by other normal ones, e.g. , excessive queuing delays or performance interference. This calls for a systematic approach to differentiating the request priorities for an LLM to meet their respective latency objectives.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        317.521,
+        250.154,
+        558.004,
+        354.736
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_40",
+    "type": "paragraph",
+    "content": "Opportunity: request rescheduling across instances. This paper explores a new dimension that is missing in current LLM serving systems: the multiple model instances of a deployment and their interaction. A simple intuition is that when the aforementioned problems occur on a certain instance, it is possible that the whole cluster still has enough space for avoiding preempting requests, accommodating new requests, or mitigating interference. This is also a natural consequence of the varying request lengths and memory loads across instances. However, existing systems cannot exploit such free space on other instances because requests are tied on the same instance once scheduled throughout the autoregressive execution. Llumnix unifies the request scheduling component and the model inference engine to explore the potentials of fine-grained coordination among inference instances.",
+    "metadata": {
+      "page": 4,
+      "section": "Motivation",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.653,
+        246.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_41",
+    "type": "paragraph",
+    "content": "Llumnix builds upon the key idea of rescheduling LLM inference requests at runtime across model instances. Llumnix inherits continuous batching [67] and dynamic memory allocation [34] from state-of-the-art systems for high throughput. Beyond that, Llumnix exploits request rescheduling to react to the unpredictable workload dynamics in various situations with different scheduling goals, as illustrated in Figure 1.",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        53.641,
+        588.107,
+        295.86,
+        668.39
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_42",
+    "type": "paragraph",
+    "content": "A first goal is load balancing (Figure 1-a) to reduce request preemptions and interference on high-load instances. Although the dispatching can also consider load balancing of memory usage, it could be sub-optimal as the final memory usages of requests are unknown at the arrivals, due to the unpredictability of output lengths. Rescheduling complements it by reacting to the real usage growths of requests. Meanwhile, as shown before, load balancing can also lead to higher memory fragmentation and longer queuing delays of long inputs probably. Therefore, Llumnix also reschedules requests for de-fragmentation (1-b), i.e. , creating contiguous space on an instance by moving requests onto others. Although these two goals remain a tradeoff, Llumnix has a much larger space to balance them with rescheduling. Another goal is prioritization (1-c) of certain requests by rescheduling co-located requests away for lower load and avoiding interference. Such rescheduling provides 'decicated' resources to high-priority requests dynamically, without the need for reserving machines statically. Finally, Llumnix also reschedules requests during auto-scaling , e.g. , to drain out an instance to be terminated (1-d) or saturate a new instance more quickly.",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        53.641,
+        335.682,
+        295.862,
+        583.506
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_43",
+    "type": "paragraph",
+    "content": "Realizing such highly dynamic rescheduling efficiently is challenging, considering the large request context states ( i.e. , the KV cache). Naïve solutions include recomputing or copying the KV cache of the rescheduled requests, however with high computation stalls and downtime, reaching over 50 × of the decoding cost (§6.2). What's more, the KV cache states increase with sequence lengths, limiting the scheduling flexibility under the trend of growing context lengths [50]. Such a high inference delay in generating next tokens greatly degrades the user experiences of LLM serving and thus prohibits request rescheduling. Llumnix addresses this challenge with a live migration mechanism that pipelines and coordinates the KV cache copying and the token generation computation, thereby bringing negligible downtime (§4.2).",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        54.0,
+        166.942,
+        295.777,
+        330.911
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_44",
+    "type": "paragraph",
+    "content": "To exploit the benefits of migration, Llumnix adopts a scalable architecture that combines global and local scheduling to decentralize the scheduling decisions and the coordinated migration actions, facilitating continuous rescheduling at scale (§4.3). Under this architecture, we further design an efficient heuristic scheduling policy that centers around the virtual usage concept to abstract the requirements of the different scheduling goals in a unified manner (§4.4).",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        53.671,
+        69.93399999999997,
+        295.776,
+        162.17200000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_45",
+    "type": "paragraph",
+    "content": "Downtime",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        495.966,
+        715.91,
+        515.903,
+        719.725
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_6",
+    "type": "figure",
+    "content": "Figure 6: Llumnix adopts multi-stage migration to overlap the computation and KV cache copying for minimal downtime.",
+    "metadata": {
+      "page": 5,
+      "section": "Overview",
+      "bbox": [
+        317.6302795410156,
+        596.2075042724609,
+        557.3611450195312,
+        718.1171722412109
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_7.png",
+      "image_summary": "The figure is a timeline-based schematic representation of a multi-stage migration process involving a source instance and a destination instance. The x-axis represents time progressing from left to right for both instances, with no numerical units provided. There are two horizontally aligned panels: the top panel depicts activities in the source instance, and the bottom panel depicts those in the destination instance.\n\nIn the source instance panel:\n\n- Two main resources are tracked: Compute and Memory (Mem), each with dedicated horizontal bars.\n- The migration process is divided into multiple labeled stages: Stage-0, Stage-1, through Stage-N.\n- Within each stage, compute tasks are represented by colored blocks without any fill pattern, denoting \"Decoding computation.\"\n- Memory tasks show blocks with diagonal hatching patterns, indicating \"Generated KV cache.\"\n- Blue arrows illustrate the copying of the KV cache from source memory to destination memory across time.\n- Migration is initiated comparatively early in the timeline, marked by a blue arrow pointing from the source memory to the destination memory.\n- There is a vertical dotted line toward the end marking a short \"Downtime\" before migration completion.\n\nIn the destination instance panel:\n\n- Compute is initially idle (greyed out) until the imported KV cache blocks appear corresponding in timing to the copied stages in the source memory.\n- After receiving the KV cache, a final compute block appears just before the \"Migration completed\" marker, indicating resumed computation on the destination.\n\nKey trends and comparisons:\n\n- The KV cache is transferred stage-by-stage from source memory to destination memory, as indicated by the patterned blocks and corresponding arrows.\n- Compute tasks on the source instance occur prior to migration for all stages; meanwhile, the destination instance's compute only resumes post-migration after the KV cache is fully copied.\n- Memory operations in the source and destination are tightly synchronized by the copying arrows, highlighting staged incremental migration rather than a bulk transfer.\n- Downtime is minimal and occurs after all stages have transferred KV cache but before final migration completion.\n\nMain takeaway:\n\nThe figure illustrates a staged memory and compute migration strategy, where intermediate KV cache data is progressively copied from source to destination memory in discrete stages, allowing compute to continue in the source until the final downtime phase. This staged copying enables a seamless and incremental migration, minimizing downtime—limited to a brief window near the end—before computation resumes on the destination instance."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_46",
+    "type": "paragraph",
+    "content": "The significant KV cache states of requests can potentially introduce great cost and serving stalls during rescheduling. Llumnix addresses this challenge by exploiting a key characteristic of LLM inference: the KV cache is append-only . LLM inference iteratively concatenates the output token of the current iteration with the input tokens, which is set as the input for the next iteration. In this way, inference engines also keep appending the calculated KV state of the current iteration to the KV cache parameters, leaving the parameters generated by previous iterations remain constant.",
+    "metadata": {
+      "page": 5,
+      "section": "Live Migration of LLM Requests",
+      "bbox": [
+        317.571,
+        395.032,
+        559.743,
+        511.181
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_47",
+    "type": "paragraph",
+    "content": "The live migration mechanism of Llumnix utilizes the inherent append-only characteristic of KV cache to pipeline the KV cache copying with the decoding computation. Because the KV cache already generated won't be modified in the following iterations, Llumnix can safely copy the KV cache of previous tokens in parallel with the computation for new tokens. In this way, Llumnix achieves near-zero and constant downtime to the rescheduled request. As shown in Figure 6, when migration is initiated, the source instance starts to copy the KV cache blocks of completed iterations, and continues the computation at the same time (stage 0). When the copying for the previous KV cache blocks is done, there will be a few more iterations ( i.e. , blocks in Figure 6) computed in stage 0. Then, it switches to stage 1 to copy the KV cache generated by stage 0, while continuing the computation afterwards. The copying is generally much faster than the computation, thus the number of new blocks is typically small such that we can copy them in a very short period. To the end, only one iteration of computation is conducted for the KV cache migration ( i.e. , stage-N). Therefore, Llumnix suspends the computation for the request by draining it out of the current batch and copies the remaining block, which introduces the downtime of this request. Once it is finished, the migration completes and the request resumes on the destination instance. Although the total copying duration of the whole sequence depends on the sequence length, the downtime for the request is only the period of copying the KV cache generated by one iteration,",
+    "metadata": {
+      "page": 5,
+      "section": "Live Migration of LLM Requests",
+      "bbox": [
+        317.521,
+        69.93399999999997,
+        559.743,
+        389.32
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_7",
+    "type": "figure",
+    "content": "Figure 7: Handshake during migration.",
+    "metadata": {
+      "page": 6,
+      "section": "Live Migration of LLM Requests",
+      "bbox": [
+        53.97541046142578,
+        655.2279357910156,
+        293.615234375,
+        721.3101043701172
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_8.png",
+      "image_summary": "The figure illustrates the interaction sequence between a \"Source instance\" and a \"Destination instance\" during a multi-stage block allocation and commit process. \n\nThe process begins at the \"Source instance\" with a \"PRE-ALLOC\" signal directed to the \"Destination instance,\" which triggers the \"Block Alloc\" operation in the destination. The destination then responds with either an \"ACK\" (acknowledgment) or an \"ABORT\" signal back to the source. If acknowledged, the source proceeds to \"Stage 0.\" If aborted, the process halts.\n\nThis sequence repeats through subsequent stages (\"Stage-1\" up to \"Stage-N\"), with similar \"PRE-ALLOC\" requests, acknowledgments, or abort signals exchanged between the source and destination, and corresponding block allocations occurring on the destination side.\n\nAt the final stage, upon successful completion of all stages, the source issues a \"Block Released\" signal, which triggers a \"COMMIT\" signal sent to the destination instance. The destination then transitions to \"Compute Resumed,\" indicating the finalization of the committed operation.\n\nKey observations include the conditional branching based on \"ACK\" or \"ABORT\" responses, which control progression through stages, and the capped sequential stages that precede final commit and compute resumption. The figure emphasizes a robust handshake protocol ensuring that resources are allocated and released in a controlled, stage-wise manner across the two interacting instances.\n\nThe main takeaway is the depiction of a protocol where block allocation and computation between source and destination occur through multiple verification stages, ensuring consistency with commit/abort decisions before resuming computation at the destination."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_48",
+    "type": "paragraph",
+    "content": "which is negligible regardless of the sequence length.",
+    "metadata": {
+      "page": 6,
+      "section": "Live Migration of LLM Requests",
+      "bbox": [
+        53.641,
+        611.432,
+        266.343,
+        619.984
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_49",
+    "type": "paragraph",
+    "content": "The request migration approach of Llumnix borrows the key concept introduced in virtual machine (VM) live migration [17], which gradually reduces the working set to minimize the downtime. Llumnix does not require the dirty page tracing in VM migration as the working set ( i.e. , KV cache) is append-only and does not change during migration. However, LLM serving further introduces additional challenges. Firstly, as both the source and destination instances are continually processing requests, the request might run out of memory during migration. Secondly, the request can complete in the middle of migration, due to the unpredictable execution ( i.e. , generating EOS token) and the continuous batching [67]. To handle such exceptions and guarantee correctness during the asynchronous computation and memory copying, Llumnix introduces fine-grained coordination between the participating instances with a handshake process (Figure 7). Before each stage, the source instance issues a pre-allocate request with the number of blocks to migrate to make sure that the destination has enough space. The destination will try to allocate and reserve the blocks; if it succeeds or fails, the destination will notify the source to proceed or abort the migration and clean the states, respectively. Similarly, after each stage, the source instance also checks whether the request being migrated has completed or been preempted - if it has, the source will notify the destination to abort and release the reserved blocks; otherwise the source will go ahead to the next stage. The source or destination will also abort the migration if the other side fails. After the final stage finishes, the source releases its local blocks and notifies the destination to commit the migration and resume the execution of the request.",
+    "metadata": {
+      "page": 6,
+      "section": "Live Migration of LLM Requests",
+      "bbox": [
+        54.0,
+        252.336,
+        295.777,
+        607.588
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_50",
+    "type": "paragraph",
+    "content": "The live migration mechanism provides the foundation for runtime rescheduling of LLM inference requests. However, achieving fully dynamic scheduling is still non-trivial due to the higher scheduling pressure than in traditional schedulers. In particular, Llumnix would need to continuously track and reschedule every single running request throughout the cluster, rather than only dispatch incoming requests for one time or only manage running requests on one instance. This implies a higher scheduling frequency and a larger number of requests for the scheduler to track and schedule in each round.",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        53.691,
+        94.28499999999997,
+        295.862,
+        210.433
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_51",
+    "type": "paragraph",
+    "content": "Llumnix devises a scalable architecture that combines a cluster-level global scheduler and distributed instance-level",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        294.122,
+        90.44100000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_8",
+    "type": "figure",
+    "content": "Figure 8: Llumnix architecture.",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        340.7617492675781,
+        571.3504180908203,
+        533.4071655273438,
+        720.3723526000977
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_9.png",
+      "image_summary": "The figure presents a detailed architectural diagram of a scheduling framework for managing computational workloads, specifically oriented toward \"Model Instance\" execution and migration control.\n\nThe top-level component is the **Global Scheduler** enclosed in a green rounded rectangle, responsible for handling new requests (depicted as light grey boxes) and monitoring instance loads (blue and black striped boxes). The Global Scheduler dispatches tasks to lower components, sends report loads back up, and triggers migration control commands (indicated by orange arrows labeled \"Trigger migration\").\n\nAt the mid-level lies the **IlumIet** module, contained within a thicker rectangular border. IlumIet hosts two main components side by side:\n- The **Local Scheduler** (in blue) managing scheduling tasks locally within the model instance.\n- The **Migration Coordinator** (in peach) which oversees migration processes, interfacing with the Local Scheduler through bi-directional orange arrows indicating migration control.\n\nBeneath this, the **Executor** section, enclosed by a dashed rectangle, executes the scheduled tasks. It is subdivided into GPU resources (highlighted by multiple contiguous blue blocks), with accompanying blocks in green and orange representing distinct resources or tasks. Notably, an orange dashed arrow points back to the Executor blocks, signifying internal migration or task transfer mechanisms within the executor.\n\nPeripheral dashed boxes on the right labeled \"Instance\" emphasize multiple instances existing at this level, linked through black control arrows denoting other control signals.\n\nKey process flows include:\n- Dispatching of tasks from Global Scheduler downward.\n- Load reporting from Executor through IlumIet up to the Global Scheduler.\n- Migration control commands cycling between Global Scheduler, Migration Coordinator, Local Scheduler, and Executor components.\n\nThe main takeaway is the hierarchical and modular control design comprising global and local schedulers and migration coordination, aimed at efficient workload distribution and dynamic migration across GPU resources within model instances. The clear color and arrow-coded interactions underline the separation and interaction of migration control versus other control flows integral to robust distributed scheduling."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_52",
+    "type": "paragraph",
+    "content": "schedulers, named llumlet s, to enable continuous rescheduling efficiently (Figure 8). Llumnix defines a clean separation of concerns with a narrow interface between the two levels. The global scheduler does not directly track or schedule the running requests; instead, it makes all scheduling decisions oriented to the instances , according to the memory loads of them. This way, the complexity of the global scheduler remains independent from the running requests, thereby preserving similar scalability to schedulers without dynamic scheduling. The loads are reported by the llumlets periodically, based on the request status and Llumnix's scheduling policy.",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        317.571,
+        398.685,
+        559.744,
+        526.958
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_53",
+    "type": "paragraph",
+    "content": "The global scheduler utilizes the load information to dispatch new requests, trigger migration across instances, and control the instance auto-scaling. In particular, for migration, the decisions are not made for specific requests; the global scheduler just pairs the source and destination instances, only based on the loads, and marks them as in the corresponding states to trigger the migration. The llumlets will decide the requests to migrate and execute the migration automatically.",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        317.88,
+        303.044,
+        559.655,
+        395.282
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_54",
+    "type": "paragraph",
+    "content": "The llumlet of each instance consists of a local scheduler and a migration coordinator. In addition to the functionalities of similar roles in existing systems like queuing, batching, and block management, an important new task of the local scheduler is to calculate the memory load of the instance. The load is not simply the physical memory being used; instead, it is a sum of the 'virtual usages' (§4.4) of the requests. The local scheduler is also responsible for deciding the requests to migrate when triggered. Given the chosen requests, the migration coordinator will coordinate with the local scheduler and the other instance, and instruct the model executor to do the memory copying, as described before.",
+    "metadata": {
+      "page": 6,
+      "section": "Distributed Scheduling Architecture",
+      "bbox": [
+        317.88,
+        159.582,
+        559.244,
+        299.641
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_55",
+    "type": "paragraph",
+    "content": "Llumnix's scheduling policy is designed with the following goals. The first is to improve prefill and decode latencies , by reducing queuing delays, preemptions, and interference.",
+    "metadata": {
+      "page": 6,
+      "section": "Goals and Definitions",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.742,
+        102.39599999999996
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_56",
+    "type": "paragraph",
+    "content": "The second goal is load-adaptivity to handle varying cluster load and improve cost efficiency. We notice that the benefits of rescheduling is also relevant to cluster load, which could be limited under too high/low load. Llumnix incorporates instance auto-scaling to keep appropriate cluster load for both saving costs and maximizing the benefits of rescheduling.",
+    "metadata": {
+      "page": 7,
+      "section": "Goals and Definitions",
+      "bbox": [
+        53.691,
+        648.196,
+        294.285,
+        716.911
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_57",
+    "type": "paragraph",
+    "content": "Besides these two goals similar to those of existing systems, Llumnix introduces a new goal of request priorities that comes from the new requirements of LLMs. Priorities present a systematic approach for the same LLM to serve certain requests with higher emergency, e.g. , from ChatGPT Plus or more interactive applications. Llumnix provides applications with an interface for specifying request priorities to meet different SLOs, in terms of scheduling priority and execution priority . Requests with higher scheduling priorities will get scheduled earlier to reduce their queuing delays. Those with higher execution priorities will be given lower instance load and hence less interference to accelerate their execution. Currently, Llumnix supports two priority classes, high and normal, to demonstrate the ability of Llumnix to prefer high-priority requests, but our design also generalizes to more priorities.",
+    "metadata": {
+      "page": 7,
+      "section": "Goals and Definitions",
+      "bbox": [
+        53.691,
+        456.237,
+        295.862,
+        644.117
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_58",
+    "type": "paragraph",
+    "content": "To achieve the multiple goals above under the distributed scheduling architecture, Llumnix needs a scheduling policy that can express these goals using simple instance-level metrics, to improve the efficiency and scalability of the global scheduler. To this end, Llumnix introduces the virtual usage abstraction to unify these different, sometimes conflicting goals into a simple load metric of instances. The key observation here is that the aforementioned rescheduling scenarios fall into two categories: load balancing , and creating free space on one instance (de-fragmentation, prioritization, and draining out instances). We find that they can be unified into load balancing by assuming a virtual load on the instance: to create free space on an instance, we just need to set the virtual usages of certain requests to make the instance virtually overloaded, then a load balancing policy will be triggered to migrate the requests to other instances.",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        53.691,
+        226.70299999999997,
+        295.777,
+        414.582
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_59",
+    "type": "paragraph",
+    "content": "This observation leads us to a simple heuristic with loadbalancing as the basis, combined with a set of rules for setting request virtual usages in different situations. We summarize the rules in the function CalcVirtualUsage in Algorithm 1 and illustrate example scenarios in Figure 9. In normal cases, the virtual usage of a request is just its physical memory usage to enable routine load balancing, as shown in Figure 9(a). We discuss the rules for other cases as follows.",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        54.0,
+        130.38599999999997,
+        295.775,
+        222.62400000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_60",
+    "type": "paragraph",
+    "content": "Queuing requests. For the head-of-line queuing request on an instance, we assign a positive virtual usage to it to reflect its resource demand in terms of the required memory, although the physical usage is 0. Thus, queuing requests will increase the total virtual usage of the instance, then the policy",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.369,
+        126.69499999999994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_9",
+    "type": "figure",
+    "content": "Figure 9: Llumnix combines virtual usages with a loadbalancing policy to unify multiple scheduling goals.",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        328.4530029296875,
+        609.1902008056641,
+        547.6444091796875,
+        721.1602630615234
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_10.png",
+      "image_summary": "The figure consists of four pairs of vertical stacked bar charts labeled (a) Load balancing, (b) De-frag, (c) Prioritization, and (d) Auto-scaling. Each pair compares two states or conditions side-by-side.\n\n- Legend: \n  - Solid color fill represents \"Physical usage\" \n  - Patterned or dashed outlines represent \"Virtual usage\"\n\n(a) Load balancing:\n- Left bar consists of mostly blue physical usage at bottom, with an orange dashed segment on top of a smaller green segment.\n- The right bar is split horizontally into two segments: an orange dashed segment on top of a green physical usage segment.\n- An arrow indicates a transformation from the left bar's orange and green parts into the right bar's orange and green parts.\n- Key trend: Physical usage (blue) is consolidated, and the orange virtual usage component is reallocated, suggesting load balancing redistributes virtual load more evenly.\n\n(b) De-frag:\n- Left bar has three segments: solid blue physical usage at bottom, a gray filled physical usage middle segment, and a gray dashed virtual usage top segment.\n- Right bar replaces the middle and top with a yellow solid and orange dashed segments (physical and virtual usage, respectively).\n- An arrow shows the grey virtual segment moves to the right bar's orange virtual segment.\n- Key trend: Defragmentation reduces gray physical and virtual usages by redistributing/optimizing them into distinct physical (yellow) and virtual (orange) segments.\n\n(c) Prioritization:\n- Left bar has a large blue physical usage segment with a star symbol, topped by a yellow solid physical segment, and a light blue dashed virtual usage segment.\n- Right bar has three segments: yellow solid physical usage at top, a green solid physical usage segment in the middle, and an orange dashed virtual segment at the bottom.\n- An arrow transitions from the left bar's blue and light blue segments into the right bar's green and orange segments.\n- Key trend: Prioritization reallocates the largest physical usage (blue) and virtual usage segments into smaller physical and virtual segments, suggesting reordering or prioritizing resource allocation.\n\n(d) Auto-scaling:\n- Left bar shows a large stacked vertical bar with blue solid physical usage at top and gray dashed virtual usage below.\n- Right bar is split into four horizontal segments, with the virtual usage (blue dashed diagonal) segment near top and physical usage (orange solid) at bottom.\n- An arrow connects the gray dashed virtual usage from the left to the blue dashed segment on the right bar.\n- Key trend: Auto-scaling modifies the resource usage by scaling virtual segments in a rearranged manner, converting a large physical-virtual block to smaller segmented usage.\n\nMain takeaway:\nThe figure illustrates different resource management techniques (load balancing, de-fragmentation, prioritization, and auto-scaling) and their impact on the distribution of physical and virtual resource usage. Each technique changes the composition and allocation of physical and virtual resources differently, with arrows showing how segments transform from initial (left) to optimized (right) states. The use of solid colors for physical usage and dashed patterns for virtual usage clearly distinguishes resource types, highlighting how these techniques optimize resource utilization in system management contexts."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_61",
+    "type": "paragraph",
+    "content": "will trigger migration for load balancing (which in effect is de-fragmentation for the queuing request), as shown in Figure 9(b). There could be a lot of heuristics to explore for setting the virtual usage, which controls the tradeoff between reducing queuing delays and load balancing - for example, gradually increasing the virtual usage of a queuing request until it reaches the real memory demand. Llumnix currently uses a simple rule that directly uses its real demand (line 4 in Algorithm 1), which favours reducing queuing delays. This rule is based on our observation that queuing delay can dominate the end-to-end latency and worth such preference. Our evaluation also shows that this rule preserves the benefits of load balancing, due to the high flexibility of migration.",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        317.521,
+        408.922,
+        559.744,
+        560.936
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_62",
+    "type": "paragraph",
+    "content": "Execution priorities. For a request with high execution priorities, Llumnix tries to prevent the instance the request is running on from exceeding a given level of real load, by reserving a memory space as headroom, as shown in Figure 9(c). This is achieved by adding such a headroom on the physical usage of a high-priority request to get the virtual usage (line 8). When there are multiple high-priority requests on an instance, this headroom is divided among them (line 10). The headroom for high-priority requests is currently defined as that required to preserve the ideal decode speed ( i.e. , no visible interference), which is obtained through profiling. The headroom for normal requests is 0. Llumnix can also support more execution priorities by specifying the sizes for the headroom. When the headroom for a high-priority request is running up, the other normal requests will be migrated away by the load balancing policy because the instance is overloaded in terms of the total virtual usage.",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        317.133,
+        204.95500000000004,
+        559.74,
+        405.178
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_63",
+    "type": "paragraph",
+    "content": "Auto-scaling. When a new instance is launched, Llumnix's load balancing policy will automatically saturate it by migrating requests from other instances to it. When an instance is terminating, we artificially add a fake request with a virtual usage of infinity on it (line 7), then the remaining requests will be migrated to other instances, as shown in Figure 9(d).",
+    "metadata": {
+      "page": 7,
+      "section": "Virtual Usage",
+      "bbox": [
+        317.521,
+        132.49400000000003,
+        559.652,
+        201.21000000000004
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_64",
+    "type": "paragraph",
+    "content": "We then describe how the specific scheduling decisions are made based on the virtual usages.",
+    "metadata": {
+      "page": 7,
+      "section": "Policies",
+      "bbox": [
+        317.412,
+        69.93399999999997,
+        558.004,
+        90.44100000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_65",
+    "type": "paragraph",
+    "content": "1 Function CalcVirtualUsage( req, instance ) : 2 if req . isQueuing then 3 if req . isHeadOfLine then 4 return req . demand 5 return 0 6 if req . isFake then 7 return ∞ 8 return req . physicalUsage + GetHeadroom( req . priority , instance ) 9 Function GetHeadroom( p, instance ) : 10 return headroomForPriority [ p ] / instance . numRequests [ p ] 11 Function CalcFreeness( instance ) : 12 if instance . isTerminating then 13 AddFakeReq ( instance . requests ) 14 totalVirtualUsages = 0 15 for req in instance . requests do 16 totalVirtualUsages += CalcVirtualUsage( req , instance ) 17 f reeness =( instance . M -totalVirtualUsage ) / instance . B 18 return f reeness",
+    "metadata": {
+      "page": 8,
+      "section": "Policies",
+      "bbox": [
+        55.993,
+        529.994,
+        266.515,
+        699.651
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_66",
+    "type": "paragraph",
+    "content": "Dispatching. Llumnix dispatches new requests with higher scheduling priorities first. Within the same priority, it adopts a simple first-come-first-serve order. On each instance, requests are scheduled in the same order. Llumnix uses a loadbalancing policy that dispatches each request to the freest instance. We introduce a metric for measuring the freeness of an instance defined as F =( M -∑ V ) / B , where M is the total memory, V is the virtual usage of each request, and B is the batch size. While ( M -∑ V ) already measures the free space, we divide it by the batch size because it determines the consumption speed, i.e. , the number of new tokens per iteration. Thus the metric suggests how many iterations the batch can still run for. Then Llumnix dispatches each incoming request to the instance with the highest freeness. Because the virtual usage of a request can be larger than the physical, it is possible that F is a negative value, e.g. , when there are queuing requests or high-priority requests. Such negative freeness values help Llumnix automatically treat such instances as overloaded and prefer dispatching requests to other instances. The freeness metric also guides the migration and auto-scaling, as shown later.",
+    "metadata": {
+      "page": 8,
+      "section": "Policies",
+      "bbox": [
+        54.0,
+        240.95100000000002,
+        295.775,
+        488.994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_67",
+    "type": "paragraph",
+    "content": "Migration. Llumnix triggers the migration policy periodically. In each round, Llumnix selects the candidate sets of source and destination instances by choosing those with freeness values smaller or greater than given thresholds, respectively. Llumnix pairs the instances from both sets by picking the two with the lowest and the highest freeness values repeatedly, and then sets them in corresponding states. The llumlet of each source instance then starts to migrate requests to the destination continuously, until it is no longer set in the source state. The llumlet prefers the requests with lower priorities and shorter sequence lengths when choosing the requests to migrate. In the next round, if an instance during migration is no longer beyond the thresholds, Llumnix will unset the migration state and the migration will stop.",
+    "metadata": {
+      "page": 8,
+      "section": "Policies",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.775,
+        234.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_68",
+    "type": "paragraph",
+    "content": "Auto-scaling. Llumnix scales the instances according to the cluster load in terms of the averages freeness for the normal priority across instances. The policy maintains the average freeness within a range [ x , y ] , and adds or terminates an instance when the freeness is smaller than x or greater than y for a period, respectively. Llumnix chooses the instance with fewest running requests for termination.",
+    "metadata": {
+      "page": 8,
+      "section": "Policies",
+      "bbox": [
+        317.521,
+        636.24,
+        559.65,
+        716.911
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_69",
+    "type": "paragraph",
+    "content": "We implement Llumnix with 3,300 lines of Python code. Llumnix is a standalone library comprising both its own components and an interface to integrate and communicate with backend inference engines. This architecture makes Llumnix non-intrusive and extensible to different backends. Llumnix currently supports vLLM [11] as the backend, which is an open-source state-of-the-art inference engine that features continuous batching, PagedAttention, and tensor-parallel distributed inference [34, 56].",
+    "metadata": {
+      "page": 8,
+      "section": "Implementation",
+      "bbox": [
+        317.412,
+        479.953,
+        559.742,
+        584.147
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_70",
+    "type": "paragraph",
+    "content": "Multi-instance serving. Llumnix instantiates the multiple instances of the backend and the other components as Ray [42] actors. Ray's Python-native distributed runtime enables finegrained coordination among these actors in a simple and efficient manner. Llumnix also launches a set of request frontend actors that exposes an OpenAI-style API endpoint [48]. Although a request can be migrated across backend instances, the generated tokens are forwarded to the frontend and then returned to end users, ensuring a steady API service.",
+    "metadata": {
+      "page": 8,
+      "section": "Implementation",
+      "bbox": [
+        317.521,
+        371.176,
+        559.74,
+        475.757
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_71",
+    "type": "paragraph",
+    "content": "KVcache transfer. We use the Gloo collective communication library [5] (the Send / Recv primitives) for the KV cache transfer during migration. A potential alternative is NCCL [1], which is generally faster than Gloo on GPUs but has been adopted in communication for distributed inference. However, Llumnix needs to migrate requests in parallel with the inference to minimize the downtimes, but concurrent invocations of NCCL are known to be unsafe [45]. The pipelined migration design allows us to use Gloo while maintaining negligible downtimes. Using Gloo needs to copy the KV cache between CPU and GPU memory, which is done in another CUDA stream to avoid blocking the inference computation. Note that in typical deployments, the communication-heavy tensor parallelism is limited in a single machine for high-speed transfer [44]. In such cases, migration between instances (machines) will not interfere with the tensor-parallel inference.",
+    "metadata": {
+      "page": 8,
+      "section": "Implementation",
+      "bbox": [
+        317.521,
+        178.712,
+        559.655,
+        366.979
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_72",
+    "type": "paragraph",
+    "content": "Block fusion. vLLMstores the KV cache in non-contiguous small blocks that are dynamically allocated. For example, the block size of a 16-bit LLaMA-7B model is 128 KB (for key or value tensors of 16 tokens in each layer), and a sequence of 1k tokens translates to 4k such blocks (32 layers). To avoid the overhead of sending these blocks using many small messages, we fuse the blocks by copying them from GPU memory to a contiguous CPU memory buffer and use Gloo to send the buffer as a whole, thereby improving the transfer efficiency.",
+    "metadata": {
+      "page": 8,
+      "section": "Implementation",
+      "bbox": [
+        317.521,
+        69.93399999999997,
+        559.249,
+        174.515
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_73",
+    "type": "paragraph",
+    "content": "Fault tolerance. Llumnix provides fault tolerance for each component to ensure high service availability. When the global scheduler fails, Llumnix temporarily falls back to a scheduler-bypassing mode, thus not affecting the service availability: that is, the request frontends directly dispatch requests to certain instances using simple rules, and migration is disabled. When an instance (or the co-located llumlet) fails, the requests running on it will be aborted. In particular, ongoing migration on failed instances will also be aborted (the request being migrated is not necessarily aborted, depending on if its source instance is healthy), which is handled by the handshake process. These failed actors will be automatically restarted by Ray, after which the service could go back to normal state.",
+    "metadata": {
+      "page": 9,
+      "section": "Implementation",
+      "bbox": [
+        54.0,
+        564.509,
+        295.77,
+        716.911
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_74",
+    "type": "paragraph",
+    "content": "Weevaluate Llumnix on a 16-GPU cluster using realistic models and various workloads. Overall, our key findings include:",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        53.532,
+        499.601,
+        295.77,
+        520.109
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_75",
+    "type": "paragraph",
+    "content": "Llumnix introduces near-zero downtime to requests being migrated and near-zero overhead to other running requests.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.494,
+        465.162,
+        295.868,
+        485.669
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_76",
+    "type": "paragraph",
+    "content": "Llumnix improves prefill latencies by up to 15 × /7.7 × (P99/mean) over INFaaS on 16 LLaMA-7B instances via de-fragmentation. Llumnix also improves P99 decode latency by up to 2 × by reducing preemptions.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.494,
+        413.357,
+        295.775,
+        458.092
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_77",
+    "type": "paragraph",
+    "content": "Llumnix improves high-priority request latencies by up to 1.5 × by reducing their queuing delays and accelerating their execution, while preserving similar performance of the normal requests.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.494,
+        361.551,
+        294.124,
+        405.968
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_78",
+    "type": "paragraph",
+    "content": "Llumnix achieves up to 36% cost saving while preserving similar P99 latencies with efficient auto-scaling.",
+    "metadata": {
+      "page": 9,
+      "section": "Evaluation",
+      "bbox": [
+        55.494,
+        333.655,
+        294.118,
+        354.163
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_79",
+    "type": "paragraph",
+    "content": "Testbed. We use a 16-GPU cluster with 4 GPU VMs on Alibaba Cloud (type ecs.gn7i-c32g1.32xlarge ), each with 4 NVIDIA A10 (24 GB) GPUs connected via PCI-e 4.0, 128 vCPUs, 752 GB memory, and 64 Gb/s network bandwidth.",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.651,
+        249.54499999999996,
+        295.77,
+        294.35
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_80",
+    "type": "paragraph",
+    "content": "Models. We conduct experiments using a popular model family, LLaMA [57]. We test two different specifications: LLaMA-7B, which runs on a single GPU, and LLaMA-30B, which runs on 4 GPUs of a machine using tensor parallelism. The models adopt the commonly used 16-bit precision. The version of vLLM that we based on only supports the original LLaMA with a maximum sequence length of 2k, but there have been a series of recent LLaMA variants supporting longer sequence lengths ranging from 4k to 256k [3,7,58,65]. Since the model architectures and inference performance of these variants are mostly similar to those of LLaMA, we believe that our results are representative of more model types and larger sequence length ranges from a systems perspective. Traces. Similar to prior work [34, 35, 67], we synthesize request traces to asses Llumnix's online serving performance.",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.641,
+        69.93399999999997,
+        295.867,
+        246.38800000000003
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_table_1",
+    "type": "table",
+    "content": "Table 1: Real and generated distributions of sequence lengths (numbers of tokens) used in our evaluation. The real distributions include those of both inputs ('In') and outputs ('Out').",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        319.0412292480469,
+        622.6083374023438,
+        556.4634399414062,
+        720.7106704711914
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/table/table_1.png"
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_81",
+    "type": "paragraph",
+    "content": "We use Poisson and Gamma distributions with different request rates (requests per second) to generate request arrivals. For Gamma, we also use varying coefficients of variance (CVs) to adjust the burstiness of the requests. Each trace has 10,000 requests. We choose an appropriate range of request rates or CVs for the traces to maintain the loads within a reasonable range: nearly no queuing delays and preemptions for P50 requests, and queuing delays within a few tens of seconds for P99 requests when using Llumnix.",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.133,
+        447.491,
+        559.745,
+        551.684
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_82",
+    "type": "paragraph",
+    "content": "For the input/output lengths of requests, we use two public ChatGPT-4 conversation datasets, ShareGPT (GPT4) [10] and BurstGPT (GPT4-Conversation) [62], for an evaluation on real workloads. Considering that Llumnix targets more diversified applications, we also use generated power-law length distributions to emulate long-tail workloads that mix both frequent, short sequences ( e.g. , for interactive applications like chatbots and personal assistants) and seldom, long sequences ( e.g. , summarizing or writing articles). We generate multiple distributions with different long-tail degrees and mean lengths (128, 256, 512), as shown by the Short (S), Medium (M), and Long (L) distributions in Table 1. These distributions have a maximum length of 6k, thus the total sequence length of a request (input plus output) will not exceed the capacity of an A10 GPU when running LLaMA-7B (13,616 tokens). To observe the performance with different workload characteristics, we construct the traces by picking different combinations of the length distributions for inputs and outputs as follows: S-S, M-M, L-L, S-L, and L-S.",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.521,
+        219.51700000000005,
+        559.653,
+        443.262
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_83",
+    "type": "paragraph",
+    "content": "Baselines. We compare Llumnix with the following schedulers. All the baselines and Llumnix use vLLM as the underlying inference engine to focus the comparison on the request scheduling across instances.",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        317.88,
+        170.87099999999998,
+        559.658,
+        215.67599999999993
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_84",
+    "type": "paragraph",
+    "content": "Round-robin dispatching : a simple dispatching policy to distribute requests across instances evenly, which is a typical behavior of production-grade serving systems [4,9,47].",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        319.374,
+        121.74000000000001,
+        559.747,
+        154.37099999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_85",
+    "type": "paragraph",
+    "content": "INFaaS++ : an optimized version of INFaaS [53], a stateof-the-art scheduler for multi-instance serving. We evaluate its load-balancing dispatching and load-aware auto-scaling policies. We improve it by making it focus on the GPU",
+    "metadata": {
+      "page": 9,
+      "section": "Experimental Setup",
+      "bbox": [
+        319.374,
+        69.93399999999997,
+        559.658,
+        114.52099999999996
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_10",
+    "type": "figure",
+    "content": "Figure 10: Downtime and overhead of migration.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.643760681152344,
+        622.1770172119141,
+        293.6463317871094,
+        720.6679611206055
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_11.png",
+      "image_summary": "The figure consists of two plots comparing performance metrics—Downtime and Decode Latency—across different sequence lengths (256, 512, 1k, 2k, 4k, 8k) for models with 7 billion (7B) and 30 billion (30B) parameters.\n\nLeft Plot (Downtime vs. Sequence Length):\n- Y-axis: Downtime measured in milliseconds (ms), on a scale from 0 to 3500 ms.\n- X-axis: Sequence Length, ranging from 256 to 8k tokens.\n- Four methods are compared: Migration, Blocking copy, Recompute, each for 7B and 30B models.\n- Migration downtime is consistently very low (~close to 0 ms) across all sequence lengths and model sizes, showing almost no increase.\n- Blocking copy downtime increases moderately with sequence length, more steeply for 30B than 7B (reaching ~2700 ms at 8k for 30B, ~1700 ms for 7B).\n- Recompute downtime increases steeply with sequence length, especially for 30B, reaching the highest downtime (~3500 ms at 8k for 30B and ~2000 ms for 7B).\n- The ranking of methods by downtime is Migration << Blocking copy < Recompute, with larger models consistently showing higher downtime for Blocking copy and Recompute methods.\n\nRight Plot (Decode Latency vs. Sequence Length):\n- Y-axis: Decode Latency in milliseconds, ranging approximately from 40 to 70 ms.\n- X-axis: Same sequence lengths as the left plot.\n- Four methods: Migration and Normal, each for 7B and 30B models.\n- Decode Latency decreases from 256 to 2k tokens, reaching a minimum around 1k to 2k range, then slightly increases again by 8k tokens.\n- Migration and Normal methods have nearly overlapping decode latency, with Migration slightly better at the largest sequence lengths.\n- 7B models have a lower latency (~43-47 ms) compared to 30B models (~58-64 ms).\n- The trend is U-shaped in all cases, with the lowest latency occurring at medium sequence lengths (~1k to 2k).\n\nMain Takeaway:\nMigration offers a dramatic reduction in downtime compared to Blocking copy and Recompute methods, especially as sequence length and model size increase, while maintaining decode latency similar to Normal methods. This indicates Migration is more efficient for handling long sequences without sacrificing latency."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_86",
+    "type": "paragraph",
+    "content": "memory load as it is the dominant resource in LLM serving. This load also counts in the memory required by queuing requests on each instance to reflect the queue pressure.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        63.654,
+        546.779,
+        295.862,
+        579.241
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_87",
+    "type": "paragraph",
+    "content": "Llumnix-base : a base version of Llumnix that is priorityagnostic ( i.e. , treats all requests as the same priority) but enables all the other features including migration.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        55.494,
+        506.928,
+        295.774,
+        539.559
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_88",
+    "type": "paragraph",
+    "content": "Key metrics. We focus on request latency, in terms of endto-end, prefill (that of the first generated token), and decode (that since first generated token to the last, averaged over all generated tokens). We report both mean and P99 values.",
+    "metadata": {
+      "page": 10,
+      "section": "Experimental Setup",
+      "bbox": [
+        53.671,
+        451.46,
+        295.774,
+        496.265
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_89",
+    "type": "paragraph",
+    "content": "We first examine the performance of Llumnix's migration mechanism, in terms of the downtimes introduced to the migrated requests and the performance overheads for the running requests. We test both the 1-GPU LLaMA-7B and the 4-GPU LLaMA-30B models. For each model, we deploy two instances on two different machines. We use different sequence lengths, for each of which we run a batch of requests with the same total length of 8k on both instances. We migrate one of the requests from one instance to another and measure its downtime and the decode speeds of the running batches on both instances during migration.",
+    "metadata": {
+      "page": 10,
+      "section": "Migration Efficiency",
+      "bbox": [
+        53.532,
+        285.127,
+        295.771,
+        413.231
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_90",
+    "type": "paragraph",
+    "content": "We compare the downtime during migration with two simple approaches: recomputing, and blocking copying of the KV cache using Gloo (non-blocking for other requests). As shown in Figure 10 (left), the downtime of migration is nearly constant with increasing sequence lengths (roughly 20-30 ms), even shorter than a single decode step. In comparison, the downtimes of baselines increase with the sequence lengths, reaching up to 111 × that of migration. For example, recomputing an 8k sequence for LLaMA-30B takes 3.5s, which translates to a service stall similar to 54 decode steps. We also notice that for all sequence lengths, the migration only takes two stages, which is the minimum. This is because the data copying is sufficiently fast and the number of new tokens generated during the first stage is small.",
+    "metadata": {
+      "page": 10,
+      "section": "Migration Efficiency",
+      "bbox": [
+        54.0,
+        117.755,
+        295.775,
+        281.724
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_91",
+    "type": "paragraph",
+    "content": "Figure 10 (right) also compares the per-step decode times during migration on the source instance with that during normal execution (results on the destination are mostly similar). We observe up to 1% performance differences for both",
+    "metadata": {
+      "page": 10,
+      "section": "Migration Efficiency",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.777,
+        114.35199999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_92",
+    "type": "paragraph",
+    "content": "LLaMA-7B and LLaMA-30B, showing the negligible migration overhead. Also note that such overhead exists only when there are requests being migrated (in or out) on an instance. We find that in all the serving experiments in the following sections, the average fraction of time span with ongoing migration for each instance is only roughly 10%. This implies an effective overhead that is even much smaller, which is worthwhile for the great scheduling benefits of migration.",
+    "metadata": {
+      "page": 10,
+      "section": "Migration Efficiency",
+      "bbox": [
+        317.412,
+        624.285,
+        559.742,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_93",
+    "type": "paragraph",
+    "content": "We evaluate the scheduling performance of Llumnix in online serving using 16 LLaMA-7B instances (auto-scaling is disabled except in experiments in §6.5).",
+    "metadata": {
+      "page": 10,
+      "section": "Serving Performance",
+      "bbox": [
+        317.412,
+        549.593,
+        559.65,
+        582.056
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_94",
+    "type": "paragraph",
+    "content": "Real datasets. We first compare Llumnix with round-robin and INFaaS++ using the ShareGPT and BurstGPT traces (the top two rows in Figure 11). Llumnix outperforms the baselines in end-to-end request latency by up to 2 × and 2.9 × for mean and P99, respectively. In particular, we observe that round-robin always performs much worse than both INFaaS++ and Llumnix: since the sequence lengths have high variance, simply distributing requests evenly can still lead to unbalanced load, impacting both prefill and decode latencies. Llumnix achieves significant gains in prefill latency over round-robin, by up to 26.6 × for mean and 34.4 × for P99. This is because round-robin can possibly dispatch new requests to overloaded instances, leading to long queuing delays. Llumnix also improves P99 decode latency by up to 2 × , by load balancing to reduce preemptions. This margin seems smaller as the latency penalty caused by preemptions is averaged over all generated tokens. However, whenever preemption occurs, it results in a sudden service stall, which impacts user experience. Figure 11 (the rightmost column) reports the preemption loss in terms of the extra queuing and recomputing times (mean value of all requests). Llumnix reduces preemption loss by 84% on average compared to round-robin. These results highlight the importance of load balancing in LLM serving. In the following experiments using generated distributions with higher variance, round-robin showed up to two orders of magnitude worse latencies. Therefore, we omit it for the other traces for clarity of the figures and focus on the comparison between INFaaS++ and Llumnix.",
+    "metadata": {
+      "page": 10,
+      "section": "Serving Performance",
+      "bbox": [
+        317.631,
+        214.365,
+        559.653,
+        546.094
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_95",
+    "type": "paragraph",
+    "content": "Llumnix outperforms INFaaS++ in mean and P99 prefill latencies by up to 2.2 × and 5.5 × , and P99 decode latencies by up to 1.3 × , respectively, showing the extra benefits of migration, beyond dispatch-time load balancing. Next we use more traces with different characteristics to further evaluate them for a deeper understanding of the improvements.",
+    "metadata": {
+      "page": 10,
+      "section": "Serving Performance",
+      "bbox": [
+        317.88,
+        142.149,
+        558.001,
+        210.47699999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_96",
+    "type": "paragraph",
+    "content": "Generated distributions. We compare Llumnix and INFaaS++ using multiple generated distributions (bottom five rows in Figure 11). Llumnix outperforms INFaaS++ across all traces in end-to-end request latency by up to 1.5 × and 1.6 × for mean and P99, respectively. For prefill, the improvements are up to 7.7 × for mean and 14.8 × for P99. Despite dispatch-",
+    "metadata": {
+      "page": 10,
+      "section": "Serving Performance",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.655,
+        138.64999999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_11",
+    "type": "figure",
+    "content": "Figure 11: Request end-to-end, prefill, and decode latencies and preemption loss of serving 16 LLaMA-7B instances. Each row shows a set of experiments using a trace with a specific sequence length distribution, as annotated on the Y-axis labels.",
+    "metadata": {
+      "page": 11,
+      "section": "Serving Performance",
+      "bbox": [
+        66.92152404785156,
+        352.65277099609375,
+        544.2528686523438,
+        718.0442199707031
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_12.png",
+      "image_summary": "The figure presents a comprehensive comparative analysis of latency metrics across six different workloads (ShareGPT, BurstGPT, S-S, M-M, L-L, S-L, L-S) and seven latency measures (Request P99, Request Mean, Prefill P99, Prefill Mean, Decode P99, Decode Mean, Preemption Loss). Each subplot has latency (seconds) on the y-axis and request rate on the x-axis, with the range for both axes varying based on the workload.\n\nThree methods are compared: Llumnix (orange solid line/squares), INFaaS++ (blue dashed line/circles), and Round-Robin (green dotted line/squares, visible only in the first two workloads).\n\nKey observations:\n\n1. **Request Latency (P99 and Mean):**  \n   - Round-Robin consistently shows the highest latency for ShareGPT and BurstGPT, reaching notably high P99 latencies (~150s for ShareGPT and ~190s for BurstGPT).  \n   - INFaaS++ and Llumnix demonstrate lower and comparable latencies in these workloads, with Llumnix slightly better at higher request rates in BurstGPT.  \n   - For the last five workloads (starting with S-S), only Llumnix and INFaaS++ are shown. INFaaS++ generally has higher latencies than Llumnix, especially at higher request rates (e.g., the M-M workload shows INFaaS++ P99 request latency rising above 300s).\n\n2. **Prefill Latency (P99 and Mean):**   \n   - Again, Round-Robin reports the highest latencies in the first two workloads, with values up to 100s or more.  \n   - INFaaS++ shows moderate latency, with some sharp increases at higher request rates especially in M-M and L-L workloads (M-M’s P99 prefill latency spikes dramatically above 200s at high request rates).  \n   - Llumnix consistently maintains the lowest prefill latencies, generally below 10s except for some modest increases in S-L and L-S workloads.\n\n3. **Decode Latency (P99 and Mean):**   \n   - Decode latencies across all workloads are significantly lower than request and prefill latencies (on the order of 0.01 to 0.15 seconds).  \n   - The three methods show comparable decode latencies, with Llumnix often having the lowest or comparable latency.  \n   - Round-Robin decode latencies are only shown for the first two workloads, being slightly higher but close in value.\n\n4. **Preemption Loss:**  \n   - This metric shows the largest disparities between methods.  \n   - Round-Robin exhibits the highest preemption loss in ShareGPT and BurstGPT (values >1), indicating less efficient handling of preemption.  \n   - INFaaS++ has moderate preemption loss across workloads, often increasing with request rate.  \n   - Llumnix exhibits the lowest preemption loss consistently and remains below 0.5 in most conditions except a slight increase toward high request rates in some workloads.\n\n5. **Trends and Anomalies:**   \n   - Latencies generally increase with higher request rates for all methods and workloads.  \n   - INFaaS++ shows occasional sharp spikes at high request rates in prefill latency (notably M-M and L-L workloads).  \n   - Round-Robin performs poorly in terms of latency and preemption loss where available.  \n   - Llumnix provides the most stable and lowest latencies and preemption losses overall.\n\n**Main Takeaway:**  \nLlumnix consistently outperforms INFaaS++ and Round-Robin in latency metrics and preemption loss across all workloads and request rates tested. It maintains low and stable latencies and mitigates preemption loss effectively, highlighting its efficiency and robustness for the workloads considered. Round-Robin’s poor performance in the latency metrics illustrates the advantage of the more sophisticated methods. INFaaS++ generally performs between the other two, but with some sharp latency increases under load that Llumnix avoids."
+    }
+  },
+  {
+    "id": "2406.03243_fig_12",
+    "type": "figure",
+    "content": "Figure 12: Memory fragmentation over time.",
+    "metadata": {
+      "page": 11,
+      "section": "Serving Performance",
+      "bbox": [
+        78.92671203613281,
+        212.58148193359375,
+        268.4266052246094,
+        295.6875915527344
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_13.png",
+      "image_summary": "The figure presents a time series plot comparing the fragmentation proportions (in percentage) of two different methods, INfaaS++ and Llumnix, over a time interval from 600 to 1000 seconds. The y-axis represents the fragmentation proportion in percentage, ranging from 0% to just above 20%. The x-axis measures time in seconds.\n\nKey trends indicate that INfaaS++ (depicted as a blue dashed line) consistently exhibits higher fragmentation proportions than Llumnix (represented by an orange dotted line) throughout the observed period. INfaaS++ shows significant fluctuations with multiple peaks reaching values as high as approximately 20%, especially between 600 and 750 seconds, and again around 950 seconds. In contrast, Llumnix maintains relatively low fragmentation proportions, mostly below 5%, with occasional spikes but none approaching the values seen for INfaaS++.\n\nAn anomaly in the INfaaS++ data occurs between approximately 800 and 850 seconds, where fragmentation proportions sharply drop to near 0%, before rising again after this period. This dip is not observed in Llumnix, which maintains low but somewhat consistent fragmentation values throughout.\n\nThe main takeaway from the figure is that INfaaS++ tends to produce higher and more variable fragmentation proportions compared to Llumnix, which exhibits lower and more stable fragmentation behavior over time. This suggests a fundamental performance difference between the two methods in terms of fragmentation dynamics."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_97",
+    "type": "paragraph",
+    "content": "ing requests to instances with the lowest load, INFaaS++ can still exhibit long queuing delays due to fragmentation, especially for the long-tail requests with long inputs. Llumnix uses migration for de-fragmentation to reduce such queuing delays, showing more gains in traces with more long inputs.",
+    "metadata": {
+      "page": 11,
+      "section": "Serving Performance",
+      "bbox": [
+        54.0,
+        106.77999999999997,
+        295.77,
+        163.15300000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_98",
+    "type": "paragraph",
+    "content": "To take a closer look at the memory fragmentation, we further present a case study on the experiment of the M-M trace with the request rate of 7.5. We define the fragmented memory at each moment as the portion of cluster free memory that could satisfy the demands of the head-of-line blocking requests across all instances, if no fragmentation. For example, if the total free memory is 8 GB, with three head-of-line blocking requests each requiring 3 GB, then the fragmented memory is counted as 6 GB, i.e. , this 6 GB memory could satisfy two queuing requests if no fragmentation. This metric suggests the memory space wasted due to fragmentation. We report the proportion of fragmented memory in the cluster total memory. In the example, if the total memory is 16 GB, then the proportion is 37.5% (6/16). Figure 12 shows the fragmentation proportion of the experiment during a busy period. We observe that INFaaS++ often shows higher than 10% fragmentation, wasting a significant amount of cluster memory. In comparison, the fragmentation is often 0 in Llumnix. The average values during this period are 0.7% and 7.9% for Llumnix and INFaaS++ respectively (92% reduction), highlighting the effect of de-fragmentation using migration.",
+    "metadata": {
+      "page": 11,
+      "section": "Serving Performance",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        294.125,
+        102.39599999999996
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_99",
+    "type": "paragraph",
+    "content": "Llumnix also improves the P99 decode latency by up to",
+    "metadata": {
+      "page": 11,
+      "section": "Serving Performance",
+      "bbox": [
+        327.843,
+        69.93399999999997,
+        557.999,
+        78.48599999999999
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_13",
+    "type": "figure",
+    "content": "Figure 13: Performance of high-priority and normal requests, as annotated on the Y-axis labels.",
+    "metadata": {
+      "page": 12,
+      "section": "Serving Performance",
+      "bbox": [
+        65.31878662109375,
+        592.2534942626953,
+        545.2294311523438,
+        719.4493865966797
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_14.png",
+      "image_summary": "The figure consists of two rows of six line plots each, comparing two methods labeled \"Llumix-base\" (blue dashed line with circles) and \"Llumix\" (solid orange line with squares) across various metrics and workload conditions. \n\n### Axes and Units:\n- X-axes for all plots represent \"CV\" (coefficient of variation) with values at 2, 4, 6, and 8.\n- Y-axes represent latency in seconds (s) or execution time in seconds, depending on the panel:\n  - Request P99 and Request Mean: Latency (s)\n  - Prefill P99 and Prefill Mean: Latency (s)\n  - Decode P99 and Decode Mean: Latency (s), with very small values (e.g., 0 to 0.15)\n  - Decode Execution Time: Execution Time (s) \n- Left column label for the rows: \"High Priority\" for the top row and \"Normal\" for the bottom row.\n\n### Key Trends and Comparisons:\n\n#### High Priority Workload (Top Row):\n- **Request P99:** Llumix-base latency is consistently higher (~70-80s) compared to Llumix (~60-75s); Llumix shows a slight decline at CV=8.\n- **Request Mean:** Llumix-base latency increases with CV from ~7s to ~9s, higher than Llumix which remains steady around 5.5s.\n- **Prefill P99:** Llumix-base latency rises sharply from ~2s to almost 9s with increasing CV, whereas Llumix remains very low (~0.5 to 1.2s).\n- **Prefill Mean:** Llumix-base latency increases from ~0.25s to 1.4s; Llumix is very low (~0.05 to 0.14s).\n- **Decode P99:** Llumix-base latency increases slightly from 0.09s to around 0.14s; Llumix is consistently lower (~0.06s).\n- **Decode Mean:** Similar trend, Llumix-base increases slightly; Llumix stays flat near 0.04–0.05s.\n- **Decode Execution Time:** Llumix-base shows gradual increase from ~4.8s to 6s; Llumix is consistently lower around 4.8–5.3s.\n\n#### Normal Workload (Bottom Row):\n- **Request P99:** Both methods have similar high latencies (~90–95s), with Llumix slightly higher at CV=8.\n- **Request Mean:** Both increase with CV; Llumix is marginally higher at CV=8 (~9.5s vs 9s).\n- **Prefill P99:** Llumix shows increasing latency from 2.5s to 15s nearing CV=8; Llumix-base is relatively steady or slightly declining near 10s.\n- **Prefill Mean:** Both increase similarly from near 0 to ~1.5s.\n- **Decode P99 & Mean:** Both increase with CV, Llumix-base tends to be slightly higher overall but differences are small.\n- **Decode Execution Time:** Both increase from about 6s to 7s, with Llumix slightly higher at CV=8.\n\n### Anomalies:\n- For prefill P99 in the Normal workload, Llumix latency increases strongly with CV while Llumix-base stays flat or decreases slightly.\n- Decode-related latencies are consistently lower for Llumix than Llumix-base in High Priority but converge more in Normal workload.\n\n### Main Takeaway:\nLlumix consistently provides significantly lower latencies and execution times under high priority workloads across all latency metrics, indicating better performance and robustness to increasing CV. Under normal workloads, Llumix and Llumix-base exhibit closer performance, with Llumix sometimes incurring higher latencies in prefill P99 at high CV, possibly suggesting trade-offs depending on workload priority. Overall, Llumix demonstrates improved efficiency especially under high priority conditions."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_100",
+    "type": "paragraph",
+    "content": "2 × , through migration to reduce preemptions. Although INFaaS++ already implements load balancing in dispatching to reduce preemptions, migration complements it by reacting to the real sequence lengths, which are unknown at request arrivals. As shown in Figure 11, Llumnix significantly reduces the preemption loss, in many cases down to near zero. The reduction is 70.4% on average across all experiments, which translates to an average reduction of 1.3 seconds in the end-to-end request latency.",
+    "metadata": {
+      "page": 12,
+      "section": "Serving Performance",
+      "bbox": [
+        53.641,
+        444.668,
+        295.86,
+        549.179
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_101",
+    "type": "paragraph",
+    "content": "We evaluate the support for priorities of Llumnix by randomly picking 10% of the requests and assigning high scheduling and execution priorities. We use traces with the Short-Short length distribution and Gamma arrival distribution. We vary the CV parameter to show the interference to high-priority requests due to bursty workloads and load spikes. We empirically choose a target memory load of 1,600 tokens for high-priority requests, as we observe that such load preserves near-ideal decode speed (refer to Figure 4). Llumnix translates this target load to the corresponding memory headroom for high-priority requests. We compare Llumnix with Llumnixbase, which simply treats all requests as the same priority.",
+    "metadata": {
+      "page": 12,
+      "section": "Support for Priorities",
+      "bbox": [
+        53.532,
+        261.7819999999999,
+        295.771,
+        401.841
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_102",
+    "type": "paragraph",
+    "content": "As shown in the first row in Figure 13, Llumnix improves mean request latencies for the high-priority by 1.2 × to 1.5 × with increasing CVs. Higher CVs leads to more high-load periods, where high-priority requests can suffer more interference if not protected. Even with higher CVs, Llumnix still delivers similar latencies of high-priority requests, showing the isolation Llumnix provides to such requests. This is because Llumnix can handle changing high-priority loads by dynamically creating space for them, which is difficult in approaches like static resource reservation. For prefill latencies, Llumnix shows 2.9 × to 8.6 × gains for the mean, and 3.6 × to 10 × for the P99, respectively. This is achieved by reducing the queuing delays with high scheduling priorities. Llumnix also improves decode latencies by 1.2 × to 1.5 × for the mean and 1.3 × to 2.2 × for the P99, respectively. This improvement comes from the acceleration of the decode computation by giving lower instance loads and interference to high execution priorities, shown by the similar gains in the average decode computation time (the rightmost column). We also notice that Llumnix preserves similar performance of the normal requests (the second row in Figure 13): Llumnix increases the mean request, prefill, and decode latencies of normal requests by up to 4.5%, 13%, and 2%, respectively.",
+    "metadata": {
+      "page": 12,
+      "section": "Support for Priorities",
+      "bbox": [
+        53.253,
+        69.93399999999997,
+        295.778,
+        257.8140000000001
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_103",
+    "type": "paragraph",
+    "content": "We evaluate the auto-scaling capability of Llumnix using larger ranges of request rates and Gamma CVs to show the adaptivity to load variation. By default, Llumnix uses a scaling threshold range of [10, 60], i.e. , Llumnix scales instances up or down when the average freeness is under 10 or above 60; recall that this metric represents the most decode steps an instance can still run for given the current batch. We let INFaaS++ use the same scaling strategy, thus both Llumnix and INFaaS++ have the same degree of aggressiveness of scaling up instances. We use a maximum instance number of 16 and the Long-Long sequence length distribution.",
+    "metadata": {
+      "page": 12,
+      "section": "Auto-scaling",
+      "bbox": [
+        317.133,
+        298.092,
+        558.244,
+        426.196
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_104",
+    "type": "paragraph",
+    "content": "We first vary the request rates using Poisson distribution. As shown in the first row of Figure 14, Llumnix consistently achieves latency improvements across all request rates, e.g. , up to 12.2 × for P99 prefill latency. We also measure the resource cost in terms of average instances used, shown in the rightmost column. Llumnix saves costs by up to 16%, because Llumnix increases the auto-scaling efficiency by saturating or draining out instances more quickly. We also test different workload burstiness with varying CVs of Gamma distribution (request rate = 2). As shown in the second row, Llumnix shows similar improvements in latencies and costs, e.g. , up to 11 × for P99 prefill latency and 18% for the cost.",
+    "metadata": {
+      "page": 12,
+      "section": "Auto-scaling",
+      "bbox": [
+        317.133,
+        154.125,
+        559.747,
+        294.184
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_105",
+    "type": "paragraph",
+    "content": "Finally, we examine the cost efficiency of Llumnix in terms of how aggressively Llumnix needs to scale out instances to preserve a certain latency objective, e.g. , a given P99 prefill latency. We vary the scaling up threshold t , and the scaling threshold range is determined as [ t , t +50]. Higher values of t means that Llumnix tends to use more instances. Figure 15 shows the P99 prefill latencies and costs with different scaling",
+    "metadata": {
+      "page": 12,
+      "section": "Auto-scaling",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        558.005,
+        150.21699999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_14",
+    "type": "figure",
+    "content": "Figure 14: Auto-scaling of LLaMA-7B instances with Poisson and Gamma distributions, as annotated on the Y-axis labels.",
+    "metadata": {
+      "page": 13,
+      "section": "Auto-scaling",
+      "bbox": [
+        67.0999526977539,
+        590.1645660400391,
+        543.890625,
+        718.1080703735352
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_15.png",
+      "image_summary": "The figure presents a detailed latency and resource cost comparison between two systems, \"INFaaS++\" and \"Llumix,\" across two distributions: Poisson (top row) and Gamma (bottom row). Each row contains seven subplots showing various performance metrics as functions of request rate (Poisson) or coefficient of variation (CV, Gamma).\n\nAxes and Units:\n- The x-axis for the Poisson row indicates request rates ranging from 2.0 to 3.0.\n- The x-axis for the Gamma row represents CV values from 2 to 6.\n- The y-axis units for all latency plots are in seconds (s).\n- The \"Resource Cost\" plots have the y-axis as \"Avg Instance Num,\" showing average number of instances.\n- Latency metrics include \"Request P99,\" \"Request Mean,\" \"Prefill P99,\" \"Prefill Mean,\" \"Decode P99,\" and \"Decode Mean.\"\n\nKey Trends and Comparisons:\n1. Request P99 and Mean Latency:\n   - For Poisson, 99th percentile request latency (P99) for both systems is around 250-275s. INFaaS++ shows a slight increasing trend with request rate, crossing about 280s at 3.0, whereas Llumix remains mostly flat, just below 275s.\n   - Mean request latency for INFaaS++ also increases with request rate, reaching nearly 30s at 3.0, compared to Llumix's relatively stable ~25-27s.\n\n2. Prefill P99 and Mean Latency:\n   - Prefill latency shows a large difference; INFaaS++ has a sharp increase in both P99 and Mean with request rate in the Poisson case, especially beyond 2.8, where P99 spikes above 60s.\n   - Llumix remains stable with low prefill latency P99 (~5s) and mean (~1s).\n\n3. Decode P99 and Mean Latency:\n   - Both systems have very low decode latency (below 0.15s P99 and 0.06s mean) with a slight increasing trend for INFaaS++; Llumix remains slightly lower and more stable.\n\n4. Resource Cost (Avg Instance Num):\n   - For Poisson, INFaaS++ uses more instances overall, with numbers rising from about 13 to 16 as request rate increases.\n   - Llumix uses fewer instances, starting around 10 and increasing to 15.\n\n5. Gamma Distribution:\n   - Request P99 latency for INFaaS++ increases more markedly with CV from ~260s to over 300s, while Llumix remains flat near 260s.\n   - Mean request latency rises from ~30s to 40s for INFaaS++, more steeply than for Llumix (~28s to 32s).\n   - Prefill latency shows a steep increase in INFaaS++ with CV, reaching over 200s P99 and about 12s mean at CV=6. Llumix remains low (~25s P99, 3s mean).\n   - Decode latency again stays low but increases slightly more in INFaaS++ than Llumix (up to about 0.3s P99).\n   - Resource cost under Gamma remains roughly constant for Llumix (~10-11 instances) while INFaaS++ hovers around 12-14 instances with minor fluctuations.\n\nAnomalies:\n- The pronounced spike in INFaaS++ prefill P99 latency at high request rates and CV indicates potential scalability or buffering issues under burstier or high load conditions.\n- Llumix consistently maintains lower latency, particularly for prefill, and generally uses fewer or comparable resources.\n\nMain Takeaway:\nLlumix demonstrates superior latency performance, particularly in tail prefill latency, and is more resource efficient across both Poisson and Gamma traffic patterns. INFaaS++ experiences notable latency degradation under increased variability or request load, especially in prefill latency, and requires more system resources to handle the demand. This suggests Llumix's better handling of bursty and variable workloads with a more stable and cost-effective instance utilization profile."
+    }
+  },
+  {
+    "id": "2406.03243_fig_15",
+    "type": "figure",
+    "content": "Figure 15: P99 prefill latencies vs. average numbers of instances with varying scaling thresholds.",
+    "metadata": {
+      "page": 13,
+      "section": "Auto-scaling",
+      "bbox": [
+        104.90320587158203,
+        450.9622497558594,
+        241.9351348876953,
+        543.9478454589844
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_16.png",
+      "image_summary": "The figure is a line plot comparing the P99 prefill latency (measured in seconds on the y-axis) against the average instance number (on the x-axis). The x-axis values range approximately from 10 to 15, while the y-axis values span from 0 to 40 seconds.\n\nTwo methods are compared: \"INFaaS++\" represented by a blue dashed line with cross markers, and \"Llumix\" shown by an orange dashed line with circular markers. The \"INFaaS++\" latency starts at about 40 seconds at an average instance number just below 11, then decreases sharply to roughly 21 seconds at 12 instances, continues a downward trend to around 10 seconds at 13 instances, and finally drops near 3 seconds at approximately 15 instances. In contrast, \"Llumix\" latency remains relatively flat and low across the range of instance numbers, fluctuating slightly around a value near 4 seconds.\n\nA horizontal red dashed line is drawn around the 4-second mark, labeled with the text \"Cost Saving: 36.49%\". This annotation likely highlights that \"Llumix\" achieves a substantial reduction in latency compared to \"INFaaS++\", especially at lower instance numbers.\n\nThe main takeaway from the figure is that \"Llumix\" consistently provides significantly lower P99 prefill latency than \"INFaaS++\" across the tested average instance numbers, with a marked cost-saving benefit quantified as 36.49%. The \"INFaaS++\" method shows high latency that decreases with increasing instance count but remains above the performance level of \"Llumix\"."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_106",
+    "type": "paragraph",
+    "content": "thresholds. We observe that Llumnix achieves similar P99 prefill latency (roughly 5s, the red dash line) while saving 36% of the cost compared to INFaaS++, as a result of the combination of the ability to reduce queuing delays via migration and the higher auto-scaling efficiency.",
+    "metadata": {
+      "page": 13,
+      "section": "Auto-scaling",
+      "bbox": [
+        54.0,
+        332.765,
+        295.769,
+        389.138
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_107",
+    "type": "paragraph",
+    "content": "We conduct a scheduling stress test to examine the scalability of Llumnix with 64 LLaMA-7B instances using higher request rates. Since this cluster exceeds the size of our testbed, we replace the real GPU execution in vLLM with a simple sleep command, whose duration is determined by offline measurement on A10 GPUs with different sequence lengths and batch sizes. We build a simple centralized scheduler as the baseline by extending the vLLM scheduler to manage all requests across all instances. We issue requests with input and output lengths of 64 tokens with increasing request rates.",
+    "metadata": {
+      "page": 13,
+      "section": "Scheduling Scalability",
+      "bbox": [
+        53.532,
+        177.58299999999997,
+        295.771,
+        293.731
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_108",
+    "type": "paragraph",
+    "content": "As shown in Figure 16, with increasing request rates, the baseline experiences scheduling stalls during the inference computation of up to 40ms per iteration, translating to 1.7 × slowdown. Such stalls are a result of the communication between instances and the centralized scheduler synchronizing request statuses and scheduling decisions, which becomes a bottleneck under high load. By contrast, Llumnix exhibits near-zero scheduling stalls even under high request rates, showing the scalability of the distributed scheduling archi-",
+    "metadata": {
+      "page": 13,
+      "section": "Scheduling Scalability",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.775,
+        174.12699999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_fig_16",
+    "type": "figure",
+    "content": "Figure 16: Per-token latencies and scheduling stalls under increasing request rates using 64 LLaMA-7B instances.",
+    "metadata": {
+      "page": 13,
+      "section": "Scheduling Scalability",
+      "bbox": [
+        333.7781677246094,
+        452.40411376953125,
+        541.63134765625,
+        545.2788696289062
+      ],
+      "image_path": "data/rag_assets/images/2406.03243/figure/figure_17.png",
+      "image_summary": "The figure is a bar plot showing latency (in milliseconds) on the y-axis versus request rate on the x-axis. The x-axis request rates are 100, 200, 300, 400, and 500. The y-axis latency ranges from 0 to slightly above 100 ms.\n\nThere are four categories represented for each request rate using bar segments with different patterns and colors:\n1. Centralized (Decode Inference) shown as blue hatched bars.\n2. Centralized (Scheduling Stall) shown as the red outlined bar segment stacked on top of the blue.\n3. Llumnix (Decode Inference) shown as orange striped bars.\n4. Llumnix (Scheduling Stall) shown as green dotted bars stacked on top of the orange.\n\nKey trends:\n- For both Centralized and Llumnix systems, latency increases with request rate.\n- Centralized system has a noticeably larger Scheduling Stall component than Llumnix at all request rates, and this difference becomes more pronounced as request rate increases.\n- Decode Inference latency is similar between Centralized and Llumnix at lower request rates (100, 200), but Centralized Decode Inference latency tends to be slightly higher at higher request rates (300, 400, 500).\n- Llumnix maintains roughly consistent, lower Scheduling Stall latency compared to Centralized across all request rates.\n- At the highest request rate (500), Centralized total latency exceeds 100 ms, whereas Llumnix latency remains below 70 ms.\n\nMain takeaway:\nThe figure demonstrates that Llumnix provides significantly lower latency compared to the Centralized system at all request rates, primarily due to reduced Scheduling Stall delays. Llumnix also shows a more stable latency increase with increasing load, suggesting better scalability and efficiency under higher request rates."
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_109",
+    "type": "paragraph",
+    "content": "tecture. Llumnix offloads and distributes the intra-instance scheduling logic across llumlets so that it is done in parallel and asynchronously with the global scheduling. Moreover, llumlets only report instance-level metrics, instead of the precise status of every single request, further improving the communication efficiency.",
+    "metadata": {
+      "page": 13,
+      "section": "Scheduling Scalability",
+      "bbox": [
+        317.88,
+        331.803,
+        559.651,
+        400.131
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_110",
+    "type": "paragraph",
+    "content": "LLM inference. As transformer models show significance in model serving, recent works, such as FasterTransformer [46], TurboTransformer [25], LightSeq [61], and FlashAttention [21, 22], optimize GPU kernels to improve the inference performance. SpotServe [41] supports LLM inference using preemptible instances for improving cost efficiency. FastServe [63] optimizes request completion times using a preemptive time-slicing approach. AlpaServe [35] exploits pipeline parallelism to reduce serving latency for bursty workloads. To further increase the GPU utilization and serving throughput, Orca [67] proposes iteration-level scheduling (referred to as continuous batching in recent works and this paper) and selective batching, while vLLM [34] optimizes the memory usage with PageAttention. [55] proposes fair scheduling of requests on an LLM instance. Prior works mostly target solo-instance serving, therefore complementing to Llumnix. Llumnix explores the challenges and opportunities of deploying multi-instance LLM serving. The key",
+    "metadata": {
+      "page": 13,
+      "section": "Related Work",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.658,
+        282.112
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_111",
+    "type": "paragraph",
+    "content": "append-only characteristic of KV cache is exploited to enable migration capability of requests in the inference engine. Such a mechanism opens great policy design space to offer priority and performance isolation, improve memory efficiency, and enable instance auto-scaling. We also plan to explore the interplay between the global scheduling across instances with local scheduling techniques inside each instance ( e.g. , preemptive [63] and fair [55] scheduling) as future works.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        53.641,
+        624.285,
+        295.777,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_112",
+    "type": "paragraph",
+    "content": "Request scheduling. To support deep learning model deployment, numerous systems ( e.g. , Clipper [19], Nexus [54], DVABatch [20], and TritonServer [47]) have been proposed to optimize request scheduling for DNN inference serving. To meet the SLOs of DNN inference requests, Clockwork [29] utilizes the execution predictability of traditional DNNs, while Reef [33] and Shepherd [68] perform preemptions to serve high-priority requests. AlpaServe [35] uses a simple loadbalancing dispatching policy based on queue lengths. These works mostly focus on traditional DNN model serving, where a request requires only one-time inference on the model. However, LLM inference service requires autoregressive computation on models for unpredictable numbers of iterations and introduces intermediate states ( i.e. , KV cache), showing brand new characteristics. DeepSpeed-MII [4], albeit targeting multi-instance LLM serving, uses a simple round-robin dispatching policy that ignores LLM characteristics. Llumnix steps further to incorporate request migration and ensures high throughput and low latency, provides SLO for prioritized requests, and auto-scales instances for resource efficiency with a unified load-aware dynamic scheduling policy.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        53.641,
+        371.755,
+        295.777,
+        619.799
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_113",
+    "type": "paragraph",
+    "content": "Beyond multiple model instances, INFaaS [53] further supports scheduling across multiple model types/variants, considering the performance and accuracy requirements in difference applications. This is also a typical scenario for LLMs: for example, fine-tuned models for a specific task ( e.g. , coding [3, 13, 30]); variants with different sizes or precisions ( [26,37,39]) of the base LLM. We plan to extend Llumnix to support multiple model types in future work, considering the larger tradeoff space of latency/throughput and accuracy.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        53.671,
+        262.688,
+        295.777,
+        366.881
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_114",
+    "type": "paragraph",
+    "content": "Isolation vs. fragmentation. The tradeoff between isolation and fragmentation, or that between workload packing and spreading, have been a classic scheduling challenge. That is, workload packing improves resource utilization, at the expense of potential interference between co-located workloads; spreading workloads, on the contrary, provides better isolation but also increases resource fragmentation. Many research efforts have been devoted to better balancing isolation and fragmentation in datacenters for big-data jobs and virtual machines, by identifying the interferencesensitivity of workloads and optimized scheduling policies ( [16,18,23,24,27,31,32,40,60,66]). This challenge was also identified in GPU clusters for deep learning workloads. Amaral et al proposed a topology-aware placement algorithm to address the tradeoff between packing and spreading deep learning training jobs on multi-GPU servers [12]. Gandiva [64]",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        53.641,
+        69.93399999999997,
+        295.862,
+        258.202
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_115",
+    "type": "paragraph",
+    "content": "addresses the heterogeneous sensitivity to packing/spreading of different jobs with introspective job migration. This challenge becomes more complex for LLM serving due to the unpredictable autoregressive execution. Llumnix exploits request migration at runtime to react to the workload dynamics to better reconcile these two goals.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        317.88,
+        648.196,
+        559.657,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_116",
+    "type": "paragraph",
+    "content": "Migration. Gandiva [64] enables introspective migration for deep learning training jobs during scheduling. It utilizes the inherent iterative behavior of deep learning, and conducts checkpoint-resume approach on the minimal working set ( i.e. , mini-batch boundary) to migrate model weights. Even though LLM inference is iterative as well, directly migrating the entire states of a request is unacceptable, because the latency SLO of an inference request is crucial. Moreover, the working set per request is linear to the sequence length, which can be considerable given the trend of longer contexts [49, 50]. The migration approach in Llumnix is inspired by virtual machine live migration [17]. By carrying out the majority of migration while LLM requests continue decoding tokens on GPUs, Llumnix minimizes the downtime of request migration, making the cost negligible regardless of the sequence lengths.",
+    "metadata": {
+      "page": 14,
+      "section": "Related Work",
+      "bbox": [
+        317.571,
+        468.349,
+        559.742,
+        644.661
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_117",
+    "type": "paragraph",
+    "content": "Llumnix, as implied by the name, represents our vision of serving LLMs as Unix. This vision originates in the observation that LLMs and modern operating systems have common natures such as the universality, multi-tenancy, and dynamism, and hence share similar requirements and challenges. This paper takes an important step towards this vision by drawing lessons from conventional OS wisdom including: definition of classic abstractions like isolation and priorities in the new context of LLM serving; implementation of the 'context switching' as the key approach with inference request migration; and continuous, dynamic request rescheduling exploiting the migration. All these combined, Llumnix delivers better latency, cost efficiency, and support for differentiated SLOs, pointing to a new way of LLM serving.",
+    "metadata": {
+      "page": 14,
+      "section": "Conclusion",
+      "bbox": [
+        317.88,
+        257.1859999999999,
+        559.658,
+        421.156
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_118",
+    "type": "paragraph",
+    "content": "We thank the anonymous OSDI reviewers and our shepherd for their valuable feedback, which helped improve the presentation of this paper. We thank Shiru Ren for early discussion on VM live migration techniques. This work was supported by Alibaba Group through the Alibaba Research Intern Program. This work was also supported by National Key Research and Development Program of China (Grant No. 2023YFB3001801), National Natural Science Foundation of China (Grant No. 62322201, 62072018, U23B2020 and U22A2028), Fundamental Research Funds for the Central Universities (YWF-23-L-1121), and State Key Laboratory of Software Development Environment (SKLSDE-2023ZX-05).",
+    "metadata": {
+      "page": 14,
+      "section": "Acknowledgement",
+      "bbox": [
+        317.412,
+        69.93399999999997,
+        559.743,
+        209.99299999999994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_119",
+    "type": "paragraph",
+    "content": "Nccl, https://developer.nvidia.com/nccl/.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        685.705,
+        236.664,
+        694.257
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_120",
+    "type": "paragraph",
+    "content": "Chatgpt plus, 2023. https://openai.com/blog/ chatgpt-plus .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        654.891,
+        295.136,
+        675.398
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_121",
+    "type": "paragraph",
+    "content": "Code llama, 2023. https://github.com/ facebookresearch/codellama .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        624.078,
+        295.137,
+        644.585
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_122",
+    "type": "paragraph",
+    "content": "Deepspeed-mii, 2023. https://github.com/ microsoft/DeepSpeed-MII .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        593.264,
+        295.137,
+        613.771
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_123",
+    "type": "paragraph",
+    "content": "Gloo collective communication library, 2023. https: //github.com/facebookincubator/gloo .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        562.45,
+        296.661,
+        582.957
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_124",
+    "type": "paragraph",
+    "content": "Google bard, 2023. https://bard.google.com/ .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        543.592,
+        280.52,
+        552.144
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_125",
+    "type": "paragraph",
+    "content": "Longllama, 2023. https://github.com/ CStanKonrad/long_llama .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        512.778,
+        295.137,
+        533.285
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_126",
+    "type": "paragraph",
+    "content": "Openai chatgpt, 2023. https://chat.openai.com/ .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        493.919,
+        291.588,
+        502.471
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_127",
+    "type": "paragraph",
+    "content": "Ray serve, 2023. https://docs.ray.io/en/latest/ serve/index.html .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        58.981,
+        463.106,
+        295.136,
+        483.613
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_128",
+    "type": "paragraph",
+    "content": "Sharegpt_gpt4, 2023. https://huggingface.co/ datasets/shibing624/sharegpt_gpt4 .",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        432.292,
+        295.136,
+        452.799
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_129",
+    "type": "paragraph",
+    "content": "vllm. https://github.com/vllm-project/vllm , 2023.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        401.478,
+        295.365,
+        421.986
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_130",
+    "type": "paragraph",
+    "content": "Marcelo Amaral, Jordà Polo, David Carrera, Seetharami Seelam, and Malgorzata Steinder. Topology-aware GPU scheduling for learning workloads in cloud environments. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis , page 17, New York, NY, USA, 2017. ACM.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        310.889,
+        295.867,
+        391.172
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_131",
+    "type": "paragraph",
+    "content": "Jinze Bai, Shuai Bai, Yunfei Chu, Zeyu Cui, Kai Dang, Xiaodong Deng, Yang Fan, Wenbin Ge, Yu Han, Fei Huang, Binyuan Hui, Luo Ji, Mei Li, Junyang Lin, Runji Lin, Dayiheng Liu, Gao Liu, Chengqiang Lu, Keming Lu, Jianxin Ma, Rui Men, Xingzhang Ren, Xuancheng Ren, Chuanqi Tan, Sinan Tan, Jianhong Tu, Peng Wang, Shijie Wang, Wei Wang, Shengguang Wu, Benfeng Xu, Jin Xu, An Yang, Hao Yang, Jian Yang, Shusheng Yang, Yang Yao, Bowen Yu, Hongyi Yuan, Zheng Yuan, Jianwei Zhang, Xingxuan Zhang, Yichang Zhang, Zhenru Zhang, Chang Zhou, Jingren Zhou, Xiaohuan Zhou, and Tianhang Zhu. Qwen technical report. arXiv preprint arXiv:2309.16609 , 2023.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        148.56799999999998,
+        295.772,
+        300.582
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_132",
+    "type": "paragraph",
+    "content": "Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems , 33:1877-1901, 2020.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.773,
+        138.26199999999994
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_133",
+    "type": "paragraph",
+    "content": "Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, and Dario Amodei. Language models are few-shot learners. In Hugo Larochelle, Marc'Aurelio Ranzato, Raia Hadsell, Maria-Florina Balcan, and Hsuan-Tien Lin, editors, Advances in Neural Information Processing Systems 33: Annual Conference on Neural Information Processing Systems 2020, NeurIPS 2020, December 6-12, 2020, virtual , 2020.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        528.644,
+        559.652,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_134",
+    "type": "paragraph",
+    "content": "Quan Chen, Hailong Yang, Minyi Guo, Ram Srivatsa Kannan, Jason Mars, and Lingjia Tang. Prophet: Precise qos prediction on non-preemptive accelerators to improve utilization in warehouse-scale computers. In Proceedings of the Twenty-Second International Conference on Architectural Support for Programming Languages and Operating Systems , pages 17-32, 2017.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        432.12,
+        559.656,
+        512.403
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_135",
+    "type": "paragraph",
+    "content": "Christopher Clark, Keir Fraser, Steven Hand, Jacob Gorm Hansen, Eric Jul, Christian Limpach, Ian Pratt, and Andrew Warfield. Live migration of virtual machines. In Amin Vahdat and David Wetherall, editors, 2nd Symposium on Networked Systems Design and Implementation (NSDI 2005), May 2-4, 2005, Boston, Massachusetts, USA, Proceedings . USENIX, 2005.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        335.596,
+        559.741,
+        415.879
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_136",
+    "type": "paragraph",
+    "content": "Eli Cortez, Anand Bonde, Alexandre Muzio, Mark Russinovich, Marcus Fontoura, and Ricardo Bianchini. Resource central: Understanding and predicting workloads for improved resource management in large cloud platforms. In Proceedings of the 26th Symposium on Operating Systems Principles , pages 153-167, 2017.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        251.02700000000004,
+        559.743,
+        319.355
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_137",
+    "type": "paragraph",
+    "content": "Daniel Crankshaw, Xin Wang, Guilio Zhou, Michael J. Franklin, Joseph E. Gonzalez, and Ion Stoica. Clipper: A low-latency online prediction serving system. In 14th USENIX Symposium on Networked Systems Design and Implementation (NSDI 17) , pages 613-627, Boston, MA, March 2017. USENIX Association.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        166.45799999999997,
+        559.739,
+        234.78600000000006
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_138",
+    "type": "paragraph",
+    "content": "Weihao Cui, Han Zhao, Quan Chen, Hao Wei, Zirui Li, Deze Zeng, Chao Li, and Minyi Guo. DVABatch: Diversity-aware Multi-Entry Multi-Exit batching for efficient processing of DNN services on GPUs. In 2022 USENIX Annual Technical Conference (USENIX ATC 22) , pages 183-198, Carlsbad, CA, July 2022. USENIX Association.",
+    "metadata": {
+      "page": 15,
+      "section": "References",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.658,
+        150.21699999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_139",
+    "type": "paragraph",
+    "content": "Tri Dao. Flashattention-2: Faster attention with better parallelism and work partitioning. CoRR , abs/2307.08691, 2023.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        684.061,
+        295.365,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_140",
+    "type": "paragraph",
+    "content": "Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. Flashattention: Fast and memoryefficient exact attention with io-awareness, 2022.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        640.172,
+        295.769,
+        672.634
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_141",
+    "type": "paragraph",
+    "content": "Christina Delimitrou and Christos Kozyrakis. Paragon: QoS-aware scheduling for heterogeneous datacenters. In Proceedings of the Eighteenth International Conference on Architectural Support for Programming Languages and Operating Systems , ASPLOS '13, page 77-88, New York, NY, USA, 2013. Association for Computing Machinery.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        548.462,
+        295.775,
+        628.745
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_142",
+    "type": "paragraph",
+    "content": "Christina Delimitrou and Christos Kozyrakis. Quasar: resource-efficient and qos-aware cluster management. In Proceedings of the 19th International Conference on Architectural Support for Programming Languages and Operating Systems , ASPLOS '14, page 127-144, New York, NY, USA, 2014. Association for Computing Machinery.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        456.752,
+        295.868,
+        537.035
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_143",
+    "type": "paragraph",
+    "content": "Jiarui Fang, Yang Yu, Chengduo Zhao, and Jie Zhou. Turbotransformers: An efficient gpu serving system for transformer models. In Proceedings of the 26th ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming , PPoPP '21, page 389-402, New York, NY, USA, 2021. Association for Computing Machinery.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        365.042,
+        295.868,
+        445.325
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_144",
+    "type": "paragraph",
+    "content": "Elias Frantar, Saleh Ashkboos, Torsten Hoefler, and Dan Alistarh. OPTQ: Accurate quantization for generative pre-trained transformers. In The Eleventh International Conference on Learning Representations , 2023.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        309.198,
+        294.122,
+        353.616
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_145",
+    "type": "paragraph",
+    "content": "Panagiotis Garefalakis, Konstantinos Karanasos, Peter Pietzuch, Arun Suresh, and Sriram Rao. Medea: scheduling of long running applications in shared production clusters. In Proceedings of the thirteenth EuroSys conference , pages 1-13, 2018.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        241.399,
+        295.773,
+        297.771
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_146",
+    "type": "paragraph",
+    "content": "Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao, Antoine Kaufmann, Ymir Vigfusson, and Jonathan Mace. Serving { DNNs } like clockwork: Performance predictability from the bottom up. In 14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20) , pages 443-462, 2020.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        161.644,
+        295.771,
+        229.97199999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_147",
+    "type": "paragraph",
+    "content": "Arpan Gujarati, Reza Karimi, Safya Alzayat, Wei Hao, Antoine Kaufmann, Ymir Vigfusson, and Jonathan Mace. Serving dnns like clockwork: Performance predictability from the bottom up. In 14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20) , pages 443-462. USENIX Association, November 2020.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.773,
+        150.21699999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_148",
+    "type": "paragraph",
+    "content": "Daya Guo, Qihao Zhu, Dejian Yang, Zhenda Xie, Kai Dong, Wentao Zhang, Guanting Chen, Xiao Bi, Y. Wu, Y.K. Li, Fuli Luo, Yingfei Xiong, and Wenfeng Liang. Deepseek-coder: When the large language model meets programming - the rise of code intelligence, 2024.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        660.151,
+        559.746,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_149",
+    "type": "paragraph",
+    "content": "Ori Hadary, Luke Marshall, Ishai Menache, Abhisek Pan, Esaias E Greeff, David Dion, Star Dorminey, Shailesh Joshi, Yang Chen, Mark Russinovich, et al. Protean: VMallocation service at scale. In 14th USENIX Symposium on Operating Systems Design and Implementation (OSDI 20) , pages 845-861, 2020.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        579.714,
+        559.65,
+        648.042
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_150",
+    "type": "paragraph",
+    "content": "Jaeung Han, Seungheun Jeon, Young-ri Choi, and Jaehyuk Huh. Interference management for distributed parallel applications in consolidated clusters. In Proceedings of the Twenty-First International Conference on Architectural Support for Programming Languages and Operating Systems , ASPLOS '16, page 443-456, New York, NY, USA, 2016. Association for Computing Machinery.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        475.367,
+        559.655,
+        567.605
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_151",
+    "type": "paragraph",
+    "content": "Mingcong Han, Hanze Zhang, Rong Chen, and Haibo Chen. Microsecond-scale preemption for concurrent GPU-accelerated DNN inferences. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) , pages 539-558, Carlsbad, CA, July 2022. USENIX Association.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        394.93,
+        559.651,
+        463.258
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_152",
+    "type": "paragraph",
+    "content": "Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody Hao Yu, Joseph Gonzalez, Hao Zhang, and Ion Stoica. Efficient memory management for large language model serving with pagedattention. In Proceedings of the 29th Symposium on Operating Systems Principles , SOSP '23, page 611-626, New York, NY, USA, 2023. Association for Computing Machinery.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        290.583,
+        559.656,
+        382.821
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_153",
+    "type": "paragraph",
+    "content": "Zhuohan Li, Lianmin Zheng, Yinmin Zhong, Vincent Liu, Ying Sheng, Xin Jin, Yanping Huang, Zhifeng Chen, Hao Zhang, Joseph E. Gonzalez, and Ion Stoica. AlpaServe: Statistical multiplexing with model parallelism for deep learning serving. In 17th USENIX Symposium on Operating Systems Design and Implementation (OSDI 23) , pages 663-679, Boston, MA, July 2023. USENIX Association.",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        186.236,
+        559.745,
+        278.47399999999993
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_154",
+    "type": "paragraph",
+    "content": "Percy Liang, Rishi Bommasani, Tony Lee, Dimitris Tsipras, Dilara Soylu, Michihiro Yasunaga, Yian Zhang, Deepak Narayanan, Yuhuai Wu, Ananya Kumar, Benjamin Newman, Binhang Yuan, Bobby Yan, Ce Zhang, Christian Cosgrove, Christopher D. Manning, Christopher Ré, Diana Acosta-Navas, Drew A. Hudson, Eric Zelikman, Esin Durmus, Faisal Ladhak, Frieda Rong, Hongyu Ren, Huaxiu Yao, Jue Wang, Keshav Santhanam, Laurel J. Orr, Lucia Zheng, Mert Yüksekgönül,",
+    "metadata": {
+      "page": 16,
+      "section": "References",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.656,
+        174.12699999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_155",
+    "type": "paragraph",
+    "content": "Mirac Suzgun, Nathan Kim, Neel Guha, Niladri S. Chatterji, Omar Khattab, Peter Henderson, Qian Huang, Ryan Chi, Sang Michael Xie, Shibani Santurkar, Surya Ganguli, Tatsunori Hashimoto, Thomas Icard, Tianyi Zhang, Vishrav Chaudhary, William Wang, Xuechen Li, Yifan Mai, Yuhui Zhang, and Yuta Koreeda. Holistic evaluation of language models. CoRR , abs/2211.09110, 2022.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        75.22,
+        636.24,
+        295.792,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_156",
+    "type": "paragraph",
+    "content": "Ji Lin, Jiaming Tang, Haotian Tang, Shang Yang, WeiMing Chen, Wei-Chen Wang, Guangxuan Xiao, Xingyu Dang, Chuang Gan, and Song Han. Awq: Activationaware weight quantization for llm compression and acceleration. In MLSys , 2024.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        568.441,
+        295.776,
+        624.814
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_157",
+    "type": "paragraph",
+    "content": "Hao Liu, Matei Zaharia, and Pieter Abbeel. Ring attention with blockwise transformers for near-infinite context. CoRR , abs/2310.01889, 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        524.552,
+        295.776,
+        557.014
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_158",
+    "type": "paragraph",
+    "content": "Shuming Ma, Hongyu Wang, Lingxiao Ma, Lei Wang, Wenhui Wang, Shaohan Huang, Li Dong, Ruiping Wang, Jilong Xue, and Furu Wei. The era of 1-bit llms: All large language models are in 1.58 bits, 2024.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        468.707,
+        295.365,
+        513.125
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_159",
+    "type": "paragraph",
+    "content": "Jason Mars, Lingjia Tang, Robert Hundt, Kevin Skadron, and Mary Lou Soffa. Bubble-up: Increasing utilization in modern warehouse scale computers via sensible colocations. In Proceedings of the 44th annual IEEE/ACM International Symposium on Microarchitecture , pages 248-259, 2011.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        388.953,
+        295.77,
+        457.281
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_160",
+    "type": "paragraph",
+    "content": "Xupeng Miao, Chunan Shi, Jiangfei Duan, Xiaoli Xi, Dahua Lin, Bin Cui, and Zhihao Jia. Spotserve: Serving generative large language models on preemptible instances, 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        333.108,
+        295.776,
+        377.526
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_161",
+    "type": "paragraph",
+    "content": "Philipp Moritz, Robert Nishihara, Stephanie Wang, Alexey Tumanov, Richard Liaw, Eric Liang, Melih Elibol, Zongheng Yang, William Paul, Michael I. Jordan, and Ion Stoica. Ray: A distributed framework for emerging AI applications. In 13th USENIX Symposium on Operating Systems Design and Implementation (OSDI 18) , pages 561-577, Carlsbad, CA, October 2018. USENIX Association.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        229.44299999999998,
+        295.777,
+        321.682
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_162",
+    "type": "paragraph",
+    "content": "Avanika Narayan, Ines Chami, Laurel J. Orr, and Christopher Ré. Can foundation models wrangle your data? Proc. VLDB Endow. , 16(4):738-746, 2022.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        185.55399999999997,
+        295.772,
+        218.01700000000005
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_163",
+    "type": "paragraph",
+    "content": "Deepak Narayanan, Mohammad Shoeybi, Jared Casper, Patrick LeGresley, Mostofa Patwary, Vijay Korthikanti, Dmitri Vainbrand, Prethvi Kashinkunti, Julie Bernauer, Bryan Catanzaro, Amar Phanishayee, and Matei Zaharia. Efficient large-scale language model training on gpu clusters using megatron-lm. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis , SC '21, New York, NY, USA, 2021. Association for Computing Machinery.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.86,
+        174.12699999999995
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_164",
+    "type": "paragraph",
+    "content": "NVIDIA. Using multiple nccl communicators concurrently. https:// docs.nvidia.com/deeplearning/nccl/ user-guide/docs/usage/communicators.html# using-multiple-nccl-communicators-concurrently .",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        660.151,
+        577.615,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_165",
+    "type": "paragraph",
+    "content": "NVIDIA. Fastertransformer. https://github.com/ NVIDIA/FasterTransformer , 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        627.144,
+        559.017,
+        647.652
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_166",
+    "type": "paragraph",
+    "content": "NVIDIA. Triton inference server. https://github. com/triton-inference-server/server , 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        594.138,
+        561.557,
+        614.645
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_167",
+    "type": "paragraph",
+    "content": "OpenAI. Openai api, 2020. https://openai.com/ blog/openai-api .",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        561.132,
+        559.017,
+        581.639
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_168",
+    "type": "paragraph",
+    "content": "OpenAI. Gpt-4 technical report, 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        540.081,
+        493.003,
+        548.633
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_169",
+    "type": "paragraph",
+    "content": "OpenAI. Gpt-4 turbo. https://help.openai.com/ en/articles/8555510-gpt-4-turbo , 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        507.075,
+        559.016,
+        527.582
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_170",
+    "type": "paragraph",
+    "content": "Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul F. Christiano, Jan Leike, and Ryan Lowe. Training language models to follow instructions with human feedback. In NeurIPS , 2022.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        402.337,
+        559.74,
+        494.576
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_171",
+    "type": "paragraph",
+    "content": "Reiner Pope, Sholto Douglas, Aakanksha Chowdhery, Jacob Devlin, James Bradbury, Anselm Levskaya, Jonathan Heek, Kefan Xiao, Shivani Agrawal, and Jeff Dean. Efficiently scaling transformer inference, 2022.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        345.421,
+        559.656,
+        389.838
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_172",
+    "type": "paragraph",
+    "content": "Francisco Romero, Qian Li, Neeraja J Yadwadkar, and Christos Kozyrakis. { INFaaS } : Automated model-less inference serving. In 2021 USENIX Annual Technical Conference (USENIX ATC 21) , pages 397-411, 2021.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        288.504,
+        558.0,
+        332.922
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_173",
+    "type": "paragraph",
+    "content": "Haichen Shen, Lequn Chen, Yuchen Jin, Liangyu Zhao, Bingyu Kong, Matthai Philipose, Arvind Krishnamurthy, and Ravi Sundaram. Nexus: A gpu cluster engine for accelerating dnn-based video analysis. In Proceedings of the 27th ACM Symposium on Operating Systems Principles , SOSP '19, page 322-337, New York, NY, USA, 2019. Association for Computing Machinery.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        195.72199999999998,
+        559.652,
+        276.005
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_174",
+    "type": "paragraph",
+    "content": "Ying Sheng, Shiyi Cao, Dacheng Li, Banghua Zhu, Zhuohan Li, Danyang Zhuo, Joseph E. Gonzalez, and Ion Stoica. Fairness in serving large language models, 2023.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        138.80600000000004,
+        559.25,
+        183.22299999999996
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_175",
+    "type": "paragraph",
+    "content": "Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism. arXiv preprint arXiv:1909.08053 , 2019.",
+    "metadata": {
+      "page": 17,
+      "section": "References",
+      "bbox": [
+        317.88,
+        69.93399999999997,
+        559.747,
+        126.30700000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_176",
+    "type": "paragraph",
+    "content": "Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric Hambro, Faisal Azhar, Aurelien Rodriguez, Armand Joulin, Edouard Grave, and Guillaume Lample. Llama: Open and efficient foundation language models, 2023.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        648.196,
+        295.772,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_177",
+    "type": "paragraph",
+    "content": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Dan Bikel, Lukas Blecher, Cristian Canton Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernandes, Jeremy Fu, Wenyin Fu, Brian Fuller, Cynthia Gao, Vedanuj Goswami, Naman Goyal, Anthony Hartshorn, Saghar Hosseini, Rui Hou, Hakan Inan, Marcin Kardas, Viktor Kerkez, Madian Khabsa, Isabel Kloumann, Artem Korenev, Punit Singh Koura, Marie-Anne Lachaux, Thibaut Lavril, Jenya Lee, Diana Liskovich, Yinghai Lu, Yuning Mao, Xavier Martinet, Todor Mihaylov, Pushkar Mishra, Igor Molybog, Yixin Nie, Andrew Poulton, Jeremy Reizenstein, Rashi Rungta, Kalyan Saladi, Alan Schelten, Ruan Silva, Eric Michael Smith, Ranjan Subramanian, Xiaoqing Ellen Tan, Binh Tang, Ross Taylor, Adina Williams, Jian Xiang Kuan, Puxin Xu, Zheng Yan, Iliyan Zarov, Yuchen Zhang, Angela Fan, Melanie Kambadur, Sharan Narang, Aurelien Rodriguez, Robert Stojnic, Sergey Edunov, and Thomas Scialom. Llama 2: Open foundation and fine-tuned chat models, 2023.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        389.081,
+        295.778,
+        636.737
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_178",
+    "type": "paragraph",
+    "content": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. In Advances in Neural Information Processing Systems , pages 6000-6010, 2017.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        321.25,
+        295.365,
+        377.622
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_179",
+    "type": "paragraph",
+    "content": "Abhishek Verma, Luis Pedrosa, Madhukar Korupolu, David Oppenheimer, Eric Tune, and John Wilkes. Largescale cluster management at Google with Borg. In Proceedings of the Tenth European Conference on Computer Systems , page 18, New York, NY, USA, 2015. ACM.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        241.46299999999997,
+        295.866,
+        309.791
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_180",
+    "type": "paragraph",
+    "content": "Xiaohui Wang, Ying Xiong, Yang Wei, Mingxuan Wang, and Lei Li. Lightseq: A high performance inference library for transformers. In Young-bum Kim, Yunyao Li, and Owen Rambow, editors, Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Industry Papers, NAACL-HLT 2021, Online, June 6-11, 2021 , pages 113-120. Association for Computational Linguistics, 2021.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        125.80999999999995,
+        295.775,
+        230.00400000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_181",
+    "type": "paragraph",
+    "content": "Yuxin Wang, Yuhan Chen, Zeyu Li, Zhenheng Tang, Rui Guo, Xin Wang, Qiang Wang, Amelie Chi Zhou, and Xiaowen Chu. Towards efficient and reliable llm serving: A real-world workload study, 2024.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        54.0,
+        69.93399999999997,
+        295.37,
+        114.35199999999998
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_182",
+    "type": "paragraph",
+    "content": "Bingyang Wu, Yinmin Zhong, Zili Zhang, Gang Huang, Xuanzhe Liu, and Xin Jin. Fast distributed inference serving for large language models, 2023.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        684.061,
+        559.242,
+        716.523
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_183",
+    "type": "paragraph",
+    "content": "Wencong Xiao, Romil Bhardwaj, Ramachandran Ramjee, Muthian Sivathanu, Nipun Kwatra, Zhenhua Han, Pratyush Patel, Xuan Peng, Hanyu Zhao, Quanlu Zhang, Fan Yang, and Lidong Zhou. Gandiva: Introspective cluster scheduling for deep learning. In 13th USENIX Symposium on Operating Systems Design and Implementation, OSDI 2018, Carlsbad, CA, USA, October 810, 2018 , pages 595-610. USENIX Association, 2018.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        580.45,
+        559.658,
+        672.688
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_184",
+    "type": "paragraph",
+    "content": "Wenhan Xiong, Jingyu Liu, Igor Molybog, Hejia Zhang, Prajjwal Bhargava, Rui Hou, Louis Martin, Rashi Rungta, Karthik Abinav Sankararaman, Barlas Oguz, Madian Khabsa, Han Fang, Yashar Mehdad, Sharan Narang, Kshitiz Malik, Angela Fan, Shruti Bhosale, Sergey Edunov, Mike Lewis, Sinong Wang, and Hao Ma. Effective long-context scaling of foundation models, 2023.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        476.838,
+        559.657,
+        569.076
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_185",
+    "type": "paragraph",
+    "content": "Hailong Yang, Alex Breslow, Jason Mars, and Lingjia Tang. Bubble-flux: precise online qos management for increased utilization in warehouse scale computers. In Proceedings of the 40th Annual International Symposium on Computer Architecture , ISCA '13, page 607-618, New York, NY, USA, 2013. Association for Computing Machinery.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        385.182,
+        559.656,
+        465.465
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_186",
+    "type": "paragraph",
+    "content": "Gyeong-In Yu, Joo Seong Jeong, Geon-Woo Kim, Soojeong Kim, and Byung-Gon Chun. Orca: A distributed serving system for Transformer-Based generative models. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) , pages 521-538, Carlsbad, CA, July 2022. USENIX Association.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        305.481,
+        559.652,
+        373.809
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_187",
+    "type": "paragraph",
+    "content": "Hong Zhang, Yupeng Tang, Anurag Khandelwal, and Ion Stoica. SHEPHERD: Serving DNNs in the wild. In 20th USENIX Symposium on Networked Systems Design and Implementation (NSDI 23) , pages 787-808, Boston, MA, April 2023. USENIX Association.",
+    "metadata": {
+      "page": 18,
+      "section": "References",
+      "bbox": [
+        317.88,
+        237.735,
+        559.246,
+        294.107
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_188",
+    "type": "paragraph",
+    "content": "This artifact includes the source code and scripts to run the experiments and reproduce the evaluation results of this paper.",
+    "metadata": {
+      "page": 19,
+      "section": "Abstract",
+      "bbox": [
+        53.691,
+        650.559,
+        295.867,
+        671.067
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_189",
+    "type": "paragraph",
+    "content": "The artifact can be used to reproduce the results of the following experiments.",
+    "metadata": {
+      "page": 19,
+      "section": "Scope",
+      "bbox": [
+        53.691,
+        586.503,
+        295.773,
+        607.01
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_190",
+    "type": "paragraph",
+    "content": "Migration efficiency: Figure 10.",
+    "metadata": {
+      "page": 19,
+      "section": "Scope",
+      "bbox": [
+        55.494,
+        561.935,
+        191.404,
+        570.487
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_191",
+    "type": "paragraph",
+    "content": "Serving performance: Figure 11.",
+    "metadata": {
+      "page": 19,
+      "section": "Scope",
+      "bbox": [
+        55.494,
+        545.995,
+        194.004,
+        554.547
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_192",
+    "type": "paragraph",
+    "content": "Support for priorities: Figure 13.",
+    "metadata": {
+      "page": 19,
+      "section": "Scope",
+      "bbox": [
+        55.494,
+        530.055,
+        194.303,
+        538.607
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_193",
+    "type": "paragraph",
+    "content": "Auto-scaling: Figure 14 and Figure 15.",
+    "metadata": {
+      "page": 19,
+      "section": "Scope",
+      "bbox": [
+        55.494,
+        514.114,
+        219.12,
+        522.666
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_194",
+    "type": "paragraph",
+    "content": "This artifact includes the following contents.",
+    "metadata": {
+      "page": 19,
+      "section": "Contents",
+      "bbox": [
+        53.691,
+        462.013,
+        231.543,
+        470.565
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_195",
+    "type": "paragraph",
+    "content": "Source code of a prototype implementation of Llumnix.",
+    "metadata": {
+      "page": 19,
+      "section": "Contents",
+      "bbox": [
+        55.494,
+        437.445,
+        286.437,
+        445.997
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_196",
+    "type": "paragraph",
+    "content": "Scripts to prepare the environment, run the experiments, plot the figures, and validate the claims in this paper automatically.",
+    "metadata": {
+      "page": 19,
+      "section": "Contents",
+      "bbox": [
+        55.494,
+        397.595,
+        295.77,
+        430.057
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_197",
+    "type": "paragraph",
+    "content": "A README file including detailed instructions on how to use this artifact.",
+    "metadata": {
+      "page": 19,
+      "section": "Contents",
+      "bbox": [
+        55.494,
+        369.699,
+        294.123,
+        390.206
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_198",
+    "type": "paragraph",
+    "content": "The artifact is publicly available at https://github.com/ AlibabaPAI/llumnix (the osdi24ae branch). Note that this is not the same branch as the official release of Llumnix (the main branch). We will describe their difference later.",
+    "metadata": {
+      "page": 19,
+      "section": "Hosting",
+      "bbox": [
+        53.691,
+        281.733,
+        295.137,
+        326.15
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_199",
+    "type": "paragraph",
+    "content": "The artifact runs on GPU machines, with software dependencies mostly the same as those of vLLM. To reproduce our results, you would need 4 GPU machines each with 4 A10 GPUs (24 GB). We recommend that you use the same VM type as in our experiments ( ecs.gn7i-c32g1.32xlarge on Alibaba Cloud).",
+    "metadata": {
+      "page": 19,
+      "section": "Requirements",
+      "bbox": [
+        53.641,
+        169.856,
+        295.775,
+        238.18399999999997
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_200",
+    "type": "paragraph",
+    "content": "This artifact is a research prototype and was used during the experiments of this paper. After the paper submission, we refactored it into a new implementation that is more production-ready, i.e. , the official release, as described in §5. Major differences between the two versions include:",
+    "metadata": {
+      "page": 19,
+      "section": "Difference from the Official Release",
+      "bbox": [
+        53.641,
+        69.93399999999997,
+        295.861,
+        126.30700000000002
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_201",
+    "type": "paragraph",
+    "content": "The artifact is directly based on the vLLM code base, whereas the official release is a standalone Python library, making it more extensible and non-intrusive to backend inference engines.",
+    "metadata": {
+      "page": 19,
+      "section": "Difference from the Official Release",
+      "bbox": [
+        319.374,
+        675.314,
+        559.245,
+        719.731
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_202",
+    "type": "paragraph",
+    "content": "The artifact is not fault-tolerant, whereas the official release provides fault tolerance for each component.",
+    "metadata": {
+      "page": 19,
+      "section": "Difference from the Official Release",
+      "bbox": [
+        319.374,
+        647.419,
+        557.998,
+        667.926
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_203",
+    "type": "paragraph",
+    "content": "The official release is still being actively developed, and has supported or will support a series of new features, such as scalable API servicing via distributed request frontends, support for newer versions of vLLM and more models, further improvements of the scheduling policies, etc .",
+    "metadata": {
+      "page": 19,
+      "section": "Difference from the Official Release",
+      "bbox": [
+        319.374,
+        583.658,
+        559.249,
+        640.03
+      ]
+    }
+  },
+  {
+    "id": "2406.03243_paragraph_204",
+    "type": "paragraph",
+    "content": "The artifact is sufficient to reproduce the experiment results in this paper. However, if you want to use Llumnix in production or conduct further research, we do recommend the official release.",
+    "metadata": {
+      "page": 19,
+      "section": "Difference from the Official Release",
+      "bbox": [
+        317.88,
+        525.874,
+        559.655,
+        570.292
+      ]
+    }
+  }
+]

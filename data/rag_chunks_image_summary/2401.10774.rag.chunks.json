@@ -1,0 +1,3099 @@
+[
+  {
+    "id": "2401.10774_paragraph_1",
+    "type": "paragraph",
+    "content": "Large Language Models (LLMs) employ autoregressive decoding that requires sequential computation, with each step reliant on the previous one's output. This creates a bottleneck as each step necessitates moving the full model parameters from High-Bandwidth Memory (HBM) to the accelerator's cache. While methods such as speculative decoding have been suggested to address this issue, their implementation is impeded by the challenges associated with acquiring and maintaining a separate draft model. In this paper, we present MEDUSA, an efficient method that augments LLM inference by adding extra decoding heads to predict multiple subsequent tokens in parallel. Using a tree-based attention mechanism , MEDUSA constructs multiple candidate continuations and verifies them simultaneously in each decoding step. By leveraging parallel processing, MEDUSA substantially reduces the number of decoding steps required. We present two levels of fine-tuning procedures for MEDUSA to meet the needs of different use cases: MEDUSA-1 : MEDUSA is directly fine-tuned on top of a frozen backbone LLM, enabling lossless inference acceleration. MEDUSA-2 : MEDUSA is fine-tuned together with the backbone LLM, enabling better prediction accuracy of MEDUSA heads and higher speedup but needing a special training recipe that preserves the model's capabilities. Moreover, we propose several extensions that improve or expand the utility of MEDUSA, including a self-distillation to handle situations where no training data is available and a typical acceptance scheme to boost the acceptance rate while maintaining generation quality. We evaluate",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        75.007,
+        163.62099999999998,
+        271.173,
+        578.648
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_2",
+    "type": "paragraph",
+    "content": "* Equal contribution 1 Princeton University 2 Together AI 3 University of Illinois Urbana-Champaign 4 Carnegie Mellon University 5 University of Connecticut. Correspondence to: Tianle Cai < tianle.cai@princeton.edu > , Yuhong Li < leeyh@illinois.edu > .",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        55.216,
+        114.93000000000006,
+        290.927,
+        154.37799999999993
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_3",
+    "type": "paragraph",
+    "content": "Proceedings of the 41 st International Conference on Machine Learning , Vienna, Austria. PMLR 235, 2024. Copyright 2024 by the author(s).",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        55.162,
+        75.07899999999995,
+        289.752,
+        104.75700000000006
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_4",
+    "type": "paragraph",
+    "content": "MEDUSA on models of various sizes and training procedures. Our experiments demonstrate that MEDUSA-1 can achieve over 2.2 × speedup without compromising generation quality, while MEDUSA-2 further improves the speedup to 2.32.8 × .",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        327.007,
+        526.989,
+        523.168,
+        595.317
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_5",
+    "type": "paragraph",
+    "content": "The recent advancements in Large Language Models (LLMs) have demonstrated that the quality of language generation significantly improves with an increase in model size, reaching billions of parameters (Brown et al., 2020; Chowdhery et al., 2022; Zhang et al., 2022; Hoffmann et al., 2022; OpenAI, 2023; Google, 2023; Touvron et al., 2023). However, this growth has led to an increase in inference latency , which poses a significant challenge in practical applications. From a system perspective, LLM inference is predominantly memory-bandwidth-bound (Shazeer, 2019; Kim et al., 2023), with the main latency bottleneck stemming from accelerators' memory bandwidth rather than arithmetic computations. This bottleneck is inherent to the sequential nature of auto-regressive decoding, where each forward pass requires transferring the complete model parameters from High-Bandwidth Memory (HBM) to the accelerator's cache. This process, which generates only a single token, underutilizes the arithmetic computation potential of modern accelerators, leading to inefficiency.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.112,
+        254.20100000000002,
+        543.182,
+        477.946
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_6",
+    "type": "paragraph",
+    "content": "To address this, one approach to speed up LLM inference involves increasing the arithmetic intensity (the ratio of total floating-point operations (FLOPs) to total data movement) of the decoding process and reducing the number of decoding steps . In line with this idea, speculative decoding has been proposed (Leviathan et al., 2022; Chen et al., 2023; Xia et al., 2023; Miao et al., 2023). This method uses a smaller draft model to generate a token sequence, which is then refined by the original, larger model for acceptable continuation. However, obtaining an appropriate draft model remains challenging, and it's even harder to integrate the draft model into a distributed system (Chen et al., 2023).",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.082,
+        104.76099999999997,
+        543.098,
+        244.81999999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_7",
+    "type": "paragraph",
+    "content": "Instead of using a separate draft model to sequentially generate candidate outputs, in this paper, we revisit and re-",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.093,
+        95.38
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_8",
+    "type": "paragraph",
+    "content": "fine the concept of using multiple decoding heads on top of the backbone model to expedite inference (Stern et al., 2018). We find that when applied effectively, this technique can overcome the challenges of speculative decoding, allowing for seamless integration into existing LLM systems. Specifically, we introduce MEDUSA, a method that enhances LLM inference by integrating additional decoding heads to concurrently predict multiple tokens. These heads are fine-tuned in a parameter-efficient manner and can be added to any existing model. With no requirement for a draft model, MEDUSA offers easy integration into current LLM systems, including those in distributed environments, ensuring a user-friendly experience.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        55.44,
+        569.449,
+        291.093,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_9",
+    "type": "paragraph",
+    "content": "We further enhance MEDUSA with two key insights. Firstly, the current approach of generating a single candidate continuation at each decoding step leads to inefficient use of computational resources. To address this, we propose generating multiple candidate continuations using the MEDUSA heads and verifying them concurrently through a simple adjustment to the attention mask. Secondly, we can reuse the rejection sampling scheme as used in speculative decoding (Leviathan et al., 2022; Chen et al., 2023) to generate consistent responses with the same distribution as the original model. However, it cannot further enhance the acceleration rate. Alternatively, we introduce a typical acceptance scheme that selects reasonable candidates from the MEDUSA head outputs. We use temperature as a threshold to manage deviation from the original model's predictions, providing an efficient alternative to the rejection sampling method. Our results suggest that the proposed typical acceptance scheme can accelerate the decoding speed further while maintaining a similar generation quality.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.972,
+        336.323,
+        291.098,
+        560.068
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_10",
+    "type": "paragraph",
+    "content": "To equip LLMs with predictive MEDUSA heads, we propose two distinct fine-tuning procedures tailored to various scenarios. For situations with limited computational resources or when the objective is to incorporate MEDUSA into an existing model without affecting its performance, we recommend MEDUSA-1. This method requires minimal memory and can be further optimized with quantization techniques akin to those in QLoRA (Dettmers et al., 2023), without compromising the generation quality due to the fixed backbone model. However, in MEDUSA-1, the full potential of the backbone model is not utilized. We can further fine-tune it to enhance the prediction accuracy of MEDUSA heads, which can directly lead to a greater speedup. Therefore, we introduce MEDUSA-2, which is suitable for scenarios with ample computational resources or for direct Supervised Fine-Tuning (SFT) from a base model. The key to MEDUSA-2 is a training protocol that enables joint training of the MEDUSA heads and the backbone model without compromising the model's next-token prediction capability and output quality. We propose different strategies for obtaining the training datasets depending on the model's training recipe and dataset availability. When the model is fine-tuned on a public dataset, it can be directly used for MEDUSA. If the dataset is unavailable or the model underwent a Reinforcement Learning with Human Feedback (RLHF) (Ouyang et al., 2022) process, we suggest a selfdistillation approach to generate a training dataset for the MEDUSA heads.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        55.082,
+        79.28700000000003,
+        291.098,
+        326.942
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_11",
+    "type": "paragraph",
+    "content": "Our experiments primarily focus on scenarios with a batch size of one, which is representative of the use case where LLMs are locally hosted for personal use. We test MEDUSA on models of varying sizes and training settings, including Vicuna-7B, 13B (trained with a public dataset), Vicuna33B (Chiang et al., 2023) (trained with a private dataset 1 ), and Zephyr-7B (trained with both supervised fine-tuning and alignment). MEDUSA can achieve a speedup of 2.3 to 2.8 times across different prompt types without compromising on the quality of generation.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        307.082,
+        515.65,
+        543.091,
+        631.799
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_1",
+    "type": "figure",
+    "content": "Figure 1. MEDUSA introduces multiple heads on top of the last hidden states of the LLM, enabling the prediction of several subsequent tokens in parallel (Section 2.1.1). During inference, each head generates multiple top predictions for its designated position. These predictions are assembled into candidates, which are processed in parallel using a tree-based attention mechanism (Section 2.1.2). The final step is to verify the candidates and accept a continuation. Besides the standard rejection sampling scheme, a typical acceptance scheme (Section 2.3.1) can also be used here to select reasonable continuations, and the longest accepted candidate prefix will be used for the next decoding phase.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        313.5792541503906,
+        325.5155944824219,
+        534.2679443359375,
+        506.5386047363281
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_1.png",
+      "image_summary": "The figure illustrates the architecture and flow of a Medusa-enhanced language model based on a transformer. It is organized into five main components from left to right:\n\n1. **Input (bottom left)**: A text input query \"What will happen if Medusa meets a llama?\" is provided to the model.\n\n2. **Original Model (blue box)**: This component contains three sub-blocks stacked vertically representing the core of a transformer-based language model:\n   - Embedding layer processes the input tokens.\n   - Transformer Layers operate on the embeddings to produce contextualized representations.\n   - LM Head takes the last hidden representation generated by the transformer layers to output predictions.\n   This block is annotated with a snowflake and flame emoji to presumably denote cold and hot states or modes.\n\n3. **Medusa Heads (red box)**: Three \"Medusa Head\" modules that each receive the last hidden layer output from the original transformer's layers. Each Medusa Head then produces its own prediction, reflecting a form of ensemble or multi-headed prediction mechanism.\n\n4. **Top-k Predictions (purple box)**: Each Medusa Head and the original LM head produce a separate list of top-3 token predictions:\n   - Medusa Head 1 predicts: \"It,\" \"I,\" \"As\"\n   - Medusa Head 2 predicts: \"is,\" \"'\", \"the\"\n   - Medusa Head 3 predicts: \"difficult,\" \"is,\" \"'\"\n   - Original LM Head predicts: \"not,\" \"difficult,\" \"a\"\n\n5. **Candidates and Single Step Prediction (bottom center and right)**: \n   - The candidates box lists several possible next-token predictions with correctness marked:\n     - \"It is **difficult** not\" is marked correct with a green check.\n     - \"It' difficult a\" and \"It is' not\" are marked incorrect with red crosses.\n   - The resulting selected phrase as a single step prediction is \"It is difficult,\" rendered in italic.\n\n**Key Takeaways:**\n- The figure demonstrates the integration of multiple Medusa heads, each generating different candidate tokens based on the same last hidden state from transformer layers.\n- These diverse predictions form a candidate pool for the final next-token prediction, which is then chosen correctly here.\n- The system design suggests enhancing the original transformer-based LM with multiple specialized Medusa heads to improve prediction accuracy and robustness.\n- The use of both cold/hot emojis and various color-coded boxes helps visually differentiate components and prediction pathways."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_12",
+    "type": "paragraph",
+    "content": "MEDUSA follows the same framework as speculative decoding, where each decoding step primarily consists of three substeps: (1) generating candidates, (2) processing candidates, and (3) accepting candidates. For MEDUSA, (1) is",
+    "metadata": {
+      "page": 2,
+      "section": "Methodology",
+      "bbox": [
+        307.44,
+        103.84500000000003,
+        543.093,
+        148.26199999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_13",
+    "type": "paragraph",
+    "content": "1 Upon contacting the authors, this version is experimental and used some different data than Vicuna 7B and 13B.",
+    "metadata": {
+      "page": 2,
+      "section": "Methodology",
+      "bbox": [
+        307.44,
+        75.07899999999995,
+        541.44,
+        94.60199999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_14",
+    "type": "paragraph",
+    "content": "achieved by MEDUSA heads, (2) is realized by tree attention, and since MEDUSA heads are on top of the original model, the logits calculated in (2) can be used for substep (1) for the next decoding step. The final step (3) can be realized by either rejection sampling (Leviathan et al., 2022; Chen et al., 2023) or typical acceptance (Section 2.3.1). The overall pipeline is illustrated in Figure 1.",
+    "metadata": {
+      "page": 3,
+      "section": "Methodology",
+      "bbox": [
+        55.44,
+        641.18,
+        290.688,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_15",
+    "type": "paragraph",
+    "content": "In this section, we first introduce the key components of MEDUSA, including MEDUSA heads, and tree attention. Then, we present two levels of fine-tuning procedures for MEDUSA to meet the needs of different use cases. Finally, we propose two extensions to MEDUSA, including self-distillation and typical acceptance, to handle situations where no training data is available for MEDUSA and to improve the efficiency of the decoding process, respectively.",
+    "metadata": {
+      "page": 3,
+      "section": "Methodology",
+      "bbox": [
+        55.082,
+        539.561,
+        291.186,
+        631.799
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_16",
+    "type": "paragraph",
+    "content": "In speculative decoding, subsequent tokens are predicted by an auxiliary draft model. This draft model must be small yet effective enough to generate continuations that the original model will accept. Fulfilling these requirements is a challenging task, and existing approaches (Spector & Re, 2023; Miao et al., 2023) often resort to separately pre-training a smaller model. This pre-training process demands substantial additional computational resources. For example, in (Miao et al., 2023), a reported 275 NVIDIA A100 GPU hours were used. Additionally, separate pre-training can potentially create a distribution shift between the draft model and the original model, leading to continuations that the original model may not favor. Chen et al. (2023) have also highlighted the complexities of serving multiple models in a distributed environment.",
+    "metadata": {
+      "page": 3,
+      "section": "MEDUSA HEADS",
+      "bbox": [
+        55.44,
+        309.75,
+        291.093,
+        485.675
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_17",
+    "type": "paragraph",
+    "content": "To streamline and democratize the acceleration of LLM inference, we take inspiration from Stern et al. (2018), which utilizes parallel decoding for tasks such as machine translation and image super-resolution. MEDUSA heads are additional decoding heads appended to the last hidden states of the original model. Specifically, given the original model's last hidden states h t at position t , we add K decoding heads to h t . The k -th head is used to predict the token in the ( t + k +1) -th position of the next tokens (the original language model head is used to predict the ( t +1) -th position). The prediction of the k -th head is denoted as p ( k ) t , representing a distribution over the vocabulary, while the prediction of the original model is denoted as p (0) t . Following the approach of Stern et al. (2018), we utilize a single layer of feed-forward network with a residual connection for each head. We find that this simple design is sufficient to achieve satisfactory performance. The definition of the k -th head is outlined as:",
+    "metadata": {
+      "page": 3,
+      "section": "MEDUSA HEADS",
+      "bbox": [
+        54.275,
+        85.03899999999999,
+        291.188,
+        300.37
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_equation_1",
+    "type": "equation",
+    "content": "p ( k ) t = softmax ( W ( k ) 2 · ( SiLU ( W ( k ) 1 · h t ) + h t )) , where W ( k ) 2 ∈ R d × V , W ( k ) 1 ∈ R d × d .",
+    "metadata": {
+      "page": 3,
+      "section": "MEDUSA HEADS",
+      "bbox": [
+        319.613,
+        667.577,
+        529.268,
+        703.888
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_18",
+    "type": "paragraph",
+    "content": "d is the output dimension of the LLM's last hidden layer and V is the vocabulary size. We initialize W ( k ) 2 identically to the original language model head, and W ( k ) 1 to zero. This aligns the initial prediction of MEDUSA heads with that of the original model. The SiLU activation function (Elfwing et al., 2017) is employed following the Llama models (Touvron et al., 2023).",
+    "metadata": {
+      "page": 3,
+      "section": "MEDUSA HEADS",
+      "bbox": [
+        307.191,
+        565.537,
+        543.097,
+        649.845
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_19",
+    "type": "paragraph",
+    "content": "Unlike a draft model, MEDUSA heads are trained in conjunction with the original backbone model, which can remain frozen during training (MEDUSA-1) or be trained together (MEDUSA-2). This method allows for fine-tuning large models even on a single GPU, taking advantage of the powerful base model's learned representations. Furthermore, it ensures that the distribution of the MEDUSA heads aligns with that of the original model, thereby mitigating the distribution shift problem. Additionally, since the new heads consist of just a single layer akin to the original language model head, MEDUSA does not add complexity to the serving system design and is friendly to distributed settings. We will discuss the training recipe for MEDUSA heads in Section 2.2.",
+    "metadata": {
+      "page": 3,
+      "section": "MEDUSA HEADS",
+      "bbox": [
+        307.112,
+        404.143,
+        543.094,
+        556.157
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_20",
+    "type": "paragraph",
+    "content": "Through MEDUSA heads, we obtain probability predictions for the subsequent K +1 tokens. These predictions enable us to create lengthK +1 continuations as candidates. While the speculative decoding studies (Leviathan et al., 2022; Chen et al., 2023) suggest sampling a single continuation as the candidate, leveraging multiple candidates during decoding can enhance the expected acceptance length within a decoding step. Nevertheless, more candidates can also raise computational demands. To strike a balance, we employ a tree-structured attention mechanism to process multiple candidates concurrently. This attention mechanism diverges from the traditional causal attention paradigm. Within this framework, only tokens from the same continuation are regarded as historical data. Drawing inspiration from the concept of embedding graph structures into attention as proposed in the graph neural network domain (Ying et al., 2021), we incorporate the tree structure into our attention mask, visualized in Figure 2. Remarkably, similar ideas have also been explored in independent works like Miao et al. (2023); Spector & Re (2023), where they follow a bottom-up approach and construct the tree by merging multiple candidates generated by a draft model. In our method, we instead take a top-down approach to build the tree thanks to the structure of candidates generated by MEDUSA heads. For a given k -th head, its tops k predictions serve as the",
+    "metadata": {
+      "page": 3,
+      "section": "TREE ATTENTION",
+      "bbox": [
+        307.082,
+        74.11400000000003,
+        543.184,
+        370.349
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_2",
+    "type": "figure",
+    "content": "Figure 2. We demonstrates the use of tree attention to process multiple candidates concurrently. As exemplified, the top-2 predictions from the first MEDUSA head and the top-3 from the second result in a total of 2 × 3 = 6 candidates. Each of these candidates corresponds to a distinct branch within the tree structure. To guarantee that each token only accesses its predecessors, we devise an attention mask that exclusively permits attention flow from the current token back to its antecedent tokens. The positional indices for positional encoding are adjusted in line with this structure.",
+    "metadata": {
+      "page": 4,
+      "section": "TREE ATTENTION",
+      "bbox": [
+        60.75872039794922,
+        580.7115478515625,
+        282.39080810546875,
+        722.9654235839844
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_2.png",
+      "image_summary": "The figure illustrates a schematic representation of a tree mask mechanism used in a multi-head attention model, commonly seen in transformer architectures. \n\nOn the left side, there are two heads depicted: Head 1 and Head 2. Head 1 contains the tokens \"It\" and \"I,\" which are colored in a light red background and labeled as the \"Query.\" Head 2 (appearing twice in two sections, orange and light green) contains the tokens \"is,\" \"'\", and \"the,\" each set representing keys. There is also a \"Root\" node from which these tokens are derived, suggesting a hierarchical structure.\n\nThe right side shows a matrix with tokens arranged both along the horizontal (Key) and vertical (Query) axes. The keys are grouped into three blocks colored in correspondence with the heads on the left: red for \"It\" and \"I,\" orange for \"is\", \"'\", \"the,\" and green for the same tokens as orange. Checkmarks (✓) fill certain intersections in this matrix, indicating valid attentions or mask permissions where queries attend to keys.\n\nKey observations include:\n- Queries from Head 1 (\"It\" and \"I\") attend only to tokens in the red key group (\"It,\" \"I\").\n- Queries from Head 2 attend to tokens in the orange and green key groups. Specifically:\n  - The first set of Head 2 queries attend to the orange key tokens \"is,\" \"'\", \"the.\"\n  - The second set of Head 2 queries attend to the green key tokens \"is,\" \"'\", \"the.\"\n- All queries attend to \"It\" (first column of keys) as shown by a full column of check marks in that row, which may indicate a root or foundational token that all queries consider.\n- The structure enforces a hierarchical or tree-like masking where attention is limited within certain token groups, supporting structured information flow.\n\nThe main takeaway is that this tree mask enforces structured, selective attention in the transformer layers, allowing tokens to attend only to certain grouped keys, promoting a controlled flow of information that adheres to the hierarchical input representation. This selective attention based on a tree structure likely enhances interpretability or efficiency in tasks requiring hierarchical understanding."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_21",
+    "type": "paragraph",
+    "content": "basis for candidate formation, where s k is a designated hyperparameter. These candidates are established by determining the Cartesian product of the tops k predictions from each head. For instance, in Figure 2, with s 1 = 2 and s 2 = 3 , each first head prediction can be succeeded by any prediction from the second head. This leads to a tree structure where s k branches exist at the k -th level (considering a virtual root as the 0 -level, in practice, this 0 -level is for the prediction of the language model head of the original model, which can be sampled independently). Within this tree, only a token's predecessors are seen as historical context, and our attention mask ensures that the attention is only applied on a token's predecessors. By employing this mask and properly setting the positional indices for positional encoding, we can process numerous candidates simultaneously without the need to expand the batch size. The cumulative number of new tokens is calculated as ∑ K k =1 ∏ k i =1 s i .",
+    "metadata": {
+      "page": 4,
+      "section": "TREE ATTENTION",
+      "bbox": [
+        55.082,
+        241.93399999999997,
+        291.096,
+        445.391
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_22",
+    "type": "paragraph",
+    "content": "In this section, we demonstrate the most simple and regular way to construct the tree structure by taking the Cartesian product. However, it is possible to construct the tree structure in a more sophisticated way and exploit the unbalanced accuracy of different top predictions of different heads. We will discuss this in Section 2.3.3.",
+    "metadata": {
+      "page": 4,
+      "section": "TREE ATTENTION",
+      "bbox": [
+        55.082,
+        166.47900000000004,
+        291.091,
+        234.80700000000002
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_23",
+    "type": "paragraph",
+    "content": "At the most basic level, we can train MEDUSA heads by freezing the backbone model and fine-tuning MEDUSA heads. However, training the backbone in conjunction with the MEDUSA heads can significantly enhance the accuracy of the MEDUSA heads. Depending on the computational resources and the specific reqirements of the use case, we propose two levels of training strategies for MEDUSA heads.",
+    "metadata": {
+      "page": 4,
+      "section": "Training Strategies",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        289.793,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_24",
+    "type": "paragraph",
+    "content": "In this section, we assume the availability of a training dataset that aligns with the target model's output distribution. This could be the dataset used for Supervised Fine-Tuning (SFT) of the target model. We will discuss eliminating the need for such a dataset using a self-distillation approach in Section 2.3.2.",
+    "metadata": {
+      "page": 4,
+      "section": "Training Strategies",
+      "bbox": [
+        307.112,
+        623.247,
+        543.186,
+        691.575
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_25",
+    "type": "paragraph",
+    "content": "To train MEDUSA heads with a frozen backbone model, we can use the cross-entropy loss between the prediction of MEDUSA heads and the ground truth. Specifically, given the ground truth token y t + k +1 at position t + k + 1 , the loss for the k -th head is L k = -log p ( k ) t ( y t + k +1 ) where p ( k ) t ( y ) denotes the probability of token y predicted by the k -th head. We also observe that L k is larger when k is larger, which is reasonable since the prediction of the k -th head is more uncertain when k is larger. Therefore, we can add a weight λ k to L k to balance the loss of different heads. And the total MEDUSA loss is:",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-1: FROZEN BACKBONE",
+      "bbox": [
+        307.082,
+        457.642,
+        542.69,
+        589.454
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_equation_2",
+    "type": "equation",
+    "content": "L MEDUSA-1 = K ∑ k =1 -λ k log p ( k ) t ( y t + k +1 ) . (1)",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-1: FROZEN BACKBONE",
+      "bbox": [
+        344.548,
+        417.696,
+        542.107,
+        448.226
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_26",
+    "type": "paragraph",
+    "content": "In practice, we set λ k as the k -th power of a constant like 0 . 8 . Since we only use the backbone model for providing the hidden states, we can use a quantized version of the backbone model to reduce the memory consumption. This introduces a more democratized way to accelerate LLM inference, as with the quantization, MEDUSA can be trained for a large model on a single consumer GPU similar to QLoRA (Dettmers et al., 2023). The training only takes a few hours (e.g., 5 hours for MEDUSA-1 on Vicuna 7B model with a single NVIDIA A100 PCIE GPU to train on 60k ShareGPT samples).",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-1: FROZEN BACKBONE",
+      "bbox": [
+        307.44,
+        273.158,
+        541.444,
+        401.58
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_27",
+    "type": "paragraph",
+    "content": "To further improve the accuracy of MEDUSA heads, we can train MEDUSA heads together with the backbone model. However, this requires a special training recipe to preserve the backbone model's next-token prediction capability and output quality. To achieve this, we propose three strategies:",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        307.131,
+        182.99199999999996,
+        543.179,
+        239.365
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_28",
+    "type": "paragraph",
+    "content": "Combined loss : To keep the backbone model's next-token prediction capability, we need to add the cross-entropy loss of the backbone model L =",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        318.897,
+        133.65999999999997,
+        541.442,
+        166.51
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_29",
+    "type": "paragraph",
+    "content": "-log p t ( y t +1 ) to the MEDUSA loss. We also add a weight λ 0 to balance the loss of the backbone model and the MEDUSA heads. Therefore, the total loss is:",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        327.366,
+        96.19100000000003,
+        541.442,
+        128.971
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_30",
+    "type": "paragraph",
+    "content": "LM (0)",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        356.316,
+        126.01099999999997,
+        526.998,
+        138.77099999999996
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_equation_3",
+    "type": "equation",
+    "content": "L MEDUSA-2 = L LM + λ 0 L MEDUSA-1 . (2)",
+    "metadata": {
+      "page": 4,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        366.192,
+        73.99900000000002,
+        542.107,
+        83.74299999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_31",
+    "type": "paragraph",
+    "content": "Differential learning rates : Since the backbone model is already well-trained and the MEDUSA heads need more training, we can use separate learning rates for them to enable faster convergence of MEDUSA heads while preserving the backbone model's capability.",
+    "metadata": {
+      "page": 5,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        66.897,
+        665.09,
+        289.608,
+        721.851
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_32",
+    "type": "paragraph",
+    "content": "Heads warmup : Noticing that at the beginning of training, the MEDUSA heads have a large loss, which leads to a large gradient and may distort the backbone model's parameters. Following the idea from Kumar et al. (2022), we can employ a two-stage training process. In the first stage, we only train the MEDUSA heads as MEDUSA-1. In the second stage, we train the backbone model and MEDUSA heads together with a warmup strategy. Specifically, we first train the backbone model for a few epochs, then train the MEDUSA heads together with the backbone model. Besides this simple strategy, we can also use a more sophisticated warmup strategy by gradually increasing the weight λ 0 of the backbone model's loss. We find both strategies work well in practice.",
+    "metadata": {
+      "page": 5,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        66.897,
+        478.704,
+        291.095,
+        655.017
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_33",
+    "type": "paragraph",
+    "content": "Putting these strategies together, we can train MEDUSA heads together with the backbone model without hurting the backbone model's capability. Moreover, this recipe can be applied together with Supervised Fine-Tuning (SFT), enabling us to get a model with native MEDUSA support.",
+    "metadata": {
+      "page": 5,
+      "section": "MEDUSA-2: JOINT TRAINING",
+      "bbox": [
+        55.44,
+        406.805,
+        290.687,
+        463.177
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_34",
+    "type": "paragraph",
+    "content": "Empirically, we found that five heads are sufficient at most. Therefore, we recommend training with five heads and referring to the strategy described in Section 2.3.3 to determine the optimal configuration of the tree attention. With optimized tree attention, sometimes three or four heads may be enough for inference. In this case, we can ignore the redundant heads without overhead.",
+    "metadata": {
+      "page": 5,
+      "section": "HOW TO SELECT THE NUMBER OF HEADS",
+      "bbox": [
+        55.131,
+        292.728,
+        291.183,
+        373.011
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_35",
+    "type": "paragraph",
+    "content": "In speculative decoding papers (Leviathan et al., 2022; Chen et al., 2023), authors employ rejection sampling to yield diverse outputs that align with the distribution of the original model. However, subsequent implementations (Joao Gante, 2023; Spector & Re, 2023) reveal that this sampling strategy results in diminished efficiency as the sampling temperature increases. Intuitively, this can be comprehended in the extreme instance where the draft model is the same as the original one: Using greedy decoding, all output of the draft model will be accepted, therefore maximizing the efficiency. Conversely, rejection sampling introduces extra overhead, as the draft model and the original model are sampled independently. Even if their distributions align perfectly, the output of the draft model may still be rejected.",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        55.191,
+        74.87300000000005,
+        291.186,
+        238.84199999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_36",
+    "type": "paragraph",
+    "content": "However, in real-world scenarios, sampling from language models is often employed to generate diverse responses, and the temperature parameter is used merely to modulate the 'creativity' of the response. Therefore, higher temperatures should result in more opportunities for the original model to accept the draft model's output. We ascertain that it is typically unnecessary to match the distribution of the original model. Thus, we propose employing a typical acceptance scheme to select plausible candidates rather than using rejection sampling. This approach draws inspiration from truncation sampling studies (Hewitt et al., 2022) (refer to Appendix A for an in-depth explanation). Our objective is to choose candidates that are typical , meaning they are not exceedingly improbable to be produced by the original model. We use the prediction probability from the original model as a natural gauge for this and establish a threshold based on the prediction distribution to determine acceptance. Specifically, given x 1 , x 2 , · · · , x n as context, when evaluating the candidate sequence ( x n +1 , x n +2 , · · · , x n + K +1 ) (composed by top predictions of the original language model head and MEDUSA heads), we consider the condition",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        307.112,
+        473.807,
+        543.186,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_equation_4",
+    "type": "equation",
+    "content": "p original ( x n + k | x 1 , x 2 , · · · , x n + k -1 ) > min( ϵ, δ exp( -H ( p original ( ·| x 1 , x 2 , · · · , x n + k -1 )))) ,",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        316.703,
+        427.389,
+        532.178,
+        452.077
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_37",
+    "type": "paragraph",
+    "content": "where H ( · ) denotes the entropy function, and ϵ, δ are the hard threshold and the entropy-dependent threshold respectively. This criterion is adapted from Hewitt et al. (2022) and rests on two observations: (1) tokens with relatively high probability are meaningful, and (2) when the distribution's entropy is high, various continuations may be deemed reasonable. During decoding, every candidate is evaluated using this criterion, and a prefix of the candidate is accepted if it satisfies the condition. To guarantee the generation of at least one token at each step, we apply greedy decoding for the first token and unconditionally accept it while employing typical acceptance for subsequent tokens. The final prediction for the current step is determined by the longest accepted prefix among all candidates.",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        307.082,
+        242.24599999999998,
+        543.098,
+        406.533
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_38",
+    "type": "paragraph",
+    "content": "Examining this scheme leads to several insights. Firstly, when the temperature is set to 0 , it reverts to greedy decoding, as only the most probable token possesses non-zero probability. As the temperature surpasses 0 , the outcome of greedy decoding will consistently be accepted with appropriate ϵ, δ , since those tokens have the maximum probability, yielding maximal speedup. Likewise, in general scenarios, an increased temperature will correspondingly result in longer accepted sequences, as corroborated by our experimental findings.",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        307.082,
+        116.71600000000001,
+        543.097,
+        232.865
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_39",
+    "type": "paragraph",
+    "content": "Empirically, we verify that typical acceptance can achieve a better speedup while maintaining a similar generation quality as shown in Figure 5.",
+    "metadata": {
+      "page": 5,
+      "section": "TYPICAL ACCEPTANCE",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.437,
+        107.33600000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_40",
+    "type": "paragraph",
+    "content": "In Section 2.2, we assume the existence of a training dataset that matches the target model's output distribution. However, this is not always the case. For example, the model owners may only release the model without the training data, or the model may have gone through a Reinforcement Learning with Human Feedback (RLHF) procedure, which makes the output distribution of the model different from the training dataset. To tackle this issue, we propose an automated selfdistillation pipeline to use the model itself to generate the training dataset for MEDUSA heads, which matches the output distribution of the model.",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        55.082,
+        574.707,
+        291.099,
+        702.81
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_41",
+    "type": "paragraph",
+    "content": "The dataset generation process is straightforward. We first take a public seed dataset from a domain similar to the target model; for example, using the ShareGPT (ShareGPT, 2023) dataset for chat models. Then, we simply take the prompts from the dataset and ask the model to reply to the prompts. In order to obtain multi-turn conversation samples, we can sequentially feed the prompts from the seed dataset to the model. Or, for models like Zephyr 7B (Tunstall et al., 2023), which are trained on both roles of the conversation, they have the ability to self-talk, and we can simply feed the first prompt and let the model generate multiple rounds of conversation.",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        55.082,
+        425.267,
+        291.182,
+        565.326
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_42",
+    "type": "paragraph",
+    "content": "For MEDUSA-1, this dataset is sufficient for training MEDUSA heads. However, for MEDUSA-2, we observe that solely using this dataset for training the backbone and MEDUSA heads usually leads to a lower generation quality. In fact, even without training MEDUSA heads, training the backbone model with this dataset will lead to performance degradation. This suggests that we also need to use the original model's probability prediction instead of using the ground truth token as the label for the backbone model, similar to classic knowledge distillation works (Kim & Rush, 2016). Concretely, the loss for the backbone model is:",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        55.44,
+        287.783,
+        291.187,
+        415.886
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_equation_5",
+    "type": "equation",
+    "content": "L LM-distill = KL ( p (0) original ,t || p (0) t ) ,",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        107.628,
+        260.86300000000006,
+        237.253,
+        275.16499999999996
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_43",
+    "type": "paragraph",
+    "content": "where p (0) original ,t denotes the probability distribution of the original model's prediction at position t .",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        55.082,
+        224.313,
+        289.437,
+        248.27199999999993
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_44",
+    "type": "paragraph",
+    "content": "However, naively, to obtain the original model's probability prediction, we need to maintain two models during training, increasing the memory requirements. To further alleviate this issue, we propose a simple yet effective way to exploit the self-distillation setup. We can use a parameter-efficient adapter like LoRA (Hu et al., 2021) for fine-tuning the backbone model. In this way, the original model is simply the model with the adapter turned off. Therefore, the distillation does not require additional memory consumption. Together, this self-distillation pipeline can be used to train MEDUSA-2 without hurting the backbone model's capability and introduce almost no additional memory consumption. Lastly, one tip about using self-distillation is that it is preferable to use LoRA without quantization in this case, otherwise, the teacher model will be the quantized model, which may lead to a lower generation quality.",
+    "metadata": {
+      "page": 6,
+      "section": "SELF-DISTILLATION",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        291.098,
+        214.93200000000002
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_45",
+    "type": "paragraph",
+    "content": "In Section 2.1.2, we present the simplest way to construct the tree structure by taking the Cartesian product. However, with a fixed budget for the number of total nodes in the tree, a regular tree structure may not be the best choice. Intuitively, those candidates composed of the top predictions of different heads may have different accuracies. Therefore, we can leverage an estimation of the accuracy to construct the tree structure.",
+    "metadata": {
+      "page": 6,
+      "section": "SEARCHING FOR THE OPTIMIZED TREE CONSTRUCTION",
+      "bbox": [
+        307.082,
+        539.059,
+        543.185,
+        631.297
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_46",
+    "type": "paragraph",
+    "content": "Specifically, we can use a calibration dataset and calculate the accuracies of the top predictions of different heads. Let a ( i ) k denote the accuracy of the i -th top prediction of the k -th head 2 . Assuming the accuracies are independent, we can estimate the accuracy of a candidate sequence composed by the top [ i 1 , i 2 , · · · , i k ] predictions of different heads as ∏ k j =1 a ( i j ) j . Let I denote the set of all possible combinations of [ i 1 , i 2 , · · · , i k ] and each element of I can be mapped to a node of the tree (not only leaf nodes but all nodes are included). Then, the expectation of the acceptance length of a candidate sequence is:",
+    "metadata": {
+      "page": 6,
+      "section": "SEARCHING FOR THE OPTIMIZED TREE CONSTRUCTION",
+      "bbox": [
+        307.44,
+        397.812,
+        541.442,
+        529.678
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_47",
+    "type": "paragraph",
+    "content": "Thinking about building a tree by adding nodes one by one, the contribution of a new node to the expectation is exactly the accuracy associated with the node. Therefore, we can greedily add nodes to the tree by choosing the node that is connected to the current tree and has the highest accuracy. This process can be repeated until the total number of nodes reaches the desired number. In this way, we can construct a tree that maximizes the expectation of the acceptance length. Further details can be found in Appendix C.",
+    "metadata": {
+      "page": 6,
+      "section": "SEARCHING FOR THE OPTIMIZED TREE CONSTRUCTION",
+      "bbox": [
+        307.131,
+        235.46900000000005,
+        543.186,
+        339.662
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_48",
+    "type": "paragraph",
+    "content": "In this section, we present experiments to demonstrate the effectiveness of MEDUSA under different settings. First, we evaluate MEDUSA on the Vicuna-7B and 13B models (Chiang et al., 2023) to show the performance of MEDUSA-1 and MEDUSA-2. Then, we assess our method using the Vicuna-33B and Zephyr-7B models to demonstrate selfdistillation's viability in scenarios where direct access to the fine-tuning recipe is unavailable, as with Vicuna-33B,",
+    "metadata": {
+      "page": 6,
+      "section": "Experiments",
+      "bbox": [
+        307.082,
+        103.84500000000003,
+        543.091,
+        196.08299999999997
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_49",
+    "type": "paragraph",
+    "content": "2 Here, the accuracy is defined for the single top i -th token, i.e., this accuracy is equal to topi accuracy minus top-( i -1) accuracy.",
+    "metadata": {
+      "page": 6,
+      "section": "Experiments",
+      "bbox": [
+        307.44,
+        75.07899999999995,
+        542.564,
+        94.60199999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_50",
+    "type": "paragraph",
+    "content": "Speedup on different categories for Vicuna-7B",
+    "metadata": {
+      "page": 7,
+      "section": "Experiments",
+      "bbox": [
+        337.705,
+        715.88,
+        499.758,
+        724.027
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_3",
+    "type": "figure",
+    "content": "Figure 3. Left: Speed comparison of baseline, MEDUSA-1 and MEDUSA-2 on Vicuna-7B/13B. MEDUSA-1 achieves more than 2 × wall-time speedup compared to the baseline implementation while MEDUSA-2 further improves the speedup by a significant margin. Right: Detailed speedup performance of Vicuna-7B with MEDUSA-2 on 8 categories from MT-Bench.",
+    "metadata": {
+      "page": 7,
+      "section": "Experiments",
+      "bbox": [
+        78.39065551757812,
+        563.4780883789062,
+        517.8406372070312,
+        712.8955078125
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_4.png",
+      "image_summary": "The figure consists of two subplots (a) and (b), each presenting data on speedup performance related to models and tasks.\n\n(a) The left subplot is a grouped bar chart titled \"Speedup on different model sizes.\" The x-axis represents two model sizes labeled \"7B\" and \"13B.\" The y-axis is labeled \"Tokens per Second\" and ranges from 0 to approximately 130, increasing in increments of 20. Three bars correspond to each model size, distinguished by color: blue for \"w/o Medusa,\" orange for \"Medusa-1,\" and green for \"Medusa-2.\" For the 7B model, the blue bar (w/o Medusa) shows about 45 tokens/sec, the orange bar (Medusa-1) reaches about 98 tokens/sec, and the green bar (Medusa-2) reaches approximately 128 tokens/sec, showing speedup factors of 2.18x and 2.83x over the baseline respectively. For the 13B model, the blue bar is around 35 tokens/sec, orange is near 80 tokens/sec labeled with speedup 2.33x, and green is near 98 tokens/sec labeled 2.83x. Key trends here show that both Medusa-1 and Medusa-2 significantly increase the token processing rate compared to no Medusa, with Medusa-2 providing the highest speedup consistently across model sizes. Speedups are slightly higher with the 7B model compared to the 13B model in raw tokens per second, but relative speedups remain roughly similar.\n\n(b) The right subplot is a vertical bar plot labeled \"Speedup\" on the y-axis, ranging from 1.0 to 3.5 with tick increments of about 0.5. The x-axis shows eight categories of tasks: Humanities, Reasoning, Roleplay, Writing, Stem, Math, Coding, and Extraction. Each bar represents a speedup factor for that task. Speedup values labeled on top range from 2.58x for Humanities and Reasoning, increasing incrementally across tasks to a maximum of 3.62x for Extraction. Notable increases are observed particularly in Coding (3.29x) and Extraction (3.62x), which have the highest speedups, while Humanities and Reasoning tasks have the lowest speedups around 2.58x. This indicates that optimization or method applied yields varying speedup benefits depending on task type, with computational extraction benefiting the most.\n\nThe main takeaway from these two plots is that the Medusa implementation (particularly Medusa-2) provides substantial speedups in token generation across different model sizes, roughly doubling or more the throughput. Furthermore, speedup effectiveness varies across different tasks, with extraction and coding workloads experiencing the greatest relative gains. This suggests both model-size independent and task-dependent advantages in applying the Medusa technique."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_51",
+    "type": "paragraph",
+    "content": "and in models like Zephyr-7B that employ Reinforcement Learning from Human Feedback (RLHF). The evaluation is conducted on MT-Bench (Zheng et al., 2023), a multi-turn, conversational-format benchmark. Detailed settings can be found in Appendix B.",
+    "metadata": {
+      "page": 7,
+      "section": "Experiments",
+      "bbox": [
+        55.44,
+        438.227,
+        290.688,
+        494.6
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_52",
+    "type": "paragraph",
+    "content": "Experimental Setup. We use the Vicuna model class (Chiang et al., 2023), which encompasses chat models of varying sizes (7B, 13B, 33B) that are fine-tuned from the Llama model (Touvron et al., 2023). Among them, the 7B and 13B models are trained on the ShareGPT (ShareGPT, 2023) dataset, while the 33B model is an experimental model and is trained on a private dataset. In this section, we use the ShareGPT dataset to train the MEDUSA heads on the 7B and 13B models for 2 epochs. We use the v1.5 version of Vicuna models, which are fine-tuned from Llama-2 models with sequence length 4096.",
+    "metadata": {
+      "page": 7,
+      "section": "Case Study: MEDUSA-1 v.s. MEDUSA-2 on Vicuna 7B and 13B",
+      "bbox": [
+        54.693,
+        262.93399999999997,
+        291.094,
+        391.426
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_53",
+    "type": "paragraph",
+    "content": "Results. We collect the results and show them in Fig. 3. The baseline is the default Huggingface implementation. In Fig. 3a, we can see that for the 7B models, MEDUSA1 and MEDUSA-2 configurations lead to a significant increase in speed, measuring in tokens processed per second. MEDUSA-1 shows a 2.18 × speedup, while MEDUSA-2 further improves this to a 2.83 × . When applied to the larger 13B model, MEDUSA-1 results in a 2.33 × speed increase, while MEDUSA-2 maintains a similar performance gain of 2.83 × over the baseline. We also plot the speedup per category for MEDUSA-2 Vicuna-7B model. We observe that the coding category benefits from a 3.29 × speedup, suggesting that MEDUSA is particularly effective for tasks in this domain. This points to a significant potential for optimizing coding LLMs, which are widely used in software develop- ment and other programming-related tasks. The 'Extraction' category shows the highest speedup at 3.62 × , indicating that this task is highly optimized by the MEDUSA. Overall, the results suggest that the MEDUSA significantly enhances inference speed across different model sizes and tasks.",
+    "metadata": {
+      "page": 7,
+      "section": "Case Study: MEDUSA-1 v.s. MEDUSA-2 on Vicuna 7B and 13B",
+      "bbox": [
+        54.693,
+        77.62900000000002,
+        291.187,
+        253.942
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_54",
+    "type": "paragraph",
+    "content": "Experimental Setup. In this case study, we focus on the cases where self-distillation is needed. We use the Vicuna-33B model (Chiang et al., 2023) and the Zephyr7B model (Tunstall et al., 2023) as examples. Following the procedure described in Section 2.3.2, we first generate the datasets with some seed prompts. We use ShareGPT (ShareGPT, 2023) and UltraChat (Ding et al., 2023) as the seed datasets and collect a dataset at about 100 k samples for both cases. Interestingly, we find that the Zephyr model can continue to generate multiple rounds of conversation with a single prompt, which makes it easy to collect a large dataset. For Vicuna-33B, we generate the multi-turn conversations by iteratively feeding the prompts from each multi-turn seed conversation using random sampling with temperature 0.3. Both models are trained with sequence length 2048 and batch size 128 .",
+    "metadata": {
+      "page": 7,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        306.942,
+        203.159,
+        543.098,
+        391.426
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_55",
+    "type": "paragraph",
+    "content": "Results. Table 1 complements these findings by comparing various MEDUSA-2 models in terms of their acceleration rate, overhead, and quality on MT-Bench with GPT-4 acting as the evaluator to assign performance scores ranging from 0 to 10. We report the quality differences of MEDUSA compared to the original model. Notably, while the MEDUSA-2 Vicuna-33B model shows a lower acceleration rate, it maintains a comparable quality. We hypothesize that this is due to a mismatch between the hidden training dataset and the dataset we used for self-distillation. Hence, the model's gen-",
+    "metadata": {
+      "page": 7,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        307.082,
+        77.62900000000002,
+        543.098,
+        194.16599999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_56",
+    "type": "paragraph",
+    "content": "(a) (b)",
+    "metadata": {
+      "page": 8,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        181.476,
+        593.233,
+        191.429,
+        600.93
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_table_1",
+    "type": "table",
+    "content": "Figure 4. Effectiveness of numbers of candidate tokens for decoding introduced by trees (default number of candidate token for decoding is 1 when using KV cache). Left: The acceleration rate for randomly sampled dense tree settings (blue dots) and optimized sparse tree settings (red stars). Right: The speed (tokens/s) for both settings. The trend lines indicate that while the acceleration rate remains relatively stable for sparse trees, there is a notable decrease in speed as the candidate tokens increases.",
+    "metadata": {
+      "page": 8,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        61.119781494140625,
+        463.7125244140625,
+        282.97979736328125,
+        528.6568298339844
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_1.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_58",
+    "type": "paragraph",
+    "content": "Table 1. Comparison of various MEDUSA-2 models. The first section reports the details of MEDUSA-2, including accelerate rate, overhead, and quality that denoted the average scores on the MTBench compared to the original models. The second section lists the speedup ( S ) of SpecDecoding and MEDUSA, respectively.",
+    "metadata": {
+      "page": 8,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        54.893,
+        401.086,
+        290.925,
+        452.619
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_59",
+    "type": "paragraph",
+    "content": "eration quality can be well aligned by self-distillation while MEDUSA heads learn distribution from the self-distillation that potentially shifts from the training set. In our study, we also applied speculative decoding (Chen et al., 2023; Leviathan et al., 2022) to the Vicuna lineup using opensource draft models (details can be found in Appendix D).",
+    "metadata": {
+      "page": 8,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        55.082,
+        304.684,
+        291.093,
+        373.011
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_60",
+    "type": "paragraph",
+    "content": "These results underscore the complex interplay between speed and performance when scaling up model sizes and applying self-distillation techniques. The findings also highlight the potential of the MEDUSA-2 configuration to boost efficiency in processing while carefully preserving the quality of the model's outputs, suggesting a promising direction for co-optimizing LLMs with MEDUSA heads.",
+    "metadata": {
+      "page": 8,
+      "section": "Case Study: Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        55.131,
+        215.01999999999998,
+        291.098,
+        295.303
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_61",
+    "type": "paragraph",
+    "content": "The study of tree attention is conducted on the writing and roleplay categories from the MT-Bench dataset using MEDUSA-2 Vicuna-7B. We target to depict tree attention's motivation and its performance.",
+    "metadata": {
+      "page": 8,
+      "section": "CONFIGURATION OF TREE ATTENTION",
+      "bbox": [
+        55.44,
+        116.71600000000001,
+        289.437,
+        161.13400000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_62",
+    "type": "paragraph",
+    "content": "Fig. 4a compares the acceleration rate of randomly sampled dense tree configurations (Section. 2.1.2, depicted by blue dots) against optimized sparse tree settings (Section. 2.3.3, shown with red stars). The sparse tree configuration with 64 nodes shows a better acceleration rate than the dense tree settings with 256 nodes. The decline in speed in Fig. 4b is attributed to the increased overhead introduced by the compute-bound. While a more complex tree can improve acceleration, it does so at the cost of speed due to intensive matrix multiplications for linear layers and self-attention. The acceleration rate increase follows a logarithmic trend and slows down when the tree size grows as shown in Fig. 4a. However, the initial gains are substantial, allowing Medusa to achieve significant speedups. If the acceleration increase is less than the overhead, it will slow down overall performance. For detailed study, please refer to Appendix G.",
+    "metadata": {
+      "page": 8,
+      "section": "CONFIGURATION OF TREE ATTENTION",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        290.688,
+        107.33600000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_4",
+    "type": "figure",
+    "content": "Figure 5. Performance comparison of MEDUSA using proposed typical sampling. The model is fully fine-tuned from Vicuna-7B. The plot illustrates the acceleration rate and average scores on the writing and roleplay (MT-Bench) with a fixed temperature of 0.7 for 3 different settings: greedy sampling and random sampling (RS) plotted as the star and the dot, and typical sampling curves under different thresholds.",
+    "metadata": {
+      "page": 8,
+      "section": "CONFIGURATION OF TREE ATTENTION",
+      "bbox": [
+        313.2834167480469,
+        233.05108642578125,
+        534.5905151367188,
+        352.20684814453125
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_6.png",
+      "image_summary": "The figure presents two line plots with different y-axes plotted against the x-axis labeled as \"Posterior Thresholds,\" ranging from 0.00 to 0.25. The left y-axis, in blue, represents the \"Acc. Rate\" (Accuracy Rate) with values approximately between 3.0 and 3.5. The right y-axis, in orange, shows the \"Scores,\" ranging from about 7.0 to 7.6.\n\nThe blue line (Acc. Rate) starts around 3.5 at the posterior threshold of 0.00, then decreases, exhibiting minor fluctuations around 3.2 to 3.3 for increasing thresholds up to 0.25. The orange line (Scores) shows more pronounced fluctuations between approximately 7.0 and 7.6 across the posterior thresholds, initially around 7.1, dipping below 7.1 near 0.1 threshold, and then gradually increasing, peaking near 7.6 close to the 0.25 threshold.\n\nTwo specific data points are highlighted: a blue circle marked \"RS\" near (0.00, 3.0) for accuracy and near 7.4 for scores, and a yellow star marked \"Greedy\" near (0.00, 3.05) for accuracy and approximately 7.4 for scores. These markers indicate key reference values or methods at the leftmost threshold.\n\nKey observations include the relatively stable accuracy rate with a minor downward trend, contrasting with the more variable and generally increasing scores as the posterior threshold increases. The Greedy and RS points suggest baseline or comparative values at the lowest threshold, with Greedy slightly outperforming RS in accuracy and closely matching in scores.\n\nThe main takeaway from this figure is that while accuracy rate remains relatively constant with slight variations over the posterior thresholds, scores demonstrate significant variability and an upward trend, highlighting differences in performance metrics as threshold values change."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_63",
+    "type": "paragraph",
+    "content": "The thresholds of typical acceptance are studied on the writing and roleplay categories from the MT-Bench",
+    "metadata": {
+      "page": 8,
+      "section": "THRESHOLDS OF TYPICAL ACCEPTANCE",
+      "bbox": [
+        307.131,
+        74.87300000000005,
+        541.443,
+        95.38
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_64",
+    "type": "paragraph",
+    "content": "dataset (Zheng et al., 2023) using MEDUSA-2 Vicuna 7B. Utilizing the Vicuna 7B model, we aligned our methodology with the approach delineated by (Hewitt et al., 2022) setting the α = √ ϵ . Fig. 5 presents a comparative analysis of our model's performance across various sampling settings. These settings range from a threshold ϵ starting at 0.01 and incrementally increasing to 0.25 in steps of 0.01. Our observations indicate a discernible trade-off: as ϵ increases, there is an elevation in quality at the expense of a reduced acceleration rate. Furthermore, for tasks demanding creativity, it is noted that the default random sampling surpasses greedy sampling in performance, and the proposed typical sampling is comparable with random sampling when ϵ increases.",
+    "metadata": {
+      "page": 9,
+      "section": "THRESHOLDS OF TYPICAL ACCEPTANCE",
+      "bbox": [
+        55.082,
+        569.449,
+        291.188,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_table_2",
+    "type": "table",
+    "content": "Table 2. Comparison of Different Settings of Vicuna-7B. Quality is obtained by evaluating models on MT-Bench using GPT-4 as the judge (higher the better).",
+    "metadata": {
+      "page": 9,
+      "section": "THRESHOLDS OF TYPICAL ACCEPTANCE",
+      "bbox": [
+        61.66911315917969,
+        522.3140563964844,
+        282.22296142578125,
+        558.2949829101562
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_2.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_65",
+    "type": "paragraph",
+    "content": "Table 2 shows the performance differences between various fine-tuning strategies for the Vicuna-7B model. MEDUSA1, which fine-tunes only the MEDUSA heads, achieves a 2.18x speedup without compromising generation quality. MEDUSA-2, which employs two-stage fine-tuning (Section 2.2.2), maintains generation quality and provides greater speedup (2.83x) compared to MEDUSA-1. In contrast, direct fine-tuning the model with the MEDUSA heads results in degraded generation quality. The findings indicate that implementing our MEDUSA-2 for fine-tuning maintains the model's quality and concurrently improves the speedup versus MEDUSA-1.",
+    "metadata": {
+      "page": 9,
+      "section": "EFFECTIVENESS OF TWO-STAGE FINE-TUNING",
+      "bbox": [
+        54.693,
+        302.043,
+        291.094,
+        442.102
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_table_3",
+    "type": "table",
+    "content": "Table 3. Impact of Techniques on Speedup",
+    "metadata": {
+      "page": 9,
+      "section": "EFFECTIVENESS OF TWO-STAGE FINE-TUNING",
+      "bbox": [
+        64.94042205810547,
+        199.92474365234375,
+        277.1261901855469,
+        272.42633056640625
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_3.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_66",
+    "type": "paragraph",
+    "content": "In conclusion, MEDUSA enhances LLM inference speed by 2.3-2.8 times by equipping models with additional predictive decoding heads, allowing for generating multiple tokens simultaneously and bypassing the sequential decoding limitation. Key advantages of MEDUSA include its simplicity, parameter efficiency, and ease of integration into existing systems. MEDUSA avoids the need for specialized draft models. The typical acceptance scheme removes complications from rejection sampling while providing reasonable outputs. Our approach including two efficient training procedures, ensures high-quality output across various models and prompt types. We summarize the development of each technique and their impact on the speedup in Table 3.",
+    "metadata": {
+      "page": 9,
+      "section": "Discussion",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.096,
+        155.15599999999995
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_67",
+    "type": "paragraph",
+    "content": "In the paper, we focus on the setting with batch size 1 for simplicity. Yet, we want to emphasize that the ideas presented in our paper can be generalized to larger batch-size settings, which are now supported by libraries like TensorRT and Huggingface TGI following our paper.",
+    "metadata": {
+      "page": 9,
+      "section": "Discussion",
+      "bbox": [
+        307.44,
+        587.381,
+        543.093,
+        643.754
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_68",
+    "type": "paragraph",
+    "content": "We extend our heartfelt gratitude to several individuals whose contributions were invaluable to this project:",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        306.972,
+        527.488,
+        541.436,
+        547.995
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_69",
+    "type": "paragraph",
+    "content": "Zhuohan Li, for his invaluable insights on LLM serving. If you haven't already, do check out Zhuohan's vLLM project-it's nothing short of impressive.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        318.897,
+        477.379,
+        543.096,
+        509.842
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_70",
+    "type": "paragraph",
+    "content": "Shaojie Bai, for engaging in crucial discussions that helped shape the early phases of this work.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        318.897,
+        444.908,
+        541.436,
+        465.415
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_71",
+    "type": "paragraph",
+    "content": "Denny Zhou, for introducing the truncation sampling scheme to Tianle and encouraging Tianle to explore the area of LLM serving.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        318.897,
+        400.481,
+        541.44,
+        432.943
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_72",
+    "type": "paragraph",
+    "content": "Yanping Huang, for pointing out the memorybandwidth-bound challenges associated with LLM serving to Tianle.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        318.897,
+        356.054,
+        543.093,
+        388.516
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_73",
+    "type": "paragraph",
+    "content": "Lianmin Zheng, for clarifying the different training recipes used in different sizes of Vicuna models.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        318.897,
+        323.583,
+        541.436,
+        344.09
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_74",
+    "type": "paragraph",
+    "content": "Jason D. Lee acknowledges the support of the NSF CCF 2002272, NSF IIS 2107304, and NSF CAREER Award 2144994. Deming Chen acknowledges the support from the AMDCenter of Excellence at UIUC.",
+    "metadata": {
+      "page": 9,
+      "section": "Acknowledgements",
+      "bbox": [
+        307.082,
+        261.519,
+        541.715,
+        305.936
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_75",
+    "type": "paragraph",
+    "content": "The introduction of MEDUSA, an innovative method to improve the inference speed of Large Language Models (LLMs), presents a range of broader implications for society, technology, and ethics. This section explores these implications in detail.",
+    "metadata": {
+      "page": 9,
+      "section": "Impact Statement",
+      "bbox": [
+        307.112,
+        165.76,
+        543.091,
+        222.13300000000004
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_76",
+    "type": "paragraph",
+    "content": "Accessibility and Democratization of AI : By significantly enhancing the efficiency of LLMs, MEDUSA makes advanced AI technologies more accessible to a wider range of users and organizations. Democratization can spur innovation across various sectors, in-",
+    "metadata": {
+      "page": 9,
+      "section": "Societal and Technological Implications",
+      "bbox": [
+        318.897,
+        74.87300000000005,
+        543.094,
+        131.63400000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_77",
+    "type": "paragraph",
+    "content": "cluding education, healthcare, and entertainment, potentially leading to breakthroughs that benefit society at large.",
+    "metadata": {
+      "page": 10,
+      "section": "Societal and Technological Implications",
+      "bbox": [
+        75.366,
+        689.0,
+        291.094,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_78",
+    "type": "paragraph",
+    "content": "Environmental Impact : The acceleration for LLM inference due to MEDUSA could lead to decreased energy consumption and a smaller carbon footprint. This aligns with the growing need for sustainable AI practices, contributing to environmental conservation efforts.",
+    "metadata": {
+      "page": 10,
+      "section": "Societal and Technological Implications",
+      "bbox": [
+        66.897,
+        609.638,
+        291.183,
+        678.354
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_79",
+    "type": "paragraph",
+    "content": "Economic Implications : The increased efficiency brought about by MEDUSA may lower the cost barrier to deploying state-of-the-art AI models, enabling small and medium-sized enterprises to leverage advanced AI capabilities. This could stimulate economic growth, foster competition, and drive technological innovation.",
+    "metadata": {
+      "page": 10,
+      "section": "Societal and Technological Implications",
+      "bbox": [
+        66.897,
+        530.276,
+        291.177,
+        598.991
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_80",
+    "type": "paragraph",
+    "content": "Bias and Fairness : While MEDUSA aims to improve LLM efficiency, it inherits the ethical considerations of its backbone models, including issues related to bias and fairness. The method's ability to maintain generation quality necessitates investigation to ensure that the models do not perpetuate or amplify existing biases.",
+    "metadata": {
+      "page": 10,
+      "section": "Ethical Considerations",
+      "bbox": [
+        66.897,
+        414.475,
+        289.442,
+        495.146
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_81",
+    "type": "paragraph",
+    "content": "Transparency and Accountability : The complexity of MEDUSA, particularly with its tree-based attention mechanism and multiple decoding heads, may pose challenges in terms of model interpretability. Ensuring transparency in how decisions are made and maintaining accountability for those decisions are crucial for building trust in AI systems.",
+    "metadata": {
+      "page": 10,
+      "section": "Ethical Considerations",
+      "bbox": [
+        66.897,
+        323.157,
+        291.095,
+        403.828
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_82",
+    "type": "paragraph",
+    "content": "Security and Privacy : The accelerated capabilities of LLMs augmented by MEDUSA could potentially be exploited for malicious purposes, such as generating disinformation at scale or automating cyber-attacks. It is imperative to develop and enforce ethical guidelines and security measures to prevent misuse.",
+    "metadata": {
+      "page": 10,
+      "section": "Ethical Considerations",
+      "bbox": [
+        66.897,
+        243.79499999999996,
+        289.441,
+        312.511
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_83",
+    "type": "paragraph",
+    "content": "Ainslie, J., Lee-Thorp, J., de Jong, M., Zemlyanskiy, Y., Lebr´ on, F., and Sanghai, S. Gqa: Training generalized multi-query transformer models from multi-head checkpoints. arXiv preprint arXiv:2305.13245 , 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        161.86699999999996,
+        291.096,
+        206.28499999999997
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_84",
+    "type": "paragraph",
+    "content": "Axolotl. Axolotl. https://github.com/ OpenAccess-AI-Collective/axolotl , 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        130.32500000000005,
+        290.636,
+        150.83299999999997
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_85",
+    "type": "paragraph",
+    "content": "Basu, S., Ramachandran, G. S., Keskar, N. S., and Varshney, L. R. { MIROSTAT } : A { neural } { text } { decoding } { algorithm } { that } { directly } { controls } { perplexity } . In International Conference on Learning Representations ,",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.183,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_86",
+    "type": "paragraph",
+    "content": "2021. URL https://openreview.net/forum? id=W1G1JZEIy5_ .",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        317.403,
+        700.955,
+        542.037,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_87",
+    "type": "paragraph",
+    "content": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et al. Language models are few-shot learners. Advances in neural information processing systems , 33: 1877-1901, 2020.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        630.997,
+        543.185,
+        687.37
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_88",
+    "type": "paragraph",
+    "content": "Chen, C., Borgeaud, S., Irving, G., Lespiau, J.-B., Sifre, L., and Jumper, J. Accelerating large language model decoding with speculative sampling. February 2023. doi: 10.48550/ARXIV.2302.01318.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        572.994,
+        542.828,
+        617.411
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_89",
+    "type": "paragraph",
+    "content": "Chen, L. Dissecting batching effects in gpt inference. https://le.qun.ch/en/blog/2023/ 05/13/transformer-batching/ , 2023. Blog.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        526.945,
+        543.093,
+        559.408
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_90",
+    "type": "paragraph",
+    "content": "Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang, H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E., Stoica, I., and Xing, E. P. Vicuna: An open-source chatbot impressing gpt-4 with 90%* chatgpt quality, March 2023. URL https://lmsys.org/blog/ 2023-03-30-vicuna/ .",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        445.032,
+        542.687,
+        513.359
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_91",
+    "type": "paragraph",
+    "content": "Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra, G., Roberts, A., Barham, P., Chung, H. W., Sutton, C., Gehrmann, S., et al. Palm: Scaling language modeling with pathways. arXiv preprint arXiv:2204.02311 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        387.028,
+        542.681,
+        431.446
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_92",
+    "type": "paragraph",
+    "content": "Dettmers, T., Lewis, M., Shleifer, S., and Zettlemoyer, L. 8bit optimizers via block-wise quantization. International Conference on Learning Representations , 2021.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        340.98,
+        543.095,
+        373.442
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_93",
+    "type": "paragraph",
+    "content": "Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L. Llm. int8 (): 8-bit matrix multiplication for transformers at scale. arXiv preprint arXiv:2208.07339 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        294.932,
+        543.185,
+        327.394
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_94",
+    "type": "paragraph",
+    "content": "Dettmers, T., Pagnoni, A., Holtzman, A., and Zettlemoyer, L. Qlora: Efficient finetuning of quantized llms. arXiv preprint arXiv:2305.14314 , 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        248.88300000000004,
+        542.685,
+        281.346
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_95",
+    "type": "paragraph",
+    "content": "Ding, N., Chen, Y., Xu, B., Qin, Y., Zheng, Z., Hu, S., Liu, Z., Sun, M., and Zhou, B. Enhancing chat language models by scaling high-quality instructional conversations, 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        190.88,
+        543.098,
+        235.298
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_96",
+    "type": "paragraph",
+    "content": "Dubois, Y., Li, X., Taori, R., Zhang, T., Gulrajani, I., Ba, J., Guestrin, C., Liang, P., and Hashimoto, T. B. Alpacafarm: A simulation framework for methods that learn from human feedback, 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        132.87699999999995,
+        543.089,
+        177.29399999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_97",
+    "type": "paragraph",
+    "content": "Elfwing, S., Uchibe, E., and Doya, K. Sigmoid-weighted linear units for neural network function approximation in reinforcement learning. Neural Networks , 2017. doi: 10.1016/j.neunet.2017.12.012.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        542.824,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_98",
+    "type": "paragraph",
+    "content": "Fan, A., Lewis, M., and Dauphin, Y. Hierarchical neural story generation. In Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) . Association for Computational Linguistics, 2018. doi: 10.18653/v1/p18-1082.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        665.09,
+        289.444,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_99",
+    "type": "paragraph",
+    "content": "Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq: Accurate post-training quantization for generative pretrained transformers. arXiv preprint arXiv:2210.17323 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        609.26,
+        291.094,
+        653.678
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_100",
+    "type": "paragraph",
+    "content": "Google. Palm 2 technical report, 2023. URL https://ai.google/static/documents/ palm2techreport.pdf .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        565.386,
+        289.925,
+        597.848
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_101",
+    "type": "paragraph",
+    "content": "Hewitt, J., Manning, C. D., and Liang, P. Truncation sampling as language model desmoothing. October 2022. doi: 10.48550/ARXIV.2210.15191.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        521.511,
+        291.179,
+        553.973
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_102",
+    "type": "paragraph",
+    "content": "Hoffmann, J., Borgeaud, S., Mensch, A., Buchatskaya, E., Cai, T., Rutherford, E., Casas, D. d. L., Hendricks, L. A., Welbl, J., Clark, A., et al. Training compute-optimal large language models. arXiv preprint arXiv:2203.15556 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        453.726,
+        290.686,
+        510.099
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_103",
+    "type": "paragraph",
+    "content": "Holtzman, A., Buys, J., Du, L., Forbes, M., and Choi, Y. The curious case of neural text degeneration. In International Conference on Learning Representations , 2020. URL https://openreview.net/forum? id=rygGQyrFvH .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        385.941,
+        290.687,
+        442.314
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_104",
+    "type": "paragraph",
+    "content": "Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y ., Wang, S., and Chen, W. Lora: Low-rank adaptation of large language models. ICLR , 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        342.067,
+        290.687,
+        374.529
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_105",
+    "type": "paragraph",
+    "content": "Joao Gante. Assisted generation: a new direction toward low-latency text generation, 2023. URL https://huggingface.co/blog/ assisted-generation .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        286.237,
+        291.179,
+        330.655
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_106",
+    "type": "paragraph",
+    "content": "Kim, S., Hooper, C., Gholami, A., Dong, Z., Li, X., Shen, S., Mahoney, M. W., and Keutzer, K. Squeezellm: Dense-and-sparse quantization. arXiv preprint arXiv:2306.07629 , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        230.40700000000004,
+        291.186,
+        274.82500000000005
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_107",
+    "type": "paragraph",
+    "content": "Kim, Y. and Rush, A. M. Sequence-level knowledge distillation. EMNLP , 2016.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        198.48800000000006,
+        291.097,
+        218.995
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_108",
+    "type": "paragraph",
+    "content": "Kumar, A., Raghunathan, A., Jones, R., Ma, T., and Liang, P. Fine-tuning can distort pretrained features and underperform out-of-distribution. International Conference on Learning Representations , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        142.65800000000002,
+        291.091,
+        187.07600000000002
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_109",
+    "type": "paragraph",
+    "content": "Kwon, W., Li, Z., Zhuang, S., Sheng, Y., Zheng, L., Yu, C. H., Gonzalez, J. E., Zhang, H., and Stoica, I. Efficient memory management for large language model serving with pagedattention. In Proceedings of the ACM SIGOPS 29th Symposium on Operating Systems Principles , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.15,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_110",
+    "type": "paragraph",
+    "content": "Leviathan, Y., Kalman, M., and Matias, Y. Fast inference from transformers via speculative decoding. November 2022. doi: 10.48550/ARXIV.2211.17192.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        689.0,
+        541.613,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_111",
+    "type": "paragraph",
+    "content": "Li, X., Zhang, T., Dubois, Y., Taori, R., Gulrajani, I., Guestrin, C., Liang, P., and Hashimoto, T. B. Alpacaeval: An automatic evaluator of instruction-following models. https://github.com/tatsu-lab/ alpaca_eval , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        620.887,
+        543.098,
+        677.259
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_112",
+    "type": "paragraph",
+    "content": "Lin, J., Tang, J., Tang, H., Yang, S., Dang, X., and Han, S. Awq: Activation-aware weight quantization for llm compression and acceleration. arXiv preprint arXiv:2306.00978 , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        564.728,
+        541.444,
+        609.146
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_113",
+    "type": "paragraph",
+    "content": "Meister, C., Wiher, G., Pimentel, T., and Cotterell, R. On the probability-quality paradox in language generation. March 2022. doi: 10.48550/ARXIV.2203.17217.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        520.525,
+        543.179,
+        552.987
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_114",
+    "type": "paragraph",
+    "content": "Meister, C., Pimentel, T., Wiher, G., and Cotterell, R. Locally typical sampling. Transactions of the Association for Computational Linguistics , 11:102-121, 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        476.321,
+        543.093,
+        508.784
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_115",
+    "type": "paragraph",
+    "content": "Miao, X., Oliaro, G., Zhang, Z., Cheng, X., Wang, Z., Wong, R. Y. Y., Chen, Z., Arfeen, D., Abhyankar, R., and Jia, Z. Specinfer: Accelerating generative llm serving with speculative inference and token tree verification. arXiv preprint arXiv:2305.09781 , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        408.207,
+        542.688,
+        464.58
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_116",
+    "type": "paragraph",
+    "content": "NVIDIA. Nvidia a100 tensor core gpu.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        387.914,
+        464.301,
+        396.466
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_117",
+    "type": "paragraph",
+    "content": "OpenAI. Gpt-4 technical report, 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        367.621,
+        460.984,
+        376.173
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_118",
+    "type": "paragraph",
+    "content": "Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., et al. Training language models to follow instructions with human feedback. arXiv preprint arXiv:2203.02155 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        299.508,
+        543.098,
+        355.88
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_119",
+    "type": "paragraph",
+    "content": "Pan, J. Tiny vicuna 1b. https://huggingface.co/ Jiayi-Pan/Tiny-Vicuna-1B , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        267.259,
+        542.635,
+        287.767
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_120",
+    "type": "paragraph",
+    "content": "Pillutla, K., Swayamdipta, S., Zellers, R., Thickstun, J., Welleck, S., Choi, Y., and Harchaoui, Z. MAUVE: Measuring the gap between neural text and human text using divergence frontiers. In Beygelzimer, A., Dauphin, Y., Liang, P., and Vaughan, J. W. (eds.), Advances in Neural Information Processing Systems , 2021. URL https: //openreview.net/forum?id=Tqx7nJp7PR .",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        175.235,
+        544.429,
+        255.51800000000003
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_121",
+    "type": "paragraph",
+    "content": "Pope, R., Douglas, S., Chowdhery, A., Devlin, J., Bradbury, J., Levskaya, A., Heek, J., Xiao, K., Agrawal, S., and Dean, J. Efficiently scaling transformer inference. November 2022. doi: 10.48550/ARXIV.2211.05102.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        119.077,
+        543.179,
+        163.49400000000003
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_122",
+    "type": "paragraph",
+    "content": "ShareGPT. ShareGPT. https://huggingface. co/datasets/Aeala/ShareGPT_Vicuna_ unfiltered , 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        545.624,
+        107.33600000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_123",
+    "type": "paragraph",
+    "content": "Shazeer, N. Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150 , 2019.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        700.955,
+        289.438,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_124",
+    "type": "paragraph",
+    "content": "Spector, B. and Re, C. Accelerating llm inference with staged speculative decoding. arXiv preprint arXiv:2308.04623 , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        655.994,
+        289.444,
+        688.456
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_125",
+    "type": "paragraph",
+    "content": "Stern, M., Shazeer, N. M., and Uszkoreit, J. Blockwise parallel decoding for deep autoregressive models. Neural Information Processing Systems , 2018.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        611.033,
+        289.443,
+        643.495
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_126",
+    "type": "paragraph",
+    "content": "Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et al. Llama 2: Open foundation and finetuned chat models. arXiv preprint arXiv:2307.09288 , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        542.161,
+        291.098,
+        598.534
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_127",
+    "type": "paragraph",
+    "content": "Tunstall, L., Beeching, E., Lambert, N., Rajani, N., Rasul, K., Belkada, Y., Huang, S., von Werra, L., Fourrier, C., Habib, N., Sarrazin, N., Sanseviero, O., Rush, A. M., and Wolf, T. Zephyr: Direct distillation of lm alignment, 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        473.289,
+        290.69,
+        529.662
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_128",
+    "type": "paragraph",
+    "content": "Xia, H., Ge, T., Chen, S.-Q., Wei, F., and Sui, Z. Speculative decoding: Lossless speedup of autoregressive translation, 2023. URL https://openreview.net/forum? id=H-VlwsYvVi .",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        416.373,
+        290.684,
+        460.79
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_129",
+    "type": "paragraph",
+    "content": "Xiao, G., Lin, J., Seznec, M., Wu, H., Demouth, J., and Han, S. Smoothquant: Accurate and efficient post-training quantization for large language models. In International Conference on Machine Learning , pp. 38087-38099. PMLR, 2023a.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        347.501,
+        291.18,
+        403.874
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_130",
+    "type": "paragraph",
+    "content": "Xiao, Y., Wu, L., Guo, J., Li, J., Zhang, M., Qin, T., and Liu, T.-y. A survey on non-autoregressive generation for neural machine translation and beyond. IEEE Transactions on Pattern Analysis and Machine Intelligence , 2023b.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        290.584,
+        291.093,
+        335.002
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_131",
+    "type": "paragraph",
+    "content": "Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y ., and Liu, T.-Y. Do transformers really perform badly for graph representation? Advances in Neural Information Processing Systems , 34:28877-28888, 2021.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        233.668,
+        290.688,
+        278.08500000000004
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_132",
+    "type": "paragraph",
+    "content": "Zhang, P., Zeng, G., Wang, T., and Lu, W. Tinyllama: An open-source small language model, 2024.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        200.66200000000003,
+        289.437,
+        221.16899999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_133",
+    "type": "paragraph",
+    "content": "Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M., Chen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., et al. Opt: Open pre-trained transformer language models. arXiv preprint arXiv:2205.01068 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        143.745,
+        291.18,
+        188.163
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_134",
+    "type": "paragraph",
+    "content": "Zhang, Z., Sheng, Y., Zhou, T., Chen, T., Zheng, L., Cai, R., Song, Z., Tian, Y., R´ e, C., Barrett, C., et al. H 2 o: Heavy-hitter oracle for efficient generative inference of large language models. arXiv preprint arXiv:2306.14048 , 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        290.825,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_135",
+    "type": "paragraph",
+    "content": "Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., and Stoica, I. Judging llm-as-a-judge with mt-bench and chatbot arena, 2023.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        677.045,
+        542.687,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_136",
+    "type": "paragraph",
+    "content": "The inefficiency of Large Language Model (LLM) inference is primarily attributed to the memory-bandwidth-bound nature of the auto-regressive decoding process. Several methods have been proposed to alleviate this issue, improving inference latency and throughput. Traditionally, batch inference has been employed as a straightforward method to enhance arithmetic intensity and escape memory-bandwidth-bound limitations. However, with LLMs, both model parameters and the Key-Value (KV) cache consume substantial accelerator memory, hindering the utilization of large batch sizes. Existing methods to tackle this problem can be conceptually divided into two main categories: (1) Reducing memory consumption, thereby minimizing memory transfer overhead and enabling larger batch sizes, and (2) Minimizing the number of decoding steps to decrease latency directly.",
+    "metadata": {
+      "page": 13,
+      "section": "A.1. LLM Inference Acceleration",
+      "bbox": [
+        55.112,
+        591.199,
+        541.786,
+        683.437
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_137",
+    "type": "paragraph",
+    "content": "Reducing KV Cache. Methods such as Multi-query attention (Shazeer, 2019) and Grouped-query attention (Ainslie et al., 2023) adopt a direct approach to diminish the KV cache. By utilizing fewer key and value heads in the attention modules relative to query heads, these strategies substantially cut the KV's memory consumption, thereby facilitating larger batch sizes and enhanced accelerator utilization (Pope et al., 2022). Additionally, Zhang et al. (2023) proposes to selectively retain the most critical KV tokens, further reducing the KV cache. From a system perspective, Kwon et al. (2023) introduces a paged memory management scheme for reducing fragmentation of the KV cache.",
+    "metadata": {
+      "page": 13,
+      "section": "A.1. LLM Inference Acceleration",
+      "bbox": [
+        55.44,
+        507.409,
+        542.685,
+        576.125
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_138",
+    "type": "paragraph",
+    "content": "Quantization. Quantization techniques are extensively used to shrink LLMs' memory consumption. Xiao et al. (2023a) apply rescaling between activations and parameters to eliminate outliers and simplify the quantization process. Dettmers et al. (2022) breaks down matrix multiplications into predominantly 8-bit and a minority of 16-bit operations. Frantar et al. (2022) iteratively round weight columns into 3/4 bits, while Lin et al. (2023) present an activation-aware quantization scheme to protect salient weights and compress LLMs to 3/4 bits. Kim et al. (2023) introduce a sparse plus low-precision pattern to handle a minor portion of vital weights, among other techniques.",
+    "metadata": {
+      "page": 13,
+      "section": "A.1. LLM Inference Acceleration",
+      "bbox": [
+        55.44,
+        423.619,
+        542.108,
+        492.335
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_139",
+    "type": "paragraph",
+    "content": "Speculative Decoding. As an approach orthogonal to the aforementioned methods, speculative decoding (Leviathan et al., 2022; Chen et al., 2023) aims to execute several decoding steps in parallel, thus reducing the total number of steps required. This parallelization is realized by employing a smaller draft model to conjecture several subsequent words, which the LLMs then collectively evaluate and accept as appropriate. While resonating with non-autoregressive generation literature (Xiao et al., 2023b), this method is specifically tailored for LLMs to address the aforementioned inefficiency. Unlike previous works, we propose leveraging the original model to make predictions rather than introducing an additional draft model. This approach is more straightforward and seamlessly integrates into existing systems without the complexities of managing two models. Independently, Miao et al. (2023); Spector & Re (2023) propose the use of tree-structured attention to generate multiple candidates in parallel, where Miao et al. (2023) suggest employing an ensemble of models to propose candidates, and Spector & Re (2023) advocate adding another hierarchy for the draft model. However, draft models require specialized pretraining and alignment with the target models. While employing multiple draft models can be cumbersome and involves the complexity of managing parallelism, our approach, which relies solely on decoding heads, offers a simpler alternative. Miao et al. (2023) employ multiple draft models to generate tokens and merge them using tree attention, while Spector & Re (2023) utilize a small draft model to process each level of the tree in batches. In contrast, our method directly uses the top predicted tokens from each of MEDUSA heads to create a static sparse tree without autoregression or adjusting the tree structure. This approach simplifies the process and improves efficiency. Additionally, we demonstrate through a detailed ablation study how the nodes of the tree can affect decoding speed.",
+    "metadata": {
+      "page": 13,
+      "section": "A.1. LLM Inference Acceleration",
+      "bbox": [
+        55.082,
+        208.32299999999998,
+        543.183,
+        408.545
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_140",
+    "type": "paragraph",
+    "content": "The manner in which text is sampled from Large Language Models (LLMs) can significantly influence the quality of the generated output. Recent studies have revealed that direct sampling from a language model may lead to incoherent or nonsensical results (Pillutla et al., 2021; Holtzman et al., 2020). In response to this challenge, truncation sampling schemes have been introduced (Fan et al., 2018; Basu et al., 2021; Meister et al., 2022; Hewitt et al., 2022; Meister et al., 2023). These approaches aim to produce high-quality and diverse samples by performing sampling on a truncated distribution over a specific allowed set at each decoding step.",
+    "metadata": {
+      "page": 13,
+      "section": "A.2. Sampling Scheme",
+      "bbox": [
+        55.131,
+        104.76099999999997,
+        543.178,
+        173.08899999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_141",
+    "type": "paragraph",
+    "content": "Different strategies define this allowed set in various ways. For example, topk sampling (Fan et al., 2018) retains the k most likely words, whereas topp sampling (Holtzman et al., 2020) incorporates the minimal set of words that account for p",
+    "metadata": {
+      "page": 13,
+      "section": "A.2. Sampling Scheme",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        541.44,
+        95.69799999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_142",
+    "type": "paragraph",
+    "content": "percent of the probability. Another method, known as typical decoding (Meister et al., 2023), employs the entropy of the predicted distribution to establish the threshold for inclusion. Hewitt et al. (2022) offers a unified framework to understand truncation sampling techniques comprehensively.",
+    "metadata": {
+      "page": 14,
+      "section": "A.2. Sampling Scheme",
+      "bbox": [
+        55.44,
+        689.0,
+        541.441,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_143",
+    "type": "paragraph",
+    "content": "Drawing inspiration from these methods, our typical acceptance scheme aligns with the concept of defining an allowed set to exclude improbable candidates from the sampling process. However, we diverge because we do not insist on an exact correspondence between the output and language model distribution. This deviation allows us to facilitate more diverse yet high-quality outputs, achieving greater efficiency without compromising the integrity of the generated text.",
+    "metadata": {
+      "page": 14,
+      "section": "A.2. Sampling Scheme",
+      "bbox": [
+        55.44,
+        635.202,
+        541.441,
+        679.62
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_144",
+    "type": "paragraph",
+    "content": "We clarify three commonly used terms: a) Acceleration rate: This refers to the average number of tokens decoded per decoding step. In a standard auto-regressive model, this rate is 1.0. b) Overhead: This is used to characterize the per decoding step overhead compared to classic decoding, and is calculated by dividing the average per step latency of the MEDUSA models by that of the vanilla model. c) Speedup: This refers to the wall-time acceleration rate. Following these definitions, we have the relation: Speedup = Acceleration rate / Overhead.",
+    "metadata": {
+      "page": 14,
+      "section": "B.1. Common Terms",
+      "bbox": [
+        54.972,
+        520.791,
+        541.613,
+        577.164
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_145",
+    "type": "paragraph",
+    "content": "For all the experiments, we use the Axolotl (Axolotl, 2023) framework for training. We use a cosine learning rate scheduler with warmup and use 8-bit AdamW (Dettmers et al., 2021) optimizer. We train 5 MEDUSA heads with 1 layer and set λ k in Eq. (1) to be 0 . 8 k . For MEDUSA-2, we use either LoRA (Hu et al., 2021) or QLoRA (Dettmers et al., 2023) for fine-tuning and set the learning rate of MEDUSA heads to be 4 times larger than the backbone model. LoRA is applied to all the linear layers of the backbone model, including the language model head. The rank of LoRA adapter is set to 32 , and α is set to 16 . A dropout of 0 . 05 is added to the LoRA adapter.",
+    "metadata": {
+      "page": 14,
+      "section": "B.2. Shared Settings",
+      "bbox": [
+        55.082,
+        417.23,
+        543.183,
+        485.558
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_146",
+    "type": "paragraph",
+    "content": "We use a global batch size of 64 and a peak learning rate of 5 e -4 for the backbone and 2 e -3 for MEDUSA heads and warmup for 40 steps. We use 4 -bit quantized backbone models for both models. We first train the models with MEDUSA-1 and use these trained models as initialization to train MEDUSA-2. We employ QLoRA for MEDUSA-2 and the λ 0 in Eq. (2) is set to be 0 . 2 .",
+    "metadata": {
+      "page": 14,
+      "section": "B.3. MEDUSA-1 v.s. MEDUSA-2 on Vicuna 7B and 13B",
+      "bbox": [
+        54.972,
+        337.579,
+        542.188,
+        383.889
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_147",
+    "type": "paragraph",
+    "content": "We use MEDUSA-2 for both models instead of using a two-stage training procedure. We use a sine schedule for the θ 0 to gradually increase the value to its peak at the end of the training. We find this approach is equally effective. We set the peak learning rate of the backbone LoRA adapter to be 1 e -4 and the warmup steps to be 20 since the self-distillation loss is relatively small. We set the λ 0 in Eq. (2) to be 0 . 01 .",
+    "metadata": {
+      "page": 14,
+      "section": "B.4. Training with Self-Distillation on Vicuna-33B and Zephyr-7B",
+      "bbox": [
+        54.972,
+        257.168,
+        541.441,
+        302.663
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_148",
+    "type": "paragraph",
+    "content": "Fig. 6 illustrates the structure of a sparsely constructed tree for the MEDUSA-2 Vicuna-7B model. This tree structure extends four levels deep, indicating the engagement of four MEDUSA heads in the computation. The tree is initially formed through a Cartesian product approach and subsequently refined by pruning based on the statistical expectations of the top-k predictions from each MEDUSA head measured on the Alpaca-eval dataset (Dubois et al., 2023). The tree's lean towards the left visually represents the algorithm's preference for nodes with higher probabilities on each head.",
+    "metadata": {
+      "page": 14,
+      "section": "C. Visualization of optimized tree attention",
+      "bbox": [
+        55.44,
+        162.16899999999998,
+        541.794,
+        218.54200000000003
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_149",
+    "type": "paragraph",
+    "content": "In this study, speculative decoding was applied to Vicuna models (Chiang et al., 2023) with varying sizes, specifically 7B, 13B, and 33B. The preliminary framework utilized open-source models such as Llama-68M and 160M (Miao et al., 2023), alongside Tiny-Llama (Zhang et al., 2024) and Tiny-Vicuna (Pan, 2023), fine-tuned from Tiny-Llama with the Vicuna-style instructional tuning strategy. Due to the proprietary nature of speculative decoding methods (Chen et al., 2023; Leviathan",
+    "metadata": {
+      "page": 14,
+      "section": "D. Results of Speculative Decoding",
+      "bbox": [
+        54.693,
+        78.36599999999999,
+        542.689,
+        122.78300000000002
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_5",
+    "type": "figure",
+    "content": "Figure 6. Visualization of a sparse tree setting for MEDUSA-2 Vicuna-7B. The tree has 64 nodes representing candidate tokens and a depth of 4 which indicates 4 MEDUSA heads involved in calculation. Each node indicates a token from a top-k prediction of a MEDUSA head, and the edges show the connections between them. The red lines highlight the path that correctly predicts the future tokens.",
+    "metadata": {
+      "page": 15,
+      "section": "D. Results of Speculative Decoding",
+      "bbox": [
+        164.1005096435547,
+        580.5105438232422,
+        442.0064697265625,
+        723.0371170043945
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_7.png",
+      "image_summary": "The figure is a directed graph with labeled nodes, each node represented as a blue circle containing a word or punctuation, and arrows indicating connections between nodes. The nodes collectively form a hierarchical structure, branching out from a few central points.\n\nKey structural features include:\n- The root nodes labeled \"Once\" and \"upon\" at the top right, from which multiple branches emanate.\n- The node \"Once\" branches into several nodes with words such as \"there,\" \"was,\" \"a,\" \"once,\" and a series of other words and punctuation.\n- \"upon\" also branches into nodes such as \"a,\" \"time,\" \"ly,\" and more.\n- The branches often end with punctuation marks like \"!\", \".\", or words such as \"time,\" \"there,\" and \"Here.\"\n- There is a prominent red path starting from \"Once\" to \"upon\" to \"a\" and ending at a single node containing \".\"\n\nKey observations:\n- The graph shows a sequence of words that seems to represent variations or repetitions on the phrase \"Once upon a time.\"\n- Multiple branches converge on similar or repeated words, with some nodes showing repetition (\"ly,\" \"time,\" \"!\").\n- The red arrows highlight a specific path through the nodes \"Once,\" \"upon,\" \"a,\" and the period \".\", suggesting a main sentence or sequence.\n- The graph captures multiple sentence fragments or phrase variants, with branching structures representing different continuations or endings.\n\nMain takeaway:\nThe figure appears to illustrate a language model or parsing tree showing possible continuations or variations of the phrase \"Once upon a time.\" The red-highlighted path marks the canonical or dominant sentence structure within the broader network of alternatives. The visualization effectively depicts the structure and alternatives in the frequent narrative opening sentence."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_150",
+    "type": "paragraph",
+    "content": "et al., 2022), open-source alternatives 3 were deployed for evaluation. Additionally, we utilize torch.compile() to accelerate the inference speed of draft models.",
+    "metadata": {
+      "page": 15,
+      "section": "D. Results of Speculative Decoding",
+      "bbox": [
+        55.44,
+        480.027,
+        541.44,
+        502.203
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_151",
+    "type": "paragraph",
+    "content": "Our results shown in Fig. 7, reveal that the optimal settings of the draft model vary with the Vicuna model sizes. Specifically, the Llama-68M, with a setting of the draft token number γ = 4 , yielded the best performance for Vicuna-7B, while the same draft model with γ = 3 was most effective for Vicuna-13B. For the larger Vicuna-33B, the Tiny-Vicuna (Vicuna-1B), with γ = 3 , provided the greatest acceleration. These results suggest that the choice and setting of the drafting model should be tailored to the size of the LLMs, presenting an area for further exploration in the field.",
+    "metadata": {
+      "page": 15,
+      "section": "D. Results of Speculative Decoding",
+      "bbox": [
+        55.44,
+        414.273,
+        542.69,
+        470.646
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_6",
+    "type": "figure",
+    "content": "Figure 7. Inference speed of various models using speculative decoding on MT-Bench. Baseline model speeds are presented by grey dotted lines for comparison. γ denotes the draft token number.",
+    "metadata": {
+      "page": 15,
+      "section": "D. Results of Speculative Decoding",
+      "bbox": [
+        62.958473205566406,
+        250.73614501953125,
+        533.3118896484375,
+        391.5162048339844
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_8.png",
+      "image_summary": "The figure comprises three line plots labeled (a) Vicuna-7B, (b) Vicuna-13B, and (c) Vicuna-33B, each depicting the performance of four different models (Llama-68M, Llama-160M, Llama-1B, and Vicuna-1B) measured in tokens per second against Gamma values ranging from 1 to 15 on the x-axis.\n\n**Axes and Units:**\n- The x-axis for all panels is labeled \"Gamma\" with values from 1 to 15.\n- The y-axis for all panels is labeled \"Tokens per Second,\" with scales varying across plots:\n  - (a) ranges roughly from 20 to 70 tokens/sec.\n  - (b) ranges from about 18 to 55 tokens/sec.\n  - (c) ranges from about 15 to 30 tokens/sec.\n- Each panel also includes a dashed horizontal line marking a certain baseline tokens/sec value, which decreases from (a) to (c):\n  - (a) around 46 tokens/sec,\n  - (b) around 35 tokens/sec,\n  - (c) around 17.7 tokens/sec.\n\n**Key Trends:**\n- In all three panels, tokens per second generally decrease as Gamma increases beyond a certain point for all models.\n- In panel (a) Vicuna-7B and (b) Vicuna-13B, the Llama-68M model consistently achieves the highest tokens per second across all Gamma values among the four models.\n- For panels (a) and (b), the tokens per second for Llama-160M, Llama-1B, and Vicuna-1B fall below the baseline (dashed line) as Gamma increases, with a noticeable decline starting around Gamma 4 or 5.\n- The Vicuna-1B model usually performs better than Llama-1B and Llama-160M at lower Gamma values but converges or slightly surpasses them at higher Gamma values.\n- In panel (c) Vicuna-33B, the four models have closer performance values, all peaking around Gamma 3 or 4, then steadily declining. Here, Vicuna-1B slightly outperforms the Llama models initially.\n- The tokens per second in (c) are much lower overall than in (a) and (b), reflecting presumably more computational demand or a larger model size of Vicuna-33B.\n\n**Comparisons:**\n- Llama-68M consistently outperforms the other three models in terms of raw speed across all Vicuna versions.\n- Vicuna models tend to perform faster than Llama-1B and Llama-160M at lower Gamma but lose advantage as Gamma increases.\n- Performance degradation with increasing Gamma is a consistent pattern across models and Vicuna sizes, with the decline most pronounced in Vicuna-7B and Vicuna-13B plots.\n\n**Anomalies:**\n- In panel (a), Llama-68M shows an unusual initial increase from Gamma 1 to Gamma 4, peaking near 68 tokens/sec, followed by a decline.\n- Similarly, in panel (c), all models show a peak in tokens per second at around Gamma 3-4 before performance decreases, which contrasts with the steady decline seen in other panels for other models.\n\n**Main Takeaway:**\nThe figure demonstrates that model performance in terms of tokens per second generally declines as the Gamma parameter increases, across varying sizes of Vicuna models (7B, 13B, 33B). Smaller Llama-68M models achieve the highest throughput consistently, whereas larger Vicuna and Llama models exhibit lower token processing speeds, particularly at higher Gamma values. The Vicuna-33B setup displays relatively lower overall performance but shows a performance peak at moderate Gamma values. These results highlight a trade-off between model size, Gamma parameter tuning, and token processing speed, underscoring the importance of selecting appropriate Gamma based on the model type and desired performance."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_152",
+    "type": "paragraph",
+    "content": "We show speedup on various models in Fig. 8.",
+    "metadata": {
+      "page": 15,
+      "section": "E. Additional Results for All Models",
+      "bbox": [
+        54.972,
+        151.73299999999995,
+        240.187,
+        160.28499999999997
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_153",
+    "type": "paragraph",
+    "content": "We conduct further experiments on the AlpacaEval (Li et al., 2023) dataset. MEDUSA-2 achieves consistent speedup similar to the results on MT-Bench.",
+    "metadata": {
+      "page": 15,
+      "section": "F. Additional Results on AlpacalEval Dataset",
+      "bbox": [
+        54.972,
+        91.84000000000003,
+        541.609,
+        112.34699999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_154",
+    "type": "paragraph",
+    "content": "3 https://github.com/feifeibear/LLMSpeculativeSampling",
+    "metadata": {
+      "page": 15,
+      "section": "F. Additional Results on AlpacalEval Dataset",
+      "bbox": [
+        68.093,
+        75.07899999999995,
+        270.858,
+        84.63900000000001
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_7",
+    "type": "figure",
+    "content": "Figure 8. Speedup of various models with MEDUSA-2. MEDUSA-2 shows significant speed improvement over all the models, while models trained with self-distillation (Zephyr-7B, Vicuna-13/33B) have weaker speedup due to the trade-off between preserving quality and boosting speed.",
+    "metadata": {
+      "page": 16,
+      "section": "F. Additional Results on AlpacalEval Dataset",
+      "bbox": [
+        190.074462890625,
+        583.6323852539062,
+        405.92041015625,
+        723.5796813964844
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_9.png",
+      "image_summary": "The figure is a bar chart titled \"Speedup on different model sizes,\" comparing the token processing speeds between two conditions: \"w/o Medusa\" (without Medusa) and \"Medusa-2,\" across four model sizes. The x-axis represents model sizes, specifically \"Vicuna-7B,\" \"Zephyr-7B,\" \"Vicuna-13B,\" and \"Vicuna-33B.\" The y-axis measures performance in \"Tokens per Second,\" ranging approximately from 0 to 130.\n\nEach model size has two bars: a blue bar for \"w/o Medusa\" and an orange bar for \"Medusa-2.\" The height of the bars indicates tokens per second processed. For \"Vicuna-7B,\" the blue bar is about 45 tokens/sec, whereas the orange bar reaches roughly 127 tokens/sec, representing a speedup factor of 2.83x (annotated above the bar). Similarly, \"Zephyr-7B\" shows a rise from approximately 41 tokens/sec without Medusa to 109 tokens/sec with Medusa-2, a 2.66x speedup. \"Vicuna-13B\" improves from about 35 tokens/sec to 99 tokens/sec with Medusa-2, a 2.83x gain. For the largest model, \"Vicuna-33B,\" performance increases from about 18 tokens/sec without Medusa to roughly 42 tokens/sec with Medusa-2, a 2.35x speedup.\n\nKey trends include consistent improvement in token throughput when using Medusa-2 across all model sizes, with speedups ranging from 2.35x to 2.83x. The highest relative speedups are seen in Vicuna-7B and Vicuna-13B models at 2.83x, while the lowest is for Vicuna-33B at 2.35x. In absolute terms, smaller models (7B and 13B) achieve higher tokens per second than the largest (33B).\n\nThere are no visible anomalies or outliers; all models benefit markedly from Medusa-2, and the speedups are consistently above 2x.\n\nThe main takeaway from this figure is that the Medusa-2 method substantially improves token processing speeds across diverse large language model sizes, nearly tripling throughput for many models while maintaining acceleration even for the largest size tested."
+    }
+  },
+  {
+    "id": "2401.10774_table_4",
+    "type": "table",
+    "content": "Table 4. Speedup results on AlpacaEval (Li et al., 2023) dataset.",
+    "metadata": {
+      "page": 16,
+      "section": "F. Additional Results on AlpacalEval Dataset",
+      "bbox": [
+        107.55795288085938,
+        449.8749084472656,
+        489.1342468261719,
+        521.3767700195312
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_4.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_155",
+    "type": "paragraph",
+    "content": "We explore the hardware constraints, specifically memory-bandwidth bound, and their impact on MEDUSA-style parallel decoding by incorporating a simplified Llama-series model. First, we identify that the operators involving matrix multiplications, such as linear layers and attention matrix multiplications, are the primary sources of overhead. We profile the performance of FLOP/s vs. Operational Intensity which is the ratio of FLOP/s to bandwidth (bytes/s), across various GPUs, including the A100-80GB-PCIe, A40, and A6000. Next, we examine the changes in FLOP/s vs. Operational Intensity when using MEDUSA for different operators. Finally, we apply a straightforward analytical model to calculate acceleration rates and combine it with hardware benchmarks. This provides insights into the effects under different model sizes, sequence lengths, and batch sizes.",
+    "metadata": {
+      "page": 16,
+      "section": "G. Exploration and Modeling of Hardware Constraints and MEDUSA",
+      "bbox": [
+        54.972,
+        274.076,
+        543.097,
+        366.314
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_156",
+    "type": "paragraph",
+    "content": "We present an analysis of the roofline model for various operators in large language models (LLMs), specifically focusing on Llama-7B, Llama-13B, and Llama-33B (Touvron et al., 2023). These models were benchmarked on different GPUs, including the A100-80GB-PCIe, A40, and A6000. We looked into the three categories of matrix multiplication operators since they represent the primary sources of computational overhead in these models. Our study follows the report (Chen, 2023) which investigates the effectiveness of batch size but ours focuses more on decoding and parallel decoding.",
+    "metadata": {
+      "page": 16,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        54.972,
+        182.47000000000003,
+        542.683,
+        238.84199999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_157",
+    "type": "paragraph",
+    "content": "Table 5 details the computation and space complexity for each operator during the prefill, decoding, and MEDUSA decoding phases. The operators include the linear layers for query, key, and value matrices ( XW Q , XW K , XW V ), the attention matrix multiplications ( QK T , PV ), and the up/gate/down linear layers ( XW u , XW g , XW d ). b stands for the batch size, s stands for the sequence length, h stands for the hidden dimension, i stands for the intermediate dimension, n stands for the number of attention heads, d stands for the head dimension and q stands for the candidate length for MEDUSA. For more details of these operators please refer to the articles (Touvron et al., 2023; Chen, 2023).",
+    "metadata": {
+      "page": 16,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        55.131,
+        104.76099999999997,
+        541.44,
+        173.08899999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_158",
+    "type": "paragraph",
+    "content": "Figures 9-17 show the benchmark of three categories of operators on different models (7/13/33B) under various settings. To evaluate each operator's performance and throughput, we chose the combination of settings including batch sizes from 1 to",
+    "metadata": {
+      "page": 16,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        541.441,
+        95.38
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_table_5",
+    "type": "table",
+    "content": "Table 5. Computational and space complexity of the main operators in different phases. The table is based on Table 2 in the report (Chen, 2023).",
+    "metadata": {
+      "page": 17,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        110.0004653930664,
+        472.838623046875,
+        484.9463195800781,
+        696.1697616577148
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_5.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_159",
+    "type": "paragraph",
+    "content": "64 in powers of 2 and sequence lengths from 128 to 8192 in powers of 2 (49 settings for each operator). From all the figures, we observe that the datapoints of each operator in the prefill and decoding stages cluster at very similar positions across all GPUs and for various model sizes.",
+    "metadata": {
+      "page": 17,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        55.082,
+        417.489,
+        542.69,
+        449.952
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_160",
+    "type": "paragraph",
+    "content": "During the prefill phase, increasing the batch size changes the FLOP/s of the attention matrix multiplications (see 'qk/pv init' ) but does not affect the Operational Intensity (refer to the vertical dashed arrow in Fig. 9). In contrast, increasing the sequence length impacts both FLOP/s and Operational Intensity in the prefill phase (refer to the diagonal dashed arrow in Fig. 9). During the decoding phase, the attention matrix multiplications are significantly limited by memory bandwidth. Despite an increase in FLOP/s with changes in batch size and sequence length, the Operational Intensity remains nearly unchanged (see 'qk/pv ar' ). This indicates suboptimal resource utilization in the self-attention mechanism.",
+    "metadata": {
+      "page": 17,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        55.44,
+        339.781,
+        543.179,
+        408.109
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_161",
+    "type": "paragraph",
+    "content": "The linear layers in the prefill phase are mostly compute-bound (see 'qkv mlp init' and 'up/gate/down init' ). During the decoding phase, the datapoints of the linear layer form a line with the same slope as the GPU's memory bandwidth (see 'qkv mlp ar' and 'up/gate/down ar' ). This indicates the linear layers in the decoding stage are also bounded by memory bandwidth. Increasing the batch size improves the achieved FLOP/s and Operational Intensity under memory bandwidth constraints through better parallelism. Note that linear layers only process the new token and are independent of sequence length (See 'Decoding' section in Table 5).",
+    "metadata": {
+      "page": 17,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        55.131,
+        262.072,
+        543.184,
+        330.4
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_8",
+    "type": "figure",
+    "content": "Figure 9. The figure shows the relationship between FLOP/s and Operational Intensity for all benchmarked datapoints of Llama-7B operators on A100-80GB-PCIe. The dashed lines represent the HBM bandwidth limit (1,935GB/s) and the peak performance limit (312 TFLOP/s) (NVIDIA). ' qkv mlp ' stands for the linear layers projecting hidden features to query/key/value features. ' up/gate/down ' stands for the linear layers following the attention block. ' qk/pv ' stands for the two steps of attention matrix multiplications. ' ar ' stands for the decoding (autoregressive) and ' init ' stands for the prefill phase.",
+    "metadata": {
+      "page": 18,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        117.50040435791016,
+        475.76239013671875,
+        461.9308166503906,
+        685.4867553710938
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_10.png",
+      "image_summary": "The figure is a Roofline model plot illustrating the performance characteristics of the Llama 7B model running on an Nvidia A100 80GB PCIe GPU. The x-axis represents Operational Intensity measured in FLOP/Byte (on a logarithmic scale ranging approximately from 1 to 10,000), while the y-axis shows Performance in floating-point operations per second (FLOP/s) on a logarithmic scale spanning from 10 billion FLOP/s (10G) to over 100 trillion FLOP/s (100T+).\n\nKey elements of the figure:\n- Two roofline bounds are drawn:\n  - A blue dashed line indicating the memory bandwidth limit at 1,935 GB/s.\n  - A red dashed line marking the peak computational throughput at 312 TFLOP/s.\n  \n- Data points represent different kernel types and stages:\n  - \"qkv mlp init\" (blue x marks)\n  - \"qkv mlp ar\" (orange x marks)\n  - \"up/gate/down init\" (green x marks)\n  - \"up/gate/down ar\" (red x marks)\n  - \"qk/pv init\" (purple x marks)\n  - \"qk/pv ar\" (brown crosses)\n\nKey trends and comparisons:\n- Performance generally improves with increasing operational intensity (moving to the right), as expected by roofline theory.\n- The \"init\" modes (blue, green, purple) tend to achieve higher operational intensities and better performance, clustering closer to the compute roofline (red line) with final points approaching or slightly exceeding 100 TFLOP/s.\n- The \"ar\" (autoregressive) modes (orange, red, brown) fall below their corresponding \"init\" modes in both operational intensity and performance. They generally cluster between 1T and 10T FLOP/s performance.\n- The \"qk/pv\" kernels (purple and brown) show a significant performance gap between init and ar, with purple init points at much higher operational intensities (~10 to 100 FLOP/Byte) and brown ar points at the low end near 1 FLOP/Byte.\n- The diagonal blue memory bandwidth roof tightly bounds the lower intensity regions, and operational points generally fall beneath or near this line when operational intensities are low.\n- A vertical green dashed line set at approximately 128 FLOP/Byte on the x-axis indicates a transition region, with annotations showing \"qk/pv init Increase bs\" pointing vertically upward on the left cluster and \"qk/pv init Increase seq_len\" with a diagonal arrow pointing toward higher operational intensity and performance near the green line.\n\nAnomalies:\n- Data points remain strictly under the compute peak (red line) with no outliers above it, indicating realistic performance capping.\n- Some clustering is observed for init kernels just before the vertical green line, marking a boundary where batch size or sequence length likely constrains or improves efficiency.\n\nMain takeaway:\nThis roofline model demonstrates that the Llama 7B model's kernel performance on the A100 GPU is bandwidth-limited at low operational intensities but becomes compute-bound as operational intensity increases. \"Init\" kernels achieve significantly better utilization of both memory bandwidth and computational throughput compared to their autoregressive counterparts. Adjusting batch size and sequence length (as indicated by the annotations) can significantly improve operational intensity and thus performance, pushing computations closer to the hardware peak performance limits."
+    }
+  },
+  {
+    "id": "2401.10774_fig_9",
+    "type": "figure",
+    "content": "Figure 10. Llama-13B operators on A100-80GB-PCIe.",
+    "metadata": {
+      "page": 18,
+      "section": "G.1. Roofline Model of Operators",
+      "bbox": [
+        117.09322357177734,
+        125.41534423828125,
+        461.4727783203125,
+        337.6049499511719
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_11.png",
+      "image_summary": "The figure titled \"Roofline Model (Llama 13B, A100 80GB PCIe)\" presents a roofline performance model analyzing different computational kernels associated with the Llama 13B model on an NVIDIA A100 80GB PCIe GPU. \n\nThe x-axis represents the operational intensity in units of Floating Point Operations per Byte (FLOP/Byte), spanning from approximately 0.5 to 10,000 on a logarithmic scale. The y-axis shows the achieved performance in Floating Point Operations per Second (FLOP/s), also log-scaled, ranging from about 10 billion FLOP/s (10G) to over 1 quadrillion FLOP/s (1P). \n\nTwo key roofline bounds are shown: \n\n1. A blue dashed line with a slope that rises linearly with operational intensity, labeled \"1,935 GB/s,\" representing the memory bandwidth ceiling of 1,935 gigabytes per second.\n2. A horizontal red dashed line at about 312 teraFLOP/s (TFLOP/s), labeled \"312 TFLOP/s,\" indicating the peak computational throughput ceiling of the GPU.\n\nData points correspond to measured performances of different computational kernels under two phases: initialization (\"init\") and autoregressive (\"ar\"). The kernels and corresponding markers/colors are:\n\n- \"qkv mlp init\" (blue crosses)\n- \"qkv mlp ar\" (orange crosses)\n- \"up/gate/down init\" (green crosses)\n- \"up/gate/down ar\" (red crosses)\n- \"qk/pv init\" (purple crosses)\n- \"qk/pv ar\" (brown crosses)\n\nA vertical green dashed line at operational intensity approximately 160 FLOP/Byte separates low from high operational intensities.\n\nKey observations:\n\n- All \"init\" kernels generally occupy higher performance and operational intensity compared to their \"ar\" counterparts, indicating improved utilization during initialization.\n- \"qk/pv ar\" kernels have the lowest operational intensity (~1 FLOP/Byte) and performance (~100 GFLOP/s to 1 TFLOP/s), remaining well below the memory bandwidth roofline.\n- \"qk/pv init\" and \"up/gate/down ar\" kernels have operational intensities from roughly 10 to 100 FLOP/Byte and performance approaching the memory bandwidth bound but remaining below peak compute.\n- \"up/gate/down init\" kernels cluster at high operational intensity (100-1000 FLOP/Byte) and performance near the peak compute limit (~300 TFLOP/s), indicating compute-bound performance.\n- \"qkv mlp\" kernels show a progression from lower intensity and performance in \"ar\" to higher intensity and performance in \"init,\" with \"init\" kernels reaching close to peak compute bound.\n\nThe main takeaway is that different computation phases and kernel types exhibit markedly different operational intensities and performance regimes: some are memory-bound (operational intensity under the vertical line) while others achieve throughput close to the GPU's computational peak. This detailed roofline analysis highlights the balance of memory bandwidth and compute performance in optimizing the Llama 13B model's execution on the A100 GPU."
+    }
+  },
+  {
+    "id": "2401.10774_fig_10",
+    "type": "figure",
+    "content": "Figure 11. Llama-33B operators on A100-80GB-PCIe.",
+    "metadata": {
+      "page": 19,
+      "section": "Roofline Model (Llama 33B, A100 80GB PCIe)",
+      "bbox": [
+        117.37820434570312,
+        464.05181884765625,
+        461.6717529296875,
+        668.9245529174805
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_12.png",
+      "image_summary": "The figure is a Roofline Model plot with a logarithmic scale on both axes. The x-axis represents Operational Intensity measured in FLOP/Byte, spanning from approximately 0.5 to 10,000. The y-axis represents Performance in FLOP/s, ranging approximately from 10G to beyond 100T FLOP/s.\n\nKey elements include:\n- A blue dashed diagonal line labeled \"1,935 GB/s\" representing the memory bandwidth roofline.\n- A red dashed horizontal line labeled \"312 TFLOP/s\" representing the compute roofline or peak performance limit.\n- A vertical dark green dashed line at an operational intensity close to 150 FLOP/Byte, indicating a critical point between bandwidth-bound and compute-bound regions.\n\nPerformance data points are plotted in six categories, each with distinct color markers:\n- Blue crosses for \"qkv mlp init\"\n- Orange crosses for \"qkv mlp ar\"\n- Green crosses for \"up/gate/down init\"\n- Red crosses for \"up/gate/down ar\"\n- Purple crosses for \"qk/pv init\"\n- Brown crosses for \"qk/pv ar\"\n\nKey trends:\n- At low operational intensities (below ~10 FLOP/Byte), performance increases roughly linearly with operational intensity, aligning with the blue bandwidth roofline, indicating a bandwidth-bound regime.\n- Beyond the vertical green line (~150 FLOP/Byte), all data points plateau near the red dashed line at 312 TFLOP/s, indicating compute-bound performance saturation.\n- Initialization phases (init sets) typically achieve higher operational intensities and performance than autoregressive phases (ar sets).\n- The \"qk/pv\" groups operate at lower operational intensities and correspondingly lower performance, mostly under 10 FLOP/Byte and between about 100G to 1T FLOP/s, and tend to stay latency-bound to bandwidth.\n- \"qkv mlp\" and \"up/gate/down\" sets reach higher operational intensities (100s to >1,000 FLOP/Byte) and approach peak compute performance (~312 TFLOP/s), especially during initialization.\n\nMain takeaway:\nThe data demonstrates that different computational kernels or phases vary in their operational intensity and thus fall into different performance regimes. Initialization workloads achieve higher operational intensity and saturate at the compute peak performance, while autoregressive workloads operate at lower intensity, limited more by memory bandwidth. The roofline model effectively captures these distinctions, validating memory bandwidth and compute performance ceilings for the system analyzed (likely an A100 GPU given the \"312 TFLOP/s\" line)."
+    }
+  },
+  {
+    "id": "2401.10774_fig_11",
+    "type": "figure",
+    "content": "Figure 12. Llama-7B operators on A40.",
+    "metadata": {
+      "page": 19,
+      "section": "Roofline Model (Llama 33B, A100 80GB PCIe)",
+      "bbox": [
+        117.40525817871094,
+        136.14654541015625,
+        461.3944091796875,
+        348.4480285644531
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_13.png",
+      "image_summary": "The figure titled \"Roofline Model (Llama 7B, A40)\" presents a roofline performance model with the x-axis representing Operational Intensity in FLOP/Byte on a logarithmic scale ranging approximately from 0.1 to 10,000, and the y-axis showing Performance in FLOP/s, also on a logarithmic scale, ranging from 10G (10 billion) to slightly above 100T (100 trillion).\n\nTwo reference lines are shown: a blue dashed line marked as \"696GB/s,\" representing the memory bandwidth roofline, which has a positive slope indicating the performance bound at lower operational intensities; and a red dashed horizontal line at approximately 149.7 TFLOP/s, representing the peak compute performance ceiling.\n\nData points for six test conditions are plotted with distinct colors and markers: \n- \"qkv mlp init\" (blue crosses), \n- \"qkv mlp ar\" (orange crosses), \n- \"up/gate/down init\" (green crosses), \n- \"up/gate/down ar\" (red crosses), \n- \"qk/pv init\" (purple crosses), \n- \"qk/pv ar\" (brown crosses).\n\nKey observations and trends include:\n- All datasets show increasing performance as operational intensity increases.\n- At low operational intensity (~1 FLOP/Byte), performance is below 1 TFLOP/s for all conditions.\n- Approaching operational intensities above 100 FLOP/Byte, performance saturates near the red horizontal roofline limit (~149.7 TFLOP/s), indicating compute-bound performance.\n- The blue dashed line representing memory bandwidth intersects the red roofline near an operational intensity of a few hundred FLOP/Byte, marking the transition from memory-bound to compute-bound regimes.\n- The green vertical dashed line at roughly 200 FLOP/Byte highlights a critical operational intensity threshold coinciding with this transition.\n- The \"qkv mlp init\" and \"up/gate/down init\" conditions achieve the highest intensity and performance close to the peak.\n- \"ar\" (likely autoregressive) modes generally achieve lower operational intensity and slightly lower performance than the corresponding \"init\" modes.\n- \"qk/pv\" datasets show lower operational intensity and performance in both \"init\" and \"ar\" modes compared to other categories.\n- Performance points cluster along the predicted memory bandwidth roofline at low intensities and then plateau near the compute roofline as operational intensity increases.\n\nThe main takeaway is that for the Llama 7B model on an A40 GPU, performance transitions from memory bandwidth-limited at low operational intensity to compute-bound at high operational intensity near 150 TFLOP/s, with the \"init\" conditions typically achieving higher intensities and peak performances than the \"ar\" conditions. This analysis validates the roofline model's applicability in identifying bottlenecks in model workloads."
+    }
+  },
+  {
+    "id": "2401.10774_fig_12",
+    "type": "figure",
+    "content": "Figure 13. Llama-13B operators on A40.",
+    "metadata": {
+      "page": 20,
+      "section": "Roofline Model (Llama 33B, A100 80GB PCIe)",
+      "bbox": [
+        117.29859161376953,
+        464.0182800292969,
+        461.35394287109375,
+        675.3378067016602
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_14.png",
+      "image_summary": "The figure presents a roofline model characterizing the performance of the LLaMA 13B model on the A40 GPU. The x-axis represents the operational intensity in units of FLOP/Byte, plotted on a logarithmic scale ranging approximately from 1 to 10,000. The y-axis shows the computational performance in FLOP/s, also on a logarithmic scale, spanning from roughly 10G (10^10) to above 100T (10^14) FLOP/s.\n\nTwo key reference lines are included: a dashed blue line indicating the memory bandwidth limit at 696 GB/s, which slopes upward showing increasing performance with operational intensity; and a horizontal dashed red line at 149.7 TFLOP/s signifying the peak compute performance of the GPU, which serves as a performance ceiling.\n\nData points are differentiated by color and symbol corresponding to distinct model components and phases: \n- \"qkv mlp init\" (blue crosses),\n- \"qkv mlp ar\" (orange crosses),\n- \"up/gate/down init\" (green crosses),\n- \"up/gate/down ar\" (red crosses),\n- \"qk/pv init\" (purple crosses), and\n- \"qk/pv ar\" (brown crosses).\n\nA vertical dotted green line near 200 FLOP/Byte marks a specific operational intensity threshold.\n\nKey trends observed include:\n- At low operational intensities (~1 FLOP/Byte), performance is low, around 100G to 1T FLOP/s, predominantly for \"qk/pv ar\" (brown) points.\n- Performance increases along the memory bandwidth bound (blue dashed line) as operational intensity rises, reflecting a bandwidth-limited regime.\n- Beyond the vertical green line (~200 FLOP/Byte), data points saturate near the peak compute line (~150 TFLOP/s), indicating a transition to a compute-bound regime.\n- \"up/gate/down init\" and \"qkv mlp init\" (green and blue) points mainly cluster around the peak performance at high operational intensities (above 200 FLOP/Byte).\n- The \"ar\" variants of these components tend to exhibit slightly lower performance than their \"init\" counterparts at similar operational intensities but still trend towards the compute peak.\n- \"qk/pv\" components show the lowest operational intensity and performance.\n\nThe main takeaway is that the LLaMA 13B model's component operations shift from being memory bandwidth-limited at low operational intensities to compute-limited at higher operational intensities, achieving near-peak GPU performance when the operational intensity surpasses approximately 200 FLOP/Byte. This demonstrates effective utilization of the A40 GPU's capabilities for certain model operations."
+    }
+  },
+  {
+    "id": "2401.10774_fig_13",
+    "type": "figure",
+    "content": "Figure 14. Llama-33B operators on A40.",
+    "metadata": {
+      "page": 20,
+      "section": "Roofline Model (Llama 33B, A100 80GB PCIe)",
+      "bbox": [
+        117.40190124511719,
+        136.18878173828125,
+        461.34051513671875,
+        348.2955017089844
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_15.png",
+      "image_summary": "The figure titled \"Roofline Model (Llama 33B, A40)\" presents a roofline performance model analysis, with the x-axis representing Operational Intensity measured in FLOP/Byte on a logarithmic scale ranging approximately from 0.5 to 10,000, and the y-axis representing Performance in FLOP/s also on a logarithmic scale spanning from 10G (giga FLOP/s) to 100T (tera FLOP/s).\n\nKey elements in the plot include:\n\n1. Two roofline boundaries:\n   - A blue dashed line representing the memory bandwidth limit, labeled \"696GB/s,\" which slopes upward, indicating that performance increases linearly with operational intensity up to a certain compute-bound threshold.\n   - A horizontal red dashed line at around 149.7 TFLOP/s, representing the peak compute performance limit of the system.\n\n2. A vertical green dashed line at around 150 FLOP/Byte operational intensity, likely indicating the transition point between memory-bound and compute-bound regimes.\n\nData points correspond to different kernel types and phases, distinguished by color and marker style:\n- \"qkv mlp init\" (blue crosses)\n- \"qkv mlp ar\" (orange crosses)\n- \"up/gate/down init\" (green crosses)\n- \"up/gate/down ar\" (red crosses)\n- \"qk/pv init\" (purple crosses)\n- \"qk/pv ar\" (brown crosses)\n\nKey trends and comparisons:\n- At low operational intensities (<10 FLOP/Byte), data points mostly align below or near the memory bandwidth roofline, indicating memory-bound performance.\n- The \"qk/pv ar\" dataset (brown crosses) clusters at the very low end of operational intensity (~1 FLOP/Byte) with performance below 100G FLOP/s, significantly lower than other configurations.\n- Intermediate operational intensities (10 to 100 FLOP/Byte) show various initializations and autoregressive phases for qkv mlp, up/gate/down, and qk/pv kernels rising in performance but still mostly below the peak ceiling.\n- At high operational intensities (>100 FLOP/Byte), several points from \"qkv mlp init,\" \"up/gate/down init,\" and their autoregressive counterparts reach and saturate the peak compute performance line at approximately 150 TFLOP/s, illustrating compute-bound behavior.\n\nAnomalies:\n- The significant gap in performance of \"qk/pv ar\" at low operational intensity compared to the other kernels, suggesting possibly memory-bound inefficiencies or lower computational density for this kernel phase.\n\nMain takeaway:\nThe figure effectively demonstrates how the Llama 33B model on the A40 GPU transitions from a memory-bound to compute-bound regime as operational intensity increases. Kernel initialization and autoregressive phases with higher operational intensity reach the system's compute peak, whereas lower operational intensity kernels remain limited by memory bandwidth. This analysis highlights the performance bottlenecks and efficiency of different model components on the hardware."
+    }
+  },
+  {
+    "id": "2401.10774_fig_14",
+    "type": "figure",
+    "content": "Figure 15. Llama-7B operators on A6000.",
+    "metadata": {
+      "page": 21,
+      "section": "Roofline Model (Llama 7B, A6000)",
+      "bbox": [
+        117.28274536132812,
+        463.9638977050781,
+        461.47894287109375,
+        672.9929580688477
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_16.png",
+      "image_summary": "The figure titled \"Roofline Model (Llama 7B, A6000)\" presents a roofline performance analysis plot, showcasing the relationship between operational intensity (in FLOP/Byte) on the x-axis and performance (in FLOP/s) on the y-axis. Both axes use logarithmic scales. The x-axis ranges from slightly below 1 to 10,000 FLOP/Byte, while the y-axis spans from 10 GigaFLOP/s (10^10) to over 100 TeraFLOP/s (10^14).\n\nTwo reference lines are plotted: a blue dashed line labeled \"768GB/s\" which slopes upwards, representing the memory bandwidth roofline; and a horizontal red dashed line at approximately 181 TFLOP/s, indicating the peak compute roofline limit.\n\nThe data points reflect performance measurements for different components or operations with legends as follows: \n- \"qkv mlp init\" (blue crosses),\n- \"qkv mlp ar\" (orange crosses),\n- \"up/gate/down init\" (green crosses),\n- \"up/gate/down ar\" (red crosses),\n- \"qk/pv init\" (purple crosses),\n- \"qk/pv ar\" (brown crosses).\n\nKey trends observed include:\n- For low operational intensity (<10 FLOP/Byte), performance is under 1 TeraFLOP/s, constrained by the memory bandwidth roofline.\n- As operational intensity increases beyond roughly 100 FLOP/Byte, many measurements from \"qkv mlp init,\" \"qkv mlp ar,\" and \"up/gate/down init\" converge near the peak compute performance of 181 TFLOP/s (red line), indicating compute-bound behavior.\n- Certain groups—especially \"qk/pv init\" and \"qk/pv ar\"—show lower performance at intermediate operational intensities (around 10 to 100 FLOP/Byte), falling below the expected memory bandwidth roofline, indicating inefficiencies or bottlenecks in these operations.\n- The green vertical dashed line near 200 FLOP/Byte serves as a reference marking the transition point beyond which performance typically saturates at the compute roofline.\n- The brown \"qk/pv ar\" points cluster at the lowest operational intensities and lowest performance, significantly beneath other data groups, suggesting a bottleneck or increased memory limitation in this configuration.\n\nThe main takeaway is that Llama 7B on the A6000 GPU exhibits performance limited by memory bandwidth at low operational intensity and achieves close to theoretical peak compute performance for operations with high operational intensity. However, some specific operations, notably \"qk/pv ar,\" underperform relative to the ideal roofline, pointing to potential optimization targets in the memory-bound regime."
+    }
+  },
+  {
+    "id": "2401.10774_fig_15",
+    "type": "figure",
+    "content": "Figure 16. Llama-13B operators on A6000.",
+    "metadata": {
+      "page": 21,
+      "section": "Roofline Model (Llama 7B, A6000)",
+      "bbox": [
+        117.34647369384766,
+        136.1761474609375,
+        461.3475036621094,
+        348.3737487792969
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_17.png",
+      "image_summary": "The figure presents a Roofline model analysis for the Llama 13B model running on an A6000 system. The x-axis depicts Operational Intensity in units of FLOP/Byte on a logarithmic scale ranging approximately from 0.5 to 10k. The y-axis shows Performance measured in FLOP/s, also on a logarithmic scale, ranging from 10G (10^10) to beyond 100T (10^14).\n\nKey elements include:\n- A blue dashed line representing the memory bandwidth roofline at 768GB/s.\n- A red dashed horizontal line at 181 TFLOP/s (1.81 x 10^14 FLOP/s) denoting the peak compute performance.\n- A green dashed vertical line around approximately 150 FLOP/Byte indicating the operational intensity at which the roofline transitions from memory-bound to compute-bound.\n\nData points correspond to six different operational stages or components, distinguished by color and marker type:\n- Blue crosses (qkv mlp init)\n- Orange crosses (qkv mlp ar)\n- Green crosses (up/gate/down init)\n- Red crosses (up/gate/down ar)\n- Purple crosses (qk/pv init)\n- Brown crosses (qk/pv ar)\n\nTrends observed:\n- All initial operations (marked as \"init\") tend to have higher performance and operational intensity compared to their corresponding \"ar\" (autoregressive or adjusted) versions.\n- The qkv mlp init and up/gate/down init groups (blue and green) reach near the peak compute performance line, achieving close to or above 100 TFLOP/s at high operational intensities (~1000 FLOP/Byte and greater).\n- The qkv mlp ar, up/gate/down ar, qk/pv init, and qk/pv ar groups cluster at lower performance and operational intensity values but follow the expected roofline trend, showing a performance increase as operational intensity increases.\n- The qk/pv ar data points (brown) are concentrated at the lowest operational intensities (~1 FLOP/Byte) and lowest performance (~100G to 1T FLOP/s), indicating these operations are highly memory-bound.\n- The data generally aligns well below or on the roofline boundaries, consistent with expected hardware constraints.\n\nMain takeaway:\nThe model demonstrates distinct performance regimes for different components of the Llama 13B model. High operational intensity operations (qkv mlp init and up/gate/down init) effectively utilize compute capacity, approaching the peak FLOP/s limit. Lower operational intensity tasks, particularly qk/pv ar, remain memory bandwidth-bound with significantly lower performance. The Roofline model effectively captures these hardware constraints, illustrating both memory bandwidth and compute ceilings relevant to Llama 13B’s performance on the A6000 GPU."
+    }
+  },
+  {
+    "id": "2401.10774_fig_16",
+    "type": "figure",
+    "content": "Figure 17. Llama-33B operators on A6000.",
+    "metadata": {
+      "page": 22,
+      "section": "Roofline Model (Llama 7B, A6000)",
+      "bbox": [
+        117.43618774414062,
+        300.18560791015625,
+        461.1166687011719,
+        512.3336486816406
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_18.png",
+      "image_summary": "The figure is a log-log Roofline performance model plot for the Llama 33B model running on an A6000 GPU, depicting the relationship between operational intensity (FLOP/Byte) on the x-axis and performance (FLOP/s) on the y-axis.\n\nAxis details:\n- X-axis (Operational Intensity) ranges from just under 1 to slightly above 10,000 FLOP/Byte.\n- Y-axis (Performance) spans from 10G (10^10) to over 100T (10^14) FLOP/s.\n\nThe plot includes multiple sets of data points, differentiated by color and marker shape, each representing different computational kernels or stages:\n- \"qkv mlp init\" (blue crosses)\n- \"qkv mlp ar\" (orange crosses)\n- \"up/gate/down init\" (green crosses)\n- \"up/gate/down ar\" (red crosses)\n- \"qk/pv init\" (purple crosses)\n- \"qk/pv ar\" (brown crosses)\n\nTwo reference lines are plotted:\n- A blue dashed line labeled \"768GB/s,\" starting low on the left and curving upward with operational intensity, representing the memory bandwidth roof.\n- A horizontal red dashed line labeled \"181 TFLOP/s,\" marking the peak compute roof performance of the GPU.\n\nA vertical green dashed line is drawn around 166 FLOP/Byte on the x-axis, likely representing the point where the compute roof performance becomes the limiting factor rather than memory bandwidth.\n\nKey trends and comparisons:\n- At low operational intensity (below ~10 FLOP/Byte), performance scales nearly linearly with operational intensity, following the blue bandwidth roof line.\n- Beyond the vertical green dashed line (~166 FLOP/Byte), performance for most kernels plateaus near the peak compute roof (red line), indicating that compute capacity is the bottleneck at high operational intensities.\n- The \"qkv mlp init\" and \"up/gate/down init\" kernels achieve the highest performance, near the peak 181 TFLOP/s, especially at operational intensities above 100 FLOP/Byte.\n- The \"qk/pv ar\" kernels have the lowest operational intensities and correspondingly lowest performances, significantly below the bandwidth roof.\n- The approximate adherence of data to the roofline model suggests bandwidth-limited behavior at low operational intensities and compute-limited behavior at high operational intensities.\n\nMain takeaway:\nThe Roofline model illustrates that the Llama 33B model on the A6000 GPU achieves near-peak compute performance for high operational intensity kernels, whereas lower operational intensity kernels remain limited by memory bandwidth. This characterization provides insight into performance bottlenecks across different parts of the model's computation, guiding optimization priorities between memory access patterns and compute efficiency."
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_162",
+    "type": "paragraph",
+    "content": "We investigate how Medusa can change Operational Intensity and elevate the FLOP/s. We choose Llama 33B on A10080GB-PCIe as the setting.",
+    "metadata": {
+      "page": 23,
+      "section": "G.2. FLOP/s vs. Operational Intensity Variations in MEDUSA",
+      "bbox": [
+        54.972,
+        682.303,
+        543.097,
+        702.81
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_163",
+    "type": "paragraph",
+    "content": "First, we examine the attention matrix multiplication. Fig. 18 and Table 6 illustrate the effects of MEDUSA while keeping the batch size fixed at 16. We observe increased FLOP/s and Operational Intensity as more candidate tokens are added (original decoding results are plotted as grey dots). This indicates that MEDUSA can leverage additional candidate tokens to improve computational throughput. Compared to regular decoding, MEDUSA achieves 44 × FLOP/s and 41 × Operational Intensity under the setting of batch size 16 and sequence length 1024 with 64 candidate tokens. Fig. 19 and Table 7 illustrate the effects of MEDUSA decoding while keeping the sequence length fixed at 1024. Increasing the batch size does not improve Operational Intensity in this scenario.",
+    "metadata": {
+      "page": 23,
+      "section": "G.2. FLOP/s vs. Operational Intensity Variations in MEDUSA",
+      "bbox": [
+        55.44,
+        592.639,
+        541.793,
+        672.922
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_164",
+    "type": "paragraph",
+    "content": "Next, we examine the linear layer, focusing on the up/gate/down linear layers. The results are shown in Fig. 20 and Table 8. Since the linear layers in the decoding phase only process the future tokens while the past tokens are cached, they are independent of the sequence length. We vary the batch size to observe the effects. As MEDUSA increases the number of candidate tokens with the increasing batch size, we observe a shift from a memory-bandwidth-bound region to a computation-bound region. This shift demonstrates how MEDUSA can transition the performance characteristics of the linear layers from being limited by memory bandwidth to being limited by computational capacity.",
+    "metadata": {
+      "page": 23,
+      "section": "G.2. FLOP/s vs. Operational Intensity Variations in MEDUSA",
+      "bbox": [
+        55.131,
+        514.931,
+        542.686,
+        583.259
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_17",
+    "type": "figure",
+    "content": "Figure 18. FLOP/s vs. Operational Intensity of attention matrix multiplication with batch size 16.",
+    "metadata": {
+      "page": 23,
+      "section": "G.2. FLOP/s vs. Operational Intensity Variations in MEDUSA",
+      "bbox": [
+        117.30260467529297,
+        273.91680908203125,
+        461.2103576660156,
+        486.2699890136719
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_19.png",
+      "image_summary": "The figure is a log-log plot titled \"Llama 33B, A100 80GB PCIe,\" illustrating performance in FLOP/s versus operational intensity in FLOP/Byte for different implementations of the qk/pv operation.\n\nAxes:\n- X-axis represents Operational Intensity (FLOP/Byte), ranging from about 0.1 to 10,000 (10k).\n- Y-axis represents Performance (FLOP/s), ranging from 10G (10^10) to above 100T (up to >100x10^12 FLOP/s).\n\nData points are categorized by:\n- Gray dots representing baseline qk/pv ar.\n- Colored dots representing qk/pv Medusa with varying candidate numbers (# cand.) from 16 to 112, increasing with color saturation from orange to dark purple.\n\nTwo significant lines are drawn:\n- A blue dashed line labeled \"1,935GB/s\" with a positive slope, representing a bandwidth-bound performance ceiling.\n- A red dashed horizontal line labeled \"312 TFLOP/s\" representing the peak computational throughput (ceiling).\n\nA vertical green dashed line marks an operational intensity of approximately 120 FLOP/Byte.\n\nKey trends and comparisons:\n- The baseline qk/pv ar (gray dots) achieves performance around 1T (tera) FLOP/s at very low operational intensity (~0.5 FLOP/Byte).\n- The qk/pv Medusa implementations show a clear trend: as candidate number increases (16 to 112), both operational intensity and performance increase.\n- The data points shift rightwards (higher operational intensity) and upwards (higher performance) progressively with more candidates.\n- The highest candidate numbers (96 and 112, dark purple) achieve the best performance near 100T FLOP/s at operational intensities close to 100 FLOP/Byte.\n  \nAnomalies:\n- There are no evident anomalies; all data points follow the expected trend of increasing performance with operational intensity.\n- Performance scales towards, but does not surpass, the computational peak indicated by 312 TFLOP/s (red line).\n\nMain takeaway:\nThe figure demonstrates that the qk/pv Medusa implementation for Llama 33B on an A100 80GB PCIe attains significantly improved performance compared to baseline qk/pv ar, with increasing numbers of candidates yielding higher operational intensities and performance. Performance approaches but does not exceed the hardware's peak compute limit, highlighting the Medusa method's efficiency in balancing memory bandwidth (blue line) and computation bounds for optimized FLOP/s performance."
+    }
+  },
+  {
+    "id": "2401.10774_fig_18",
+    "type": "figure",
+    "content": "Figure 19. FLOP/s vs. Operational Intensity of attention matrix multiplication with sequence length 1024.",
+    "metadata": {
+      "page": 24,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        117.41812896728516,
+        464.0101623535156,
+        460.4527893066406,
+        668.0413436889648
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_20.png",
+      "image_summary": "The figure is a log-log plot depicting the relationship between Operational Intensity (measured in FLOP/Byte) on the x-axis and Performance (measured in FLOP/s) on the y-axis. The operational intensity ranges from approximately 0.3 to 10,000 FLOP/Byte while performance spans from 10G (10^10 FLOP/s) to over 100T (10^14 FLOP/s).\n\nTwo main reference lines are shown: a blue dashed line representing a memory bandwidth limit at 1,935 GB/s, sloping upward with increasing operational intensity; and a horizontal red dashed line at approximately 312 TFLOP/s indicating a peak compute performance ceiling.\n\nData points are color-coded by category:\n- Gray points denote \"qk/pv ar\" performance clustered at low operational intensity (<1 FLOP/Byte) and performance between about 100G and 1T FLOP/s.\n- Colored points (orange to purple shades) represent \"qk/pv Medusa\" series with varied candidate counts (# cand.) from 16 to 112. These form several distinct clusters spanning mid to high operational intensities (around 8 to 70 FLOP/Byte) and performance ranging roughly from 1T to around 30T FLOP/s.\n\nKey observations:\n- The \"qk/pv ar\" points have low operational intensity and lower performance.\n- The \"qk/pv Medusa\" points demonstrate a positive trend in performance with increasing operational intensity.\n- None of the measured performances approach the peak compute bound (red line) or the memory bandwidth bound (blue line), suggesting room for optimization or fundamental limitations in the tested configurations.\n- As candidate count increases in the Medusa series, there is a clustering of data points at higher operational intensities and slightly higher performance, indicating an influence of candidate count on the performance/operational intensity relationship.\n\nThe main takeaway is that increasing candidate count in the Medusa configurations tends to shift operational intensity and performance upwards, but all measured performances remain well below theoretical hardware limits indicated by the peak compute and memory bandwidth lines. This suggests current implementations are limited by factors other than hardware peak capabilities."
+    }
+  },
+  {
+    "id": "2401.10774_fig_19",
+    "type": "figure",
+    "content": "Figure 20. FLOP/s vs. Operational Intensity of Linear layers.",
+    "metadata": {
+      "page": 24,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        117.49340057373047,
+        136.13861083984375,
+        461.475830078125,
+        348.20245361328125
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_21.png",
+      "image_summary": "The figure presents a roofline performance model for the Llama 33B model running on an NVIDIA A100 80GB PCIe GPU, illustrating the relationship between Operational Intensity (measured in FLOP/Byte, x-axis, logarithmic scale from approximately 0.3 to 10k) and Performance (measured in FLOP/s, y-axis, logarithmic scale from 10G to over 100T).\n\nTwo reference lines are shown: a blue dashed line representing the memory bandwidth limit at 1935 GB/s and a red dashed line denoting the peak computational throughput limit at 312 TFLOP/s.\n\nData points are plotted for different \"up/gate/down spec\" configurations, with increasing spec values indicated by progressively darker purple hues. The gray points represent baseline \"up/gate/down ar\" measurements.\n\nKey trends include a clear increase in performance with operational intensity up to around 100 FLOP/Byte, beyond which performance saturates toward the red horizontal peak line near 312 TFLOP/s, indicating that the computation becomes compute-bound rather than memory-bound at high intensity.\n\nComparison between the different \"spec\" values shows that performance improves and converges towards the peak as the specification increases from 16 to 112, suggesting that higher specifications enable better utilization of the GPU. Lower \"spec\" values lie below the memory-bound roofline, indicating memory bandwidth limitation.\n\nNo obvious anomalies are present; the data clearly follows the expected roofline pattern. The main takeaway is that the Llama 33B model running on this hardware achieves near-peak performance at high operational intensities for higher specification configurations, transitioning from memory-bound to compute-bound regimes according to the roofline model."
+    }
+  },
+  {
+    "id": "2401.10774_table_6",
+    "type": "table",
+    "content": "MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads",
+    "metadata": {
+      "page": 25,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        68.70655822753906,
+        637.1169281005859,
+        527.6165771484375,
+        727.9380950927734
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_6.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_165",
+    "type": "paragraph",
+    "content": "Table 6. TFLOP/s & Operational Intensity of attention matrix multiplication with batch size 16 for Llama 33B on an A100 80GB PCIe.",
+    "metadata": {
+      "page": 25,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        54.893,
+        618.172,
+        540.567,
+        625.869
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_table_7",
+    "type": "table",
+    "content": "Table 7. TFLOP/s & Operational Intensity of attention matrix multiplication with sequence length 1024 for Llama 33B on an A100 80GB PCIe.",
+    "metadata": {
+      "page": 25,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        70.54264068603516,
+        511.2236633300781,
+        525.8746948242188,
+        599.9482879638672
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_7.png"
+    }
+  },
+  {
+    "id": "2401.10774_table_8",
+    "type": "table",
+    "content": "Table 8. TFLOP/s & Operational Intensity of linear layers (up/gate/down) for Llama 33B on an A100 80GB PCIe.",
+    "metadata": {
+      "page": 25,
+      "section": "Llama 33B, A100 80GB PCIe",
+      "bbox": [
+        64.31181335449219,
+        385.0811462402344,
+        532.4702758789062,
+        465.1301574707031
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/table/table_8.png"
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_166",
+    "type": "paragraph",
+    "content": "We further employ a straightforward analytical model for the acceleration rate. The ablation study results in Sec. 3.3.1 indicate that the acceleration rate can be approximated by a simple logarithmic function. Using the results from Fig. 4a, we model the curve as acc rate = 0 . 477 log( num candidate ) . We simulate the latency of one simplified block of the Llama-7B model (sequentially processing XW Q , XW K , XW V , QK T , PV , XW u , XW g , XW d ) by first fixing the batch size at 1 and the sequence length at 1024. The candidate tokens are processed parallelly by constructing the tree attention described in Section 2.1.2. We omit the latency of the post-processing steps including verification and acceptance for MEDUSA since they introduce marginal overhead. Fig. 21 illustrates the simulated acceleration rate and speedup for different numbers of candidate tokens under these settings. As the number of candidate tokens increases, both the acceleration rate and speedup initially show improvements. However, beyond 64, the speedup starts to decline, indicating diminishing returns with further increases in candidate length. This aligns with the experimental results in Fig. 4b and suggests that there is an optimal range for the numbers of candidate tokens where MEDUSA provides the most significant performance gains.",
+    "metadata": {
+      "page": 25,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        54.972,
+        182.47000000000003,
+        542.68,
+        322.529
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_167",
+    "type": "paragraph",
+    "content": "We plot the simulated speedup under different batch size settings with a fixed sequence length of 1024 in Fig. 22. The results indicate that when the batch size exceeds 32, the speedup decreases and may even have a negative effect. This occurs because the linear layers shift from being memory-bandwidth-bound to computationally bound.",
+    "metadata": {
+      "page": 25,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        54.972,
+        140.62699999999995,
+        541.44,
+        173.08899999999994
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_168",
+    "type": "paragraph",
+    "content": "We conduct another experiment using a batch size of 4 and different sequence lengths. As shown in Fig. 23, the optimal number of candidate tokens remains relatively consistent across different sequence lengths. However, as the sequence length increases, the overall performance decreases. This performance drop is primarily due to the overhead from attention matrix multiplication, while the linear layer computation remains constant since the computation of linear layers is independent of the sequence length.",
+    "metadata": {
+      "page": 25,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        54.972,
+        74.87300000000005,
+        541.685,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_paragraph_169",
+    "type": "paragraph",
+    "content": "Our simulations show that the optimal number of candidate tokens is key for model scaling with MEDUSA, as benefits decrease beyond a certain range. Initially, increasing batch size improves performance through parallelism, but too large a batch size shifts linear layers from memory-bandwidth-bound to compute-bound, reducing speedup. Longer sequences increase attention matrix multiplication overhead, lowering performance, and emphasizing the need to optimize attention mechanisms. Effective model scaling requires balancing the number of candidate tokens, adjusting batch sizes to avoid compute-bound transitions, and enhancing attention mechanisms for longer sequences. These strategies ensure better resource utilization and higher performance, demonstrating the value of simulations in predicting performance and guiding acceleration strategy design.",
+    "metadata": {
+      "page": 26,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        55.44,
+        629.224,
+        541.613,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2401.10774_fig_20",
+    "type": "figure",
+    "content": "Figure 21. Simulated acceleration rate, speedup, and normalized latency ablation using different numbers of candidate tokens under the setting of batch size 1 and sequence length 1024 for Llama-7B on an A100 80GB PCIe.",
+    "metadata": {
+      "page": 26,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        125.66487121582031,
+        389.2350769042969,
+        454.70465087890625,
+        601.0604553222656
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_22.png",
+      "image_summary": "The figure presents a performance analysis for the Llama 7B model with a batch size of 1 and a sequence length of 1024, showing normalized latency, accuracy rate, and speedup as functions of the number of candidate tokens on the x-axis. The x-axis is labeled \"Number of Candidate Tokens,\" ranging from 1 to 112, while the y-axis is labeled \"Normalized Latency / Acc. Rate / Speedup,\" with values starting at 0 and extending slightly above 3.0.\n\nKey elements include:\n- Two line plots with markers:\n  - **Simulated Accuracy Rate (blue stars, dashed line)** increases sharply from 1 at 1 candidate token to approximately 2.4 at 16 tokens, then continues to rise more gradually, reaching about 3.3 at 112 tokens.\n  - **Simulated Speedup (green stars, dashed line)** follows a similar trend initially, starting at 1 for 1 candidate token and increasing to ~2.4 at 16 tokens, then climbing to a peak near 2.95 at 64 tokens before slightly declining and plateauing around 2.85 beyond 80 tokens.\n  \n- A stacked bar chart showing components of normalized latency:\n  - The bars represent three components: \"qk/pv ar\" (dark purple), \"qkv linear ar\" (medium purple), and \"up/gate/down ar\" (light purple).\n  - The total bar height starts at 1 for 1 candidate and gradually increases up to approximately 1.2 at 112 candidates.\n  - The \"up/gate/down ar\" component dominates the bar height, showing a steady increase as the number of candidate tokens increases.\n  - The \"qkv linear ar\" and \"qk/pv ar\" components remain relatively small and increase slightly with the number of candidates.\n\nKey trends and comparisons:\n- Both simulated accuracy rate and speedup increase with the number of candidate tokens, with accuracy rate consistently higher than speedup.\n- Speedup appears to peak around 64 candidates and then stabilizes, while accuracy rate continues to improve.\n- Latency, as composed by the stacked components, increases slowly with the number of candidate tokens but remains close to 1 to 1.2 normalized units, indicating a moderate latency overhead.\n- The main latency contributor shifts more visibly to the up/gate/down operations as candidates increase.\n\nMain takeaway:\nIncreasing the number of candidate tokens substantially improves the simulated accuracy rate and provides speedup gains up to a point, though the speedup plateaus after about 64 candidates. Latency modestly increases but remains manageable, with the up/gate/down component contributing most to latency growth. This suggests a favorable trade-off where accuracy can be significantly enhanced with limited latency penalty and diminishing speedup returns beyond a certain candidate count."
+    }
+  },
+  {
+    "id": "2401.10774_fig_21",
+    "type": "figure",
+    "content": "Figure 22. Simulated speedup with sequence length 1024 for Llama-7B.",
+    "metadata": {
+      "page": 27,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        110.75444793701172,
+        469.1327819824219,
+        479.30682373046875,
+        686.0347900390625
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_23.png",
+      "image_summary": "The figure shows the simulated speedup in percentage for the Llama 7B model at a sequence length of 1024, plotted against the number of candidate tokens on the x-axis, ranging from 1 to 112, with specific points at 1, 16, 32, 48, 64, 80, 96, and 112 candidate tokens. The y-axis represents speedup in percentage, starting from 0.0 up to 3.0.\n\nMultiple lines represent different batch sizes (bs): 1, 2, 4, 8, 16, 32, and 64, each distinguished by color and star markers. The legend provides clear identification for each batch size line.\n\nKey trends include:\n\n- For the smallest batch size (bs=1, blue), speedup increases sharply from 1 at 1 candidate token, peaking at about 2.95 around 64 candidate tokens, and then slightly decreases but remains close to the peak level up to 112 tokens.\n- For bs=2 (orange), speedup follows a similar pattern to bs=1 but with lower peak values around 2.6 at 64 candidate tokens before slightly dropping.\n- For bs=4 (green), speedup initially rises to just above 2.2 around 32 candidate tokens, then shows a gradual decline from 64 tokens onward, falling to about 1.5 at 112 tokens.\n- For larger batch sizes (bs=8 to bs=64), the speedup generally decreases with increasing candidate tokens, with the highest speedup at low token counts (around 1.8 for bs=8 at 16 tokens). The speedup drops significantly for higher candidate token numbers, reaching below 0.5 speedup for bs=16, and gradually approaching near zero for bs=32 and bs=64.\n\nThe main takeaway is that speedup is maximized for smaller batch sizes and moderate candidate token counts (around 32 to 64). Larger batch sizes show diminishing returns in speedup as the number of candidate tokens increases, illustrating an inverse relationship between batch size and speedup scalability with candidate tokens in this context. This suggests that for optimal speedup in Llama 7B with sequence length 1024, smaller batch sizes combined with moderate candidate token numbers are preferable."
+    }
+  },
+  {
+    "id": "2401.10774_fig_22",
+    "type": "figure",
+    "content": "Figure 23. Simulated speedup with batch size 4 for Llama-7B.",
+    "metadata": {
+      "page": 27,
+      "section": "G.3. Predicting MEDUSA Performance",
+      "bbox": [
+        110.90472412109375,
+        140.8272705078125,
+        476.7505798339844,
+        357.88055419921875
+      ],
+      "image_path": "data/rag_assets/images/2401.10774/figure/figure_24.png",
+      "image_summary": "The figure presents the simulated speedup percentages for the Llama 7B model with a fixed batch size of 4, as a function of the number of candidate tokens. The x-axis is labeled \"Number of Candidate Tokens\" and ranges from 1 to 112, while the y-axis is labeled \"Speedup (%)\" and ranges from 1.0 to 2.5.\n\nSeven different curves correspond to different sequence lengths (seq_len) tested: 128, 256, 512, 1024, 2048, 4096, and 8192, each represented by distinct colored star markers and dashed lines.\n\nKey trends observed:\n\n1. For all sequence lengths, speedup increases sharply from 1 candidate token to around 32 candidate tokens, peaking between 2.0% and 2.5% speedup.\n2. Beyond 32 candidate tokens, speedup either slightly decreases or plateaus until 64 candidate tokens, then drops more noticeably after 80 candidate tokens.\n3. Shorter sequence lengths (128, 256, 512) consistently achieve higher maximum speedups, peaking around 2.4-2.5%.\n4. Longer sequence lengths (4096, 8192) have lower speedups overall, with the highest around 1.8% for 4096 and just above 1.3% for 8192.\n5. All curves start at a baseline speedup of 1.0% when the number of candidate tokens is 1, indicating no speedup.\n\nMain takeaway:\nThe simulation suggests that the Llama 7B model achieves the greatest relative speedup with moderate numbers of candidate tokens (around 32) and shorter sequence lengths, with speedup gains diminishing at higher candidate tokens and/or longer sequences. This indicates a trade-off in candidate tokens and sequence length for optimal speedup performance in this setup."
+    }
+  }
+]

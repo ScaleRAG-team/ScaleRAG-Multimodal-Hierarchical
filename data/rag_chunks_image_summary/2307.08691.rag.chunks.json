@@ -1,0 +1,1785 @@
+[
+  {
+    "id": "2307.08691_paragraph_1",
+    "type": "paragraph",
+    "content": "Scaling Transformers to longer sequence lengths has been a major problem in the last several years, promising to improve performance in language modeling and high-resolution image understanding, as well as to unlock new applications in code, audio, and video generation. The attention layer is the main bottleneck in scaling to longer sequences, as its runtime and memory increase quadratically in the sequence length. FlashAttention [5] exploits the asymmetric GPU memory hierarchy to bring significant memory saving (linear instead of quadratic) and runtime speedup (2-4 × compared to optimized baselines), with no approximation. However, FlashAttention is still not nearly as fast as optimized matrix-multiply (GEMM) operations, reaching only 25-40% of the theoretical maximum FLOPs/s. We observe that the inefficiency is due to suboptimal work partitioning between different thread blocks and warps on the GPU, causing either low-occupancy or unnecessary shared memory reads/writes. We propose FlashAttention-2 , with better work partitioning to address these issues. In particular, we (1) tweak the algorithm to reduce the number of non-matmul FLOPs (2) parallelize the attention computation, even for a single head, across different thread blocks to increase occupancy, and (3) within each thread block, distribute the work between warps to reduce communication through shared memory. These yield around 2 × speedup compared to FlashAttention , reaching 50-73% of the theoretical maximum FLOPs/s on A100 and getting close to the efficiency of GEMM operations. We empirically validate that when used end-to-end to train GPT-style models, FlashAttention-2 reaches training speed of up to 225 TFLOPs/s per A100 GPU (72% model FLOPs utilization). 1",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        96.566,
+        293.33,
+        516.375,
+        487.549
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_2",
+    "type": "paragraph",
+    "content": "Scaling up the context length of Transformers [18] is a challenge, since the attention layer at their heart has runtime and memory requirements quadratic in the input sequence length. Ideally, we would like to go beyond the standard 2k sequence length limit to train models to understand books, high resolution images, and long-form videos. Just within the last year, there have been several language models with much longer context than before: GPT-4 [12] with context length 32k, MosaicML's MPT with context length 65k, and Anthropic's Claude with context length 100k. Emerging use cases such as long document querying and story writing have demonstrated a need for models with such long context.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        71.621,
+        165.37900000000002,
+        541.388,
+        249.64300000000003
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_3",
+    "type": "paragraph",
+    "content": "To reduce the computational requirement of attention on such long context, there have been numerous methods proposed to approximate attention [2, 3, 4, 8, 9, 14, 19, 20]. Though these methods have seen some use cases, as far as we know, most large-scale training runs still use standard attention. Motivated by this, Dao et al. [5] proposed to reorder the attention computation and leverages classical techniques (tiling, recomputation) to significantly speed it up and reduce memory usage from quadratic to linear in sequence length. This yields 2-4 × wall-clock time speedup over optimized baselines, up to 10-20 × memory saving,",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        93.64800000000002,
+        541.386,
+        165.957
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_4",
+    "type": "paragraph",
+    "content": "1 FlashAttention-2 is available at https://github.com/Dao-AILab/flash-attention",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        83.089,
+        77.447,
+        405.768,
+        86.168
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_5",
+    "type": "paragraph",
+    "content": "with no approximation, and as a result FlashAttention has seen wide adoption in large-scale training and inference of Transformers.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        71.641,
+        694.022,
+        539.996,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_6",
+    "type": "paragraph",
+    "content": "Building on FlashAttention , we propose FlashAttention-2 with better parallelism and work partitioning to address these challenges.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        574.471,
+        540.264,
+        598.959
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_7",
+    "type": "paragraph",
+    "content": "However, context length increases even more, FlashAttention is still not nearly as efficient as other primitives such as matrix-multiply (GEMM). In particular, while FlashAttention is already 2-4 × faster than a standard attention implementation, the forward pass only reaches 30-50% of the theoretical maximum FLOPs/s of the device (Fig. 5), while the backward pass is even more challenging, reaching only 25-35% of maximum throughput on A100 GPU (Fig. 6). In contrast, optimized GEMM can reach up to 80-90% of the theoretical maximum device throughput. Through careful profiling, we observe that FlashAttention still has suboptimal work partitioning between different thread blocks and warps on the GPU, causing either low-occupancy or unnecessary shared memory reads/writes.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        598.381,
+        540.415,
+        694.6
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_8",
+    "type": "paragraph",
+    "content": "In Section 3.1, we tweak the algorithms to reduce the number of non-matmul FLOPs while not changing the output. While the non-matmul FLOPs only account for a small fraction of the total FLOPs, they take longer to perform as GPUs have specialized units for matrix multiply, and as a result the matmul throughput can be up to 16 × higher than non-matmul throughput. It is thus important to reduce non-matmul FLOPs and spend as much time as possible doing matmul FLOPs.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        84.178,
+        506.725,
+        540.367,
+        567.078
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_9",
+    "type": "paragraph",
+    "content": "We propose to parallelize both the forward pass and backward pass along the sequence length dimension, in addition to the batch and number of heads dimension. This increases occupancy (utilization of GPU resources) in the case where the sequences are long (and hence batch size is often small).",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        84.178,
+        462.889,
+        541.384,
+        499.333
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_10",
+    "type": "paragraph",
+    "content": "Even within one block of attention computation, we partition the work between different warps of a thread block to reduce communication and shared memory reads/writes.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        84.178,
+        431.009,
+        539.998,
+        455.497
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_11",
+    "type": "paragraph",
+    "content": "In Section 4, we empirically validate that FlashAttention-2 yields significant speedup compared to even FlashAttention . Benchmarks on different settings (with or without causal mask, different head dimensions) show that FlashAttention-2 achieves around 2 × speedup over FlashAttention , reaching up to 73% of the theoretical max throughput in the forward pass, and up to 63% of the theoretical max throughput in the backward pass. When used end-to-end to train GPT-style models, we reach training speed of up to 225 TFLOPs/s per A100 GPU.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        351.308,
+        540.26,
+        423.616
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_12",
+    "type": "paragraph",
+    "content": "We provide some background on the performance characteristics and execution model of GPUs. We also describe the standard implementation of attention, as well as FlashAttention .",
+    "metadata": {
+      "page": 2,
+      "section": "Background",
+      "bbox": [
+        71.492,
+        284.592,
+        539.996,
+        309.08
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_13",
+    "type": "paragraph",
+    "content": "GPU performance characteristics. The GPU consists of compute elements (e.g., floating point arithmetic units) and a memory hierarchy. Most modern GPUs contain specialized units to accelerate matrix multiply in low-precision (e.g., Tensor Cores on Nvidia GPUs for FP16/BF16 matrix multiply). The memory hierarchy comprise of high bandwidth memory (HBM), and on-chip SRAM (aka shared memory). As an example, the A100 GPU has 40-80GB of high bandwidth memory (HBM) with bandwidth 1.5-2.0TB/s and 192KB of on-chip SRAM per each of 108 streaming multiprocessors with bandwidth estimated around 19TB/s [6, 7]. As the L2 cache is not directly controllable by the programmer, we focus on the HBM and SRAM for the purpose of this discussion.",
+    "metadata": {
+      "page": 2,
+      "section": "Hardware characteristics",
+      "bbox": [
+        71.621,
+        154.63300000000004,
+        541.932,
+        250.85199999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_14",
+    "type": "paragraph",
+    "content": "Execution Model. GPUs have a massive number of threads to execute an operation (called a kernel). Threads are organized into thread blocks, which are scheduled to run on streaming multiprocessors (SMs). Within each thread blocks, threads are grouped into warps (a group of 32 threads). Threads within a warp can communicate by fast shuffle instructions or cooperate to perform matrix multiply. Warps within a thread block can communicate by reading from / writing to shared memory. Each kernel loads inputs from HBM to registers and SRAM, computes, then writes outputs to HBM.",
+    "metadata": {
+      "page": 2,
+      "section": "Hardware characteristics",
+      "bbox": [
+        71.492,
+        82.90200000000004,
+        541.932,
+        155.21000000000004
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_15",
+    "type": "paragraph",
+    "content": "Given input sequences Q , K , V ∈ R 𝑁 × 𝑑 where 𝑁 is the sequence length and 𝑑 is the head dimension, we want to compute the attention output O ∈ R 𝑁 × 𝑑 :",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        72.0,
+        675.635,
+        540.265,
+        700.123
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_1",
+    "type": "equation",
+    "content": "S = QK ⊤ ∈ R 𝑁 × 𝑁 , P = softmax ( S ) ∈ R 𝑁 × 𝑁 , O = PV ∈ R 𝑁 × 𝑑 ,",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        166.778,
+        655.005,
+        445.113,
+        666.171
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_16",
+    "type": "paragraph",
+    "content": "where softmax is applied row-wise. 2 For multi-head attention (MHA), this same computation is performed in parallel across many heads, and parallel over the batch dimension (number of input sequences in a batch).",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        71.641,
+        619.844,
+        540.002,
+        644.332
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_17",
+    "type": "paragraph",
+    "content": "The backward pass of attention proceeds as follows. Let dO ∈ R 𝑁 × 𝑑 be the gradient of O with respect to some loss function. Then by the chain rule (aka backpropagation):",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        72.0,
+        595.933,
+        539.997,
+        620.422
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_2",
+    "type": "equation",
+    "content": "dV = P ⊤ dO ∈ R 𝑁 × 𝑑 dP = dOV ⊤ ∈ R 𝑁 × 𝑁 dS = dsoftmax ( dP ) ∈ R 𝑁 × 𝑁 dQ = dSK ∈ R 𝑁 × 𝑑 dK = QdS ⊤ ∈ R 𝑁 × 𝑑 ,",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        244.798,
+        509.235,
+        365.883,
+        586.47
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_18",
+    "type": "paragraph",
+    "content": "where dsoftmax is the gradient (backward pass) of softmax applied row-wise. One can work out that if 𝑝 = softmax ( 𝑠 ) for some vector 𝑠 and 𝑝 , then with output gradient 𝑑𝑝 , the input gradient 𝑑𝑠 = ( diag ( 𝑝 ) -𝑝𝑝 ⊤ ) 𝑑𝑝 .",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        71.641,
+        474.074,
+        541.932,
+        498.562
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_19",
+    "type": "paragraph",
+    "content": "Standard attention implementations materialize the matrices S and P to HBM, which takes 𝑂 ( 𝑁 2 ) memory. Often 𝑁 ≫ 𝑑 (typically 𝑁 is on the order of 1k-8k and 𝑑 is around 64-128). The standard attention implementation (1) calls the matrix multiply (GEMM) subroutine to multiply S = QK ⊤ , writes the result to HBM, then (2) loads § from HBM to compute softmax and write the result P to HBM, and finally (3) calls GEMM to get O = PV . As most of the operations are bounded by memory bandwidth, the large number of memory accesses translates to slow wall-clock time. Moreover, the required memory is 𝑂 ( 𝑁 2 ) due to having to materialize S and P . Moreover, one has to save P ∈ R 𝑁 × 𝑁 for the backward pass to compute the gradients.",
+    "metadata": {
+      "page": 3,
+      "section": "Standard Attention Implementation",
+      "bbox": [
+        72.0,
+        390.388,
+        541.935,
+        474.652
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_20",
+    "type": "paragraph",
+    "content": "To speed up attention on hardware accelerators such as GPU, [5] proposes an algorithm to reduce the memory reads/writes while maintaining the same output (without approximation).",
+    "metadata": {
+      "page": 3,
+      "section": "FlashAttention",
+      "bbox": [
+        71.641,
+        332.16,
+        540.366,
+        356.648
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_21",
+    "type": "paragraph",
+    "content": "FlashAttention applies the classical technique of tiling to reduce memory IOs, by (1) loading blocks of inputs from HBM to SRAM, (2) computing attention with respect to that block, and then (3) updating the output without writing the large intermediate matrices S and P to HBM. As the softmax couples entire rows or blocks of row, online softmax [11, 13] can split the attention computation into blocks, and rescale the output of each block to finally get the right result (with no approximation). By significantly reducing the amount of memory reads/writes, FlashAttention yields 2-4 × wall-clock speedup over optimized baseline attention implementations.",
+    "metadata": {
+      "page": 3,
+      "section": "Forward pass",
+      "bbox": [
+        72.0,
+        216.149,
+        540.005,
+        300.413
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_22",
+    "type": "paragraph",
+    "content": ", multiply with the value, of the form  V ( 1 ) V ( 2 )  for some matrices V ( 1 ) , V ( 2 ) ∈ R 𝐵 𝑐 × 𝑑 . Standard softmax would",
+    "metadata": {
+      "page": 3,
+      "section": "Forward pass",
+      "bbox": [
+        72.0,
+        157.52800000000002,
+        541.384,
+        204.77099999999996
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_23",
+    "type": "paragraph",
+    "content": "We describe the online softmax technique [11] and how it is used in attention [13]. For simplicity, consider just one row block of the attention matrix S , of the form  S ( 1 ) S ( 2 )  for some matrices S ( 1 ) , S ( 2 ) ∈ R 𝐵 𝑟 × 𝐵 𝑐 where 𝐵 𝑟 and 𝐵 𝑐 are the row and column block sizes. We want to compute softmax of this row block and",
+    "metadata": {
+      "page": 3,
+      "section": "Forward pass",
+      "bbox": [
+        71.641,
+        180.28300000000002,
+        540.198,
+        216.72699999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_24",
+    "type": "paragraph",
+    "content": "2 For clarity of exposition, we omit the scaling of QK ⊤ (typically by 1 / d ), and optionally elementwise masking on S and/or dropout applied to P",
+    "metadata": {
+      "page": 3,
+      "section": "Forward pass",
+      "bbox": [
+        72.0,
+        129.14699999999993,
+        540.16,
+        147.41700000000003
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_25",
+    "type": "paragraph",
+    "content": "compute:",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        72.0,
+        705.978,
+        111.839,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_3",
+    "type": "equation",
+    "content": "𝑚 = max ( rowmax ( S ( 1 ) ) , rowmax ( S ( 2 ) )) ∈ R 𝐵 𝑟 ℓ = rowsum ( 𝑒 S ( 1 ) -𝑚 ) + rowsum ( 𝑒 S ( 2 ) -𝑚 ) ∈ R 𝐵 𝑟 P =  P ( 1 ) P ( 2 )  = diag ( ℓ ) -1 h 𝑒 S ( 1 ) -𝑚 𝑒 S ( 2 ) -𝑚 i ∈ R 𝐵 𝑟 × 2 𝐵 𝑐 O =  P ( 1 ) P ( 2 )   V ( 1 ) V ( 2 )  = diag ( ℓ ) -1 𝑒 S ( 1 ) -𝑚 V ( 1 ) + 𝑒 S ( 2 ) -𝑚 V ( 2 ) ∈ R 𝐵 𝑟 × 𝑑 .",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        154.592,
+        616.465,
+        457.309,
+        696.514
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_26",
+    "type": "paragraph",
+    "content": "Online softmax instead computes 'local' softmax with respect to each block and rescale to get the right output at the end:",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        72.0,
+        581.815,
+        540.269,
+        606.303
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_4",
+    "type": "equation",
+    "content": "𝑚 ( 1 ) = rowmax ( S ( 1 ) ) ∈ R 𝐵 𝑟 ℓ ( 1 ) = rowsum ( 𝑒 S ( 1 ) -𝑚 ( 1 ) ) ∈ R 𝐵 𝑟 ˜ P ( 1 ) = diag ( ℓ ( 1 ) ) -1 𝑒 S ( 1 ) -𝑚 ( 1 ) ∈ R 𝐵 𝑟 × 𝐵 𝑐 O ( 1 ) = ˜ P ( 1 ) V ( 1 ) = diag ( ℓ ( 1 ) ) -1 𝑒 S ( 1 ) -𝑚 ( 1 ) V ( 1 ) ∈ R 𝐵 𝑟 × 𝑑 𝑚 ( 2 ) = max ( 𝑚 ( 1 ) , rowmax ( S ( 2 ) )) = 𝑚 ℓ ( 2 ) = 𝑒 𝑚 ( 1 ) -𝑚 ( 2 ) ℓ ( 1 ) + rowsum ( 𝑒 S ( 2 ) -𝑚 ( 2 ) ) = rowsum ( 𝑒 S ( 1 ) -𝑚 ) + rowsum ( 𝑒 S ( 2 ) -𝑚 ) = ℓ ˜ P ( 2 ) = diag ( ℓ ( 2 ) ) -1 𝑒 S ( 2 ) -𝑚 ( 2 ) O ( 2 ) = diag ( ℓ ( 1 ) / ℓ ( 2 ) ) -1 O ( 1 ) + ˜ P ( 2 ) V ( 2 ) = diag ( ℓ ( 2 ) ) -1 𝑒 𝑠 ( 1 ) -𝑚 V ( 1 ) + diag ( ℓ ( 2 ) ) -1 𝑒 𝑠 ( 2 ) -𝑚 V ( 2 ) = O .",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        100.537,
+        435.136,
+        511.364,
+        572.352
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_27",
+    "type": "paragraph",
+    "content": "We show how FlashAttention uses online softmax to enable tiling (Fig. 1) to reduce memory reads/writes.",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        86.944,
+        411.931,
+        541.928,
+        424.464
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_1",
+    "type": "figure",
+    "content": "Figure 1: Diagram of how FlashAttention forward pass is performed, when the key K is partitioned into two blocks and the value V is also partitioned into two blocks. By computing attention with respect to each block and rescaling the output, we get the right answer at the end, while avoiding expensive memory reads/writes of the intermediate matrices S and P . We simplify the diagram, omitting the step in softmax that subtracts each element by the row-wise max.",
+    "metadata": {
+      "page": 4,
+      "section": "Forward pass",
+      "bbox": [
+        96.90401458740234,
+        176.60467529296875,
+        513.4217529296875,
+        383.95947265625
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_1.png",
+      "image_summary": "The figure presents a block diagram illustrating a two-layer computational process involving symbolic matrices and vectors stored in hierarchical block memory (HBM) and computations performed in SRAM. \n\nKey components and flow are as follows:\n\n- On the left, the matrix \\( Q \\) (in bold) and two transposed matrices \\((K^{(1)})^T\\) and \\((K^{(2)})^T\\) are stored in HBM, indicated by blue dashed boxes.\n- These are used to compute intermediate matrices \\( S^{(1)} = Q (K^{(1)})^T \\) and \\( S^{(2)} = Q (K^{(2)})^T \\) in SRAM, represented by orange dashed boxes.\n- The matrices \\( A^{(1)} \\) and \\( A^{(2)} \\) are then computed as element-wise exponentials: \\( A^{(1)} = \\exp(S^{(1)}) \\) and \\( A^{(2)} = \\exp(S^{(2)}) \\), also in SRAM.\n- The scalar normalization terms \\( l^{(1)} \\) and \\( l^{(2)} \\) are defined as sums over the exponentials: \n  \\[\n  l^{(1)} = \\sum_i \\exp(s^{(1)}_i), \\quad l^{(2)} = l^{(1)} + \\sum_i \\exp(s^{(2)}_i)\n  \\]\n  These are scalar values used for denominator normalization.\n- On the right, vectors \\( V^{(1)} \\) and \\( V^{(2)} \\) are stored in HBM.\n- The output vectors \\( O^{(1)} \\) and \\( O^{(2)} \\) are calculated by scaling and summing products of matrix \\( A \\) and vector \\( V \\) terms, normalized by the scalars \\( l \\):\n  \\[\n  O^{(1)} = \\frac{A^{(1)}}{l^{(1)}} \\cdot V^{(1)}, \\quad \n  O^{(2)} = \\frac{l^{(1)}}{l^{(2)}} O^{(1)} + \\frac{A^{(2)}}{l^{(2)}} \\cdot V^{(2)}\n  \\]\n- The figure emphasizes the term \\(\\frac{l^{(1)}}{l^{(2)}} O^{(1)}\\) as a \"Rescaling to correct denominator,\" indicating a correction step to maintain proper normalization in the second output.\n\nMain takeaway:\nThe figure details a two-layer hierarchical attention-like computation scheme combining data stored in HBM and intermediate computations in SRAM. It illustrates how exponentiation, summation, and normalization of intermediate terms distribute across memory storage and computational units to yield properly normalized output vectors with interdependent scaling factors ensuring correct denominator adjustment. This modular approach facilitates efficient computation by separating data storage and on-the-fly recalculations."
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_28",
+    "type": "paragraph",
+    "content": "In the backward pass, by re-computing the values of the attention matrices S and P once blocks of inputs Q , K , V are already loaded to SRAM, FlashAttention avoids having to store large intermediate values. By not having to save the large matrices S and P of size 𝑁 × 𝑁 , FlashAttention yields 10-20 × memory saving depending on sequence length (memory required in linear in sequence length 𝑁 instead of quadratic). The backward pass also achieves 2-4 × wall-clock speedup due to reduce memory reads/writes.",
+    "metadata": {
+      "page": 5,
+      "section": "Backward pass",
+      "bbox": [
+        72.0,
+        639.769,
+        540.37,
+        700.123
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_29",
+    "type": "paragraph",
+    "content": "The backward pass applies tiling to the equations in Section 2.2. Though the backward pass is simpler than the forward pass conceptually (there is no softmax rescaling), the implementation is significantly more involved. This is because there are more values to be kept in SRAM to perform 5 matrix multiples in the backward pass, compared to just 2 matrix multiples in the forward pass.",
+    "metadata": {
+      "page": 5,
+      "section": "Backward pass",
+      "bbox": [
+        72.0,
+        591.948,
+        540.198,
+        640.347
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_30",
+    "type": "paragraph",
+    "content": "We describe the FlashAttention-2 algorithm, which includes several tweaks to FlashAttention to reduce the number of non-matmul FLOPs. We then describe how to parallelize the computation on different thread blocks to make full use the GPU resources. Finally we describe we partition the work between different warps within one thread block to reduce the amount of shared memory access. These improvements lead to 2-3 × speedup as validated in Section 4.",
+    "metadata": {
+      "page": 5,
+      "section": "FlashAttention-2 : Algorithm, Parallelism, and Work Partitioning",
+      "bbox": [
+        71.492,
+        471.434,
+        540.0,
+        531.788
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_31",
+    "type": "paragraph",
+    "content": "We tweak the algorithm from FlashAttention to reduce the number of non-matmul FLOPs. This is because modern GPUs have specialized compute units (e.g., Tensor Cores on Nvidia GPUs) that makes matmul much faster. As an example, the A100 GPU has a max theoretical throughput of 312 TFLOPs/s of FP16/BF16 matmul, but only 19.5 TFLOPs/s of non-matmul FP32. Another way to think about this is that each non-matmul FLOP is 16 × more expensive than a matmul FLOP. To maintain high throughput (e.g., more than 50% of the maximum theoretical TFLOPs/s), we want to spend as much time on matmul FLOPs as possible.",
+    "metadata": {
+      "page": 5,
+      "section": "Algorithm",
+      "bbox": [
+        71.492,
+        353.43,
+        541.388,
+        437.694
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_32",
+    "type": "paragraph",
+    "content": "We revisit the online softmax trick as shown in Section 2.3 and make two minor tweaks to reduce non-matmul FLOPs:",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        71.492,
+        297.195,
+        540.004,
+        321.683
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_33",
+    "type": "paragraph",
+    "content": "We do not have to rescale both terms of the output update by diag ( ℓ ( 2 ) ) -1 :",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        84.178,
+        277.27,
+        426.654,
+        289.803
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_5",
+    "type": "equation",
+    "content": "O ( 2 ) = diag ( ℓ ( 1 ) / ℓ ( 2 ) ) -1 O ( 1 ) + diag ( ℓ ( 2 ) ) -1 𝑒 S ( 2 ) -𝑚 ( 2 ) V ( 2 ) .",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        197.041,
+        255.01,
+        439.697,
+        267.548
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_34",
+    "type": "paragraph",
+    "content": "We can instead maintain an 'un-scaled' version of O ( 2 ) and keep around the statistics ℓ ( 2 ) :",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        96.399,
+        231.80399999999997,
+        493.274,
+        244.337
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_6",
+    "type": "equation",
+    "content": "˜ O ( 2 ) = diag ( ℓ ( 1 ) ) -1 O ( 1 ) + 𝑒 S ( 2 ) -𝑚 ( 2 ) V ( 2 ) .",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        233.034,
+        209.56500000000005,
+        403.704,
+        222.10400000000004
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_35",
+    "type": "paragraph",
+    "content": "Only at the every end of the loop do we scale the final ˜ O ( last ) by diag ( ℓ ( last ) ) -1 to get the right output.",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        96.907,
+        186.35900000000004,
+        541.935,
+        198.90700000000004
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_36",
+    "type": "paragraph",
+    "content": "We do not have to save both the max 𝑚 ( 𝑗 ) and the sum of exponentials ℓ ( 𝑗 ) for the backward pass. We only need to store the logsumexp 𝐿 ( 𝑗 ) = 𝑚 ( 𝑗 ) + log ( ℓ ( 𝑗 ) ) .",
+    "metadata": {
+      "page": 5,
+      "section": "Forward pass",
+      "bbox": [
+        84.178,
+        154.47900000000004,
+        540.001,
+        178.96699999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_37",
+    "type": "paragraph",
+    "content": "In the simple case of 2 blocks in Section 2.3, the online softmax trick now becomes:",
+    "metadata": {
+      "page": 6,
+      "section": "Forward pass",
+      "bbox": [
+        86.944,
+        705.978,
+        451.074,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_7",
+    "type": "equation",
+    "content": "𝑚 ( 1 ) = rowmax ( S ( 1 ) ) ∈ R 𝐵 𝑟 ℓ ( 1 ) = rowsum ( 𝑒 S ( 1 ) -𝑚 ( 1 ) ) ∈ R 𝐵 𝑟 ˜ O ( 1 ) = 𝑒 S ( 1 ) -𝑚 ( 1 ) V ( 1 ) ∈ R 𝐵 𝑟 × 𝑑 𝑚 ( 2 ) = max ( 𝑚 ( 1 ) , rowmax ( S ( 2 ) )) = 𝑚 ℓ ( 2 ) = 𝑒 𝑚 ( 1 ) -𝑚 ( 2 ) ℓ ( 1 ) + rowsum ( 𝑒 S ( 2 ) -𝑚 ( 2 ) ) = rowsum ( 𝑒 S ( 1 ) -𝑚 ) + rowsum ( 𝑒 S ( 2 ) -𝑚 ) = ℓ ˜ P ( 2 ) = diag ( ℓ ( 2 ) ) -1 𝑒 S ( 2 ) -𝑚 ( 2 ) ˜ O ( 2 ) = diag ( 𝑒 𝑚 ( 1 ) -𝑚 ( 2 ) ) -1 ˜ O ( 1 ) + 𝑒 S ( 2 ) -𝑚 ( 2 ) V ( 2 ) = 𝑒 𝑠 ( 1 ) -𝑚 V ( 1 ) + 𝑒 𝑠 ( 2 ) -𝑚 V ( 2 ) O ( 2 ) = diag ( ℓ ( 2 ) ) -1 ˜ O ( 2 ) = O .",
+    "metadata": {
+      "page": 6,
+      "section": "Forward pass",
+      "bbox": [
+        127.693,
+        560.67,
+        484.048,
+        696.514
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_38",
+    "type": "paragraph",
+    "content": "We describe the full FlashAttention-2 forward pass in Algorithm 1.",
+    "metadata": {
+      "page": 6,
+      "section": "Forward pass",
+      "bbox": [
+        86.944,
+        537.464,
+        396.333,
+        549.997
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_39",
+    "type": "paragraph",
+    "content": "Require: Matrices Q , K , V ∈ R 𝑁 × 𝑑 in HBM, block sizes 𝐵 𝑐 , 𝐵 𝑟 . 1: Divide Q into 𝑇 𝑟 = l 𝑁 𝐵 𝑟 m blocks Q 1 , . . . , Q 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each, and divide K , V in to 𝑇 𝑐 = l 𝑁 𝐵 𝑐 m blocks K 1 , . . . , K 𝑇 𝑐 and V 1 , . . . , V 𝑇 𝑐 , of size 𝐵 𝑐 × 𝑑 each. 2: Divide the output O ∈ R 𝑁 × 𝑑 into 𝑇 𝑟 blocks O 𝑖 , . . . , O 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each, and divide the logsumexp 𝐿 into 𝑇 𝑟 blocks 𝐿 𝑖 , . . . , 𝐿 𝑇 𝑟 of size 𝐵 𝑟 each. 3: for 1 ≤ 𝑖 ≤ 𝑇 𝑟 do 4: Load Q 𝑖 from HBM to on-chip SRAM. 5: On chip, initialize O ( 0 ) 𝑖 = ( 0 ) 𝐵 𝑟 × 𝑑 ∈ R 𝐵 𝑟 × 𝑑 , ℓ ( 0 ) 𝑖 = ( 0 ) 𝐵 𝑟 ∈ R 𝐵 𝑟 , 𝑚 ( 0 ) 𝑖 = (-∞) 𝐵 𝑟 ∈ R 𝐵 𝑟 . 6: for 1 ≤ 𝑗 ≤ 𝑇 𝑐 do 7: Load K 𝑗 , V 𝑗 from HBM to on-chip SRAM. 8: On chip, compute S ( 𝑗 ) 𝑖 = Q 𝑖 K 𝑇 𝑗 ∈ R 𝐵 𝑟 × 𝐵 𝑐 . 9: On chip, compute 𝑚 ( 𝑗 ) 𝑖 = max ( 𝑚 ( 𝑗 -1 ) 𝑖 , rowmax ( S ( 𝑗 ) 𝑖 )) ∈ R 𝐵 𝑟 , ˜ P ( 𝑗 ) 𝑖 = exp ( S ( 𝑗 ) 𝑖 -𝑚 ( 𝑗 ) 𝑖 ) ∈ R 𝐵 𝑟 × 𝐵 𝑐 (pointwise), ℓ ( 𝑗 ) 𝑖 = 𝑒 𝑚 𝑗 -1 𝑖 -𝑚 ( 𝑗 ) 𝑖 ℓ ( 𝑗 -1 ) 𝑖 + rowsum ( ˜ P ( 𝑗 ) 𝑖 ) ∈ R 𝐵 𝑟 . 10: On chip, compute O ( 𝑗 ) 𝑖 = diag ( 𝑒 𝑚 ( 𝑗 -1 ) 𝑖 -𝑚 ( 𝑗 ) 𝑖 ) -1 O ( 𝑗 -1 ) 𝑖 + ˜ P ( 𝑗 ) 𝑖 V 𝑗 . 11: end for 12: On chip, compute O 𝑖 = diag ( ℓ ( 𝑇 𝑐 ) 𝑖 ) -1 O ( 𝑇 𝑐 ) 𝑖 . 13: On chip, compute 𝐿 𝑖 = 𝑚 ( 𝑇 𝑐 ) 𝑖 + log ( ℓ ( 𝑇 𝑐 ) 𝑖 ) . 14: Write O 𝑖 to HBM as the 𝑖 -th block of O . 15: Write 𝐿 𝑖 to HBM as the 𝑖 -th block of 𝐿 . 16: end for 17: Return the output O and the logsumexp 𝐿 .",
+    "metadata": {
+      "page": 6,
+      "section": "Algorithm 1 FlashAttention-2 forward pass",
+      "bbox": [
+        72.0,
+        234.89200000000005,
+        540.0,
+        508.606
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_40",
+    "type": "paragraph",
+    "content": "Causal masking. One common use case of attention is in auto-regressive language modeling, where we need to apply a causal mask to the attention matrix S (i.e., any entry S 𝑖 𝑗 with 𝑗 > 𝑖 is set to -∞ ).",
+    "metadata": {
+      "page": 6,
+      "section": "Algorithm 1 FlashAttention-2 forward pass",
+      "bbox": [
+        72.0,
+        190.72500000000002,
+        539.994,
+        215.21299999999997
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_41",
+    "type": "paragraph",
+    "content": "As FlashAttention and FlashAttention-2 already operate by blocks, for any blocks where all the column indices are more than the row indices (approximately half of the blocks for large sequence length), we can skip the computation of that block. This leads to around 1.7-1.8 × speedup compared to attention without the causal mask.",
+    "metadata": {
+      "page": 6,
+      "section": "Algorithm 1 FlashAttention-2 forward pass",
+      "bbox": [
+        84.178,
+        134.93399999999997,
+        540.0,
+        183.33299999999997
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_42",
+    "type": "paragraph",
+    "content": "We do not need to apply the causal mask for blocks whose row indices are guaranteed to be strictly less than the column indices. This means that for each row, we only need apply causal mask to 1 block (assuming square block).",
+    "metadata": {
+      "page": 6,
+      "section": "Algorithm 1 FlashAttention-2 forward pass",
+      "bbox": [
+        84.178,
+        91.09900000000005,
+        540.254,
+        127.54200000000003
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_43",
+    "type": "paragraph",
+    "content": "Correctness, runtime, and memory requirement. As with FlashAttention , Algorithm 1 returns the correct output O = softmax ( QK ⊤ ) V (with no approximation), using 𝑂 ( 𝑁 2 𝑑 ) FLOPs and requires 𝑂 ( 𝑁 ) additional memory beyond inputs and output (to store the logsumexp 𝐿 ). The proof is almost the same as the proof of Dao et al. [5, Theorem 1], so we omit it here.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 1 FlashAttention-2 forward pass",
+      "bbox": [
+        72.0,
+        670.112,
+        540.004,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_44",
+    "type": "paragraph",
+    "content": "The backward pass of FlashAttention-2 is almost the same as that of FlashAttention . We make a minor tweak to only use the row-wise logsumexp 𝐿 instead of both the row-wise max and row-wise sum of exponentials in the softmax. We include the backward pass description in Algorithm 2 for completeness.",
+    "metadata": {
+      "page": 7,
+      "section": "Backward pass",
+      "bbox": [
+        71.641,
+        601.921,
+        539.997,
+        638.365
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_45",
+    "type": "paragraph",
+    "content": "Require: Matrices Q , K , V , O , dO ∈ R 𝑁 × 𝑑 in HBM, vector 𝐿 ∈ R 𝑁 in HBM, block sizes 𝐵 𝑐 , 𝐵 𝑟 .",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        72.0,
+        561.527,
+        487.161,
+        574.06
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_46",
+    "type": "paragraph",
+    "content": "2: Divide O into 𝑇 𝑟 blocks O 𝑖 , . . . , O 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each, divide dO into 𝑇 𝑟 blocks dO 𝑖 , . . . , dO 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each, and divide 𝐿 into 𝑇 𝑟 blocks 𝐿 𝑖 , . . . , 𝐿 𝑇 𝑟 of size 𝐵 𝑟 each.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        77.367,
+        508.813,
+        539.997,
+        533.301
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_47",
+    "type": "paragraph",
+    "content": "1: Divide Q into 𝑇 𝑟 = l 𝑁 𝐵 𝑟 m blocks Q 1 , . . . , Q 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each, and divide K , V in to 𝑇 𝑐 = l 𝑁 𝐵 𝑐 m blocks K 1 , . . . , K 𝑇 𝑐 and V 1 , . . . , V 𝑇 𝑐 , of size 𝐵 𝑐 × 𝑑 each.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        77.367,
+        532.723,
+        540.0,
+        561.792
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_48",
+    "type": "paragraph",
+    "content": "3: Initialize dQ = ( 0 ) 𝑁 × 𝑑 in HBM and divide it into 𝑇 𝑟 blocks dQ 1 , . . . , dQ 𝑇 𝑟 of size 𝐵 𝑟 × 𝑑 each. Divide dK , dV ∈ R 𝑁 × 𝑑 in to 𝑇 𝑐 blocks dK 1 , . . . , dK 𝑇 𝑐 and dV 1 , . . . , dV 𝑇 𝑐 , of size 𝐵 𝑐 × 𝑑 each.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        77.367,
+        484.903,
+        539.997,
+        509.391
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_49",
+    "type": "paragraph",
+    "content": "4: Compute 𝐷 = rowsum ( dO ◦ O ) ∈ R 𝑑 (pointwise multiply), write 𝐷 to HBM and divide it into 𝑇 𝑟 blocks 𝐷 1 , . . . , 𝐷 𝑇 𝑟 of size 𝐵 𝑟 each.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        77.367,
+        460.992,
+        540.0,
+        485.48
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_equation_8",
+    "type": "equation",
+    "content": "5: for 1 ≤ 𝑗 ≤ 𝑇 𝑐 do",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        77.367,
+        450.302,
+        165.881,
+        459.279
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_50",
+    "type": "paragraph",
+    "content": "6: Load K 𝑗 , V 𝑗 from HBM to on-chip SRAM. 7: Initialize dK 𝑗 = ( 0 ) 𝐵 𝑐 × 𝑑 , dV 𝑗 = ( 0 ) 𝐵 𝑐 × 𝑑 on SRAM. 8: for 1 ≤ 𝑖 ≤ 𝑇 𝑟 do 9: Load Q 𝑖 , O 𝑖 , dO 𝑖 , dQ 𝑖 , 𝐿 𝑖 , 𝐷 𝑖 from HBM to on-chip SRAM. 10: On chip, compute S ( 𝑗 ) 𝑖 = Q 𝑖 K 𝑇 𝑗 ∈ R 𝐵 𝑟 × 𝐵 𝑐 . 11: On chip, compute P ( 𝑗 ) 𝑖 = exp ( S 𝑖 𝑗 -𝐿 𝑖 ) ∈ R 𝐵 𝑟 × 𝐵 𝑐 . 12: On chip, compute dV 𝑗 ← dV 𝑗 + ( P ( 𝑗 ) 𝑖 ) ⊤ dO 𝑖 ∈ R 𝐵 𝑐 × 𝑑 . 13: On chip, compute dP ( 𝑗 ) 𝑖 = dO 𝑖 V ⊤ 𝑗 ∈ R 𝐵 𝑟 × 𝐵 𝑐 . 14: On chip, compute dS ( 𝑗 ) 𝑖 = P ( 𝑗 ) 𝑖 ◦ ( dP ( 𝑗 ) 𝑖 -𝐷 𝑖 ) ∈ R 𝐵 𝑟 × 𝐵 𝑐 . 15: Load dQ 𝑖 from HBM to SRAM, then on chip, update dQ 𝑖 ← dQ 𝑖 + dS ( 𝑗 ) 𝑖 K 𝑗 ∈ R 𝐵 𝑟 × 𝑑 , and write back to HBM. 16: On chip, compute dK 𝑗 ← dK 𝑗 + dS ( 𝑗 ) 𝑖 ⊤ Q 𝑖 ∈ R 𝐵 𝑐 × 𝑑 . 17: end for 18: Write dK 𝑗 , dV 𝑗 to HBM. 19: end for 20: Return dQ , dK , dV .",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        73.134,
+        240.39200000000005,
+        540.262,
+        449.615
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_51",
+    "type": "paragraph",
+    "content": "Multi-query attention and grouped-query attention. Multi-query attention (MQA) [15] and groupedquery attention (GQA) [1] are variants of attention where multiple heads of query attend to the same head of key and value, in order to reduce the size of KV cache during inference. Instead of having to duplicate the key and value heads for the computation, we implicitly manipulate the indices into the head to perform the same computation. In the backward pass, we need to sum the gradients dK and dV across different heads that were implicitly duplicated.",
+    "metadata": {
+      "page": 7,
+      "section": "Algorithm 2 FlashAttention-2 Backward Pass",
+      "bbox": [
+        72.0,
+        138.385,
+        541.659,
+        210.69399999999996
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_52",
+    "type": "paragraph",
+    "content": "The first version of FlashAttention parallelizes over batch size and number of heads. We use 1 thread block to process one attention head, and there are overall batch size · number of heads thread blocks. Each thread block is scheduled to run on a streaming multiprocessor (SM), and there are 108 of these SMs on",
+    "metadata": {
+      "page": 7,
+      "section": "Parallelism",
+      "bbox": [
+        71.641,
+        68.202,
+        539.998,
+        104.64499999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_53",
+    "type": "paragraph",
+    "content": "an A100 GPU for example. This scheduling is efficient when this number is large (say ≥ 80 ), since we can effectively use almost all of the compute resources on the GPU.",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        72.0,
+        694.022,
+        540.002,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_54",
+    "type": "paragraph",
+    "content": "In the case of long sequences (which usually means small batch sizes or small number of heads), to make better use of the multiprocessors on the GPU, we now additionally parallelize over the sequence length dimension. This results in significant speedup for this regime.",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        72.0,
+        658.157,
+        540.001,
+        694.6
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_55",
+    "type": "paragraph",
+    "content": "Forward pass. We see that the outer loop (over sequence length) is embarrassingly parallel, and we schedule them on different thread blocks that do not need to communicate with each other. We also parallelize over the batch dimension and number of heads dimension, as done in FlashAttention . The increased parallelism over sequence length helps improve occupancy (fraction of GPU resources being used) when the batch size and number of heads are small, leading to speedup in this case.",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        72.0,
+        584.444,
+        540.002,
+        644.797
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_56",
+    "type": "paragraph",
+    "content": "These ideas of swapping the order of the loop (outer loop over row blocks and inner loop over column blocks, instead of the other way round in the original FlashAttention paper), as well as parallelizing over the sequence length dimension were first suggested and implemented by Phil Tillet in the Triton [17] implementation. 3",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        72.0,
+        536.623,
+        540.0,
+        585.022
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_57",
+    "type": "paragraph",
+    "content": "Backward pass. Notice that the only shared computation between different column blocks is in update dQ in Algorithm 2, where we need to load dQ 𝑖 from HBM to SRAM, then on chip, update dQ 𝑖 ← dQ 𝑖 + dS ( 𝑗 ) 𝑖 K 𝑗 , and write back to HBM. We thus parallelize over the sequence length dimension as well, and schedule 1 thread block for each column block of the backward pass. We use atomic adds to communicate between different thread blocks to update dQ .",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        72.0,
+        461.744,
+        541.384,
+        523.263
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_58",
+    "type": "paragraph",
+    "content": "We describe the parallelization scheme in Fig. 2.",
+    "metadata": {
+      "page": 8,
+      "section": "Parallelism",
+      "bbox": [
+        86.944,
+        449.789,
+        298.348,
+        462.322
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_2",
+    "type": "figure",
+    "content": "Figure 2: In the forward pass (left), we parallelize the workers (thread blocks) where each worker takes care of a block of rows of the attention matrix. In the backward pass (right), each worker takes care of a block of columns of the attention matrix.",
+    "metadata": {
+      "page": 8,
+      "section": "Backward pass",
+      "bbox": [
+        355.0233154296875,
+        203.8115234375,
+        525.0618286132812,
+        397.050537109375
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_3.png",
+      "image_summary": "The figure is a lower triangular heatmap matrix displaying a 5x5 grid with labeled columns and rows both corresponding to five \"Workers\" (Worker 1 through Worker 5). Each cell's color intensity represents a certain measure between the worker pairs, with stronger colors indicating higher values and white indicating zero or no value.\n\nStarting from the top-left corner, the diagonal entries for the matrix are as follows:\n- Worker 1 with Worker 1 shows the darkest red, suggesting the highest value.\n- Entries further right along the diagonal also decrease in intensity, transitioning from dark red for Worker 1 to a light blue for Worker 5 on the diagonal, indicating a decreasing trend in the diagonal values from Worker 1 to Worker 5.\n\nOff-diagonal values exhibit the following pattern:\n- Worker 1 correlates strongly with Worker 2 (light pink), but no values appear for Workers 3, 4, or 5.\n- Worker 2 has a notable value with Worker 3 (yellow), but none further to the right.\n- Worker 3 shows a value with Worker 4 (green), and Worker 4 with Worker 5 (light blue), but no cross-values beyond these diagonally adjacent pairs.\n- All entries above the diagonal are empty (white), indicating either no values or that the matrix is symmetric but only the lower triangle is shown.\n\nKey trends include a gradation of color moving from dark red to blue along the diagonal, suggesting a decreasing magnitude from Worker 1 to Worker 5. Additionally, the values between adjacent workers indicate some interaction or relationship that diminishes as the workers become more separated in index.\n\nThe main takeaway is that the strongest interactions or self-related values occur for Worker 1, which progressively weakens toward Worker 5. Moreover, only adjacent workers have non-zero interactions, forming a banded pattern near the diagonal. This likely reflects localized relationships or dependencies strictly between neighbors and self-relations in the dataset."
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_59",
+    "type": "paragraph",
+    "content": "3 https://github.com/openai/triton/blob/main/python/tutorials/06-fused-attention.py",
+    "metadata": {
+      "page": 8,
+      "section": "Backward pass",
+      "bbox": [
+        83.089,
+        118.524,
+        431.118,
+        127.245
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_60",
+    "type": "paragraph",
+    "content": "As Section 3.2 describe how we schedule thread blocks, even within each thread block, we also have to decide how to partition the work between different warps. We typically use 4 or 8 warps per thread block, and the partitioning is described in Fig. 3.",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        71.621,
+        663.679,
+        540.001,
+        700.123
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_61",
+    "type": "paragraph",
+    "content": "Forward pass. For each block, FlashAttention splits K and V across 4 warps while keeping Q accessible by all warps. Each warp multiplies to get a slice of QK ⊤ , then they need to multiply with a slice of V and communicate to add up the result. This is referred to as the 'split-K' scheme. However, this is inefficient since all warps need to write their intermediate results out to shared memory, synchronize, then add up the intermediate results. These shared memory reads/writes slow down the forward pass in FlashAttention .",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        72.0,
+        589.966,
+        540.506,
+        650.32
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_62",
+    "type": "paragraph",
+    "content": "In FlashAttention-2 , we instead split Q across 4 warps while keeping K and V accessible by all warps. After each warp performs matrix multiply to get a slice of QK ⊤ , they just need to multiply with their shared slice of V to get their corresponding slice of the output. There is no need for communication between warps. The reduction in shared memory reads/writes yields speedup (Section 4).",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        71.621,
+        542.146,
+        541.929,
+        590.544
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_3",
+    "type": "figure",
+    "content": "Figure 3: Work partitioning between different warps in the forward pass",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        78.4032211303711,
+        367.3879089355469,
+        529.9735107421875,
+        531.637939453125
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_4.png",
+      "image_summary": "The figure consists of two schematic illustrations labeled (a) FLASHATTENTION and (b) FLASHATTENTION-2, comparing memory access and data partitioning strategies for the matrices \\( Q \\), \\( K^T \\), and \\( V \\) across multiple GPU warps.\n\nIn both subfigures, three sets of blocks represent the matrices:\n- \\( Q \\) is depicted on the left,\n- \\( K^T \\) in the center/top,\n- \\( V \\) on the right.\n\nThe blocks are color-coded and patterned to indicate which parts are accessed by all warps or split among different warps:\n- Blue blocks with dotted borders show data \"Accessed by all warps.\"\n- Orange blocks with dashed borders show data \"Split across different warps.\"\n\nIn (a) FLASHATTENTION:\n- \\( Q \\) is accessed as a single block shared by all 4 warps (blue).\n- \\( K^T \\) is divided into four distinct blocks, each assigned to Warps 1 to 4 respectively (orange).\n- Similarly, \\( V \\) is vertically split into 4 separate blocks aligned with Warps 1 to 4 (orange).\n\nIn (b) FLASHATTENTION-2:\n- \\( Q \\) is vertically split into 4 blocks, each for Warps 1 to 4 (orange).\n- \\( K^T \\) is accessed as a single block shared by all 4 warps (blue).\n- \\( V \\) is accessed as one large block shared by all 4 warps (blue).\n\nThe main comparison shows that FLASHATTENTION partitions \\( K^T \\) and \\( V \\) across warps while sharing \\( Q \\). In contrast, FLASHATTENTION-2 partitions \\( Q \\) across warps while sharing \\( K^T \\) and \\( V \\).\n\nThe principal takeaway is the difference in data partitioning schemes between these two methods. FLASHATTENTION-2 changes the access pattern by sharing \\( K^T \\) and \\( V \\) across all warps and splitting \\( Q \\), potentially implying different memory access efficiencies or parallelization strategies in attention computation."
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_63",
+    "type": "paragraph",
+    "content": "Backward pass. Similarly for the backward pass, we choose to partition the warps to avoid the 'split-K' scheme. However, it still requires some synchronization due to the more complicated dependency between all the different inputs and gradients Q , K , V , O , dO , dQ , dK , dV . Nevertheless, avoiding 'split-K' reduces shared memory reads/writes and again yields speedup (Section 4).",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        72.0,
+        270.274,
+        541.159,
+        318.673
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_64",
+    "type": "paragraph",
+    "content": "Tuning block sizes Increasing block sizes generally reduces shared memory loads/stores, but increases the number of registers required and the total amount of shared memory. Past a certain block size, register spilling causes significant slowdown, or the amount of shared memory required is larger than what the GPU has available, and the kernel cannot run at all. Typically we choose blocks of size { 64 , 128 } × { 64 , 128 } , depending on the head dimension 𝑑 and the device shared memory size.",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        72.0,
+        196.56100000000004,
+        541.384,
+        256.91499999999996
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_65",
+    "type": "paragraph",
+    "content": "We manually tune for each head dimensions since there are essentially only 4 choices for block sizes, but this could benefit from auto-tuning to avoid this manual labor. We leave this to future work.",
+    "metadata": {
+      "page": 9,
+      "section": "Work Partitioning Between Warps",
+      "bbox": [
+        72.0,
+        172.65100000000007,
+        540.268,
+        197.139
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_66",
+    "type": "paragraph",
+    "content": "We evaluate the impact of using FlashAttention-2 to train Transformer models.",
+    "metadata": {
+      "page": 9,
+      "section": "Empirical Validation",
+      "bbox": [
+        71.492,
+        117.88999999999999,
+        435.247,
+        130.423
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_67",
+    "type": "paragraph",
+    "content": "Benchmarking attention. We measure the runtime of FlashAttention-2 across different sequence lengths and compare it to a standard implementation in PyTorch, FlashAttention , and FlashAttention in Triton. We confirm that FlashAttention-2 is 1.7-3.0 × faster than FlashAttention , 1.3-2.5 × faster than FlashAttention in Triton, and 3-10 × faster than a standard attention implementation.",
+    "metadata": {
+      "page": 9,
+      "section": "Empirical Validation",
+      "bbox": [
+        72.0,
+        70.06899999999996,
+        541.933,
+        118.46799999999996
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_68",
+    "type": "paragraph",
+    "content": "FlashAttention-2 reaches up to 230 TFLOPs/s, 73% of the theoretical maximum TFLOPs/s on A100 GPUs.",
+    "metadata": {
+      "page": 10,
+      "section": "Empirical Validation",
+      "bbox": [
+        81.961,
+        694.022,
+        540.253,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_69",
+    "type": "paragraph",
+    "content": "End-to-end training speed When used end-to-end to train GPT-style models of size 1.3B and 2.7B on sequence lengths either 2k or 8k, FlashAttention-2 yields up to 1.3 × speedup compared to FlashAttention and 2.8 × speedup compared to a baseline without FlashAttention . FlashAttention-2 reaches up to 225 TFLOPs/s (72% model FLOPs utilization) per A100 GPU.",
+    "metadata": {
+      "page": 10,
+      "section": "Empirical Validation",
+      "bbox": [
+        72.0,
+        642.117,
+        541.885,
+        690.516
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_70",
+    "type": "paragraph",
+    "content": "We measure the runtime of different attention methods on an A100 80GB SXM4 GPU for different settings (without / with causal mask, head dimension 64 or 128). We report the results in Fig. 4, Fig. 5 and Fig. 6, showing that FlashAttention-2 is around 2 × faster than FlashAttention and FlashAttention in xformers (the 'cutlass' implementation). FlashAttention-2 is around 1.3-1.5 × faster than FlashAttention in Triton in the forward pass and around 2 × faster in the backward pass. Compared to a standard attention implementation in PyTorch, FlashAttention-2 can be up to 10 × faster.",
+    "metadata": {
+      "page": 10,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        70.835,
+        536.068,
+        541.88,
+        608.377
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_71",
+    "type": "paragraph",
+    "content": "Benchmark setting: we vary the sequence length from 512, 1k, ..., 16k, and set batch size so that the total number of tokens is 16k. We set hidden dimension to 2048, and head dimension to be either 64 or 128 (i.e., 32 heads or 16 heads). To calculate the FLOPs of the forward pass, we use:",
+    "metadata": {
+      "page": 10,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        71.751,
+        500.203,
+        541.384,
+        536.646
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_72",
+    "type": "paragraph",
+    "content": "4 · seqlen 2 · head dimension · number of heads .",
+    "metadata": {
+      "page": 10,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        206.228,
+        478.285,
+        405.603,
+        490.818
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_73",
+    "type": "paragraph",
+    "content": "With causal mask, we divide this number by 2 to account for the fact that approximately only half of the entries are calculated. To get the FLOPs of the backward pass, we multiply the forward pass FLOPs by 2.5 (since there are 2 matmuls in the forward pass and 5 matmuls in the backward pass, due to recomputation).",
+    "metadata": {
+      "page": 10,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        70.835,
+        432.457,
+        541.731,
+        468.9
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_74",
+    "type": "paragraph",
+    "content": "(a) Without causal mask, head dimension 64 Attention forward + backward speed (A100 80GB SXM4) (c) With causal mask, head dimension 64 (b) Without causal mask, head dimension 128 Attention forward + backward speed (A100 80GB SXM4) (d) With causal mask, head dimension 128 Figure 4: Attention forward + backward speed on A100 GPU",
+    "metadata": {
+      "page": 10,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        98.041,
+        259.222,
+        278.881,
+        267.139
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_4",
+    "type": "figure",
+    "content": "Figure 5: Attention forward speed on A100 GPU",
+    "metadata": {
+      "page": 11,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        79.79916381835938,
+        392.3248596191406,
+        532.576416015625,
+        717.5378494262695
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_9.png",
+      "image_summary": "The figure consists of four bar charts comparing the attention forward speed measured in teraflops per second (TFLOPs/s) on an A100 80GB SXM4 GPU across different sequence lengths for five implementations: Pytorch, FlashAttention, xformers, FlashAttention Triton, and FlashAttention-2. The x-axis of all subplots represents the sequence length with values: 512, 1k, 2k, 4k, 8k, and 16k. The y-axis shows the speed in TFLOPs/s, ranging approximately from 0 to 240 in all charts.\n\nEach subplot differs by two conditions: the presence or absence of a causal mask and the head dimension size (64 or 128).\n\n### Panel (a): Without causal mask, head dimension 64\n- Pytorch shows the lowest speed across all sequence lengths, ranging from approximately 29 to 37 TFLOPs/s.\n- FlashAttention and xformers have similar performance, with speeds around 89-99 and 94-99 TFLOPs/s respectively.\n- FlashAttention Triton improves on these, with speeds going from 128 to 155 TFLOPs/s as sequence length increases.\n- FlashAttention-2 significantly outperforms all others with speeds around 178-193 TFLOPs/s, maintaining this high performance from sequence length 1k onwards.\n- At 16k sequence length, Pytorch runs out of memory (OOM).\n\n### Panel (b): Without causal mask, head dimension 128\n- Pytorch speeds are slightly higher than in (a) but remain the lowest (42 to 67 TFLOPs/s).\n- FlashAttention speeds are roughly constant (~60-73 TFLOPs/s) with a slight dip at 1k.\n- Xformers shows a consistent rise, leveling off around 122 TFLOPs/s from 4k sequence length.\n- FlashAttention Triton achieves 127 TFLOPs/s at 512, increasing to 163 TFLOPs/s at 16k.\n- FlashAttention-2 again dominates, reaching around 209-227 TFLOPs/s and maintaining this high speed even at the largest sequence lengths.\n- At 16k, Pytorch runs out of memory (OOM).\n\n### Panel (c): With causal mask, head dimension 64\n- Pytorch has the lowest speeds (~10 TFLOPs/s across all sequence lengths).\n- FlashAttention and xformers display moderate speeds increasing with sequence length, reaching around 95 TFLOPs/s at 16k.\n- FlashAttention Triton performs better, rising from 78 TFLOPs/s at 512 to 143 TFLOPs/s at 16k.\n- FlashAttention-2 shows the highest speeds, increasing from 115 TFLOPs/s at 512 to 183 TFLOPs/s at 16k.\n- Pytorch runs out of memory at 16k.\n\n### Panel (d): With causal mask, head dimension 128\n- Pytorch speeds remain lowest, around 15-19 TFLOPs/s, with OOM at 16k.\n- FlashAttention is around 49-71 TFLOPs/s with a slight increasing trend.\n- Xformers performs better, rising from 79 TFLOPs/s at 512 to 117 at 16k.\n- FlashAttention Triton speeds increase steadily from 89 to 148 TFLOPs/s as sequence length grows.\n- FlashAttention-2 reaches the highest speed, climbing from 132 to nearly 200 TFLOPs/s.\n  \n### Key trends and takeaways:\n- FlashAttention-2 consistently achieves the highest attention forward speed across all sequence lengths, head dimensions, and masking configurations, indicating its superior performance.\n- Pytorch is the slowest implementation and fails to complete computations for the longest sequence length (OOM at 16k).\n- FlashAttention Triton and xformers offer intermediate performance between Pytorch and FlashAttention-2.\n- Larger head dimension (128 vs 64) generally yields higher speeds in FlashAttention-2, FlashAttention Triton, and xformers.\n- The introduction of a causal mask reduces speeds for all implementations but FlashAttention-2 maintains a substantial lead.\n- FlashAttention-2 maintains high throughput, particularly notable at long sequence lengths and under causal masking, demonstrating its scalability and efficiency for large-scale attention computations."
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_81",
+    "type": "paragraph",
+    "content": "Just running the same implementation on H100 GPUs (using no special instructions to make use of new features such as TMA and 4th-gen Tensor Cores), we obtain up to 335 TFLOPs/s (Fig. 7). We expect that by using new instructions, we can obtain another 1.5x-2x speedup on H100 GPUs. We leave that to future work.",
+    "metadata": {
+      "page": 11,
+      "section": "Benchmarking Attention",
+      "bbox": [
+        72.0,
+        314.254,
+        541.932,
+        350.697
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_82",
+    "type": "paragraph",
+    "content": "We measure the training throughput of GPT-style models with either 1.3B or 2.7B parameters, on 8 × A100 80GB SXM. As shown in Table 1, FlashAttention-2 yields 2.8 × speedup compared to a baseline without FlashAttention and 1.3 × speedup compared to FlashAttention-2 , reaching up to 225 TFLOPs/s per A100 GPU.",
+    "metadata": {
+      "page": 11,
+      "section": "End-to-end Performance",
+      "bbox": [
+        71.492,
+        232.567,
+        540.271,
+        280.966
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_83",
+    "type": "paragraph",
+    "content": "Note that we calculate the FLOPs by the formula, following Megatron-LM [16] (and many other papers and libraries):",
+    "metadata": {
+      "page": 11,
+      "section": "End-to-end Performance",
+      "bbox": [
+        72.0,
+        208.65700000000004,
+        539.995,
+        233.14499999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_84",
+    "type": "paragraph",
+    "content": "6 · seqlen · number of params + 12 · number of layers · hidden dim · seqlen 2 .",
+    "metadata": {
+      "page": 11,
+      "section": "End-to-end Performance",
+      "bbox": [
+        145.323,
+        189.36300000000006,
+        466.508,
+        201.89599999999996
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_85",
+    "type": "paragraph",
+    "content": "The first term accounts for the FLOPs due to weight-input multiplication, and the second term accounts for the FLOPs due to attention. However, one can argue that the second term should be halved, as with causal mask we only need to compute approximately half the number of elements in attention. We choose to follow the formula from the literature (without dividing the attention FLOPs by 2) for consistency.",
+    "metadata": {
+      "page": 11,
+      "section": "End-to-end Performance",
+      "bbox": [
+        71.641,
+        134.20399999999995,
+        540.353,
+        182.60300000000007
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_86",
+    "type": "paragraph",
+    "content": "FlashAttention-2 is 2 × faster than FlashAttention , which means that we can train models with 16k longer context for the same price as previously training a 8k context model. We are excited about how this can",
+    "metadata": {
+      "page": 11,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        72.0,
+        67.94000000000005,
+        540.255,
+        92.428
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_5",
+    "type": "figure",
+    "content": "Figure 6: Attention backward speed on A100 GPU",
+    "metadata": {
+      "page": 12,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        79.72644805908203,
+        391.951904296875,
+        532.2477416992188,
+        717.0909652709961
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_10.png",
+      "image_summary": "The figure consists of four bar charts, each showing the attention backward speed measured in teraflops per second (TFLOPs/s) on an NVIDIA A100 80GB SXM4 GPU. The x-axis of each chart represents sequence length with values 512, 1k, 2k, 4k, 8k, and 16k tokens, while the y-axis indicates speed in TFLOPs/s, with values ranging roughly from 0 to 220 TFLOPs/s.\n\nEach chart compares five different implementations: Pytorch, FlashAttention, xformers, FlashAttention Triton, and FlashAttention-2, with respective colors blue, orange, green, red, and purple. Numerical values of speed are annotated above each bar. The chart panels differ by whether a causal mask is used and by head dimension size:\n\n- (a) Without causal mask, head dimension 64\n- (b) Without causal mask, head dimension 128\n- (c) With causal mask, head dimension 64\n- (d) With causal mask, head dimension 128\n\n## Key Observations and Trends:\n\n### 1. FlashAttention-2 consistently achieves the highest speed across all sequence lengths and configurations:\n- Speeds for FlashAttention-2 start around 120-136 TFLOPs/s at 512 token sequence length and increase gradually up to about 166-196 TFLOPs/s at 16k tokens.\n- This implementation significantly outperforms all others consistently, peaking highest in subplot (b) without causal mask and head dimension 128, at 196 TFLOPs/s for 16k tokens.\n\n### 2. Pytorch exhibits the lowest speeds overall:\n- In all charts, Pytorch speeds range approximately from 19-59 TFLOPs/s at short sequence lengths and max around 51-49 TFLOPs/s at 8k tokens, often dropping or thinned out at 16k tokens (with some values annotated \"OOM\" - out of memory).\n- The highest Pytorch speed reached is 59 TFLOPs/s (no causal mask, head dimension 128, 512 tokens).\n\n### 3. FlashAttention and xformers typically perform in the mid-range, with speeds generally between about 58-113 TFLOPs/s:\n- FlashAttention peaks around 113-113 TFLOPs/s before failing at 16k tokens in some cases (OOM).\n- xformers speeds are fairly stable, roughly 46-91 TFLOPs/s, without major growth across sequence lengths.\n  \n### 4. FlashAttention Triton shows consistent but moderate speeds compared to FlashAttention-2:\n- It consistently scores from about 43-88 TFLOPs/s, generally slower than FlashAttention's best values.\n- Stable performance across sequence lengths but much lower than FlashAttention-2.\n\n### 5. Effect of causal mask and head dimension:\n- The presence of a causal mask (panels c and d) generally reduces speeds in Pytorch and other implementations except FlashAttention-2.\n- Increasing head dimension from 64 to 128 causes some speed improvements for Pytorch and xformers but does not significantly affect FlashAttention-2, which remains dominant.\n- Out of memory (OOM) events occur in all implementations except FlashAttention-2 and sometimes xformers at the largest sequence length (16k).\n\n## Main Takeaway:\nFlashAttention-2 delivers superior backward attention computation speed across all tested sequence lengths, both with and without causal masks, and for head dimensions 64 and 128. It not only achieves the highest TFLOPs/s performance but also avoids out-of-memory errors at the largest sequence lengths where other methods fail. This indicates a highly optimized, scalable implementation for attention backward pass on the A100 GPU architecture."
+    }
+  },
+  {
+    "id": "2307.08691_table_1",
+    "type": "table",
+    "content": "Table 1: Training speed (TFLOPs/s/GPU) of GPT-style models on 8 × A100 GPUs. FlashAttention-2 reaches up to 225 TFLOPs/s (72% model FLOPs utilization). We compare against a baseline running without FlashAttention .",
+    "metadata": {
+      "page": 12,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        89.21753692626953,
+        251.5377197265625,
+        518.281005859375,
+        311.6806640625
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/table/table_1.png"
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_87",
+    "type": "paragraph",
+    "content": "be used to understand long books and reports, high resolution images, audio and video. FlashAttention-2 will also speed up training, finetuning, and inference of existing models.",
+    "metadata": {
+      "page": 12,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        71.641,
+        206.15200000000004,
+        540.278,
+        230.64
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_88",
+    "type": "paragraph",
+    "content": "In the near future, we plan to collaborate with researchers and engineers to make FlashAttention widely applicable in different kinds of devices (e.g., H100 GPUs, AMD GPUs), as well as new data types such as FP8. As an immediate next step, we plan to optimize FlashAttention-2 for H100 GPUs to use new hardware features (TMA, 4th-gen Tensor Cores, fp8). Combining the low-level optimizations in FlashAttention-2 with high-level algorithmic changes (e.g., local, dilated, block-sparse attention) could allow us to train AI models with much longer context. We are also excited to work with compiler researchers to make these optimization techniques easily programmable.",
+    "metadata": {
+      "page": 12,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        71.641,
+        122.46600000000001,
+        540.371,
+        206.73000000000002
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_fig_6",
+    "type": "figure",
+    "content": "Figure 7: Attention forward + backward speed on H100 GPU",
+    "metadata": {
+      "page": 13,
+      "section": "Discussion and Future Directions",
+      "bbox": [
+        79.7189712524414,
+        391.5963439941406,
+        532.6664428710938,
+        717.7462387084961
+      ],
+      "image_path": "data/rag_assets/images/2307.08691/figure/figure_11.png",
+      "image_summary": "The figure consists of four bar charts arranged in a 2x2 grid, comparing the \"Attention forward + backward speed\" measured in TFLOPs/s on an NVIDIA H100 80GB SXM5 GPU across different sequence lengths. The charts compare three implementations: Pytorch (blue bars), FlashAttention (orange bars), and FlashAttention-2 (purple bars). The sequence lengths tested are 512, 1k, 2k, 4k, 8k, and 16k tokens. The y-axis represents speed in TFLOPs/s, while the x-axis represents sequence length.\n\n### Top Left (a): Without causal mask, head dimension 64\n- Pytorch speeds increase modestly from 62 TFLOPs/s at 512 tokens to 87 TFLOPs/s at 8k, with an out-of-memory (OOM) error at 16k.\n- FlashAttention starts around 157 TFLOPs/s at 512 tokens and grows slightly to 168 at 16k.\n- FlashAttention-2 achieves the highest speeds, starting from 215 TFLOPs/s at 512 tokens and increasing to 296 at 16k, showing a strong performance advantage.\n- Main trend: FlashAttention-2 significantly outperforms the other methods at all sequence lengths.\n\n### Top Right (b): Without causal mask, head dimension 128\n- Pytorch speeds range from 93 TFLOPs/s at 512 tokens up to 167 TFLOPs/s at 8k before OOM at 16k.\n- FlashAttention increases from 127 to 139 TFLOPs/s, showing limited gains across sequence lengths.\n- FlashAttention-2 again leads with speeds starting at 248 TFLOPs/s at 512 tokens and reaching 338 TFLOPs/s at 16k.\n- Main takeaway: FlashAttention-2 scales more efficiently than others with increasing sequence length and head dimension.\n\n### Bottom Left (c): With causal mask, head dimension 64\n- Pytorch speeds are lower overall, increasing slowly from 26 to 32 TFLOPs/s up to 8k, then OOM at 16k.\n- FlashAttention performs better, starting at 104 TFLOPs/s and reaching 156 at 16k.\n- FlashAttention-2 maintains top performance, starting around 141 TFLOPs/s and increasing to 284 TFLOPs/s at 16k.\n- With causal mask, all methods slow down compared to no mask, but FlashAttention-2 retains the largest speed advantage.\n\n### Bottom Right (d): With causal mask, head dimension 128\n- Pytorch speeds are the lowest here, starting at 40 TFLOPs/s and reaching 63 at 8k before OOM.\n- FlashAttention speeds increase from 98 to 137 TFLOPs/s.\n- FlashAttention-2 remains fastest, starting at 163 and reaching 328 TFLOPs/s at 16k.\n- The causal mask impacts speeds negatively across the board, especially for Pytorch, but FlashAttention-2 continues to outperform.\n\n### General observations:\n- FlashAttention-2 consistently outperforms both Pytorch and FlashAttention across all configurations, often doubling or tripling speeds.\n- Sequence length increase generally correlates with speed improvement for FlashAttention and FlashAttention-2, but Pytorch sometimes fails at the largest length due to memory issues.\n- Causal masking reduces speeds across all implementations but affects Pytorch the most.\n- Increasing head dimension from 64 to 128 tends to improve speeds for FlashAttention-2 but shows mixed effects on Pytorch and FlashAttention.\n\n### Main takeaway:\nFlashAttention-2 significantly improves attention computation speed for both forward and backward passes over both Pytorch baseline and FlashAttention, especially at larger sequence lengths and head dimensions. It also handles causal masking with less performance degradation, demonstrating enhanced scalability and efficiency on the H100 80GB SXM5 GPU."
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_89",
+    "type": "paragraph",
+    "content": "We thank Phil Tillet and Daniel Haziza, who have implemented versions of FlashAttention in Triton [17] and the xformers library [10]. FlashAttention-2 was motivated by exchange of ideas between different ways that attention could be implemented. We are grateful to the Nvidia CUTLASS team (especially Vijay Thakkar, Cris Cecka, Haicheng Wu, and Andrew Kerr) for their CUTLASS library, in particular the CUTLASS 3.x release, which provides clean abstractions and powerful building blocks for the implementation of FlashAttention-2 . We thank Driss Guessous for integrating FlashAttention to PyTorch. FlashAttention-2 has benefited from helpful discussions with Phil Wang, Markus Rabe, James Bradbury, Young-Jun Ko, Julien Launay, Daniel Hesslow, Michaël Benesty, Horace He, Ashish Vaswani, and Erich Elsen. Thanks for Stanford CRFM and Stanford NLP for the compute support. We thank Dan Fu and Christopher Ré for their collaboration, constructive feedback, and constant encouragement on this line of work of designing hardware-efficient algorithms. We thank Albert Gu and Beidi Chen for their helpful suggestions on early drafts of this technical report.",
+    "metadata": {
+      "page": 13,
+      "section": "Acknowledgments",
+      "bbox": [
+        71.492,
+        186.13599999999997,
+        541.932,
+        330.176
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_90",
+    "type": "paragraph",
+    "content": "Joshua Ainslie, James Lee-Thorp, Michiel de Jong, Yury Zemlyanskiy, Federico Lebrón, and Sumit Sanghai. Gqa: Training generalized multi-query transformer models from multi-head checkpoints. arXiv preprint arXiv:2305.13245 , 2023.",
+    "metadata": {
+      "page": 13,
+      "section": "References",
+      "bbox": [
+        76.98,
+        107.46500000000003,
+        540.27,
+        143.90800000000002
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_91",
+    "type": "paragraph",
+    "content": "Iz Beltagy, Matthew E Peters, and Arman Cohan. Longformer: The long-document transformer. arXiv preprint arXiv:2004.05150 , 2020.",
+    "metadata": {
+      "page": 13,
+      "section": "References",
+      "bbox": [
+        76.98,
+        75.58400000000006,
+        539.889,
+        100.07299999999998
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_92",
+    "type": "paragraph",
+    "content": "Beidi Chen, Tri Dao, Eric Winsor, Zhao Song, Atri Rudra, and Christopher Ré. Scatterbrain: Unifying sparse and low-rank attention. In Advances in Neural Information Processing Systems (NeurIPS) , 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        694.022,
+        541.712,
+        718.511
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_93",
+    "type": "paragraph",
+    "content": "Krzysztof Marcin Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane, Tamas Sarlos, Peter Hawkins, Jared Quincy Davis, Afroz Mohiuddin, Lukasz Kaiser, et al. Rethinking attention with performers. In International Conference on Learning Representations (ICLR) , 2020.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        650.865,
+        541.386,
+        687.308
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_94",
+    "type": "paragraph",
+    "content": "Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. FlashAttention: Fast and memory-efficient exact attention with IO-awareness. In Advances in Neural Information Processing Systems , 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        607.707,
+        539.996,
+        644.151
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_95",
+    "type": "paragraph",
+    "content": "Zhe Jia and Peter Van Sandt. Dissecting the Ampere GPU architecture via microbenchmarking. GPU Technology Conference, 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        576.505,
+        540.003,
+        600.993
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_96",
+    "type": "paragraph",
+    "content": "Zhe Jia, Marco Maggioni, Benjamin Staiger, and Daniele P Scarpazza. Dissecting the nvidia Volta GPU architecture via microbenchmarking. arXiv preprint arXiv:1804.06826 , 2018.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        545.302,
+        540.002,
+        569.791
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_97",
+    "type": "paragraph",
+    "content": "Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and François Fleuret. Transformers are RNNs: Fast autoregressive transformers with linear attention. In International Conference on Machine Learning , pages 5156-5165. PMLR, 2020.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        502.145,
+        541.389,
+        538.588
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_98",
+    "type": "paragraph",
+    "content": "Nikita Kitaev, Łukasz Kaiser, and Anselm Levskaya. Reformer: The efficient transformer. In The International Conference on Machine Learning (ICML) , 2020.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        76.98,
+        470.942,
+        540.0,
+        495.431
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_99",
+    "type": "paragraph",
+    "content": "Benjamin Lefaudeux, Francisco Massa, Diana Liskovich, Wenhan Xiong, Vittorio Caggiano, Sean Naren, Min Xu, Jieru Hu, Marta Tintore, Susan Zhang, Patrick Labatut, and Daniel Haziza. xformers: A modular and hackable transformer modelling library. https://github.com/facebookresearch/xformers , 2022.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        427.785,
+        541.928,
+        464.228
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_100",
+    "type": "paragraph",
+    "content": "Maxim Milakov and Natalia Gimelshein. Online normalizer calculation for softmax. arXiv preprint arXiv:1805.02867 , 2018.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        396.583,
+        539.973,
+        421.071
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_101",
+    "type": "paragraph",
+    "content": "OpenAI. Gpt-4 technical report. ArXiv , abs/2303.08774, 2023.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        377.335,
+        367.194,
+        389.868
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_102",
+    "type": "paragraph",
+    "content": "Markus N Rabe and Charles Staats. Self-attention does not need 𝑂 ( 𝑛 2 ) memory. arXiv preprint arXiv:2112.05682 , 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        346.133,
+        539.974,
+        370.621
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_103",
+    "type": "paragraph",
+    "content": "Aurko Roy, Mohammad Saffar, Ashish Vaswani, and David Grangier. Efficient content-based sparse attention with routing transformers. Transactions of the Association for Computational Linguistics , 9: 53-68, 2021.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        302.975,
+        541.386,
+        339.419
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_104",
+    "type": "paragraph",
+    "content": "Noam Shazeer. Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150 , 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        271.773,
+        539.969,
+        296.261
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_105",
+    "type": "paragraph",
+    "content": "Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and Bryan Catanzaro. Megatron-LM: Training multi-billion parameter language models using model parallelism. arXiv preprint arXiv:1909.08053 , 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        228.615,
+        541.928,
+        265.05899999999997
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_106",
+    "type": "paragraph",
+    "content": "Philippe Tillet, Hsiang-Tsung Kung, and David Cox. Triton: an intermediate language and compiler for tiled neural network computations. In Proceedings of the 3rd ACM SIGPLAN International Workshop on Machine Learning and Programming Languages , pages 10-19, 2019.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        185.45799999999997,
+        540.196,
+        221.90100000000007
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_107",
+    "type": "paragraph",
+    "content": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing systems , 30, 2017.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        142.29999999999995,
+        540.0,
+        178.74400000000003
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_108",
+    "type": "paragraph",
+    "content": "Sinong Wang, Belinda Z Li, Madian Khabsa, Han Fang, and Hao Ma. Linformer: Self-attention with linear complexity. arXiv preprint arXiv:2006.04768 , 2020.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        111.09799999999996,
+        540.003,
+        135.586
+      ]
+    }
+  },
+  {
+    "id": "2307.08691_paragraph_109",
+    "type": "paragraph",
+    "content": "Manzil Zaheer, Guru Guruganesh, Kumar Avinava Dubey, Joshua Ainslie, Chris Alberti, Santiago Ontanon, Philip Pham, Anirudh Ravula, Qifan Wang, Li Yang, et al. Big bird: Transformers for longer sequences. Advances in Neural Information Processing Systems , 33, 2020.",
+    "metadata": {
+      "page": 14,
+      "section": "References",
+      "bbox": [
+        72.0,
+        67.94000000000005,
+        540.194,
+        104.38400000000001
+      ]
+    }
+  }
+]

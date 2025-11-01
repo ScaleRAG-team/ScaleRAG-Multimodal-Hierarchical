@@ -1,0 +1,2131 @@
+[
+  {
+    "id": "2211.10438_paragraph_1",
+    "type": "paragraph",
+    "content": "Large language models (LLMs) show excellent performance but are compute- and memoryintensive. Quantization can reduce memory and accelerate inference. However, existing methods cannot maintain accuracy and hardware efficiency at the same time. We propose SmoothQuant, a training-free, accuracy-preserving, and generalpurpose post-training quantization (PTQ) solution to enable 8-bit weight, 8-bit activation (W8A8) quantization for LLMs. Based on the fact that weights are easy to quantize while activations are not, SmoothQuant smooths the activation outliers by offline migrating the quantization difficulty from activations to weights with a mathematically equivalent transformation. SmoothQuant enables an INT8 quantization of both weights and activations for all the matrix multiplications in LLMs, including OPT, BLOOM, GLM, MT-NLG, Llama-1/2, Falcon, Mistral, and Mixtral models. We demonstrate up to 1.56 × speedup and 2 × memory reduction for LLMs with negligible loss in accuracy. SmoothQuant enables serving 530B LLM within a single node. Our work offers a turn-key solution that reduces hardware costs and democratizes LLMs.",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        74.897,
+        269.923,
+        271.257,
+        565.399
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_2",
+    "type": "paragraph",
+    "content": "Large-scale language models (LLMs) show excellent performance on various tasks (Brown et al., 2020a; Zhang et al., 2022). However, serving LLMs is budget and energyconsuming due to their gigantic model size. For example, the GPT-3 (Brown et al., 2020a) model contains 175B parameters, which will consume at least 350GB of memory to",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        55.44,
+        153.63400000000001,
+        291.093,
+        221.962
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_3",
+    "type": "paragraph",
+    "content": "* Equal contribution 1 Massachusetts Institute of Technology 2 NVIDIA. Correspondence to: Guangxuan Xiao <xgx@mit.edu>, Ji Lin <jilin@mit.edu>.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        55.27,
+        114.93000000000006,
+        290.559,
+        144.41499999999996
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_4",
+    "type": "paragraph",
+    "content": "Proceedings of the 40 th International Conference on Machine Learning , Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright 2023 by the author(s).",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        55.162,
+        75.07899999999995,
+        289.442,
+        104.75700000000006
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_1",
+    "type": "figure",
+    "content": "Figure 1: The model size of large language models is developing at a faster pace than the GPU memory in recent years, leading to a big gap between the supply and demand for memory. Quantization and model compression techniques can help bridge the gap.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        318.91119384765625,
+        462.84698486328125,
+        530.1014404296875,
+        586.0393676757812
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_1.png",
+      "image_summary": "The figure is a semilogarithmic plot that charts the progression of model size (in billion parameters) versus time from 2017 to 2022, with two data series: \"Model Size\" (depicted by a red line with circular markers) and \"Accelerator Memory\" (depicted by an orange line with square markers). The y-axis represents model size on a logarithmic scale ranging from 0.01 billion to 1000 billion (1 trillion) parameters. The x-axis represents the years from 2017 through 2022.\n\nKey observations include:\n\n- The red line (Model Size) shows a rapid exponential increase in parameter counts from 0.05B (Transformer, 2017) to 530B (MT-NLG, 2022). Notable models and their sizes are labeled along this curve: GPT (0.11B), BERT (0.34B), GPT-2 (1.5B), MegatronLM (8.3B), T-NLG (17B), GPT-3 (175B), and MT-NLG (530B).\n- The orange line (Accelerator Memory) increases much more slowly and linearly over the same period, from 16GB (TPUv2) in 2017 to 80GB (A100) in 2022. Intermediate hardware generations are annotated: V100 (32GB), TPUv3 (32GB), A100 (40GB), and finally A100 (80GB).\n- This creates a pronounced \"gap\" highlighted between the two lines from approximately 2020 onwards, showing that model sizes are growing much faster than the memory capacity available on accelerators.\n- Early models (up to around 2018-2019) show the model size and accelerator memory roughly in similar magnitudes, but from T-NLG onward, the parameter count outstrips the accelerator memory capacity by increasing orders of magnitude.\n- This widening gap suggests increasing computational and memory challenges in training and deploying state-of-the-art large-scale language models.\n\nMain takeaway: The figure demonstrates an exponentially growing disparity between model parameter sizes and the available memory capacity of hardware accelerators over recent years, underscoring significant challenges in scaling large NLP models within hardware limitations."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_5",
+    "type": "paragraph",
+    "content": "store and run in FP16, requiring 8 × 48GB A6000 GPUs or 5 × 80GB A100 GPUs just for inference. Due to the huge computation and communication overhead, the inference latency may also be unacceptable to real-world applications. Quantization is a promising way to reduce the cost of LLMs (Dettmers et al., 2022; Yao et al., 2022). By quantizing the weights and activations with low-bit integers, we can reduce GPU memory requirements, in size and bandwidth, and accelerate compute-intensive operations (i.e., GEMM * in linear layers, BMM † in attention). For instance, INT8 quantization of weights and activations can halve the GPU memory usage and nearly double the throughput of matrix multiplications compared to FP16.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.44,
+        216.99900000000002,
+        543.098,
+        369.331
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_6",
+    "type": "paragraph",
+    "content": "However, unlike CNN models or smaller transformer models like BERT (Devlin et al., 2019), the activations of LLMs are difficult to quantize. When we scale up LLMs beyond 6.7B parameters, systematic outliers with large magnitude will emerge in activations (Dettmers et al., 2022), leading to large quantization errors and accuracy degradation. ZeroQuant (Yao et al., 2022) applies dynamic per-token activation quantization and group-wise weight quantization (defined in Figure 3 Sec. 2). It can be implemented effi-",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.082,
+        103.42399999999998,
+        543.097,
+        207.61799999999994
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_7",
+    "type": "paragraph",
+    "content": "* General matrix multiply † Batch matrix multiply",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        320.093,
+        85.88200000000006,
+        410.249,
+        94.12099999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_9",
+    "type": "paragraph",
+    "content": "Figure 2: SmoothQuant's intuition: the activation X is hard to quantize because outliers stretch the quantization range, leaving few effective bits for most values. We migrate the scale variance from activations to weights W during offline to reduce the quantization difficulty of activations. The smoothed activation ˆ X and the adjusted weight ˆ W are both easy to quantize.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        55.44,
+        462.372,
+        290.686,
+        543.003
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_10",
+    "type": "paragraph",
+    "content": "ciently and delivers good accuracy for GPT-3-350M and GPT-J-6B. However, it can not maintain the accuracy for the large OPT model with 175 billion parameters (see Section 5.2). LLM.int8() (Dettmers et al., 2022) addresses that accuracy issue by further introducing a mixed-precision decomposition (i.e., it keeps outliers in FP16 and uses INT8 for the other activations). However, it is hard to implement the decomposition efficiently on hardware accelerators. Therefore, deriving an efficient , hardware-friendly , and preferably training-free quantization scheme for LLMs that would use INT8 for all the compute-intensive operations remains an open challenge.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        55.082,
+        296.044,
+        291.093,
+        436.103
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_11",
+    "type": "paragraph",
+    "content": "We propose SmoothQuant, an accurate and efficient post-training quantization (PTQ) solution for LLMs. SmoothQuant relies on a key observation: even if activations are much harder to quantize than weights due to the presence of outliers (Dettmers et al., 2022), different tokens exhibit similar variations across their channels. Based on this observation, SmoothQuant offline migrates the quantization difficulty from activations to weights (Figure 2). SmoothQuant proposes a mathematically equivalent per-channel scaling transformation that significantly smooths the magnitude across the channels, making the model quantization-friendly. Since SmoothQuant is compatible with various quantization schemes, we implement three efficiency levels of quantization settings for SmoothQuant (see Table 2, O1-O3). Experiments show that SmoothQuant is hardware-efficient: it can maintain the performance of OPT-175B (Zhang et al., 2022), BLOOM-176B (Scao et al., 2022) , GLM-130B (Zeng et al., 2022), and MT-NLG 530B (Smith et al., 2022), leading to up to 1.51 × speed up and 1.96 × memory saving on PyTorch. SmoothQuant is easy to implement. We integrate SmoothQuant into FasterTransformer, the state-of-theart transformer serving framework, achieving up to 1.56 × speedup and halving the memory usage compared with FP16. Remarkably, SmoothQuant allows serving large models like OPT-175B using only half number of GPUs compared to FP16 while being faster, and enabling the serving of a 530B model within one 8-GPU node. Our work democratizes the use of LLMs by offering a turnkey solution to reduce the serving cost. We hope SmoothQuant can inspire greater use of LLMs in the future.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        54.972,
+        74.87300000000005,
+        291.186,
+        286.663
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_12",
+    "type": "paragraph",
+    "content": "Quantization maps a high-precision value into discrete levels. We study integer uniform quantization (Jacob et al., 2018) (specifically INT8) for better hardware support and efficiency. The quantization process can be expressed as:",
+    "metadata": {
+      "page": 2,
+      "section": "Preliminaries",
+      "bbox": [
+        307.44,
+        497.6,
+        542.688,
+        542.406
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_equation_1",
+    "type": "equation",
+    "content": "¯ X INT8 = ⌈ X FP16 ∆ ⌋ , ∆ = max( | X | ) 2 N -1 -1 , (1)",
+    "metadata": {
+      "page": 2,
+      "section": "Preliminaries",
+      "bbox": [
+        347.287,
+        464.185,
+        542.107,
+        487.816
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_13",
+    "type": "paragraph",
+    "content": "where X is the floating-point tensor, ¯ X is the quantized counterpart, ∆ is the quantization step size, ⌈·⌋ is the rounding function, and N is the number of bits (8 in our case). Here we assume the tensor is symmetric at 0 for simplicity; the discussion is similar for asymmetric cases (e.g., after ReLU) by adding a zero-point (Jacob et al., 2018).",
+    "metadata": {
+      "page": 2,
+      "section": "Preliminaries",
+      "bbox": [
+        307.082,
+        385.708,
+        543.186,
+        456.9
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_14",
+    "type": "paragraph",
+    "content": "Such quantizer uses the maximum absolute value to calculate ∆ so that it preserves the outliers in activation, which are found to be important for accuracy (Dettmers et al., 2022). We can calculate ∆ offline with the activations of some calibration samples, what we call static quantization . We can also use the runtime statistics of activations to get ∆ , what we call dynamic quantization . As shown in Figure 3, quantization has different granularity levels. The per-tensor quantization uses a single step size for the entire matrix. We can further enable finer-grained quantization by using different quantization step sizes for activations associated with each token ( per-token quantization) or each output channel of weights ( per-channel quantization). A coarse-grained version of per-channel quantization is to use different quantization steps for different channel groups, called group-wise quantization (Shen et al., 2020; Yao et al., 2022).",
+    "metadata": {
+      "page": 2,
+      "section": "Preliminaries",
+      "bbox": [
+        306.972,
+        188.447,
+        543.183,
+        376.327
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_15",
+    "type": "paragraph",
+    "content": "For a linear layer in Transformers (Vaswani et al., 2017) Y = X · W , Y ∈ R T × C o , X ∈ R T × C i , W ∈ R C i × C o , where T is the number of tokens, C i is the input channel, and C o is the output channel (see Figure 3, we omit the batch dimension for simplicity), we can reduce the storage by half compared to FP16 by quantizing the weights to INT8. However, to speed up the inference, we need to quantize both weights and activations into INT8 (i.e., W8A8) to utilize the integer kernels (e.g., INT8 GEMM ), which are",
+    "metadata": {
+      "page": 2,
+      "section": "Preliminaries",
+      "bbox": [
+        307.005,
+        74.87300000000005,
+        543.186,
+        179.067
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_2",
+    "type": "figure",
+    "content": "Figure 3: Definition of per-tensor, per-token, and perchannel quantization. Per-tensor quantization is the most efficient to implement. For vector-wise quantization to efficiently utilize the INT8 GEMM kernels, we can only use scaling factors from the outer dimensions (i.e., token dimension T and out channel dimension C o ) but not inner dimension (i.e., in channel dimension C i ).",
+    "metadata": {
+      "page": 3,
+      "section": "Preliminaries",
+      "bbox": [
+        82.9569320678711,
+        562.7158660888672,
+        261.35772705078125,
+        725.9988708496094
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_3.png",
+      "image_summary": "The figure illustrates two quantization strategies for tensors used in computations, each depicted as a matrix multiplication operation.\n\nPanel (a), labeled \"per-tensor quantization,\" shows two matrices: X on the left (green) with dimensions T by C_i, and W on the right (orange) with dimensions C_i by C_o. Both matrices are annotated with scalar quantization parameters, indicated as Δ_X^[1] for X and Δ_W^[1] for W, suggesting a single quantization scale parameter per entire tensor. The associated color bars for Δ_X and Δ_W show uniform color gradients, reinforcing the one-scale-per-tensor quantization.\n\nPanel (b), labeled \"per-token + per-channel quantization,\" shows the same structure of matrices X (green, T by C_i) and W (orange, C_i by C_o), but now each matrix is associated with multiple quantization scalars represented as vectors. For X, the quantization parameter vector Δ_X^[T×1] is vertically oriented next to the matrix, implying a distinct quantization parameter per token (row of X). For W, the vector Δ_W^[1×C_o] is horizontally oriented above the matrix, implying a distinct quantization parameter per output channel (column of W). The color bars next to these parameters exhibit gradients from light to dark, demonstrating the multiple per-token or per-channel scaling factors.\n\nThe main takeaway is a comparison of quantization granularity: traditional per-tensor quantization applies a single scale to each entire tensor, while the combined per-token + per-channel quantization applies more fine-grained scaling—per token for the input matrix X and per output channel for the weight matrix W—potentially improving quantization fidelity by capturing variability along these specific tensor dimensions."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_16",
+    "type": "paragraph",
+    "content": "supported by a wide range of hardware (e.g., NVIDIA GPUs, Intel CPUs, Qualcomm DSPs, etc.).",
+    "metadata": {
+      "page": 3,
+      "section": "Preliminaries",
+      "bbox": [
+        55.44,
+        427.668,
+        290.688,
+        448.175
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_17",
+    "type": "paragraph",
+    "content": "LLMs are notoriously difficult to quantize due to the outliers in the activations (Dettmers et al., 2022; Wei et al., 2022; Bondarenko et al., 2021). We first review the difficulties of activation quantization and look for a pattern amongst outliers. We visualize the input activations and the weights of a linear layer that has a large quantization error in Figure 4 (left). We can find several patterns that motivate our method:",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        55.112,
+        307.999,
+        290.829,
+        388.282
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_18",
+    "type": "paragraph",
+    "content": "Activations are harder to quantize than weights. The weight distribution is quite uniform and flat, which is easy to quantize. Previous work has shown that quantizing the weights of LLMs with INT8 or even with INT4 does not degrade accuracy (Dettmers et al., 2022; Yao et al., 2022; Zeng et al., 2022), which echoes our observation.",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        54.693,
+        230.28999999999996,
+        290.27,
+        299.006
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_19",
+    "type": "paragraph",
+    "content": "Outliers make activation quantization difficult. The scale of outliers in activations is ∼ 100 × larger than most of the activation values. In the case of per-tensor quantization (Equation 1), the large outliers dominate the maximum magnitude measurement, leading to low effective quantization bits/levels (Figure 2) for non-outlier channels: suppose the maximum magnitude of channel i is m i , and the maximum value of the whole matrix is m , the effective quantization levels of channel i is 2 8 · m i /m . For non-outlier channels, the effective quantization levels would be very small (2-3), leading to large quantization errors.",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        55.112,
+        92.80600000000004,
+        291.092,
+        221.298
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_20",
+    "type": "paragraph",
+    "content": "Outliers persist in fixed channels. Outliers appear",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        55.44,
+        74.85699999999997,
+        289.612,
+        83.81299999999999
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_1",
+    "type": "table",
+    "content": "Table 1: Among different activation quantization schemes, only per-channel quantization (Bondarenko et al., 2021) preserves the accuracy, but it is not compatible (marked in gray) with INT8 GEMM kernels. We report the average accuracy on WinoGrande, HellaSwag, PIQA, and LAMBADA.",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        314.03411865234375,
+        589.3138732910156,
+        534.3507690429688,
+        655.3927612304688
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_1.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_21",
+    "type": "paragraph",
+    "content": "in a small fraction of the channels . If one channel has an outlier, it persistently appears in all tokens (Figure 4, red). The variance amongst the channels for a given token is large (the activations in some channels are very large, but most are small), but the variance between the magnitudes of a given channel across tokens is small (outlier channels are consistently large). Due to the persistence of outliers and the small variance inside each channel, if we could perform per-channel quantization (Bondarenko et al., 2021) of the activation (i.e., using a different quantization step for each channel), the quantization error would be much smaller compared to per-tensor quantization, while per-token quantization helps little. In Table 1, we verify the assumption that simulated per-channel activation quantization successfully bridges the accuracy with the FP16 baseline, which echos the findings of Bondarenko et al..",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        307.112,
+        372.898,
+        543.185,
+        560.957
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_22",
+    "type": "paragraph",
+    "content": "However, per-channel activation quantization does not map well to hardware-accelerated GEMM kernels, that rely on a sequence of operations executed at a high throughput (e.g., Tensor Core MMAs) and do not tolerate the insertion of instructions with a lower throughput (e.g., conversions or CUDA Core FMAs) in that sequence. In those kernels, scaling can only be performed along the outer dimensions of the matrix multiplication (i.e., token dimension of activations T , output channel dimension of weights C o , see Figure 3), which can be applied after the matrix multiplication finishes:",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        307.082,
+        247.36900000000003,
+        543.098,
+        363.518
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_equation_2",
+    "type": "equation",
+    "content": "Y = diag ( ∆ FP16 X ) · ( ¯ X INT8 · ¯ W INT8 ) · diag ( ∆ FP16 W ) (2)",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        317.733,
+        219.22199999999998,
+        542.107,
+        232.26300000000003
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_23",
+    "type": "paragraph",
+    "content": "Therefore, previous works all use per-token activation quantization for linear layers (Dettmers et al., 2022; Yao et al., 2022), although they cannot address the difficulty of activation quantization (only slightly better than per-tensor).",
+    "metadata": {
+      "page": 3,
+      "section": "Review of Quantization Difficulty",
+      "bbox": [
+        307.131,
+        158.67700000000002,
+        543.098,
+        203.09400000000005
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_24",
+    "type": "paragraph",
+    "content": "Instead of per-channel activation quantization (which is infeasible), we propose to 'smooth' the input activation by dividing it by a per-channel smoothing factor s ∈ R C i . To keep the mathematical equivalence of a linear layer, we",
+    "metadata": {
+      "page": 3,
+      "section": "SmoothQuant",
+      "bbox": [
+        307.131,
+        74.87300000000005,
+        543.183,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_25",
+    "type": "paragraph",
+    "content": "Out",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        390.3333333333333,
+        619.6666666666667,
+        401.3333333333333,
+        619.6666666666667
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_3",
+    "type": "figure",
+    "content": "Figure 4: Magnitude of the input activations and weights of a linear layer in OPT-13B before and after SmoothQuant. Observations: (1) there are a few channels in the original activation map whose magnitudes are very large (greater than 70); (2) the variance in one activation channel is small; (3) the original weight distribution is flat and uniform. SmoothQuant migrates the outlier channels from activation to weight. In the end, the outliers in the activation are greatly smoothed while the weight is still pretty smooth and flat.",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        68.05069732666016,
+        586.6658020019531,
+        529.987548828125,
+        722.8828964233398
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_4.png",
+      "image_summary": "The figure presents four 3D bar plots comparing the absolute value distributions of neural network activations and weights before and after applying a smoothing quantization technique, aimed at evaluating quantization difficulty.\n\n1. **Activation (Original) - Leftmost Plot:**\n   - Axes: \n     - X-axis labeled as \"Channel\" ranging from 0 to 5000.\n     - Y-axis labeled as \"Token\" ranging from 0 to 300.\n     - Z-axis labeled as \"Absolute Value\" ranging approximately from 0 to over 70.\n   - Visualization: Sharp, irregular spikes dominate the plot, with very high absolute values in several channels and tokens.\n   - Annotation: \"Hard to quantize\" (in reddish color).\n   - Interpretation: The original activations exhibit large, uneven spikes indicating high quantization difficulty due to extreme value ranges and instability.\n\n2. **Activation (SmoothQuant) - Second Plot:**\n   - Axes:\n     - X-axis labeled as \"Channel\" (0 to 5000).\n     - Y-axis labeled as \"Token\" (0 to 300).\n     - Z-axis labeled as \"Absolute Value\" ranging up to about 12.\n   - Visualization: Much smoother distribution compared to original, with significantly reduced peak magnitudes and more consistent absolute values.\n   - Annotation: \"Easy to quantize\" (in green).\n   - Interpretation: Applying SmoothQuant greatly reduces the quantization difficulty of activations by smoothing out extreme values, making quantization more stable and manageable.\n\n3. **Weight (Original) - Third Plot:**\n   - Axes:\n     - X-axis labeled \"In Channel\" (0 to 5000).\n     - Y-axis labeled \"Out Channel\" (0 to 20000).\n     - Z-axis labeled \"Absolute Value\" with a maximum around 5.\n   - Visualization: Nearly flat distribution with uniformly low absolute values.\n   - Annotation: \"Very easy to quantize\" (in bright green).\n   - Interpretation: Original weights have relatively low magnitude variation, making them inherently easy to quantize.\n\n4. **Weight (SmoothQuant) - Rightmost Plot:**\n   - Axes same as Weight (Original).\n   - Visualization: Sparse spikes appear but still mostly low magnitude absolute values.\n   - Annotation: \"Harder but still easy to quantize\" (in light green).\n   - Interpretation: After SmoothQuant, weights have slightly increased variation, which marginally complicates quantization but keep it straightforward overall.\n\n**Main Takeaway:**\nThe figure demonstrates that SmoothQuant effectively migrates quantization difficulty from activations to weights. By applying the smooth transformation, activations become significantly easier to quantize, as seen by reduced spikes and magnitude. This improvement comes at a small cost: weights become somewhat harder but still remain easy to quantize. This redistribution optimizes quantization by alleviating the main challenge found in original activations without severely impacting weight quantization."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_26",
+    "type": "paragraph",
+    "content": "scale the weights accordingly in the reversed direction:",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        55.44,
+        493.687,
+        274.448,
+        502.239
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_equation_3",
+    "type": "equation",
+    "content": "Y = ( X diag ( s ) -1 ) · ( diag ( s ) W ) = ˆ X ˆ W (3)",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        87.9,
+        472.85,
+        290.107,
+        484.266
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_27",
+    "type": "paragraph",
+    "content": "Considering input X is usually produced from previous linear operations (e.g., linear layers, layer norms, etc.), we can easily fuse the smoothing factor into previous layers' parameters offline , which doe not incur kernel call overhead from an extra scaling. For some other cases, when the input is from a residual add, we can add an extra scaling to the residual branch similar to Wei et al. (2022).",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        55.44,
+        380.283,
+        291.093,
+        460.914
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_28",
+    "type": "paragraph",
+    "content": "Migrate the quantization difficulty from activations to weights. Weaim to choose a per-channel smoothing factor s such that ˆ X = X diag ( s ) -1 is easy to quantize. To reduce the quantization error, we should increase the effective quantization bits for all the channels. The total effective quantization bits would be largest when all the channels have the same maximum magnitude. Therefore, a straight-forward choice is s j = max( | X j | ) , j = 1 , 2 , ..., C i , where j corresponds to j -th input channel. This choice ensures that after the division, all the activation channels will have the same maximum value, which is easy to quantize. Note that the range of activations is dynamic; it varies for different input samples. Here, we estimate the scale of activations channels using calibration samples from the pre-training dataset (Jacob et al., 2018). However, this formula pushes all the quantization difficulties to the weights. We find that, in this case, the quantization errors would be large for the weights (outlier channels are migrated to weights now), leading to a large accuracy degradation (see Figure 10). On the other hand, we can also push all the quantization difficulty from weights to activations by choosing s j = 1 / max( | W j | ) . Similarly, the model performance is bad due to the activation quantization errors. Therefore, we need to split the quantization difficulty between weights and activations so that they are both easy to quantize.",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        291.183,
+        370.737
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_4",
+    "type": "figure",
+    "content": "Figure 5: Main idea of SmoothQuant when α is 0 . 5 . The smoothing factor s is obtained on calibration samples and the entire transformation is performed offline. At runtime, the activations are smooth without scaling.",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        313.2654724121094,
+        426.97052001953125,
+        536.41845703125,
+        505.972412109375
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_5.png",
+      "image_summary": "The figure presents a comparative visualization of matrices involved in an original quantization approach versus a modified approach called \"SmoothQuant.\" \n\n- **Layout and Components:**\n  - The figure is split into two halves by a vertical dashed line.\n  - On the left is the \"Original\" approach, showing matrices labeled X and W with an operation \"*\".\n  - On the right is the \"SmoothQuant\" approach, showing a transformed matrix \\(\\hat{X}\\) multiplied by matrix \\(\\hat{W}\\), alongside formulas for \\(\\hat{X}\\), \\(s\\), and \\(\\hat{W}\\).\n\n- **Matrices and Values:**\n  - **Original (Left side):**\n    - Matrix \\(X\\) (2x4) contains values like 1, -16, 2, 6 in the first row and -2, 8, -1, -9 in the second row. Negative values have a purple shading, with -16 notably darker purple, highlighting it as an outlier or very large magnitude.\n    - Matrix \\(W\\) (4x4) next to \\(X\\) contains values mostly 1, 2, or -1, with an \"Abs Max\" column (1x4) shown highlighting the maximum absolute values from each column—2,1,2,2.\n    - A smaller vector below \\(X\\) shows max absolute values from each row—2,16,2,9, with some values highlighted in purple.\n\n  - **SmoothQuant (Right side):**\n    - \\( \\hat{X}\\) is computed as \\(X \\times \\text{diag}(s)^{-1}\\), where \\(s = \\sqrt{\\max{|X|}/\\max{|W|}}\\).\n    - In \\(\\hat{X}\\), values previously large in magnitude (e.g., -16 from \\(X\\)) are scaled down to smaller values (e.g., -4). The matrix shows less wide range, with lighter color shading in values between -4 and 3.\n    - \\(\\hat{W}\\) is computed as \\(\\text{diag}(s) W\\) and contains some larger values like 4 and -4, showing those were scaled up compared to the original \\(W\\).\n  \n- **Key Trends and Takeaway:**\n  - The original \\(X\\) contains entries with very large magnitudes (-16, 16) compared to the rest of the matrix, likely problematic for quantization.\n  - SmoothQuant normalizes \\(X\\) by scaling with \\(s^{-1}\\), thus reducing large magnitudes in \\(X\\) to a narrower range.\n  - Correspondingly, \\(W\\) is scaled by \\(s\\) to maintain the matrix multiplication operation's equivalence.\n  - This balancing reduces extreme values in the input \\(X\\) while compensating by scaling \\(W\\), potentially improving quantization stability by reducing dynamic range in the input tensor.\n\n**In summary,** the figure illustrates how the SmoothQuant method redistributes magnitude scaling between input matrix \\(X\\) and weight matrix \\(W\\) to mitigate the impact of large-magnitude entries, thereby facilitating improved quantization with less extreme values in \\(X\\)."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_29",
+    "type": "paragraph",
+    "content": "Here we introduce a hyper-parameter, migration strength α , to control how much difficulty we want to migrate from activation to weights, using the following equation:",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        307.44,
+        325.191,
+        541.442,
+        357.653
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_equation_4",
+    "type": "equation",
+    "content": "s j = max( | X j | ) α / max( | W j | ) 1 -α (4)",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        353.067,
+        304.11,
+        542.107,
+        315.812
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_30",
+    "type": "paragraph",
+    "content": "We find that for most of the models, e.g., all OPT (Zhang et al., 2022) and BLOOM (Scao et al., 2022) models, α = 0 . 5 is a well-balanced point to evenly split the quantization difficulty, especially when we are using the same quantizer for weights and activations (e.g., per-tensor, static quantization). The formula ensures that the weights and activations at the corresponding channel share a similar maximum value, thus sharing the same quantization difficulty. Figure 5 illustrates the smoothing transformation when we take α = 0 . 5 . For some other models where activation outliers are more significant (e.g., GLM-130B (Zeng et al., 2022) has ∼ 30% outliers, which are more difficult for activation quantization), we can choose a larger α to migrate more quantization difficulty to weights (like 0.75).",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        306.972,
+        129.13099999999997,
+        543.093,
+        293.101
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_31",
+    "type": "paragraph",
+    "content": "Applying SmoothQuant to Transformer blocks. Linear layers take up most of the parameters and computation of LLM models. By default, we perform scale smoothing for the input activations of self-attention and feed-forward",
+    "metadata": {
+      "page": 4,
+      "section": "SmoothQuant",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.094,
+        119.67899999999997
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_5",
+    "type": "figure",
+    "content": "Figure 6: SmoothQuant's precision mapping for a Transformer block. All compute-intensive operators like linear layers and batched matmul ( BMM s) use INT8 arithmetic.",
+    "metadata": {
+      "page": 5,
+      "section": "SmoothQuant",
+      "bbox": [
+        65.36759185791016,
+        589.0294952392578,
+        278.5736083984375,
+        724.5507125854492
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_6.png",
+      "image_summary": "The figure illustrates a computational flowchart of a neural network module divided into two main parts, with data flow indicated by arrows and components color-coded according to precision format: FP16 (orange) and INT8 (green).\n\nOn the left side is the self-attention mechanism:\n- Input first undergoes a LayerNorm operation in FP16 (orange rounded rectangle).\n- The normalized data is split into Q (query), K (key), and V (value) components, all represented as INT8 (green rectangles).\n- Q and K inputs are processed by a BMM (batch matrix multiplication) in INT8.\n- The resulting output goes through a Softmax operation in FP16.\n- The softmax output and the V component serve as inputs to another BMM in INT8.\n- The output of the second BMM proceeds to a Projection layer, also INT8.\n- This output is then added by an FP16 addition operation (orange circle with plus sign, fed by an orange arrow from LayerNorm earlier).\n\nOn the right side is the feed-forward network (FFN) block:\n- The same LayerNorm output from the attention block feeds into the FFN.\n- In the FFN, data flows through FC1 (fully connected layer 1) and FC2 (fully connected layer 2), both INT8 trapezoidal shapes.\n- Between these two layers, a ReLU activation function is applied in INT8.\n- The FFN output follows an FP16 addition (orange circle) and loops back as part of the residual connection.\n\nKey observations:\n- The residual connections and normalization steps are carried out in FP16, indicating higher precision preservation at critical points.\n- Core matrix operations (Q, K, V computations, BMMs, FC layers, ReLU) leverage efficient INT8 computations.\n- This mixed-precision design aims to balance computational efficiency (INT8) with numerical stability (FP16).\n- The figure effectively showcases the integration of INT8 operations within an FP16-controlled Transformer-like block structure, emphasizing precision-aware architectural design.\n\nMain takeaway:\nThe neural network block employs a hybrid precision design where normalization and residual addition steps use FP16 for numerical accuracy, while the bulk of matrix multiplications and activations use INT8 to optimize performance. This hybrid design supports efficient yet stable Transformer-like computations."
+    }
+  },
+  {
+    "id": "2211.10438_table_2",
+    "type": "table",
+    "content": "Table 2: Quantization setting of the baselines and SmoothQuant. All weight and activations use INT8 representations unless specified. For SmoothQuant, the efficiency improves from O1 to O3 (i.e., lower latency).",
+    "metadata": {
+      "page": 5,
+      "section": "SmoothQuant",
+      "bbox": [
+        60.92426681518555,
+        365.2020568847656,
+        282.76123046875,
+        462.06610107421875
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_2.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_32",
+    "type": "paragraph",
+    "content": "layers and quantize all linear layers with W8A8. We also quantize BMM operators in the attention computation. We design a quantization flow for transformer blocks in Figure 6. We quantize the inputs and weights of compute-heavy operators like linear layers and BMM in attention layers with INT8, while keeping the activation as FP16 for other lightweight element-wise operations like ReLU, Softmax, and LayerNorm. Such a design helps us to balance accuracy and inference efficiency.",
+    "metadata": {
+      "page": 5,
+      "section": "SmoothQuant",
+      "bbox": [
+        54.972,
+        228.52700000000004,
+        291.181,
+        332.72
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_33",
+    "type": "paragraph",
+    "content": "Baselines. We compare with four baselines in the INT8 post-training quantization setting, i.e., without re-training of the model parameters: W8A8 naive quantization, ZeroQuant (Yao et al., 2022), LLM.int8() (Dettmers et al., 2022), and Outlier Suppression (Wei et al., 2022). Since SmoothQuant is orthogonal to the quantization schemes, we provide gradually aggressive and efficient quantization levels from O1 to O3. The detailed quantization schemes of the baselines and SmoothQuant are shown in Table 2.",
+    "metadata": {
+      "page": 5,
+      "section": "Setups",
+      "bbox": [
+        55.082,
+        70.67899999999997,
+        291.096,
+        175.26
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_34",
+    "type": "paragraph",
+    "content": "Models and datasets. We choose three families of LLMs to evaluate SmoothQuant: OPT (Zhang et al., 2022), BLOOM (Scao et al., 2022), and GLM-130B (Zeng et al., 2022). We use seven zero-shot evaluation tasks: LAMBADA (Paperno et al., 2016), HellaSwag (Zellers et al., 2019), PIQA (Bisk et al., 2020), WinoGrande (Sakaguchi et al., 2019), OpenBookQA (Mihaylov et al., 2018), RTE (Wang et al., 2018), COPA (Roemmele et al., 2011), and one language modeling dataset WikiText (Merity et al., 2016) to evaluate the OPT and BLOOM models. We use MMLU (Hendrycks et al., 2020), MNLI (Williams et al., 2018), QNLI (Wang et al., 2018) and LAMBADA to evaluate the GLM-130B model because some of the aforementioned benchmarks appear in the training set of GLM130B. We use lm-eval-harness ‡ to evaluate OPT and BLOOMmodels, and GLM-130B's official repo § for its own evaluation. Finally, we scale up our method to MT-NLG 530B (Smith et al., 2022) and for the first time enabling the serving of a >500B model within a single node. Note that we focus on the relative performance change before and after quantization but not the absolute value.",
+    "metadata": {
+      "page": 5,
+      "section": "Setups",
+      "bbox": [
+        306.693,
+        473.807,
+        543.093,
+        721.851
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_35",
+    "type": "paragraph",
+    "content": "Activation smoothing. The migration strength α = 0 . 5 is a general sweet spot for all the OPT and BLOOM models, and α = 0 . 75 for GLM-130B since its activations are more difficult to quantize (Zeng et al., 2022). We get a suitable α by running a quick grid search on a subset of the Pile (Gao et al., 2020) validation set. To get the statistics of activations, we calibrate the smoothing factors and the static quantization step sizes once with 512 random sentences from the pre-training dataset Pile, and apply the same smoothed and quantized model for all downstream tasks. In this way, we can benchmark the generality and zero-shot performance of the quantized LLMs.",
+    "metadata": {
+      "page": 5,
+      "section": "Setups",
+      "bbox": [
+        307.082,
+        318.941,
+        543.091,
+        459.388
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_36",
+    "type": "paragraph",
+    "content": "Implementation. We implement SmoothQuant with two backends: (1) PyTorch Huggingface ¶ for the proof of concept, and (2) FasterTransformer || , as an example of a highperformance framework used in production environments. In both PyTorch Huggingface and FasterTransformer frameworks, we implement INT8 linear modules and the batched matrix multiplication (BMM) function with CUTLASS INT8 GEMM kernels. We simply replace the original floating point (FP16) linear modules and the bmm function with our INT8 kernels as the INT8 model.",
+    "metadata": {
+      "page": 5,
+      "section": "Setups",
+      "bbox": [
+        307.082,
+        187.985,
+        543.187,
+        304.521
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_37",
+    "type": "paragraph",
+    "content": "Results of OPT-175B. SmoothQuant can handle the quantization of very large LLMs, whose activations are more difficult to quantize. We study quantization on OPT-175B.",
+    "metadata": {
+      "page": 5,
+      "section": "Accurate Quantization",
+      "bbox": [
+        307.44,
+        126.26700000000005,
+        543.182,
+        159.11699999999996
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_38",
+    "type": "paragraph",
+    "content": "‡ https://github.com/EleutherAI/lm-evaluation-harness § https://github.com/THUDM/GLM-130B ¶ https://github.com/huggingface/transformers | | https://github.com/NVIDIA/FasterTransformer",
+    "metadata": {
+      "page": 5,
+      "section": "Accurate Quantization",
+      "bbox": [
+        320.093,
+        107.53499999999997,
+        513.793,
+        117.09500000000003
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_3",
+    "type": "table",
+    "content": "Table 3: SmoothQuant maintains the accuracy of OPT-175B model after INT8 quantization, even with the most aggressive and most efficient O3 setting (Table 2). We extensively benchmark the performance on 7 zero-shot benchmarks (by reporting the average accuracy) and 1 language modeling benchmark (perplexity). *For ZeroQuant, we also tried leaving the input activation of self-attention in FP16 and quantizing the rest to INT8, which is their solution to the GPT-NeoX-20B. But this does not solve the accuracy degradation of OPT-175B.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        73.06794738769531,
+        550.3331451416016,
+        522.841552734375,
+        655.9175109863281
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_3.png"
+    }
+  },
+  {
+    "id": "2211.10438_table_4",
+    "type": "table",
+    "content": "Table 4: SmoothQuant works for different LLMs. We can quantize the 3 largest, openly available LLM models into INT8 without degrading the accuracy. For OPT175B and BLOOM-176B, we show the average accuracy on WinoGrande, HellaSwag, PIQA, and LAMBADA. For GLM-130B we show the average accuracy on LAMBADA, MMLU, MNLI, and QNLI. *Accuracy is not column-wise comparable due to different datasets.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        61.61327362060547,
+        317.1024475097656,
+        282.24517822265625,
+        425.01123046875
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_4.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_42",
+    "type": "paragraph",
+    "content": "As shown in Table 3, SmoothQuant can match the FP16 accuracy on all evaluation datasets with all quantization schemes. LLM.int8() can match the floating point accuracy because they use floating-point values to represent outliers, which leads to a large latency overhead (Table 11). The W8A8, ZeroQuant, and Outlier Suppression baselines produce nearly random results, indicating that naively quantizing the activation of LLMs will destroy the performance.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        55.082,
+        201.404,
+        291.187,
+        293.642
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_43",
+    "type": "paragraph",
+    "content": "Results of different LLMs. SmoothQuant can be applied to various LLM designs. In Table 4, we show SmoothQuant can quantize all existing open LLMs beyond 100B parameters. Compared with the OPT-175B model, the BLOOM176B model is easier to quantize: none of the baselines completely destroys the model; even the naive W8A8 pertensor dynamic quantization only degrades the accuracy by 4%. The O1 and O2 levels of SmoothQuant successfully maintain the floating point accuracy, while the O3 level (per-",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        54.693,
+        74.87300000000005,
+        291.098,
+        179.45500000000004
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_6",
+    "type": "figure",
+    "content": "Figure 7: SmoothQuant-O3 (the most efficient setting, defined in Table 2) preserves the accuracy of OPT models across different scales when quantized to INT8. LLM.int8() requires mixed precision and suffers from slowing down.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        316.549560546875,
+        401.32275390625,
+        533.2586669921875,
+        524.2351379394531
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_7.png",
+      "image_summary": "The figure demonstrates the relationship between model size (x-axis, logarithmic scale spanning from 1.3 billion to 175 billion parameters) and accuracy (y-axis, percentage scale from 30% to 75%) for four different quantization methods: FP16/LLM.int8 (grey dashed line), W8A8 (orange dashed line with triangle markers), ZeroQuant (green dashed line with inverted triangle markers), and SmoothQuant-O3 (red dashed line with circle markers).\n\nKey trends include:\n- The FP16/LLM.int8 and SmoothQuant-O3 methods exhibit steadily increasing accuracy as model size grows, starting near 57% at 1.3B and rising to around 70-73% at 175B parameters.\n- W8A8 and ZeroQuant show a sharp decline in accuracy beyond the 2.7B model size mark, dropping from about 58% at 2.7B to approximately 33-35% by 6.7B and maintaining low accuracy values thereafter up to 175B.\n- SmoothQuant-O3 consistently outperforms all other methods, closely matching FP16/LLM.int8 at small model sizes and exceeding it slightly at larger sizes.\n- W8A8 and ZeroQuant perform similarly to each other, with both methods significantly underperforming compared to FP16/LLM.int8 and SmoothQuant-O3 for larger models.\n\nThe main takeaway is that quantization methods vary significantly in their impact on accuracy as model size increases; specifically, SmoothQuant-O3 maintains accuracy comparable to full precision (FP16/LLM.int8) across all model sizes, whereas W8A8 and ZeroQuant suffer large accuracy losses at larger scales. This indicates that SmoothQuant-O3 is a more reliable quantization method for scaling large language models without sacrificing accuracy."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_44",
+    "type": "paragraph",
+    "content": "tensor static) degrades the average accuracy by 0.8%, which we attribute to the discrepancy between the statically collected statistics and the real evaluation samples' activation statistics. On the contrary, the GLM-130B model is more difficult to quantize (which echos Zeng et al.). Nonetheless, SmoothQuant-O1 can match the FP16 accuracy, while SmoothQuant-O3 only degrades the accuracy by 1%, which significantly outperforms the baselines. Note that we clip the top 2% tokens when calibrating the static quantization step sizes for GLM-130B following Wei et al. (2022). Note that different model/training designs have different quantization difficulties, which we hope will inspire future research.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        307.082,
+        175.692,
+        543.186,
+        315.751
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_45",
+    "type": "paragraph",
+    "content": "Results on LLMs of different sizes. SmoothQuant works not only for the very large LLMs beyond 100B parameters, but it also works consistently for smaller LLMs. In Figure 7, we show that SmoothQuant can work on all scales of OPT models, matching the FP16 accuracy with INT8 quantization.",
+    "metadata": {
+      "page": 6,
+      "section": "Accurate Quantization",
+      "bbox": [
+        307.44,
+        81.529,
+        543.093,
+        150.245
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_5",
+    "type": "table",
+    "content": "Table 5: SmoothQuant's performance on the OPT-IML model.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        82.24414825439453,
+        602.3571166992188,
+        261.85968017578125,
+        692.0975341796875
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_5.png"
+    }
+  },
+  {
+    "id": "2211.10438_table_6",
+    "type": "table",
+    "content": "Table 6: SmoothQuant can enable lossless W8A8 quantization for LLaMA models (Touvron et al., 2023a). Results are perplexities on the WikiText-2 dataset with a sequence length of 512. We used per-token activation quantization and α =0.8 for SmoothQuant.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        57.7349853515625,
+        477.95245361328125,
+        286.7022705078125,
+        518.4888916015625
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_6.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_46",
+    "type": "paragraph",
+    "content": "Results on Instruction-Tuned LLM Shown in Table 5, SmoothQuant also works on instruction-tuned LLMs. We test SmoothQuant on the OPT-IML-30B model using the WikiText-2 and LAMBADA datasets. Our results show that SmoothQuant successfully preserves model accuracy with W8A8 quantization, whereas the baselines fail to do so. SmoothQuant is a general method designed to balance the quantization difficulty for Transformer models. As the architecture of instruction-tuned LLMs is not fundamentally different from vanilla LLMs, and their pre-training processes are very similar, SmoothQuant is applicable to instruction-tuned LLMs as well.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        54.972,
+        311.101,
+        291.093,
+        451.548
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_47",
+    "type": "paragraph",
+    "content": "Results on LLaMA models. LLaMA models are new open languange models with superior performance (Touvron et al., 2023a). Through initial experiments, we find LLaMA models generally have less severe activation outlier issues compared to models like OPT and BLOOM. Nonetheless, SmoothQuant still works quite well for LLaMA models. We provide some initial results of LLaMA W8A8 quantization in Table 6. SmoothQuant enables W8A8 quantization at a negligible performance degradation.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        55.44,
+        192.98699999999997,
+        290.687,
+        297.568
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_48",
+    "type": "paragraph",
+    "content": "Results on Llama-2, Falcon, Mistral, and Mixtral models. We apply SmoothQuant on several more recent LLMs using diverse architectures, such as Llama-2 (Touvron et al., 2023b), Falcon (Almazrouei et al., 2023), Mistral (Jiang et al., 2023), and Mixtral (Jiang et al., 2024)-notably, the Mixtral model is a Mixture of Experts (MoE) model. The results, detailed in Table 7, demonstrate that SmoothQuant enables W8A8 quantization while maintaining performance with minimal loss across these varied architectures.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        55.082,
+        74.87300000000005,
+        291.099,
+        179.45500000000004
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_7",
+    "type": "table",
+    "content": "Table 7: SmoothQuant can enable lossless W8A8 quantization for Llama-2 (Touvron et al., 2023b), Falcon (Almazrouei et al., 2023), Mistral (Jiang et al., 2023), and Mixtral (Jiang et al., 2024) models. Results are perplexities on the WikiText-2 dataset with a sequence length of 2048. We used per-token activation quantization and per-channel weight quantization for SmoothQuant.",
+    "metadata": {
+      "page": 7,
+      "section": "Accurate Quantization",
+      "bbox": [
+        330.4678955078125,
+        446.0794982910156,
+        518.2962646484375,
+        632.9452972412109
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_7.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_49",
+    "type": "paragraph",
+    "content": "In this section, we show the measured speedup and memory saving of SmoothQuant-O3 integrated into PyTorch and FasterTransformer.",
+    "metadata": {
+      "page": 7,
+      "section": "Speedup and Memory Saving",
+      "bbox": [
+        307.44,
+        367.586,
+        541.79,
+        400.048
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_50",
+    "type": "paragraph",
+    "content": "Context-stage: PyTorch Implementation. We measure the end-to-end latency of generating all hidden states for a batch of 4 sentences in one pass, i.e., the context stage latency. We record the (aggregated) peak GPU memory usage in this process. We only compare SmoothQuant with LLM.int8() because it is the only existing quantization method that can preserve LLM accuracy at all scales. Due to the lack of support for model parallelism in Huggingface, we only measure SmoothQuant's performance on a single GPU for the PyTorch implementation, so we choose OPT-6.7B, OPT-13B, and OPT-30B for evaluation. In the FasterTransformer library, SmoothQuant can seamlessly work with Tensor Parallelism (Shoeybi et al., 2019) algorithm, so we test SmoothQuant on OPT-13B, OPT-30B, OPT-66B, and OPT-175B for both single and multi-GPU benchmarks. All our experiments are conducted on NVIDIA A100 80GB GPU servers.",
+    "metadata": {
+      "page": 7,
+      "section": "Speedup and Memory Saving",
+      "bbox": [
+        307.082,
+        152.582,
+        543.093,
+        352.805
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_51",
+    "type": "paragraph",
+    "content": "In Figure 8, we show the inference latency and peak memory usage based on the PyTorch implementation. SmoothQuant is consistently faster than the FP16 baseline, getting a 1.51x speedup on OPT-30B when the sequence length is 256. We also see a trend that the larger the model, the more significant the acceleration. On the other hand, LLM.int8()",
+    "metadata": {
+      "page": 7,
+      "section": "Speedup and Memory Saving",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.093,
+        143.20100000000002
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_7",
+    "type": "figure",
+    "content": "Figure 8: The PyTorch implementation of SmoothQuant-O3 achieves up to 1.51 × speedup and 1.96 × memory saving for OPT models on a single NVIDIA A100-80GB GPU, while LLM.int8() slows down the inference in most cases.",
+    "metadata": {
+      "page": 8,
+      "section": "Speedup and Memory Saving",
+      "bbox": [
+        53.90070343017578,
+        599.7815856933594,
+        290.1278076171875,
+        726.7903060913086
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_8.png",
+      "image_summary": "The figure consists of four bar charts arranged in a 2x2 grid, comparing latency and memory usage for two models, OPT-13B (left column) and OPT-30B (right column), tested at batch sizes of 128, 256, and 512. \n\n**Y-axes and units:**\n- Top row charts measure Latency in milliseconds (ms).\n- Bottom row charts measure Memory in gigabytes (GB).\n\n**X-axes:**\n- Bottom axis labels show the batch sizes: 128, 256, and 512.\n- Models are labeled below the columns: OPT-13B for left, OPT-30B for right.\n\n**Legend:**\n- FP16 (light gray bars)\n- LLM.int80 (dark gray bars)\n- SmoothQuant (brick red bars)\n\n### Latency (Top row):\n- For both OPT-13B and OPT-30B, latency increases as batch size increases for all three methods.\n- SmoothQuant consistently shows the lowest latency in all batch sizes and models.\n- LLM.int80 consistently shows the highest latency.\n- FP16 latency is intermediate between SmoothQuant and LLM.int80.\n- Example: For OPT-13B at batch size 512, latency values are approximately 296 ms (FP16), 371 ms (LLM.int80), and 223 ms (SmoothQuant).\n- For OPT-30B at batch size 512, values are higher overall: ~660 ms (FP16), 655 ms (LLM.int80), and 458 ms (SmoothQuant).\n\n### Memory (Bottom row):\n- Memory usage increases slightly as batch size increases.\n- Memory consumption for FP16 is the highest across all batch sizes and models.\n- LLM.int80 and SmoothQuant have very similar memory usage values, which are substantially lower than FP16.\n- Example: For OPT-13B at batch size 512, FP16 uses about 25.9 GB, while LLM.int80 and SmoothQuant both use roughly 14.3 and 13.6 GB, respectively.\n- For OPT-30B at batch size 512, FP16 uses around 59.0 GB, while LLM.int80 and SmoothQuant are at 31.6 and 30.4 GB.\n\n### Key trends and comparisons:\n- SmoothQuant achieves the lowest latency while maintaining similar or slightly lower memory usage compared to LLM.int80.\n- FP16 has the lowest latency after SmoothQuant but incurs the highest memory use.\n- LLM.int80 consistently has the highest latency but does reduce memory substantially compared to FP16.\n- Increasing batch size uniformly increases latency and memory usage for all methods/models.\n\n### Main takeaway:\nSmoothQuant notably improves latency compared to both FP16 and LLM.int80 while maintaining reduced memory consumption similar to LLM.int80, demonstrating a favorable trade-off between speed and memory efficiency for both OPT-13B and OPT-30B models across multiple batch sizes."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_52",
+    "type": "paragraph",
+    "content": "is almost always slower than the FP16 baseline, which is due to the large overhead of the mixed-precision activation representation. In terms of memory, SmoothQuant and LLM.int8() can all nearly halve the memory usage of the FP16 model, while SmoothQuant saves slightly more memory because it uses fully INT8 GEMM s.",
+    "metadata": {
+      "page": 8,
+      "section": "Speedup and Memory Saving",
+      "bbox": [
+        55.44,
+        457.413,
+        291.093,
+        525.741
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_53",
+    "type": "paragraph",
+    "content": "As shown in Figure 9 (top), compared to FasterTransformer's FP16 implementation of OPT, SmoothQuant-O3 can further reduce the execution latency of OPT-13B and OPT-30B by up to 1.56 × when using a single GPU. This is challenging since FasterTransformer is already more than 3 × faster compared to the PyTorch implementation for OPT-30B. Remarkably, for bigger models that have to be distributed across multiple GPUs, SmoothQuant achieves similar or even better latency using only half the number of GPUs (1 GPU instead of 2 for OPT-66B, 4 GPUs instead of 8 for OPT-175B). This could greatly lower the cost of serving LLMs. The amount of memory needed when using SmoothQuant-O3 in FasterTransformer is reduced by a factor of almost 2 × , as shown on Figure 9 (bottom).",
+    "metadata": {
+      "page": 8,
+      "section": "Context-stage: FasterTransformer Implementation.",
+      "bbox": [
+        55.082,
+        270.10300000000007,
+        291.093,
+        434.072
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_54",
+    "type": "paragraph",
+    "content": "Decoding-stage. In Table 8, we show SmoothQuant can significantly accelerate the autoregressive decoding stage of LLMs. SmoothQuant constantly reduces the per-token decoding latency compared to FP16 (up to 1.42x speedup). Additionally, SmoothQuant halves the memory footprints for LLM inference, enabling the deployment of LLMs at a significantly lower cost.",
+    "metadata": {
+      "page": 8,
+      "section": "Context-stage: FasterTransformer Implementation.",
+      "bbox": [
+        55.082,
+        178.43499999999995,
+        291.183,
+        259.106
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_55",
+    "type": "paragraph",
+    "content": "We can further scale up SmoothQuant beyond 500B-level models, enabling efficient and accurate W8A8 quantization of MT-NLG 530B (Smith et al., 2022). As shown in Table 9 and 10, SmoothQuant enables W8A8 quantization of the 530B model at a negligible accuracy loss. The reduced model size allows us to serve the model using half number",
+    "metadata": {
+      "page": 8,
+      "section": "Scaling Up: 530B Model Within a Single Node",
+      "bbox": [
+        54.972,
+        74.87300000000005,
+        289.61,
+        143.20100000000002
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_8",
+    "type": "table",
+    "content": "Table 8: SmoothQuant 's performance in the decoding stage.",
+    "metadata": {
+      "page": 8,
+      "section": "Scaling Up: 530B Model Within a Single Node",
+      "bbox": [
+        307.1297302246094,
+        567.7810211181641,
+        544.1722412109375,
+        704.2862243652344
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_8.png"
+    }
+  },
+  {
+    "id": "2211.10438_table_9",
+    "type": "table",
+    "content": "Table 9: SmoothQuant can quantize MT-NLG 530B to W8A8 with negligible accuracy loss.",
+    "metadata": {
+      "page": 8,
+      "section": "Scaling Up: 530B Model Within a Single Node",
+      "bbox": [
+        306.4742126464844,
+        487.9998779296875,
+        545.6194458007812,
+        528.0223999023438
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_9.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_56",
+    "type": "paragraph",
+    "content": "of the GPUs (16 to 8) at a similar latency, enabling the serving of a >500B model within a single node (8 × A100 80GB GPUs).",
+    "metadata": {
+      "page": 8,
+      "section": "Scaling Up: 530B Model Within a Single Node",
+      "bbox": [
+        307.44,
+        438.761,
+        541.441,
+        471.223
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_57",
+    "type": "paragraph",
+    "content": "Quantization schemes. Table 11 shows the inference latency of different quantization schemes based on our PyTorch implementation. We can see that the coarser the quantization granularity (from O1 to O3), the lower the latency. And static quantization can significantly accelerate inference compared with dynamic quantization because we no longer need to calculate the quantization step sizes at runtime. SmoothQuant is faster than FP16 baseline under all settings, while LLM.int8() is usually slower. We recommend using a coarser scheme if the accuracy permits.",
+    "metadata": {
+      "page": 8,
+      "section": "Ablation Study",
+      "bbox": [
+        307.131,
+        293.357,
+        543.187,
+        409.893
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_58",
+    "type": "paragraph",
+    "content": "Migration strength. We need to find a suitable migration strength α (see Equation 4) to balance the quantization difficulty of weights and activations. We ablate the effect of different α 's on OPT-175B with LAMBADA in Figure 10. When α is too small (<0.4), the activations are hard to quantize; when α is too large (>0.6), the weights will be hard to quantize. Only when we choose α from the sweet spot region (0.4-0.6) can we get small quantization errors for both weights and activations, and maintain the model performance after quantization.",
+    "metadata": {
+      "page": 8,
+      "section": "Ablation Study",
+      "bbox": [
+        306.972,
+        164.654,
+        543.185,
+        281.191
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_59",
+    "type": "paragraph",
+    "content": "Large language models (LLMs). Pre-trained language models have achieved remarkable performance on various benchmarks by scaling up . GPT-3 (Brown et al., 2020b) is the first LLM beyond 100B parameters and achieves impressive few-shot/zero-shot learning results. Later works (Rae",
+    "metadata": {
+      "page": 8,
+      "section": "Related Work",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.098,
+        131.63400000000001
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_8",
+    "type": "figure",
+    "content": "Figure 9: Inference latency (top) and memory usage (bottom) of the FasterTransformer implementation on NVIDIA A100-80GB GPUs. For smaller models, the latency can be significantly reduced with SmoothQuant-O3 by up to 1.56x compared to FP16. For the bigger models (OPT-66B and 175B), we can achieve similar or even faster inference using only half number of GPUs. Memory footprint is almost halved compared to FP16.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        54.58628845214844,
+        609.2810668945312,
+        540.74658203125,
+        725.618049621582
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_9.png",
+      "image_summary": "The figure consists of four blocks of bar graphs, each presenting performance and memory comparisons between FP16 and SmoothQuant quantization methods across different model sizes of OPT: 13B, 30B, 66B, and 175B. Each model's results are divided into two subplots: latency (top row) and memory (bottom row). Latency is measured in milliseconds (ms) on the y-axis, and memory is measured in gigabytes (GB) on the y-axis of the lower plots; the x-axis in all plots indicates batch sizes (128, 256, 512, 1024 for latency and 128, 256, 512, 1024 for memory). \n\nKey details:\n- Latency (top) compares FP16 (light gray bars) vs SmoothQuant (dark red bars) on a single GPU.\n- Memory (bottom) compares FP16 (light gray bars, 2 GPUs for 13B and 30B models, 8 GPUs for 66B and 175B) vs SmoothQuant (dark red bars on 1 GPU for 13B and 30B, 4 GPUs for 66B and 175B).\n- For OPT-13B and OPT-30B, latency is measured with 1 GPU, while memory stats are for multiple GPUs (2 GPUs FP16 vs 1 GPU SmoothQuant).\n- For larger models OPT-66B and OPT-175B, memory comparisons are for 8 GPUs FP16 vs 4 GPUs SmoothQuant.\n\nKey Trends and Comparisons:\n1. OPT-13B latency (top-left): SmoothQuant consistently reduces latency compared to FP16 across all batch sizes (e.g., 22ms vs 28ms at batch 128; 125ms vs 181ms at 1024).\n2. OPT-13B memory (bottom-left): SmoothQuant reduces memory usage significantly, using roughly half the memory compared to FP16 (e.g., 15GB vs 27GB at batch 128; 19GB vs 30GB at 1024), despite fewer GPUs.\n3. OPT-30B latency (top-second block): SmoothQuant achieves notable reductions in latency (e.g., 43ms vs 59ms at batch 128; 249ms vs 380ms at batch 1024).\n4. OPT-30B memory (bottom-second block): SmoothQuant reduces memory use by about half under fewer GPUs (e.g., 32GB vs 59GB at batch 128; 37GB vs 64GB at batch 1024).\n5. OPT-66B latency (top-third block): Latency difference narrows; FP16 and SmoothQuant have similar latencies, with SmoothQuant sometimes slightly lower or comparable (e.g., 122ms FP16 vs 131ms SmoothQuant at 256 batch).\n6. OPT-66B memory (bottom-third block): SmoothQuant shows large memory savings (about half or less) compared to FP16 on fewer GPUs (e.g., 66GB vs 130GB at batch 128).\n7. OPT-175B latency (top-right): Latency differences are minimal and slightly favor FP16 or SmoothQuant at different batch sizes (e.g., 489ms FP16 vs 490ms SmoothQuant at batch 512). Both show increased latency with batch size.\n8. OPT-175B memory (bottom-right): SmoothQuant consistently reduces memory usage roughly by half when compared to FP16, even with fewer GPUs (e.g., 182GB vs 369GB at 128 batch).\n\nAnomalies:\n- For OPT-66B, at batch size 256, SmoothQuant latency (131 ms) is slightly higher than FP16 (122 ms), which is a minor deviation compared to trends in smaller models.\n- At the largest batch sizes for latency in 175B (1024), FP16 shows a higher value (848ms) compared to SmoothQuant (720ms), but the difference is less pronounced relative to smaller models.\n\nMain Takeaway:\nSmoothQuant consistently provides significant reductions in memory consumption—roughly halving memory usage—across all OPT model sizes using fewer GPUs. Latency improvements are more notable in smaller models (13B, 30B), while larger models (66B, 175B) show comparable latency performance between FP16 and SmoothQuant. This suggests SmoothQuant's efficacy primarily lies in memory efficiency gains without compromising latency, especially beneficial when GPU resources are limited."
+    }
+  },
+  {
+    "id": "2211.10438_table_10",
+    "type": "table",
+    "content": "Table 10: When serving MT-NLG 530B, SmoothQuant can reduce the memory by half at a similar latency using half number of GPUs, which allows serving the 530B model within a single node.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        69.26985168457031,
+        362.35186767578125,
+        272.99053955078125,
+        475.41424560546875
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_10.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_60",
+    "type": "paragraph",
+    "content": "et al., 2021; Smith et al., 2022; Du et al., 2022; Chowdhery et al., 2022) continue to push the frontier of scaling, going beyond 500B parameters. However, as the language model gets larger, serving such models for inference becomes expensive and challenging. In this work, we show that our proposed method can quantize the three largest, openly available LLMs: OPT-175B (Zhang et al., 2022), BLOOM-176B (Scao et al., 2022) and GLM-130B (Zeng et al., 2022), and even MT-NLG 530B (Smith et al., 2022) to reduce the memory cost and accelerate inference.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        55.44,
+        218.12799999999993,
+        291.093,
+        334.277
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_61",
+    "type": "paragraph",
+    "content": "Model quantization. Quantization is an effective method for reducing the model size and accelerating inference. It proves to be effective for various convolutional neural works (CNNs) (Han et al., 2016; Jacob et al., 2018; Nagel et al., 2019; Wang et al., 2019; Lin et al., 2020) and transformers (Shen et al., 2020; Kim et al., 2021; Liu et al., 2021; Wang et al., 2020; Bondarenko et al., 2021). Weight equalization (Nagel et al., 2019) and channel splitting (Zhao et al., 2019) reduce quantization error by suppressing the outliers in weights. However, these techniques cannot address the activation outliers, which are the major quantization bottle-",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        54.972,
+        74.87300000000005,
+        291.099,
+        203.365
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_table_11",
+    "type": "table",
+    "content": "Table 11: GPU Latency (ms) of different quantization schemes. The coarser the quantization scheme (from pertoken to per-tensor, dynamic to static, O1 to O3, defined in Table 2), the lower the latency. SmoothQuant achieves lower latency compared to FP16 under all settings, while LLM.int8() is mostly slower. The batch size is 4.",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        319.69024658203125,
+        362.5697021484375,
+        526.0175170898438,
+        451.8149719238281
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/table/table_11.png"
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_62",
+    "type": "paragraph",
+    "content": "neck for LLMs (Dettmers et al., 2022).",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        307.44,
+        334.212,
+        462.657,
+        342.764
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_63",
+    "type": "paragraph",
+    "content": "Quantization of LLMs. GPTQ (Frantar et al., 2022) applies quantization only to weights but not activations (please find a short discussion in Appendix A). ZeroQuant (Yao et al., 2022) and nuQmm (Park et al., 2022) use a per-token and group-wise quantization scheme for LLMs, which requires customized CUDA kernels. Their largest evaluated models are 20B and 2.7B, respectively and fail to maintain the performance of LLMs like OPT175B. LLM.int8() (Dettmers et al., 2022) uses mixed INT8/FP16 decomposition to address the activation outliers. However, such implementation leads to large latency overhead, which can be even slower than FP16 inference. Outlier Suppression (Wei et al., 2022) uses the non-scaling LayerNorm and token-wise clipping to deal with the activation outliers. However, it only succeeds on small language models such as BERT (Devlin et al., 2019) and BART (Lewis et al., 2019) and fails to maintain the accuracy for LLMs (Table 4). Our algorithm preserves the performance of LLMs (up to 176B, the largest open-source LLM we can find) with an efficient per-tensor, static quantization scheme without retraining, allowing us to use off-the-shelf INT8 GEMM to",
+    "metadata": {
+      "page": 9,
+      "section": "Related Work",
+      "bbox": [
+        306.693,
+        74.87300000000005,
+        543.182,
+        322.917
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_fig_9",
+    "type": "figure",
+    "content": "Figure 10: A suitable migration strength α (sweet spot) makes both activations and weights easy to quantize. If the α is too large, weights will be hard to quantize; if too small, activations will be hard to quantize.",
+    "metadata": {
+      "page": 10,
+      "section": "Related Work",
+      "bbox": [
+        55.595027923583984,
+        613.7774810791016,
+        290.4111022949219,
+        725.9893188476562
+      ],
+      "image_path": "data/rag_assets/images/2211.10438/figure/figure_10.png",
+      "image_summary": "The figure displays the OPT-175B accuracy (y-axis, ranging from 0% to 80%) as a function of migration strength α (x-axis, ranges from 0 to 1). Four different methods or configurations are compared: FP16 (blue dashed line), W8A16 (green dashed line with diamond markers), W16A8 (orange dashed line with triangle markers), and W8A8 (red solid line with inverted triangle markers).\n\nKey observations:\n- FP16 accuracy remains constant at approximately 75% across all migration strengths (α from 0 to 1).\n- W8A16 starts at 0% accuracy at α=0 and remains near 0% until α≈0.3, then sharply increases, reaching nearly 75% accuracy around α=0.4–0.6, and decreases after α=0.6, dropping back toward 0% by α=0.9–1.\n- W16A8 behaves similarly to W8A16, with a rapid increase around α=0.3 and plateauing near FP16 accuracy (around 75%) between α=0.4 and 0.6, but maintains higher accuracy than W8A16 beyond α=0.6, before a slight decrease near α=1.\n- W8A8 displays almost 0% accuracy for α <0.3 and α >0.7, but rapidly increases to approximately 75% accuracy in the α range 0.4 to 0.6, similar to the other quantized models.\n  \nThe figure is segmented into three shaded regions with explanatory annotations:\n- Left (orange) labeled \"Weight easy Activation hard\" for α approximately 0 to 0.3.\n- Middle (green) labeled \"Sweet spot\" for α approximately 0.4 to 0.6.\n- Right (red) labeled \"Weight hard Activation easy\" for α approximately 0.7 to 1.\n\nMain takeaway:\nThere is a critical \"sweet spot\" in migration strength (α ≈ 0.4 to 0.6) where quantized models (W8A16, W16A8, W8A8) achieve accuracy comparable to full precision FP16 (~75%). Outside this range, accuracy drops sharply to near zero. This suggests that intermediate migration strength balancing weight and activation quantization difficulty yields optimal performance, highlighting the importance of selecting appropriate α for maintaining accuracy in quantized OPT-175B models."
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_64",
+    "type": "paragraph",
+    "content": "achieve high hardware efficiency.",
+    "metadata": {
+      "page": 10,
+      "section": "Related Work",
+      "bbox": [
+        55.44,
+        533.309,
+        188.341,
+        541.861
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_65",
+    "type": "paragraph",
+    "content": "We propose SmoothQuant, an accurate and efficient posttraining quantization method to enable lossless 8-bit weight and activation quantization for LLMs up to 530B parameters. SmoothQuant enables the quantization for both weight and activations for all GEMM s in the LLMs, which significantly reduces the inference latency and memory usage compared with the mixed-precision activation quantization baseline. We integrate SmoothQuant into PyTorch and FasterTransformer, getting up to 1.56 × inference acceleration and halving the memory footprint. SmoothQuant democratizes the application of LLMs by offering a turnkey solution to reduce the serving cost.",
+    "metadata": {
+      "page": 10,
+      "section": "Conclusion",
+      "bbox": [
+        54.972,
+        353.864,
+        291.186,
+        493.923
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_66",
+    "type": "paragraph",
+    "content": "We thank MIT-IBM Watson AI Lab, MIT AI Hardware Program, Amazon and MIT Science Hub, NVIDIA Academic Partnership Award, Qualcomm Innovation Fellowship, Microsoft Turing Academic Program, and NSF for supporting this research. We thank Haotian Tang, Aohan Zeng, Eric Lin and Jilei Hou for the helpful discussions.",
+    "metadata": {
+      "page": 10,
+      "section": "Acknowledgements",
+      "bbox": [
+        54.972,
+        246.14999999999998,
+        291.098,
+        314.478
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_67",
+    "type": "paragraph",
+    "content": "Almazrouei, E., Alobeidli, H., Alshamsi, A., Cappelli, A., Cojocaru, R., Debbah, M., Étienne Goffinet, Hesslow, D., Launay, J., Malartic, Q., Mazzotta, D., Noune, B., Pannier, B., and Penedo, G. The falcon series of open language models, 2023.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        150.39099999999996,
+        290.687,
+        206.764
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_68",
+    "type": "paragraph",
+    "content": "Bisk, Y., Zellers, R., Bras, R. L., Gao, J., and Choi, Y. Piqa: Reasoning about physical commonsense in natural language. In Thirty-Fourth AAAI Conference on Artificial Intelligence , 2020.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        94.70000000000005,
+        291.185,
+        139.11699999999996
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_69",
+    "type": "paragraph",
+    "content": "Bondarenko, Y., Nagel, M., and Blankevoort, T. Under- standing and overcoming the challenges of efficient transformer quantization. In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing , pp. 7947-7969, Online and Punta Cana, Dominican Republic, November 2021. Association for Computational Linguistics. URL https://aclanthology.org/2021. emnlp-main.627.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        291.093,
+        83.42499999999995
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_70",
+    "type": "paragraph",
+    "content": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A., Sutskever, I., and Amodei, D. Language models are few-shot learners. In Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H. (eds.), Advances in Neural Information Processing Systems , volume 33, pp. 1877-1901. Curran Associates, Inc., 2020a. URL https://proceedings.neurips.cc/paper/2020/ file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        479.233,
+        543.179,
+        631.247
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_71",
+    "type": "paragraph",
+    "content": "Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et al. Language models are few-shot learners. Advances in neural information processing systems , 33: 1877-1901, 2020b.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        412.928,
+        543.185,
+        469.301
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_72",
+    "type": "paragraph",
+    "content": "Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra, G., Roberts, A., Barham, P., Chung, H. W., Sutton, C., Gehrmann, S., et al. Palm: Scaling language modeling with pathways. arXiv preprint arXiv:2204.02311 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        358.578,
+        542.681,
+        402.996
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_73",
+    "type": "paragraph",
+    "content": "Dettmers, T., Lewis, M., Belkada, Y., and Zettlemoyer, L. Llm.int8(): 8-bit matrix multiplication for transformers at scale. arXiv preprint arXiv:2208.07339 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        316.183,
+        543.185,
+        348.646
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_74",
+    "type": "paragraph",
+    "content": "Devlin, J., Chang, M., Lee, K., and Toutanova, K. BERT: pre-training of deep bidirectional transformers for language understanding. In NAACL-HLT 2019 , pp. 41714186. Association for Computational Linguistics, 2019.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        261.8330000000001,
+        543.098,
+        306.251
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_75",
+    "type": "paragraph",
+    "content": "Du, N., Huang, Y., Dai, A. M., Tong, S., Lepikhin, D., Xu, Y., Krikun, M., Zhou, Y., Yu, A. W., Firat, O., et al. Glam: Efficient scaling of language models with mixture-ofexperts. In International Conference on Machine Learning , pp. 5547-5569. PMLR, 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        195.52800000000002,
+        543.098,
+        251.90100000000007
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_76",
+    "type": "paragraph",
+    "content": "Frantar, E., Ashkboos, S., Hoefler, T., and Alistarh, D. Gptq: Accurate post-training quantization for generative pretrained transformers. arXiv preprint arXiv:2210.17323 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        141.178,
+        543.094,
+        185.596
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_77",
+    "type": "paragraph",
+    "content": "Gao, L., Biderman, S., Black, S., Golding, L., Hoppe, T., Foster, C., Phang, J., He, H., Thite, A., Nabeshima, N., et al. The pile: An 800gb dataset of diverse text for language modeling. arXiv preprint arXiv:2101.00027 , 2020.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        542.687,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_78",
+    "type": "paragraph",
+    "content": "Han, S., Mao, H., and Dally, W. J. Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding. In ICLR , 2016.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        689.0,
+        291.098,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_79",
+    "type": "paragraph",
+    "content": "Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M., Song, D., and Steinhardt, J. Measuring massive multitask language understanding. CoRR , abs/2009.03300, 2020. URL https://arxiv.org/abs/2009.03300.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        631.174,
+        291.188,
+        675.592
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_80",
+    "type": "paragraph",
+    "content": "Jacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard, A., Adam, H., and Kalenichenko, D. Quantization and training of neural networks for efficient integerarithmetic-only inference. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition , pp. 2704-2713, 2018.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        549.438,
+        291.098,
+        617.766
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_81",
+    "type": "paragraph",
+    "content": "Jiang, A. Q., Sablayrolles, A., Mensch, A., Bamford, C., Chaplot, D. S., de las Casas, D., Bressand, F., Lengyel, G., Lample, G., Saulnier, L., Lavaud, L. R., Lachaux, M.A., Stock, P., Scao, T. L., Lavril, T., Wang, T., Lacroix, T., and Sayed, W. E. Mistral 7b, 2023.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        479.656,
+        291.098,
+        536.029
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_82",
+    "type": "paragraph",
+    "content": "Jiang, A. Q., Sablayrolles, A., Roux, A., Mensch, A., Savary, B., Bamford, C., Chaplot, D. S., de las Casas, D., Hanna, E. B., Bressand, F., Lengyel, G., Bour, G., Lample, G., Lavaud, L. R., Saulnier, L., Lachaux, M.-A., Stock, P., Subramanian, S., Yang, S., Antoniak, S., Scao, T. L., Gervet, T., Lavril, T., Wang, T., Lacroix, T., and Sayed, W. E. Mixtral of experts, 2024.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        385.965,
+        290.688,
+        466.248
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_83",
+    "type": "paragraph",
+    "content": "Kim, S., Gholami, A., Yao, Z., Mahoney, M. W., and Keutzer, K. I-bert: Integer-only bert quantization. In International conference on machine learning , pp. 55065518. PMLR, 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        328.139,
+        290.936,
+        372.556
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_84",
+    "type": "paragraph",
+    "content": "Lewis, M., Liu, Y., Goyal, N., Ghazvininejad, M., Mohamed, A., Levy, O., Stoyanov, V., and Zettlemoyer, L. Bart: Denoising sequence-to-sequence pre-training for natural language generation, translation, and comprehension. arXiv preprint arXiv:1910.13461 , 2019.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        258.35699999999997,
+        291.179,
+        314.73
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_85",
+    "type": "paragraph",
+    "content": "Lin, J., Chen, W.-M., Lin, Y., Gan, C., Han, S., et al. Mcunet: Tiny deep learning on iot devices. Advances in Neural Information Processing Systems , 33:11711-11722, 2020.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        212.486,
+        291.127,
+        244.94900000000007
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_86",
+    "type": "paragraph",
+    "content": "Liu, Z., Wang, Y., Han, K., Zhang, W., Ma, S., and Gao, W. Post-training quantization for vision transformer. Advances in Neural Information Processing Systems , 34: 28092-28103, 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        154.65999999999997,
+        291.094,
+        199.07799999999997
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_87",
+    "type": "paragraph",
+    "content": "Merity, S., Xiong, C., Bradbury, J., and Socher, R. Pointer sentinel mixture models, 2016.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        120.74400000000003,
+        289.607,
+        141.25099999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_88",
+    "type": "paragraph",
+    "content": "Mihaylov, T., Clark, P., Khot, T., and Sabharwal, A. Can a suit of armor conduct electricity? a new dataset for open book question answering. In EMNLP , 2018.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        289.444,
+        107.33600000000001
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_89",
+    "type": "paragraph",
+    "content": "Nagel, M., Baalen, M. v., Blankevoort, T., and Welling, M. Data-free quantization through weight equalization and bias correction. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pp. 13251334, 2019.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        665.09,
+        542.935,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_90",
+    "type": "paragraph",
+    "content": "Paperno, D., Kruszewski, G., Lazaridou, A., Pham, N. Q., Bernardi, R., Pezzelle, S., Baroni, M., Boleda, G., and Fernández, R. The LAMBADA dataset: Word prediction requiring a broad discourse context. In Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pp. 15251534, Berlin, Germany, August 2016. Association for Computational Linguistics. doi: 10.18653/v1/P16-1144. URL https://aclanthology.org/P16-1144.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        544.987,
+        543.188,
+        649.18
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_91",
+    "type": "paragraph",
+    "content": "Park, G., Park, B., Kwon, S. J., Kim, B., Lee, Y., and Lee, D. nuqmm: Quantized matmul for efficient inference of large-scale generative language models. arXiv preprint arXiv:2206.09557 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        484.659,
+        542.687,
+        529.077
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_92",
+    "type": "paragraph",
+    "content": "Pope, R., Douglas, S., Chowdhery, A., Devlin, J., Bradbury, J., Levskaya, A., Heek, J., Xiao, K., Agrawal, S., and Dean, J. Efficiently scaling transformer inference. arXiv preprint arXiv:2211.05102 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        424.332,
+        542.689,
+        468.749
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_93",
+    "type": "paragraph",
+    "content": "Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., Aslanides, J., Henderson, S., Ring, R., Young, S., et al. Scaling language models: Methods, analysis & insights from training gopher. arXiv preprint arXiv:2112.11446 , 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        352.049,
+        542.687,
+        408.422
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_94",
+    "type": "paragraph",
+    "content": "Roemmele, M., Bejan, C. A., and Gordon, A. S. Choice of plausible alternatives: An evaluation of commonsense causal reasoning. In Logical Formalizations of Commonsense Reasoning, Papers from the 2011 AAAI Spring Symposium, Technical Report SS-11-06, Stanford, California, USA, March 21-23, 2011 . AAAI, 2011. URL http://www. aaai.org/ocs/index.php/SSS/SSS11/paper/view/2418.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        255.856,
+        543.183,
+        336.139
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_95",
+    "type": "paragraph",
+    "content": "Sakaguchi, K., Bras, R. L., Bhagavatula, C., and Choi, Y. Winogrande: An adversarial winograd schema challenge at scale. arXiv preprint arXiv:1907.10641 , 2019.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        207.48400000000004,
+        543.185,
+        239.94600000000003
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_96",
+    "type": "paragraph",
+    "content": "Scao, T. L., Fan, A., Akiki, C., Pavlick, E., Ili´ c, S., Hesslow, D., Castagné, R., Luccioni, A. S., Yvon, F., Gallé, M., et al. Bloom: A 176b-parameter open-access multilingual language model. arXiv preprint arXiv:2211.05100 , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        147.15599999999995,
+        543.185,
+        191.57299999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_97",
+    "type": "paragraph",
+    "content": "Shen, S., Dong, Z., Ye, J., Ma, L., Yao, Z., Gholami, A., Mahoney, M. W., and Keutzer, K. Q-bert: Hessian based ultra low precision quantization of bert. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 34, pp. 8815-8821, 2020.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        543.096,
+        131.24599999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_98",
+    "type": "paragraph",
+    "content": "Shoeybi, M., Patwary, M., Puri, R., LeGresley, P., Casper, J., and Catanzaro, B. Megatron-lm: Training multibillion parameter language models using model parallelism. CoRR , abs/1909.08053, 2019. URL http: //arxiv.org/abs/1909.08053.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        665.09,
+        291.098,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_99",
+    "type": "paragraph",
+    "content": "Smith, S., Patwary, M., Norick, B., LeGresley, P., Rajbhandari, S., Casper, J., Liu, Z., Prabhumoye, S., Zerveas, G., Korthikanti, V., et al. Using deepspeed and megatron to train megatron-turing nlg 530b, a large-scale generative language model. arXiv preprint arXiv:2201.11990 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        598.785,
+        291.185,
+        655.158
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_100",
+    "type": "paragraph",
+    "content": "Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E., Azhar, F., et al. Llama: Open and efficient foundation language models. arXiv preprint arXiv:2302.13971 , 2023a.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        544.435,
+        291.095,
+        588.852
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_101",
+    "type": "paragraph",
+    "content": "Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., Bikel, D., Blecher, L., Ferrer, C. C., Chen, M., Cucurull, G., Esiobu, D., Fernandes, J., Fu, J., Fu, W., Fuller, B., Gao, C., Goswami, V., Goyal, N., Hartshorn, A., Hosseini, S., Hou, R., Inan, H., Kardas, M., Kerkez, V., Khabsa, M., Kloumann, I., Korenev, A., Koura, P. S., Lachaux, M.-A., Lavril, T., Lee, J., Liskovich, D., Lu, Y., Mao, Y., Martinet, X., Mihaylov, T., Mishra, P., Molybog, I., Nie, Y ., Poulton, A., Reizenstein, J., Rungta, R., Saladi, K., Schelten, A., Silva, R., Smith, E. M., Subramanian, R., Tan, X. E., Tang, B., Taylor, R., Williams, A., Kuan, J. X., Xu, P., Yan, Z., Zarov, I., Zhang, Y ., Fan, A., Kambadur, M., Narang, S., Rodriguez, A., Stojnic, R., Edunov, S., and Scialom, T. Llama 2: Open foundation and fine-tuned chat models, 2023b.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        346.623,
+        290.689,
+        534.503
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_102",
+    "type": "paragraph",
+    "content": "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. Attention is all you need. Advances in neural information processing systems , 30, 2017.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        292.273,
+        291.098,
+        336.691
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_103",
+    "type": "paragraph",
+    "content": "Wang, A., Singh, A., Michael, J., Hill, F., Levy, O., and Bowman, S. R. GLUE: A multi-task benchmark and analysis platform for natural language understanding. CoRR , abs/1804.07461, 2018. URL http://arxiv.org/abs/1804. 07461.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        225.96799999999996,
+        291.179,
+        282.341
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_104",
+    "type": "paragraph",
+    "content": "Wang, H., Zhang, Z., and Han, S. Spatten: Efficient sparse attention architecture with cascade token and head pruning. CoRR , abs/2012.09852, 2020. URL https://arxiv.org/abs/2012.09852.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        171.61799999999994,
+        289.93,
+        216.03600000000006
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_105",
+    "type": "paragraph",
+    "content": "Wang, K., Liu, Z., Lin, Y., Lin, J., and Han, S. HAQ: Hardware-Aware Automated Quantization with Mixed Precision. In CVPR , 2019.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        129.22299999999996,
+        290.829,
+        161.68600000000004
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_106",
+    "type": "paragraph",
+    "content": "Wei, X., Zhang, Y., Zhang, X., Gong, R., Zhang, S., Zhang, Q., Yu, F., and Liu, X. Outlier suppression: Pushing the limit of low-bit transformer language models, 2022. URL https://arxiv.org/abs/2209.13325.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        290.683,
+        119.29099999999994
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_107",
+    "type": "paragraph",
+    "content": "Williams, A., Nangia, N., and Bowman, S. A broadcoverage challenge corpus for sentence understanding through inference. In Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers) , pp. 1112-1122. Association for Computational Linguistics, 2018. URL http://aclweb.org/anthology/N18-1101.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        629.224,
+        543.096,
+        721.463
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_108",
+    "type": "paragraph",
+    "content": "Yao, Z., Aminabadi, R. Y., Zhang, M., Wu, X., Li, C., and He, Y. Zeroquant: Efficient and affordable post-training quantization for large-scale transformers, 2022. URL https://arxiv.org/abs/2206.01861.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        573.434,
+        541.929,
+        617.851
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_109",
+    "type": "paragraph",
+    "content": "Yu, G.-I., Jeong, J. S., Kim, G.-W., Kim, S., and Chun, B.G. Orca: A distributed serving system for { TransformerBased } generative models. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22) , pp. 521-538, 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        505.688,
+        543.097,
+        562.06
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_110",
+    "type": "paragraph",
+    "content": "Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., and Choi, Y. Hellaswag: Can a machine really finish your sentence? CoRR , abs/1905.07830, 2019. URL http://arxiv.org/abs/ 1905.07830.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        449.897,
+        542.687,
+        494.314
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_111",
+    "type": "paragraph",
+    "content": "Zeng, A., Liu, X., Du, Z., Wang, Z., Lai, H., Ding, M., Yang, Z., Xu, Y., Zheng, W., Xia, X., et al. Glm-130b: An open bilingual pre-trained model. arXiv preprint arXiv:2210.02414 , 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        394.106,
+        542.825,
+        438.524
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_112",
+    "type": "paragraph",
+    "content": "Zhang, S., Roller, S., Goyal, N., Artetxe, M., Chen, M., Chen, S., Dewan, C., Diab, M., Li, X., Lin, X. V., Mihaylov, T., Ott, M., Shleifer, S., Shuster, K., Simig, D., Koura, P. S., Sridhar, A., Wang, T., and Zettlemoyer, L. Opt: Open pre-trained transformer language models, 2022. URL https://arxiv.org/abs/2205.01068.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        314.405,
+        543.098,
+        382.733
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_113",
+    "type": "paragraph",
+    "content": "Zhao, R., Hu, Y., Dotzel, J., De Sa, C., and Zhang, Z. Improving neural network quantization without retraining using outlier channel splitting. In International conference on machine learning , pp. 7543-7552. PMLR, 2019.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        307.44,
+        258.61400000000003,
+        543.18,
+        303.032
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_114",
+    "type": "paragraph",
+    "content": "In this work, we study W8A8 quantization so that we can utilize INT8 GEMM kernels to increase the throughput and accelerate inference. There is another line of work that only quantizes the weight of LLMs (e.g., GPTQ (Frantar et al., 2022)). It converts the quantized weights to FP16 on the fly for matmul during inference and can also lead to speed up due to the reduced data loading, especially for the generation stage with batch size 1.",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        55.44,
+        609.851,
+        289.61,
+        702.09
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_115",
+    "type": "paragraph",
+    "content": "We mainly compare our method with existing work on weight-activation quantization (i.e., W8A8) like (Dettmers et al., 2022; Yao et al., 2022; Wei et al., 2022) since they are under the same setting. Here we would like to give a short discussion about the weight-only quantization methods in LLM settings:",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        54.972,
+        532.143,
+        289.439,
+        600.471
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_116",
+    "type": "paragraph",
+    "content": "Firstly, we were trying to compare our method with GPTQ (Frantar et al., 2022) but found it difficult due to different implementations. GPTQ's low-bit kenerl ** only supports the generation stage with batch size 1 (i.e., only processing a single token at a time), and cannot support the context stage (widely used in different downstream tasks and chatbot) or batch-based setting. Furthermore, its low-bit kernel optimization only targets the OPT-175B model (as stated in the README). At the same time, our work utilizes FasterTransformer for serving large models, which may lead to an unfair advantage if we make a direct comparison.",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        62.912,
+        371.299,
+        291.184,
+        511.358
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_117",
+    "type": "paragraph",
+    "content": "GPTQ may perform better at handling a small number of input tokens (1 in its experiments) since the process is highly memory-bounded. In contrast, SmoothQuant may serve better with a batching setting or for the context stage (i.e., when the number of processed tokens is more significant). Nonetheless, some work shows that in production, we can improve the throughput of serving GPT models by 37 × at similar latency with advanced batching (Yu et al., 2022). We believe in production, batching will be the future standard, and SmoothQuant will bring further improvement, even for the generation stage.",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        62.912,
+        212.99900000000002,
+        291.092,
+        353.058
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_118",
+    "type": "paragraph",
+    "content": "Applications like chatbots need to handle a long context length and potentially run under a batch setting. Due to the two factors, the memory size of the KV cache can no longer be ignored (as shown in (Pope et al., 2022), the KV cache totals 3TB given batch size 512 and context length 2048, which is 3 × larger than the model weights). In this case, quantization of activation can also help reduce the memory cost from storing the KV cache.",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        62.912,
+        90.56399999999996,
+        291.183,
+        194.75800000000004
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_119",
+    "type": "paragraph",
+    "content": "** https://github.com/IST-DASLab/gptq",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        65.104,
+        75.07899999999995,
+        205.287,
+        83.31799999999998
+      ]
+    }
+  },
+  {
+    "id": "2211.10438_paragraph_120",
+    "type": "paragraph",
+    "content": "Finally, we think the two settings are somewhat orthogonal. We believe we can integrate GPTQ's method for a better weight quantization and potentially achieve W4A4 quantization, which will lead to even better hardware efficiency (INT4 instructions are supported on NVIDIA's Hopper GPU architecture). We leave this exploration to future work.",
+    "metadata": {
+      "page": 13,
+      "section": "A Discussion on Weight-Only Quantization",
+      "bbox": [
+        314.912,
+        641.18,
+        543.097,
+        721.463
+      ]
+    }
+  }
+]

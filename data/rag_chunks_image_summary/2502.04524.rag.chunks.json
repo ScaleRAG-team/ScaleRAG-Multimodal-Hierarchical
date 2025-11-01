@@ -1,0 +1,2131 @@
+[
+  {
+    "id": "2502.04524_paragraph_1",
+    "type": "paragraph",
+    "content": "Analog in-memory computing is an emerging paradigm designed to efficiently accelerate deep neural network workloads. Recent advancements have focused on either inference or training acceleration. However, a unified analog in-memory technology platform-capable of on-chip training, weight retention, and longterm inference acceleration-has yet to be reported. This work presents an all-in-one analog AI accelerator, combining these capabilities to enable energyefficient, continuously adaptable AI systems. The platform leverages an array of analog filamentary conductive-metal-oxide (CMO)/HfO x resistive switching memory cells (ReRAM) integrated into the back-end-of-line (BEOL). The array demonstrates reliable resistive switching with voltage amplitudes below 1.5 V, compatible with advanced technology nodes. The array's multi-bit capability (over 32 stable states) and low programming noise (down to 10 nS) enable a nearly ideal weight transfer process, more than an order of magnitude better than other memristive technologies. Inference performance is validated through matrixvector multiplication simulations on a 64 × 64 array, achieving a root-mean-square error improvement by a factor of 20 at 1 second and 3 at 10 years after programming, compared to state-of-the-art. Training accuracy closely matching the software equivalent is achieved across different datasets. The CMO/HfO x ReRAM",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        123.981,
+        219.4770146484375,
+        446.775,
+        414.7380146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_2",
+    "type": "paragraph",
+    "content": "technology lays the foundation for efficient analog systems accelerating both inference and training in deep neural networks.",
+    "metadata": {
+      "page": 2,
+      "section": "Abstract",
+      "bbox": [
+        148.505,
+        745.5140146484375,
+        471.297,
+        764.3500146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_3",
+    "type": "paragraph",
+    "content": "Keywords: In-memory computing, Analog ReRAM, Deep Neural Networks, Training, Inference",
+    "metadata": {
+      "page": 2,
+      "section": "Abstract",
+      "bbox": [
+        148.505,
+        716.7420146484375,
+        470.435,
+        733.2310146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_4",
+    "type": "paragraph",
+    "content": "Modern computing systems rely on von Neumann architectures, where instructions and data must be transferred between memory and the processing unit to perform computational tasks. This data transfer, particularly recurrent and massive in prominent artificial intelligence (AI)-related workloads, results in significant latency and energy overhead [1]. Digital AI accelerators address this challenge through computational parallelism, bringing memory closer to the processing units, and exploiting application-specific processors [2, 3]. This approach has demonstrated to bring significant improvements in throughput and efficiency for running deep neural networks (DNNs) [4], but the physical separation between memory and compute units persists. Analog in-memory computing (AIMC) [5] is a promising approach to eliminate this separation and so achieve further power and efficiency improvements in deep-learning workloads [6], by enabling some arithmetic and logic operations to be performed directly at the location where the data is stored. By mapping the weights of DNNs onto crossbar arrays of resistive devices and by leveraging Ohm's and Kirchhoff's physical laws, matrix-vector multiplications (MVMs)-the most recurrent operation in AI-workloads [7]-are performed in memory with O (1) time complexity [4, 5, 8]. Recent demonstrations of the AIMC paradigm have primarily focused on accelerating the inference step of digitally trained DNNs [9-12]. However, the increasing computing demands of modern AI models make the training phase orders of magnitude more costly in time and expenses than inference, highlighting the need for efficient hardware acceleration based on the AIMC paradigm. For instance, Gemini 1.0 Ultra required over 5 · 10 25 floating-point operations (FLOPs), approximately 100 days, 24 MW of power, and an estimated cost of 30 million dollars for training [13].",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        124.595,
+        379.5300146484375,
+        495.209,
+        652.2360146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_5",
+    "type": "paragraph",
+    "content": "Analog training acceleration imposes even more stringent requirements on resistive devices. In addition to inference (i.e., the forward pass), the back-propagation of errors, gradient computation, and weight update steps must be performed during the learning phase. However, in the digital domain updating the weights of a matrix of size NxN requires O ( N 2 ) digital operations, leading to a significant drop in efficiency and speed. Beyond the forward pass, the AIMC approach enables acceleration of (1) backward pass through MVMs transposing the inputs and outputs, (2) gradient computation, and (3) the weight update through gradual bidirectional conductance changes upon external stimuli, all with O (1) time complexity. To achieve this, the ideal analog resistive device should exhibit bidirectional, linear, and symmetric conductance updates in response to an open-loop programming pulse scheme (i.e., without the need for verification following each pulse) [4, 14]. Promising technologies",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        124.595,
+        223.5300146484375,
+        495.209,
+        364.2360146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_6",
+    "type": "paragraph",
+    "content": "include redox-based resistive switching memory (ReRAM) [15, 16], electro-chemical random access memory (ECRAM) [17], and capacitive weight elements [18]. Addressing the various non-idealities of these technologies [19] requires the co-optimization of technology and designated training algorithms.",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        100.071,
+        720.3240146484375,
+        470.677,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_7",
+    "type": "paragraph",
+    "content": "Gokmen et al. [20] proposed an efficient, fully parallel approach that leverages the coincidence of stochastic voltage pulse trains to carry out outer-product calculations and weight updates entirely within memory, in O (1) time complexity. To relax the device symmetry requirements, a novel training algorithm, known as Tiki-Taka, was designed based on this parallel scheme [21]. The primary advantage of the Tiki-Taka approach lies in reduced device symmetry constraints across the entire conductance (G) range, focusing instead on a localized symmetry point where increases and decreases in G are balanced [21]. More recently, the Tiki-Taka version 2 (TTv2) algorithm was demonstrated in hardware [22] on small-scale tasks using optimized analog ReRAM technology in a 6-Transistor-1ReRAM unit cell crossbar array configuration. However, TTv2 faces some convergence issues when the reference conductance is not programmed with high precision [23]. Analog gradient accumulation with dynamic reference (AGAD) learning algorithm (i.e., TTv4) was proposed to overcome the reference conductance limitation, providing enhanced and robust performance [23].",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        100.071,
+        540.3240146484375,
+        470.685,
+        705.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_8",
+    "type": "paragraph",
+    "content": "From a technology perspective, the addition of an engineered conductive-metal-oxide (CMO) layer in a conventional HfO x -based ReRAM metal/insulator/metal (M/I/M) stack has been shown to improve switching characteristics in terms of the number of analog states, stochasticity, symmetry point, and endurance, compared to conventional M/I/M technology [24-26]. However, while CMO/HfO x ReRAM technology has proven to meet all the fundamental device criteria for on-chip training [24], arraylevel assessment and BEOL integration remain unexplored. Furthermore, although accelerating DNN training using AIMC is more challenging than inference, a unified technology platform capable of performing on-chip training, retaining the weights, and enabling long-term inference acceleration has yet to be reported.",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        100.071,
+        408.3240146484375,
+        470.685,
+        525.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_9",
+    "type": "paragraph",
+    "content": "This work fills this gap by demonstrating an all-in-one AI accelerator based on CMO/HfO x ReRAM technology, able to perform analog acceleration of both training and long-term inference operations. Such an integrated approach paves the way for highly autonomous, energy-efficient, and continuously adaptable AI systems, opening new paths for real-time learning and inference applications. The flowchart in Fig. 1a illustrates the all-in-one analog training and inference challenge addressed in this study. To achieve this goal, CMO/HfO x ReRAM devices, integrated into the BEOL of a 130 nm complementary metal-oxide-semiconductor (CMOS) technology node with copper interconnects (see 'Methods' section 'Device fabrication' for details), are arranged in an array architecture using a 1T1R unit cell. Compared to implementations that use multiple transistors to control the resistive switching, the 1T1R unit cell maximizes memory density, which is crucial for storing large AI models on a single chip. Fig. 1b shows an image of the all-in-one analog ReRAM-based AI core used in this work, with the corresponding 8x4 array architecture and the schematic",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        100.071,
+        228.32401464843747,
+        470.686,
+        393.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_10",
+    "type": "paragraph",
+    "content": "of the BEOL integrated 1T1R cells. The CMO/HfO x ReRAM array is first studied in a quasi-static regime by statistically characterizing the devices' electro-forming step and quasi-static switching response. A physical 3D finite-element model (FEM) is developed to represent the geometry of the conductive filament and analytically describe the charge transport mechanism within these cells. Subsequently, the weight transfer accuracy and conductance relaxation are experimentally characterized on the 8x4 array. These measurements enable the demonstration of the core's inference capabilities, validated through representative MVM accuracy simulations on a 64 × 64 array. After demonstrating the MVM accuracy of the CMO/HfO x ReRAM core, analog switching experiments using an open-loop identical pulse scheme demonstrated the suitability of the same core for analog on-chip training acceleration. To assess the training performance, a realistic device model was used in the simulation, accounting for measured characteristics such as non-linear and asymmetric switching behavior, as well as interand intra-device variabilities. The training performance was validated using AGAD on fully connected and long short-term memory (LSTM) neural networks, demonstrating scalability from small to large-scale neural networks.",
+    "metadata": {
+      "page": 4,
+      "section": "Introduction",
+      "bbox": [
+        124.595,
+        576.3240146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_11",
+    "type": "paragraph",
+    "content": "a AIMC training and inference acceleration All-in-one analog ReRAM-based AI core",
+    "metadata": {
+      "page": 4,
+      "section": "Introduction",
+      "bbox": [
+        124.229,
+        549.7710146484375,
+        286.738,
+        560.3650146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_1",
+    "type": "figure",
+    "content": "Fig. 1 : All-in-one AIMC challenge. a Schematic representation of the key steps required to perform on-chip training and inference with analog acceleration. Each step is executed using a crossbar array of resistive devices. b CMO/HfO x ReRAM AI core used in this work, consisting of an 8 × 4 array of 1T1R unit cells. From a fabrication perspective, each ReRAM cell is integrated into the BEOL of a 130 nm NMOS transistor with copper interconnects.",
+    "metadata": {
+      "page": 4,
+      "section": "Introduction",
+      "bbox": [
+        126.84088134765625,
+        422.01129150390625,
+        494.3785095214844,
+        546.7342834472656
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_1.png",
+      "image_summary": "The figure presents a detailed overview of the in-situ training and inference process, along with the architecture of a BEOL-integrated analog ReRAM array and its corresponding 1T1R unit cell design.\n\nStarting from the left:\n- The first panel illustrates the operation sequence for (1) In-situ Training and (2) In-situ Inference. The training phase consists of a Forward [F] pass (short term), a Backward [B] pass, and Gradient accumulation & parallel weight update. The inference phase involves only a Forward [F] pass (long term).\n- Two schematic diagrams depict the voltage and current flow during training and inference. In training, forward (F) and backward (B) electrical signals are shown passing through the lines (V1, V2, V3) and currents (I1, I2), with B shown as a circular arrow indicating the reverse direction. In inference, forward voltages (V1, V2) are applied and currents (I1, I2) measured without backward pass.\n\nCenter part:\n- A photograph of an electronic chip (likely with integrated ReRAM) is shown, highlighting a BEOL-integrated analog ReRAM array.\n- The array diagram depicts an 8x8 grid of cells with word lines (WL1 to WL4) running horizontally and bit lines (BL1 to BL8) vertically, with selection lines (SL1 to SL8). The cells at intersections represent memory devices. This schematic contextualizes the array architecture used in the chip.\n\nRightmost panel:\n- A highly detailed 3D schematic of the \"1T1R unit cell\" is shown, illustrating the transistor and ReRAM layers across two process integration realms: FEOL (Front-End-Of-Line) and BEOL (Back-End-Of-Line).\n- The unit cell includes a 130-nm n-MOSFET transistor (labeled with source [S], gate [G], and drain [D]) on the FEOL.\n- Above FEOL lie multiple metal layers: M1 and M2 to M8, connecting the transistor to BEOL circuitry.\n- Within BEOL, the analog ReRAM stack consists of layers: a bottom TiN electrode, a HfOx memory layer, a CMO layer, and a top TiN electrode. The word line (WL) and bit line (BL) metal contacts interface with this stack.\n- Select line (SL) is also indicated, controlling access.\n\nMain takeaways:\n1. The figure comprehensively connects the algorithmic steps of neuromorphic training and inference with the physical hardware implementation.\n2. The in-situ training process leverages forward and backward electrical passes through the ReRAM array for weight updates.\n3. The BEOL-integrated analog ReRAM array paired with an n-MOSFET transistor (1T1R cell) provides the physical platform for implementing these computational steps efficiently.\n4. The multi-layer integration and device stack details highlight the advanced semiconductor manufacturing approach used to realize the memory and computing array on-chip.\n\nOverall, the figure bridges the gap between neural network training phases and their hardware analog realized in a 130-nm CMOS technology with integrated analog ReRAM devices."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_13",
+    "type": "paragraph",
+    "content": "The quasi-static electrical characterization and analytical transport modelling of the 8x4 CMO/HfO x ReRAM array are presented here.",
+    "metadata": {
+      "page": 4,
+      "section": "Quasi-static array characterization and modelling",
+      "bbox": [
+        124.595,
+        271.46501464843755,
+        495.2,
+        293.09401464843745
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_14",
+    "type": "paragraph",
+    "content": "Fig. 2a shows the current-voltage characteristic of the ReRAM devices in the array, undergoing a soft-dielectric breakdown process, commonly referred to as forming [27].",
+    "metadata": {
+      "page": 4,
+      "section": "Filament forming",
+      "bbox": [
+        124.595,
+        218.14801464843754,
+        495.201,
+        238.85401464843756
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_15",
+    "type": "paragraph",
+    "content": "During this step, a quasi-static voltage sweep up to 3 . 6 V is applied to the top electrode of each ReRAM device, while grounding the source and driving the gate of the corresponding NMOS selector with a constant V G = 1 . 2 V ensuring current compliance. This process leads to the formation of a highly defect-rich conductive filament in the HfO x layer. Due to the high oxygen vacancy (V ·· O in Kr¨ oger-Vink notation [28]) formation energy, ranging from 2 . 8 eV to 4 . 6 eV in HfO x depending on the stoichiometry [29, 30], defect generation occurs with statistical relevance only during the forming sweep within the HfO x layer [26]. The subsequent application of a negative voltage sweep up to -1 . 4 V, with a constant V G = 3 . 3 V, induces a radial redistribution of the defects within the CMO layer, consistent with findings in literature [26]. This process leads to an increase of the ReRAM conductance and is modelled by considering a constant average radius of the conductive filament, with a local electrical conductivity increase of the CMO layer on top of the filament. Refer to the 'Methods' section 'ReRAMforming modelling' for details. To determine the experimental ReRAM forming voltage, the voltage drop across the NMOS selector must be subtracted from the voltage applied to the 1T1R cell. Fig. 2b shows the experimental transistor output characteristic, from which the resistance in the triode region at V G = 1 . 2 V is measured and used to extract the distribution of V ReRAM forming within the CMO/HfO x ReRAM array (reported in Fig. 2c). Refer to the 'Methods' section 'ReRAM forming voltage extraction' for details. The highly reproducible CMO/HfO x ReRAM forming step exhibits a 100% yield with a narrow distribution ( σ = 75mV) around V ReRAM forming ≈ 3 . 2 V, making it suitable for integration with 130 nm NMOS transistors rated for 3 . 3 V operation.",
+    "metadata": {
+      "page": 5,
+      "section": "Filament forming",
+      "bbox": [
+        100.071,
+        504.3240146484375,
+        470.685,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_16",
+    "type": "paragraph",
+    "content": "The underlying physical mechanism behind the resistive switching in analog CMO/HfO x ReRAM devices has been recently unveiled [26, 31, 32]. The current transport is explained by a trap-to-trap tunneling process, and the resistive switching by a modulation of the defect density within the conductive sub-band of the CMO that behaves as electric field and temperature confinement layer. In these works, the analog CMO/HfO x ReRAM device shows a counter-eightwise (C8W) switching polarity, according to the definition proposed in literature [33]. The intrinsically gradual reset (from low to high resistance) process, marked by a temperature decrease, occurs during the positive voltage sweep on the ReRAM top electrode, while the exponential set (from high to low resistance) process, involving a rapid temperature increase, occurs on the negative side [26]. However, when arranged in a 1T1R cell configuration based on an NMOS selector, the C8W switching polarity prevents direct control of the transistor's V GS during the exponential set process. This results in reduced switching uniformity, which is critical for the array-level adoption of analog CMO/HfO x ReRAM devices.",
+    "metadata": {
+      "page": 5,
+      "section": "Resistive switching and polarity optimization",
+      "bbox": [
+        100.071,
+        292.4680146484375,
+        470.685,
+        470.0980146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_17",
+    "type": "paragraph",
+    "content": "For this reason, in this work the analog CMO/HfO x ReRAM devices within the 1T1R cells are optimized to exhibit the desirable 8W switching polarity by extending the current switching model in literature [26]. To achieve this, following the positive forming and the initial negative voltage sweep, each device in the array is subjected to a forward and backward voltage sweep from 0 to -1 . 5 V. During this process,",
+    "metadata": {
+      "page": 5,
+      "section": "Resistive switching and polarity optimization",
+      "bbox": [
+        100.071,
+        221.39201464843745,
+        470.685,
+        278.0980146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_18",
+    "type": "paragraph",
+    "content": "oxygen vacancies in the CMO layer radially spread outward, depleting the CMO defect sub-band within a half-spherical volume at the interface with the conductive filament, leading to a reset process (Fig. S3 in Supplementary Information shows the experimental array's response). Conversely, a voltage sweep from 0 to 1 . 3 V enables the migration of oxygen vacancies in the CMO layer in the reverse direction, resulting in a set transition, controlled by the transistor gate. For each 1T1R cell within the 8x4 array, Fig. 2d shows 5 quasi-static I-V cycling sweeps to experimentally assess the reproducibility of the optimized 8W switching polarity. The electronic transport in both the low-resistive state (LRS) and high-resistive state (HRS) is modelled as a trap-to-trap tunneling process, described by the Mott and Gurney analytical formulation. The physical parameters characterizing the transport in both LRS and HRS ( N e , ∆ E e , a e , σ CMO and r CF ) are shown in Fig. 2d. Refer to the 'Methods' section 'Analytical ReRAM transport modelling' for details on the LRS and HRS modelling. Fig. 2e illustrates the cumulative probability distribution of the experimental LRS and HRS within the array, demonstrating device-to-device uniformity and a resistance ratio HRS/LRS of approximately 15, with absolute switching voltages ≤ 1 . 5 V. The excellent uniformity of the forming and the optimized 8W-cycling characteristics set the groundwork for AIMC-based inference and training AI-accelerators using the CMO/HfO x ReRAM technology.",
+    "metadata": {
+      "page": 6,
+      "section": "Resistive switching and polarity optimization",
+      "bbox": [
+        124.595,
+        539.4010146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_2",
+    "type": "figure",
+    "content": "Fig. 2 : ReRAM array quasi-static electrical characterization and modelling. a (1) Experimental positive forming sweeps (with V G = 1 . 2 V) of the 8x4 CMO/HfO x ReRAM devices in the array. This process results in an average filament radius of 11 nm in the HfO x layer. (2) Negative voltage sweeps (with V G = 3 . 3 V) to enable defect redistribution within the CMO layer, resulting in an increase in the conductance of the ReRAM cells. A representative sweep is shown in black. The insets illustrate a schematic representation of the defect arrangement within the stack. b Experimental NMOS transistor output characteristic, with V G up to 3 V. c Experimental ReRAM forming voltage distribution measured from the CMO/HfO x ReRAM array. The experimental data used to extract the distribution are represented as green points. d Superposition of 5 I-V quasi-static 8W-cycles (in blue) for each of the 32 devices in the array, using V set = 1 . 3 V, V G = 1 . 1 V and V reset = -1 . 5 V, V G = 3 . 3 V for set and reset processes, respectively. The analytical trap-to-trap tunneling model effectively captures the electron transport in both the LRS and HRS (yellow dashed lines). The physical parameters characterizing the transport, extracted from the model, and a schematic representation of the defect distribution, are presented for both resistive states. e Cumulative probability distributions for both LRS and HRS. For each array cell, the average resistance over 5 I-V cycles in LRS and HRS is defined at a read voltage of 0 . 2 V.",
+    "metadata": {
+      "page": 7,
+      "section": "Resistive switching and polarity optimization",
+      "bbox": [
+        102.3691635131836,
+        394.35919189453125,
+        471.3123779296875,
+        764.4629745483398
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_2.png",
+      "image_summary": "The figure is composed of five panels (a-e) detailing the forming, modeling, and electrical characteristics of a CMO/HfOx ReRAM array and its transistor output.\n\nPanel (a), titled \"CMO/HfOx ReRAM array forming and modelling,\" shows Current (I_T1R, in Amperes, log scale from 10⁻⁹ to 10⁻³) versus Voltage (Voltage_1T1R, in Volts, ranging from about -1.5 V to 3.6 V) characteristic curves for up to 32 devices in the ReRAM array. The data is color-coded by device number (1 to 32) with a colorbar from purple to yellow. The plot exhibits two distinct branches separated around 0 V. To the left of 0 V (negative voltage), the current rises until a minimum around -1.4 V, with conductivity and filament radius parameters annotated (σ̅_CMO=37 S/cm, r_CF=11 nm) in a schematic inset showing filament formation through the layers TiN, CMO, and HfOx. On the right of 0 V (positive voltage), another current branch rises with a notable threshold around 2.5-3 V, with lower conductivity σ̅_CMO=5 S/cm but same radius r_CF=11 nm indicated in another schematic inset. Arrows show current trends during the forming process, and the gate voltage V_G is fixed at 1.2 V.\n\nPanel (b) shows transistor output characteristics: the drain current I_DS (mA, vertical axis, up to ~3.3 mA) plotted against drain voltage V_DS (V, horizontal axis from 0 to 4 V) at multiple gate voltages V_G (colored lines from 0 to 3 V, blue to red color scale). As V_G increases, I_DS saturates rapidly above ~1 V V_DS, indicating transistor operation confirming device behavior relevant for array driving.\n\nPanel (c) gives the \"Array forming distribution\" as a normalized probability density versus the ReRAM forming voltage V_forming^ReRAM (in Volts, from ~2.9 to 3.4 V). The graph is fitted with a Gaussian distribution with mean 3.17 V and standard deviation ±75 mV. Experimental data points cluster close to that mean, indicating a narrow distribution of forming voltages.\n\nPanel (d) shows \"Array quasi-static cycling and modelling,\" akin to panel (a) but for device cycling rather than forming. Current (I_T1R, A, log scale 10⁻⁷ to 10⁻⁴) is plotted versus voltage (Voltage_1T1R, V from about -1.5 to 1.3), with multiple blue traces from 32 devices over 5 cycles each, alongside a yellow dashed line modeling the behavior. The curves show hysteresis with arrows indicating cycling direction. Insets show filament schematics for low-resistance state (LRS) and high-resistance state (HRS) with respective parameters: LRS carrier concentration N_LRS=5×10¹⁹ cm⁻³, activation energy ΔE_LRS=65 meV, tunneling length a_LRS=2.1 nm, conductivity σ_CMO=9 S/cm, and filament radius r_CF=11 nm; HRS has N_HRS=1.2×10¹⁸ cm⁻³, ΔE_HRS=80 meV, a_HRS=3.6 nm, σ_CMO=0.45 S/cm, r_CF=11 nm. The model fits measured data closely.\n\nPanel (e) depicts \"Array HRS-LRS distributions\" with cumulative probability (%) versus resistance (Ω, log scale from 10⁴ to 3×10⁵). Two distributions are shown: LRS (low resistance state) in red dots clustered around mean μ=18 kΩ with standard deviation σ=0.25, and HRS (high resistance state) in blue dots centered at μ=256 kΩ with same σ=0.25. Mean resistance values are marked with dashed vertical lines. The reading is done at +0.2 V.\n\n**Main takeaways:**\n\n- Panel (a) demonstrates the forming characteristics of the CMO/HfOx ReRAM devices, showing distinct conduction regimes corresponding to changes in filament conductivity and dimensions.\n- Panel (b) verifies the transistor output characteristics controlling the ReRAM access, with clear saturation and gate voltage modulation.\n- Panel (c) confirms a narrow distribution of forming voltages across devices, indicative of device uniformity.\n- Panel (d) shows reliable and repeatable switching cycling of the devices, with a physically-based model accurately capturing the I-V hysteresis behavior.\n- Panel (e) illustrates well-separated resistance distributions for the high and low resistance states, essential for memory operation with low read error.\n\nTogether, the figure provides comprehensive electrical characterization and modeling of the CMO/HfOx ReRAM array, highlighting consistent device performance, modeling accuracy, and clear memory state differentiation."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_19",
+    "type": "paragraph",
+    "content": "Here, the experimental characterization of the key metrics of the CMO/HfO x ReRAM array relevant to inference performance is presented. Specifically, the continuous conductance tuning capability is demonstrated over a range spanning approximately one order of magnitude. The trade-off between weight transfer programming noise of CMO/HfO x ReRAM devices and number of required iterations for programming convergence is analyzed across different acceptance ranges. Furthermore, conductance relaxation-defined as the change in conductance over time after programming-is characterized. Finally, the combined impact of weight transfer, conductance relaxation, limited input/output quantization of the digital-to-analog converter (DAC) and analog-to-digital converter (ADC), and IR drop on the array wires is evaluated with respect to MVM accuracy.",
+    "metadata": {
+      "page": 8,
+      "section": "Analog inference with CMO/HfO x ReRAM core",
+      "bbox": [
+        124.595,
+        618.3470146484375,
+        495.209,
+        747.0530146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_20",
+    "type": "paragraph",
+    "content": "In memristor-based AIMC inference accelerators, pre-trained normalized weights are initially mapped into target conductances and subsequently programmed into hardware in an iterative process known as weight transfer. This iterative process, which stops once the programmed conductance converges to the target value within a defined acceptance range, inherently introduces an error due to the analog nature of conductance weights. This error, described by a normal distribution with the standard deviation referred to as programming noise ( σ prog ), leads to a drop in MVM accuracy. To quantify this non-ideality, the non-volatile multi-level capability of the CMO/HfO x ReRAM array is characterized. Fig. 3a shows the experimental cumulative distribution of conductance values for 35 representative levels, with all states sharply separated and without any overlap. Fig. 3b shows a schematic representation of the closed-loop (i.e., program-verify) scheme, where identical set and reset pulse trains are employed to program each ReRAM cell to its target conductance within a desired acceptance range (see 'Methods' section 'Identical-pulse closed-loop scheme' for details). Selecting programming conditions involves a fundamental trade-off: a narrower acceptance range can improve programming precision by reducing programming noise, but it increases the number of iterations required for convergence (see Fig. 3d). Besides the longer programming time, other non-idealities to consider when choosing the acceptance range are (1) the conductance relaxation immediately after programming, which is characterized in 2.2.2 for CMO/HfO x ReRAM devices, and (2) read noise, which has already been characterized between 0.2% and 2% of G target for CMO/HfO x ReRAM devices [25] within a similar conductance range used in this work.",
+    "metadata": {
+      "page": 8,
+      "section": "Weight transfer accuracy",
+      "bbox": [
+        124.595,
+        311.4140146484375,
+        495.21,
+        584.1200146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_21",
+    "type": "paragraph",
+    "content": "The trade-off between the programming noise and the number of iterations is characterized for two representative acceptance range intervals: 0.2% and 2% of G target , respectively. Fig. 3c illustrates the experimental number of pulses needed to converge to the G target using the two representative acceptance ranges. On average, each cell requires approximately 11 and 89 set / reset pulses for acceptance ranges of 2% and 0.2% of G target , respectively. Since the acceptance range is defined as a percentage",
+    "metadata": {
+      "page": 8,
+      "section": "Weight transfer accuracy",
+      "bbox": [
+        124.595,
+        226.4910146484375,
+        495.209,
+        296.1200146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_22",
+    "type": "paragraph",
+    "content": "of G target , the number of iterations required for convergence is almost independent of the target conductance value. In the Supplementary Information, Fig. S5a shows the experimental cumulative distribution of conductance values for the same 35 representative levels presented in Fig. 3a, but using 2% G target as acceptance range. The standard deviation of the representative conductance levels is extracted and fitted as a linear function of the target conductance (dashed lines), as shown in Fig. 3e, for both acceptance ranges. For all conductance levels, a standard deviation of less than 0.1 µ S (1 µ S) is achieved considering 0.2% G target (2% G target ) as the acceptance range. This is more than one order of magnitude lower compared to other memristive technologies, such as phase-change memory (PCM) arrays, targeting similar conductance ranges [34-36]. These results demonstrate that CMO/HfO x ReRAM cells achieve an almost ideal weight transfer during programming, enabling the distinction of more than 32 states (5 bits).",
+    "metadata": {
+      "page": 9,
+      "section": "Weight transfer accuracy",
+      "bbox": [
+        100.071,
+        612.3240146484375,
+        470.684,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_3",
+    "type": "figure",
+    "content": "Fig. 3 : Weight transfer characterization. a Cumulative distributions of 35 conductance states obtained using an identical-pulse closed-loop scheme with a 0.2% G target acceptance range. For each distribution, the entire CMO/HfO x ReRAM array was programmed to the corresponding G target , and the conductance values measured during the final closed-loop iteration (during programming) is reported. Each dot represents a 1T1R cell. b An example sequence of the identical-pulse closed-loop programming scheme utilized in this work. c Experimental number of closed-loop iterations as a function of G target for the two representative acceptance ranges. Each semitransparent point represents a 1T1R cell, the opaque points represent the average number of iterations per G target , and the horizontal dashed line indicates the overall average of the opaque points. d Graphical representation of the tradeoff between programming noise and the number of iterations required for convergence, as a function of the acceptance range. e Experimental programming noise as a function of G target for the two representative acceptance ranges. Each point represents the standard deviation of the normal distribution measured across the entire array. The dashed lines in black indicate the corresponding linear fits.",
+    "metadata": {
+      "page": 10,
+      "section": "Weight transfer accuracy",
+      "bbox": [
+        126.539306640625,
+        486.07086181640625,
+        493.74176025390625,
+        770.2572631835938
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_3.png",
+      "image_summary": "This figure comprises five panels (a-e) illustrating various properties and performance metrics of CMO-HfOx ReRAM devices during conductance programming, focusing on programming states, closed-loop iteration behavior, and the influence of programming noise.\n\n**Panel (a):**  \n- Title: \"CMO-HfOx ReRAM during programming.\"  \n- Axes: The x-axis is labeled \"Target Conductance [µS]\" ranging from 10 to 90 µS. The y-axis is a \"Cumulative Distribution Function\" spanning from 0.00 to 1.00.  \n- Data: A color-coded matrix of dots is overlaid with a gradient from blue (low states ~1) to red (high states ~35), representing the number of states the device can achieve at each target conductance and CDF value. The dots form vertical gradients spanning many states from ~1 to ~35 for given conductance values.  \n- Annotation: An acceptance range is indicated as 0.2% of G_target, showing high precision is targeted.  \n- Key insight: The device seems capable of finely resolved conductance states over a large range of target conductances, implying good multilevel capability.\n\n**Panel (b):**  \n- Title: \"Identical-pulse closed-loop scheme.\"  \n- Two plots stacked vertically sharing time along the x-axis (arbitrary units).  \n- Top plot: Voltage V [a.u.] with repeated pulses at V_set (red, high), V_read (grey, intermediate), and occasional reset pulses at V_reset (blue, negative) indicating a control scheme with voltage pulses applied in a periodic, controlled manner.  \n- Bottom plot: Conductance G [a.u.] showing gradual increase toward a target conductance G_target (green dotted line). Circles representing measured conductance points approach within an acceptance range (dotted black lines) around G_target. After overshooting, reset pulses bring conductance back down to within desired error margins.  \n- Key insight: The figure illustrates an identical-pulse closed-loop programming approach that uses iterative set and reset pulses to precisely tune conductance within a narrow acceptance range.\n\n**Panel (c):**  \n- Title: \"Iterations vs G_target.\"  \n- Axes: x-axis \"Target Conductance [µS]\" (10-90), y-axis \"Closed-loop iterations\" in logarithmic scale, from 1 to over 100.  \n- Data: Two sets of iteration counts: one for acceptance range 0.2% (purple) and another 2% (olive). Individual iteration values are scattered with semi-transparent dots, with solid lines representing averages across G_target values.  \n- Observations: The iteration count is about 100 on average for the tighter 0.2% accuracy and about 10 iterations for the looser 2% accuracy, consistent across the entire conductance range.  \n- This shows a trade-off between accuracy of conductance target and the number of programming pulses needed.\n\n**Panel (d):**  \n- Title: \"Prog. noise vs iterations.\"  \n- Axes: x-axis \"Closed-loop iterations,\" y-axis \"Prog. noise (σ_prog),\" both presumably normalized or arbitrary units, with color-coded acceptance range on the right from 0.2% (low noise, top right) to 2% (higher noise, bottom left).  \n- The background shows a gradient illustrating a trade-off surface between iteration number and programming noise level. Two white crosses mark two parameter regimes: low noise with ~90 iterations and high noise with ~10 iterations.  \n- This panel visualizes the fundamental trade-off that to reduce programming noise and reach tighter accuracy, the system needs more iterations.\n\n**Panel (e):**  \n- Title: \"Prog. noise vs G_target.\"  \n- Axes: x-axis \"Target Conductance [µS]\" (10-90), y-axis \"Prog. noise σ_prog [µS]\" on a logarithmic scale (approx. 0.01 to 1 µS).  \n- Data: Two fitted curves correspond to the acceptance ranges from panel (c): purple line for 0.2% acceptance and olive line for 2% acceptance. Data points (circles) follow the respective fits.  \n- Observations: Programming noise σ_prog increases with higher G_target, fitted by linear relations with small coefficients (equations displayed in legend). The noise for the 2% acceptance range is consistently ~10 times higher than for 0.2%.  \n- This quantitatively shows how programming noise scales with conductance and acceptance range.\n\n**Main takeaway:**  \nThe figure comprehensively demonstrates that CMO-HfOx ReRAM devices can achieve high-resolution multilevel conductance states with a closed-loop identical-pulse programming scheme. The trade-off between programming noise and number of iterations is highlighted, showing that tighter accuracy requires more pulses and results in lower noise, while faster programming accepts higher noise. Noise increases with target conductance. The closed-loop approach effectively controls device states to within narrow conductance acceptance windows, enabling precise analog memory programming."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_23",
+    "type": "paragraph",
+    "content": "In addition to the excellent weight transfer accuracy during programming as presented in the previous section, the characterization of temporal conductance relaxation is",
+    "metadata": {
+      "page": 10,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        124.595,
+        235.33901464843757,
+        495.209,
+        256.0450146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_24",
+    "type": "paragraph",
+    "content": "critical to estimate the MVM accuracy over time. In analog ReRAM devices, a significant conductance relaxation has been observed immediately after programming (within 1 second) [9]. Following this initial abrupt conductance change, the relaxation process slows considerably [9, 37]. The physical cause of retention degradation is attributed to the Brownian motion of defects in the resistive switching layer [37]. In this section, the conductance relaxation of the CMO/HfO x ReRAM array after programming is characterized. Fig. 4a shows the relaxation of the distributions previously reported in Fig. 3a, approximately 10 minutes after programming. The 35 levels remain distinguishable 10 minutes after programming, with an average overlap of 9.6% between adjacent states gaussians, while the average standard deviation of the distributions increases to 0.6 µ S, showing almost independence from the G target (see Fig. 4b).",
+    "metadata": {
+      "page": 11,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        100.071,
+        624.3240146484375,
+        470.684,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_25",
+    "type": "paragraph",
+    "content": "The stability of the CMO/HfO x ReRAM conductance states is further assessed on a longer time-scale, up to 1 hour. To achieve so, a linearly spaced G target vector within the experimental conductance range of 10 µ S to 90 µ S is defined, with a fine step of 0.2 µ S (400 points). Each G target value is programmed into a single ReRAM device within the array. Due to the size mismatch between the array (32 devices) and the G target vector (size 400), multiple measurement batches are needed. Fig. 4c shows the experimental relaxation of the 400 programmed states within the entire conductance window, 1 second and 1 hour after programming, executed with the closed-loop scheme (see 'Methods' section 'Identical-pulse closed-loop scheme' for details) and with a 0.2% G target acceptance range. The exhibited conductance error induced by the relaxation process after 1 hour, computed as G 1h -G prog . , is plotted as a function of the programmed conductances in Fig. 4d. After 1 hour, although both positive and negative relaxation errors are recorded, an average decrease in conductance is observed across all programmed states, with a relaxation error averaging around -0.7 µ S. This highlights that the relaxation process in CMO/HfO x ReRAM devices leads, on average, to a decrease in the mean and an increase in the standard deviation of the Gaussian distributions regardless of the initial conductance state. Since the absolute magnitudes of the mean decrease and the standard deviation increase are independent of G target , an extended characterization of the relaxation process up to 1 week is conducted for a representative conductance state (50 µ S). To achieve this, the array's CMO/HfO x ReRAM devices are programmed using the identical-pulse closed-loop scheme to G target of 50 µ S, with a 0.2% G target acceptance range. Fig. 4e illustrates the experimental array relaxation over 1 week. The insets display the evolution of both the mean and standard deviation as a function of the logarithm of time after programming (in seconds), using a linear fit to predict the conductance distribution over a 10-year period.",
+    "metadata": {
+      "page": 11,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        100.071,
+        300.32401464843747,
+        470.686,
+        609.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_26",
+    "type": "paragraph",
+    "content": "To assess the accuracy of analog MVM, a comprehensive set of non-idealities-both intrinsic to CMO/HfO x ReRAM devices and at the architecture level-is considered, including finite programming resolution with 0.2% G target acceptance range, conductance relaxation, limited ADC and DAC quantization, and IR-drop across array wires. Fig. 4f shows the hardware-aware simulation results of the analog MVM using",
+    "metadata": {
+      "page": 11,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        100.071,
+        228.32401464843747,
+        470.686,
+        285.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_27",
+    "type": "paragraph",
+    "content": "CMO/HfO x ReRAM cells, projected for up to 10 years from programming, compared to the expected floating-point (FP) result. The results are generated using a single 64 × 64 normally distributed random weight matrix and 100 normally distributed input vectors within the range [-1, 1] (see 'Methods' section 'HW-aware simulation of analog MVM' for details). Considering the input and output quantization of 6-bit and 8-bit respectively, the inset illustrates the time evolution of the root-mean-square error (RMSE) of the simulated analog MVM compared to the FP expected result. These results show that the CMO/HfO x ReRAM core enables accurate MVM operations, achieving an RMSE ranging from 0.03 at 1 second to 0.2 at 10 years after programming, compared to the ideal FP case. Fig. S6 in the Supplementary Information illustrates the impact of IR-drop and input/output quantization on the RMSE of an MVM performed on a 64 × 64 array. Over short time scales (within 1 hour), the primary accuracy bottleneck is the limited input/output quantization of 6-bit and 8bit, respectively. Over longer periods, relaxation effects become the dominant source of non-ideality. In a larger 512 × 512 array, IR-drop emerges as the main accuracy bottleneck for analog MVM. Compared to the analog ReRAMs studied by Wan et al. [9], who report an experimentally determined RMSE of approximately 0.58 under conditions similar to those of this work, CMO/HfO x ReRAMs demonstrate a potential improvement in MVM accuracy by a factor of 20 and 3, 1 second and 10 years after programming, respectively. The excellent MVM accuracy results demonstrate the suitability of CMO/HfO x ReRAM devices for long-term AI inference applications, and lay the foundation for AI training acceleration, where short-term forward and backward MVMs are key steps.",
+    "metadata": {
+      "page": 12,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        124.595,
+        492.3240146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_4",
+    "type": "figure",
+    "content": "Fig. 4 : Conductance relaxation and MVM accuracy. a Probability density distributions of 35 conductance states approximately 10 minutes after programming. The black areas between adjacent Gaussian distributions represent the overlap of their tails. On average, an overlap of 9.6% is observed after 10 minutes. b The standard deviations of the 35 conductance states during programming (in purple) and 10 minutes after it (light blue). c Relaxation of 400 conductance states, with one device per G-state, measured 1 second and 1 hour after programming. d Relaxation error 1 hour after programming. A negative and nearly G-independent average error (dashed line) indicates that relaxation in CMO/HfO x ReRAMs tends toward a slight conductance decrease and is state-independent. e Experimental array relaxation of a representative 50 µ S state, up to 1 week after programming with 0.2% G target acceptance range. Each probability density distribution is normalized to its maximum for graphical representation. The experimental data used to extract the distributions are represented as points aligned to the y=0 horizontal axis. Insets show the time dependence of the mean and standard deviation. Dashed blue lines represent the conditions during programming, once the convergence to G target is reached, while a linear fit (green dashed line) extrapolates the distribution 10 years after programming (dashed black line). f Analog MVM accuracy simulations using a 64x64 CMO/HfO x ReRAM array as a function of time after programming (indicated by different colors). The inset shows the expected RMSE compared to the ideal FP result. Experimental programming noise, conductance relaxation, limited input/output quantization and IR-drop are considered in this assessment.",
+    "metadata": {
+      "page": 13,
+      "section": "Conductance relaxation and matrix-vector multiplication accuracy",
+      "bbox": [
+        100.3929443359375,
+        550.098876953125,
+        469.4655456542969,
+        769.1332855224609
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_4.png",
+      "image_summary": "The figure consists of six panels (a–f) focusing on the characterization of conductance relaxation and its impact on device and simulation performance over time.\n\n**Panel a: Array relaxation after 10 min**\n- X-axis: Programmed Conductance, ranging from about 5 to 95 μS.\n- Y-axis: Probability Density, range 0 to 1.\n- A series of probability density distributions for conductance states from 1 to 35, represented in a color gradient from blue (low states) to red (high states).\n- The conductance states exhibit multiple peaked distributions aligned along the x-axis, showing distinct states.\n- Adjacent State Gaussian Overlap after 10 minutes is indicated as 9.6%, reflecting the extent of overlapping between neighboring conductance state distributions.\n\n**Panel b: Std. dev. conductance relaxation**\n- X-axis: Programmed Conductance [μS], from 10 to 90.\n- Y-axis: Standard deviation [μS], from 0 to 1.\n- Two data series are plotted: \"During Programming (Acc. Range 0.2%)\" with small dark purple circles ranging from about 0–0.1 μS standard deviation; and \"10 min After Programming\" with larger light blue circles, showing significantly higher standard deviations (~0.4 to ~0.9 μS) across the conductance range.\n- The plot highlights an increase in conductance variability 10 minutes post programming, indicating array relaxation effects.\n\n**Panel c: G-state relaxation after 1h**\n- X-axis: Time after programming [s], log scale from ~1 to 10^4 seconds.\n- Y-axis: Programmed Conductance [μS], from 0 to 90.\n- A dense scatter of points showing conductance values over time for multiple states.\n- Color gradient from blue to red indicates low to high states.\n- Conductance values remain roughly stable after 1 hour, with no large drifts apparent across the time range.\n\n**Panel d: 1h-relaxation error**\n- X-axis: Programmed Conductance [μS], 10 to 90.\n- Y-axis: Conductance error (G_1h - G_prog) [μS], ranging from about -3 to +3.\n- Data points colored from blue (low conductance) to red (high conductance).\n- Points scatter somewhat symmetrically about zero error with a slight negative bias (mean error = -0.68 μS), suggesting a small systematic relaxation error at 1 hour.\n\n**Panel e: Extended array relaxation at 50 μS**\n- X-axis: Programmed Conductance, zoomed 40 to 60 μS.\n- Y-axis: Normalized Probability Density, 0 to 1.\n- Curves for multiple times (programmed, 1s, 1h, 1d, 2d, 1w, and 10y).\n- Curves shift slightly to lower conductance and broaden over time, demonstrating relaxation and increasing variability.\n- Two inset plots:\n  - Mean conductance over log scaled time showing gradual decrease from initial ~50 μS.\n  - Standard deviation increasing over time.\n- Data points marked at different times show a steady relaxation trend out to 10 years.\n\n**Panel f: HW-aware MVM simulations**\n- X-axis: Expected inner product output (range ~-5 to 5).\n- Y-axis: ReRAM (Resistive RAM) inner product output (same range).\n- Six data groups for times: program, 1s, 1h, 1d, and 10y.\n- Points cluster closely along the diagonal line (ideal output).\n- Inset plot shows RMSE over log scaled time, starting low near programming and increasing slightly by 10 years.\n- The data suggest simulation outputs remain well matched with expected outputs despite relaxation effects over long periods.\n\n---\n\n**Main takeaway:**  \nThe figure collectively demonstrates that programmed conductance states in an array undergo relaxation over time, causing increased standard deviation and a slight conductance drift (mostly downward). Despite this relaxation, the impact on the hardware-aware matrix-vector multiplication (MVM) simulations remains small, as evidenced by the close match of ReRAM inner product outputs to expected values across timescales up to 10 years. This indicates robust operational stability of the array under relaxation conditions for long-term analog computing applications."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_28",
+    "type": "paragraph",
+    "content": "To efficiently tackle deep learning workloads, the analog AI accelerator must not only perform forward and backward passes (MVMs), but most importantly, allow for weight updates [38]. During backpropagation, the synaptic weights are modified according to the gradient of the corresponding layer. Therefore, the device conductance must be gradually modified in both positive and negative directions to represent analog",
+    "metadata": {
+      "page": 13,
+      "section": "Analog training with CMO/HfO x ReRAM core",
+      "bbox": [
+        100.071,
+        219.85801464843757,
+        470.681,
+        276.5640146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_29",
+    "type": "paragraph",
+    "content": "weight changes. Analog CMO/HfO x ReRAM arrays not only allow for bidirectional conductance updates, but additionally enable parallel weight updating by following a stochastic open-loop pulse scheme [20, 21]. Remarkably, the parallel and open-loop update scheme significantly accelerates training compared to serial and closed-loop methods, providing efficiency gains of several orders of magnitude and advantages in system design complexity [39]. In this section, the bidirectional open-loop response of the CMO/HfO x ReRAM array, required during Tiki-Taka training, is characterized. Specifically, the analog conductance potentiation, depression and symmetry point are measured. Subsequently, the devices' responses are statistically reproduced in the open-source 'aihwkit' simulation platform developed by IBM [38]. Finally, this hardware-aware device model, which includes device variabilities, is used to simulate the training of representative neural networks using the AGAD learning algorithm. This novel analog training algorithm relaxes the symmetry requirements of previous Tiki-Taka versions by incorporating additional digital computations on-the-fly [23].",
+    "metadata": {
+      "page": 14,
+      "section": "Analog training with CMO/HfO x ReRAM core",
+      "bbox": [
+        124.595,
+        600.3240146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_30",
+    "type": "paragraph",
+    "content": "Fig. 5a shows the experimental conductance change of a representative CMO/HfO x ReRAM device within the array upon applying identical-voltage pulse trains with alternating polarity in batches of 400. Subsequently, a sequence of 500 pulses with alternating polarity, consisting of 1-pulse-up followed by 1-pulse-down, is applied to experimentally determine the symmetry point. The same open-loop programming scheme, with V set = 1 . 35 V ( V G = 1 . 4 V) and V reset = -1 . 3 V ( V G = 3 . 3 V), each lasting 2.5 µ s, is applied to all devices in the 8x4 array. The set / reset pulse width is limited by the experimental setup, although previous work has demonstrated CMO/HfO x ReRAM switching with pulses as short as 60 ns [25]. Due to inter-device (deviceto-device) and intra-device (cycle-to-cycle) variabilities, the experimental response of each device to a given number of identical pulses exhibits some level of variability (see Fig. S7 in the Supplementary Information). Therefore, for each pulse, a Gaussian distribution of the measured conductance states among the devices is extracted. For statistical relevance, Fig. 5b shows the experimental standard deviation of the array response to the open-loop scheme as a function of the pulse number, represented in grey. To realistically assess the accuracy of analog training with CMO/HfO x ReRAM devices, the key figures of merit of the device training characterization-such as the number of states, the symmetry point skew, and the noise-to-signal ratio (NSR)-are first extracted from experimental data, as defined below.",
+    "metadata": {
+      "page": 14,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        124.595,
+        341.3920146484375,
+        495.21,
+        566.0980146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_1",
+    "type": "equation",
+    "content": "N states = G max -G min ∆ G sp (1)",
+    "metadata": {
+      "page": 14,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        259.68,
+        304.31501464843745,
+        495.205,
+        328.40101464843747
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_2",
+    "type": "equation",
+    "content": "SP skew = G max -G sp G max -G min (2)",
+    "metadata": {
+      "page": 14,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        259.053,
+        254.17501464843758,
+        495.205,
+        277.3800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_3",
+    "type": "equation",
+    "content": "NSR = σ ∆ G sp ∆ G sp (3)",
+    "metadata": {
+      "page": 15,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        254.416,
+        746.0070146484375,
+        470.681,
+        770.7040146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_31",
+    "type": "paragraph",
+    "content": "G max and G min represent the maximum and minimum values extracted from the full conductance swings, while G sp , ∆ G sp and σ ∆ G sp denote the values of the mean conductance, mean conductance update and standard deviation of the conductance update at the symmetry point during the 1-pulse-up, 1-pulse-down procedure, respectively. Fig. 5c shows the experimental Gaussian distributions of these metrics for the 32 devices within the array. The results indicate an average of 22 states, with a range from 16 to 33. A shift in the G sp (or SP skew ) of 61% is measured, reflecting a negative trend in the device asymmetry where the down response is steeper than the up response. An average NSR of 90% among the devices is obtained, demonstrating the capability to discriminate between pulses up and down around the symmetry point. This parameter reflects the intrinsic noise on the device's response under identical conditions, highlighting an intra-device variation [38]. Previous studies on similar CMO/HfO x ReRAM systems [24] extracted these metrics from isolated 1R devices using an optimized openloop scheme tailored to each device. In contrast, this work demonstrates for the first time that a single open-loop identical pulse scheme enables reliable operation of the entire CMO/HfO x 1T1R array, ensuring consistent performance across the array.",
+    "metadata": {
+      "page": 15,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        100.071,
+        543.2870146484375,
+        470.686,
+        732.9160146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_5",
+    "type": "figure",
+    "content": "Fig. 5 : Open-loop array characterization for on-chip training. a Bidirectional accumulative response and symmetry point of a representative device in the array. The top inset shows the open-loop identical pulse scheme used for the synaptic potentiation (red) and depression (blue). A conceptual illustration of the 8x4 CMO/HfO x ReRAM array is depicted on the left. b Array statistical open-loop response to identical pulses. The grey area represents the standard deviation of the experimental Gaussian distributions, each corresponding to a specific pulse number. The inset shows a representative example of the experimental Gdistribution at pulse number 1200. The raw data can be found in Figure S9 of the Supporting Information. c The experimental probability densities of N states , SP skew and NSR, respectively. The experimental data used to extract the distributions are represented as points aligned along the y=0 horizontal axis.",
+    "metadata": {
+      "page": 16,
+      "section": "Open-loop ReRAM array characterization",
+      "bbox": [
+        127.24413299560547,
+        401.61767578125,
+        492.2691955566406,
+        768.9438858032227
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_5.png",
+      "image_summary": "The figure comprises three panels (a, b, c), each illustrating different aspects of the analog switching and statistical behavior of an 8x4 ReRAM array.\n\nPanel a: \"Analog switching characteristics of a ReRAM device (open-loop)\"\n- The left side shows a schematic 8x4 ReRAM array with individual cells labeled W(i,j). Four cells are highlighted in yellow.\n- The main graph plots Conductance (y-axis, logarithmic scale from 10 to 100 µS) versus Pulse Number (x-axis, 0 to 2100).\n- Data points represent conductance evolution for a sample device under specific conditions: red circles for potentiation cycles (V_set = 1.35 V, pulse width 2.5 µs) and blue circles for depression cycles (V_reset = 1.3 V, 2.5 µs).\n- The conductance rises to a maximum (G_max) during potentiation, then sharply drops to a minimum (G_min) during depression, repeating twice. After about 1600 pulses, the conductance stabilizes around an average steady-state value (G_sp, indicated as \\overline{G_{sp}}) with small fluctuations.\n- Insets above the graph show the applied voltage pulses: positive red pulses for SET and negative blue pulses for RESET with magnification indicated (x400 and x500).\n- Key observations: conductance switching exhibits large dynamic range between G_min and G_max, hysteresis with repeated potentiation/depression cycles, and eventual stabilization at G_sp with noise amplitude 2ΔG_sp.\n\nPanel b: \"Array-level open-loop statistical response\"\n- The plot shows averaged conductance over all devices in the array versus pulse number, ranging logarithmically on the y-axis (10 to 100 µS), up to 2100 pulses.\n- The thick black line represents experimental data with shaded area showing ±1 standard deviation (σ) around the mean.\n- The average conductance follows a trend similar to the single device in panel a but is smoother due to aggregation.\n- An inset histogram shows the probability distribution of conductance after 1200 pulses with Gaussian fit, mean around G_1200, and spread ±σ.\n- This panel highlights device-to-device variations and overall statistical distribution of conductance states in the array during open-loop switching.\n\nPanel c: \"Experimental array metrics for Tiki-Taka training\"\n- Three probability density plots display distributions of key ReRAM metrics derived from experimental data for training purposes.\n1. Number of States (N_states = (G_max - G_min) / ΔG_sp): Mean = 22, with data points scattered around this value.\n2. Symmetry Point Skew (SP_skew = (G_max - G_sp) / (G_max - G_min)): Mean = 61%, indicating asymmetry in the conductance switching window.\n3. Noise to Signal Ratio (NSR = σ_ΔG_sp / ΔG_sp): Mean = 90%, reflecting significant noise relative to the conductance step size.\n- Each plot has a dashed vertical line marking the mean, shaded curve representing the fitted distribution, and experimental points overlaid.\n\nMain takeaway:\nThis figure comprehensively characterizes the analog switching behavior and statistical variability of an 8x4 ReRAM array. It demonstrates clear, repeatable potentiation and depression cycles with significant conductance modulation and noise. The array-level data confirm variability across devices with a consistent average response. Metrics derived from the experimental data indicate moderate state resolution, notable asymmetry in switching behavior, and high noise relative to signal, important factors to consider for neuromorphic training algorithms such as Tiki-Taka."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_32",
+    "type": "paragraph",
+    "content": "To perform realistic hardware-aware training simulations, the experimental device response is reproduced on software using the generalized soft bounds model implemented in the 'aihwkit' [40], which better captures the bidirectional resistive switching behavior (see Fig. S8 in Supplementary Information) and accounts for intra- and inter-device variabilities (see cycle-to-cycle and device-to-device variations in Fig. 6a). Additionally, Gaussian distributions are modelled based on parameters extracted from device characterization ( G max , G min , ∆ G sp , NSR, SP skew ) to account for device-to-device variability observed in the experimental characterization (see 'Methods' section 'Intra and inter-device variability' for details). This Gaussian fitting approach allows defining various device presets-characterized by the same model but with different parameter settings-to represent the synapses across the neural network. A realistic simulation setup is obtained by exclusively considering experimentally obtained parameters to reproduce the device trace (see 'Methods' section 'Generalized soft bounds model' for details). The device model is defined based on the observed conductance window and number of states, without assuming asymptotic behavior for an infinite number of pulses. This prevents overestimation of both the conductance window and the number of states (material states), enhancing the fidelity of the simulation.",
+    "metadata": {
+      "page": 17,
+      "section": "Tiki-Taka training simulations",
+      "bbox": [
+        100.071,
+        534.3470146484375,
+        470.686,
+        747.0530146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_33",
+    "type": "paragraph",
+    "content": "To validate analog training with CMO/HfO x ReRAM technology, a 3-layer fully connected (FC) neural network was trained on the MNIST dataset for image classification. In addition, the impact of the device's number of states, asymmetry, and noise-to-signal ratio on accuracy and convergence time is evaluated by simulating identical networks in which each property is individually enhanced, while keeping the others fixed at the experimentally derived values. Literature has shown that these device characteristics critically influence the convergence of analog training algorithms [23]. Therefore, this method assesses the deviation of the current CMO/HfO x ReRAM device properties from the ideal analog resistive device scenario. Moreover, to show the scalability of the CMO/HfO x ReRAM technology to more computationallyintensive tasks, such as time series processing, a 2-layer long short-term memory (LSTM) network was trained on War and Peace text sequences to predict the next token. Each network is initially trained using conventional stochastic gradient descent (SGD) based backpropagation with 32-bit FP precision, serving as the baseline performance. Fig. 6b illustrates the accuracy per epoch for the FP-baseline trained with SGD (in green) and the analog network trained using AGAD, evaluated under four different parameter settings: (1) properties extracted from the experimental array (in yellow), (2) reduced NSR to 20% (in red), (3) average of N states = 100 states (in blue), and (4) zero average device asymmetry (in orange). Using symmetrical device presets, i.e. with an average SP skew of 50%, improves accuracy by 0.7% with respect to analog training with CMO/HfO x ReRAM experimentally derived configuration (96.9%), landing an accuracy of 97.6%, a 0.7% lower than the FP-SGD baseline (98.3%). The other two configurations show less performance improvement, indicating more resilience of the AGAD-training to device's N states and NSR.",
+    "metadata": {
+      "page": 17,
+      "section": "Tiki-Taka training simulations",
+      "bbox": [
+        100.071,
+        233.4240146484375,
+        470.684,
+        519.0530146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_34",
+    "type": "paragraph",
+    "content": "Additionally, a 2-layer LSTM network with 64 memory states each (see Fig. 6c), is trained with the experimentally obtained configuration. The performance is measured using the exponential of the cross-entropy loss, i.e. the test perplexity metric, which quantifies the certainty of the token prediction. Results in Fig. 6d demonstrate the capabilities of the CMO/HfO x ReRAM technology on more complex network architectures, such as LSTMs, and computationally demanding tasks, exhibiting performance comparable to the FP-equivalent, with an approximate 0.7% difference in test perplexity.",
+    "metadata": {
+      "page": 18,
+      "section": "Tiki-Taka training simulations",
+      "bbox": [
+        124.595,
+        672.3240146484375,
+        495.208,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_6",
+    "type": "figure",
+    "content": "Fig. 6 : Device model and on-chip training simulations. a Device presets generated using the generalized soft bounds model with experimentally extracted parameters of CMO/HfO x devices, including inter- and intra-device variabilities. b Training simulations of a 3-layer fully-connected neural network on MNIST (235K parameters), using 32-bit FP precision trained on SGD (in green). Analog training simulations were performed using AGAD considering the empirical distribution of the parameters (in yellow), enhanced NSR (in red), increased N states (in blue), and symmetrical device configurations (in orange). c LSTM network architecture for text forecasting on the War and Peace dataset (79K parameters). The architecture considers a sequence length of 100 tokens and accounts for 2 layers with 64 hidden units. d Training results of the FP baseline (in green) and the analog training with AGAD on the experimental device configuration (in yellow). The training setup can be found in the Supporting Information.",
+    "metadata": {
+      "page": 18,
+      "section": "Tiki-Taka training simulations",
+      "bbox": [
+        125.59703826904297,
+        423.20208740234375,
+        491.75732421875,
+        655.0747985839844
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_6.png",
+      "image_summary": "The figure is composed of four panels (a-d) providing data and schematic related to device modeling and neural network training using CMO/HfOx memristors.\n\nPanel a: \"Generalized soft bounds device model\"\n- The y-axis represents Weight with values ranging approximately from -1 to 2.\n- The x-axis shows Pulse Number, ranging from 0 to about 2100.\n- The plot features four colored data point sets representing 4 different devices (Dev_1 to Dev_4).\n- Each device's weight shows characteristic changes as pulse number increases, with step-like weight updates followed by intervals where the weight stays roughly constant.\n- Notably, the devices show similar trends but with distinct absolute values of weight and slight variations in step sizes.\n- Dev_2 and Dev_3 tend to maintain higher weights than Dev_1 and Dev_4.\n- After around pulse 1600, there is a decline in weight for all devices.\n\nPanel b: \"3FC MNIST training\"\n- The y-axis shows Test Accuracy in percentage (%), spanning from 90% to 100%.\n- The x-axis is Epochs in arbitrary units, from 0 to 80.\n- Five curves correspond to different scenarios: CMO/HfOx experimental array, NSR down to 20%, N_states up to 100, Symmetry SP_skew 50%, and FP-baseline (floating point baseline).\n- All curves show an upward trend, increasing test accuracy with epochs.\n- The FP-baseline line (green crosses) consistently achieves the highest accuracy (~98%).\n- The symmetry SP_skew 50% (orange crosses) also performs well, approaching FP-baseline closely after 40 epochs.\n- Other models like N_states, NSR, and CMO experimental array lag but improve similarly across epochs, achieving ~95-97% accuracy by 80 epochs.\n\nPanel c: \"LSTM network trained using CMO/HfOx statistical array data\"\n- This is a schematic diagram of the LSTM network architecture.\n- Input tokens enter on the left (“The,” “man,” “walks,” “down,” etc.).\n- Inputs are converted to one-hot encoding, then passed through two LSTM layers, each with 64 hidden units.\n- Outputs of LSTM layers feed into a fully connected (FC) layer, leading to a final output token (\"street\").\n- The diagram illustrates the structure used for training with the memristor device data.\n\nPanel d: \"LSTM training\"\n- The y-axis shows Test Perplexity, an error metric in language modeling, ranging from 1 to 5.\n- The x-axis shows Epochs in arbitrary units, from 0 to 100.\n- Two curves compare AGAD (yellow diamonds) versus SGD FP-baseline (green crosses).\n- Both show a declining trend in test perplexity with increasing epochs.\n- The AGAD curve starts higher (~3.5) and remains consistently above the SGD FP-baseline throughout training.\n- The SGD FP-baseline reaches lower perplexity (~1.3) by 100 epochs, indicating better performance.\n\nMain takeaway:\nThe figure demonstrates the modeling, application, and performance evaluation of memristor devices (CMO/HfOx) in neural network training. The device weights exhibit controlled step-like updates (a). Using these devices in neural network training for MNIST classification and LSTM-based language modeling yields competitive yet slightly inferior performance compared to floating point baselines, as shown by accuracy and perplexity metrics (b, d). The LSTM network architecture is presented for clarity on training methodology (c). Overall, the results validate the feasibility of using memristor devices with generalized soft bounds for neuromorphic computing, with some gap in performance compared to idealized floating point models."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_35",
+    "type": "paragraph",
+    "content": "An all-in-one technology platform based on analog filamentary CMO/HfO x ReRAM devices is presented. This platform addresses critical challenges in modern digital AI accelerators by overcoming the physical separation between memory and compute units. It enables the execution of forward and backward MVMs, along with weight updates and gradient computations, directly on a unified analog in-memory platform with O (1) time complexity. This all-in-one approach fundamentally differs from DNN inference-only [9] and training-only [24, 41] analog accelerators. In inference-only accelerators, DNN weights are trained in software (i.e., off-chip) using traditional digital CPUs or GPUs and then programmed once onto the analog AI hardware accelerator. In training-only accelerators, the long-term retention capabilities and overall MVM accuracy for large array tiles are not assessed. In this work, a novel all-in-one analog computing platform, capable of both on-chip training and inference acceleration, is unveiled.",
+    "metadata": {
+      "page": 19,
+      "section": "Discussion",
+      "bbox": [
+        100.071,
+        591.3580146484375,
+        470.686,
+        744.0640146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_36",
+    "type": "paragraph",
+    "content": "The CMO/HfO x ReRAM devices are integrated in the BEOL of a NMOS transistor platform in a scalable 1T1R array architecture. The highly reproducible forming step demonstrates compatibility with NMOS rated for 3 . 3 V operation, while the uniform quasi-static 8W-cycling characteristics, achieved with voltage amplitudes of less than ± 1 . 5 V, exhibit a significant conductance window and a low off-state. The multi-bit capability of more than 32 states (5 bits), distinguishable after 10 minutes with less than 10% overlap error, is experimentally demonstrated using an identical-pulse closed-loop scheme. The characterization of the weight transfer reveals record-low programming noise ranging from 10 nS to 100 nS, more than one order of magnitude lower than that of other memristive technologies targeting similar conductance ranges [34-36]. Each conductance distribution exhibits a state-independent relaxation process over time, characterized by a slight shift of the mean toward lower conductance and an increase in the standard deviation. This independence of the relaxation process from the target conductance is advantageous for implementing effective compensation schemes in the future.",
+    "metadata": {
+      "page": 19,
+      "section": "Discussion",
+      "bbox": [
+        100.071,
+        399.3580146484375,
+        470.686,
+        576.0640146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_37",
+    "type": "paragraph",
+    "content": "Realistic MVM simulations on a 64x64 array tile, considering CMO/HfO x ReRAM device non-idealities such as finite weight transfer resolution, conductance relaxation, limited input/output quantization, and IR-drop across array wires, show an RMSE as low as 0.2 compared to the ideal FP-case, even 10 years after programming. This demonstrates that the CMO/HfO x ReRAM devices improve analog MVM accuracy by a factor of 20 and 3 compared to the state of the art [9], 1 second and 10 years after programming, respectively. Although this study was performed at room temperature, previous characterization of a similar CMO/HfO x ReRAM stack demonstrated the thermal stability of the analog states at high temperature (less than 4% drift after 72 hours at 85 ° C)[24]. Future studies will focus on incorporating the experimental read noise of CMO/HfO x ReRAM devices, characterized between 0.2% and 2% of G target within a similar conductance range as used in this work [25], into MVM accuracy simulations. Although read noise is not included in the MVM simulations of this study, no significant additional drop in MVM accuracy is anticipated. In fact,",
+    "metadata": {
+      "page": 19,
+      "section": "Discussion",
+      "bbox": [
+        100.071,
+        219.35801464843757,
+        470.686,
+        384.06401464843754
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_38",
+    "type": "paragraph",
+    "content": "the magnitude of read noise is much smaller than that of the relaxation process and of the effect of reduced input/output quantization, which dominate the RMSE on different timescales. Furthermore, simulation results demonstrate the suitability of CMO/HfO x ReRAM technology for large 512x512 array, with the IR-drop expected to become the primary accuracy bottleneck in this case.",
+    "metadata": {
+      "page": 20,
+      "section": "Discussion",
+      "bbox": [
+        124.595,
+        708.3240146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_39",
+    "type": "paragraph",
+    "content": "Finally, the electrical response of the CMO/HfO x ReRAM array to an open-loop scheme with identical pulses demonstrates the viability of this technology for onchip training applications. A realistic device model, accounting for both inter- and intra-device variability, is derived from experimental data. Table 1 benchmarks the representative device model used in this work on the MNIST dataset against other approaches, highlighting its high fidelity in reproducing experimental device responses.",
+    "metadata": {
+      "page": 20,
+      "section": "Discussion",
+      "bbox": [
+        124.595,
+        612.3240146484375,
+        495.21,
+        693.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_table_1",
+    "type": "table",
+    "content": "Table 1 : Device model benchmarking: from simplified approaches to realistic non-ideality modeling",
+    "metadata": {
+      "page": 20,
+      "section": "Discussion",
+      "bbox": [
+        123.53446197509766,
+        483.0597229003906,
+        501.6600036621094,
+        552.2684631347656
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/table/table_1.png"
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_40",
+    "type": "paragraph",
+    "content": "The impact of the device's number of states, asymmetry and noise-to-signal ratio on training accuracy using the AGAD algorithm on MNIST is evaluated. This analysis demonstrates that, with the current device's experimental properties, AGAD analog training achieves 96.9% accuracy, comparable to the ideal FP-baseline of 98.3%. To further improve analog training performance and bring results closer to the software equivalent, the key metric to enhance in the device is the symmetry. Finally, the on-chip analog training capabilities of the CMO/HfO x ReRAM technology are demonstrated on a more complex 2-layer LSTM network, showing comparable performance to its floating-point equivalent.",
+    "metadata": {
+      "page": 20,
+      "section": "Discussion",
+      "bbox": [
+        124.595,
+        314.9340146484376,
+        495.208,
+        419.6400146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_41",
+    "type": "paragraph",
+    "content": "In conclusion, the novel CMO/HfO x ReRAM all-in-one technology platform presented in this work lays the foundation for efficient and versatile analog chips capable of combining both training and inference capabilities, enabling autonomous, energy-efficient, and adaptable AI systems.",
+    "metadata": {
+      "page": 20,
+      "section": "Discussion",
+      "bbox": [
+        124.595,
+        254.93401464843748,
+        495.208,
+        299.6400146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_42",
+    "type": "paragraph",
+    "content": "The CMO/HfO x ReRAM array is based on 1T1R unit cells. In this configuration, the bottom electrode of the ReRAM device is connected in series to the drain of an n-type metal-oxide-semiconductor (NMOS) selector transistor. The transistor blocks sneak paths and ensures current compliance during electro-forming and programming of the ReRAM device. The NMOS transistors, rated for 3 . 3 V operation, are fabricated using a standard 130 nm foundry process with copper BEOL interconnects. The ReRAM devices are integrated on metal-8 layer. To prevent the oxidation of the copper vias during the ReRAM stack deposition, the 70 nm thick silicon nitride (SiN x ) passivation layer from the foundry is used as a protective layer. On top of that, a 20 nm thick titanium nitride (TiN) bottom electrode and a 4 nm thick hafnium oxide (HfO x ) layers are deposited by Plasma-Enhanced Atomic Layer Deposition (PEALD) process at 300 ° C, while maintaining vacuum conditions to avoid oxidation of the TiN layer. Subsequently, a stack of layers consisting of a 20 nm thick conductive metal-oxide (CMO), a 20 nm thick titanium nitride (TiN), and a 50 nm thick tungsten (W) is deposited by sputtering and patterned through a lithography step. A 100 nm thick silicon oxide (SiO x ) layer is sputtered as passivation. The passivation layer is then patterned to expose the W top electrode and the copper via in the metal-8 layer beneath the bottom electrode. The ReRAM fabrication is completed using a titanium/gold lift-off process. In this approach, the TiN bottom electrode is connected to the metal-8 via through its vertical sidewalls using gold. The ReRAM BEOL patterning steps are performed through mask-based photolithography performed on a 6 × 6 mm 2 die issued from a Multi Project Wafer (MPW). The area of the CMO/HfO x ReRAM devices presented in this work is 12 × 12 µ m 2 . Previous studies on CMO/HfO x ReRAM devices have demonstrated scalability down to 200 × 200 nm 2 [24-26]. Due to their filament-type nature, the performance of the ReRAM devices presented in this work is expected to remain similar for smaller areas.",
+    "metadata": {
+      "page": 21,
+      "section": "Device fabrication",
+      "bbox": [
+        100.071,
+        415.3800146484375,
+        470.686,
+        724.0860146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_43",
+    "type": "paragraph",
+    "content": "A 3D FEM of the CMO/HfO x ReRAM device, after the forming event, is used to simulate electronic transport by solving the continuity (4) and the Joule-heating (5) equations in steady state:",
+    "metadata": {
+      "page": 21,
+      "section": "ReRAM forming modelling",
+      "bbox": [
+        100.071,
+        347.45801464843754,
+        470.685,
+        380.1640146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_4",
+    "type": "equation",
+    "content": "∇· J e = ∇· ( σ ( -∇ V ) = 0 (4)",
+    "metadata": {
+      "page": 21,
+      "section": "ReRAM forming modelling",
+      "bbox": [
+        228.447,
+        322.58401464843746,
+        470.686,
+        332.2140146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_5",
+    "type": "equation",
+    "content": "∇· ( -k ∇ T ) = J e · E = Q e (5)",
+    "metadata": {
+      "page": 21,
+      "section": "ReRAM forming modelling",
+      "bbox": [
+        227.789,
+        286.6840146484376,
+        470.681,
+        296.3130146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_44",
+    "type": "paragraph",
+    "content": "where J e is the electric current density, σ the electrical conductivity, V the electric potential, k the thermal conductivity and Q e the heat source due to Joule heating. From the fit of the experimental array forming data in the low-voltage linear regime (from 0 to 0 . 2 V), an average filament radius of 11 nm is extracted. The electrical and thermal conductivities of the materials in the ReRAM stack are taken from literature",
+    "metadata": {
+      "page": 21,
+      "section": "ReRAM forming modelling",
+      "bbox": [
+        100.071,
+        215.65701464843755,
+        470.685,
+        272.36301464843746
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_45",
+    "type": "paragraph",
+    "content": "[26], by considering σ CMO = 5S / cm and k CMO = 4W / mK for the CMO layer used in this work. During the subsequent negative voltage sweep, the electrical conductivity of the CMO layer was used as a fitting parameter to model the radial redistribution of defects within the layer. Using experimental array data in the low-voltage linear regime (from 0 to -0 . 2 V), the resulting CMO electrical conductivity is 37 S / cm. Fig. S1 in Supplementary Information shows the results of the simulations.",
+    "metadata": {
+      "page": 22,
+      "section": "ReRAM forming modelling",
+      "bbox": [
+        124.595,
+        696.3240146484375,
+        495.21,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_46",
+    "type": "paragraph",
+    "content": "The forming voltage of each 1T1R cell ( V 1T1R forming ) is defined as the voltage required to trigger the highest current increase (max ( dI dV ) ) during the quasi-static voltage sweep from 0 to 3 . 6 V (see Supplementary Information Fig. S2a). The corresponding current is defined as the forming current ( I 1T1R forming ) (see Supplementary Information Fig. S2b). Being the transistor driven by a constant V G = 1 . 2 V, it acts as a series resistor in the triode region before the forming event, when the ReRAM stack is highly insulating. After the forming event, when a conductive filament is created in the ReRAM device, the transistor ensures current compliance in the saturation region. The resistance of the transistor in the triode region at V G = 1 . 2 V is measured to be R DS ≈ 0 . 8 kΩ (see Supplementary Information Fig. S2c). Therefore, for each 1T1R cell, the actual ReRAM forming voltage is computed as V ReRAM forming = V 1T1R forming -R triode DS · I 1T1R forming and reported in Fig. 2c.",
+    "metadata": {
+      "page": 22,
+      "section": "ReRAM forming voltage extraction",
+      "bbox": [
+        124.595,
+        518.4460146484375,
+        495.208,
+        662.6720146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_47",
+    "type": "paragraph",
+    "content": "In the 1T1R cell, the electronic current I e is modelled as a trap-to-trap tunneling process within the CMO layer, as described in equation (6), following the model proposed by Mott and Gurney [42]. This model accounts for electron-hopping conduction across an energy barrier ∆ E e , which remains uniform in all directions when there is no electric field applied. However, when an electric field is introduced, it modifies the energy barrier by ∓ ea e E /2 for forward (backward) jumps, leading to a reduction (increase) in the barrier height.",
+    "metadata": {
+      "page": 22,
+      "section": "Analytical ReRAM transport modelling",
+      "bbox": [
+        124.595,
+        402.5140146484375,
+        495.209,
+        483.22001464843754
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_6",
+    "type": "equation",
+    "content": "I Mott -Gurney e = 2 Aea e ν 0 , e N e exp( -∆ E e k B T ) sinh ( a e eE 2 k B T ) (6)",
+    "metadata": {
+      "page": 22,
+      "section": "Analytical ReRAM transport modelling",
+      "bbox": [
+        193.406,
+        366.3200146484375,
+        495.203,
+        389.52301464843754
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_48",
+    "type": "paragraph",
+    "content": "In equation (6), e is the elementary charge, k B is the Boltzmann's constant, a e is the hopping distance, ν 0 , e is the electron attempt frequency, N e is the density of electronic defect states in the sub-band of the CMO layer, ∆ E e is the zero-field hopping energy barrier, T and E are the local temperature and electric field, respectively, and A = π r 2 CF , r CF being the filament radius, is the cross-sectional area of the filament at the interface with the CMO layer. The temperature and electric field in the CMO layer, for both LRS and HRS, are simulated by solving equations (4) and (5), while accounting for the experimental I-V non-linearity (see Supplementary Fig. S4 for details). The trap-to-trap tunneling parameters ( N e , ∆ E e , a e ) are extracted from the fit using the same approach as described in previous works [26, 31].",
+    "metadata": {
+      "page": 22,
+      "section": "Analytical ReRAM transport modelling",
+      "bbox": [
+        124.595,
+        237.32601464843754,
+        495.208,
+        354.0320146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_49",
+    "type": "paragraph",
+    "content": "The procedure begins with a quasi-static voltage sweep from 0 to -1 . 5 V to reset each cell within the array to the HRS. Subsequently, a closed-loop scheme is initiated, which iteratively repeats the following two steps until convergence to G target within an acceptance range: (1) read the conductance of the ReRAM cell, and (2) if the measured value is below (above) the target conductance, apply a set ( reset ) programming pulse. During this iterative process, the cell conductance may fluctuate multiple times before eventually reaching the acceptance range. Starting from the HRS, this procedure is applied to the CMO/HfO x ReRAM array to sequentially program 35 representative conductance levels, ranging from approximately 10 µ S to 90 µ S, using acceptance ranges of both 0.2% G target and 2% G target . Unlike the conventional incremental-pulse closed-loop technique previously used for ReRAM [9, 43], where the amplitudes of set and reset pulses are gradually increased to achieve convergence, this work employs an identical-pulse closed-loop scheme to simplify the pulse generation circuitry design, using only two fixed amplitude values for the set (1 . 35 V or 1 . 5 V) and two for the reset ( -1 . 3 V or -1 . 5 V) pulses. Specifically, depending on G target , three ranges are used: from approximately 10 µ S to 30 µ S with V set = 1 . 35 V and V reset = -1 . 5 V; from 30 µ S to 60 µ S V set = 1 . 35 V and V reset = -1 . 3 V ; and from 60 µ S to 90 µ S V set = 1 . 5 V and V reset = -1 . 3 V. Fig. S5b in Supplementary Information shows the flowchart of the identical-pulse closed-loop technique used in this work. The set / reset pulse width is fixed at 2.5 µ s due to setup limitations, even though previous work has demonstrated CMO/HfO x ReRAM switching with pulse width as short as 60 ns [25]. The reading pulse amplitude and width are V read = 0 . 2 V and 300 µ s, respectively. During the set , reset , and read operations of each 1T1R cell, the transistor's gate voltage is controlled with constant values of V G equal to 1 . 4 V, 3 . 3 V, and 3 . 3 V, respectively.",
+    "metadata": {
+      "page": 23,
+      "section": "Identical-pulse closed-loop scheme",
+      "bbox": [
+        100.071,
+        461.4240146484375,
+        470.686,
+        747.0530146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_50",
+    "type": "paragraph",
+    "content": "The 'aihwkit' [44] simulation tool was used to perform MVM assessments including non-ideal behaviors and noise, and their effect on the computation accuracy with respect to floating-point operations. The MVM simulation included the exhibited programming noise, conductance relaxation, input and output quantization, and IR-drop across array wires. The 'aihwkit' allows to configure such noisy effects for dedicated memristive devices such as PCM by Nandakumar et al. [45] and ReRAM by Wan et al. [9]. Therefore, a unique phenomenological noise model for CMO/HfO x ReRAMdevices for inference is developed to incorporate into the simulation both the characterized programming noise and conductance relaxation. Additionally, input and output are quantized with 6-bit and 8-bit resolution, respectively, and the IR-drop is considered, with 100 µ S as the maximum ReRAM conductance level and a default segment wire resistance of 0.35 Ω.",
+    "metadata": {
+      "page": 23,
+      "section": "HW-aware simulation of analog MVM",
+      "bbox": [
+        100.071,
+        286.4140146484375,
+        470.686,
+        427.1200146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_51",
+    "type": "paragraph",
+    "content": "For a target conductance G target , the device's programmed conductance is defined as the target value plus normally distributed noise with a standard deviation σ prog , which is a function of G target . As depicted in Fig. 3e, the programming noise ( σ prog )",
+    "metadata": {
+      "page": 23,
+      "section": "Modelling the programming noise",
+      "bbox": [
+        100.071,
+        218.5580146484375,
+        470.682,
+        252.1880146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_52",
+    "type": "paragraph",
+    "content": "of the CMO/HfO x ReRAM devices is statistically described by a first-order polynomial equation for a given acceptance range. The polynomial coefficients for acceptance ranges of 2% and 0.2% of G target are extracted from the characterization and introduced into the simulation environment. To assess the effects of the programming noise, each weight in the normalized matrix (ranging from [-1, 1]) is mapped to its corresponding conductance value (within the range [9, 89] µ S from Fig. 3a), and is then further adjusted by the programming noise described by the extracted linear functions. Therefore, the MVM accuracy can be assessed immediately after programming ( t = 0), see Fig. 4f.",
+    "metadata": {
+      "page": 24,
+      "section": "Modelling the programming noise",
+      "bbox": [
+        124.595,
+        660.3240146484375,
+        495.208,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_53",
+    "type": "paragraph",
+    "content": "After programming, the conductance levels exhibit relaxation over time, as shown in Fig. 4. Unlike previous ReRAM drift characterizations reported by Wan et al. [9] the observed relaxation in CMO/HfO x ReRAM is approximately independent of the initial programmed conductance. Consequently, a new modelling approach in the 'aihwkit' is needed to accurately simulate the conductance relaxation effect, which differs from the methods derived from previous literature on ReRAM [9]. The conductance relaxation mean and standard deviation are modelled independently of G target and solely as a function of time after programming. The coefficients of the first-order polynomials describing the time dependence of both the mean and standard deviation of the programmed conductance are incorporated into the simulation environment to estimate conductance variations at any given inference time. By doing so, the MVM accuracy can be estimated after a period of time up to 10 years.",
+    "metadata": {
+      "page": 24,
+      "section": "Modelling the conductance relaxation",
+      "bbox": [
+        124.595,
+        485.3920146484375,
+        495.209,
+        626.0980146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_54",
+    "type": "paragraph",
+    "content": "The generalized soft bounds model (SBM) selection was based on the observed characteristics of the potentiation and depression since the devices did not strictly exhibit thorough saturation at the upper and lower boundaries (see Fig. S8 in Supplementary Information). The generalized SBM incorporates a tunable scale exponent ( γ ) that describes abrupt and gradual trends toward the maximum and minimum conductance levels. This exponent parameter also varies depending on the conductance update direction. Therefore, the analytical expression of the generalized SBM implemented in the 'aihwkit' includes an asymmetry factor ( γ up down ) to account for this behavior[38]. However, these two parameters do not have a direct physical equivalence, and therefore, cannot be derived from experimental traces. Hereby, γ and γ up down are obtained for each device through an independent linear fitting of the generalized SBM to the experimental response. In addition to the analytical parameters of the generalized SBM, devices in the 'aihwkit' are defined by a set of parameters that can be extracted from experimental traces. More precisely, the empirical maximum and minimum conductance, minimum conductance step size and its standard deviation, and the asymmetry between up and down response are considered ( G max , G min , ∆ G sp , σ ∆ G sp , and up down ). More details on the up down parameter are provided in the Supplementary Information. In this regard, each simulated device is defined by",
+    "metadata": {
+      "page": 24,
+      "section": "Generalized soft bounds model",
+      "bbox": [
+        124.595,
+        218.4810146484375,
+        495.21,
+        431.1870146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_55",
+    "type": "paragraph",
+    "content": "6 parameters: four empirically obtained ( G max , G min , ∆ G sp and up down ) and two analytically modelled from SBM linear fitting ( γ and γ up down ).",
+    "metadata": {
+      "page": 25,
+      "section": "Generalized soft bounds model",
+      "bbox": [
+        100.071,
+        743.4010146484375,
+        470.68,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_56",
+    "type": "paragraph",
+    "content": "By extracting the standard deviation of the minimum conductance step size ( σ ∆ G sp ) from the experimental traces and incorporating it into the simulation's device model, the device response intrinsically includes noise from cycle to cycle. This provides a realistic device behavior with intra-device variability. Furthermore, the network devices shall include inter-device variabilities to perform physically accurate simulations. To achieve this, two multi-variate Gaussian distributions, G 1 and G 2 , are created (see Fig. S9 in Supplementary Information). G 1 is extracted from the experimentally obtained parameters: N states (which accounts for variations across devices in the G-range and step) and SP in the normalized G-range, whereas G 2 is fitted to the analytical model parameters obtained from the fitted generalized SBM ( γ and γ up down ). Therefore, variables from G 1 showed statistical independence from those of G 2 . New device instances are independently sampled from the two Gaussian distributions to represent synapses on the DNN layers. The instantiated CMO/HfO x ReRAM devices include variations in the device response, conductance ranges, and asymmetrical behavior, thus providing a more hardware-aware and realistic scenario for analog training simulation.",
+    "metadata": {
+      "page": 25,
+      "section": "Intra and inter-device variability",
+      "bbox": [
+        100.071,
+        533.3920146484376,
+        470.685,
+        710.0980146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_57",
+    "type": "paragraph",
+    "content": "Erdil, E.: Data Movement Bottlenecks to Large-Scale Model Training: Scaling Past 1e28 FLOP. Accessed: 2024-12-06 (2024). https://epoch.ai/blog/ data-movement-bottlenecks-scaling-past-1e28-flop",
+    "metadata": {
+      "page": 25,
+      "section": "References",
+      "bbox": [
+        105.052,
+        460.47001464843754,
+        470.685,
+        493.1760146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_58",
+    "type": "paragraph",
+    "content": "Jouppi, N.P., Young, C., Patil, N., Patterson, D., Agrawal, G., Bajwa, R., Bates, S., Bhatia, S., Boden, N., Borchers, A., Boyle, R., Cantin, P.-l., Chao, C., Clark, C., Coriell, J., Daley, M., Dau, M., Dean, J., Gelb, B., Ghaemmaghami, T.V., Gottipati, R., Gulland, W., Hagmann, R., Ho, C.R., Hogberg, D., Hu, J., Hundt, R., Hurt, D., Ibarz, J., Jaffey, A., Jaworski, A., Kaplan, A., Khaitan, H., Killebrew, D., Koch, A., Kumar, N., Lacy, S., Laudon, J., Law, J., Le, D., Leary, C., Liu, Z., Lucke, K., Lundin, A., MacKean, G., Maggiore, A., Mahony, M., Miller, K., Nagarajan, R., Narayanaswami, R., Ni, R., Nix, K., Norrie, T., Omernick, M., Penukonda, N., Phelps, A., Ross, J., Ross, M., Salek, A., Samadiani, E., Severn, C., Sizikov, G., Snelham, M., Souter, J., Steinberg, D., Swing, A., Tan, M., Thorson, G., Tian, B., Toma, H., Tuttle, E., Vasudevan, V., Walter, R., Wang, W., Wilcox, E., Yoon, D.H.: In-datacenter performance analysis of a tensor processing unit. ACM SIGARCH Computer Architecture News 45 (2017) https://doi.org/10.1145/3140659.3080246",
+    "metadata": {
+      "page": 25,
+      "section": "References",
+      "bbox": [
+        105.052,
+        282.50801464843744,
+        470.685,
+        447.2140146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_59",
+    "type": "paragraph",
+    "content": "Sze, V., Chen, Y.H., Yang, T.J., Emer, J.S.: Efficient Processing of Deep Neural Networks: A Tutorial and Survey (2017). https://doi.org/10.1109/JPROC.2017. 2761740",
+    "metadata": {
+      "page": 25,
+      "section": "References",
+      "bbox": [
+        105.052,
+        236.54501464843747,
+        470.686,
+        269.2510146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_60",
+    "type": "paragraph",
+    "content": "Haensch, W., Gokmen, T., Puri, R.: The next generation of deep learning hardware: Analog computing. Proceedings of the IEEE 107 (2019) https://doi.org/ 10.1109/JPROC.2018.2871057",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        732.3240146484375,
+        495.203,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_61",
+    "type": "paragraph",
+    "content": "Sebastian, A., Le Gallo, M., Khaddam-Aljameh, R., Eleftheriou, E.: Memory devices and applications for in-memory computing (2020). https://doi.org/10. 1038/s41565-020-0655-z",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        686.3620146484375,
+        495.21,
+        719.0680146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_62",
+    "type": "paragraph",
+    "content": "Mutlu, O., Ghose, S., G´ omez-Luna, J., Ausavarungnirun, R.: Processing data where it makes sense: Enabling in-memory computation. Microprocessors and Microsystems 67 (2019) https://doi.org/10.1016/j.micpro.2019.01.009",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        640.3910146484375,
+        495.207,
+        673.1050146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_63",
+    "type": "paragraph",
+    "content": "Tsai, H., Narayanan, P., Jain, S., Ambrogio, S., Hosokawa, K., Ishii, M., MacKin, C., Chen, C.T., Okazaki, A., Nomura, A., Boybat, I., Muralidhar, R., Frank, M.M., Yasuda, T., Friz, A., Kohda, Y., Chen, A., Fasoli, A., Rasch, M.J., Wozniak, S., Luquin, J., Narayanan, V., Burr, G.W.: Architectures and circuits for analog-memory-based hardware accelerators for deep neural networks (invited). In: Proceedings - IEEE International Symposium on Circuits and Systems, vol. 2023-May (2023). https://doi.org/10.1109/ISCAS46773.2023.10181650",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        546.4360146484375,
+        495.209,
+        627.1420146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_64",
+    "type": "paragraph",
+    "content": "Burr, G.W., Shelby, R.M., Sebastian, A., Kim, S., Kim, S., Sidler, S., Virwani, K., Ishii, M., Narayanan, P., Fumarola, A., Sanches, L.L., Boybat, I., Le Gallo, M., Moon, K., Woo, J., Hwang, H., Leblebici, Y.: Neuromorphic computing using non-volatile memory (2017). https://doi.org/10.1080/23746149.2016.1259585",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        488.4740146484375,
+        495.209,
+        533.1800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_65",
+    "type": "paragraph",
+    "content": "Wan, W., Kubendran, R., Schaefer, C., Eryilmaz, S.B., Zhang, W., Wu, D., Deiss, S., Raina, P., Qian, H., Gao, B., Joshi, S., Wu, H., Wong, H.-S.P., Cauwenberghs, G.: A compute-in-memory chip based on resistive random-access memory. Nature 608 (7923), 504-512 (2022) https://doi.org/10.1038/s41586-022-04992-8",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        129.576,
+        430.5030146484375,
+        495.209,
+        475.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_66",
+    "type": "paragraph",
+    "content": "Yao, P., Wu, H., Gao, B., Tang, J., Zhang, Q., Zhang, W., Yang, J.J., Qian, H.: Fully hardware-implemented memristor convolutional neural network. Nature 577 (2020) https://doi.org/10.1038/s41586-020-1942-4",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        124.595,
+        384.54001464843753,
+        495.209,
+        417.25401464843753
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_67",
+    "type": "paragraph",
+    "content": "Ambrogio, S., Narayanan, P., Okazaki, A., Fasoli, A., Mackin, C., Hosokawa, K., Nomura, A., Yasuda, T., Chen, A., Friz, A., Ishii, M., Luquin, J., Kohda, Y., Saulnier, N., Brew, K., Choi, S., Ok, I., Philip, T., Chan, V., Silvestre, C., Ahsan, I., Narayanan, V., Tsai, H., Burr, G.W.: An analog-ai chip for energy-efficient speech recognition and transcription. Nature 620 (2023) https://doi.org/10.1038/ s41586-023-06337-5",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        124.595,
+        302.5860146484375,
+        495.208,
+        371.2920146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_68",
+    "type": "paragraph",
+    "content": "Le Gallo, M., Khaddam-Aljameh, R., Stanisavljevic, M., Vasilopoulos, A., Kersting, B., Dazzi, M., Karunaratne, G., Br¨ andli, M., Singh, A., M¨ uller, S.M., B¨ uchel, J., Timoneda, X., Joshi, V., Rasch, M.J., Egger, U., Garofalo, A., Petropoulos, A., Antonakopoulos, T., Brew, K., Choi, S., Ok, I., Philip, T., Chan, V., Silvestre, C., Ahsan, I., Saulnier, N., Narayanan, V., Francese, P.A., Eleftheriou, E.,",
+    "metadata": {
+      "page": 26,
+      "section": "References",
+      "bbox": [
+        124.595,
+        232.62301464843745,
+        495.205,
+        289.3290146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_69",
+    "type": "paragraph",
+    "content": "Sebastian, A.: A 64-core mixed-signal in-memory compute chip based on phasechange memory for deep neural network inference. Nature Electronics 6 (2023) https://doi.org/10.1038/s41928-023-01010-1",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        120.55,
+        732.3240146484375,
+        470.681,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_70",
+    "type": "paragraph",
+    "content": "Gemini: A Family of Highly Capable Multimodal Models (2024). https://arxiv. org/abs/2312.11805",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        698.3620146484375,
+        470.678,
+        719.0680146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_71",
+    "type": "paragraph",
+    "content": "Woo, J., Yu, S.: Resistive memory-based analog synapse: The pursuit for linear and symmetric weight update. IEEE Nanotechnology Magazine 12 (2018) https: //doi.org/10.1109/MNANO.2018.2844902",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        652.3990146484375,
+        470.679,
+        685.1050146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_72",
+    "type": "paragraph",
+    "content": "Yin, S., Sun, X., Yu, S., Seo, J.S.: High-throughput in-memory computing for binary deep neural networks with monolithically integrated rram and 90-nm cmos. IEEE Transactions on Electron Devices 67 (2020) https://doi.org/10.1109/TED. 2020.3015178",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        594.4360146484375,
+        470.686,
+        639.1420146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_73",
+    "type": "paragraph",
+    "content": "Zahoor, F., Zulkifli, T.Z.A., Khanday, F.A.: Resistive Random Access Memory (RRAM): an Overview of Materials, Switching Mechanism, Performance, Multilevel Cell (mlc) Storage, Modeling, and Applications (2020). https://doi.org/10. 1186/s11671-020-03299-9",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        536.4740146484376,
+        470.682,
+        581.1800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_74",
+    "type": "paragraph",
+    "content": "Tang, J., Bishop, D., Kim, S., Copel, M., Gokmen, T., Todorov, T., Shin, S., Lee, K.T., Solomon, P., Chan, K., Haensch, W., Rozen, J.: Ecram as scalable synaptic cell for high-speed, low-power neuromorphic computing. In: Technical Digest International Electron Devices Meeting, IEDM, vol. 2018-December (2019). https: //doi.org/10.1109/IEDM.2018.8614551",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        466.51101464843754,
+        470.682,
+        523.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_75",
+    "type": "paragraph",
+    "content": "Li, Y., Kim, S., Sun, X., Solomon, P., Gokmen, T., Tsai, H., Koswatta, S., Ren, Z., Mo, R., Yeh, C.C., Haensch, W., Leobandung, E.: Capacitor-based cross-point array for analog neural network with record symmetry and linearity. In: Digest of Technical Papers - Symposium on VLSI Technology, vol. 2018-June (2018). https://doi.org/10.1109/VLSIT.2018.8510648",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        396.5480146484375,
+        470.685,
+        453.25401464843753
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_76",
+    "type": "paragraph",
+    "content": "Ielmini, D.: Resistive switching memories based on metal oxides: Mechanisms, reliability and scaling (2016). https://doi.org/10.1088/0268-1242/31/6/063002",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        362.5860146484375,
+        470.679,
+        383.2920146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_77",
+    "type": "paragraph",
+    "content": "Gokmen, T., Vlasov, Y.: Acceleration of deep neural network training with resistive cross-point devices: Design considerations. Frontiers in Neuroscience 10 (2016) https://doi.org/10.3389/fnins.2016.00333",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        316.62301464843745,
+        470.681,
+        349.3290146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_78",
+    "type": "paragraph",
+    "content": "Gokmen, T., Haensch, W.: Algorithm for training neural networks on resistive device arrays. Frontiers in Neuroscience 14 (2020) https://doi.org/10.3389/fnins. 2020.00103",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        270.66101464843746,
+        470.677,
+        303.3670146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_79",
+    "type": "paragraph",
+    "content": "Gong, N., Rasch, M.J., Seo, S.C., Gasasira, A., Solomon, P., Bragaglia, V., Consiglio, S., Higuchi, H., Park, C., Brew, K., Jamison, P., Catano, C., Saraf, I., Athena, F.F., Silvestre, C., Liu, X., Khan, B., Jain, N., McDermott, S., Johnson,",
+    "metadata": {
+      "page": 27,
+      "section": "References",
+      "bbox": [
+        100.071,
+        224.6980146484375,
+        470.686,
+        257.4040146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_80",
+    "type": "paragraph",
+    "content": "R., Estrada-Raygoza, I., Li, J., Gokmen, T., Li, N., Pujari, R., Carta, F., Miyazoe, H., Frank, M.M., Koty, D., Yang, Q., Clark, R., Tapily, K., Wajda, C., Mosden, A., Shearer, J., Metz, A., Teehan, S., Saulnier, N., Offrein, B.J., Tsunomura, T., Leusink, G., Narayanan, V., Ando, T.: Deep learning acceleration in 14nm cmos compatible reram array: device, material and algorithm co-optimization. In: Technical Digest - International Electron Devices Meeting, IEDM, vol. 2022-December (2022). https://doi.org/10.1109/IEDM45625.2022.10019569",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        145.073,
+        684.3240146484375,
+        495.206,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_81",
+    "type": "paragraph",
+    "content": "Rasch, M.J., Carta, F., Fagbohungbe, O., Gokmen, T.: Fast and robust analog in-memory deep neural network training. Nature Communications 15 (1), 7133 (2024) https://doi.org/10.1038/s41467-024-51221-z",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.595,
+        638.3620146484375,
+        495.201,
+        671.0680146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_82",
+    "type": "paragraph",
+    "content": "Stecconi, T., Bragaglia, V., Rasch, M.J., Carta, F., Horst, F., Falcone, D.F., Kate, S.C., Gong, N., Ando, T., Olziersky, A., Offrein, B.: Analog resistive switching devices for training deep neural networks with the novel tiki-taka algorithm. Nano Letters 24 (2024) https://doi.org/10.1021/acs.nanolett.3c03697",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        580.3910146484375,
+        495.209,
+        625.1050146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_83",
+    "type": "paragraph",
+    "content": "Lombardo, D.G.F., Ram, M.S., Stecconi, T., Choi, W., La Porta, A., Falcone, D.F., Offrein, B., Bragaglia, V.: Read noise analysis in analog conductive-metaloxide/hfox reram devices. In: 2024 Device Research Conference (DRC), pp. 1-2 (2024). https://doi.org/10.1109/DRC61706.2024.10643760",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        522.4360146484375,
+        495.207,
+        567.1420146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_84",
+    "type": "paragraph",
+    "content": "Falcone, D.F., Menzel, S., Stecconi, T., Galetta, M., La Porta, A., Offrein, B.J., Bragaglia, V.: Analytical modelling of the transport in analog filamentary conductive-metal-oxide/hfox reram devices. Nanoscale Horiz. 9 , 775-784 (2024) https://doi.org/10.1039/D4NH00072B",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        464.4740146484375,
+        495.206,
+        509.1800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_85",
+    "type": "paragraph",
+    "content": "Padovani, A., Larcher, L., Pirrotta, O., Vandelli, L., Bersuker, G.: Microscopic modeling of hfox rram operations: From forming to switching. IEEE Transactions on Electron Devices 62 (2015) https://doi.org/10.1109/TED.2015.2418114",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        418.5030146484375,
+        495.207,
+        451.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_86",
+    "type": "paragraph",
+    "content": "Kr¨ oger, F.A., Vink, H.J.: Relations between the concentrations of imperfections in solids. Journal of Physics and Chemistry of Solids 5 (1958) https://doi.org/ 10.1016/0022-3697(58)90069-6",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        372.5480146484375,
+        495.209,
+        405.25401464843753
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_87",
+    "type": "paragraph",
+    "content": "Padovani, A., Larcher, L., Padovani, P., Cagli, C., Salvo, B.D.: Understanding the role of the ti metal electrode on the forming of hfo 2-based rrams. 2012 4th IEEE International Memory Workshop, IMW 2012, 1-4 (2012) https://doi.org/ 10.1109/IMW.2012.6213667",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        314.5860146484375,
+        495.209,
+        359.2920146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_88",
+    "type": "paragraph",
+    "content": "Padovani, A., Larcher, L., Bersuker, G., Pavan, P.: Charge transport and degradation in hfo2 and hfox dielectrics. IEEE Electron Device Letters 34 , 680-82 (2013) https://doi.org/10.1109/LED.2013.2251602",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        268.62301464843745,
+        495.202,
+        301.3290146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_89",
+    "type": "paragraph",
+    "content": "Falcone, D.F., Menzel, S., Stecconi, T., La Porta, A., Carraria-Martinotti, L., Offrein, B.J., Bragaglia, V.: Physical modeling and design rules of analog",
+    "metadata": {
+      "page": 28,
+      "section": "References",
+      "bbox": [
+        124.594,
+        234.66101464843746,
+        495.209,
+        255.36701464843748
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_90",
+    "type": "paragraph",
+    "content": "conductive metal oxide-hfo2reram. In: 2023 IEEE International Memory Workshop, IMW 2023 - Proceedings (2023). https://doi.org/10.1109/IMW56887.2023. 10145936",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        120.55,
+        732.3240146484375,
+        470.685,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_91",
+    "type": "paragraph",
+    "content": "Galetta, M., Falcone, D.F., Menzel, S., La Porta, A., Stecconi, T., Choi, W., Offrein, B.J., Bragaglia, V.: Compact model of conductive-metal-oxide/hfox analog filamentary reram devices. In: 2024 IEEE European Solid-State Electronics Research Conference (ESSERC), pp. 749-752 (2024). https://doi.org/10.1109/ ESSERC62670.2024.10719489",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        662.3620146484375,
+        470.68,
+        719.0680146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_92",
+    "type": "paragraph",
+    "content": "Dittmann, R., Menzel, S., Waser, R.: Nanoionic memristive phenomena in metal oxides: the valence change mechanism. Advances in Physics 70 (2021) https: //doi.org/10.1080/00018732.2022.2084006",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        616.3990146484375,
+        470.685,
+        649.1050146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_93",
+    "type": "paragraph",
+    "content": "Joshi, V., Le Gallo, M., Haefeli, S., Boybat, I., Nandakumar, S.R., Piveteau, C., Dazzi, M., Rajendran, B., Sebastian, A., Eleftheriou, E.: Accurate deep neural network inference using computational phase-change memory. Nature Communications 11 (2020) https://doi.org/10.1038/s41467-020-16108-9",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        558.4280146484375,
+        470.684,
+        603.1420146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_94",
+    "type": "paragraph",
+    "content": "Tsai, H., Ambrogio, S., MacKin, C., Narayanan, P., Shelby, R.M., Rocki, K., Chen, A., Burr, G.W.: Inference of long-short term memory networks at softwareequivalent accuracy using 2.5m analog phase change memory devices. In: Digest of Technical Papers - Symposium on VLSI Technology, vol. 2019-June (2019). https://doi.org/10.23919/VLSIT.2019.8776519",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        488.4740146484375,
+        470.685,
+        545.1800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_95",
+    "type": "paragraph",
+    "content": "Le Gallo, M., Sebastian, A., Cherubini, G., Giefers, H., Eleftheriou, E.: Compressed sensing with approximate message passing using in-memory computing. IEEE Transactions on Electron Devices 65 (2018) https://doi.org/10.1109/TED. 2018.2865352",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        430.51101464843754,
+        470.686,
+        475.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_96",
+    "type": "paragraph",
+    "content": "Zhao, M., Wu, H., Gao, B., Zhang, Q., Wu, W., Wang, S., Xi, Y., Wu, D., Deng, N., Yu, S., Chen, H.Y., Qian, H.: Investigation of statistical retention of filamentary analog rram for neuromophic computing. In: Technical Digest - International Electron Devices Meeting, IEDM (2018). https://doi.org/10.1109/IEDM.2017. 8268522",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        360.5490146484375,
+        470.685,
+        417.2550146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_97",
+    "type": "paragraph",
+    "content": "Rasch, M.J., Moreda, D., Gokmen, T., Le Gallo, M., Carta, F., Goldberg, C., El Maghraoui, K., Sebastian, A., Narayanan, V.: A flexible and fast pytorch toolkit for simulating training and inference on analog crossbar arrays. In: 2021 IEEE 3rd International Conference on Artificial Intelligence Circuits and Systems (AICAS), pp. 1-4 (2021). https://doi.org/10.1109/AICAS51828.2021.9458494",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        290.5860146484375,
+        470.682,
+        347.2920146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_98",
+    "type": "paragraph",
+    "content": "Chen, P., Liu, F., Lin, P., Li, P., Xiao, Y., Zhang, B., Pan, G.: Open-loop analog programmable electrochemical memory array. Nature Communications 14 (2023) https://doi.org/10.1038/s41467-023-41958-4",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        244.62301464843745,
+        470.682,
+        277.3290146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_99",
+    "type": "paragraph",
+    "content": "Frascaroli, J., Brivio, S., Covi, E., Spiga, S.: Evidence of soft bound behaviour",
+    "metadata": {
+      "page": 29,
+      "section": "References",
+      "bbox": [
+        100.071,
+        222.66101464843746,
+        470.677,
+        231.36701464843748
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_100",
+    "type": "paragraph",
+    "content": "in analogue memristive devices for neuromorphic computing. Scientific Reports 8 (1), 7178 (2018) https://doi.org/10.1038/s41598-018-25376-x",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        145.073,
+        744.3160146484375,
+        495.209,
+        765.0300146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_101",
+    "type": "paragraph",
+    "content": "Abedin, M., Gong, N., Beckmann, K., Liehr, M., Saraf, I., Straten, O.V., Ando, T., Cady, N.: Material to system-level benchmarking of cmos-integrated rram with ultra-fast switching for low power on-chip learning. Scientific Reports 13 (2023) https://doi.org/10.1038/s41598-023-42214-x",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        686.3620146484375,
+        495.205,
+        731.0680146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_102",
+    "type": "paragraph",
+    "content": "Mott, N.F., Gurney, R.W.: Electronic processes in ionic crystals. Oxford at the Clarendon Press, 2 ed. (1950)",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        652.3990146484375,
+        495.202,
+        673.1050146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_103",
+    "type": "paragraph",
+    "content": "Alibart, F., Gao, L., Hoskins, B.D., Strukov, D.B.: High precision tuning of state for memristive devices by adaptable variation-tolerant algorithm. Nanotechnology 23 (2012) https://doi.org/10.1088/0957-4484/23/7/075201",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        606.4280146484375,
+        495.203,
+        639.1420146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_104",
+    "type": "paragraph",
+    "content": "Rasch, M.J., Moreda, D., Gokmen, T., Le Gallo, M., Carta, F., Goldberg, C., El Maghraoui, K., Sebastian, A., Narayanan, V.: A flexible and fast pytorch toolkit for simulating training and inference on analog crossbar arrays. In: 2021 IEEE 3rd International Conference on Artificial Intelligence Circuits and Systems (AICAS), pp. 1-4 (2021). https://doi.org/10.1109/AICAS51828.2021.9458494",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        536.4740146484376,
+        495.206,
+        593.1800146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_105",
+    "type": "paragraph",
+    "content": "Nandakumar, S.R., Boybat, I., Joshi, V., Piveteau, C., Le Gallo, M., Rajendran, B., Sebastian, A., Eleftheriou, E.: Phase-change memory models for deep learning training and inference. In: 2019 26th IEEE International Conference on Electronics, Circuits and Systems (ICECS), pp. 727-730 (2019). https://doi.org/10.1109/ ICECS46596.2019.8964852",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        466.51101464843754,
+        495.21,
+        523.2170146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_106",
+    "type": "paragraph",
+    "content": "Supplementary information. This manuscript is supported by additional supplementary information provided in a separate document.",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        437.2820146484375,
+        495.208,
+        458.0180146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_107",
+    "type": "paragraph",
+    "content": "Acknowledgements. The authors acknowledge the Binnig and Rohrer Nanotechnology Center (BRNC) at IBM Research Europe Zurich. Special thanks go to Jean-Michel Portal, Eloi Muhr and Dominique Drouin for their contributions to the design of the NMOS transistors used in this work. The authors also extend their gratitude to Stephan Menzel for the fruitful discussions and to Ralph Heller for his assistance in wire-bonding the chip. This work is funded by SNSF ALMOND (grantID: 198612), by the European Union and Swiss state secretariat SERI within the H2020 MeM-Scales (grantID: 871371), MANIC (grantID: 861153), PHASTRAC (grantID: 101092096) and CHIST-ERA UNICO (20CH21-186952) projects.",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        324.0530146484375,
+        495.209,
+        428.7890146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_108",
+    "type": "paragraph",
+    "content": "Author contributions. Conceptualization: D. F. F. and V. B.; hardware fabrication: D. F. F. and L. B. L.; electrical characterization: D. F. F, W. C., T. S., F. H., physical simulations: D. F. F.; inference and training simulations: V. C., D. F. F.; NMOS transistor design : N. G., F. A.; result interpretation: D. F. F., V. C., W. C., V. B., M. G., A. L. P. and B. J. O., supervision: V. B. and B. J. O.; manuscript writing: D. F. F., V. C.; data curation: D. F. F., V. C. and V. B.; manuscript review and editing: all authors; funding acquisition: B. J. O. and V. B.",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        234.82401464843747,
+        495.208,
+        315.5600146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_109",
+    "type": "paragraph",
+    "content": "Competing interests. The authors declare no competing interests.",
+    "metadata": {
+      "page": 30,
+      "section": "References",
+      "bbox": [
+        124.595,
+        217.5870146484375,
+        430.93,
+        226.33101464843753
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_110",
+    "type": "paragraph",
+    "content": "Data availability. The data that support the plots within this paper and other findings of this study are available from the corresponding authors upon reasonable request.",
+    "metadata": {
+      "page": 31,
+      "section": "References",
+      "bbox": [
+        100.071,
+        732.3240146484375,
+        470.677,
+        765.0600146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_111",
+    "type": "paragraph",
+    "content": "Code availability. The repositories containing the source codes used in this work for analog inference simulations and CMO/HfO x ReRAM noise model can be found at this link and this link, respectively.",
+    "metadata": {
+      "page": 31,
+      "section": "References",
+      "bbox": [
+        100.071,
+        690.3470146484375,
+        470.683,
+        723.0830146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_112",
+    "type": "paragraph",
+    "content": "Devices",
+    "metadata": {
+      "page": 31,
+      "section": "Supplementary Information",
+      "bbox": [
+        465.916,
+        438.0030146484375,
+        471.619,
+        458.62401464843754
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_113",
+    "type": "paragraph",
+    "content": "Fig. S1 : ReRAM forming modelling. The CMO/HfO x ReRAM device is simulated using a 3D FEM in COMSOL Multiphysics 5.2 software. a The bird's-eye view and b the lateral y-z view of the device's geometry and material stack are shown. Due to the temperature and electric field confinement, an effective device area of 200 × 200 nm 2 is considered for the simulation to reduce computational resource demands. c The experimental array forming data in the low-voltage linear regime (from 0 to 0 . 2 V) are fitted to extract the average filament radius. d The increase in experimental conductance resulting from a negative voltage sweep after the forming event is modelled as an effective increase in the electrical conductivity of the CMO layer, due to a radial redistribution of defects.",
+    "metadata": {
+      "page": 31,
+      "section": "Supplementary Information",
+      "bbox": [
+        100.071,
+        277.7810146484376,
+        470.686,
+        373.3150146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_fig_7",
+    "type": "figure",
+    "content": "Fig. S2 : Experimental CMO/HfO x ReRAM array forming data. a The forming voltage distribution of the 1T1R cells within the array, defined as the voltage required to trigger the highest current increase during the quasi-static voltage sweep from 0 to 3 . 6 V in Fig. 2a of the manuscript. b The array forming current distribution corresponding to V = V 1T1R forming . c The experimental resistance of the transistor in the triode region at V G = 1 . 2 V, extracted from a linear fit from 0 to 0 . 2 V of the transistor output characteristic. d The forming voltage distribution of the ReRAM array, shown in Fig. 2c of the manuscript, computed as V ReRAM forming = V 1T1R forming -R triode DS * I 1T1R forming .",
+    "metadata": {
+      "page": 32,
+      "section": "Supplementary Information",
+      "bbox": [
+        129.8369140625,
+        402.3623962402344,
+        490.5745849609375,
+        769.0727310180664
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_8.png",
+      "image_summary": "Figure panels (a) through (d) present electrical characteristics related to forming voltage/current and device resistance.\n\nPanel (a), titled \"1T1R forming voltage,\" plots the cumulative probability (%) on the y-axis versus the forming voltage \\(V_{\\text{forming}}^{1T1R}\\) in volts (V) on the x-axis, ranging from 2 to 4 V. Blue circular markers represent measured data points that show a relatively steep cumulative distribution from roughly 3.05 V to 3.6 V, with the dashed vertical line indicating the mean forming voltage of 3.38 V. The cumulative probability reaches near 100% above the mean.\n\nPanel (b), titled \"1T1R forming current,\" shows cumulative probability (%) on the y-axis against forming current \\(I_{\\text{forming}}^{1T1R}\\) in microamperes (µA) on the x-axis, ranging from 100 to 500 µA. The red circular data points form an S-shaped cumulative distribution curve between approximately 165 µA and 350 µA. The vertical dashed line marks the mean forming current at 258 µA. The data indicates a consistent current threshold for forming across devices.\n\nPanel (c), titled \"Triode resistance at \\(V_G = 1.2\\) V,\" shows the drain-to-source current \\(I_{DS}\\) in milliamperes (mA) on the y-axis (0 to 0.8 mA) versus the drain-to-source voltage \\(V_{DS}\\) in volts (0 to 4 V) on the x-axis. A black curve represents device behavior at \\(V_G=1.2\\) V, and a blue line segment at low voltage indicates the linear region corresponding to triode operation. The extracted triode resistance is \\(R_{DS}^{\\text{triode}} = 0.8 \\text{k}\\Omega\\). The data shows linear conduction at low \\(V_{DS}\\) transitioning to saturation at higher voltage.\n\nPanel (d), titled \"ReRAM forming voltage,\" plots cumulative probability (%) versus forming voltage \\(V_{\\text{forming}}^{\\text{ReRAM}}\\) in volts (2 to 4 V range). Green circular points represent the data, showing a steep cumulative distribution between approximately 3.0 V and 3.4 V. The vertical dashed line highlights the mean forming voltage at 3.17 V.\n\nMain takeaway: Panels (a), (b), and (d) provide statistical distributions of forming voltages and currents for 1T1R and ReRAM devices, with mean forming voltages near 3.2-3.4 V and forming currents around 258 µA for 1T1R. Panel (c) characterizes the triode resistance of the 1T1R transistor at \\(V_G=1.2\\) V, relevant for device operation modeling. Overall, the figure quantifies forming parameters and device resistance critical for performance and reliability evaluation."
+    }
+  },
+  {
+    "id": "2502.04524_fig_8",
+    "type": "figure",
+    "content": "Fig. S3 : The experimental array's response to the voltage sweep from 0 to -1 . 5 V, following the positive forming and the initial negative voltage sweep (denoted as step (1) and (2) in Fig. 2a of the manuscript, respectively). The oxygen vacancies in the CMO layer radially spread outward, depleting the CMO defect sub-band within a half-spherical volume at the interface with the conductive filament, leading to a reset process.",
+    "metadata": {
+      "page": 33,
+      "section": "Supplementary Information",
+      "bbox": [
+        176.58181762695312,
+        591.3939971923828,
+        397.7101135253906,
+        769.3110046386719
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_9.png",
+      "image_summary": "The figure is titled \"RESET: CMO defect depletion\" and presents a semi-logarithmic plot showing the relationship between current (Current_1T1R) in amperes (A) on the y-axis and voltage (Voltage_1T1R) in volts (V) on the x-axis. The x-axis ranges from -1.5 V to 0 V, while the y-axis is logarithmic, spanning from 10^-9 A to 10^-3 A.\n\nThe data consists of multiple current-voltage (I-V) curves for different devices, indicated by a color gradient bar on the right side, ranging from 1 (dark purple) to 32 (yellow). The curves exhibit a general trend of decreasing current as voltage approaches 0 V from -1.5 V. Initially, there is a spread in the current values at more negative voltages (-1.5 V to about -1.0 V), which converges somewhat as voltage approaches 0 V.\n\nTwo key regions of interest are highlighted by circles with arrows pointing to them. These regions correspond to distinct behaviors in the I-V characteristics, with the upper region showing higher current and the lower region showing reduced current at specific voltages.\n\nInset illustrations below the plot depict schematic diagrams of the device structure, focusing on the CMO (cobalt manganese oxide) defect depletion in the HfO_x layer sandwiched between TiN electrodes. The left inset shows a state with fewer defects (represented by empty circles clustered near the CMO), while the right inset shows more defects randomly distributed, implying a depletion or redistribution effect in the CMO layer during the RESET operation.\n\nMain takeaway:\nThe figure demonstrates how the RESET process impacts the defect distribution within the CMO layer, influencing the electrical behavior of the device. The depletion or rearrangement of defects leads to notable changes in current levels during voltage sweeps, with clear separation in I-V characteristics across multiple devices. This insight is critical for understanding the mechanisms behind device resistive switching and reliability."
+    }
+  },
+  {
+    "id": "2502.04524_fig_9",
+    "type": "figure",
+    "content": "Fig. S4 : The voltage-dependent evolution of a the average temperature and b electric field within a 3D half-spherical volume of the CMO layer situated atop the conductive filament in both HRS and LRS is presented. These trends serve as inputs for equation (6) of the manuscript.",
+    "metadata": {
+      "page": 33,
+      "section": "Supplementary Information",
+      "bbox": [
+        103.86750030517578,
+        308.397216796875,
+        464.9070129394531,
+        487.8272399902344
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_10.png",
+      "image_summary": "Figure panels (a) and (b) present the average temperature and electric field, respectively, in the CMO layer as functions of voltage, comparing the two states: Low Resistance State (LRS) shown in red and High Resistance State (HRS) shown in blue. \n\nPanel (a) plots average temperature in Kelvin (K) on the y-axis against voltage in Volts (V) on the x-axis, spanning from -1.0 V to 0.9 V. The temperature in the LRS sharply decreases from 500 K at -1.0 V to approximately 293 K at 0 V, then remains stable at around 293 K. Conversely, in the HRS, temperature stays near 293 K across 0 to about 0.7 V, then increases steadily to roughly 350 K as voltage approaches 0.9 V.\n\nPanel (b) shows the electric field in the CMO layer on a logarithmic scale (y-axis, from just below 10^6 to above 10^8 V/m) versus the same voltage range on the x-axis as panel (a). The LRS electric field decreases exponentially from near 10^8 V/m at -1.0 V to zero at 0 V. In contrast, the HRS electric field increases steeply from zero at 0 V to almost 10^8 V/m by 0.9 V.\n\nKey trends indicate that in the LRS, both temperature and electric field significantly decrease toward zero as the voltage approaches 0 V from the negative side. In the HRS, these parameters are near zero at 0 V but increase sharply with positive voltage. This behavior suggests a state-dependent response of the CMO layer: the LRS corresponds to high temperature and electric field under negative voltage, while the HRS shows these magnitudes rising under positive voltage.\n\nThe main takeaway is the complementary and voltage-polarity-dependent variation of temperature and electric field between the LRS and HRS, reflecting distinct physical conditions or conduction mechanisms in the CMO layer under different resistance states."
+    }
+  },
+  {
+    "id": "2502.04524_fig_10",
+    "type": "figure",
+    "content": "Fig. S5 : a The experimental cumulative distribution of conductance values for 35 representative programmed levels using 2% of G target as acceptance range. The closed-loop scheme based on identical pulses shown in Fig. 3b of the manuscript and detailed in Methods is used. b Flowchart illustrating the identical-pulse closed-loop technique used for programming the ReRAM array into target analog conductance range.",
+    "metadata": {
+      "page": 34,
+      "section": "Supplementary Information",
+      "bbox": [
+        126.33240509033203,
+        617.5615539550781,
+        493.83978271484375,
+        769.5528564453125
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_11.png",
+      "image_summary": "Figure 3 consists of two panels, (a) and (b), each illustrating different aspects of the CMO-HfOx ReRAM device programming and control methodology.\n\nPanel (a) is a scatter plot showing the evolution of device states during programming. The x-axis represents the Target Conductance (G_target) in microsiemens (µS), ranging from 10 to 90 µS. The y-axis represents the Cumulative Distribution Function (CDF), spanning from 0.0 to 1.0, presumably indicating the probability distribution of device states for each target conductance. The individual data points are color-coded according to the computed number of States, according to the color bar on the right, which ranges from 1 to 35 states. The color transitions from blue for lower numbers of states to red for higher numbers of states. A horizontal band labeled “Acceptance Range: 2% G_target” is centered on each target conductance value, indicating the tolerance range within which conductance states are considered acceptable or successful during programming. Key trends show that as Target Conductance increases from 10 to 90 µS, the number of achievable states generally increases, moving from blue to deep red colors. This implies more precision or distinguishable states at higher conductance values. The distribution of points appears clustered and evenly spaced across the CDF values for each target conductance, indicating consistent programming behavior across the device population.\n\nPanel (b) is a flowchart depicting the closed-loop control scheme for programming conductance states. The process begins with calculating the acceptance range (AR) based on the target conductance G_target. Depending on the G_target range, the applied set (V_set) and reset (V_reset) voltages vary, defined for three conductance intervals: \n- 10–30 µS with V_set = 1.35 V and V_reset = -1.5 V \n- 30–60 µS with V_set = 1.35 V and V_reset = -1.3 V \n- 60–90 µS with V_set = 1.5 V and V_reset = -1.3 V.\n\nThe central decision diamond is “Measure G” (measure the actual conductance), and the subsequent action depends on this measurement:\n- If conductance G is below the target minus the acceptance range (G < G_target - AR), apply a SET pulse at V_set (red box).\n- If conductance G exceeds the target plus the acceptance range (G > G_target + AR), apply a RESET pulse at V_reset (blue box).\n- If conductance G is within the acceptance range (G_target ± AR), write succeeds (green box) and the loop terminates.\n\nThe main takeaway from these panels is the illustration of a precise and adaptive programming strategy for CMO-HfOx ReRAM devices that achieves fine-grained, multilevel conductance states with a controlled tolerance window. Panel (a) demonstrates the device can reliably attain up to 35 distinct states across a wide conductance range, while panel (b) details the dynamic, closed-loop voltage control scheme that enables this precision by iteratively adjusting programming pulses based on feedback conductance measurements."
+    }
+  },
+  {
+    "id": "2502.04524_fig_11",
+    "type": "figure",
+    "content": "Fig. S6 : The individual impact of IR-drop across array wires and input/output bit quantization on MVM accuracy. a Simulated RMSE compared to FP ideal results using 64x64 analog CMO/HfOx ReRAM array, shown as a function of the time after programming. Dashed horizontal lines represent the RMSE during programming, considering programming noise (with 0.2% G target as the acceptance range) but excluding relaxation effects. With 32bit input/output quantization and no IR-drop (orange dots), an RMSE as low as 6 10 -3 is achieved during programming, which immediately increases (see the arrow) after relaxation (within 1 s). Including the realistic IR-drop results in an overall RMSE increase (blue squares). Finally, reducing input/output quantization to 6/8 bits, respectively, leads to a further accuracy loss (green crosses), demonstrating that at short timescales (within 1 hour), the main analog MVM accuracy bottleneck is the reduced input/output quantization. After 1 hour, all cases converge, showing that the accuracy bottleneck is then dominated by the relaxation process. b By scaling up to a 512x512 array size (grey diamonds) and considering input/output quantization of 6/8 bits, IR-drop emerges as the primary bottleneck for analog MVM accuracy.",
+    "metadata": {
+      "page": 35,
+      "section": "Supplementary Information",
+      "bbox": [
+        101.09706115722656,
+        613.4287719726562,
+        468.3460388183594,
+        769.5665512084961
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_12.png",
+      "image_summary": "The figure consists of two subplots (a and b), each plotting RMSE (root mean square error) on a logarithmic scale versus the logarithm of time (in seconds) on the x-axis. Both panels use a log-log scale, with RMSE values ranging from approximately 10^-2 to 10^0 and time spanning from less than 1 second to about 10^20 seconds (annotated as 10y, presumably indicating 10 years).\n\n### Panel (a): \"64x64: I/O quantization and IR drop\"\n- **X-axis:** Log(Time[s]) from near 0 to ~20 (10^20 seconds).\n- **Y-axis:** RMSE ranging from 10^-2 to 10^0.\n- **Data series:**\n  - Green crosses represent \"64x64: IRdrop, 6/8bit I/O (Manuscript)\"\n  - Blue squares represent \"64x64: IRdrop, 32/32bit I/O\"\n  - Orange circles represent \"64x64: NO_IRdrop, 32/32bit I/O\"\n- **Key trends:**\n  - For very short times (~0 to 10^1 s), RMSE values for all three series are around or below 10^-1.\n  - The orange \"NO_IRdrop, 32/32bit I/O\" shows the lowest RMSE at initial times, approximately in the 10^-2 range.\n  - The blue \"IRdrop, 32/32bit I/O\" series shows slightly worse performance than orange but better than green in initial RMSE.\n  - The green \"IRdrop, 6/8bit I/O\" from the manuscript has higher RMSE at early times (~3x10^-2, a horizontal dashed green line annotated \"Prog.\" is shown).\n  - All series show increasing RMSE over time, reaching approximately 0.2 (10^-1) for short times and spiking at 10^20 s (annotated \"10y\") with RMSE close to 1 for the orange and blue series.\n  - The manuscript’s green series remains relatively flat across time and is lower than the other IRdrop 6/8bit I/O data point at 10^20 s.\n  \n### Panel (b): \"Scaling up to 512x512\"\n- **X-axis and Y-axis:** same as panel (a).\n- **Data series:**\n  - Gray diamonds represent \"512x512: IRdrop, 6/8bit I/O\"\n  - Green crosses (same as panel a) represent \"64x64: IRdrop, 6/8bit I/O (Manuscript)\"\n- **Key trends:**\n  - The green crosses are relatively stable with RMSE less than 10^-1, consistent with panel (a).\n  - The gray diamonds show higher RMSE values, near 10^-1 for early times and approaching 1 at 10^20 s (10 years), exceeding the green one.\n  - Dashed horizontal lines labeled \"Prog.\" correspond to RMSE levels for each series.\n  \n### Main Takeaway:\nThe figure demonstrates the impact of I/O bit precision and IR drop on RMSE performance over time for 64x64 and 512x512 array scales. Panel (a) shows that the manuscript's implementation (64x64 array, IR drop, 6/8-bit I/O) achieves lower RMSE compared to 32/32-bit I/O implementations both with and without IR drop, especially at longer timescales. Panel (b) highlights that scaling to a larger 512x512 array with IR drop significantly increases RMSE, whereas the smaller 64x64 manuscript implementation maintains relatively low RMSE over extended periods. This suggests the 64x64 implementation is more robust against IR drop effects and quantization errors across extended operating times."
+    }
+  },
+  {
+    "id": "2502.04524_fig_12",
+    "type": "figure",
+    "content": "Fig. S7 : The experimental response of the 8x4 CMO/HfO x ReRAM devices within the array to the open-loop programming pulse scheme (shown in Fig. 5b of the manuscript) is shown. The set and reset pulse amplitudes are 1 . 35 V ( V G = 1 . 4 V) and -1 . 3 V ( V G = 3 . 3 V), respectively, with a constant width of 2.5 µ s due to setup limitations.",
+    "metadata": {
+      "page": 36,
+      "section": "Supplementary Information",
+      "bbox": [
+        122.83016967773438,
+        270.14227294921875,
+        496.1678466796875,
+        768.4717636108398
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_13.png",
+      "image_summary": "The figure presents a grid of 30 subplots showing \"Open-loop pulsed programming of the CMO-HfOx ReRAM array.\" Each subplot depicts the evolution of Conductance (in microsiemens, µS) as a function of Pulse Number, ranging from 0 to approximately 2100 pulses. \n\nAxes and Units:\n- The x-axis of each subplot is labeled \"Pulse Number,\" ranging from 0 to around 2100.\n- The y-axis is labeled \"Conductance [µS]\" and spans from 10 to just above 100 µS on a logarithmic scale.\n- Horizontal dashed lines present in each subplot represent three conductance reference levels: G_min (blue dashed line around the lower conductance boundary), G_max (red dashed line near the upper conductance limit), and G_sp (yellow dashed line somewhere mid-range between G_min and G_max).\n\nKey Trends:\n- Each subplot shows a similar pattern of conductance switching with pulsing. In early pulses (0 to about 700-900), conductance varies significantly, showing distinct drops from high conductance (~100 µS, near G_max) to low conductance (~10 µS, near G_min) and vice versa.\n- This switching behavior seems to happen in two cycles, where conductance goes down sharply, then returns to a high state, followed by another similar dip before stabilizing.\n- After around pulse number 1600, conductance values stabilize near the G_sp level for all devices.\n- The data points representing actual measurements cluster around the reference conductance values, with higher density near G_min and G_max during the switching phases.\n\nComparisons:\n- Across all 30 subplots, the switching pattern and conductance ranges remain consistent, with conductance cycling twice before settling.\n- Some minor variations exist in the sharpness and uniformity of switching transitions, but the overall trends are uniform.\n- The subplots appear to represent individual ReRAM cells or locations within the array, showing repeatable pulsed programming behavior.\n\nAnomalies:\n- There are no evident outliers or anomalous curves deviating strongly from the common switching pattern.\n- Some subplots show slight fluctuations after stabilization at G_sp, but these appear to be minor noise or variation in the programming process.\n\nMain Takeaway:\nThe figure demonstrates repeatable open-loop pulsed programming of a CMO-HfOx ReRAM array, where each cell exhibits stable switching between conductance states G_min and G_max over two cycles before settling at an intermediate conductance G_sp. This consistent behavior across all cells indicates reliable and uniform device operation under the applied pulsing protocol. The logarithmic scale highlights the large dynamic range of conductance modulation achievable with pulsed programming."
+    }
+  },
+  {
+    "id": "2502.04524_fig_13",
+    "type": "figure",
+    "content": "Fig. S8 : The experimental open-loop pulsed response of a representative CMO/HfO x ReRAM device within the array shows that the potentiation and depression characteristics do not inherently saturate at the upper and lower boundaries. The generalized soft bounds model (yellow line) better captures this experimental trend compared to the saturated soft bounds model (black line).",
+    "metadata": {
+      "page": 37,
+      "section": "Supplementary Information",
+      "bbox": [
+        105.66889190673828,
+        583.7562255859375,
+        463.23529052734375,
+        769.1697006225586
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_14.png",
+      "image_summary": "The figure titled \"Generalized SBM vs SBM\" presents a comparison between experimental data and two modeling approaches—Generalized Stochastic Block Model (Gen SBM) and Stochastic Block Model (SBM)—as a function of pulse number. The x-axis represents the \"Pulse Number\" ranging from 0 to approximately 2100, while the y-axis measures \"Normalized G,\" with values spanning roughly from -1.5 to 1.5.\n\nThe experimental data are represented by circular markers, with red circles corresponding to positive normalized G values (above 0) and blue circles corresponding to negative normalized G values (below 0), indicating the measured response varying with pulse number. The Gen SBM model is depicted by a yellow line and the SBM model by a black line.\n\nKey trends in the data reveal two full cycles of response changes between positive (~1) and negative (~-1) normalized G values, followed by a plateau around zero after approximately pulse number 1700. Both models (yellow and black lines) closely follow the general shape of the data but differ subtly in the transition regions.\n\nSpecifically, during the rising and falling edges transitioning from positive to negative and vice versa, the Gen SBM curve (yellow) shows a smoother, more gradual transition compared to the sharper steps of the SBM (black) curve which exhibits more abrupt changes. The experimental data exhibit noise or scatter around the model curves, especially in the negative normalized G region where the data points spread notably below -1 at times, which may represent an anomaly or experimental variability not fully captured by either model.\n\nThe main takeaway from the figure is that both the SBM and Gen SBM models capture the overall dynamic behavior of normalized G as a function of pulse number, including the step-like transitions between states. However, the Generalized SBM provides a more nuanced, smoother fit to the experimental data, particularly in the transition zones. This suggests that the Gen SBM better accounts for gradual changes and variation observed experimentally, potentially offering a more accurate or physically realistic model for the system under study."
+    }
+  },
+  {
+    "id": "2502.04524_fig_14",
+    "type": "figure",
+    "content": "Fig. S9 : Multi-variate Gaussian distributions to reproduce the experimental inter-device variability. a Multi-variate gaussian G1 distribution of the experimental number of states and device asymmetry ( up down ). b Gaussian G2 distribution of the analytical parameters γ and γ up down extracted from the generalized soft bounds model fitting to the experimental traces.",
+    "metadata": {
+      "page": 37,
+      "section": "Supplementary Information",
+      "bbox": [
+        104.607666015625,
+        311.036376953125,
+        465.8343505859375,
+        474.692626953125
+      ],
+      "image_path": "data/rag_assets/images/2502.04524/figure/figure_15.png",
+      "image_summary": "The figure consists of two scatter plots labeled as panels (a) and (b), each comparing experimental array data (\"Exp. array data,\" black circles) with generated data from a stochastic block model (\"Gen. SBM,\" yellow diamonds).\n\nPanel (a), titled \\(G_1\\), displays the relationship between the number of states \\(N_{\\text{states}}\\) on the horizontal axis and the \"up_down\" metric on the vertical axis. The \\(N_{\\text{states}}\\) axis is logarithmic and ranges approximately from just below 10 to 100, while the \"up_down\" axis ranges linearly from -1.0 to 1.0. Both experimental and generated data cluster around the same region: \\(N_{\\text{states}}\\) roughly between 10 and 40, and \"up_down\" values mainly between -0.5 and 0.25. The generated data shows a dense cloud closely overlapping with the experimental points, indicating general agreement in both the range and distribution. A slight asymmetry is seen in the \"up_down\" values, more often negative or near zero.\n\nPanel (b), titled \\(G_2\\), plots the parameter \\(\\gamma\\) on the horizontal axis against \\(\\gamma_{\\text{up_down}}\\) on the vertical axis. \\(\\gamma\\) ranges from 0 to 3, and \\(\\gamma_{\\text{up_down}}\\) ranges from -0.75 to 0.75. Experimental data points cluster around a narrow \\(\\gamma\\) range of approximately 1.0 to 1.8 and \\(\\gamma_{\\text{up_down}}\\) values close to zero or mildly positive. The generated SBM data form a larger, more diffuse cluster spreading from \\(\\gamma \\approx 0.5\\) to 3 with a centroid near the experimental cluster but with additional tails at higher and lower \\(\\gamma\\). Both distributions show negative correlation between \\(\\gamma\\) and \\(\\gamma_{\\text{up_down}}\\), more pronounced in generated data but present in experiments as well.\n\nThe main takeaway is that the generated SBM data effectively capture the central tendencies and distribution patterns of the experimental array data for both \\(G_1\\) and \\(G_2\\), with some increased spread in the synthetic data. This suggests that the stochastic block model reproduces key structural and dynamical properties observed in the experimental datasets, evident in the consistency between \"up_down\" metrics and the parameters \\(N_{\\text{states}}\\) and \\(\\gamma\\). No major outliers or anomalies are apparent, reinforcing the validity of the generative model in approximating the experimental network characteristics."
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_114",
+    "type": "paragraph",
+    "content": "The up down parameter is defined for the generalized soft bounds model in the simulation environment of the 'aihwkit' as the directional bias between the up and down update size (∆ G + and ∆ G -). In addition, the minimum step in each direction d is described by the following expression [44].",
+    "metadata": {
+      "page": 38,
+      "section": "up down parameter",
+      "bbox": [
+        124.595,
+        683.3690146484375,
+        495.207,
+        728.0750146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_7",
+    "type": "equation",
+    "content": "∆ G d = ∆ G SP (1 + dβ + σ d -to -d ) (7)",
+    "metadata": {
+      "page": 38,
+      "section": "up down parameter",
+      "bbox": [
+        237.687,
+        658.4910146484375,
+        495.206,
+        670.1930146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_115",
+    "type": "paragraph",
+    "content": "where d is -1 or 1 depending on the update direction. In contrast, the symmetry point is defined for each device as follows [23]:",
+    "metadata": {
+      "page": 38,
+      "section": "up down parameter",
+      "bbox": [
+        124.594,
+        623.4590146484375,
+        495.2,
+        644.1650146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_equation_8",
+    "type": "equation",
+    "content": "SP = [∆ G + -∆ G -] / [∆ G + / ( b max -∆ G + /b min )] (8)",
+    "metadata": {
+      "page": 38,
+      "section": "up down parameter",
+      "bbox": [
+        202.689,
+        598.5800146484376,
+        495.205,
+        610.2820146484376
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_116",
+    "type": "paragraph",
+    "content": "Where ∆ G + , ∆ G -define the minimum step size in the up and down direction respectively, and b max and b min represent the upper and lower bounds of the conductance. Therefore, considering an independent definition of each device (i.e. zero d-to-d variability) and a normalized conductance range between -1 and 1, the symmetry point device-level characteristic and the up down analytical parameter are equivalent.",
+    "metadata": {
+      "page": 38,
+      "section": "up down parameter",
+      "bbox": [
+        124.594,
+        527.5490146484375,
+        495.207,
+        585.8290146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_117",
+    "type": "paragraph",
+    "content": "For result replicability, the experimental parameters are incorporated into the simulation environment, where the Noise-to-Signal Ratio (NSR) is represented by 'dw min std', normalized SP by 'up down', normalized maximum and minimum conductances by 'w max' and 'w min' and min conductance step by 'dw min'.",
+    "metadata": {
+      "page": 38,
+      "section": "Training setup",
+      "bbox": [
+        124.595,
+        448.6160146484375,
+        495.209,
+        493.3220146484375
+      ]
+    }
+  },
+  {
+    "id": "2502.04524_paragraph_118",
+    "type": "paragraph",
+    "content": "From this device model, analog training simulations were performed using AGAD considering a learning rate to update the weights of 1e-2, 'fast lr' of 0.1 to update matrix, 'transfer every' 3 iterations and batch size of 32. The FP baseline was obtained with SGD training using a learning rate of 1e-3 and batch size of 32.",
+    "metadata": {
+      "page": 38,
+      "section": "Training setup",
+      "bbox": [
+        124.595,
+        388.6160146484375,
+        495.207,
+        433.3220146484375
+      ]
+    }
+  }
+]
