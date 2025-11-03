@@ -10,10 +10,12 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 
 # -------------------- paths --------------------
-DATA_DIR   = Path(__file__).parent / "data"
-EMB_DIR    = DATA_DIR / "RAG_IS" / "rag_embeddings"
-INDEX_PATH = DATA_DIR / "RAG_IS" / "rag.index"
-META_PATH  = INDEX_PATH.with_suffix(".meta.pkl")  # optional; we rebuild meta from JSONL here
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+DATA_DIR   = REPO_ROOT / "data" / "RAG_IS"
+EMB_DIR    = DATA_DIR / "rag_embeddings"
+INDEX_PATH = DATA_DIR / "rag.index"
+META_PATH  = DATA_DIR / "rag.meta.pkl"
 
 
 
