@@ -58,11 +58,11 @@ data/RAG/indexes/ → FAISS indexes for text and images
 
 ### 3. `RAG_version_IS.ipynb`
 Implements an improved multimodal RAG pipeline focused on **semantic summarization over raw image embeddings**:
-- Obtains image summaries using the OpenAI API (GPT-4-Vision) to describe plots, figures, and tables in natural language.
-- Converts both text and generated image summaries into dense text embeddings using the GTE-Large SentenceTransformer model.
-- Builds a unified FAISS vector index over all textual and image-summary embeddings for efficient cosine-similarity search.
-- Defines an integrated retrieval pipeline that fetches semantically aligned text–image pairs using a single embedding space.
-- Implements a generation module that constructs the retrieved context and produces factual, source-cited answers through an LLM (Llama-3-8B).
+- Obtains image summaries using the OpenAI API to describe plots and figures.
+- Converts both text and generated image summaries into text embeddings using GTE-Large.
+- Builds and saves **FAISS** indexes for fast cosine similarity search
+- Defines a retrieval pipeline that fetches relevant chunks.
+- Implements a generation module to produce factual, source-cited answers using Llama-3 (8B).
 
 **Output directories:**
 ```
@@ -73,9 +73,8 @@ data/RAG_IS/indexes/ → FAISS indexes for text and images
 
 ### 4. `Web Deployment`
 Implements a full-stack deployment of the RAG pipeline for interactive querying:
-- Developed a production-grade FastAPI backend (served via Uvicorn) that exposes retrieval + generation endpoints, enabling real-time responses from the multimodal FAISS index.
-- Built a modern Next.js (React) frontend with streaming output, providing a chat-style interface for research-paper exploration and model explanation.
-- Deployed the complete system on Google Cloud VM, integrating model inference, retrieval, and user interface in a reproducible and scalable workflow.
+- Developed a FastAPI backend, served via Uvicorn, that exposes retrieval and generation endpoints.
+- Built a Next.js frontend with streaming output, providing a chat-style interface.
 
 
 ---
