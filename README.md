@@ -66,7 +66,7 @@ Implements an improved multimodal RAG pipeline focused on **semantic summarizati
 
 **Output directories:**
 ```
-data/RAG_chunks_image_summary/ → Stored embeddings (.json / .pkl)
+data/RAG_chunks_image_summary/ → Stored json with image summaries (.json)
 data/RAG_IS/embeddings/ → Stored embeddings (.json / .pkl)
 data/RAG_IS/indexes/ → FAISS indexes for text and images
 ```
