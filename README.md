@@ -72,7 +72,7 @@ data/RAG_IS/indexes/ → FAISS indexes for text and images
 ```
 
 ### 4. `Web Deployment`
-- Implements a full-stack deployment of the RAG pipeline for interactive querying:
+Implements a full-stack deployment of the RAG pipeline for interactive querying:
 - Developed a production-grade FastAPI backend (served via Uvicorn) that exposes retrieval + generation endpoints, enabling real-time responses from the multimodal FAISS index.
 - Built a modern Next.js (React) frontend with streaming output, providing a chat-style interface for research-paper exploration and model explanation.
 - Deployed the complete system on Google Cloud VM, integrating model inference, retrieval, and user interface in a reproducible and scalable workflow.
