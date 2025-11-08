@@ -1,6 +1,7 @@
 # rag_core.py
 import torch
 import pickle
+import time
 import numpy as np
 import faiss
 import ujson as json
@@ -131,3 +132,50 @@ def generate_answer(query: str, context: str, max_new_tokens: int = GEN_CFG["max
     )
     gen_ids = out[:, inputs["input_ids"].shape[1]:]
     return tok.decode(gen_ids[0], skip_special_tokens=True).strip()
+
+
+
+# ------------------evaluation ----------------------
+
+def rag_pipeline(
+    query: str,
+    *,
+    k: int = 10,
+    max_new_tokens: int = GEN_CFG["max_new_tokens"],
+) -> dict:
+    """
+    Run full RAG and return everything needed for evaluation.
+    """
+
+    t0 = time.perf_counter()
+    contexts = retrieve(query, k=k)
+    t1 = time.perf_counter()
+
+    ctx_str = build_context(contexts)
+    answer = generate_answer(query, ctx_str, max_new_tokens=max_new_tokens)
+    t2 = time.perf_counter()
+
+    return {
+        "answer": answer,
+        "contexts": contexts,  # list of {score, doc_id, page, type, text_for_embedding, ...}
+        "timing": {
+            "retrieval_ms": (t1 - t0) * 1000,
+            "generation_ms": (t2 - t1) * 1000,
+            "total_ms": (t2 - t0) * 1000,
+        },
+        "config": {
+            "encoder_model": "Alibaba-NLP/gte-large-en-v1.5",
+            "generator_model": MODEL_ID,
+            "retrieval_k": k,
+            "index_path": str(INDEX_PATH),
+            "embedding_dir": str(EMB_DIR),
+            "system_prompt_version": "v1",   # manual label
+            "max_new_tokens": max_new_tokens,
+            "do_sample": GEN_CFG["do_sample"],
+            "repetition_penalty": GEN_CFG["repetition_penalty"],
+            "no_repeat_ngram_size": GEN_CFG["no_repeat_ngram_size"],
+        },
+    }
+
+
+
