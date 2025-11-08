@@ -56,6 +56,27 @@ data/RAG/embeddings/ → Stored embeddings (.json / .pkl)
 data/RAG/indexes/ → FAISS indexes for text and images
 ```
 
+### 3. `RAG_version_IS.ipynb`
+Implements an improved multimodal RAG pipeline focused on **semantic summarization over raw image embeddings**:
+- Obtains image summaries using the OpenAI API to describe plots and figures.
+- Converts both text and generated image summaries into text embeddings using GTE-Large.
+- Builds and saves **FAISS** indexes for fast cosine similarity search
+- Defines a retrieval pipeline that fetches relevant chunks.
+- Implements a generation module to produce factual, source-cited answers using Llama-3 (8B).
+
+**Output directories:**
+```
+data/RAG_chunks_image_summary/ → Stored json with image summaries (.json)
+data/RAG_IS/embeddings/ → Stored embeddings (.json / .pkl)
+data/RAG_IS/indexes/ → FAISS indexes for text and images
+```
+
+### 4. `Web Deployment`
+Implements a full-stack deployment of the RAG pipeline for interactive querying:
+- Developed a FastAPI backend, served via Uvicorn, that exposes retrieval and generation endpoints.
+- Built a Next.js frontend with streaming output, providing a chat-style interface.
+
+
 ---
 
 ## Upcoming Work

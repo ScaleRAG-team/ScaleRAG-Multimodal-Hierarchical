@@ -1,0 +1,1470 @@
+[
+  {
+    "id": "2303.11313_fig_1",
+    "type": "figure",
+    "content": "Figure 1: Overview of our proposed framework CLIP goes 3D (CG3D). We introduce a 3D Encoder in the CLIP framework and pre-train it using natural language supervision while also leveraging CLIP's pre-trained visual encoder. CG3D solves various practical tasks like zero-shot 3D recognition, 3D point cloud retrieval, scene querying with natural language, Moreover, it can serve as a strong initial weight for standard fine-tuning tasks.",
+    "metadata": {
+      "page": 1,
+      "bbox": [
+        49.38140106201172,
+        402.4865417480469,
+        545.8671264648438,
+        570.3032531738281
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_5",
+    "type": "paragraph",
+    "content": "build on existing models and leverage their pre-trained features to achieve better performance on target tasks with less data and computation requirements. These recent trends in vision is actually similar to trends that were observed in natural language processing (NLP) a few years ago. In NLP, foundation models have been dominating since 2018 as models like BERT [10] and GPT-3 [4] showed exceptional ability to accomplish various NLP tasks, such as question answering, sentence prediction, sentiment classification, etc. Also, foundation models pre-trained on multimodal data like images and text have been useful by exhibiting impressive zero-shot capabilities. In particular, Contrastive Language Image Pre-training (CLIP) [46] has been applied to various 2D tasks, including image classification [77], object detection [53, 16], image segmentation [29, 62, 75], image retrieval [21, 33], and visual question answering [39, 8]. These advances in foundation models in vision and NLP are yet to disrupt the field of 3D vision and understanding. In this work, we try to bridge this gap and focus on answering the following question: How can we build a 3D network that can possess similar functionalities as that of a foundation model like CLIP?",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        50.112,
+        457.056,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_5"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_6",
+    "type": "paragraph",
+    "content": "3D visual understanding has many practical applications in robotics [19, 76], augmented reality [20, 60, 68], and autonomous driving [44, 43, 51, 38]. Comprehending the semantics and characteristics of each point in a 3D space is crucial for addressing a wide range of issues in downstream tasks. Thus, there lies several use-cases for a potential 3D foundational model similar to foundation models for vision and NLP. A powerful 3D network with zero-shot capabilities does not only help improve the performance of existing 3D backbones but also enables open 3D scene understanding and 3D retrieval tasks. However, the development of foundational models for 3D understanding faces several challenges, including the limited availability of 3D data compared to images. While CLIP was able to leverage the vast amount of images available on the internet to create a large pre-training dataset of image-caption pairs, a similar approach cannot be directly applied to pre-train a 3D encoder with texts due to the scarcity of 3D data. There have been some recent works like PointCLIP [72] which tried to utilize CLIP's zero-shot capabilities for 3D zeroshot problems. PointCLIP directly uses the depth maps of a 3D point cloud on 2D visual encoder of CLIP. While it provides a quick and simple solution for 3D zero-shot problems, it lacks the characteristics of a foundational model since it cannot be used for 3D fine-tuning tasks or for 3D open scene understanding. Furthermore, it does not possess the ability to extract any 3D geometric features relevant for downstream tasks in 3D understanding.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        50.112,
+        118.48400000000004,
+        286.365,
+        449.825
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_6"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_7",
+    "type": "paragraph",
+    "content": "To this end, we propose a new pre-training framework termed CG3D (CLIP Goes 3D) that trains a 3D encoder using natural language supervision while also leveraging CLIP's knowledge. We begin by creating a pre-training dataset consisting of triplets of 3D point clouds, images, and corresponding text descriptions. We use point clouds from ShapeNet [5] as our 3D data and curate its corresponding rendered 2D image and a caption. Since ShapeNet consists of textured CAD models, we render random views of each object to use as the image pair. Despite their distinct properties, both a 3D point cloud and an image of the same object share common semantic attributes. This is affirmed by the success of tasks such as single image point cloud reconstruction [35, 12] as well as in the transfer of pre-trained weights from an image-based network to a 3D point cloud classification network, as seen in [65]. CG3D aims to ensure that there is similarity between 3D features and 2D features, as well as between 3D features and text features for objects of the same category, while being dissimilar for objects of different categories. This contrastive approach to learning enables the 3D encoder to acquire zero-shot capabilities similar to those of CLIP.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.365,
+        111.39599999999996
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_7",
+      "2303.11313_paragraph_8"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_9",
+    "type": "paragraph",
+    "content": "The process of training the 3D encoder with contrastive loss and comparing 3D features to the 2D features from CLIP's visual encoder is a means of distilling CLIP's semantic features to the 3D encoder. Although it would be efficient to train CLIP's visual encoder to align with the data distribution of 3D objects and their related images, we observed a significant decrease in performance when training both CLIP's visual and text encoders along with the 3D encoder in CG3D. This can be explained as CLIP starts to catastrophically forget its previous features while being trained to shift to the new distribution. However, it is not ideal to keep the visual encoder completely frozen. Large-scale language models like CLIP are trained mostly on natural images, which differ in distribution to the graphically rendered views of 3D objects. To address this domain gap [58, 56, 57, 55], we propose using prompt tuning techniques [22, 7] to shift the distribution in the input space before forwarding it to the visual encoder. We add visual prompts to the transformer backbone of CLIP's visual encoder thus adding only a small amount of parameters in the input space while keeping the weights of visual encoder of CLIP frozen. These parameters learn the shift in input distribution to suit CLIP so that the 3D pre-training is effective. To demonstrate the effectiveness of CG3D, we conduct several experiments. First, we show its zero-shot capabilities on synthetic and real object datasets like ModelNet [61] and ScanObjectNN [54]. Additionally, we showcase the 3D model's ability in open-scene comprehension by utilizing text-based queries, as well as its ability to conduct cross-modal 3D data retrieval while utilizing image or text queries. Further, the weights obtained from pre-training the 3D encoder using CG3D can also serve as effective initial weights when fine-tuning the model for other 3D tasks. In summary, the following are our major contributions:",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        308.862,
+        94.57299999999998,
+        545.115,
+        485.69
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_9",
+      "2303.11313_paragraph_10"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_11",
+    "type": "paragraph",
+    "content": "We propose CG3D, a contrastive pre-training framework for training 3D networks using natural language supervision while also leveraging the knowledge of CLIP. We utilize prompt tuning to shift the input space of a pretrained visual encoder from rendered images of CAD objects to natural images, allowing for more effective use of CLIP for 3D shapes. Weconduct extensive experiments to demonstrate the versatile capabilities of CG3D. It exhibits strong zero-shot, 3D retrieval and 3D scene understanding capabilities with language. CG3D also acts as strong starting weights for multiple 3D recognition tasks.",
+    "metadata": {
+      "page": 3,
+      "section": "Introduction",
+      "bbox": [
+        50.112,
+        684.061,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_11",
+      "2303.11313_paragraph_12",
+      "2303.11313_paragraph_13"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_14",
+    "type": "paragraph",
+    "content": "Vision Language Models: The use of large-scale textpre-training on attention-based models [10, 73] has led to the increasing popularity of vision-language models (VLM) due to their impressive performance in visual understanding tasks [26, 32, 46]. Recent advancements in contrastive learning have enabled CLIP [46] to perform multimodal learning with 400M noisy data crawled from the web. CLIP has been extended for high efficiency model training and cycle consistency through various methods, such as ALBEF[24] and Cyclip [15]. BLIP [23] includes text-to-image generation as an auxiliary task, which results in better performance by utilizing synthetic data as a bonus. Adopting VLM for 3D point cloud processing is still in its infancy. PointCLIP [72] was the first method to adopt CLIP for 3D tasks. It directly uses the depth maps of 3D point clouds and uses it on the visual encoder of CLIP to perform zero-shot classification. Unlike this, we focus on using a 3D encoder in the CLIP so that it can directly take in a 3D point cloud.",
+    "metadata": {
+      "page": 3,
+      "section": "Related Works",
+      "bbox": [
+        50.112,
+        330.124,
+        286.365,
+        542.302
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_14"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_15",
+    "type": "paragraph",
+    "content": "3D Point cloud processing methods: In general, point cloud processing methods either process the original point cloud sets directly [44, 45] or transform the original point clouds into intermediate representations such as voxels [36, 50] or images [67, 25]. PointNet [44] was a significant contribution to the field of point cloud processing, as it enabled the direct use of unordered point sets as input through shared MLPs. PointNet++ [45] was later proposed as an extension of PointNet, incorporating a hierarchical feature learning approach that recursively captures local geometric structures. This feature representation method has proven to be effective due to its ability to capture multi-scale information, and it has been widely used in various point cloud applications [59, 13, 66]. Recently, methods like PointTransformer [74] and PCT [17] have proposed transformerbased methods showing a significant improvements in performance. The current state of the art method is PointMLP [34] which effectively uses a deep residual MLP network for point cloud analysis.",
+    "metadata": {
+      "page": 3,
+      "section": "Related Works",
+      "bbox": [
+        50.112,
+        102.90999999999997,
+        286.365,
+        327.043
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_15"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_16",
+    "type": "paragraph",
+    "content": "There have also been pre-training methods which show 3D backbones can be pre-trained with unlabelled data to obtain strong initial weights to boost fine-tuning performance. PointContrast [63] performs contrastive training [6] by pushing together heavily augmented views of the same sample and minimizing the similarity between views of other samples on point cloud scenes that have undergone rigid transformations. CrossPoint [1] boosts point cloud classification performance by maximising the agreement between images and point cloud objects. PointBERT [69] and PointMAE [42] leverage masked modelling methods to perform pre-training. Unlike these backbone or pretraining works, we focus on enabling zero-shot capabilities to given 3D encoder in our proposed CG3D framework.",
+    "metadata": {
+      "page": 3,
+      "section": "Related Works",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.365,
+        99.44100000000003
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_16"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_17",
+    "type": "paragraph",
+    "content": "Our main objective is to train a 3D shape encoder to acquire shape characteristics that can effectively capture the geometric properties of point clouds while also aligning with CLIP's feature representation for each object category. In essence, we aspire to acquire features that are unique to each category yet unaffected by the mode of representation. To this end, we use point cloud-image-caption triplets to train the framework. Each element within a triplet of point cloud-image-caption is indicative of an object possessing specific semantic traits that are shared among the other objects in the collection. In this section, we first give an overview of the proposed CG3D framework, followed by details to effectively train the network. We then give details on the potential use-cases of CG3D.",
+    "metadata": {
+      "page": 3,
+      "section": "Method",
+      "bbox": [
+        308.862,
+        374.065,
+        545.115,
+        538.034
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_17"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_18",
+    "type": "paragraph",
+    "content": "The CG3D framework as illustrated in Fig 2 consists of 3 networks - 3D shape encoder, visual encoder and text encoder from CLIP. 3D Encoder takes in a 3D point cloud as the input. To capture the essential shape characteristics of an object, we employ a 3D encoder that is specifically designed to analyze point clouds and generate a feature vector representing the object. Our framework is agnostic with the choice of 3D encoder, and an added projection layer ensures the output feature dimension remains consistent. 2D Visual Encoder takes in the corresponding rendered image of the 3D pointcloud as the input. Although shape features are essential in representing point clouds, image backbones from vision-language models trained on large amounts of data offer powerful feature representations of images that are semantically correlated with text. We employ CLIP's visual encoder as it is robust and is pre-trained on a massive amount of data. By utilizing the visual encoder, we can acquire highly effective and implied representations of categories present in point cloud datasets, which are then use to align with the 3D features. Note that CLIP provides both ResNet and ViT weights for visual encoder.",
+    "metadata": {
+      "page": 3,
+      "section": "CG3D Framework",
+      "bbox": [
+        308.862,
+        308.153,
+        545.115,
+        340.616
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_18",
+      "2303.11313_paragraph_19",
+      "2303.11313_paragraph_20"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_2",
+    "type": "figure",
+    "content": "Figure 2: Overview of the proposed learning strategy in CG3D. Note that only the 3D Encoder and learnable visual prompts are trained while everything else is frozen.",
+    "metadata": {
+      "page": 4,
+      "section": "CG3D Framework",
+      "bbox": [
+        75.7308349609375,
+        484.8992919921875,
+        258.23199462890625,
+        719.8837356567383
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_2.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_21",
+    "type": "paragraph",
+    "content": "Text Encoder takes in the corresponding text caption of the 3D point cloud as input. Adopting natural language supervision for feature learning on images has been successful in training models to grasp visual concepts that can be depicted in both images and text [46]. In CLIP, the text encoder is trained to correspond text descriptions with images, which we use out-of-the-box under the same configuration as [46].",
+    "metadata": {
+      "page": 4,
+      "section": "CG3D Framework",
+      "bbox": [
+        50.112,
+        322.164,
+        286.365,
+        414.79
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_21"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_22",
+    "type": "paragraph",
+    "content": "Our main training objective is to align the 3D point clouds with their corresponding category level images and texts. This alignment happens in a common embedding space to which data from each modality is projected from the modality-specific encoder and a projection head. Our training strategy relies on contrastive learning, which incentivizes cross-modal features of the same pair to be in close proximity to one another in the embedding space while keeping apart samples belonging to other pairs. We formulate the proposed losses below. Consider a set of N pointcloud-image-text triplets { x 3 i D , x 2 i D , x text i } N i =1 , where x 3 i D represents a pointcloud, x 2 i D is the corresponding rendered image, and x text i is the corresponding text. Let the encoder for each modality be represented as φ 3 D , φ 2 D , and φ text . We obtain the feature representation of each sample in a common embedding space by projecting the encoded feature to a common dimension represented by:\nEquation: f 3 D i = ψ 3 D ( φ 3 D ( x 3 D i )) (1)\nEquation: f 2 D i = ψ 2 D ( φ 2 D ( x 2 D i )) (2)\nEquation: f text i = ψ text ( φ text ( x text i )) (3)",
+    "metadata": {
+      "page": 4,
+      "section": "Training the 3D Encoder",
+      "bbox": [
+        50.112,
+        90.88900000000001,
+        286.366,
+        290.724
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_22",
+      "2303.11313_equation_1",
+      "2303.11313_equation_2",
+      "2303.11313_equation_3"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_23",
+    "type": "paragraph",
+    "content": "where i ranges from 1 to the number of samples N and ψ is the projection operation for each modality. Through normalization, we constrain the output of each projection network to reside within a unit hypersphere, enabling us to measure feature similarity using the inner product. The contrastive losses (InfoNCE objective [41]) between 3D-image features; and 3D-text features are defined by:\nEquation: L (3 D, 2 D ) = 1 2 ∑ ( f 3 D ,f 2 D ) ∈ B NCE ( f 3 D , f 2 D )+ NCE ( f 2 D , f 3 D ) (4)\nEquation: L (3 D,text ) = 1 2 ∑ ( f 3 D ,f text ) ∈ B NCE ( f 3 D , f text )+ NCE ( f text , f 3 D ) (5)",
+    "metadata": {
+      "page": 4,
+      "section": "Training the 3D Encoder",
+      "bbox": [
+        308.862,
+        587.496,
+        545.115,
+        668.097
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_23",
+      "2303.11313_equation_4",
+      "2303.11313_equation_5"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_24",
+    "type": "paragraph",
+    "content": "where f 3 D , f 2 D , and f text are the projected 3D, image and text features respectively. B corresponds to the batch. NCE loss is defined as:\nEquation: NCE ( f A , f B ) = -log exp ( 〈 f A , f B + 〉 /τ ) ∑ f ∈ ( f B + ,f B -) exp ( 〈 f A , f 〉 /τ ) (6)",
+    "metadata": {
+      "page": 4,
+      "section": "Training the 3D Encoder",
+      "bbox": [
+        308.862,
+        458.365,
+        545.115,
+        492.72
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_24",
+      "2303.11313_equation_6"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_25",
+    "type": "paragraph",
+    "content": "where A , B are two different modalities and f A , f B are their corresponding features. τ is the temperature hyperparameter, f B + are the positive embeddings from modality B overlapping with modality A , and f B -are the negatively embeddings formed while pairing with modality A . For example, in L (3 D, 2 D ) the positive pairs between 3D and 2D are formed by matching the features corresponding to same class while the rest are termed as negative pairs. The total loss L 3 D used to train the 3D encoder is defined by:\nEquation: L 3 D = L (3 D, 2 D ) + L (3 D,text ) (7)",
+    "metadata": {
+      "page": 4,
+      "section": "Training the 3D Encoder",
+      "bbox": [
+        308.862,
+        322.966,
+        545.117,
+        429.811
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_25",
+      "2303.11313_equation_7"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_26",
+    "type": "paragraph",
+    "content": "The visual encoder in the CG3D framework takes in the rendered image of the 3D point cloud as its input. While the CLIP visual encoder has been trained on vast amounts of internet data and is highly resilient, during pre-training of CG3D, it only deals with rendered images. As a result, finetuning the CLIP visual encoder to handle rendered images could improve the training process for the 3D encoder. One possible approach is to train the visual encoder by optimizing its weights using the CLIP loss function that computes the similarity between image and text features. However, when we tried this method, we noticed a substantial decrease in performance. This phenomenon can be explained by the fact that training the visual encoder of CLIP causes catastrophic forgetting. That is, the encoder loses all of its prior knowledge while attempting to adapt to the new data distribution. Typically, this issue can be avoided by increasing the amount of new data available for fine-tuning. How-",
+    "metadata": {
+      "page": 4,
+      "section": "Prompt Tuning for Visual Encoder",
+      "bbox": [
+        308.862,
+        78.93399999999997,
+        545.115,
+        278.769
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_26"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_27",
+    "type": "paragraph",
+    "content": "ever, it's not feasible to obtain a large enough 3D dataset that matches the scale of the massive image-text data used to train CLIP. Therefore, we concentrate on developing methods to effectively fine-tune the model with new pre-training data while keeping the visual encoder frozen. Visual prompt tuning, as described in [18], is a method that involves adding a small number of trainable parameters in the input space to fine-tune a base model for a specific task. In our proposed method for pre-training CG3D, we adopt this approach and modify the input space to better align with the visual encoder of the original CLIP model. This, in turn, allows the visual encoder to produce higherquality features, which can enhance the training of the 3D encoder. We use deep prompting where we introduce learnable prompts as learnable tokens at every layer in the transformer layer in ViT (visual encoder). For an i th transformer layer L i , we define the collection of learnable tokens at that layer as P i = { p k i , 1 ≤ k ≤ n } where p corresponds to individual tokens and n is the total number of learnable tokens. The deep prompted visual encoder at i th can be represented as :\nEquation: [ y i ] = L i ([ y i -1 , P i -1 ]) (8)",
+    "metadata": {
+      "page": 5,
+      "section": "Prompt Tuning for Visual Encoder",
+      "bbox": [
+        50.112,
+        660.151,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_27",
+      "2303.11313_paragraph_28",
+      "2303.11313_equation_8"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_29",
+    "type": "paragraph",
+    "content": "where y i is the output and y i -1 is the input to the current layer. Prompt tokens P are trained along with the 3D encoder in our CG3D framework. We use the original CLIP loss which is a contrastive loss between the image and text features to train these prompts. We formulate the loss used to train the prompts L P as:\nEquation: L P = -∑ ( f 2 D ,f text ) ∈ B (log NCE ( f text , f 2 D )+ log NCE ( f 2 D , f text )) (9)",
+    "metadata": {
+      "page": 5,
+      "section": "Prompt Tuning for Visual Encoder",
+      "bbox": [
+        50.112,
+        383.953,
+        286.365,
+        453.358
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_29",
+      "2303.11313_equation_9"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_30",
+    "type": "paragraph",
+    "content": "where where f 2 D and f text are the image and text features respectively. B corresponds to the batch.",
+    "metadata": {
+      "page": 5,
+      "section": "Prompt Tuning for Visual Encoder",
+      "bbox": [
+        50.112,
+        317.57,
+        286.361,
+        339.969
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_30"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_31",
+    "type": "paragraph",
+    "content": "Zero-shot 3D classification refers to the method of classifying 3D objects without requiring any previous training on those specific objects. It has a number of use-cases in robotics and autonomous systems where objects need to be recognized quickly and accurately, without the need for extensive training on new objects. CG3D enables zero-shot 3D recognition directly with a 3D encoder which extracts shape features from the input point clouds. For zero-shot inference, we only use the 3D and text encoder from our proposed CG3D framework. The model takes as input a point cloud test sample, denoted as x test , and a set of prompts T = { t i , 1 ≤ i ≤ N } where t i represents individual text prompts and N is the total number of text prompts. Each prompt t i is denoted in the format of 'This is a OBJECT', where OBJECT represents the name of a test class. The model's inference procedure is similar to that of CLIP, where it calculates the similarity score between each prompt and the test sample and selects the prompt that yields the highest score as the final prediction. This is formulated as:",
+    "metadata": {
+      "page": 5,
+      "section": "Zero-shot 3D Recognition",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.367,
+        266.813
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_31"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_32",
+    "type": "paragraph",
+    "content": "y pred = max ( softmax ( 〈 f 3 D , F text 〉 )) (10) where f 3 D and F text are the feature vectors of the point cloud and text inputs respectively, y pred is the class prediction. Note that F text is actually a collection of feature vectors collected from forwarding the text queries T to the text encoder. This process has been summarized in Fig 1.",
+    "metadata": {
+      "page": 5,
+      "section": "Zero-shot 3D Recognition",
+      "bbox": [
+        308.862,
+        612.33,
+        545.116,
+        683.171
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_32"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_3",
+    "type": "figure",
+    "content": "Figure 3: Example of scene querying with text for a random indoor scene from S3DIS [3] dataset.",
+    "metadata": {
+      "page": 5,
+      "section": "Scene Querying with Language",
+      "bbox": [
+        336.2333068847656,
+        334.2476806640625,
+        510.8659362792969,
+        560.9372406005859
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_3.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_33",
+    "type": "paragraph",
+    "content": "3D scene understanding is an important task in computer vision. It is crucial for enabling human-robot interaction and facilitating intuitive human-machine interfaces. In particular, querying a scene with language queries to understand the key details of a scene is a practically useful task. One aspect of this is answering queries such as 'What is the location of the sofa?' or 'Where can the chair be found?', which can help an individual in comprehending the environment or allow a robot to interact with it intelligently. By accurately identifying objects and their locations within a scene, robots can perform a wide range of tasks such as manipulation, navigation, and object recognition. Meanwhile, individuals can use interactive query and visualization tools to better understand and analyze complex 3D scenes. CG3D enables zero-shot scene understanding with language queries. Without training the model on indoor scenes or using direct supervision, we show that a pre-trained",
+    "metadata": {
+      "page": 5,
+      "section": "Scene Querying with Language",
+      "bbox": [
+        308.862,
+        115.37099999999998,
+        545.115,
+        279.3399999999999
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_33",
+      "2303.11313_paragraph_34"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_35",
+    "type": "paragraph",
+    "content": "CG3D framework can be used to understand scenes with text queries. Given an input scene, first we use k-means clustering to divide the scene into meaningful segments. Next, we feed forward all these clusters to the 3D encoder in our CG3D framework and get a set of 3D features F 3 D = { f 3 D i , 1 ≤ i ≤ k } . Here, k is the total number of clusters obtained from the scene and f 3 D i is the 3D feature vector from 3D encoder of CG3D for the i th cluster. We also pass the text query to the text encoder to obtain f text . Now, we match these 3D features with the text feature we obtain by forwarding the input query to the text encoder which can be denoted as:\nEquation: y pred = max ( softmax ( 〈 f text , F 3 D 〉 )) (11)",
+    "metadata": {
+      "page": 6,
+      "section": "Scene Querying with Language",
+      "bbox": [
+        50.112,
+        576.464,
+        286.367,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_35",
+      "2303.11313_equation_10"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_36",
+    "type": "paragraph",
+    "content": "where y pred is the predicted class. To demonstrate an example for scene understanding with language using CG3D, we pick a random indoor scene as seen in Fig 3 from the S3DIS [3] dataset and use the query 'Bookshelf'. It can be observed that the model correctly classifies which cluster is the bookshelf in the scene. More analysis can be found in the supplementary material. Although CG3D is not explicitly designed to provide a complete solution for open world 3D scene understanding, it facilitates scene querying using natural language.",
+    "metadata": {
+      "page": 6,
+      "section": "Scene Querying with Language",
+      "bbox": [
+        50.112,
+        443.997,
+        286.365,
+        560.464
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_36"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_37",
+    "type": "paragraph",
+    "content": "3D point cloud retrieval is the process of searching and retrieving 3D point cloud data that is similar to a given query. The query here can be of different modality like an image or a text. This has several practical applications like matching a real-world object with its corresponding 3D point cloud in a virtual environment to help create more realistic and accurate augmented and virtual reality experiences. To retrieve data using CG3D, we utilize the pre-trained encoders to obtain feature representations for both the query and the 3D point clouds. Specifically, we feed the image or text query into the corresponding encoder to obtain its feature vector, and we do the same for the 3D point clouds using the 3D encoder. The point clouds being forwarded to the 3Dencoder constitute the complete database from which we are retrieving the relevant shapes. Next, we obtain the similarity score between these query feature and the 3D features and select the point clouds with the highest similarity scores as the output.",
+    "metadata": {
+      "page": 6,
+      "section": "Retrieval",
+      "bbox": [
+        50.112,
+        319.957,
+        286.365,
+        400.24
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_37",
+      "2303.11313_paragraph_38"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_39",
+    "type": "paragraph",
+    "content": "In Fig 4, we demonstrate the effectiveness of CG3D in retrieving relevant 3D point clouds. We randomly select some images from the internet as query images, and ModelNet40 serves as our 3D database for retrieval. We pick the top four 3D points that are of the highest similarity to the input query and display them in Fig 4. Similarly, we also use some random text queries and display the best matches. It can be observed that all the retrieved point clouds are of very high similarity to the input query proving the effective-",
+    "metadata": {
+      "page": 6,
+      "section": "Retrieval",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.365,
+        183.12699999999995
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_39"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_4",
+    "type": "figure",
+    "content": "Figure 4: Retrieving point clouds from a 3D database (ModelNet40) using random image and text queries.",
+    "metadata": {
+      "page": 6,
+      "section": "Retrieval",
+      "bbox": [
+        310.0853271484375,
+        623.4093170166016,
+        544.3609619140625,
+        719.1218414306641
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_4.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_40",
+    "type": "paragraph",
+    "content": "ness of CG3D.",
+    "metadata": {
+      "page": 6,
+      "section": "Retrieval",
+      "bbox": [
+        308.862,
+        566.986,
+        367.801,
+        575.538
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_40"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_41",
+    "type": "paragraph",
+    "content": "Pre-training techniques are an effective strategy for enhancing the performance of fine-tuning in 3D computer vision tasks. Pre-training models on large datasets of unlabeled images can help them learn generic and transferable features, making them more robust to variations in data and enabling them to generalize well to new tasks and datasets. Although the main objective of CG3D is its zero-shot capabilities, it also has the potential to serve as a valuable starting point for fine-tuning 3D models for downstream tasks. This is due to the excellent feature representation capabilities of the 3D encoder, which has been pre-trained using natural language supervision in the CG3D framework. Additionally, CG3D is model-agnostic, meaning that any 3D backbone can be pre-trained using CG3D, and the resulting weights can be used as a starting point for downstream tasks. We present multiple experiments that demonstrate the effectiveness of using CG3D for fine-tuning tasks.",
+    "metadata": {
+      "page": 6,
+      "section": "Fine-tuning for Supervised Tasks",
+      "bbox": [
+        308.862,
+        462.157,
+        545.115,
+        530.485
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_41",
+      "2303.11313_paragraph_42"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_43",
+    "type": "paragraph",
+    "content": "Pre-training dataset: We choose ShapeNet [5] as the pretraining dataset due to its large number of classes and samples. ShapeNet consists of textured CAD models of 55 object categories and 52,460 total samples. We sample point clouds of a fixed size from each object mesh and normalize them to fit into a unit sphere. We render the colored CAD model views in Blender to obtain a image pair for each point cloud, following [14]. The text captions of each point cloud-image pair are framed as a descriptive sentences obtained from a set of standard templates such as 'A photo of a { OBJECT } '. Each input point cloud is augmented with standard techniques such as object scaling, rotation, random drop, and perturbations. Fine-tuning datasets: We perform zero shot (ZS) classification and downstream fine-tuning on the popular 3D datastes ModelNet40 [61] and ScanObjectNN [54]. As is standard, we evaluate on the full dataset (ModelNet40) as",
+    "metadata": {
+      "page": 6,
+      "section": "Datasets",
+      "bbox": [
+        308.862,
+        126.75400000000002,
+        545.115,
+        279.1569999999999
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_43",
+      "2303.11313_paragraph_44"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_45",
+    "type": "paragraph",
+    "content": "well as a 10-class subset (ModelNet10) for ZS classification. ModelNet40 consists of 12,311 synthetic meshes of common objects from 40 categories. Each mesh is downsampled and normalized to fit a unit sphere. ScanObjectNN is a real-world point cloud dataset of objects from laserscanned indoor scenes.",
+    "metadata": {
+      "page": 7,
+      "section": "Datasets",
+      "bbox": [
+        50.112,
+        648.195,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_45"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_46",
+    "type": "paragraph",
+    "content": "There exist several vision-language models that can be considered variants of CLIP that give superior zero-shot performance on images [24, 40, 28]. We leverage the pretrained visual and text encoder weights from SLIP [40] to train CG3D, due to its performance and flexibility. We specifically choose ViT-Base [11] as the image backbone.",
+    "metadata": {
+      "page": 7,
+      "section": "Implementation Details",
+      "bbox": [
+        50.112,
+        549.208,
+        286.365,
+        617.536
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_46"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_47",
+    "type": "paragraph",
+    "content": "Pre-training: During pre-training, the visual prompt parameters and the parameters of the 3D encoder are tuned under different optimizers in alternate iterations. This is due to the fact that they are each supervised by disjoint loss functions and require different learning rates. We append 5 learnable prompt tokens at the input of every encoder layer in ViT, and initialize them randomly. The visual prompts are tuned using the SGD [49] optimizer under a cosine annealing [30] scheduler, with learning rate of 2 × 10 -3 , weight decay 10 -4 and an minimum learning rate of 10 -6 . We follow the training convention of each 3D backbone for training the individual backbone. In case of PointTransformer [74] the network is tuned using the AdmaW [31] optimizer under a cosine annealing [30] scheduler with a learning rate of 5 × 10 -5 and a weight decay of 0 . 05 , with a minimum learning rate of 10 -6 . The PointMLP backbone is tuned under the same otimizer-scheduler scheme with learning rate 10 -4 and weight decay 0 . 01 . The entire framework is pre-trained for 100 epochs with a batch size of 32 .",
+    "metadata": {
+      "page": 7,
+      "section": "Implementation Details",
+      "bbox": [
+        50.112,
+        321.721,
+        286.365,
+        545.855
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_47"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_48",
+    "type": "paragraph",
+    "content": "Fine-tuning: PointMLP is finetuned using the SGD optimizer and cosine scheduler with a learning rate of 0 . 02 , a weight decay of 2 × 10 -4 , and a minimum learning rate of 5 × 10 -3 . PointTransformer is fine-tuned using the AdamW optimizer and cosine scheduler, with learning rate 2 × 10 -4 , a weight decay of 0 . 05 and a minimum learning rate of 10 -6 . Each network is fine-tuned for 300 epochs with a batch size of 32 for PointMLP and 64 for PointTransformer. Our method is prototyped in PyTorch and all our experiments are performed in a 8 GPU NVIDIA A100 cluster.",
+    "metadata": {
+      "page": 7,
+      "section": "Implementation Details",
+      "bbox": [
+        50.112,
+        201.83100000000002,
+        286.365,
+        318.368
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_48"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_49",
+    "type": "paragraph",
+    "content": "We present the results of zero-shot experiments conducted on test distributions of ModelNet10, ModelNet40, and ScanObjectNN in Table 1. We experiment with two backbones: PointTransformer and PointMLP pre-trained with CG3D. Note that the previous method PointCLIP uses a 2D depth map and CLIP's visual encoder to get the prediction. We directly use the 3D encoder and extract relevant 3D shape features to perform the zero-shot classification. This",
+    "metadata": {
+      "page": 7,
+      "section": "Zero-shot Experiments",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.365,
+        171.17200000000003
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_49"
+    ]
+  },
+  {
+    "id": "2303.11313_table_1",
+    "type": "table",
+    "content": "Table 1: Comparison of zero-shot classification performance of CG3D against that of PointCLIP for the ModelNet10, ModelNet40, and ScanObjectNN datasets.",
+    "metadata": {
+      "page": 7,
+      "section": "Zero-shot Experiments",
+      "bbox": [
+        308.1487731933594,
+        660.2568054199219,
+        543.6024169921875,
+        719.2459487915039
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/table/table_1.png"
+    }
+  },
+  {
+    "id": "2303.11313_table_2",
+    "type": "table",
+    "content": "Table 2: Comparison of fine-tuning performance of CG3D with initial weights on ModelNet40 and ScanObjectNN (hardest variation: PB-T50-RS) against previous methods.",
+    "metadata": {
+      "page": 7,
+      "section": "Zero-shot Experiments",
+      "bbox": [
+        308.0714111328125,
+        472.5288391113281,
+        543.6036376953125,
+        604.1644744873047
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/table/table_2.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_50",
+    "type": "paragraph",
+    "content": "gives a significant improvement over PointCLIP with an increase of 37 . 1% on ModelNet10, 30 . 4% on ModelNet40, and 10 . 2% on ScanObjectNN.",
+    "metadata": {
+      "page": 7,
+      "section": "Zero-shot Experiments",
+      "bbox": [
+        308.862,
+        379.473,
+        545.115,
+        411.935
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_50"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_51",
+    "type": "paragraph",
+    "content": "We present the results of our fine-tuning experiments in Table 2 on both synthetic (ModelNet40) and real (ScanObjectNN) datasets. For ScanObjectNN, we pick the hardest variant PB-T50-RS for our experiments. We compare against leading backbones as well as pre-training methods like Point-BERT and Point-MAE. We show finetuning performance on two backbones PointTransformer and PointMLP. It should be noted that our framework was not primarily developed to be a pre-training strategy, but rather to enable zero-shot capabilities for a 3D encoder. Even then, our framework demonstrates competitive performance as a pre-training strategy as observed in Table 2. In particular, we obtain a boost of 5 . 39% , 1 . 31% while using CG3D starting weights than random weights for PointTransformer on ScanObjectNN and ModelNet40 respectively. Also, we obtain a boost of 1 . 7% , 0 . 74% while using CG3D starting weights than random weights for PointMLP on ScanObjectNN and ModelNet40 respectively. These observations show the versatility of our proposed framework. We re-run the from-scratch expriments for the PointTransformer and PointMLP networks. To account for variability, we conducted the finetuning experiments for PointTransformer and PointMLP three times each, starting from",
+    "metadata": {
+      "page": 7,
+      "section": "Fine-tuning Experiments",
+      "bbox": [
+        308.862,
+        78.93399999999997,
+        545.115,
+        350.5
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_51"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_52",
+    "type": "paragraph",
+    "content": "scratch and also starting with CG3D weights. To account for this, we have reported the mean and standard deviation of the results obtained from these experiments.",
+    "metadata": {
+      "page": 8,
+      "section": "Fine-tuning Experiments",
+      "bbox": [
+        50.112,
+        684.061,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_52"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_53",
+    "type": "paragraph",
+    "content": "Ablation Study: We conduct an ablation study to analyze the role that each component of CG3D has on zero-shot performance. In Table 3, we report the overall zero-shot accuracy of the PointTransformer 3D encoder pre-trained under different loss configurations for the PB-T50-RS variant of ScanObjectNN. We start with the configuration of training the 3D encoder with L (3 D, 2 D ) and L (3 D,text ) individually. Wenote that training with L (3 D,text ) gives a slight improvement over just training with L (3 D, 2 D ) . Next, we pre-train CG3D with both these losses which obtains better performance over individual configurations. After this, we incorporated visual prompts into the CG3D model and trained it using L P . This further improved the model's performance.",
+    "metadata": {
+      "page": 8,
+      "section": "Discussion",
+      "bbox": [
+        50.112,
+        494.158,
+        286.365,
+        647.32
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_53"
+    ]
+  },
+  {
+    "id": "2303.11313_table_3",
+    "type": "table",
+    "content": "Table 3: Ablation Study on ScanObjectNN.",
+    "metadata": {
+      "page": 8,
+      "section": "Discussion",
+      "bbox": [
+        96.80415344238281,
+        438.88934326171875,
+        237.81231689453125,
+        482.5978088378906
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/table/table_3.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_54",
+    "type": "paragraph",
+    "content": "Analysis on Less Data: Pre-trained models are particularly useful when dealing with tasks that have limited access to data. To prove the effectiveness of CG3D in such scenarios, we conduct experiments on ModelNet40 with both PointMLP and PointTransformer as backbones. We fine-tune each 3D backbone on different sub-sets 10% , 20% , 30% , 50% of the data and present the results in Fig. 5. It can be observed that the model trained with starting weights of CG3D always obtains better performance than starting with random weights across all configurations.",
+    "metadata": {
+      "page": 8,
+      "section": "Discussion",
+      "bbox": [
+        50.112,
+        315.61,
+        286.365,
+        420.191
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_54"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_5",
+    "type": "figure",
+    "content": "Figure 5: Experiments on data scarce setups on ModelNet40 with PointTransformer and PointMLP backbones.",
+    "metadata": {
+      "page": 8,
+      "section": "Discussion",
+      "bbox": [
+        57.37306594848633,
+        214.73675537109375,
+        273.34600830078125,
+        304.3630065917969
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_5.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_55",
+    "type": "paragraph",
+    "content": "Visualization of 3D Feature Representations: For analysis of the quality of features learned by our method, we visualize the UMAP [37] embeddings of 3D and image features extracted by CG3D while using ModelNet10. In Fig. 6, we plot the 3D feature learned by PointTransformer before and after pre-training with CG3D. Most features lack class separability before pre-training as can be seen in Fig. 6a. After pre-training, the 3D encoder is able to produce class discriminative features even for unseen categories in ModelNet10 as seen in Fig. 6b.",
+    "metadata": {
+      "page": 8,
+      "section": "Discussion",
+      "bbox": [
+        50.112,
+        78.93399999999997,
+        286.365,
+        171.55999999999995
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_55"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_56",
+    "type": "paragraph",
+    "content": "(b) After CG3D. Figure 6: Comparison of UMAP embeddings of point cloud features from 3D encoder of CG3D while using ModelNet10 3D point clouds. Effect of Prompt Tuning: We visualize the image features learned by the visual encoder with and without the learned prompts in CG3D. Since textured CAD models are not available for all samples, we consider depth maps of the points projected in the 2D plane. Figure 7a shows the depth map image features learned by the CLIP visual encoder. Since these images are visually dissimilar from natural images, the encoder fails to produce discriminative features. However, as seen in Figure 7b, the visual encoder trained with visual prompts after CG3D pre-training produces features with improved class separability proving the effectiveness prompt tuning.",
+    "metadata": {
+      "page": 8,
+      "section": "(a) Before CG3D.",
+      "bbox": [
+        464.873,
+        572.817,
+        525.871,
+        580.878
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_56",
+      "2303.11313_paragraph_57",
+      "2303.11313_paragraph_58"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_6",
+    "type": "figure",
+    "content": "(b) After contrastive VPT.",
+    "metadata": {
+      "page": 8,
+      "section": "(a) Without VPT.",
+      "bbox": [
+        448.3044128417969,
+        286.4188232421875,
+        541.431884765625,
+        378.88311767578125
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_9.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_59",
+    "type": "paragraph",
+    "content": "Figure 7: Comparison of UMAP embeddings of visual encoder features of CG3D with ModelNet10 depth maps. Limitations: We note that our pre-training dataset is still small in size, and consists of only simulated point cloud objects, thus limiting the potential of CG3D. To build a powerful foundation model for 3D, we need to work on data curation of 3D pointclouds, with corresponding images and text captions. We also focused on pre-training on objects and not scenes. Pre-training on scenes could open up interesting full scene understanding capabilities in CG3D.",
+    "metadata": {
+      "page": 8,
+      "section": "(a) Without VPT.",
+      "bbox": [
+        308.862,
+        244.178,
+        545.115,
+        264.6859999999999
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_59",
+      "2303.11313_paragraph_60"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_61",
+    "type": "paragraph",
+    "content": "In this paper, we proposed a new framework CG3D (CLIP goes 3D), where a 3D Encoder is introduced into the CLIP framework. This 3D Encoder is trained such that the",
+    "metadata": {
+      "page": 8,
+      "section": "Conclusion",
+      "bbox": [
+        308.862,
+        78.93399999999997,
+        545.115,
+        111.39599999999996
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_61"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_62",
+    "type": "paragraph",
+    "content": "extracted 3D features align with the image and text features of the same category. We also proposed using learnable visual prompts to shift the rendered image distribution to that of the CLIP to get better representative image features from the visual encoder. Through extensive analysis, we demonstrate the zero-shot capabilities of CG3D, which enables zero-shot 3D classification, scene querying with natural language, and cross-modal retrieval. Furthermore, CG3D provides strong initial weights when training 3D networks for downstream tasks.",
+    "metadata": {
+      "page": 9,
+      "section": "Conclusion",
+      "bbox": [
+        50.112,
+        600.375,
+        286.365,
+        716.523
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_62"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_63",
+    "type": "paragraph",
+    "content": "Mohamed Afham, Isuru Dissanayake, Dinithi Dissanayake, Amaya Dharmasiri, Kanchana Thilakarathna, and Ranga Rodrigo. Crosspoint: Self-supervised cross-modal contrastive learning for 3d point cloud understanding. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 9902-9912, 2022. Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine Miech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch, Katie Millican, Malcolm Reynolds, et al. Flamingo: a visual language model for few-shot learning. arXiv preprint arXiv:2204.14198 , 2022. I. Armeni, A. Sax, A. R. Zamir, and S. Savarese. Joint 2D3D-Semantic Data for Indoor Scene Understanding. ArXiv e-prints , Feb. 2017. Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems , 33:1877-1901, 2020. Angel X. Chang, Thomas Funkhouser, Leonidas Guibas, Pat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Manolis Savva, Shuran Song, Hao Su, Jianxiong Xiao, Li Yi, and Fisher Yu. ShapeNet: An Information-Rich 3D Model Repository. Technical Report arXiv:1512.03012 [cs.GR], Stanford University - Princeton University - Toyota Technological Institute at Chicago, 2015. Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey Hinton. A simple framework for contrastive learning of visual representations. In International conference on machine learning , pages 1597-1607. PMLR, 2020.",
+    "metadata": {
+      "page": 9,
+      "section": "References",
+      "bbox": [
+        54.595,
+        500.159,
+        286.364,
+        562.65
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_63",
+      "2303.11313_paragraph_64",
+      "2303.11313_paragraph_65",
+      "2303.11313_paragraph_66",
+      "2303.11313_paragraph_67",
+      "2303.11313_paragraph_68"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_69",
+    "type": "paragraph",
+    "content": "Yulong Chen, Yang Liu, Li Dong, Shuohang Wang, Chenguang Zhu, Michael Zeng, and Yue Zhang. Adaprompt: Adaptive model training for prompt-based nlp. arXiv preprint arXiv:2202.04824 , 2022. Jaemin Cho, Seunghyun Yoon, Ajinkya Kale, Franck Dernoncourt, Trung Bui, and Mohit Bansal. Fine-grained image captioning with clip reward. arXiv preprint arXiv:2205.13115 , 2022. Angela Dai, Angel X. Chang, Manolis Savva, Maciej Halber, Thomas Funkhouser, and Matthias Nießner. Scannet: Richly-annotated 3d reconstructions of indoor scenes. In Proc. Computer Vision and Pattern Recognition (CVPR), IEEE , 2017. Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805 , 2018. Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, et al. An image is worth 16x16 words: Transformers for image recognition at scale. arXiv preprint arXiv:2010.11929 , 2020. Haoqiang Fan, Hao Su, and Leonidas J Guibas. A point set generation network for 3d object reconstruction from a single image. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 605-613, 2017.",
+    "metadata": {
+      "page": 9,
+      "section": "References",
+      "bbox": [
+        54.595,
+        181.65499999999997,
+        286.363,
+        222.22900000000004
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_69",
+      "2303.11313_paragraph_70",
+      "2303.11313_paragraph_71",
+      "2303.11313_paragraph_72",
+      "2303.11313_paragraph_73",
+      "2303.11313_paragraph_74"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_75",
+    "type": "paragraph",
+    "content": "Siqi Fan, Qiulei Dong, Fenghua Zhu, Yisheng Lv, Peijun Ye, and Fei-Yue Wang. Scf-net: Learning spatial contextual features for large-scale point cloud segmentation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 14504-14513, 2021. Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen, Kangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja Fidler. Get3d: A generative model of high quality 3d textured shapes learned from images. In Advances In Neural Information Processing Systems , 2022. Shashank Goel, Hritik Bansal, Sumit Bhatia, Ryan A Rossi, Vishwa Vinay, and Aditya Grover. Cyclip: Cyclic contrastive language-image pretraining. arXiv preprint arXiv:2205.14459 , 2022. X Gu, T Lin, W Kuo, and Y Cui. Zero-shot detection via vision and language knowledge distillation. corr abs/2104.13921 (2021). Meng-Hao Guo, Jun-Xiong Cai, Zheng-Ning Liu, Tai-Jiang Mu, Ralph R Martin, and Shi-Min Hu. Pct: Point cloud transformer. Computational Visual Media , 7:187-199, 2021. Menglin Jia, Luming Tang, Bor-Chun Chen, Claire Cardie, Serge Belongie, Bharath Hariharan, and Ser-Nam Lim. Visual prompt tuning. In Computer Vision-ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23-27, 2022, Proceedings, Part XXXIII , pages 709-727. Springer, 2022.",
+    "metadata": {
+      "page": 9,
+      "section": "References",
+      "bbox": [
+        308.862,
+        509.822,
+        545.113,
+        561.355
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_75",
+      "2303.11313_paragraph_76",
+      "2303.11313_paragraph_77",
+      "2303.11313_paragraph_78",
+      "2303.11313_paragraph_79",
+      "2303.11313_paragraph_80"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_81",
+    "type": "paragraph",
+    "content": "Linh K¨ astner, Vlad Catalin Frasineanu, and Jens Lambrecht. A 3d-deep-learning-based augmented reality calibration method for robotic environments using depth sensor data. In 2020 IEEE International Conference on Robotics and Automation (ICRA) , pages 1135-1141. IEEE, 2020. Konrad Koniarski and Andrzej My´ sli´ nski. Feature point cloud based registration in augmented reality. In Advances in Systems Engineering: Proceedings of the 28th International Conference on Systems Engineering, ICSEng 2021, December 14-16, Wrocław, Poland 28 , pages 418-427. Springer, 2022. Jie Lei, Linjie Li, Luowei Zhou, Zhe Gan, Tamara L Berg, Mohit Bansal, and Jingjing Liu. Less is more: Clipbert for video-and-language learning via sparse sampling. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 7331-7341, 2021. Brian Lester, Rami Al-Rfou, and Noah Constant. The power of scale for parameter-efficient prompt tuning. arXiv preprint arXiv:2104.08691 , 2021.",
+    "metadata": {
+      "page": 9,
+      "section": "References",
+      "bbox": [
+        308.862,
+        233.65999999999997,
+        545.116,
+        285.192
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_81",
+      "2303.11313_paragraph_82",
+      "2303.11313_paragraph_83",
+      "2303.11313_paragraph_84"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_85",
+    "type": "paragraph",
+    "content": "Junnan Li, Dongxu Li, Caiming Xiong, and Steven Hoi. Blip: Bootstrapping language-image pre-training for unified vision-language understanding and generation. arXiv preprint arXiv:2201.12086 , 2022. Junnan Li, Ramprasaath Selvaraju, Akhilesh Gotmare, Shafiq Joty, Caiming Xiong, and Steven Chu Hong Hoi. Align before fuse: Vision and language representation learning with momentum distillation. Advances in neural information processing systems , 34:9694-9705, 2021. Lei Li, Siyu Zhu, Hongbo Fu, Ping Tan, and Chiew-Lan Tai. End-to-end learning local multi-view descriptors for 3d point clouds. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 1919-1928, 2020. Liunian Harold Li, Mark Yatskar, Da Yin, Cho-Jui Hsieh, and Kai-Wei Chang. Visualbert: A simple and performant baseline for vision and language. arXiv preprint arXiv:1908.03557 , 2019. Yangyan Li, Rui Bu, Mingchao Sun, Wei Wu, Xinhan Di, and Baoquan Chen. Pointcnn: Convolution on x-transformed points. Advances in neural information processing systems , 31, 2018. Yangguang Li, Feng Liang, Lichen Zhao, Yufeng Cui, Wanli Ouyang, Jing Shao, Fengwei Yu, and Junjie Yan. Supervision exists everywhere: A data efficient contrastive language-image pre-training paradigm. arXiv preprint arXiv:2110.05208 , 2021. Feng Liang, Bichen Wu, Xiaoliang Dai, Kunpeng Li, Yinan Zhao, Hang Zhang, Peizhao Zhang, Peter Vajda, and Diana Marculescu. Open-vocabulary semantic segmentation with mask-adapted clip. arXiv preprint arXiv:2210.04150 , 2022.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        50.112,
+        675.301,
+        286.363,
+        715.874
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_85",
+      "2303.11313_paragraph_86",
+      "2303.11313_paragraph_87",
+      "2303.11313_paragraph_88",
+      "2303.11313_paragraph_89",
+      "2303.11313_paragraph_90",
+      "2303.11313_paragraph_91"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_92",
+    "type": "paragraph",
+    "content": "Ilya Loshchilov and Frank Hutter. Sgdr: Stochastic gradient descent with warm restarts. arXiv preprint arXiv:1608.03983 , 2016. Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101 , 2017. Jiasen Lu, Dhruv Batra, Devi Parikh, and Stefan Lee. Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks. Advances in neural information processing systems , 32, 2019. Huaishao Luo, Lei Ji, Ming Zhong, Yang Chen, Wen Lei, Nan Duan, and Tianrui Li. Clip4clip: An empirical study of clip for end to end video clip retrieval and captioning. Neurocomputing , 508:293-304, 2022. Xu Ma, Can Qin, Haoxuan You, Haoxi Ran, and Yun Fu. Rethinking network design and local geometry in point cloud: A simple residual mlp framework. arXiv preprint arXiv:2202.07123 , 2022. Priyanka Mandikal, KL Navaneet, Mayank Agarwal, and R Venkatesh Babu. 3d-lmnet: Latent embedding matching for accurate and diverse 3d point cloud reconstruction from a single image. arXiv preprint arXiv:1807.07796 , 2018. Daniel Maturana and Sebastian Scherer. Voxnet: A 3d convolutional neural network for real-time object recognition. In 2015 IEEE/RSJ international conference on intelligent robots and systems (IROS) , pages 922-928. IEEE, 2015. Leland McInnes, John Healy, and James Melville. Umap: Uniform manifold approximation and projection for dimension reduction. arXiv preprint arXiv:1802.03426 , 2018.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        50.112,
+        332.373,
+        286.363,
+        361.988
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_92",
+      "2303.11313_paragraph_93",
+      "2303.11313_paragraph_94",
+      "2303.11313_paragraph_95",
+      "2303.11313_paragraph_96",
+      "2303.11313_paragraph_97",
+      "2303.11313_paragraph_98",
+      "2303.11313_paragraph_99"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_100",
+    "type": "paragraph",
+    "content": "Andres Milioto, Ignacio Vizzo, Jens Behley, and Cyrill Stachniss. Rangenet++: Fast and accurate lidar semantic segmentation. In 2019 IEEE/RSJ international conference on intelligent robots and systems (IROS) , pages 4213-4220. IEEE, 2019. Ron Mokady, Amir Hertz, and Amit H Bermano. Clipcap: Clip prefix for image captioning. arXiv preprint arXiv:2111.09734 , 2021. Norman Mu, Alexander Kirillov, David Wagner, and Saining Xie. Slip: Self-supervision meets language-image pretraining. In Computer Vision-ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23-27, 2022, Proceedings, Part XXVI , pages 529-544. Springer, 2022. Aaron van den Oord, Yazhe Li, and Oriol Vinyals. Representation learning with contrastive predictive coding. arXiv preprint arXiv:1807.03748 , 2018. Yatian Pang, Wenxiao Wang, Francis EH Tay, Wei Liu, Yonghong Tian, and Li Yuan. Masked autoencoders for point cloud self-supervised learning. arXiv preprint arXiv:2203.06604 , 2022. Charles R Qi, Wei Liu, Chenxia Wu, Hao Su, and Leonidas J Guibas. Frustum pointnets for 3d object detection from rgbd data. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 918-927, 2018. Charles R Qi, Hao Su, Kaichun Mo, and Leonidas J Guibas. Pointnet: Deep learning on point sets for 3d classification and segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 652-660, 2017.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        308.862,
+        630.285,
+        545.115,
+        681.818
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_100",
+      "2303.11313_paragraph_101",
+      "2303.11313_paragraph_102",
+      "2303.11313_paragraph_103",
+      "2303.11313_paragraph_104",
+      "2303.11313_paragraph_105",
+      "2303.11313_paragraph_106"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_107",
+    "type": "paragraph",
+    "content": "Charles Ruizhongtai Qi, Li Yi, Hao Su, and Leonidas J Guibas. Pointnet++: Deep hierarchical feature learning on point sets in a metric space. Advances in neural information processing systems , 30, 2017. Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervision. In International Conference on Machine Learning , pages 8748-8763. PMLR, 2021. Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey Chu, and Mark Chen. Hierarchical text-conditional image generation with clip latents. arXiv preprint arXiv:2204.06125 , 2022. Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray, Chelsea Voss, Alec Radford, Mark Chen, and Ilya Sutskever. Zero-shot text-to-image generation. In International Conference on Machine Learning , pages 8821-8831. PMLR, 2021. Sebastian Ruder. An overview of gradient descent optimization algorithms. arXiv preprint arXiv:1609.04747 , 2016. Shaoshuai Shi, Chaoxu Guo, Li Jiang, Zhe Wang, Jianping Shi, Xiaogang Wang, and Hongsheng Li. Pv-rcnn: Pointvoxel feature set abstraction for 3d object detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 10529-10538, 2020.",
+    "metadata": {
+      "page": 10,
+      "section": "References",
+      "bbox": [
+        308.862,
+        315.177,
+        545.113,
+        355.75
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_107",
+      "2303.11313_paragraph_108",
+      "2303.11313_paragraph_109",
+      "2303.11313_paragraph_110",
+      "2303.11313_paragraph_111",
+      "2303.11313_paragraph_112"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_113",
+    "type": "paragraph",
+    "content": "Shaoshuai Shi, Xiaogang Wang, and Hongsheng Li. Pointrcnn: 3d object proposal generation and detection from point cloud. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 770-779, 2019. Kihyuk Sohn, Yuan Hao, Jos´ e Lezama, Luisa Polania, Huiwen Chang, Han Zhang, Irfan Essa, and Lu Jiang. Visual prompt tuning for generative transfer learning. arXiv preprint arXiv:2210.00990 , 2022. Guy Tevet, Brian Gordon, Amir Hertz, Amit H Bermano, and Daniel Cohen-Or. Motionclip: Exposing human motion generation to clip space. In Computer Vision-ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23-27, 2022, Proceedings, Part XXII , pages 358-374. Springer, 2022. Mikaela Angelina Uy, Quang-Hieu Pham, Binh-Son Hua, Duc Thanh Nguyen, and Sai-Kit Yeung. Revisiting point cloud classification: A new benchmark dataset and classification model on real-world data. In International Conference on Computer Vision (ICCV) , 2019. Vibashan VS, Vikram Gupta, Poojan Oza, Vishwanath A. Sindagi, and Vishal M. Patel. Mega-cda: Memory guided attention for category-aware unsupervised domain adaptive object detection. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , pages 4516-4526, June 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        50.112,
+        675.301,
+        286.366,
+        715.874
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_113",
+      "2303.11313_paragraph_114",
+      "2303.11313_paragraph_115",
+      "2303.11313_paragraph_116",
+      "2303.11313_paragraph_117"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_118",
+    "type": "paragraph",
+    "content": "Vibashan VS, Domenick Poster, Suya You, Shuowen Hu, and Vishal M. Patel. Meta-uda: Unsupervised domain adaptive thermal object detection using meta-learning. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) , pages 1412-1423, January 2022. Vibashan VS, Jeya Maria Jose Valanarasu, and Vishal M Patel. Target and task specific source-free domain adaptive image segmentation. arXiv preprint arXiv:2203.15792 , 2022. Mei Wang and Weihong Deng. Deep visual domain adaptation: A survey. Neurocomputing , 312:135-153, 2018. Yue Wang, Yongbin Sun, Ziwei Liu, Sanjay E Sarma, Michael M Bronstein, and Justin M Solomon. Dynamic graph cnn for learning on point clouds. Acm Transactions On Graphics (tog) , 38(5):1-12, 2019. Zeyu Wang, Cuong Nguyen, Paul Asente, and Julie Dorsey. Pointshopar: Supporting environmental design prototyping using point cloud in augmented reality. 2023. Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Yu, Linguang Zhang, Xiaoou Tang, and Jianxiong Xiao. 3d shapenets: A deep representation for volumetric shapes. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 1912-1920, 2015. Jinheng Xie, Xianxu Hou, Kai Ye, and Linlin Shen. Clims: cross language image matching for weakly supervised semantic segmentation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 4483-4492, 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        50.112,
+        373.019,
+        286.363,
+        435.511
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_118",
+      "2303.11313_paragraph_119",
+      "2303.11313_paragraph_120",
+      "2303.11313_paragraph_121",
+      "2303.11313_paragraph_122",
+      "2303.11313_paragraph_123",
+      "2303.11313_paragraph_124"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_125",
+    "type": "paragraph",
+    "content": "Saining Xie, Jiatao Gu, Demi Guo, Charles R Qi, Leonidas Guibas, and Or Litany. Pointcontrast: Unsupervised pretraining for 3d point cloud understanding. In European conference on computer vision , pages 574-591. Springer, 2020. Yinghui Xing, Qirui Wu, De Cheng, Shizhou Zhang, Guoqiang Liang, and Yanning Zhang. Class-aware visual prompt tuning for vision-language pre-trained model. arXiv preprint arXiv:2208.08340 , 2022. Chenfeng Xu, Shijia Yang, Bohan Zhai, Bichen Wu, Xiangyu Yue, Wei Zhan, P´ eter Vajda, Kurt Keutzer, and Masayoshi Tomizuka. Image2point: 3d pointcloud understanding with pretrained 2d convnets. ArXiv , abs/2106.04180, 2021. Mutian Xu, Runyu Ding, Hengshuang Zhao, and Xiaojuan Qi. Paconv: Position adaptive convolution with dynamic kernel assembling on point clouds. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 3173-3182, 2021. Haoxuan You, Yifan Feng, Rongrong Ji, and Yue Gao. Pvnet: A joint convolutional network of point cloud and multi-view for 3d shape recognition. In Proceedings of the 26th ACM international conference on Multimedia , pages 1310-1318, 2018. Hengxu You, Fang Xu, and Eric Du. Robot-based realtime point cloud digital twin modeling in augmented reality. Transforming Construction with Reality Capture Technologies , 2022.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        50.112,
+        79.13999999999999,
+        286.366,
+        119.71399999999994
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_125",
+      "2303.11313_paragraph_126",
+      "2303.11313_paragraph_127",
+      "2303.11313_paragraph_128",
+      "2303.11313_paragraph_129",
+      "2303.11313_paragraph_130"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_131",
+    "type": "paragraph",
+    "content": "Xumin Yu, Lulu Tang, Yongming Rao, Tiejun Huang, Jie Zhou, and Jiwen Lu. Point-bert: Pre-training 3d point cloud transformers with masked point modeling. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 19313-19322, 2022. Lu Yuan, Dongdong Chen, Yi-Ling Chen, Noel Codella, Xiyang Dai, Jianfeng Gao, Houdong Hu, Xuedong Huang, Boxin Li, Chunyuan Li, et al. Florence: A new foundation model for computer vision. arXiv preprint arXiv:2111.11432 , 2021. Yuhang Zang, Wei Li, Kaiyang Zhou, Chen Huang, and Chen Change Loy. Unified vision and language prompt learning. arXiv preprint arXiv:2210.07225 , 2022. Renrui Zhang, Ziyu Guo, Wei Zhang, Kunchang Li, Xupeng Miao, Bin Cui, Yu Qiao, Peng Gao, and Hongsheng Li. Pointclip: Point cloud understanding by clip. arXiv preprint arXiv:2112.02413 , 2021. Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen, Christopher Dewan, Mona Diab, Xian Li, Xi Victoria Lin, et al. Opt: Open pre-trained transformer language models. arXiv preprint arXiv:2205.01068 , 2022. Hengshuang Zhao, Li Jiang, Jiaya Jia, Philip HS Torr, and Vladlen Koltun. Point transformer. In Proceedings of the IEEE/CVF international conference on computer vision , pages 16259-16268, 2021. Chong Zhou, Chen Change Loy, and Bo Dai. Denseclip: Extract free dense labels from clip. arXiv preprint arXiv:2112.01071 , 2021.",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        308.862,
+        410.603,
+        545.113,
+        462.135
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_131",
+      "2303.11313_paragraph_132",
+      "2303.11313_paragraph_133",
+      "2303.11313_paragraph_134",
+      "2303.11313_paragraph_135",
+      "2303.11313_paragraph_136",
+      "2303.11313_paragraph_137"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_138",
+    "type": "paragraph",
+    "content": "Peng Zhou, Rui Peng, Maggie Xu, Victor Wu, and David Navarro-Alarcon. Path planning with automatic seam extraction over point cloud models for robotic arc welding. IEEE Robotics and Automation Letters , 6(3):5002-5009, 2021. Xingyi Zhou, Rohit Girdhar, Armand Joulin, Philipp Kr¨ ahenb¨ uhl, and Ishan Misra. Detecting twenty-thousand",
+    "metadata": {
+      "page": 11,
+      "section": "References",
+      "bbox": [
+        308.862,
+        101.39499999999998,
+        545.113,
+        141.96900000000005
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_138",
+      "2303.11313_paragraph_139"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_140",
+    "type": "paragraph",
+    "content": "classes using image-level supervision. In Computer VisionECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23-27, 2022, Proceedings, Part IX , pages 350-368. Springer, 2022.",
+    "metadata": {
+      "page": 12,
+      "section": "References",
+      "bbox": [
+        70.031,
+        675.301,
+        286.364,
+        716.036
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_140"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_141",
+    "type": "paragraph",
+    "content": "We provide further qualitative results that demonstrate the language-based querying capabilities of our proposed framework on point clouds of indoor scenes. Note that in the main paper, we pre-trained on ShapeNet which is not a real-world dataset. In order to imporve performance on scene-querying on real-world datasets, we perform additional pre-training on the ScanObjectNN dataset for querying on a collection of meshed indoor scenes from the S3DIS [3] and ScanNet [9] datasets. During standard CG3D pre-training, we render the textured CAD models of ShapeNet to use as inputs to our visual encoder. Such rendering is not possible with ScanObjectNN, so we project each point cloud to a depth map in a random view. The text caption is curated in the standard procedure.",
+    "metadata": {
+      "page": 12,
+      "section": "A. Scene querying with language",
+      "bbox": [
+        308.862,
+        592.448,
+        545.115,
+        696.641
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_141",
+      "2303.11313_paragraph_142"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_143",
+    "type": "paragraph",
+    "content": "We perform language-based scene querying on the indoor scene dataset S3DIS [3]. Each scene (disregarding the floor and ceiling regions, as is standard in semantic segmentation tasks) is clustered into regions, each of which is passed to CG3D along with a query containing the object to be localized. Some qualitative results may be seen in Figure 8. Each row shows an input indoor scene, the result of clustering, and the final result of the language query. We query the same scene for two different objects. In the second row, it can be observed that several instances of the queried category 'chair' are correctly identified.",
+    "metadata": {
+      "page": 12,
+      "section": "A.1. Scene querying on S3DIS",
+      "bbox": [
+        308.862,
+        358.54,
+        545.115,
+        486.644
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_143"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_144",
+    "type": "paragraph",
+    "content": "We also demonstrate the performance of the 3D encoder pre-trained on real data on indoor scene samples from the ScanNet [9] dataset. Figure 9 shows the result of querying on two samples. The quality of the results depends on the clustering accuracy, which can cause spurious results. However, both instances of the queried object are correctly identified in both examples.",
+    "metadata": {
+      "page": 12,
+      "section": "A.2. Scene querying on ScanNet",
+      "bbox": [
+        308.862,
+        245.13800000000003,
+        545.115,
+        325.421
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_144"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_145",
+    "type": "paragraph",
+    "content": "In the main paper, we showed how we can train a 3D encoder in the CLIP framework and illustrated its benefits. We also introduced prompt tuning in the 2D encoder of CG3D to tune it towards rendered 3D shapes and objects. Performing contrastive visual prompt tuning not only aids in pre-training the 3D encoder, but also allows us to leverage CLIP's visual encoder for 3D shapes. Using visual prompts allows us to train the visual encoder without forgetting the already existing weights of CLIP. Thus, this helps us obtain a new visual encoder that has a capability of performing better than normal CLIP encoder on image-based 3D tasks. By",
+    "metadata": {
+      "page": 12,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        308.862,
+        78.93399999999997,
+        545.115,
+        207.03700000000003
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_145"
+    ]
+  },
+  {
+    "id": "2303.11313_fig_7",
+    "type": "figure",
+    "content": "Figure 8: Qualitative results of scene-querying samples from the S3DIS [3] dataset.",
+    "metadata": {
+      "page": 13,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        106.67892456054688,
+        410.0788879394531,
+        485.3974914550781,
+        717.8627319335938
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_10.png"
+    }
+  },
+  {
+    "id": "2303.11313_fig_8",
+    "type": "figure",
+    "content": "Figure 9: Qualitative results of scene-querying samples from the ScanNet [9] dataset.",
+    "metadata": {
+      "page": 13,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        101.77147674560547,
+        173.54425048828125,
+        493.4905700683594,
+        375.18548583984375
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/figure/figure_11.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_146",
+    "type": "paragraph",
+    "content": "image-based 3D tasks, we mean applications such as PointCLIP [72] where zero-shot classification is performed by forwarding depth maps of each point cloud directly to the visual encoder. We examine the effectiveness of tuning the visual encoder using our method by comparing the classification and zero-shot classification performance on the ShapeNet and ModelNet datasets respectively. In column 3 of Table 4, we",
+    "metadata": {
+      "page": 13,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        50.112,
+        84.25700000000006,
+        286.365,
+        128.67499999999995
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_146",
+      "2303.11313_paragraph_147"
+    ]
+  },
+  {
+    "id": "2303.11313_table_4",
+    "type": "table",
+    "content": "Table 4: Comparison of classification performance of CLIP visual encoder and CG3D visual encoder on the ShapeNet and ModelNet datasets. CG3D is pretrained on ShapeNet.",
+    "metadata": {
+      "page": 14,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        49.4903450012207,
+        674.504997253418,
+        284.9573974609375,
+        721.0681381225586
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/table/table_4.png"
+    }
+  },
+  {
+    "id": "2303.11313_table_5",
+    "type": "table",
+    "content": "Table 5: Comparison of linear probe classification performance of CLIP visual encoder and CG3D visual encoder on the ShapeNet and ModelNet datasets.",
+    "metadata": {
+      "page": 14,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        49.50285720825195,
+        560.7594909667969,
+        284.40924072265625,
+        617.8991546630859
+      ],
+      "image_path": "data/rag_assets/images/2303.11313/table/table_5.png"
+    }
+  },
+  {
+    "id": "2303.11313_paragraph_148",
+    "type": "paragraph",
+    "content": "compare the overall classification accuracy of single-view PointCLIP [72] against the prompt-tuned visual encoder on rendered images of ShapeNet objects. Column 4 compares zero-shot classfication performance on the 40-class split of ModelNet. CG3D-render denotes that the framework uses rendered images of ShapeNet objects during pre-training. CG3D-depth denotes that depth projections are used as inputs to the visual encoder during pre-training. We observe that performing visual prompt tuning of the 2D encoder significantly improves the performance of CLIP visual encoder in CG3D for 3D shape datasets. Classification performance on rendered ShapeNet images improves by 44.2% points and and zero-shot performance on ModelNet depth images improves by 24.3% points. The best performance is observed when the modality of the pretraining image dataset aligns with the modality during evaluation. Nonetheless, we observe improvements even when the modalities do not match.",
+    "metadata": {
+      "page": 14,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        50.112,
+        399.765,
+        286.365,
+        492.003
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_148",
+      "2303.11313_paragraph_149"
+    ]
+  },
+  {
+    "id": "2303.11313_paragraph_150",
+    "type": "paragraph",
+    "content": "As a further demonstration of the quality of image features obtained after visual prompt tuning, we perform linear probing as done in [46] by performing logistic regression on the learned image features from the visual encoder. In Table 5, we compare the linear probe performance using image features from the out-of-the-box vision encoder of CLIP (as used in [72]) with the visual encoder with tuned prompt tokens. A trend similar to Table 4 can be observed, where prompt tuning results in improved classification performance, with the best performance occurring when the modalities of the train and test data match. This means that the visual encoder is able to effectively learn image features specific to 3D shapes. This opens up numerous possibilities in multi-modal learning between 3D shapes and images.",
+    "metadata": {
+      "page": 14,
+      "section": "B. Leveraging prompt-tuning for images",
+      "bbox": [
+        50.112,
+        112.84000000000003,
+        286.365,
+        276.80999999999995
+      ]
+    },
+    "source_ids": [
+      "2303.11313_paragraph_150"
+    ]
+  }
+]

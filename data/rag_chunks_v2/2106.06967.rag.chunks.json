@@ -1,0 +1,2120 @@
+[
+  {
+    "id": "2106.06967_paragraph_1",
+    "type": "paragraph",
+    "content": "In this paper we derived in QCD the BFKL linear, inhomogeneous equation for the factorial moments of multiplicity distribution ( M k ) from LMM equation. In particular, the equation for the average multiplicity of the color-singlet dipoles ( N ) turns out to be the homogeneous BFKL while M k ∝ N k at small x . Second, using the diffusion approximation for the BFKL kernel we show that the factorial moments are equal to: M k = k ! N ( N -1) k -1 which leads to the multiplicity distribution: σ n σ in = 1 N ( N -1 N ) n -1 . We also suggest a procedure for finding corrections to this multiplicity distribution which will be useful for descriptions of the experimental data. PACS numbers: 13.60.Hb, 12.38.Cy",
+    "metadata": {
+      "page": 1,
+      "section": "Abstract",
+      "bbox": [
+        108.794,
+        564.82,
+        507.304,
+        638.507
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_1",
+      "2106.06967_paragraph_2"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_4",
+    "type": "paragraph",
+    "content": "in Refs.[6, 10, 11, 16, 19] that these ideas are in qualitative and, partly, in quantitative agreement with the available experimental data. Actually, it is shown in Ref.[5] that the simple cascade of color-singlet dipoles leads to the multiplicity distribution:\nEquation: σ n σ in = 1 N ( N -1 N ) n -1 (1)",
+    "metadata": {
+      "page": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        54.0,
+        704.119,
+        562.098,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_4",
+      "2106.06967_equation_1"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_5",
+    "type": "paragraph",
+    "content": "where N is the average number of dipoles. The goal of this paper is to study the multiplicity distribution and the entanglement entropy in the effective theory for QCD at high energies (see Ref.[24] for a general review). We have approached this problem in Refs.[5, 18] and have demonstrated that Eq. (1) arises in QCD cascades. In this paper we analyze the multiplicity distribution for Balitsky-Kovchegov (BK) cascade[25] in which one dipole at low energy generates a large number color-singlet dipoles at high energy. The equation for such a cascade are known (see Refs.[24, 27-29] ) and the first try to solve them have been undertaken in Ref.[18]. However, in this paper we return to this problem and study the multiplicity distribution using the new equation (Le, Mueller and Munier (LMM) equation) for the probability generating function that has been derived in Ref.[30].",
+    "metadata": {
+      "page": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        54.0,
+        640.848,
+        238.695,
+        649.645
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_5",
+      "2106.06967_paragraph_6"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_7",
+    "type": "paragraph",
+    "content": "In the next section we derive LMM equation from the equation for the BK parton cascade. In the rest of the paper we discuss the equations for the factorial moments that follow from the LMM equation. We show that every factorial moment satisfies the linear but inhomogeneous equation with the Balitsky, Fadin, Kuraev and Lipatov (BFKL) kernel[31, 32]. We attempt to solve these equations and demonstrate that in the diffusion approximation to the BFKL kernel factorial moments are equal to:\nEquation: M k = k ! N ( N -1 ) k -1 (2)",
+    "metadata": {
+      "page": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        54.0,
+        485.431,
+        562.096,
+        542.049
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_7",
+      "2106.06967_equation_2"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_8",
+    "type": "paragraph",
+    "content": "We show that Eq. (2) leads to Eq. (1). In section VI we suggest an approach to go beyond diffusion approximation, which cannot give a reliable description of the experimental data even in the leading order of perturbative QCD. In this approach we propose to solve exactly the equations for the factorial moments and using the difference between the exact solution and Eq. (2) ( ∆ M k = M k (exact) -M k ( Eq. (2)) ) we develop the way how to estimate the multiplicity distributions beyond diffusion approximation. In conclusion section we summarize our results.",
+    "metadata": {
+      "page": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        63.963,
+        427.18,
+        232.29,
+        435.977
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_8",
+      "2106.06967_paragraph_9"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_10",
+    "type": "paragraph",
+    "content": "In QCD at large number of colors N c ( N c glyph[greatermuch] 1 ) the color-singlet dipoles play the role of partons (see Ref.[24] for review). As discussed in Refs.[24, 27-29] for them we can write the following equations:\nEquation: ∂ P n ( Y, r , b ; r 1 , b 1 , r 2 , b 2 . . . r i , b i , . . . r n , b n ) ∂ Y = -n ∑ i =1 ω G ( r i ) P n ( Y, r , b ; r 1 , b 1 , r 2 , b 2 . . . r i , b i , . . . r n , b n ) (3) + ¯ α S n -1 ∑ i =1 ( r i + r n ) 2 (2 π ) r 2 i r 2 n P n -1 ( Y, r , b ; r 1 , b 1 , . . . ( r i + r n ) , b in , . . . r n -1 , b n )",
+    "metadata": {
+      "page": 2,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        296.476,
+        562.096,
+        317.228
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_10",
+      "2106.06967_equation_3"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_11",
+    "type": "paragraph",
+    "content": "where P n ( Y ; { r i , b i } ) is the probability to have n -dipoles of size r i , at impact parameter b i and at rapidity Y 1 . b in in Eq. (3) is equal to b in = b i + 1 2 r i = b n -1 2 r i . ω G ( r ) is defined below in Eq. (8b). Eq. (3) is a typical cascade equation in which the first term describes the reduction of the probability to find n dipoles due to the possibility that one of n dipoles can decay into two dipoles of arbitrary sizes, while the second term describes the growth due to the splitting of ( n -1) dipoles into n dipoles. The initial condition for the DIS scattering is\nEquation: P 1 ( Y = 0 , r , b ; r 1 , b 1 ) = δ (2) ( r -r 1 ) δ (2) ( b -b 1 ) ; P n> 1 ( Y = 0; { r i } ) = 0 (4)",
+    "metadata": {
+      "page": 2,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        188.67100000000005,
+        561.597,
+        213.813
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_11",
+      "2106.06967_paragraph_12",
+      "2106.06967_paragraph_13",
+      "2106.06967_equation_4"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_14",
+    "type": "paragraph",
+    "content": "1 In the lab. frame rapidity Y is equal to Y = y dipole r -y dipoles r i , where y dipole r is the rapidity of the incoming fast dipole and y dipole r i is the rapidity of dipoles r i . Note, that all rapidities of dipoles r i are the same in Eq. (3).",
+    "metadata": {
+      "page": 2,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        55.494,
+        66.75599999999997,
+        562.098,
+        86.77200000000005
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_14"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_15",
+    "type": "paragraph",
+    "content": "which corresponds to the fact that we are discussing a dipole of definite size which develops the parton cascade. Since P n ( Y ; { r i } ) is the probability to find dipoles { r i } , we have the following sum rule\nEquation: ∞ ∑ n =1 ∫ n ∏ i =1 d 2 r i d 2 b i P n ( Y ; { r i b i } ) = 1 , (5)",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        715.182,
+        562.09,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_15",
+      "2106.06967_equation_5"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_16",
+    "type": "paragraph",
+    "content": "i.e. the sum of all probabilities is equal to 1. This QCD cascade leads to Balitsky-Kovchegov (BK) equation [24, 25] for the amplitude and gives the theoretical description of the DIS. We introduce the generating functional[27]\nEquation: Z ( Y, r , b ; [ u i ]) = ∞ ∑ n =1 ∫ P n ( Y, r , b ; { r i b i } ) n ∏ i =1 u ( r i b i ) d 2 r i d 2 b i (6)",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        648.997,
+        247.867,
+        657.794
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_16",
+      "2106.06967_paragraph_17",
+      "2106.06967_equation_6"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_18",
+    "type": "paragraph",
+    "content": "where u ( r i b i ) ≡ u i is an arbitrary function. The initial conditions of Eq. (4) and the sum rules of Eq. (5) take the following form for the functional Z :\nEquation: Z ( Y = 0 , r , b ; [ u i ]) = u ( r , b ) ; (7a)\nEquation: Z ( Y, r, [ u i = 1]) = 1; (7b)",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        545.444,
+        562.096,
+        566.197
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_18",
+      "2106.06967_equation_7",
+      "2106.06967_equation_8"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_19",
+    "type": "paragraph",
+    "content": "Multiplying both parts of Eq. (3) by ∏ n i =1 u ( r i b i ) and integrating over r i and b i we obtain the following linear functional equation[29];\nEquation: ∂Z ( Y, r , b ; [ u i ]) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) ( -u ( r, b ) + u ( r ′ , b + 1 2 ( r -r ′ ) ) u ( r -r ′ , b + 1 2 r ′ ) ) δ Z δ u ( r, b ) ; (8a) K ( r ′ , r -r ′ | r ) = 1 2 π r 2 r ′ 2 ( r -r ′ ) 2 ; ω G ( r ) = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) ; (8b)\nEquation: where y = ¯ α S Y .",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        477.57,
+        562.097,
+        501.23
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_19",
+      "2106.06967_equation_9",
+      "2106.06967_equation_10"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_20",
+    "type": "paragraph",
+    "content": "Searching for the solution of the form Z ([ u ( r i , b i , Y )]) for the initial conditions of Eq. (7a), Eq. (8a) can be re-written as the non-linear equation [27]:\nEquation: ∂Z ( Y, r , b ; [ u i ]) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { Z ( r ′ , b + 1 2 ( r -r ′ ); [ u i ] ) Z ( r -r ′ , b + 1 2 r ′ ; [ u i ] ) -Z ( Y, r , b ; [ u i ]) } (9)",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        367.204,
+        562.09,
+        387.956
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_20",
+      "2106.06967_equation_11"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_21",
+    "type": "paragraph",
+    "content": "Therefore, the QCD parton cascade of Eq. (3) takes into account non-linear evolution.",
+    "metadata": {
+      "page": 3,
+      "section": "II. GENERAL FEATURES OF THE CASCADE OF COLOR-SINGLET DIPOLES IN QCD",
+      "bbox": [
+        54.0,
+        304.875,
+        430.77,
+        313.672
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_21"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_22",
+    "type": "paragraph",
+    "content": "In this section we derive the LMM equation which is proposed in Ref.[30]. First, we introduce the same notations as in Ref.[30]:\nEquation: ˜ w n ( r, b, y ) = ∫ n ∏ i =1 d 2 r i d 2 b i P n ( Y ; { r i b i } ) (10)",
+    "metadata": {
+      "page": 3,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        233.89999999999998,
+        562.095,
+        254.65200000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_22",
+      "2106.06967_equation_12"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_23",
+    "type": "paragraph",
+    "content": "One can see that ˜ w n ( r, b, y ) is the probability that the dipole with size r produces n dipoles with all possible sizes. Eq. (7b) reads as\nEquation: ∞ ∑ n =1 ˜ w n ( r, b, y ) = 1 (11)",
+    "metadata": {
+      "page": 3,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        163.72199999999998,
+        562.091,
+        184.47399999999993
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_23",
+      "2106.06967_equation_13"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_24",
+    "type": "paragraph",
+    "content": "Taking all u i ( r i , b i ) = λ one can see that we can re-write Eq. (6) in the form:\nEquation: Z ( Y, r , b ; [ u i = λ ]) ≡ ˜ w λ ( r , b , y ) = ∞ ∑ n =1 λ n ˜ w n ( r , b , y ) (12)",
+    "metadata": {
+      "page": 3,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        63.963,
+        104.72699999999998,
+        408.503,
+        114.41700000000003
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_24",
+      "2106.06967_equation_14"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_25",
+    "type": "paragraph",
+    "content": "Plugging Eq. (17) into Eq. (9) we obtain the LMM equation in the form:\nEquation: ∂ ˜ w λ ( r , b , y ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { ˜ w λ ( r ′ , b + 1 2 ( r -r ′ ) , y ) ˜ w λ ( r -r ′ , b + 1 2 r ′ , y ) -˜ w λ ( r , b , y ) } (13)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        63.963,
+        728.03,
+        382.164,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_25",
+      "2106.06967_equation_15"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_26",
+    "type": "paragraph",
+    "content": "In addition, discussing multiplicity distribution P n = σ n σ tot , where σ n is the cross section for production of n colorsinglet dipoles, we need to integrate w n ( r, b, y ) over b . In this case the initial condition for the dipole cascade takes the form:\nEquation: P 1 ( Y = 0 , r ; r 1 ) = δ (2) ( r -r 1 ) P n> 1 ( Y = 0; { r i } ) = 0 (14)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        644.502,
+        562.095,
+        679.193
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_26",
+      "2106.06967_equation_16"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_27",
+    "type": "paragraph",
+    "content": "which leads to the probabilities, that do not depend on impact parameters. Since in Eq. (3) b enters as a parameter, P n ( Y ; r i ) , which does not depend on b i , is also a solution to Eq. (3), which satisfies Eq. (14). Eq. (13) reduces to\nEquation: ∂ ˜ w λ ( r , y ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { ˜ w λ ( r ′ , y ) ˜ w λ ( r -r ′ , y ) -˜ w λ ( r , y ) } (15)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        578.522,
+        562.098,
+        611.229
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_27",
+      "2106.06967_equation_17"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_28",
+    "type": "paragraph",
+    "content": "Eq. (15) is a particular case of the general equation that has been derived in Ref.[30]. In this paper instead of Eq. (10) the more general form of this equation is proposed, viz.:\nEquation: w n ( r, b, y, y 0 ) = ∫ n ∏ i =1 ( d 2 r i d 2 b i S ( r i , b i , y 0 ) ) P n ( Y ; { r i b i } ) (16)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        506.566,
+        562.097,
+        527.319
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_28",
+      "2106.06967_equation_18"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_29",
+    "type": "paragraph",
+    "content": "where S ( r i , b i , y 0 ) is the scattering S-matrix for elastic interaction of the dipole with size r i at rapidity Y 0 ( y 0 = ¯ α S Y 0 ) and at impact parameter b i with the target at Y = 0 . Since S is a unitarity matrix, w n ( r, b, y ; y 0 ) is the probability that the dipole with size r produces n dipoles with all possible sizes, which interact with the target. Bearing this in mind, we see that Eq. (11) holds for w λ ( r, b, y ; y 0 ) , which is defined as\nEquation: Z ( Y, r , b ; [ u i = λS ( r i , b i , y 0 )]) ≡ w λ ( r , b , y, y 0 ) = ∞ ∑ n =1 λ n w n ( r , b , y, y 0 ) (17)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        410.491,
+        562.094,
+        456.046
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_29",
+      "2106.06967_equation_19"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_30",
+    "type": "paragraph",
+    "content": "For the case of P n which do not depend on b i , inserting in Eq. (9) u i ( r i , b i , ) = λS ( r i , b i , y 0 ) we see that we obtain the LMM equation in its original form (see Ref.[30]):\nEquation: ∂w λ ( r , b, y, y 0 ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { w λ ( r ′ , y, y 0 ) w λ ( r -r ′ , y, y 0 ) -w λ ( r , y, y 0 ) } (18)",
+    "metadata": {
+      "page": 4,
+      "section": "III. DERIVATION OF LE, MUELLER AND MUNIER (LMM) EQUATION",
+      "bbox": [
+        54.0,
+        330.767,
+        562.092,
+        351.519
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_30",
+      "2106.06967_equation_20"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_31",
+    "type": "paragraph",
+    "content": "The average number of dipoles can be calculated using the following formula:\nEquation: N ( r , y, y 0 ) = 〈| n |〉 = ∞ ∑ n =1 nw n ( r, y, y 0 ) = ∂ w λ ( r , y, y 0 ) ∂ λ ∣ ∣ ∣ λ =1 (19)",
+    "metadata": {
+      "page": 4,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        223.01,
+        401.419,
+        231.80700000000002
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_31",
+      "2106.06967_equation_21"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_32",
+    "type": "paragraph",
+    "content": "Differentiating Eq. (13) with respect to λ we obtain that\nEquation: ∂N ( r , y, y 0 ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { N ( r ′ , y, y 0 ) + N ( r -r ′ , y, y 0 ) -N ( r , y, y 0 ) } (20)",
+    "metadata": {
+      "page": 4,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        164.36900000000003,
+        311.422,
+        173.16599999999994
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_32",
+      "2106.06967_equation_22"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_33",
+    "type": "paragraph",
+    "content": "Eq. (20) shows that the average number of dipoles satisfies the linear BFKL [31, 32] equation and increases in the region of small x (large y ). Therefore, we see that the general QCD cascade reproduces the main observation of Ref.[5] which was made in the oversimplified model for the QCD cascade. In this model the dependence on the size of the dipoles were neglected.",
+    "metadata": {
+      "page": 4,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        54.0,
+        68.50300000000004,
+        562.097,
+        113.16499999999996
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_33"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_34",
+    "type": "paragraph",
+    "content": "The general solution takes the following form:\nEquation: N ( r , y, y 0 ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e χ ( γ ) y + γ ξ n in ( γ, y 0 ) (21)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        728.03,
+        264.16,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_34",
+      "2106.06967_equation_23"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_35",
+    "type": "paragraph",
+    "content": "where ξ = ln ( 1 r 2 ) and χ ( γ ) is the BFKL kernel:\nEquation: χ ( γ ) = 2 ψ (1) -ψ ( γ ) -ψ (1 -γ ) =        1 γ for γ → 0 ← double log approximation(DLA) ; 4 ln 2 ︸ ︷︷ ︸ ω 0 + 14 ζ (3) ︸ ︷︷ ︸ D ( γ -1 2 ) 2 for γ → 1 2 ← diffusion approximation(DA) ; (22)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        54.0,
+        646.389,
+        269.351,
+        659.841
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_35",
+      "2106.06967_equation_24"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_36",
+    "type": "paragraph",
+    "content": "where ψ ( z ) is the Euler ψ -function (see Ref.[36] formula 8.36 ). n in ( γ ) has to be found from the initial condition N ( r , b , y = 0 , y 0 = 0) = 1 (see Eq. (4) and Eq. (7a)). It gives\nEquation: n in ( γ ) = 1 γ (23)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        543.659,
+        555.437,
+        565.314
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_36",
+      "2106.06967_equation_25"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_37",
+    "type": "paragraph",
+    "content": "Introducing multiplicity in the momentum representation:\nEquation: N ( k T , y ) = ∫ d 2 r e -i k T · r N ( r, y ) r 2 , (24)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        492.729,
+        316.982,
+        501.526
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_37",
+      "2106.06967_equation_26"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_38",
+    "type": "paragraph",
+    "content": "we can re-write Eq. (20) in the form:\nEquation: ∂ N ( k T , y, y 0 ) ∂ y = ∫ d 2 k T (2 π ) 2 K ( k T , k ′ T ) N ( k ′ T , y, y 0 ) (25)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        54.0,
+        439.991,
+        214.967,
+        448.788
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_38",
+      "2106.06967_equation_27"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_39",
+    "type": "paragraph",
+    "content": "where K ( k T , k ′ T ) is the BFKL kernel in momentum representation:\nEquation: K ( k T , k ′ T ) N ( k ′ T , y, y 0 ) = 1 ( k T -k ′ T ) 2 N ( k ′ T , y, y 0 ) -k 2 T ( k T -k ′ T ) 2 ( ( k T -k ′ T ) 2 + k ′ 2 T ) N ( k T , y, y 0 ) (26)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        372.994,
+        361.292,
+        386.006
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_39",
+      "2106.06967_equation_28"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_40",
+    "type": "paragraph",
+    "content": "Solution to this equation has the same form of Eq. (21) but with the replacement of ξ → ξ ′ = ln k 2 T and\nEquation: n in ( γ ) = χ ( γ ) /γ (27)",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        63.963,
+        300.422,
+        518.173,
+        312.875
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_40",
+      "2106.06967_equation_29"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_41",
+    "type": "paragraph",
+    "content": "Eq. (27) reproduces the value of N ( k T , y = 0 , y 0 = 0) , since Eq. (24) at y = 0 leads to N ( k T , y ) = ln k 2 T + O ( 1 /k 2 T ) . It is worth mentioning that (1) in the double log approximation n in ( γ ) = 1 /γ 2 , which leads to N ( k T , y ) = ln k 2 T and (2) in semi-classical approximation, which we will use below, we can neglect all corrections of the order of 1 /k 2 T .",
+    "metadata": {
+      "page": 5,
+      "section": "IV. AVERAGE NUMBER OF COLOR-SINGLET DIPOLES",
+      "bbox": [
+        54.0,
+        234.05399999999997,
+        562.095,
+        270.50800000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_41"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_42",
+    "type": "paragraph",
+    "content": "We start a derivation of the evolution equation for the moments of the multiplicity distributions considering the second moment, which has the following form:\nEquation: M 2 ( r , y, y 0 ) = 〈| n ( n -1) |〉 = ∞ ∑ n =1 n ( n -1) w n ( r, y, y 0 ) = ∂ 2 w λ ( r , y, y 0 ) ∂ λ 2 ∣ ∣ ∣ λ =1 (28)",
+    "metadata": {
+      "page": 5,
+      "section": "Equation",
+      "bbox": [
+        54.0,
+        115.82500000000005,
+        562.097,
+        136.577
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_42",
+      "2106.06967_equation_30"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_43",
+    "type": "paragraph",
+    "content": "Taking the second derivative with respect to λ from Eq. (18) we obtain the equation for M 2 ( r , y, y 0 )\nEquation: ∂ M 2 ( r , y, y 0 ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { M 2 ( r ′ , y, y 0 ) + M 2 ( r -r ′ , y, y 0 ) + 2 N ( r ′ , y, y 0 ) N ( r -r ′ , y, y 0 ) -M 2 ( r , y, y 0 ) } (29)",
+    "metadata": {
+      "page": 6,
+      "section": "Equation",
+      "bbox": [
+        54.0,
+        727.137,
+        494.283,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_43",
+      "2106.06967_equation_31"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_44",
+    "type": "paragraph",
+    "content": "Eq. (29) is a linear but inhomogeneous equation with the inhomogeneous term, which is determined by the multiplicity of the dipoles. The initial conditions (see Eq. (4) and Eq. (7a)) for this equation is\nEquation: M 2 ( r , y = y 0 , y 0 ) = 0 (30)",
+    "metadata": {
+      "page": 6,
+      "section": "Equation",
+      "bbox": [
+        54.0,
+        621.188,
+        562.091,
+        641.94
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_44",
+      "2106.06967_paragraph_45",
+      "2106.06967_equation_32"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_46",
+    "type": "paragraph",
+    "content": "First, lets us start to solve Eq. (29) making first iteration at small y = ∆ y . For y = 0 N ( r, y = 0) = 1 and M 2 ( r, y = 0) = 0 , and hence\nEquation: M (1) 2 = 2∆ y ω G ( r ) (31)",
+    "metadata": {
+      "page": 6,
+      "section": "Equation",
+      "bbox": [
+        63.963,
+        553.303,
+        390.91,
+        574.947
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_46",
+      "2106.06967_equation_33"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_47",
+    "type": "paragraph",
+    "content": "where ω is given by Eq. (8b). The first iteration of Eq. (20) leads to N (1) = 1 + ∆ y ω G ( r ) . Comparing these two estimates one can see that the first iteration can be written as the expansion of the solution M 2 ( r, y ) = 2 ( N 2 ( r, y ) -N ( r, y ) ) with respect to ∆ y . Hence, we see, that at small ∆ y we obtain the simple expression for M 2 , which turns out to be the same as for the multiplicity distribution of Eq. (1) for the simple toy model [5]. We will try to prove this equation below, but we have succeeded only in the semi-classical approximation.",
+    "metadata": {
+      "page": 6,
+      "section": "Equation",
+      "bbox": [
+        54.0,
+        461.355,
+        562.099,
+        519.487
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_47"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_48",
+    "type": "paragraph",
+    "content": "The general solution to Eq. (29) we can obtain going to momentum representation:\nEquation: m 2 ( k T , y ) = ∫ d 2 r (2 π ) 2 e -i k T · r M 2 ( r, y ) r 2 (32)",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        63.963,
+        402.153,
+        427.287,
+        410.95
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_48",
+      "2106.06967_equation_34"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_49",
+    "type": "paragraph",
+    "content": "Eq. (29) takes the form:\nEquation: ∂ m 2 ( k T , y, y 0 ) ∂ y = ∫ d 2 k T (2 π ) 2 K ( k T , k ′ T ) m 2 ( k ′ T , y, y 0 ) + 2 N 2 ( k T , y, y 0 ) (33)",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        63.963,
+        337.389,
+        168.765,
+        346.186
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_49",
+      "2106.06967_equation_35"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_50",
+    "type": "paragraph",
+    "content": "Taking the Mellin transform:\nEquation: m 2 ( k T , y, y 0 ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e γ ξ ′ ˜ m 2 ( γ, y, y 0 ) where ξ ′ = ln k 2 T (34)",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        63.963,
+        282.699,
+        190.24,
+        291.496
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_50",
+      "2106.06967_equation_36"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_51",
+    "type": "paragraph",
+    "content": "from both part of Eq. (33) we obtain:\nEquation: ∂ ˜ m 2 ( γ, y, y 0 ) ∂ y = χ ( γ ) ˜ m 2 ( γ, y, y 0 ) + 2 ˜ n 2 (35)",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        54.0,
+        214.28300000000002,
+        218.263,
+        223.08000000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_51",
+      "2106.06967_equation_37"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_52",
+    "type": "paragraph",
+    "content": "where χ ( γ ) is given by Eq. (8b) and ˜ n 2 denotes the Mellin image of N 2 ( k T , b , y, y 0 ) . Eq. (35) has the following solution which satisfies the initial condition of Eq. (30):\nEquation: ˜ m 2 ( γ, y, y 0 ) = e χ ( γ ) y ∫ y 0 dy ′ 2 ˜ n 2 e -χ ( γ ) y ′ + ˜ m BFKL 2 ( γ, y, y 0 ) (36)",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        54.0,
+        145.13599999999997,
+        425.455,
+        167.40200000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_52",
+      "2106.06967_equation_38"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_53",
+    "type": "paragraph",
+    "content": "where ˜ m BFKL 2 ( γ, y, y 0 ) is a solution to the homogeneous linear BFKL equation with the initial condition of Eq. (30). In the following, we neglect the contribution of this term.",
+    "metadata": {
+      "page": 6,
+      "section": "General solution",
+      "bbox": [
+        54.0,
+        68.50300000000004,
+        562.094,
+        90.769
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_53"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_54",
+    "type": "paragraph",
+    "content": "For large y and ξ we can use the semi-classical approximation( SCA, see Refs.[24, 33] and references therein) to take the integral over y ′ in Eq. (36). In this approximation we are searching for\nEquation: N = e S N = e ω ( ξ ′ ,y ) y + γ ( y,ξ ′ ) ξ ′ (37)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        689.946,
+        562.097,
+        710.698
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_54",
+      "2106.06967_equation_39"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_55",
+    "type": "paragraph",
+    "content": "where ω ( ξ ′ , y ) and γ ( y, ξ ′ ) are smooth functions of y and ξ ′ : ∂ ω ′ ( ξ ′ , y ) /∂ y glyph[lessmuch] ω 2 ( ξ ′ , y ) , ∂ ω ( ξ ′ , y ) /∂ ξ ′ glyph[lessmuch] ω ( ξ ′ , y ) γ ( y, ξ ′ ) , ∂ γ ( ξ ′ , y ) /∂ ξ ′ glyph[lessmuch] γ 2 ( ξ ′ , y ) , ∂ γ ( ξ ′ , y ) /∂ ξ ′ glyph[lessmuch] ω ( ξ ′ , y ) γ ( y, ξ ′ ) . Such form of N stems from Eq. (21) if we use the method of steepest descent for calculating the integral over γ . Indeed, using this method one can see that\nEquation: ω ( ξ ′ , y ) = χ ( γ SP ) ; γ ( ξ ′ , y ) = γ SP ; equation for γ SP : dχ ( γ ) dγ ∣ ∣ ∣ ∣ ∣ γ = γ SP y = ξ ′ ; (38)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        609.599,
+        562.098,
+        655.776
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_55",
+      "2106.06967_equation_40"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_56",
+    "type": "paragraph",
+    "content": "In the SCA the Mellin image of N 2 can be written as follows:\nEquation: N 2 ( ξ ′ , y, y 0 ) = e 2 S N = e 2 ω ( ξ ′ ,y ) y +2 γ ( y,ξ ′ ) ξ ′ = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e 2 χ ( 1 2 γ ) y + γ ξ ′ H ( γ ) (39)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        63.963,
+        549.75,
+        333.027,
+        560.061
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_56",
+      "2106.06967_equation_41"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_57",
+    "type": "paragraph",
+    "content": "Indeed, taking the integral by the method of steepest descent we obtain the following equation for the saddle point ( γ (2) SP ):\nEquation: 2 dχ ( 1 2 γ ) dγ ∣ ∣ ∣ ∣ ∣ γ = γ (2) SP y = ξ ′ ; (40)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        457.427,
+        562.096,
+        481.889
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_57",
+      "2106.06967_equation_42"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_58",
+    "type": "paragraph",
+    "content": "with the solution γ (2) SP = 2 γ SP , where γ SP is given by Eq. (38). Plugging this solution into Eq. (39) we see that\nEquation: N 2 ( ξ ′ , y, y 0 ) = e 2 χ ( 1 2 γ (2) SP ) y + γ (2) SP ξ ′ glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ d ∆ γ 2 π i e d 2 χ ( 1 2 γ (2) SP ) dγ y (∆ γ ) 2 H ( γ (2) SP ) = e 2 χ ( γ SP ) y + 2 γ SP ξ ′ glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ d ∆ γ 2 π i e d 2 χ ( γ SP ) dγ y (∆ γ ) 2 H (2 γ SP ) (41)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        391.371,
+        543.525,
+        405.568
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_58",
+      "2106.06967_equation_43"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_59",
+    "type": "paragraph",
+    "content": "The integral over ∆ γ leads to a smooth function, which in the SCA can be considered as a constant. Therefore, comparing Eq. (39) and Eq. (41) one can see that Eq. (39) is correct. We can derive Eq. (39) using a more general consideration. Actually, the expression for the Mellin transform of N 2 ( ξ ′ , y, y 0 ) is the convolution in γ of Mellin images of N , which has the following form:\nEquation: ˜ n 2 = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ ′ 2 π i n in ( γ ′ ) n in ( γ -γ ′ ) e ( χ ( γ ′ ) + χ ( γ -γ ′ )) y (42)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        248.37099999999998,
+        562.095,
+        293.034
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_59",
+      "2106.06967_equation_44"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_60",
+    "type": "paragraph",
+    "content": "Taking the integral over γ ′ using the method of steepest descent one can see that the equation for the saddle point has the following form:\nEquation: dχ ( γ -γ ′ ) dγ ′ + dχ ( γ ′ ) dγ ′ = 0 (43)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        169.14800000000002,
+        562.098,
+        191.414
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_60",
+      "2106.06967_equation_45"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_61",
+    "type": "paragraph",
+    "content": "with the solution γ ′ SP = 1 2 γ . Plugging this solution in Eq. (42) we reduce it to:\nEquation: ˜ n 2 = e 2 χ ( 1 2 γ ) y glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ d ∆ γ ′ 2 π i n 2 in ( 1 2 γ ) e d 2 χ ( γ ′ SP ) dγ ′ 2 SP y ( ∆ γ ′ ) 2 (44)",
+    "metadata": {
+      "page": 7,
+      "section": "Semi-classical solution",
+      "bbox": [
+        63.963,
+        112.96299999999997,
+        408.435,
+        126.41499999999996
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_61",
+      "2106.06967_equation_46"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_62",
+    "type": "paragraph",
+    "content": "which reproduces the Mellin transform of Eq. (39). Plugging in Eq. (36) ˜ n 2 = e 2 χ ( 1 2 γ ) y H ( γ ) we can take the integral over y ′ and the solution has the form:\nEquation: ˜ m 2 ( γ, y, y 0 ) = e χ ( γ ) y H ( γ ) ∫ y 0 dy ′ 2 ˜ n 2 e -χ ( γ ) y ′ = 2 2 χ ( 1 2 γ ) -χ ( γ ) { e 2 χ ( 1 2 γ ) y H ( γ ) -e χ ( γ ) y H ( γ ) } (45)",
+    "metadata": {
+      "page": 8,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        728.03,
+        276.25,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_62",
+      "2106.06967_paragraph_63",
+      "2106.06967_equation_47"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_64",
+    "type": "paragraph",
+    "content": "Note, that in Eq. (45) we neglected the contribution of ˜ m BFKL 2 ( γ, y, y 0 ) in Eq. (36). Before fixing H ( γ ) we need to go back to coordinate representation. Indeed, in this representation we have simple initial conditions for M 2 of Eq. (30). Since all solutions are solutions of the linear equations and γ SP glyph[lessmuch] 1 , we can replace ξ ′ = ln k 2 T by ξ = ln 1 r 2 . Bearing this in mind, we can reduce the solution to the form:\nEquation: M 2 ( ξ, y, y 0 ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i 2 χ ( γ ) 2 χ ( 1 2 γ ) -χ ( γ ) { e 2 χ ( 1 2 γ ) y -e χ ( γ ) y } 1 γ e γ ξ (46)",
+    "metadata": {
+      "page": 8,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        643.946,
+        419.888,
+        658.303
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_64",
+      "2106.06967_paragraph_65",
+      "2106.06967_equation_48"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_66",
+    "type": "paragraph",
+    "content": "First, we note, that taking the integral over γ using the method of steepest descent, we reproduce Eq. (45) with the particular choice of H ( γ ) = χ ( γ ) /γ , which has been discussed in Eq. (27). Second, one can see that at y → 0 this solution coincides with Eq. (31). In DLA this solution takes the form (see Eq. (22):\nEquation: M DLA 2 ( ξ ′ , y, y 0 ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i 2 3 { e 4 γ y -e 1 γ y } 1 γ e γ ξ ′ (47a) = 2 3 { N 2 SCA ( r, y, y 0 ) -N SCA ( r, y, y 0 ) } ← with semiclassical accuracy (47b)",
+    "metadata": {
+      "page": 8,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        515.653,
+        562.095,
+        548.36
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_66",
+      "2106.06967_paragraph_67",
+      "2106.06967_equation_49"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_68",
+    "type": "paragraph",
+    "content": "However, it turns out that Eq. (47a) reproduces at least two terms of the expansion at small values of y of the following relation:\nEquation: M 2 ( Eq. (47 a )) = 2 ( N 2 ( r, y, y 0 ) -N ( r, y, y 0 ) ) = 2 yξ + 3 2 ( y ξ ) 2 + O ( ( y ξ ) 3 ) (48)",
+    "metadata": {
+      "page": 8,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        394.772,
+        562.096,
+        415.524
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_68",
+      "2106.06967_equation_50"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_69",
+    "type": "paragraph",
+    "content": "Concluding, we see that Eq. (2) does not hold in the DLA, but Eq. (48) gives us some hope to find an approach in which it will be correct.",
+    "metadata": {
+      "page": 8,
+      "section": "Semi-classical solution",
+      "bbox": [
+        54.0,
+        328.229,
+        562.096,
+        348.981
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_69"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_70",
+    "type": "paragraph",
+    "content": "Actually, the most adequate approach at high energies is the diffusion one (see Eq. (22)). Plugging in Eq. (46) the BFKL kernel in the form χ ( γ ) = ω 0 + D ( γ -1 2 ) 2 and taking the integral using the method of steepest descent we obtain the saddle point\nEquation: γ SP = 1 2 + i ξ 2 Dy ; 2 χ ( 1 2 γ SP ) = 2 ω 0 -ξ 2 2 Dy ; χ ( γ SP ) = ω 0 -ξ 2 4 Dy ; (49)",
+    "metadata": {
+      "page": 8,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        243.59199999999998,
+        562.098,
+        278.3299999999999
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_70",
+      "2106.06967_equation_51"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_71",
+    "type": "paragraph",
+    "content": "Considering ξ 2 Dy glyph[lessmuch] 1 we can neglect their contributions in the factor 2 χ ( γ ) 2 χ ( 1 2 γ ) -χ ( γ ) reducing it to 2. Hence, Eq. (46) reads\nEquation: M DA 2 ( r, y, y 0 ) = 2 ( N 2 ( r, y, y 0 ) -N ( r, y, y 0 ) ) (50)",
+    "metadata": {
+      "page": 8,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        176.05899999999997,
+        562.098,
+        203.514
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_71",
+      "2106.06967_equation_52"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_72",
+    "type": "paragraph",
+    "content": "We can obtain the solution of Eq. (50) directly from the equation for M 2 (see Eq. (29)), if we note that the BFKL kernel has maxima at r ′ → 0 and | r -r ′ |→ 0 . In Fig. 1 we plot the term of Eq. (29) , which is proportional to N 2 :\nEquation: ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) 2 N ( r ′ , y, y 0 ) N ( r -r ′ , y, y 0 ) ∝ ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) ( ( r ′ 2 ( r -r ′ ) 2 ) 1 2 = ∫ dr ′ I ( τ = r ′ r ) (51)",
+    "metadata": {
+      "page": 8,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        111.45299999999997,
+        562.091,
+        132.20500000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_72",
+      "2106.06967_equation_53"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_73",
+    "type": "paragraph",
+    "content": "We can see from Fig. 1, that I ( τ ) has a maximum at τ = 1 . Note, that in Eq. (51) we introduce γ = 1 2 , which corresponds to the DA, to estimates the value of this contribution.",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        716.074,
+        562.096,
+        738.648
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_73"
+    ]
+  },
+  {
+    "id": "2106.06967_fig_1",
+    "type": "figure",
+    "content": "FIG. 1: I ( τ ) of Eq. (51) versus τ = r ′ /r .",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        164.5030975341797,
+        493.3095703125,
+        449.9896545410156,
+        704.5173568725586
+      ],
+      "image_path": "data/rag_assets/images/2106.06967/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2106.06967_paragraph_74",
+    "type": "paragraph",
+    "content": "Bearing this observation in mind, we can re-write Eq. (29) in the following form:\nEquation: ∂ M 2 ( r , y, y 0 ) ∂ y = ∫ r ′ <r d 2 r ′ K ( r ′ , r -r ′ | r ) M 2 ( r , y, y 0 ) + ∫ r ′ <r d 2 r ′ K ( r ′ , r -r ′ | r ) M 2 ( r ′ , y, y 0 ) (52) + ∫ | r -r ′ | <r d 2 r ′ K ( r ′ , r -r ′ | r ) M 2 ( r -r ′ , y, y 0 ) + ∫ | r -r ′ | <r d 2 r ′ K ( r ′ , r -r ′ | r ) M 2 ( r , y, y 0 ) + 2 ∫ | r -r ′ | <r d 2 r ′ K ( r ′ , r -r ′ | r ) N ( r , y, y 0 ) N ( r -r ′ , y, y 0 ) + 2 ∫ r ′ <r d 2 r ′ K ( r ′ , r -r ′ | r ) N ( r , y, y 0 ) N ( r ′ , y, y 0 ) -∫ d 2 r K ( r ′ , r -r ′ | r ) M 2 ( r , y, y 0 )",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        63.963,
+        467.752,
+        416.134,
+        476.549
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_74",
+      "2106.06967_equation_54"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_75",
+    "type": "paragraph",
+    "content": "One can see (1) that in Eq. (52) the terms, which are proportional to M 2 ( r , y, y 0 ) , cancel each other out, and (2) this equation can be presented in the form:\nEquation: ∂ M 2 ( r , y, y 0 ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { M 2 ( r ′ , y, y 0 ) + 2 N ( r , y, y 0 ) N ( r ′ , y, y 0 ) } (53)",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        287.603,
+        562.093,
+        308.355
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_75",
+      "2106.06967_equation_55"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_76",
+    "type": "paragraph",
+    "content": "Substituting Eq. (50) into Eq. (53) we reduce it in the SCA to the equation:\nEquation: ∂ 2 ( N 2 -N ) ∂ y = 2 χ ( γ SP ) ( 2 N 2 -N ) = 2 ( ( χ (2 γ SP ) + χ ( γ SP )) N 2 -χ ( γ SP ) N ) (54)",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        63.963,
+        226.39,
+        397.432,
+        235.187
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_76",
+      "2106.06967_equation_56"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_77",
+    "type": "paragraph",
+    "content": "Hence, one can see, that in the limit of small ξ 2 Dy glyph[lessmuch] 1 , χ (2 γ SP ) = χ ( γ SP ) and Eq. (50) satisfies Eq. (53) and Eq. (54). It is worth noting that Eq. (48) follows from the multiplicity distribution, which is given by Eq. (1). We will concentrate our efforts on DA in our presentation below.",
+    "metadata": {
+      "page": 9,
+      "section": "Diffusion approximation",
+      "bbox": [
+        54.0,
+        154.82500000000005,
+        562.091,
+        179.22299999999996
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_77",
+      "2106.06967_paragraph_78"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_79",
+    "type": "paragraph",
+    "content": "The third moment can be found from the generating function ˜ w λ ( r , b , y, y 0 ) in the following way:",
+    "metadata": {
+      "page": 9,
+      "section": "B. The third moment",
+      "bbox": [
+        63.963,
+        70.75599999999997,
+        490.229,
+        80.44499999999994
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_79"
+    ]
+  },
+  {
+    "id": "2106.06967_equation_57",
+    "type": "equation",
+    "content": "M 3 ( r , y, y 0 ) = 〈| n ( n -1) ( n -2) |〉 = ∞ ∑ n =1 n ( n -1) ( n -2) w n ( r, y, y 0 ) = ∂ 3 w λ ( r , y, y 0 ) ∂ λ 3 ∣ ∣ ∣ λ =1 (55)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        98.572,
+        689.963,
+        562.096,
+        720.144
+      ]
+    }
+  },
+  {
+    "id": "2106.06967_paragraph_80",
+    "type": "paragraph",
+    "content": "Using Eq. (55) we obtain the equation for M 3 ( r , y, y 0 ) from Eq. (18):\nEquation: ∂ M 3 ( r , y, y 0 ) ∂ y = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { M 3 ( r ′ , y, y 0 ) + M 3 ( r -r ′ , y, y 0 ) + 6 M 2 ( r ′ , y, y 0 ) N ( r -r ′ , y, y 0 ) -M 3 ( r , y, y 0 ) }",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        63.963,
+        669.418,
+        367.869,
+        679.107
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_80",
+      "2106.06967_equation_58"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_81",
+    "type": "paragraph",
+    "content": "Rewriting Eq. (56) in momentum representation(see Eq. (32)) we reduce this eqaution to the form:\nEquation: ∂ m 3 ( k T , y, y 0 ) ∂ y = ∫ d 2 k ′ T (2 π ) 2 K ( k T , k ′ T ) m 3 ( k ′ T , y, y 0 ) + 6 m 2 ( k T , y, y 0 ) n ( k T , y, y 0 ) (56)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        565.958,
+        486.606,
+        574.755
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_81",
+      "2106.06967_equation_59"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_82",
+    "type": "paragraph",
+    "content": "where we use lowcase letters denoting the moments in the momentum representation. The Mellin image of Eq. (56) has the form:\nEquation: ∂ ˜ m 3 ( γ, y, y 0 ) ∂ y = χ ( γ ) ˜ m 3 ( γ, y, y 0 ) + 6 ˜ n 2 n (57)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        511.268,
+        426.785,
+        520.065
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_82",
+      "2106.06967_paragraph_83",
+      "2106.06967_equation_60"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_84",
+    "type": "paragraph",
+    "content": "where ˜ n 2 n is the Mellin image of m 2 ( k T , y, y 0 ) N ( k T , y, y 0 ) which has the general form:\nEquation: ˜ n 2 n ( γ, y ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ ′ 2 π i ˜ n 2 ( γ ′ , y ) ˜ n ( γ -γ ′ , y ) (58)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        441.158,
+        442.573,
+        451.694
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_84",
+      "2106.06967_equation_61"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_85",
+    "type": "paragraph",
+    "content": "where ˜ n 2 ( γ, y ) is determined by (see Eq. (46))\nEquation: ˜ n 2 = 2 χ ( γ ) 2 χ ( 1 2 γ ) -χ ( γ ) { e 2 χ ( 1 2 γ ) y -e χ ( γ ) y } 1 γ (59)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        359.638,
+        256.933,
+        370.174
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_85",
+      "2106.06967_equation_62"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_86",
+    "type": "paragraph",
+    "content": "Plugging Eq. (21) and Eq. (59) into Eq. (58) one can see that ˜ n 2 n ( γ, y ) is a sun of two terms. Taking the integral over γ ′ in each of them in the saddle point approximation (see Eq. (42) - Eq. (44)) we obtain two equations for the saddle points:\nEquation: 2 dχ ( 1 2 γ ′ ) dγ ′ + dχ ( γ -γ ′ ) dγ ′ = 0 with γ ′ SP = 2 3 γ ; dχ ( γ -γ ′ ) dγ ′ + dχ ( γ ′ ) dγ ′ = 0; with γ ′ SP = 1 2 γ ; (60)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        272.591,
+        562.094,
+        306.076
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_86",
+      "2106.06967_equation_63"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_87",
+    "type": "paragraph",
+    "content": "Hence, ˜ n 2 n ( γ, y ) takes the form:\nEquation: ˜ n 2 n ( γ, y ) = 2 χ ( γ ) 2 χ ( 1 3 γ ) -χ ( 1 2 γ ) { e 3 χ ( 1 3 γ ) y -e χ ( 1 2 γ ) y } H 2 ( γ ) (61)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        63.963,
+        213.361,
+        208.19,
+        223.89699999999993
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_87",
+      "2106.06967_equation_64"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_88",
+    "type": "paragraph",
+    "content": "The solution does not depend on the form of H 2 ( γ ) , which we will specify below. Plugging this equation in Eq. (57) we obtain the solution:\nEquation: ˜ m 3 ( γ, y, y 0 ) = 6 ( 1 3 χ ( 1 3 γ ) -χ ( γ ) ) ( 2 χ ( γ ) 2 χ ( 1 3 γ ) -χ ( 1 2 γ ) ){ e 3 χ ( 1 3 γ ) y -e χ ( γ ) y } -( 1 2 χ ( 1 3 γ ) -χ ( 1 2 γ ) )( 2 χ ( γ ) 2 χ ( 1 2 γ ) -χ ( γ ) ){ e 2 χ ( 1 2 γ ) y -e χ ( γ ) y } H 2 ( γ ) (62)",
+    "metadata": {
+      "page": 10,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        152.41499999999996,
+        412.689,
+        162.10400000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_88",
+      "2106.06967_paragraph_89",
+      "2106.06967_equation_65"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_90",
+    "type": "paragraph",
+    "content": "Going to the coordinate representation as was discussed above and choosing H 2 ( γ ) = χ ( γ ) /γ , which reproduces the correct initial conditions we obtain\nEquation: M 3 ( ξ, y, y 0 ) = 6 glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i , ( χ ( γ ) 3 χ ( 1 3 γ ) -χ ( γ ) ) ( 2 χ ( γ ) 2 χ ( 1 3 γ ) -χ ( 1 2 γ ) ){ e 3 χ ( 1 3 γ ) y -e χ ( γ ) y } -( χ ( γ ) 2 χ ( 1 3 γ ) -χ ( 1 2 γ ) )( 2 χ ( γ ) 2 χ ( 1 2 γ ) -χ ( γ ) ){ e 2 χ ( 1 2 γ ) y -e χ ( γ ) y } 1 γ e γ ξ (63)",
+    "metadata": {
+      "page": 11,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        716.074,
+        562.096,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_90",
+      "2106.06967_equation_66"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_91",
+    "type": "paragraph",
+    "content": "Using the method of steepest descent and neglecting contributions of the order of ξ ′ 2 Dy in all pre-exponential factors, we see that\nEquation: M 3 ( ξ, y, y 0 ) = 6 N ( ξ, y, y 0 ) ( N ( ξ, y, y 0 ) -1) 2 , (64)",
+    "metadata": {
+      "page": 11,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        600.266,
+        562.099,
+        625.007
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_91",
+      "2106.06967_equation_67"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_92",
+    "type": "paragraph",
+    "content": "which is the same as for the multiplicity distribution of Eq. (1).",
+    "metadata": {
+      "page": 11,
+      "section": "B. The third moment",
+      "bbox": [
+        54.0,
+        556.43,
+        331.918,
+        565.227
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_92"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_93",
+    "type": "paragraph",
+    "content": "The equation for a general moment\nEquation: M k ( r, y, y 0 ) = 〈| n ( n -1) . . . ( n -k +1) |〉 = ∞ ∑ n =1 ( n ( n -1) . . . ( n -k +1)) w n ( r, y, y 0 ) = ∂ k w λ ( r , y, y 0 ) ∂ λ k ∣ ∣ ∣ λ =1 (65)",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        63.963,
+        497.164,
+        218.128,
+        505.961
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_93",
+      "2106.06967_equation_68"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_94",
+    "type": "paragraph",
+    "content": "we can obtain by differentiating Eq. (18) with respect to λ . It has the simple form in the momentum representation (see Eq. (32)):\nEquation: ∂ ∂ y m k ( k T , y, y 0 ) = ∫ d 2 k T (2 π ) 2 K ( k T , k ′ T ) m k ( k ′ T , y, y 0 ) + k -1 ∑ i =1 k ! ( k -i )! i ! m k -i ( k T , y, y 0 ) m i ( k T , y, y 0 ) (66)",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        424.801,
+        562.094,
+        445.553
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_94",
+      "2106.06967_equation_69"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_95",
+    "type": "paragraph",
+    "content": "As we have discussed, we can go back to coordinate representation in Eq. (66), since m k are solution to the linear equations, and, therefore, have the Mellin image\nEquation: m k ( k T , y ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e ω ( γ ) y + γ ξ ′ m k 0 ( γ ) with ξ ′ = ln k 2 T (67)",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        349.924,
+        562.093,
+        370.676
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_95",
+      "2106.06967_equation_70"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_96",
+    "type": "paragraph",
+    "content": "In coordinate representation we have\nEquation: M k ( r, y ) = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e ω ( γ ) y + γ ξ m k 0 ( γ ) H k ( γ ) with ξ = ln ( 1 r 2 ) (68)",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        271.346,
+        214.885,
+        280.143
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_96",
+      "2106.06967_equation_71"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_97",
+    "type": "paragraph",
+    "content": "The coordinate image of m k -i ( k T , y, y 0 ) m k ( k T , y, y 0 ) is ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) M k -i ( r ′ , y, y 0 ) M i ( r -r ′ , y, y 0 ) . On the other hand, in SCA m k -i ( k T , y, y 0 ) m i ( k T , y, y 0 ) has the image in γ -representation, which is equal to Constexp ( kχ ( 1 k γ ) y ) m k -i, 0 ( γ k ) m i, 0 ( γ k ) ˜ H k ( γ ) (see Eq. (45) and Eq. (61)) 2 . Using this image, one can see, that the coordinate representation for m k -i ( k T , y, y 0 ) m k ( k T , y, y 0 ) can be reduced to ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) M k -i ( r ′ , y, y 0 ) M i ( r ′ , y, y 0 ) , which means, that ˜ H k ( γ ) = χ ( γ ) as we expect from Eq. (46) and Eq. (63).",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        139.27099999999996,
+        562.095,
+        211.89499999999998
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_97"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_98",
+    "type": "paragraph",
+    "content": "2 Actually, the γ image of m k is a sum of the terms with different k (see Eq. (45) and Eq. (61)), but this does not change the conclusion.",
+    "metadata": {
+      "page": 11,
+      "section": "C. General approach",
+      "bbox": [
+        55.494,
+        93.15499999999997,
+        562.091,
+        102.57399999999996
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_98"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_99",
+    "type": "paragraph",
+    "content": "Finally we can re-write Eq. (66) in the coordinate representation in the form:\nEquation: ∂ ∂ y M k ( r, y, y 0 ) = ∫ d 2 r ′ K ( r ′ , r -r ′ | r ) { M k ( r ′ , y, y 0 ) + M k ( r -r ′ , y, y 0 ) -M k ( r , y, y 0 ) + k -1 ∑ i =1 k ! ( k -i )! i ! M k -i ( r ′ , y, y 0 ) M i ( r ′ , y, y 0 ) } (69)",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        63.963,
+        728.03,
+        401.728,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_99",
+      "2106.06967_equation_72"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_100",
+    "type": "paragraph",
+    "content": "Assuming that for all i ≤ k -1\nEquation: M i ( r, y, y 0 ) = i ! N ( r, y, y 0 ) ( N ( r, y, y 0 ) -1) i -1 , (70)",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        63.963,
+        628.19,
+        203.077,
+        636.987
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_100",
+      "2106.06967_equation_73"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_101",
+    "type": "paragraph",
+    "content": "which follows from Eq. (1), we will prove that for i = k we have the same expression. Plugging Eq. (70) in Eq. (69) we get the inhomogeneous term in the form k ! ( k -1) N 2 ( N -1) k -2 . In the following we will use that the Mellin image of N i ( r, y, y 0 ) ( ˜ n i ) is equal to\nEquation: ˜ n i = e i χ ( 1 i γ ) y 1 γ = glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dω 2 π i e ωy 1 ω -i χ ( 1 i γ ) 1 γ ; double Mellin image ˜ ˜ n i = 1 ω -i χ ( 1 i γ ) 1 γ ; (71)",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        586.846,
+        425.57,
+        595.643
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_101",
+      "2106.06967_paragraph_102",
+      "2106.06967_equation_74"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_103",
+    "type": "paragraph",
+    "content": "which can be derived using the method of steepest descent in the estimates of the integrals over γ 's (see Eq. (42) for example). In the double Mellin transform Eq. (69) takes the form:\nEquation: ( ω -χ ( γ )) ˜ ˜ M k = k ! ( k -1) χ ( γ ) k -2 ∑ l =0 ( -1) l ( k -2)! ( k -2 -l )! l ! 1 ω -( k -l ) χ ( 1 k -l γ ) 1 γ (72)",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        480.436,
+        562.094,
+        501.188
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_103",
+      "2106.06967_paragraph_104",
+      "2106.06967_equation_75"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_105",
+    "type": "paragraph",
+    "content": "Hence from Eq. (72) we have:\nEquation: M k ( r, y, y 0 ) = k ! ( k -1) k -2 ∑ l =0 ( -1) l ( k -2)! ( k -2 -l )! l ! (73) × glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dω 2 π i glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e ωy + γ ξ ′ χ ( γ ) ( n -l ) χ ( 1 k -l γ ) -χ ( γ ) { 1 ω -( k -l ) χ ( 1 k -l γ ) -1 ω -χ ( γ ) } 1 γ = k ! ( k -1) n -2 ∑ l =0 ( -1) l ( k -2)! ( k -2 -l )! l ! glyph[epsilon1] + i ∞ ∫ glyph[epsilon1] -i ∞ dγ 2 π i e γ ξ ′ χ ( γ ) ( k -l ) χ ( 1 k -l γ ) -χ ( γ ) { e ( k -l ) χ ( 1 k -1 γ ) y -e χ ( γ ) y } 1 γ",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        63.963,
+        403.965,
+        193.334,
+        412.762
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_105",
+      "2106.06967_equation_76"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_106",
+    "type": "paragraph",
+    "content": "In Eq. (73) we calculate the integrals over ω closing the contour of integration on poles. Taking the integral over γ using the method of steepest descent in the diffusion approximation and neglecting the corrections of the order of ξ ′ /Dy (see discussions above) we reduce Eq. (73) to the following expression:\nEquation: M k ( r, y, y 0 ) = k ! k -2 ∑ l =0 ( -1) l ( k -1)! ( k -1 -l )! l ! ( N k -l ( r, y, y 0 ) -N ( r, b, y, y 0 ) ) = k ! k -1 ∑ l =0 ( -1) l ( k -1)! ( k -1 -l )! l ! N k -l ( r, y, y 0 ) = k ! N ( r, y, y 0 ) ( N ( r, y, y 0 ) -1) k -1 (74)",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        54.0,
+        235.42499999999995,
+        562.092,
+        268.13300000000004
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_106",
+      "2106.06967_equation_77"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_107",
+    "type": "paragraph",
+    "content": "Since we have obtained Eq. (70) for i = 2 and i = 3 , we prove this equation for any value of i .",
+    "metadata": {
+      "page": 12,
+      "section": "C. General approach",
+      "bbox": [
+        63.963,
+        139.51,
+        477.38,
+        148.30700000000002
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_107"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_108",
+    "type": "paragraph",
+    "content": "Eq. (70) generates the multiplicity distribution of Eq. (1). However, several questions arise, when we wish to compare this distribution with the experimental data, let say with DIS. The average multiplicity of the color-singlet",
+    "metadata": {
+      "page": 12,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        68.50300000000004,
+        562.098,
+        89.255
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_108"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_109",
+    "type": "paragraph",
+    "content": "dipoles is equal to the sea quark structure function x Σ sea ( x, Q 2 ) [19]. On the other hand, in Eq. (70) the multiplicity enters in the coordinate representation. In diffraction approximation the momentum and coordinate representations are related by the replacement ln k 2 T →-ln r 2 . Therefore, my suggestion is to use Eq. (1) with N = x Σ sea ( x, Q 2 ) but to calculate the corrections to this distribution. The multiplicity distribution can generally be written, using the cumulant generating function f ( λ ) as follows [34, 35]:\nEquation: σ n σ in = ∮ dλ 2 π i e f ( λ ) λ n +1 (75)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        680.209,
+        562.099,
+        738.431
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_109",
+      "2106.06967_equation_78"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_110",
+    "type": "paragraph",
+    "content": "where the contour of integration is the circle around the point λ = 0 and f ( λ ) is the cumulant generating function, which is defined as\nEquation: f ( λ ) = ∞ ∑ n =1 κ n n ! ( λ -1) n (76)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        612.793,
+        562.098,
+        633.545
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_110",
+      "2106.06967_equation_79"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_111",
+    "type": "paragraph",
+    "content": "where κ n are cumulants. Generally speaking, we have the following definition for the cumulants:\nEquation: κ 1 = N ; κ 2 = M 2 -N 2 ; κ 3 = M 3 -3 M 2 N + 2 N 2 ; κ 4 = M 4 -4 M 3 N -3 M 2 2 + 12 M 2 N 2 -6 N 4 ; (77)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        554.622,
+        474.982,
+        564.311
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_111",
+      "2106.06967_equation_80"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_112",
+    "type": "paragraph",
+    "content": "where M k are the factorial moments, that we have discussed above (see Eq. (70)). Eq. (1) Eq. (1) In our case we can view f ( λ ) as a sum of f ( λ ) = f ( λ ) + ∆ f ( λ ) . f ( λ ) generates the multiplicity distributions of Eq. (1), which includes the most dominant contributions and ,in particular, the average number of color-singlet dipoles is taken into account exactly. We suggest to introduce function ∆ f ( λ ) in the following way:\nEquation: ∆ f ( λ ) = ∞ ∑ n =1 ∆ κ n n ! ( λ -1) n (78)\nEquation: ∆ κ 1 = 0; ∆ κ 2 = M 2 ( k T , y ) -2 N ( N -1) ; ∆ κ 3 = M 3 ( k T , y ) -6 N ( N -1) 2 -3 ∆ κ 2 N ; (79)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        511.37,
+        411.858,
+        521.059
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_112",
+      "2106.06967_paragraph_113",
+      "2106.06967_paragraph_114",
+      "2106.06967_equation_81",
+      "2106.06967_equation_82"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_116",
+    "type": "paragraph",
+    "content": "where M 2 ( k T , y ) and M 3 ( k T , y ) are the exact solutions to Eq. (33) and Eq. (56), respectively. Introducing two multiplicity distributions:\nEquation: P n ( N ) = ∮ dλ 2 π i e f Eq. (1) ( λ ) λ n +1 ; ˜ P n ( N ) = ∮ dλ 2 π i e ∆ f ( λ ) λ n +1 ; (80)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        372.484,
+        465.368,
+        382.173
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_116",
+      "2106.06967_paragraph_117",
+      "2106.06967_equation_83"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_118",
+    "type": "paragraph",
+    "content": "one can see that the resulting multiplicity distribution takes the form\nEquation: σ n σ in = n ∑ k =0 n ! ( n -k )! k ! P n -k ( N ) ˜ P k ( N ) (81)",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        305.612,
+        356.986,
+        314.409
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_118",
+      "2106.06967_equation_84"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_119",
+    "type": "paragraph",
+    "content": "In the case of ∆ κ 2 = 0 but ∆ κ n = 0 for n > 2 the distribution ˜ P n ( N ) has been found in Ref.[34] and it has the following form in our notations:\nEquation: ˜ P n (∆ κ 2 ) = e ∆ κ 2 2 ( -i √ ∆ κ 2 2 ) n n ! H n ( i √ ∆ κ 2 2 ) (82) where H n is Hermite polynomial (see formula 8.95 in Ref.[36]).",
+    "metadata": {
+      "page": 13,
+      "section": "VI. FINDING CORRECTIONS AND COMPARISON WITH EXPERIMENTS",
+      "bbox": [
+        54.0,
+        221.22299999999996,
+        562.094,
+        241.97500000000002
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_119",
+      "2106.06967_equation_85",
+      "2106.06967_paragraph_120"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_121",
+    "type": "paragraph",
+    "content": "This paper has two main results. First, we derived the BFKL linear, inhomogeneous equation for the factorial moments of multiplicity distribution ( M k ) from LMM equation. In particular, the equation for the average multiplicity glyph[negationslash]",
+    "metadata": {
+      "page": 13,
+      "section": "VII. CONCLUSIONS",
+      "bbox": [
+        54.0,
+        67.61000000000001,
+        562.096,
+        89.255
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_121"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_122",
+    "type": "paragraph",
+    "content": "of the color-singlet ( N ) turns out to be the homogeneous BFKL equation which leads to the power-like growth in the region of small x . From these equations it follows that M k ∝ N k at small x . Second, using the diffusion approximation for the BFKL kernel, which is generally considered to be responsible for the small x behaviour, we show that the factorial moments satisfy Eq. (2), which reproduces the multiplicity distribution of Eq. (1). This result is in agreement with the attempts [18] to find solutions to the equations for the cascade of color-singlet dipoles (see Eq. (3). We also suggest a procedure for finding corrections to this multiplicity distribution, which, we believe, will be useful for descriptions of the experimental data. In general, the multiplicity distribution, that has been discussed in the paper, confirms the result of Ref.[5], that the entropy of color-singlet dipoles is equal S = ln N in the region of small x , and gives the regular procedure to estimate corrections to this formula. It is worthwhile mentioning that both SCA and DA have been developed before and many technical issues that matter, have been discussed 3 (see, for example, Refs.[24, 37-41] and references therein).",
+    "metadata": {
+      "page": 14,
+      "section": "VII. CONCLUSIONS",
+      "bbox": [
+        54.0,
+        715.182,
+        562.092,
+        736.827
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_122",
+      "2106.06967_paragraph_123",
+      "2106.06967_paragraph_124",
+      "2106.06967_paragraph_125",
+      "2106.06967_paragraph_126"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_127",
+    "type": "paragraph",
+    "content": "We thank our colleagues at Tel Aviv university and UTFSM for encouraging discussions. Our special thanks go to Michael Lublinsky for fruitful discussion of Ref.[30]. This research was supported by ANID PIA/APOYO AFB180002 (Chile) and Fondecyt (Chile) grants 1180118.",
+    "metadata": {
+      "page": 14,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        501.391,
+        562.096,
+        534.098
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_127"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_129",
+    "type": "paragraph",
+    "content": "K. Kutak, 'Gluon saturation and entropy production in proton?proton collisions,' Phys. Lett. B 705 (2011), 217-221, [arXiv:1103.3654 [hep-ph]]. R. Peschanski, 'Dynamical entropy of dense QCD states,' Phys. Rev. D 87 (2013) no.3, 034042, [arXiv:1211.6911 [hep-ph]]. A. Kovner and M. Lublinsky, 'Entanglement entropy and entropy production in the Color Glass Condensate framework,' Phys. Rev. D 92 (2015) no.3, 034016, [arXiv:1506.05394 [hep-ph]]. R. Peschanski and S. Seki, 'Entanglement Entropy of Scattering Particles,' Phys. Lett. B 758 (2016), 89-92, [arXiv:1602.00720 [hep-th]]. D. E. Kharzeev and E. M. Levin, 'Deep inelastic scattering as a probe of entanglement,' Phys. Rev. D 95 (2017) no.11, 114008, [arXiv:1702.03489 [hep-ph]]. O. Baker and D. Kharzeev, 'Thermal radiation and entanglement in proton-proton collisions at energies available at the CERN Large Hadron Collider,' Phys. Rev. D 98 (2018) no.5, 054007, [arXiv:1712.04558 [hep-ph]]. J. Berges, S. Floerchinger and R. Venugopalan, 'Dynamics of entanglement in expanding quantum fields,' JHEP 04 (2018), 145, [arXiv:1712.09362 [hep-th]]. Y. Hagiwara, Y. Hatta, B. W. Xiao and F. Yuan, 'Classical and quantum entropy of parton distributions,' Phys. Rev. D 97 (2018) no.9, 094029, [arXiv:1801.00087 [hep-ph]]. N. Armesto, F. Dominguez, A. Kovner, M. Lublinsky and V. Skokov, 'The Color Glass Condensate density matrix: Lindblad evolution, entanglement entropy and Wigner functional,' JHEP 05 (2019), 025, [arXiv:1901.08080 [hep-ph]].",
+    "metadata": {
+      "page": 14,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        58.607,
+        425.371,
+        562.094,
+        443.757
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_129",
+      "2106.06967_paragraph_130",
+      "2106.06967_paragraph_131",
+      "2106.06967_paragraph_132",
+      "2106.06967_paragraph_133",
+      "2106.06967_paragraph_134",
+      "2106.06967_paragraph_135",
+      "2106.06967_paragraph_136",
+      "2106.06967_paragraph_137"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_138",
+    "type": "paragraph",
+    "content": "E. Gotsman and E. Levin, 'Thermal radiation and inclusive production in the CGC/saturation approach at high energies,' Eur. Phys. J. C 79 (2019) no.5, 415, [arXiv:1902.07923 [hep-ph]]. E. Gotsman and E. Levin, 'Thermal radiation and inclusive production in the Kharzeev-Levin-Nardi model for ion-ion collisions,' Phys. Rev. D 100 (2019) no.3, 034013, [arXiv:1905.05167 [hep-ph]]. A. Kovner, M. Lublinsky and M. Serino, 'Entanglement entropy, entropy production and time evolution in high energy QCD,' Phys. Lett. B 792 (2019), 4-15, [arXiv:1806.01089 [hep-ph]]. D. Neill and W. J. Waalewijn, 'Entropy of a Jet,' Phys. Rev. Lett. 123 (2019) no.14, 142001, [arXiv:1811.01021 [hep-ph]]. Y. Liu and I. Zahed, 'Entanglement in Regge scattering using the AdS/CFT correspondence,' Phys. Rev. D 100 (2019) no.4, 046005, [arXiv:1803.09157 [hep-ph]]. X. Feal, C. Pajares and R. Vazquez, 'Thermal behavior and entanglement in Pb-Pb and p-p collisions,' Phys. Rev. C 99 (2019) no.1, 015205, [arXiv:1805.12444 [hep-ph]]. Z. Tu, D. E. Kharzeev and T. Ullrich, 'Einstein-Podolsky-Rosen Paradox and Quantum Entanglement at Subnucleonic Scales,' Phys. Rev. Lett. 124 (2020) no.6, 062001, [arXiv:1904.11974 [hep-ph]]. 3 We thank our referee who drew our attention to Ref.[40], where some technical details of our approach have been clarified.",
+    "metadata": {
+      "page": 14,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        247.53700000000003,
+        561.388,
+        265.91499999999996
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_138",
+      "2106.06967_paragraph_139",
+      "2106.06967_paragraph_140",
+      "2106.06967_paragraph_141",
+      "2106.06967_paragraph_142",
+      "2106.06967_paragraph_143",
+      "2106.06967_paragraph_144",
+      "2106.06967_paragraph_145"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_146",
+    "type": "paragraph",
+    "content": "H. Duan, C. Akkaya, A. Kovner and V. V. Skokov, 'Entanglement, partial set of measurements, and diagonality of the density matrix in the parton model,' Phys. Rev. D 101 (2020) no.3, 036017, [arXiv:2001.01726 [hep-ph]]. E. Gotsman and E. Levin, 'High energy QCD: multiplicity distribution and entanglement entropy,' Phys. Rev. D 102 (2020) no.7, 074008 [arXiv:2006.11793 [hep-ph]]. D. E. Kharzeev and E. Levin, 'Deep inelastic scattering as a probe of entanglement: confronting experimental data,' [arXiv:2102.09773 [hep-ph]]. J. D. Bjorken, 'Asymptotic Sum Rules at Infinite Momentum,' Phys. Rev. 179 , 1547 (1969). R.P. Feynman, 'Very high-energy collisions of hadrons,' Phys. Rev. Lett. 23 , 1415 (1969). 'Photon-hadron interactions,' Reading 1972. Photon-Hadron Interactions , Reading, 1972. J.D. Bjorken and E.A. Paschos, 'Inelastic Electron-Proton and γ -Proton Scattering and the Structure of the Nucleon,\" Phys. Rev. 185, 1975(1969). V.N. Gribov, 'Inelastic processes at super high-energies and the problem of nuclear cross-sections,' Sov. J. Nucl. Phys. 9 , 369 (1969) [Yad. Fiz. 9 , 640 (1969)]; 'Space-time description of hadron interactions at high-energies,' Proc. ITEP School on Elementary particle physics, v.1, p.65 (1973); hep-ph/0006158. Yuri V. Kovchegov and Eugene Levin, ' Quantum Chromodynamics at High Energies\" , Cambridge Monographs on Particle Physics, Nuclear Physics and Cosmology, Cambridge University Press, 2012 .",
+    "metadata": {
+      "page": 15,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        717.763,
+        562.098,
+        736.141
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_146",
+      "2106.06967_paragraph_147",
+      "2106.06967_paragraph_148",
+      "2106.06967_paragraph_149",
+      "2106.06967_paragraph_150",
+      "2106.06967_paragraph_151",
+      "2106.06967_paragraph_152",
+      "2106.06967_paragraph_153"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_154",
+    "type": "paragraph",
+    "content": "I. Balitsky, 'Operator expansion for high-energy scattering\" , [arXiv:hep-ph/9509348]; 'Factorization and high-energy effective action\" , Phys. Rev. D60 , 014020 (1999) [arXiv:hep-ph/9812311]; Y. V. Kovchegov, ' Small-x F 2 structure function of a nucleus including multiple Pomeron exchanges\"' Phys. Rev. D60 , 034008 (1999), [arXiv:hep-ph/9901281]. L. McLerran and R. Venugopalan, 'Computing quark and gluon distribution functions for very large nuclei\" , Phys. Rev. D49 (1994) 2233, 'Gluon distribution functions for very large nuclei at small transverse momentum\" , Phys. Rev. D49 (1994), 3352; 'Green?s function in the color field of a large nucleus\" , D50 (1994) 2225; ' Fock space distributions, structure functions, higher twists, and small x \" , D59 (1999) 09400. A. H. Mueller, 'Soft Gluons In The Infinite Momentum Wave Function And The BFKL Pomeron,' Nucl. Phys. B 415 , 373 (1994); 'Unitarity and the BFKL pomeron,' Nucl. Phys. B 437 (1995) 107 [arXiv:hep-ph/9408245]. E. Levin and M. Lublinsky, 'Towards a symmetric approach to high energy evolution: Generating functional with Pomeron loops,' Nucl. Phys. A 763 (2005) 172 [arXiv:hep-ph/0501173]. E. Levin and M. Lublinsky, 'Balitsky's hierarchy from Mueller's dipole model and more about target correlations,' Phys. Lett. B 607 (2005) 131 [arXiv:hep-ph/0411121]; 'A linear evolution for non-linear dynamics and correlations in realistic nuclei,' Nucl. Phys. A 730 (2004) 191 [arXiv:hep-ph/0308279].",
+    "metadata": {
+      "page": 15,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        539.93,
+        562.095,
+        568.768
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_154",
+      "2106.06967_paragraph_155",
+      "2106.06967_paragraph_156",
+      "2106.06967_paragraph_157",
+      "2106.06967_paragraph_158"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_159",
+    "type": "paragraph",
+    "content": "A. D. Le, A. H. Mueller and S. Munier, 'Analytical asymptotics for hard diffraction,' [arXiv:2103.10088 [hep-ph]]. V. S. Fadin, E. A. Kuraev and L. N. Lipatov, 'On the pomeranchuk singularity in asymptotically free theories\" , Phys. Lett. B60 , 50 (1975); E. A. Kuraev, L. N. Lipatov and V. S. Fadin, 'The Pomeranchuk Singularity in Nonabelian Gauge Theories\" Sov. Phys. JETP 45 , 199 (1977), [Zh. Eksp. Teor. Fiz.72,377(1977)]; 'The Pomeranchuk Singularity in Quantum Chromodynamics,' I. I. Balitsky and L. N. Lipatov, Sov. J. Nucl. Phys. 28 , 822 (1978), [Yad. Fiz.28,1597(1978)]. L. N. Lipatov, 'The Bare Pomeron in Quantum Chromodynamics,' Sov. Phys. JETP 63 , 904 (1986) [Zh. Eksp. Teor. Fiz. 90 , 1536 (1986)]. S. Bondarenko, M. Kozlov and E. Levin, 'QCD saturation in the semi-classical approach,' Nucl. Phys. A 727 (2003), 139-178, [arXiv:hep-ph/0305150 [hep-ph]]. A. H. Mueller, 'Multiplicity Distributions in Regge Pole Dominated Inclusive Reactions,' Phys. Rev. D 4 (1971), 150-155. Beran J., Ghosh S. (2011) ' Moment Generating Function\" . In: Lovric M. (eds) International Encyclopedia of Statistical Science. Springer, Berlin, Heidelberg. https : //doi.org/ 10 . 1007 / 978 -3 -642 -04898 -2 3 75 . I. Gradstein and I. Ryzhik, Table of Integrals, Series, and Products , Fifth Edition, Academic Press, London, 1994.",
+    "metadata": {
+      "page": 15,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        414.4,
+        530.903,
+        422.317
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_159",
+      "2106.06967_paragraph_160",
+      "2106.06967_paragraph_161",
+      "2106.06967_paragraph_162",
+      "2106.06967_paragraph_163",
+      "2106.06967_paragraph_164",
+      "2106.06967_paragraph_165"
+    ]
+  },
+  {
+    "id": "2106.06967_paragraph_166",
+    "type": "paragraph",
+    "content": "E. M. Levin, M. G. Ryskin and A. G. Shuvaev, 'Anomalous dimension of the twist four gluon operator and pomeron cuts in deep inelastic scattering,' Nucl. Phys. B 387 (1992), 589-616. E. Laenen, E. Levin and A. G. Shuvaev, 'Anomalous dimensions of high twist operators in QCD at N → 1 and large Q 2 ,' Nucl. Phys. B 419 (1994), 39-58, [arXiv:hep-ph/9308294 [hep-ph]]. M. A. Braun, 'Double scattering on the nucleus in the perturbative QCD,' Eur. Phys. J. C 6 (1999), 343-348, [arXiv:hepph/9801277 [hep-ph]]. B. W. Xiao, 'On the anomalous dimensions of the multiple pomeron exchanges,' Nucl. Phys. A 798 (2008), 132-164, [arXiv:0710.1922 [hep-ph]]. E. Levin and J. Miller, 'The BFKL Pomeron calculus: summing enhanced diagrams,' Nucl. Phys. A 884-885 (2012), 51-83, [arXiv:1111.3678 [hep-ph]].",
+    "metadata": {
+      "page": 15,
+      "section": "VIII. ACKNOWLEDGEMENTS",
+      "bbox": [
+        54.0,
+        267.94900000000007,
+        562.091,
+        286.327
+      ]
+    },
+    "source_ids": [
+      "2106.06967_paragraph_166",
+      "2106.06967_paragraph_167",
+      "2106.06967_paragraph_168",
+      "2106.06967_paragraph_169",
+      "2106.06967_paragraph_170"
+    ]
+  }
+]
