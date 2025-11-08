@@ -1,0 +1,759 @@
+[
+  {
+    "id": "2005.03141_paragraph_8",
+    "type": "paragraph",
+    "content": "However, the community may overlook another facet of input data - the distribution of frequency components. Treating inputs as signals in R n space, we can decompose them into basis signals of diverse frequencies. While humans may only respond to a specific range of frequencies, DNNs are capable of using information from all frequencies. In this paper, we build the bridge between the model's robustness with the distribution of frequency components in the input set. Our major contributions are: We prove that when the distortion is measured with glyph[lscript] 1 distance, perturbing high-frequency components causes smaller change compared with the lowfrequency components. We show that, for many existing adversarial attacks, there are more distortions in the high-frequency components.",
+    "metadata": {
+      "page": 1,
+      "section": "Introduction",
+      "bbox": [
+        307.44,
+        186.26700000000005,
+        541.442,
+        290.46
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_8",
+      "2005.03141_paragraph_9",
+      "2005.03141_paragraph_10"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_11",
+    "type": "paragraph",
+    "content": "We propose, Occluded Frequency, our measurement of the contribution of each frequency component towards the prediction and we further show that robust models are usually less relied on the high-frequency components in the input; therefore, they are more robust.",
+    "metadata": {
+      "page": 2,
+      "section": "Introduction",
+      "bbox": [
+        65.403,
+        653.135,
+        289.442,
+        721.781
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_11"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_12",
+    "type": "paragraph",
+    "content": "Besides in the original feature space, several works provide new insights into the CNN behaviors from the aspect in the frequency domain. Wang et al. (2019) shows that unlike human beings, high-frequency components play significant roles in promoting CNN's accuracy. Adopting information from high-frequency components may cause the model to form very different concepts in learning as humans do. By observing adversarial defended models, Wang et al. (2019) concludes that smoothing the CNN kernels helps to enforce the model to use features of low frequencies. While the conclusion remains questionable due to the lack of theoretical proof is discussed, the paper proposes a novel view of attributing the frequencies components to the model's predictions. An alternative view of understanding the importance of frequency components is to observe a model's behavior when specific frequency components are modified. This area is studied known as the frequency components analysis on adversarial examples. Guo et al. (2018) proposes an adversarial attack only targeting the low-frequency components in an image, which shows that the model does utilize the features in the lowfrequency domains for predictions instead of only learning from high-frequency components. Sharma et al. (2019) demonstrated that state-of-the-art defenses are nearly as vulnerable as undefended models under low-frequency perturbations, which implies current defense techniques are only valid against adversarial attack in the high-frequency domain. On the other side, (Rahaman et al., 2018) shows that ReLU networks tend to learn low-frequency featuers first and then pick up the high-frequency components later.",
+    "metadata": {
+      "page": 2,
+      "section": "Background and Related Work",
+      "bbox": [
+        55.44,
+        258.49700000000007,
+        289.442,
+        613.749
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_12"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_13",
+    "type": "paragraph",
+    "content": "We first introduce the notation we are going to use in the rest of the paper. Notation A deep neural network y = arg max c f c ( x ) that takes an input x ∈ R d and outputs a prediction class y . For simplicity, we omit the bold font and denote the input as x . We denote the glyph[lscript] p norm as || · || p . The Discrete Fourier Transform of x is denoted as X = F ( x ) (discussion to follow). Discrete Fourier Transform (DFT) By convolution with a series of complex-valued exponential functions, DFT transforms a finite signal into the a complex-valued function of frequency. DFT is widely used in signal processing to analyze the frequency components for signals and human are more perceptional to the low frequency components in the signal, e.g. the content of image, while less perceptional to the high-frequency patterns, e.g. noise and small perturbations. Computing DFT requires dealing with complex function and we avoid this by introducing Discrete Cosine Transform in the real implementation but the analysis is still under DFT (Bracewell & Newbold, 1986).",
+    "metadata": {
+      "page": 2,
+      "section": "Notation and Preliminary",
+      "bbox": [
+        55.44,
+        202.75599999999997,
+        289.442,
+        223.26300000000003
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_13",
+      "2005.03141_paragraph_14",
+      "2005.03141_paragraph_15"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_16",
+    "type": "paragraph",
+    "content": "Discrete Cosine Transform (DCT) DCT is similar to the discrete Fourier transform: it transforms a signal or image from the spatial domain to the frequency domain, but only maintaining the real part. The difference is the basis function: DFT uses complex exponential functions while the DCT uses real-valued cosine functions (Narasimha & Peterson, 1978). In the analysis part, we use DFT to demonstrate the motivations and methods while for the experiments we will replace DFT with DCT due to the imaginary components of DCT will bring extra computational complexity.",
+    "metadata": {
+      "page": 2,
+      "section": "Notation and Preliminary",
+      "bbox": [
+        307.44,
+        479.785,
+        541.442,
+        608.276
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_16"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_17",
+    "type": "paragraph",
+    "content": "An adversarial attack tries to find a neighbor of an input x whose prediction is different from x but the change is in-perceptional to humans, causing failure in the reasoning. We introduce a few representative adversarial attack algorithms and methods. We discuss the three white-box attacks to be evaluated in this paper. Goodfellow et al. (2014) proposes FGSM attack , a heuristic searching for the adversarial examples following the sign of adversarial directions with a baby step at each time. It is usually done in the glyph[lscript] ∞ space by clipping the value outside the userdefined pixel range. Unlike FGSM, PGD (Madry et al., 2017) projects the adversarial samples learned from each iteration into the glyph[lscript] p ball of the original input, therefore, the adversarial perturbation size is than the maximum allowed perturbation. CW attack Carlini & Wagner (2017) reformalizes the adversarial loss to ensure that the solution to the optimization is close to the global optimal. They also solve the perturbation in the tanh space to yield the smoothness of the gradient signal. Besides the white-box attacks, we are also interested in the black-box attack and we include SimBA (Guo et al., 2019) in this paper. Under untargeted attack mode, SimBA tries to add a random perturbation on the input image at each step, and accept the perturbation if it decreases prediction certainty on the correct label.",
+    "metadata": {
+      "page": 2,
+      "section": "Adversarial Attacks",
+      "bbox": [
+        307.44,
+        161.02999999999997,
+        541.444,
+        444.551
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_17"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_18",
+    "type": "paragraph",
+    "content": "The discussion of robustness is caused by the introduction of adversarial attacks and then the vulnerability comes into the attention. In the time domain, e.g. the image, adversar-",
+    "metadata": {
+      "page": 2,
+      "section": "Adversarial attack analysis in frequency domain",
+      "bbox": [
+        307.44,
+        75.23400000000004,
+        541.442,
+        107.69600000000003
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_18"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_19",
+    "type": "paragraph",
+    "content": "ial perturbations are usually hard to discovered by humans since they are designed to have very small glyph[lscript] p norms. It is natural to believe the adversarial perturbations do not distort the low-frequency components in the image but more like a change in the high-frequency pattern. We verify this hypothesis by introducing the following proposition.",
+    "metadata": {
+      "page": 3,
+      "section": "Adversarial attack analysis in frequency domain",
+      "bbox": [
+        55.44,
+        653.135,
+        289.442,
+        721.463
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_19"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_20",
+    "type": "paragraph",
+    "content": "Given an input x and a perturbed input x ′ , the distortion measured in the glyph[lscript] 1 space is lower bounded by the corresponding lowest frequency components. Formally,\nEquation: || x -x ′ || 1 ≥ | X 0 -X ′ 0 | (1)",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        55.44,
+        586.698,
+        289.443,
+        620.909
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_20",
+      "2005.03141_equation_1"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_21",
+    "type": "paragraph",
+    "content": "Proof : We first write down the DFT X = F ( x ) of an given input x and the inverse DFT x = F -1 ( X ) .\nEquation: X k = F ( x ) k = d -1 ∑ i =0 x i e -j 2 π d ki x i = F -1 ( X ) i = 1 d d -1 ∑ k =0 X k e j 2 π d ki (2)",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        55.44,
+        489.599,
+        289.44,
+        510.424
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_21",
+      "2005.03141_equation_2"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_22",
+    "type": "paragraph",
+    "content": "where j = √ -1 and d is the dimension of x . And we also introduce Lemma 1. Lemma 1 The finite sum of complex-valued exponential series can be written as\nEquation: d -1 ∑ i =0 e jix = 1 -e jdx 1 -e jx = -e idx/ 2( e -jdx/ 2 -e jdx/ 2 ) -e jx/ 2 ( e -jx/ 2 -e jx/ 2 ) = sin( dx/ 2) sin( x/ 2) e jx ( d -1) / 2 (3)",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        55.44,
+        343.125,
+        289.442,
+        371.776
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_22",
+      "2005.03141_paragraph_23",
+      "2005.03141_equation_3"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_24",
+    "type": "paragraph",
+    "content": "Let x = 2 π N k then we have the Fourier basis, so\nEquation: d -1 ∑ n =0 e j 2 π d ki = sin( πk ) sin( π d k ) e jkπ d -1 d (4)",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        55.44,
+        173.48800000000006,
+        244.833,
+        186.94100000000003
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_24",
+      "2005.03141_equation_4"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_25",
+    "type": "paragraph",
+    "content": "Observe that ∑ d -1 n =0 e j 2 π d ki = d if k = 0 and 0 otherwise. Eventually, we prove the Prop 1\nEquation: || x -x ′ || 1 = d -1 ∑ i =0 | x i -x ′ i | = d -1 ∑ i =0 |F -1 ( X ) i -F -1 ( X ′ ) i | = d -1 ∑ i =0 | 1 d d -1 ∑ k =0 X k e j 2 π d ki -1 d d -1 ∑ k =0 X ′ k e j 2 π d ki | = 1 d d -1 ∑ i =0 | d -1 ∑ k =0 ( X k -X ′ k ) e j 2 π d ki | ≥ 1 d | d -1 ∑ i =0 d -1 ∑ k =0 ( X k -X ′ k ) e j 2 π d ki | = 1 d | d -1 ∑ k =0 ( X k -X ′ k ) d -1 ∑ i =0 e j 2 π d ki | = | X 0 -X ′ 0 | (Use Lemma 1) (5)",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        55.44,
+        72.61900000000003,
+        284.202,
+        86.71100000000001
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_25",
+      "2005.03141_paragraph_26",
+      "2005.03141_equation_5"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_27",
+    "type": "paragraph",
+    "content": "Observation of Prop. 1 Perturbation applied to the input can be viewed either to a subset of features in the time domain or in the frequency domain by transforming the perturbation with DFT or DCT. For the same amount of perturbation measured by spectral energy in the frequency domain, Prop. 1 shows that only the perturbation towards the low-frequency components will increase the lower bound of the same perturbation applied in the time domain. Therefore, attacking the low-frequency components of the input tends to cause higher distortion in the time domain due to the increase of lower bound, while the high-frequency distortion does not change the lower bound. As long as we require the distortion as small as possible in the time domain, an attacker should aim for mess up the high-frequency components instead of the low-frequency part, which matches our intuitions that adversarial perturbations tends to be not perceptional to human.",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        307.44,
+        256.14300000000003,
+        541.442,
+        456.366
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_27"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_28",
+    "type": "paragraph",
+    "content": "As the perturbation in the input space tends to happen to the high-frequency components, if we minimize the correlation between the model's decision and the use of highfrequency features, we should be able to force the attacker to make greater distortions than before. In the other word, the model will be more robust. To validate the proposition from empirical results, we propose a new way to measure the contribution of each frequency components towards the prediction.",
+    "metadata": {
+      "page": 3,
+      "section": "Proposition 1 (Lower Bound of Input Perturbation)",
+      "bbox": [
+        307.44,
+        142.56899999999996,
+        541.442,
+        246.76199999999994
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_28"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_29",
+    "type": "paragraph",
+    "content": "Towards the interpretation of feature importance, one of the methods is attribution functions. Attribution functions aim to assign a score for each feature in the input and higher",
+    "metadata": {
+      "page": 3,
+      "section": "Contribution of Frequency Components",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.442,
+        107.33600000000001
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_29"
+    ]
+  },
+  {
+    "id": "2005.03141_fig_1",
+    "type": "figure",
+    "content": "Figure 1. Average Attribution scores for each frequency components on each subset of CIFAR-10. We compute the attribution scores on three ResNet models: natural training (blue), Madry's training with glyph[epsilon1] = 0 . 25 in glyph[lscript] 2 space (orange) and Madry's training with glyph[epsilon1] = 0 . 5 in glyph[lscript] 2 space (green). Robust models tend to shift the high attribution scores from the high frequency range to the low frequency range, compared to the naturally trained models. Better viewed in color.",
+    "metadata": {
+      "page": 4,
+      "section": "Contribution of Frequency Components",
+      "bbox": [
+        56.32530975341797,
+        529.2333068847656,
+        539.0401000976562,
+        725.2939300537109
+      ],
+      "image_path": "data/rag_assets/images/2005.03141/figure/figure_1.png"
+    }
+  },
+  {
+    "id": "2005.03141_paragraph_30",
+    "type": "paragraph",
+    "content": "scores reflect higher relevance of the particular features towards the quantity of interest, e.g. the prediciton result of the model. One of the attribution methods is Occlusion (Zeiler & Fergus, 2013) that ablates a subset of features in the input and assigns the importance score with the change of output compared to the original input. Ablation is usually performed by replacing the features with random noise or a baseline feature, e.g. zeros. We adapt the concept of Occlusion into the frequency domain so that the attribution score of each frequency component is computed by the change of the output of the model. Formally, we propose Occluded Frequency as an attribution method for the spectrum of input. Definition 1 (Occluded Frequency (OF)) Given a model y = f ( x ) , a class of interest c , define H ( i ) as a matrix with the same shape of F ( x ) whose each entry h k is glyph[negationslash]\nEquation: h k = I [ k = i ] σ ( F ( x ) k ) + I [ k = i ] F ( x ) k (6)",
+    "metadata": {
+      "page": 4,
+      "section": "Contribution of Frequency Components",
+      "bbox": [
+        55.44,
+        296.882,
+        289.442,
+        448.896
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_30",
+      "2005.03141_paragraph_31",
+      "2005.03141_equation_6"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_32",
+    "type": "paragraph",
+    "content": "where σ ( · ) is a function that transforms an frequency component F ( x ) k to a baseline version, e.g. zeros or random signal. Therefore, the occlusion score O ( F ( x ) i ) for frequency component F ( x ) i towards class c is defined as\nEquation: O ( F ( x ) i ) = f c ( x ) -f c ( F -1 ( H ( i ))) (7)",
+    "metadata": {
+      "page": 4,
+      "section": "Contribution of Frequency Components",
+      "bbox": [
+        55.44,
+        167.18499999999995,
+        289.444,
+        212.68000000000006
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_32",
+      "2005.03141_equation_7"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_33",
+    "type": "paragraph",
+    "content": "where f c ( · ) is the logit score of class c. Ablation with DCT To perform OF attribution on images with DCT, the masking is performed from the top left corner to the right bottom following the direction of increasing frequencies. All components with the same frequencies are ablated at the same time. Why Not Use Gradient Another intuitive choise is to use the gradient-based attribution methods (Simonyan et al., 2013; Sundararajan et al., 2017; Shrikumar et al., 2017) to find the feature importance. However, gradient-based methods are shown to be non-robust and can cause contradictory results for tiny perturbations (Ghorbani et al., 2017). We find the ablation-based attributions are more consistent empirically, therefore, the result is more trustworth.",
+    "metadata": {
+      "page": 4,
+      "section": "Contribution of Frequency Components",
+      "bbox": [
+        55.44,
+        122.49800000000005,
+        212.662,
+        132.79999999999995
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_33",
+      "2005.03141_paragraph_34",
+      "2005.03141_paragraph_35"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_36",
+    "type": "paragraph",
+    "content": "In this section, we will use the retrained ResNet-50 (He et al., 2015) to perform classification on CIFAR-10. For the robust model, we use pretrained model with adversarial examples 1 (Engstrom et al., 2019).",
+    "metadata": {
+      "page": 4,
+      "section": "Experiment",
+      "bbox": [
+        307.44,
+        231.01099999999997,
+        541.442,
+        275.429
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_36"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_37",
+    "type": "paragraph",
+    "content": "We first show the frequency domain of the adversarial examples generated by all methods mentioned in Sec 2.1. For PGD and FGSM, we clip the distortion in the glyph[lscript] ∞ ball with the maximum allowed perturbation 0 . 15 . In CW attack, we project the distortion in the glyph[lscript] 2 ball. For SimBA, we used step size of 0.2 and we clip the distortion in the l ∞ ball with the maximum allowed perturbation 0 . 2 . All the attacks are untargetted. The effect of adversarial attacks 1 Weights: https://github.com/MadryLab/robustness",
+    "metadata": {
+      "page": 4,
+      "section": "Experiment I: natural → adversarial",
+      "bbox": [
+        307.44,
+        103.53999999999996,
+        541.445,
+        195.77800000000002
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_37",
+      "2005.03141_paragraph_38"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_39",
+    "type": "paragraph",
+    "content": "in the frequency domain for input is analyzed by calculating average Relative Change in discrete cosine Transforms (RCT) of an input x and its perturbed image x ′ .\nEquation: RCT = 1 N N ∑ i =1 | DCT ( x ′ i ) -DCT ( x i ) DCT ( x i ) | (8)",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment I: natural → adversarial",
+      "bbox": [
+        55.44,
+        689.0,
+        289.442,
+        721.463
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_39",
+      "2005.03141_equation_8"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_40",
+    "type": "paragraph",
+    "content": "where DCT ( x ) is discrete cosine transform of input x and Nis the number of samples in the dataset. We evaluate 200 images from CIFAR-10 dataset on a pre-trained VGG-19 model and the result is show in Figure 2. Fig 2 show that all adversarial attacks, regardless of the white-box and the black-box, perturb images mostly at middle and high frequencies and low frequency perturbations are very small. This explains why perturbations are not detected by human eye whereas most of the deep network models give wrong predictions.",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment I: natural → adversarial",
+      "bbox": [
+        55.44,
+        590.643,
+        289.442,
+        635.378
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_40",
+      "2005.03141_paragraph_41"
+    ]
+  },
+  {
+    "id": "2005.03141_fig_2",
+    "type": "figure",
+    "content": "Figure 2. RCT maps for different adversarial attacks on 200 images from CIFAR-10. The upper left corner and the lower right corner represent the lowest and highest frequency components in the DCT space, respectively. The deeper color indicates a greater change for a specific frequency component between the original images and the adversarial examples. RCT maps show that greater changes happen to the high frequency ranges.",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment I: natural → adversarial",
+      "bbox": [
+        59.89234924316406,
+        226.50860595703125,
+        290.4531555175781,
+        497.0854797363281
+      ],
+      "image_path": "data/rag_assets/images/2005.03141/figure/figure_2.png"
+    }
+  },
+  {
+    "id": "2005.03141_paragraph_42",
+    "type": "paragraph",
+    "content": "In this experiment, instead of finding the difference between a natural image with its adversarial counterpart, we",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment II: natural → robust",
+      "bbox": [
+        55.44,
+        74.87300000000005,
+        289.442,
+        95.38
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_42"
+    ]
+  },
+  {
+    "id": "2005.03141_fig_3",
+    "type": "figure",
+    "content": "Figure 3. Frequency domain of the different between robust/nonrobust images and the starting images. The left one (a) is the robust images and the right one (b) is the non-robust images",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment II: natural → robust",
+      "bbox": [
+        310.7519226074219,
+        617.2576751708984,
+        547.800537109375,
+        721.987434387207
+      ],
+      "image_path": "data/rag_assets/images/2005.03141/figure/figure_3.png"
+    }
+  },
+  {
+    "id": "2005.03141_paragraph_43",
+    "type": "paragraph",
+    "content": "explore the difference between with its robust counterpart. We use the definition of robust dataset introduced by (Ilyas et al., 2019), which attempts to find a neighbor x r of the original input x where the features in x r remains correlated to the output within a certain maximum allowed perturbation. We solve the following objective to find the robust counterpart x r .\nEquation: x r = arg min x r || g ( x r ) -g ( x ) || 2 (9)",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment II: natural → robust",
+      "bbox": [
+        307.44,
+        466.809,
+        541.444,
+        547.851
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_43",
+      "2005.03141_equation_9"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_44",
+    "type": "paragraph",
+    "content": "where x is the original image and g ( · ) is the mapping to a representation layer. When g ( · ) is extraced from a adversarially trained network, the generated dataset is robust. When the representation mapping g ( · ) is extracted from the standard network, the generated dataset is nonrobust. The initial value for x r is an randomly selected image from the dataset. We conducted this generation process on the CIFAR-10 test dataset. We then show the difference in the Fourier domain between the robust counterpart and the non-robust counterpart with each natural image, respectively and the result is shown in Fig.3. The result demonstrates that the robust counterpart is mostly different from the original input in the low-frequency components while the non-robust counterpart is different on the middlefrequency components. Since the robust counterparts are generated from a robust model, we can also draw conclusions that a robust model only associates the low-frequency features with the labels while a regular model does not have a strong connection between the low-frequency features and the label. Instead, it captures a lot more features in the middle-frequency range.",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment II: natural → robust",
+      "bbox": [
+        307.44,
+        178.43499999999995,
+        541.444,
+        426.408
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_44"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_45",
+    "type": "paragraph",
+    "content": "We have shown comparison analysis in Experiment I & II on the different behaviors in the frequency domain for high-frequency features and low-frequency features. In this experiment, we show numerical analysis to further differentiate the behavior of high-frequency features and lowfrequency features.",
+    "metadata": {
+      "page": 5,
+      "section": "Experiment III: Visualization of Contribution",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.442,
+        143.20100000000002
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_45"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_46",
+    "type": "paragraph",
+    "content": "With the Occluded Frequency methods, we show an example of computing the frequency attribution on an input image in Cifar-10 which is correctly predicted in Fig 4. We ablate each frequency components from the lowest to the highest to create the bars of contributions on the Frequency Attribution subplot. From the attribution scores, we know that even we assume that the low-frequency component has the strongest correlation with the label since highfrequency components are in-perceptional to humans, it actually takes the less use of the low-frequency components due to low attribution scores in the low-frequency range. We visualize the modified image by OF at a particular frequency. The second row shows image with the lowest, the second lowest and the third lowest frequency components ablated and the the third row shows the modified images when the frequency components with the highest attribution scores are ablated (top1, top2 and top3 respectively). It is very hard for human to capture the difference when the frequency components with highest attribution scores are ablated. A consequence of using features corresponding to the middle and high-frequency range is that by manipulating the middle and high-frequency features, we should expect the change happens to the model's prediction while the human is still not aware of the change made on the input. Images like this are usually considered as adversarial examples.",
+    "metadata": {
+      "page": 6,
+      "section": "Experiment III: Visualization of Contribution",
+      "bbox": [
+        55.44,
+        414.031,
+        289.442,
+        721.463
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_46"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_47",
+    "type": "paragraph",
+    "content": "We further extent Experiment III to the entire dataset and we compare the attribution scores of different frequency components on a naturally trained ResNet model and adversarial trained models. There are three robust models trained with the maximum allowed perturbation of 0 . 25 and 0 . 5 in the glyph[lscript] 2 space and 8 / 255 in the glyph[lscript] ∞ space. The result is shown in Fig 1. We plot the average attribution scores on each frequency component for all images in the same classes since we assume images within the same classes should have fewer nuances and more commonalities compared to images of different classes. Despite the lowest frequency component being the most important overall models, Fig 1 shows that attribution scores on the middle and high-frequency components tend to be zeros or very low and the main share of the attribution scores are in the low-frequency range. It can be seen as the robust model shifts the main share of attribution scores towards the lowfrequency range, leaving middle and high-frequency components as insignificant as possible.",
+    "metadata": {
+      "page": 6,
+      "section": "Experiment IV: Attribution Shift",
+      "bbox": [
+        55.44,
+        155.053,
+        289.442,
+        378.798
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_47"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_48",
+    "type": "paragraph",
+    "content": "Summary Finally, we summarize the findings from all experiments. Middle and high-frequency components are the target features for adversarial attackers since models may or may not rely only on the low-frequency features to make the prediction. Adversarial training can be viewed as a frequency selector that the association between the input",
+    "metadata": {
+      "page": 6,
+      "section": "Experiment IV: Attribution Shift",
+      "bbox": [
+        55.44,
+        77.34400000000005,
+        289.443,
+        146.05999999999995
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_48"
+    ]
+  },
+  {
+    "id": "2005.03141_fig_4",
+    "type": "figure",
+    "content": "Figure 4. (First Row) Left: the input image. Middle: an example of computing the attribution score for a specific frequency component by ablating the frequency of interest with zeros. Right: the attribution scores for all frequency components in the input on the left. Higher scores denotes higher contribution to the prediction. (Second and Third Row) The input image with the k -th lowest frequency components are ablated. The values of k at the third column are the components with the top1, top2 and top3 attribution scores.",
+    "metadata": {
+      "page": 6,
+      "section": "Experiment IV: Attribution Shift",
+      "bbox": [
+        310.22509765625,
+        495.16143798828125,
+        540.4807739257812,
+        723.2686157226562
+      ],
+      "image_path": "data/rag_assets/images/2005.03141/figure/figure_4.png"
+    }
+  },
+  {
+    "id": "2005.03141_paragraph_49",
+    "type": "paragraph",
+    "content": "and its prediction is more tight with low-frequency components, leaving the high-frequency components less relevant for the prediction; therefore, the attacker who aims on the high-frequency features will fail.",
+    "metadata": {
+      "page": 6,
+      "section": "Experiment IV: Attribution Shift",
+      "bbox": [
+        307.44,
+        290.184,
+        541.442,
+        334.601
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_49"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_50",
+    "type": "paragraph",
+    "content": "In this paper, We first show a lower bound of the perturbation applied to the image is related to the lowest frequency components, the most perceptional frequency components to human. We then verify that white-box and black-box attackers mainly focus on the high-frequency components in the clean images. We further propose Occluded Frequency as an attribution method to quantify the contribution of different frequency components in the input. Based on the empirical results on the entire dataset, we provide a frequencybased explanation to answer why standard models are not robust: low-frequency features are more robust than the high-frequency features in the input space; therefore robust models are developed to be strongly related to the lowfrequency features while standard models rely more on the high-frequency components to make the prediction.",
+    "metadata": {
+      "page": 6,
+      "section": "Conclusion",
+      "bbox": [
+        307.44,
+        74.87300000000005,
+        541.442,
+        250.798
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_50"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_51",
+    "type": "paragraph",
+    "content": "We thank Mr. Haohan Wang for providing valuable feedback during the discussion.",
+    "metadata": {
+      "page": 7,
+      "section": "Acknowledgement",
+      "bbox": [
+        55.44,
+        681.582,
+        289.442,
+        702.09
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_51"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_52",
+    "type": "paragraph",
+    "content": "Bracewell and Newbold, R. The Fourier transform and its applications , volume 31999. McGraw-Hill New York, 1986. Carlini, N. and Wagner, D. Towards evaluating the robustness of neural networks. In 2017 IEEE Symposium on Security and Privacy (SP) , pp. 39-57, 2017. Cohen, J. M., Rosenfeld, E., and Kolter, J. Z. Certified adversarial robustness via randomized smoothing, 2019. Engstrom, L., Ilyas, A., Santurkar, S., and Tsipras, D. Robustness (python library), 2019. URL https:// github.com/MadryLab/robustness . Ghorbani, A., Abid, A., and Zou, J. Interpretation of neural networks is fragile, 2017. Goodfellow, I. J., Shlens, J., and Szegedy, C. Explaining and harnessing adversarial examples, 2014. Guo, C., Frank, J. S., and Weinberger, K. Q. Low frequency adversarial perturbation, 2018. Guo, C., Gardner, J. R., You, Y., Wilson, A. G., and Weinberger, K. Q. Simple black-box adversarial attacks. CoRR , abs/1905.07121, 2019. URL http://arxiv. org/abs/1905.07121 . He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learning for image recognition, 2015. Ilyas, A., Santurkar, S., Tsipras, D., Engstrom, L., Tran, B., and Madry, A. Adversarial examples are not bugs, they are features, 2019. Karpathy, A., Johnson, J., and Fei-Fei, L. Visualizing and understanding recurrent networks. arXiv preprint arXiv:1506.02078 , 2015. Koh, P. W. and Liang, P. Understanding black-box predictions via influence functions, 2017.",
+    "metadata": {
+      "page": 7,
+      "section": "References",
+      "bbox": [
+        55.44,
+        611.174,
+        289.445,
+        643.816
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_52",
+      "2005.03141_paragraph_53",
+      "2005.03141_paragraph_54",
+      "2005.03141_paragraph_55",
+      "2005.03141_paragraph_56",
+      "2005.03141_paragraph_57",
+      "2005.03141_paragraph_58",
+      "2005.03141_paragraph_59",
+      "2005.03141_paragraph_60",
+      "2005.03141_paragraph_61",
+      "2005.03141_paragraph_62",
+      "2005.03141_paragraph_63"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_64",
+    "type": "paragraph",
+    "content": "Kurakin, A., Goodfellow, I., and Bengio, S. Adversarial examples in the physical world, 2016. Leino, K., Sen, S., Datta, A., Fredrikson, M., and Li, L. Influence-directed explanations for deep convolutional networks, 2018. Madry, A., Makelov, A., Schmidt, L., Tsipras, D., and Vladu, A. Towards deep learning models resistant to adversarial attacks, 2017. Narasimha, M. and Peterson, A. On the computation of the discrete cosine transform. IEEE Transactions on Communications , 26(6):934-936, 1978. Papernot, N., McDaniel, P., Jha, S., Fredrikson, M., Celik, Z. B., and Swami, A. The limitations of deep learning in adversarial settings. In 2016 IEEE European Symposium on Security and Privacy (EuroS P) , pp. 372-387, 2016. Rahaman, N., Baratin, A., Arpit, D., Draxler, F., Lin, M., Hamprecht, F. A., Bengio, Y., and Courville, A. On the spectral bias of neural networks, 2018. Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., and Batra, D. Grad-cam: Visual explanations from deep networks via gradient-based localization. International Journal of Computer Vision , 128(2): 336359, Oct 2019. ISSN 1573-1405. doi: 10.1007/ s11263-019-01228-7. URL http://dx.doi.org/ 10.1007/s11263-019-01228-7 . Shafahi, A., Najibi, M., Ghiasi, A., Xu, Z., Dickerson, J., Studer, C., Davis, L. S., Taylor, G., and Goldstein, T. Adversarial training for free!, 2019.",
+    "metadata": {
+      "page": 7,
+      "section": "References",
+      "bbox": [
+        55.44,
+        161.735,
+        289.442,
+        182.24199999999996
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_64",
+      "2005.03141_paragraph_65",
+      "2005.03141_paragraph_66",
+      "2005.03141_paragraph_67",
+      "2005.03141_paragraph_68",
+      "2005.03141_paragraph_69",
+      "2005.03141_paragraph_70",
+      "2005.03141_paragraph_71"
+    ]
+  },
+  {
+    "id": "2005.03141_paragraph_72",
+    "type": "paragraph",
+    "content": "Sharma, Y., Ding, G. W., and Brubaker, M. A. On the effectiveness of low frequency perturbations. CoRR , abs/1903.00073, 2019. URL http://arxiv.org/ abs/1903.00073 . Shrikumar, A., Greenside, P., and Kundaje, A. Learning important features through propagating activation differences, 2017. Simonyan, K., Vedaldi, A., and Zisserman, A. Deep inside convolutional networks: Visualising image classification models and saliency maps, 2013. Sundararajan, M., Taly, A., and Yan, Q. Axiomatic attribution for deep networks. In Proceedings of the 34th International Conference on Machine Learning-Volume 70 , pp. 3319-3328. JMLR. org, 2017. Szegedy, C., Zaremba, W., Sutskever, I., Bruna, J., Erhan, D., Goodfellow, I., and Fergus, R. Intriguing properties of neural networks, 2013. Wang, H., Wu, X., Yin, P., and Xing, E. P. High frequency component helps explain the generalization of convolutional neural networks. CoRR , abs/1905.13545, 2019. URL http://arxiv.org/abs/1905.13545 . Yeh, C.-K., Kim, J. S., Yen, I. E. H., and Ravikumar, P. Representer point selection for explaining deep neural networks, 2018. Zeiler, M. D. and Fergus, R. Visualizing and understanding convolutional networks, 2013.",
+    "metadata": {
+      "page": 7,
+      "section": "References",
+      "bbox": [
+        307.44,
+        398.091,
+        541.442,
+        442.508
+      ]
+    },
+    "source_ids": [
+      "2005.03141_paragraph_72",
+      "2005.03141_paragraph_73",
+      "2005.03141_paragraph_74",
+      "2005.03141_paragraph_75",
+      "2005.03141_paragraph_76",
+      "2005.03141_paragraph_77",
+      "2005.03141_paragraph_78",
+      "2005.03141_paragraph_79"
+    ]
+  }
+]
