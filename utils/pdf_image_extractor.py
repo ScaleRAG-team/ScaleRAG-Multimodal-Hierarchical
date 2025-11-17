@@ -45,10 +45,10 @@ def best_match(target, candidates, cutoff=0.6):
 # Main Function
 
 def enrich_rag_with_images(
-    pdf_dir="data/pdf",
-    docling_dir="data/docling_json",
-    rag_dir="data/rag_json",
-    assets_dir="data/rag_assets",
+    pdf_dir="data2/pdf",
+    docling_dir="data2/docling_json",
+    rag_dir="data2/rag_json",
+    assets_dir="data2/rag_assets",
     cutoff=0.55,
 ):
     """Attach cropped figure/table images to RAG JSONs and save enriched outputs."""
