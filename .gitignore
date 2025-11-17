@@ -205,4 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+<<<<<<< HEAD
 keys.env
+
+
+
+# ignore papers
+ml_papers/
+=======
+>>>>>>> 07044be9ca2d134f360abc6d64dcb530c57b007d
