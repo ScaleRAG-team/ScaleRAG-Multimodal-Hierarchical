@@ -211,3 +211,6 @@ keys.env
 #1000 ML papers
 data/pdf/
 
+
+# ignore papers
+ml_papers/

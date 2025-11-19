@@ -140,7 +140,7 @@ def generate_answer(query: str, context: str, max_new_tokens: int = GEN_CFG["max
 def rag_pipeline(
     query: str,
     *,
-    k: int = 10,
+    retrieve_chunks: int = 10,
     max_new_tokens: int = GEN_CFG["max_new_tokens"],
 ) -> dict:
     """
@@ -148,7 +148,7 @@ def rag_pipeline(
     """
 
     t0 = time.perf_counter()
-    contexts = retrieve(query, k=k)
+    contexts = retrieve(query, k=retrieve_chunks)
     t1 = time.perf_counter()
 
     ctx_str = build_context(contexts)
@@ -166,7 +166,7 @@ def rag_pipeline(
         "config": {
             "encoder_model": "Alibaba-NLP/gte-large-en-v1.5",
             "generator_model": MODEL_ID,
-            "retrieval_k": k,
+            "retrieval_k": retrieve_chunks,
             "index_path": str(INDEX_PATH),
             "embedding_dir": str(EMB_DIR),
             "system_prompt_version": "v1",   # manual label
