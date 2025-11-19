@@ -8,7 +8,7 @@ Merges short textual entries in RAG JSON files while keeping multimodal items
 import json, glob, os, re
 from pathlib import Path
 
-def merge_short_text_chunks(input_folder="data/rag_json", output_folder="data/rag_chunks"):
+def merge_short_text_chunks(input_folder="data2/rag_json", output_folder="data2/rag_chunks"):
     os.makedirs(output_folder, exist_ok=True)
     total_chunks = 0
 
