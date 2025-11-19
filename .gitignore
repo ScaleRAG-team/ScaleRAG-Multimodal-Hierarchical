@@ -211,6 +211,13 @@ keys.env
 #1000 ML papers
 data/pdf/
 
+# 1000 ML papers
+data/pdf/
+data2/
 
-# ignore papers
+# Ignore notebook for processing 1000 ML papers
+1000MLPaper.ipynb
+
+# Ignore papers
 ml_papers/
+
