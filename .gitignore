@@ -221,3 +221,6 @@ data2/
 # Ignore papers
 ml_papers/
 
+# Add the API key
+.env
+

@@ -1,0 +1,21 @@
+query,baseline_rank,multimodal_rank,raptor_rank
+What is the scaling law between model size and loss?,1,1,1
+What memory bandwidth limits affect FlashAttention-2?,1,1,1
+Describe the PagedAttention mechanism.,1,1,1
+What governs speedup in speculative decoding?,4,NF,3
+How does vLLM improve throughput for LLM inference?,5,NF,2
+What are the key differences between FlashAttention and FlashAttention-2?,1,1,1
+What does the Chinchilla scaling law state?,1,1,NF
+How do scaling laws inform the optimal model size for a given compute budget?,1,1,5
+What is speculative decoding and how is it implemented?,1,1,1
+How does retrieval-augmented generation (RAG) help with scaling large models?,1,1,NF
+Explain the concept of model scaling versus data scaling.,4,NF,2
+What is the effect of batch size on model training dynamics?,1,1,1
+What optimizations enable FlashAttention to be faster than standard attention?,1,1,1
+How does PagedAttention in vLLM manage GPU memory?,1,1,1
+What are the limitations of scaling laws at extreme model sizes?,NF,NF,NF
+How do performance scaling trends deviate from theoretical predictions?,4,NF,2
+How does architecture (depth vs width) impact scaling laws?,NF,NF,NF
+What do scaling laws suggest about transfer learning?,NF,NF,2
+What is the relationship between model compute and performance according to scaling laws?,1,1,4
+What are the diminishing returns in model scaling?,4,NF,NF
