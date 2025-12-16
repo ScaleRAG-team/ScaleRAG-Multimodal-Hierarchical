@@ -1,0 +1,38 @@
+# Core
+python-dotenv>=1.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+tqdm>=4.66.0
+
+# PyTorch & ML
+torch>=2.1.0
+transformers>=4.40.0
+sentence-transformers>=2.6.0
+scikit-learn>=1.4.0
+
+# Retrieval / Indexing
+faiss-cpu>=1.8.0
+
+# PDF & Document Processing
+docling>=0.1.0
+pymupdf>=1.24.0
+pdfplumber>=0.11.0
+camelot-py>=0.11.0
+pillow>=10.0.0
+
+# Multimodal / Vision
+opencv-python>=4.9.0
+timm>=0.9.0
+
+# OpenAI / GPT-based summarization
+openai>=1.30.0
+
+# Serving (Backend)
+fastapi>=0.110.0
+uvicorn>=0.29.0
+pydantic>=2.6.0
+
+# Utilities / Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+jupyter>=1.0.0
