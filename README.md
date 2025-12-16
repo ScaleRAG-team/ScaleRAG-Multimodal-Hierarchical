@@ -1,123 +1,124 @@
-# ScaleRAG – Multimodal Hierarchical RAG for Scientific Papers
+# ScaleRAG: Multimodal Hierarchical RAG for Scientific Papers
 
-**Team:**  
-- Mahdi Saleh Tabesh (mt3846)  
-- Manush Kalwari (mmk2266)  
-
-**Course:** Scaling LLMs: Systems, Optimization, and Emerging Paradigms - COMSE6998 (Columbia University, Fall 2025)
-
----
-
-## Overview
-
-**ScaleRAG** is a reproducible framework for **multimodal, hierarchical Retrieval-Augmented Generation (RAG)** over scientific papers—especially those focused on **LLM scaling laws**.  
-The system processes text, figures, tables, and equations from research PDFs into structured, searchable datasets for grounded question answering and reasoning.
-
-Our goal is to enable **evidence-grounded, multimodal retrieval** and efficient **inference serving** using modern large language models.
+## Team Information
+- **Team Name**: ScaleRAG
+- **Members**:
+  - Mahdi Saleh Tabesh (mt3846, Columbia University)
+  - Manush Kalwari (mmk2266, Columbia University)
 
 ---
 
-## Current Progress (Milestone 1 – Retrieval Pipeline)
+## 1. Problem Statement
 
-The repository currently contains two main notebooks that together form the **data-to-retrieval backbone**:
-
-### 1. `RAG_Data_Preparation.ipynb`
-Transforms raw arXiv PDFs into structured multimodal datasets:
-- Downloads papers listed in `core_papers.csv`
-- Converts PDFs to structured **Docling JSON** format
-- Extracts and enriches **paragraphs, tables, figures, and equations**
-- Attaches image crops to RAG blocks
-- Produces clean merged chunks in `data/rag_chunks/`
-
-**Output directories:**
-
-```
-data/pdf/ → Raw PDFs  
-data/docling_json*/ → Structured outputs  
-data/rag_json*/ → RAG-ready JSON blocks  
-data/rag_assets/images/ → Extracted figures & tables  
-data/rag_chunks/ → Final merged chunks  
-```
-
-
-
-### 2. `RAG_v1.ipynb`
-Implements the **first complete multimodal retrieval pipeline**:
-- Loads and merges preprocessed chunks
-- Generates text (384-D) and multimodal (896-D) embeddings  
-  using **SentenceTransformer (MiniLM)** and **OpenAI CLIP**
-- Builds and saves **FAISS** indexes for fast cosine similarity search
-- Defines **query & retrieval functions** for text and image search
-- Integrates **RAG context builder** and GPU-based **Gemma/LLaVA** inference setup
-
-**Output directories:**
-```
-data/RAG/embeddings/ → Stored embeddings (.json / .pkl)
-data/RAG/indexes/ → FAISS indexes for text and images
-```
-
-### 3. `RAG_version_IS.ipynb`
-Implements an improved multimodal RAG pipeline focused on **semantic summarization over raw image embeddings**:
-- Obtains image summaries using the OpenAI API to describe plots and figures.
-- Converts both text and generated image summaries into text embeddings using GTE-Large.
-- Builds and saves **FAISS** indexes for fast cosine similarity search
-- Defines a retrieval pipeline that fetches relevant chunks.
-- Implements a generation module to produce factual, source-cited answers using Llama-3 (8B).
-
-**Output directories:**
-```
-data/RAG_chunks_image_summary/ → Stored json with image summaries (.json)
-data/RAG_IS/embeddings/ → Stored embeddings (.json / .pkl)
-data/RAG_IS/indexes/ → FAISS indexes for text and images
-```
-
-### 4. `Web Deployment`
-Implements a full-stack deployment of the RAG pipeline for interactive querying:
-- Developed a FastAPI backend, served via Uvicorn, that exposes retrieval and generation endpoints.
-- Built a Next.js frontend with streaming output, providing a chat-style interface.
-
+Retrieval-Augmented Generation (RAG) systems struggle to scale to large scientific corpora while preserving document structure and multimodal evidence such as figures and tables. The effectiveness of RAG over large scientific corpora is constrained by limited retrieval recall, increasing latency, and the growing multimodality of research papers, making it challenging to scale retrieval while preserving relevance and cost efficiency. This project investigates scalable, compute-efficient RAG pipelines that maintain retrieval quality, grounding, and predictable latency when applied to long, structured scientific papers.
 
 ---
 
-## Upcoming Work
+## 2. Model Description
 
-- [ ] Extend RAG to hierarchical retrieval (RAPTOR-style summarization)
-- [ ] Implement document-level reasoning chains for multi-hop QA
-- [ ] Integrate vLLM serving for scalable inference benchmarking
-- [ ] Evaluate accuracy, grounding, latency, and cost trade-offs
-- [ ] Prepare final report and demo notebook
+We implement and evaluate two complementary RAG architectures under a unified framework:
 
----
+### A. Multimodal Hierarchical RAG (RAPTOR-based)
+- **Retrieval**: Three-level hierarchical retrieval (paper → section → chunk)
+- **Embeddings**:
+  - Text: MiniLM (384-D)
+  - Vision: CLIP vision encoder (concatenated with caption embeddings)
+- **Summarization**: RAPTOR-style recursive abstractive summarization (offline)
+- **Indexing**: FAISS cosine similarity search
+- **Generation**: LLaVA-1.5-7B (4-bit quantized)
+- **Frameworks**: PyTorch, FAISS, SentenceTransformers, Docling
 
-## Core Idea
+### B. Unimodal Hierarchical RAG (Text-only with Visual Distillation)
+- **Retrieval**: Coarse-to-fine hierarchical RAG with SPI-Lite–style efficiency
+- **Embeddings**: GTE-Large
+- **Visual Handling**: Figures and tables summarized offline into text using GPT-based models
+- **Generation**: Phi-3.5-mini-instruct
+- **Frameworks**: PyTorch, FAISS, SentenceTransformers, Docling
 
-Traditional RAG pipelines flatten documents into plain text, losing visual and structural cues crucial for **technical papers**.  
-**ScaleRAG** preserves both structure and modality — allowing large language models to retrieve and reason across **figures, equations, and hierarchical sections**, not just text.
-
----
-
-## References
-
-Key works inspiring this project:
-- Lewis et al. (2020) – [Retrieval-Augmented Generation (RAG)](https://arxiv.org/abs/2005.11401)  
-- Sarthi et al. (2024) – [RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval](https://arxiv.org/abs/2404.01744)  
-- Microsoft Research (2024) – [GraphRAG: Knowledge-Graph-Guided Retrieval](https://aka.ms/graphrag)  
-- Yan et al. (2024) – [Corrective Retrieval-Augmented Generation (CRAG)](https://arxiv.org/abs/2403.05989)  
-- Jiang et al. (2023) – [LLMLingua / RECOMP](https://arxiv.org/abs/2310.06839)  
-- Kwon et al. (2023) – [vLLM: PagedAttention for Efficient LLM Inference](https://arxiv.org/abs/2309.06180)
+No end-to-end training is performed; all models are used in inference-only mode with offline preprocessing.
 
 ---
 
-## Environment
+## 3. Final Results Summary
 
-Developed on a **GCP instance (T4 / A100 GPU)** with:
-- Python 3.10  
-- PyTorch 2.x  
-- FAISS  
-- SentenceTransformers  
-- OpenAI CLIP  
-- Docling  
-- Pandas / NumPy / Matplotlib
+| Metric                          | Value (ScaleRAG)            |
+|---------------------------------|-----------------------------|
+| Recall@5 (1023 papers)          | ~75%                        |
+| nDCG@5                          | ~0.60                       |
+| Grounding Accuracy              | 80–83%                      |
+| Avg. Retrieval Latency          | ~150 ms                     |
+| Context Length Stability        | Stable across corpus sizes  |
+| Device                          | Single GPU (T4)      |
+
+Hierarchical retrieval maintains high recall and stable latency as corpus size scales, significantly outperforming flat baselines in large collections.
+
+---
+
+## 4. Reproducibility Instructions
+
+### A. Requirements
+
+Install dependencies:
+```bash
+pip install -r requirements.txt 
+```
+
+Key dependencies include:
+- PyTorch
+- FAISS
+- SentenceTransformers
+- Docling
+- Transformers
+- NumPy / Pandas
+
+---
+
+### B. WandB Dashboard
+
+Evaluation and profiling were performed locally.
+
+---
+
+### C. Training vs Inference
+
+This project is **inference-only**. All models are pre-trained and used without fine-tuning.
+
+---
+
+### D. Evaluation
+
+To run evaluation notebooks:
+```bash
+jupyter notebook rag_v1/
+jupyter notebook rag_v2/
+```
+
+Metrics reported include Recall@k, nDCG@k, retrieval latency, and grounding accuracy.
+
+---
+
+### E. Quickstart: Minimum Reproducible Result
+
+```bash
+# Step 1: Install dependencies
+pip install -r requirements.txt
+
+# Step 2: Prepare data
+jupyter notebook RAG_Data_Preparation.ipynb
+
+# Step 3: Run hierarchical RAG
+jupyter notebook rag_v2/
+```
+
+---
+
+## 5. Notes
+
+- Data processing relies on **Docling** for robust PDF parsing.
+- Hierarchical summaries and embeddings are computed once and cached.
+- GPT-based APIs are used offline to generate high-quality, image-aware textual summaries of figures and tables.
+- Experiments were designed to reflect realistic single-GPU constraints.
+- See `Project_Report.pdf` for full methodology, results, and analysis.
 
 ---
 
@@ -125,30 +126,26 @@ Developed on a **GCP instance (T4 / A100 GPU)** with:
 
 ```
 ScaleRAG-Multimodal-Hierarchical/
-│
-├── RAG_Data_Preparation.ipynb   # PDF → Structured multimodal data
-├── RAG_v1.ipynb                 # Embedding + FAISS retrieval pipeline
-├── data/                        # PDFs, JSONs, embeddings, indexes
-├── utils/                       # Helper modules (download, parsing, etc.)
+├── 00-frontend/        # Web interface
+├── 01-backend/         # API and serving logic
+├── data/               # PDFs, parsed JSON, embeddings
+├── rag_v1/             # Baseline & multimodal RAG
+├── rag_v2/             # Hierarchical ScaleRAG
+├── utils/              # Helper scripts
+├── RAG_Data_Preparation.ipynb # Data Preparation 
+├── Project_Report.pdf  # Full technical report
 └── README.md
-```
-
-
-## Citation
-
-If you use or extend this work, please cite:
-
-```
-@project{ScaleRAG2025,
-  author       = {Mahdi Tabesh and Manush Kalwari},
-  title        = {ScaleRAG: Multimodal Hierarchical RAG for Scientific Papers},
-  year         = {2025},
-  institution  = {Columbia University},
-  course       = {Scaling Large Language Models}
-}
 ```
 
 ---
 
-_This README will be updated as the project progresses._
+## Citation
 
+```
+@project{ScaleRAG2025,
+  title     = {ScaleRAG: Multimodal Hierarchical RAG for Scientific Papers},
+  author    = {Mahdi Saleh Tabesh and Manush Kalwari},
+  year      = {2025},
+  institution = {Columbia University}
+}
+```
