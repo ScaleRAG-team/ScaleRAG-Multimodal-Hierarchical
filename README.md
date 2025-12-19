@@ -24,7 +24,7 @@ We study and compare **two complementary RAG approaches**:
 
 ### Approach I: Multimodal RAG Pipeline
 
-
+![Approach II: Hierarchical RAPTOR-style RAG](figures/01-RAPTOR_RAG.png)
 
 **Key Characteristics**
 - Modality-aware document parsing using **Docling**
@@ -40,7 +40,7 @@ Retrieve complementary evidence from text and visuals, enabling answers that req
 
 ### Approach II: Hierarchical RAPTOR-style RAG (ScaleRAG)
 
-![Approach II: Hierarchical RAPTOR-style RAG](figures/02-RAPTOR_RAG.png)
+![Approach II: Hierarchical RAPTOR-style RAG](figures/02-Multimodal_RAG.png)
 
 **Key Characteristics**
 - Hierarchical document representation:
@@ -59,7 +59,7 @@ First retrieve globally relevant papers and sections using summaries, then drill
 
 ### Hierarchical Retrieval Breakdown
 
-
+![Approach II: Hierarchical RAPTOR-style RAG](figures/03-Hierarchical_RAG.png)
 
 - **Level 1**: Paper-level retrieval
 - **Level 2**: Section-level retrieval
