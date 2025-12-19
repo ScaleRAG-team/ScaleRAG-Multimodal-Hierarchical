@@ -117,7 +117,7 @@ This project is **inference-only**; no fine-tuning is performed.
 
 ### WandB Dashboard
 
-Evaluation and profiling were performed locally.
+- Evaluation and profiling were performed locally.
 ---
 
 ## 5. Repository Structure
