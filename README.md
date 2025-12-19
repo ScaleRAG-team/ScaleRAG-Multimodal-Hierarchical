@@ -59,7 +59,7 @@ First retrieve globally relevant papers and sections using summaries, then drill
 
 ### Hierarchical Retrieval Breakdown
 
-![Approach III: Hierarchical RAPTOR-style RAG](figures/03-Hierarchical_RAG.png)
+![Approach III: Hierarchical Retrieval Beakdown](figures/03-Hierarchical_RAG.png)
 
 - **Level 1**: Paper-level retrieval
 - **Level 2**: Section-level retrieval
