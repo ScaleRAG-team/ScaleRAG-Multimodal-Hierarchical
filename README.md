@@ -24,7 +24,7 @@ We study and compare **two complementary RAG approaches**:
 
 ### Approach I: Multimodal RAG Pipeline
 
-![Approach I: Multimodal RAG](figures/01-Multimodal_RAG.png)
+
 
 **Key Characteristics**
 - Modality-aware document parsing using **Docling**
@@ -59,7 +59,7 @@ First retrieve globally relevant papers and sections using summaries, then drill
 
 ### Hierarchical Retrieval Breakdown
 
-![Hierarchical Retrieval Levels](figures/03-Hierarchical_RAG.png)
+
 
 - **Level 1**: Paper-level retrieval
 - **Level 2**: Section-level retrieval
