@@ -19,7 +19,7 @@ This project investigates **scalable, compute-efficient RAG pipelines** that mai
 
 ## 2. Model Description
 
-We study and compare **two complementary RAG approaches**:
+We study and compare **three RAG approaches**, progressing from flat multimodal retrieval to fully hierarchical, adaptive pipelines.
 
 ---
 
@@ -58,15 +58,25 @@ First retrieve globally relevant papers and sections using summaries, then drill
 
 ---
 
-### Hierarchical Retrieval Breakdown
+### Approach III: Hierarchical Uni-Modal RAG with Adaptive Depth
 
-![Hierarchical Retrieval Levels](figures/03-Hierarchical_RAG.png)
+![Approach III: Hierarchical Uni-Modal RAG](figures/03-Hierarchical_RAG.png)
 
-- **Level 1**: Paper-level retrieval
-- **Level 2**: Section-level retrieval
-- **Level 3**: Chunk-level retrieval
+**Key Characteristics**
+- Document parsing into text, figures, and tables using **Docling**
+- Non-textual elements (figures, tables) converted into **textual summaries offline**
+- Hierarchical representation with three granularities:
+  - L1: Document-level embeddings
+  - L2: Page-level embeddings
+  - L3: Chunk-level embeddings
+- Multi-level FAISS indices built offline
+- **Adaptive controller** selects retrieval depth based on query complexity
+- Selective traversal of indices avoids expensive global scans
 
-This hierarchy enables stable recall and predictable latency as corpus size grows.
+**Intuition**  
+Hierarchical Uni-Modal RAG trades a single expensive global search for multiple cheap, targeted searches.  
+Most queries are resolved at coarse levels (document or page), while fine-grained chunk retrieval is used only when necessary—improving scalability and latency efficiency.
+
 
 ---
 
