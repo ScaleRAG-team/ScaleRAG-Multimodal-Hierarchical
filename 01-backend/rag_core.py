@@ -135,47 +135,80 @@ def generate_answer(query: str, context: str, max_new_tokens: int = GEN_CFG["max
 
 
 
-# ------------------evaluation ----------------------
+# ------------------ RAG pipeline evaluation (instrumented) ----------------------
 
 def rag_pipeline(
     query: str,
     *,
+    tracer,
+    metrics,
     retrieve_chunks: int = 10,
     max_new_tokens: int = GEN_CFG["max_new_tokens"],
 ) -> dict:
     """
-    Run full RAG and return everything needed for evaluation.
+    Run full RAG with tracing + metrics.
     """
 
-    t0 = time.perf_counter()
-    contexts = retrieve(query, k=retrieve_chunks)
-    t1 = time.perf_counter()
+    with tracer.start_as_current_span("rag.pipeline"):
+        t_start = time.perf_counter()
 
-    ctx_str = build_context(contexts)
-    answer = generate_answer(query, ctx_str, max_new_tokens=max_new_tokens)
-    t2 = time.perf_counter()
+        # ---- Retrieval ----
+        with tracer.start_as_current_span("rag.retrieval"):
+            t0 = time.perf_counter()
+            contexts = retrieve(query, k=retrieve_chunks)
+            metrics["latency"].record(
+                (time.perf_counter() - t0) * 1000,
+                {"stage": "retrieval"}
+            )
 
-    return {
-        "answer": answer,
-        "contexts": contexts,  # list of {score, doc_id, page, type, text_for_embedding, ...}
-        "timing": {
-            "retrieval_ms": (t1 - t0) * 1000,
-            "generation_ms": (t2 - t1) * 1000,
-            "total_ms": (t2 - t0) * 1000,
-        },
-        "config": {
-            "encoder_model": "Alibaba-NLP/gte-large-en-v1.5",
-            "generator_model": MODEL_ID,
-            "retrieval_k": retrieve_chunks,
-            "index_path": str(INDEX_PATH),
-            "embedding_dir": str(EMB_DIR),
-            "system_prompt_version": "v1",   # manual label
-            "max_new_tokens": max_new_tokens,
-            "do_sample": GEN_CFG["do_sample"],
-            "repetition_penalty": GEN_CFG["repetition_penalty"],
-            "no_repeat_ngram_size": GEN_CFG["no_repeat_ngram_size"],
-        },
-    }
+        # ---- Context build ----
+        with tracer.start_as_current_span("rag.build_context"):
+            t1 = time.perf_counter()
+            ctx_str = build_context(contexts)
+            metrics["latency"].record(
+                (time.perf_counter() - t1) * 1000,
+                {"stage": "build_context"}
+            )
 
+        # ---- Generation ----
+        with tracer.start_as_current_span("rag.generate"):
+            t2 = time.perf_counter()
+            answer = generate_answer(
+                query,
+                ctx_str,
+                max_new_tokens=max_new_tokens
+            )
+            metrics["latency"].record(
+                (time.perf_counter() - t2) * 1000,
+                {"stage": "generate"}
+            )
+
+        total_ms = (time.perf_counter() - t_start) * 1000
+        metrics["latency"].record(
+            total_ms,
+            {"stage": "total"}
+        )
+
+        return {
+            "answer": answer,
+            "contexts": contexts,
+            "timing": {
+                "retrieval_ms": None,   # now tracked via metrics
+                "generation_ms": None,
+                "total_ms": total_ms,
+            },
+            "config": {
+                "encoder_model": "Alibaba-NLP/gte-large-en-v1.5",
+                "generator_model": MODEL_ID,
+                "retrieval_k": retrieve_chunks,
+                "index_path": str(INDEX_PATH),
+                "embedding_dir": str(EMB_DIR),
+                "system_prompt_version": "v1",
+                "max_new_tokens": max_new_tokens,
+                "do_sample": GEN_CFG["do_sample"],
+                "repetition_penalty": GEN_CFG["repetition_penalty"],
+                "no_repeat_ngram_size": GEN_CFG["no_repeat_ngram_size"],
+            },
+        }
 
 
