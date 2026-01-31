@@ -120,6 +120,61 @@ This project is **inference-only**; no fine-tuning is performed.
 - Evaluation and profiling were performed locally.
 ---
 
+### Running the Backend
+
+#### Minimal run (no observability)
+Runs the RAG API without metrics, traces, or logs collection.
+
+```bash
+cd 01-backend
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+---
+
+
+### Observability
+
+Backend is instrumented using OpenTelemetry, visualized in Grafana (LGTP stack).
+
+Tracked signals include:
+- p50 / p95 / p99 latency (end-to-end and stage-level)
+- Retrieval & Generation stage latency
+- Trace-correlated structured logs
+- Per-request execution traces
+
+---
+
+From the repository root:
+```bash
+docker compose up
+```
+
+Grafana UI:
+```
+http://localhost:3000
+```
+
+Login:
+```
+admin / admin
+```
+
+---
+
+### Verifying the Setup
+
+- **Prometheus**: http://localhost:9090  
+  Search for `rag_latency_ms`
+
+- **Grafana**: http://localhost:3000  
+  Use Explore-> Prometheus / Tempo / Loki
+
+- **Tempo**: traces visible via Grafana Explore  
+- **Loki**: logs visible via Grafana Explore
+
+---
+
 ## 5. Repository Structure
 
 ```
