@@ -134,6 +134,33 @@ def generate_answer(query: str, context: str) -> str:
     out = llm.generate([prompt], params)
     return out[0].outputs[0].text.strip()
 
+
+# -------------------- streaming logic for vLLM --------------------
+def rag_stream(query: str):
+    chunks = retrieve(query, k=10)
+    context = build_context(chunks)
+
+    if not context:
+        yield "Not found in the given context."
+        return
+
+    prompt = _build_prompt(query, context)
+
+    sampling_params = SamplingParams(
+        max_tokens=MAX_NEW_TOKENS,
+        temperature=0.0,
+        top_p=1.0,
+    )
+
+    for output in llm.generate(
+        [prompt],
+        sampling_params,
+        stream=True,
+    ):
+        
+        yield output.outputs[0].text
+        
+
 # -------------------- RAG pipeline --------------------
 def rag_pipeline(query: str):
     t0 = time.perf_counter()
