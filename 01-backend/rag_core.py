@@ -87,6 +87,34 @@ MAX_CTX_TOKENS = 1800
 MAX_PROMPT_TOKENS = 4096
 MAX_NEW_TOKENS = 256
 
+
+
+def _build_prompt(query: str, context: str) -> str:
+    prompt = (
+        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
+        f"{SYSTEM}\n"
+        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
+        f"{query}\n\n{context}\n"
+        "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n"
+    )
+
+    ids = tok(prompt, add_special_tokens=False)["input_ids"]
+    if len(ids) > MAX_PROMPT_TOKENS:
+        ids = ids[-MAX_PROMPT_TOKENS:]
+        prompt = tok.decode(ids)
+
+    return prompt
+
+
+
+def _sampling_params(max_new_tokens: int):
+    return SamplingParams(
+        max_tokens=max_new_tokens,
+        temperature=0.0,
+        top_p=1.0,
+    )
+
+
 def build_context(chunks):
     blocks, used = [], 0
     for c in chunks:
@@ -108,58 +136,19 @@ def build_context(chunks):
 
     return "".join(blocks)
 
-def generate_answer(query: str, context: str) -> str:
-    if not context:
-        return "Not found in the given context."
 
-    prompt = (
-        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n"
-        f"{SYSTEM}\n"
-        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n"
-        f"{query}\n\n{context}\n"
-        "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n"
-    )
-
-    ids = tok(prompt, add_special_tokens=False)["input_ids"]
-    if len(ids) > MAX_PROMPT_TOKENS:
-        ids = ids[-MAX_PROMPT_TOKENS:]
-        prompt = tok.decode(ids)
-
-    params = SamplingParams(
-        max_tokens=MAX_NEW_TOKENS,
-        temperature=0.0,
-        top_p=1.0,
-    )
-
-    out = llm.generate([prompt], params)
+def generate_answer(query, context):
+    prompt = _build_prompt(query, context)
+    out = llm.generate([prompt], _sampling_params(MAX_NEW_TOKENS))
     return out[0].outputs[0].text.strip()
 
 
-# -------------------- streaming logic for vLLM --------------------
-def rag_stream(query: str):
-    chunks = retrieve(query, k=10)
-    context = build_context(chunks)
-
-    if not context:
-        yield "Not found in the given context."
-        return
-
+def rag_stream(query):
     prompt = _build_prompt(query, context)
-
-    sampling_params = SamplingParams(
-        max_tokens=MAX_NEW_TOKENS,
-        temperature=0.0,
-        top_p=1.0,
-    )
-
-    for output in llm.generate(
-        [prompt],
-        sampling_params,
-        stream=True,
-    ):
+    for out in llm.generate([prompt], _sampling_params(MAX_NEW_TOKENS), stream=True):
+        yield out.outputs[0].text
         
-        yield output.outputs[0].text
-        
+
 
 # -------------------- RAG pipeline --------------------
 def rag_pipeline(query: str):
